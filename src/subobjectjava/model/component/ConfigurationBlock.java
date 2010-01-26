@@ -1,14 +1,16 @@
 package subobjectjava.model.component;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.rejuse.association.OrderedMultiAssociation;
 
 import chameleon.core.element.Element;
+import chameleon.core.lookup.LookupException;
+import chameleon.core.member.Member;
 import chameleon.core.namespace.NamespaceElementImpl;
-import chameleon.core.type.ClassBody;
-import chameleon.core.type.TypeElement;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 
@@ -17,7 +19,7 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock,
 	@Override
 	public ConfigurationBlock clone() {
 		ConfigurationBlock result = new ConfigurationBlock();
-		for(ConfigurationClause clause:clauses()) {
+		for(ConfigurationClause<?> clause:clauses()) {
 			result.add(clause.clone());
 		}
 		return result;
@@ -56,4 +58,23 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock,
 		return _elements.getOtherEnds();
 	}
 
+	public Collection<? extends Member> processedMembers(List<Member> members) throws LookupException {
+		Set<Member> result = new HashSet<Member>();
+		for(Member member: members) {
+			for(ConfigurationClause clause: clauses()) {
+				Member renamedMember = clause.process(member);
+				if(renamedMember != null) {
+					result.add(renamedMember);
+				}
+				else {
+					defaultProcess(member, result);
+				}
+			}
+		}
+		return result;
+	}
+
+	protected void defaultProcess(Member member, Collection<Member> result) {
+		
+	}
 }

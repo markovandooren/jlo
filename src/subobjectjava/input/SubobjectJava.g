@@ -186,6 +186,23 @@ import java.util.ArrayList;
   public void setLanguage(Language language) {
     gJavaP.setLanguage(language);
   }
+  
+  @Override
+  public Language language() {
+    return gJavaP.language();
+  }
+  
+  public CompilationUnit getCompilationUnit() {
+    return gJavaP.getCompilationUnit();
+  }
+	   
+  public void setCompilationUnit(CompilationUnit compilationUnit) {
+    gJavaP.setCompilationUnit(compilationUnit);
+  }
+  
+  public Namespace getDefaultNamespace() {
+    return gJavaP.getDefaultNamespace();
+  }
 }
 
 memberDecl returns [TypeElement element]
@@ -199,13 +216,13 @@ memberDecl returns [TypeElement element]
     ;
 
 componentDeclaration returns [ComponentRelation element]
-    	:	'component' name=Identifier tp=type cfg=configurationBlock';' 
+    	:	'component' name=Identifier tp=type cfg=configurationBlock? ';' 
     	     {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), tp.element);
-    	      retval.element.setConfigurationBlock(cfg.element);
+    	      if(cfg != null) {retval.element.setConfigurationBlock($cfg.element);}
     	     }
     	;
 configurationBlock returns [ConfigurationBlock element] 
-        : {retval.element = new ConfigurationBlock();}'[' (cl=configurationClause{retval.element.add(cl.element);} (',' cll=configurationClause{retval.element.add(cll.element);})*)? ']'
+        : {retval.element = new ConfigurationBlock();}'{' (cl=configurationClause{retval.element.add(cl.element);} (',' cll=configurationClause{retval.element.add(cll.element);})*)? '}'
         ;
         
 configurationClause returns [ConfigurationClause element]

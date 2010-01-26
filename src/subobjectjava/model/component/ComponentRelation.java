@@ -38,6 +38,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		List<Member> result = new ArrayList<Member>();
 		result.add(this);
 		List<Member> superMembers = componentType().members();
+		result.addAll(configurationBlock().processedMembers(superMembers));
 		return result;
 	}
 	
@@ -90,7 +91,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
   /**
    * Return the ConfigurationBlock of this member.
    */
-  public ConfigurationBlock ConfigurationBlock() {
+  public ConfigurationBlock configurationBlock() {
     return _configurationBlock.getOtherEnd();
   }
   
