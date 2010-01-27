@@ -38,8 +38,12 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		List<Member> result = new ArrayList<Member>();
 		result.add(this);
 		List<Member> superMembers = componentType().members();
-		result.addAll(configurationBlock().processedMembers(superMembers));
+		ConfigurationBlock configurationBlock = configurationBlock();
+		if(configurationBlock != null) {
+		  result.addAll(configurationBlock.processedMembers(superMembers));
+		}
 		return result;
+//		return declaredMembers();
 	}
 	
 	@Override
@@ -79,6 +83,16 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
    */
   public SimpleNameSignature signature() {
     return _signature.getOtherEnd();
+  }
+  
+  @Override
+  @SuppressWarnings("unchecked")
+  public List<Element> children() {
+  	List<Element> result = super.children();
+  	Util.addNonNull(signature(), result);
+  	Util.addNonNull(componentTypeReference(), result);
+  	Util.addNonNull(configurationBlock(), result);
+  	return result;
   }
   
   private SingleAssociation<ComponentRelation, SimpleNameSignature> _signature = new SingleAssociation<ComponentRelation, SimpleNameSignature>(this);

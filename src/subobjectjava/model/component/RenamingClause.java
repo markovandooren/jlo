@@ -18,15 +18,17 @@ import chameleon.util.Util;
 
 public class RenamingClause extends ConfigurationClause<RenamingClause> {
 
-	public RenamingClause(Signature oldSignature, QualifiedName newFqn) {
-		setSignature(oldSignature);
+	public RenamingClause(Signature newSignature, QualifiedName oldFqn) {
+		setNewSignature(newSignature);
+		setOldFqn(oldFqn);
 	}
 	
 	@Override
 	public Member process(Member member) throws LookupException {
 		Member result = null;
 		if(member.signature().sameAs(oldFqn())) {
-			result = member;
+			result = member.clone();
+			result.setSignature();
 		}
 		return result;
 	}
@@ -55,7 +57,7 @@ public class RenamingClause extends ConfigurationClause<RenamingClause> {
 		return result;
 	}
 
-  public void setSignature(Signature signature) {
+  public void setNewSignature(Signature signature) {
     setAsParent(_signature, signature);
   }
   

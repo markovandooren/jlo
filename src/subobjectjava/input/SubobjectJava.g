@@ -19,6 +19,7 @@ import chameleon.core.compilationunit.CompilationUnit;
 
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.Signature;
+import chameleon.core.declaration.QualifiedName;
 
 import chameleon.core.element.Element;
 
@@ -174,14 +175,18 @@ import jnome.core.enumeration.EnumConstant;
 import jnome.core.variable.JavaVariableDeclaration;
 import jnome.core.variable.MultiFormalParameter;
 
+import jnome.input.JavaFactory;
+
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ConfigurationBlock;
 import subobjectjava.model.component.ConfigurationClause;
+import subobjectjava.model.component.RenamingClause;
 
 import java.util.List;
 import java.util.ArrayList;
 }
 @members{
+
   @Override
   public void setLanguage(Language language) {
     gJavaP.setLanguage(language);
@@ -203,6 +208,15 @@ import java.util.ArrayList;
   public Namespace getDefaultNamespace() {
     return gJavaP.getDefaultNamespace();
   }
+  
+    public void setFactory(JavaFactory factory) {
+    gJavaP.setFactory(factory);
+  }
+  
+  public JavaFactory factory() {
+    return gJavaP.factory();
+  }
+
 }
 
 memberDecl returns [TypeElement element]
@@ -228,7 +242,7 @@ configurationBlock returns [ConfigurationBlock element]
 configurationClause returns [ConfigurationClause element]
 	: signature 'overrides' fqn
 	|
-	 signature 'aliases' fqn
+	 sigg=signature 'aliases' ff=fqn {retval.element = new RenamingClause(sigg.element, ff.element);}
 	;
 	
 signature returns [Signature element]
@@ -236,7 +250,7 @@ signature returns [Signature element]
         | sigg=Identifier '(' (type (',' type)*)?')'
         ;
         
-fqn returns [Object element] 
-        :	signature
-        |     Identifier '.' fqn
+fqn returns [QualifiedName element] 
+        :	sig=signature {retval.element=sig.element;}
+        |     id=Identifier '.' ff=fqn {ff.element.prefix(new SimpleNameSignature($id.text)); retval.element = ff.element;}
         ;
