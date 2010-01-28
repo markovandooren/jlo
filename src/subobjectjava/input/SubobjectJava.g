@@ -247,7 +247,7 @@ configurationClause returns [ConfigurationClause element]
 	
 signature returns [Signature element]
         : sig=Identifier {retval.element = new SimpleNameSignature($sig.text);}
-        | sigg=Identifier '(' (type (',' type)*)?')'
+        | sigg=Identifier '(' (type (',' type)*)?')' {retval.element = new MethodSignature();}
         ;
         
 fqn returns [QualifiedName element] 

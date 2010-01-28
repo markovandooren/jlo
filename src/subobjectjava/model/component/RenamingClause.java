@@ -7,10 +7,10 @@ import org.rejuse.association.SingleAssociation;
 
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
-import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
+import chameleon.core.type.Type;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
@@ -28,7 +28,9 @@ public class RenamingClause extends ConfigurationClause<RenamingClause> {
 		Member result = null;
 		if(member.signature().sameAs(oldFqn())) {
 			result = member.clone();
-			result.setSignature();
+			SingleAssociation originalSignatureCloneLink = result.signature().parentLink();
+			originalSignatureCloneLink.getOtherRelation().replace(originalSignatureCloneLink, newSignature().clone().parentLink());
+			result.setUniParent(nearestAncestor(Type.class));
 		}
 		return result;
 	}
