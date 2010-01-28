@@ -6,8 +6,10 @@ import java.util.List;
 import org.rejuse.association.SingleAssociation;
 
 import chameleon.core.declaration.SimpleNameSignature;
+import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
 import chameleon.core.type.Type;
@@ -16,7 +18,7 @@ import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.util.Util;
 
-public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> {
+public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements TargetDeclaration<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>{
 
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
@@ -110,5 +112,9 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
   }
   
   private SingleAssociation<ComponentRelation, ConfigurationBlock> _configurationBlock = new SingleAssociation<ComponentRelation, ConfigurationBlock>(this);
+
+	public LookupStrategy targetContext() throws LookupException {
+		return componentType().localStrategy();
+	}
 
 }

@@ -9,6 +9,7 @@ import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.lookup.LookupRedirector;
 import chameleon.core.member.Member;
 import chameleon.core.type.Type;
 import chameleon.core.validation.BasicProblem;
@@ -30,7 +31,10 @@ public class RenamingClause extends ConfigurationClause<RenamingClause> {
 			result = member.clone();
 			SingleAssociation originalSignatureCloneLink = result.signature().parentLink();
 			originalSignatureCloneLink.getOtherRelation().replace(originalSignatureCloneLink, newSignature().clone().parentLink());
-			result.setUniParent(nearestAncestor(Type.class));
+			// reroute lookup from within the clone (result) to the parent of the original member. 
+			LookupRedirector redirector = new LookupRedirector(member.parent());
+			redirector.add(result);
+			redirector.setUniParent(nearestAncestor(Type.class));
 		}
 		return result;
 	}

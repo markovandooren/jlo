@@ -100,6 +100,7 @@ import chameleon.support.expression.SuperTarget;
 
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.SimpleNameMethodHeader;
+import chameleon.support.member.simplename.SimpleNameMethodSignature;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import chameleon.support.member.simplename.operator.infix.InfixOperatorInvocation;
 import chameleon.support.member.simplename.operator.prefix.PrefixOperatorInvocation;
@@ -247,7 +248,9 @@ configurationClause returns [ConfigurationClause element]
 	
 signature returns [Signature element]
         : sig=Identifier {retval.element = new SimpleNameSignature($sig.text);}
-        | sigg=Identifier '(' (type (',' type)*)?')' {retval.element = new MethodSignature();}
+        | sigg=Identifier {retval.element = new SimpleNameMethodSignature($sigg.text);} 
+                '(' (t=type {((SimpleNameMethodSignature)retval.element).add(t.element);} 
+                 (',' tt=type {((SimpleNameMethodSignature)retval.element).add(tt.element);})*)?')'
         ;
         
 fqn returns [QualifiedName element] 
