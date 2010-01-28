@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.rejuse.association.SingleAssociation;
 
+import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
@@ -16,6 +17,7 @@ import chameleon.core.type.Type;
 import chameleon.core.type.TypeReference;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
+import chameleon.exception.ChameleonProgrammerException;
 import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements TargetDeclaration<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>{
@@ -72,12 +74,16 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		}
 	}
 	
-  public void setSignature(SimpleNameSignature signature) {
-    if(signature != null) {
-      _signature.connectTo(signature.parentLink());
-    } else {
-      _signature.connectTo(null);
-    }
+  public void setSignature(Signature signature) {
+  	if(signature instanceof SimpleNameSignature) {
+  		if(signature != null) {
+  			_signature.connectTo(signature.parentLink());
+  		} else {
+  			_signature.connectTo(null);
+  		}
+  	} else {
+  		throw new ChameleonProgrammerException("Setting wrong type of signature. Provided: "+(signature == null ? null :signature.getClass().getName())+" Expected SimpleNameSignature");
+  	}
   }
   
   /**
