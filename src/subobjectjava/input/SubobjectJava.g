@@ -183,6 +183,7 @@ import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ConfigurationBlock;
 import subobjectjava.model.component.ConfigurationClause;
 import subobjectjava.model.component.RenamingClause;
+import subobjectjava.model.component.OverridesClause;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -222,6 +223,7 @@ import java.util.ArrayList;
 }
 
 memberDecl returns [TypeElement element]
+@after{setLocation(retval.element, (CommonToken)retval.start, (CommonToken)retval.stop);}
     :   gen=genericMethodOrConstructorDecl {retval.element = gen.element;}
     |   mem=memberDeclaration {retval.element = mem.element;}
     |   vmd=voidMethodDeclaration {retval.element = vmd.element;}
@@ -232,19 +234,28 @@ memberDecl returns [TypeElement element]
     ;
 
 componentDeclaration returns [ComponentRelation element]
-    	:	'component' name=Identifier tp=type cfg=configurationBlock? ';' 
+    	:	cp='component' name=Identifier tp=type cfg=configurationBlock? ';' 
     	     {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), tp.element);
     	      if(cfg != null) {retval.element.setConfigurationBlock($cfg.element);}
+    	      setKeyword(retval.element,cp);
     	     }
     	;
 configurationBlock returns [ConfigurationBlock element] 
+@after{setLocation(retval.element, (CommonToken)retval.start, (CommonToken)retval.stop);}
         : {retval.element = new ConfigurationBlock();}'{' (cl=configurationClause{retval.element.add(cl.element);} (',' cll=configurationClause{retval.element.add(cll.element);})*)? '}'
         ;
         
 configurationClause returns [ConfigurationClause element]
-	: signature 'overrides' fqn
+@after{setLocation(retval.element, (CommonToken)retval.start, (CommonToken)retval.stop);}
+	: sig=signature ov='overrides' f=fqn
+	     {retval.element = new OverridesClause(sig.element, f.element);
+	      setKeyword(retval.element, ov);
+	     }
 	|
-	 sigg=signature 'aliases' ff=fqn {retval.element = new RenamingClause(sigg.element, ff.element);}
+	 sigg=signature al='aliases' ff=fqn 
+	     {retval.element = new RenamingClause(sigg.element, ff.element);
+	      setKeyword(retval.element, al);
+	     }
 	;
 	
 signature returns [Signature element]
