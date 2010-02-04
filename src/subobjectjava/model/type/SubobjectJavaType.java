@@ -16,13 +16,13 @@ public class SubobjectJavaType extends RegularType {
 	public SubobjectJavaType(String name) {
 		super(name);
 	}
-
-	@Override
-	public LookupStrategy lexicalLookupStrategy(Element element) throws LookupException {
-		if(element instanceof ComponentRelation) {
-			return lexicalParametersLookupStrategy();
-		} else {
-			return super.lexicalLookupStrategy(element);
-		}
-	}
+//
+//	@Override
+//	public LookupStrategy lexicalLookupStrategy(Element element) throws LookupException {
+//		if(element instanceof ComponentRelation) {
+//			return lexicalParametersLookupStrategy();
+//		} else {
+//			return super.lexicalLookupStrategy(element);
+//		}
+//	}
 }

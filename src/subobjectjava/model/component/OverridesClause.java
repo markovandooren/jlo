@@ -53,7 +53,7 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 				overridden = false; 
 			}
 			if(! overridden) {
-				result = result.and(new BasicProblem(this, ""+newSignature + " is not overridden."));
+				result = result.and(new BasicProblem(this, "There is no local definition of "+newSignature + "."));
 			}
 		}
 		return result;
