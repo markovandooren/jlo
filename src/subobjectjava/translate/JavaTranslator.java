@@ -6,13 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jnome.core.language.Java;
+import jnome.core.type.JavaTypeReference;
 
 import org.apache.log4j.BasicConfigurator;
+import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 
 import subobjectjava.input.SubobjectJavaModelFactory;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.language.SubobjectJava;
+import subobjectjava.model.language.SubobjectJavaOverridesRelation;
 import chameleon.core.element.Element;
 import chameleon.core.expression.ActualArgument;
 import chameleon.core.expression.Invocation;
@@ -30,12 +33,16 @@ import chameleon.core.type.Type;
 import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ParseException;
+import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.member.simplename.SimpleNameMethodHeader;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
+import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
+import chameleon.support.modifier.Protected;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
+import chameleon.support.variable.VariableDeclaration;
 import chameleon.test.provider.BasicDescendantProvider;
 import chameleon.test.provider.ElementProvider;
 
@@ -53,11 +60,13 @@ public class JavaTranslator {
 
 	private ElementProvider<Type> _typeProvider;
 
-	public Java translate() throws ParseException, IOException {
+	public Java translate() throws ParseException, IOException, ChameleonProgrammerException, LookupException {
 		RootNamespace clone = language().defaultNamespace().clone();
 		Java result = new Java();
+		result.cloneConnectorsFrom(language());
+		result.cloneProcessorsFrom(language());
 		result.setDefaultNamespace(clone);
-		for(Type type: typeProvider().elements(language())) {
+		for(Type type: typeProvider().elements(result)) {
 			translate(type);
 		}
 		return result;
@@ -69,23 +78,89 @@ public class JavaTranslator {
 	
 	private Language _language;
 
-	public void translate(Type type) {
+	public void translate(Type type) throws ChameleonProgrammerException, LookupException {
 		List<ComponentRelation> relations = type.directlyDeclaredMembers(ComponentRelation.class);
 		for(ComponentRelation relation : relations) {
+			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation);
+			if(fieldForComponent != null) {
+			  type.add(fieldForComponent);
+			}
+			Method setterForComponent = setterForComponent(relation);
+			if(setterForComponent != null) {
+				type.add(setterForComponent);
+			}
+			type.addAll(aliasMethods(relation));
 			SingleAssociation<ComponentRelation, Element> parentLink = relation.parentLink();
-			parentLink.replace(parentLink, getterFor(relation).parentLink());
+			Association<? extends Element, ? super ComponentRelation> childLink = parentLink.getOtherRelation();
+			Method getterForComponent = getterForComponent(relation);
+			if(getterForComponent != null) {
+			  childLink.replace(parentLink, getterForComponent.parentLink());
+			} else {
+				relation.disconnect();
+			}
 		}
 	}
 	
-	public Method getterFor(ComponentRelation relation) {
-		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(relation.signature().name()), relation.componentTypeReference().clone());
+	public MemberVariableDeclarator fieldForComponent(ComponentRelation relation) throws LookupException {
+		if(! overrides(relation)) {
+		MemberVariableDeclarator result = new MemberVariableDeclarator(relation.componentTypeReference().clone());
+		result.add(new VariableDeclaration(fieldName(relation)));
+		return result;
+		} else {
+			return null;
+		}
+	}
+	
+	public String getterName(ComponentRelation relation) {
+		return relation.signature().name()+"__component";
+	}
+	
+	public Method getterForComponent(ComponentRelation relation) throws LookupException {
+		if(! overrides(relation)) {
+		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(getterName(relation)), relation.componentTypeReference().clone());
 		result.addModifier(new Public());
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
 		body.addStatement(new ReturnStatement(new NamedTargetExpression(fieldName(relation), null)));
 		return result;
+		} else {
+			return null;
+		}
 	}
 	
+	public String setterName(ComponentRelation relation) {
+		return "set__component__"+relation.signature().name();
+	}
+	
+	public Method setterForComponent(ComponentRelation relation) throws LookupException {
+		if(! overrides(relation)) {
+		String name = relation.signature().name();
+		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(setterName(relation)), new JavaTypeReference("void"));
+		result.header().addParameter(new FormalParameter(name, relation.componentTypeReference().clone()));
+		result.addModifier(new Protected());
+		Block body = new Block();
+		result.setImplementation(new RegularImplementation(body));
+		NamedTargetExpression componentFieldRef = new NamedTargetExpression(fieldName(relation), null);
+		body.addStatement(new StatementExpression(new AssignmentExpression(componentFieldRef, new NamedTargetExpression(name, null))));
+		return result;
+		} else {
+			return null;
+		}
+	}
+	
+	private boolean overrides(ComponentRelation relation) throws LookupException {
+		Type type = relation.nearestAncestor(Type.class);
+		for(Type superType: type.getDirectSuperTypes()) {
+			List<ComponentRelation> superComponents = superType.members(ComponentRelation.class);
+			for(ComponentRelation superComponent: superComponents) {
+				if(new SubobjectJavaOverridesRelation().contains(relation, superComponent)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
 	public List<Method> aliasMethods(ComponentRelation relation) throws LookupException {
 		List<Method> result = new ArrayList<Method>();
 		List<? extends Member> members = relation.getIntroducedMembers();

@@ -50,22 +50,26 @@ public class ProviderProvider {
     // Configure base library directory
     if(base()) {
      	int baseIndex = low-1;
-			if(! args[baseIndex].startsWith("@") && ! args[baseIndex].startsWith("#")&& ! args[baseIndex].startsWith("%")) {
-     		_modelProvider.includeBase(args[baseIndex]);
+			String arg = args[baseIndex];
+			if(! arg.startsWith("@") && ! arg.startsWith("#")&& ! arg.startsWith("%")) {
+     		_modelProvider.includeBase(arg);
       }
     }
     for(int i = low; i < args.length;i++) {
-     	if(! args[i].startsWith("@") && ! args[i].startsWith("#")&& ! args[i].startsWith("%")) {
-     		_modelProvider.includeCustom(args[i]);
+     	String arg = args[i];
+			if(! arg.startsWith("@") && ! arg.startsWith("#")&& ! arg.startsWith("%")) {
+     		_modelProvider.includeCustom(arg);
       }
     }
     _language = _modelProvider.model();
+    
+    _namespaceProvider = new BasicNamespaceProvider();
     
     for(int i = low; i < args.length;i++) {
       String arg = args[i];
       String actual = arg.substring(1);
 			if(arg.startsWith("@")) {
-				_namespaceProvider.addNamespace(arg);
+				_namespaceProvider.addNamespace(actual);
       } 
     }
 	}
