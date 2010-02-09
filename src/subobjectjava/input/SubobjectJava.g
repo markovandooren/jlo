@@ -234,7 +234,7 @@ memberDecl returns [TypeElement element]
     ;
 
 componentDeclaration returns [ComponentRelation element]
-    	:	cp='component' name=Identifier tp=type cfg=configurationBlock? ';' 
+    	:	cp='subobject' name=Identifier tp=type cfg=configurationBlock? ';' 
     	     {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), tp.element);
     	      if(cfg != null) {retval.element.setConfigurationBlock($cfg.element);}
     	      setKeyword(retval.element,cp);
@@ -252,7 +252,7 @@ configurationClause returns [ConfigurationClause element]
 	      setKeyword(retval.element, ov);
 	     }
 	|
-	 sigg=signature al='aliases' ff=fqn 
+	 sigg=signature al='alias' ff=fqn 
 	     {retval.element = new RenamingClause(sigg.element, ff.element);
 	      setKeyword(retval.element, al);
 	     }

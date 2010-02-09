@@ -18,6 +18,11 @@ public class SubobjectJava extends Java {
 	public StrictPartialOrder<Member> overridesRelation() {
 		return new SubobjectJavaOverridesRelation();
 	}
+
+	@Override
+	public StrictPartialOrder<Member> implementsRelation() {
+		return new SubobjectJavaImplementsRelation();
+	}
 	
 	
 }

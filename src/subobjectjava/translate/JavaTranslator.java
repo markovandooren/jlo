@@ -175,7 +175,7 @@ public class JavaTranslator {
 		if(member instanceof Method) {
 			Method<?,?,?,?> method = (Method) member;
 			Method origin = (Method) method.origin();
-			Method result = new NormalMethod(method.header().clone(), method.getReturnTypeReference().clone());
+			Method result = new NormalMethod(method.header().clone(), new JavaTypeReference(method.returnType().getFullyQualifiedName()));
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
 			Invocation invocation = new RegularMethodInvocation(origin.name(), new NamedTargetExpression(fieldName(relation), null));
