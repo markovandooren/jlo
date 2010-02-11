@@ -9,13 +9,17 @@ import jnome.core.language.Java;
 import jnome.core.type.JavaTypeReference;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
+import org.rejuse.predicate.UnsafePredicate;
 
 import subobjectjava.input.SubobjectJavaModelFactory;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.language.SubobjectJava;
 import subobjectjava.model.language.SubobjectJavaOverridesRelation;
+import chameleon.core.Config;
 import chameleon.core.element.Element;
 import chameleon.core.expression.ActualArgument;
 import chameleon.core.expression.Invocation;
@@ -26,6 +30,7 @@ import chameleon.core.member.Member;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularImplementation;
 import chameleon.core.method.RegularMethod;
+import chameleon.core.modifier.Modifier;
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
 import chameleon.core.statement.Block;
@@ -34,6 +39,7 @@ import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ParseException;
 import chameleon.support.expression.AssignmentExpression;
+import chameleon.support.expression.SuperTarget;
 import chameleon.support.member.simplename.SimpleNameMethodHeader;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
@@ -81,6 +87,7 @@ public class JavaTranslator {
 	public void translate(Type type) throws ChameleonProgrammerException, LookupException {
 		List<ComponentRelation> relations = type.directlyDeclaredMembers(ComponentRelation.class);
 		for(ComponentRelation relation : relations) {
+			// Add a field and a getter for the subobject
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation);
 			if(fieldForComponent != null) {
 			  type.add(fieldForComponent);
@@ -90,6 +97,9 @@ public class JavaTranslator {
 				type.add(setterForComponent);
 			}
 			type.addAll(aliasMethods(relation));
+			// Replace super calls on subobjects with calls to the original methods on the getter
+			replaceSuperCalls(relation);
+			// Replace component with getter
 			SingleAssociation<ComponentRelation, Element> parentLink = relation.parentLink();
 			Association<? extends Element, ? super ComponentRelation> childLink = parentLink.getOtherRelation();
 			Method getterForComponent = getterForComponent(relation);
@@ -99,6 +109,33 @@ public class JavaTranslator {
 				relation.disconnect();
 			}
 		}
+	}
+	
+	public void replaceSuperCalls(final ComponentRelation relation) throws LookupException {
+		Type parent = relation.nearestAncestor(Type.class);
+		List<SuperTarget> superTargets = parent.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
+
+			@Override
+			public boolean eval(SuperTarget superTarget) throws LookupException {
+				return superTarget.getTargetDeclaration().equals(relation);
+			}
+			
+		}
+		);
+		for(SuperTarget superTarget: superTargets) {
+			Element<?,?> inv = superTarget.parent();
+			if(inv instanceof RegularMethodInvocation) {
+				RegularMethodInvocation call = (RegularMethodInvocation) inv;
+			  Invocation subObjectSelection = new RegularMethodInvocation(getterName(relation), null);
+			  call.setTarget(subObjectSelection);
+			  call.setName(original(call.name()));
+			}
+      
+		}
+	}
+	
+	public String original(String name) {
+		return "original__"+name;
 	}
 	
 	public MemberVariableDeclarator fieldForComponent(ComponentRelation relation) throws LookupException {
@@ -174,7 +211,7 @@ public class JavaTranslator {
 	public Method aliasFor(Member member, ComponentRelation relation) throws LookupException{
 		if(member instanceof Method) {
 			Method<?,?,?,?> method = (Method) member;
-			Method origin = (Method) method.origin();
+			Method<?,?,?,?> origin = (Method) method.origin();
 			Method result = new NormalMethod(method.header().clone(), new JavaTypeReference(method.returnType().getFullyQualifiedName()));
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
@@ -187,6 +224,9 @@ public class JavaTranslator {
 				body.addStatement(new StatementExpression(invocation));
 			} else {
 				body.addStatement(new ReturnStatement(invocation));
+			}
+			for(Modifier mod: origin.modifiers()) {
+				result.addModifier(mod.clone());
 			}
 			return result;
 		} else {
@@ -216,6 +256,8 @@ public class JavaTranslator {
       System.out.println("Usage: java .... JavaTranslator outputDir inputDir* @recursivePackageFQN* #packageFQN* $typeFQN*");
     }
     BasicConfigurator.configure();
+    Logger.getRootLogger().setLevel(Level.FATAL);
+    Config.setCacheLanguage(true);
     ProviderProvider provider = new ProviderProvider(new SubobjectJavaModelFactory(),".java",true,true);
     provider.processArguments(args);
     Java result = new JavaTranslator((SubobjectJava) provider.language(), provider.namespaceProvider()).translate();

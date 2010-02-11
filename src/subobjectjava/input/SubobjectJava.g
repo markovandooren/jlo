@@ -247,12 +247,12 @@ configurationBlock returns [ConfigurationBlock element]
         
 configurationClause returns [ConfigurationClause element]
 @after{setLocation(retval.element, (CommonToken)retval.start, (CommonToken)retval.stop);}
-	: sig=signature ov='overrides' f=fqn
+	: sig=signature ov='>' f=fqn
 	     {retval.element = new OverridesClause(sig.element, f.element);
 	      setKeyword(retval.element, ov);
 	     }
 	|
-	 sigg=signature al='alias' ff=fqn 
+	 sigg=signature al='=' ff=fqn 
 	     {retval.element = new RenamingClause(sigg.element, ff.element);
 	      setKeyword(retval.element, al);
 	     }
@@ -269,3 +269,4 @@ fqn returns [QualifiedName element]
         :	sig=signature {retval.element=sig.element;}
         |     id=Identifier '.' ff=fqn {ff.element.prefix(new SimpleNameSignature($id.text)); retval.element = ff.element;}
         ;
+        
