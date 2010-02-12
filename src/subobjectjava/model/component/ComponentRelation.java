@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.rejuse.association.SingleAssociation;
+import org.rejuse.logic.ternary.Ternary;
 
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.DeclarationContainer;
+import chameleon.core.declaration.Definition;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
@@ -24,7 +26,7 @@ import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.util.Util;
 
-public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>{
+public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>{
 
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
@@ -200,6 +202,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 
 	public Type declarationType() throws LookupException {
 		return componentType();
+	}
+
+	public Ternary complete() {
+		return Ternary.TRUE;
 	}
 
 }

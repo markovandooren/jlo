@@ -9,6 +9,14 @@ import chameleon.core.relation.StrictPartialOrder;
 
 public class SubobjectJava extends Java {
 
+	public SubobjectJava() {
+		this("JLow");
+	}
+
+	protected SubobjectJava(String name) {
+		super(name);
+	}
+
 	@Override
 	protected Language cloneThis() {
 		return new SubobjectJava();
