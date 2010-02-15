@@ -45,6 +45,7 @@ public class TypeWriter {
     Syntax writer = language().connector(Syntax.class);
     int i = 1;
     for(Type type:typeProvider().elements(language())) {
+    	if(type.nearestAncestor(Type.class) == null) {
       String fileName = type.getName()+".java";
       String packageFQN = type.getNamespace().getFullyQualifiedName();
       String relDirName = packageFQN.replace('.', File.separatorChar);
@@ -57,6 +58,7 @@ public class TypeWriter {
       fw.write(writer.toCode(type.parent()));
       fw.close();
       i++;
+    	}
     }
 
 	}

@@ -3,7 +3,9 @@ package subobjectjava.translate;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jnome.core.language.Java;
 import jnome.core.type.JavaTypeReference;
@@ -13,6 +15,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
+import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.UnsafePredicate;
 
 import subobjectjava.input.SubobjectJavaModelFactory;
@@ -34,10 +37,14 @@ import chameleon.core.modifier.Modifier;
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
 import chameleon.core.statement.Block;
+import chameleon.core.type.RegularType;
 import chameleon.core.type.Type;
+import chameleon.core.type.TypeReference;
+import chameleon.core.type.inheritance.SubtypeRelation;
 import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ParseException;
+import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.expression.SuperTarget;
 import chameleon.support.member.simplename.SimpleNameMethodHeader;
@@ -73,7 +80,7 @@ public class JavaTranslator {
 		result.cloneProcessorsFrom(language());
 		result.setDefaultNamespace(clone);
 		for(Type type: typeProvider().elements(result)) {
-			translate(type);
+			ensureTranslation(type);
 		}
 		return result;
 	}
@@ -83,6 +90,15 @@ public class JavaTranslator {
 	}
 	
 	private Language _language;
+	
+	public void ensureTranslation(Type type) throws ChameleonProgrammerException, LookupException {
+		if(! _processed.contains(type)) {
+			translate(type);
+			_processed.add(type);
+		}
+	}
+	
+	private Set<Type> _processed = new HashSet<Type>();
 
 	public void translate(Type type) throws ChameleonProgrammerException, LookupException {
 		List<ComponentRelation> relations = type.directlyDeclaredMembers(ComponentRelation.class);
@@ -99,6 +115,7 @@ public class JavaTranslator {
 			type.addAll(aliasMethods(relation));
 			// Replace super calls on subobjects with calls to the original methods on the getter
 			replaceSuperCalls(relation);
+			createInnerClassFor(relation);
 			// Replace component with getter
 			SingleAssociation<ComponentRelation, Element> parentLink = relation.parentLink();
 			Association<? extends Element, ? super ComponentRelation> childLink = parentLink.getOtherRelation();
@@ -109,6 +126,70 @@ public class JavaTranslator {
 				relation.disconnect();
 			}
 		}
+	}
+	
+	public Type translation(Type type) throws ChameleonProgrammerException, LookupException {
+		Type result = type.clone();
+		result.setUniParent(type.parent());
+		translate(result);
+		result.setUniParent(null);
+		return result;
+	}
+	
+	public void createInnerClassFor(ComponentRelation relation) throws ChameleonProgrammerException, LookupException {
+		Type parentType = relation.nearestAncestor(Type.class);
+		RegularType componentType = (RegularType) relation.componentType();
+		// CREATE TYPE
+		Type stub = new RegularType(innerClassName(relation));
+		// CREATE INHERITANCE RELATION
+//		JavaTypeReference superReference = new JavaTypeReference(componentType.getFullyQualifiedName());
+		TypeReference superReference = relation.componentTypeReference().clone();
+		stub.addInheritanceRelation(new SubtypeRelation(superReference));
+		// CREATE AND PASS GENERIC PARAMETERS
+//		for(TypeParameter param: componentType.parameters()) {
+//		  stub.addParameter(param.clone());
+//		  superReference.addArgument(new BasicTypeArgument(new JavaTypeReference(param.signature().name())));
+//		}
+		// ADD STUB TO PARENT
+		parentType.add(stub);
+		// ADD ORIGINAL DEFINITION FOR SUPER CALLS
+		ensureTranslation(componentType);
+		for(Member member: stub.members()) {
+			if(member instanceof Method) {
+			  Method original = createOriginal((Method) member);
+			  if(original != null) {
+				  stub.add(original);
+			  }
+			}
+		}
+		
+//		Type clone = translation(componentType);
+//		clone.addModifier();
+	}
+	
+	public Method createOriginal(Method<?,?,?,?> method) throws LookupException {
+		if(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) {
+		NormalMethod<?,?,?> result = new NormalMethod(method.header().clone(), method.getReturnTypeReference().clone());
+		((SimpleNameMethodHeader)result.header()).setName(original(method.name()));
+		Block body = new Block();
+		result.setImplementation(new RegularImplementation(body));
+		Invocation invocation = invocation(result, method);
+		invocation.setTarget(new SuperTarget());
+		if(method.returnType().equals(method.language(Java.class).voidType())) {
+			body.addStatement(new StatementExpression(invocation));
+		} else {
+			body.addStatement(new ReturnStatement(invocation));
+		}
+		  result.addModifier(new Public());
+			return result;
+		}
+		else {
+			return null;
+		}
+	}
+	
+	public String innerClassName(ComponentRelation relation) throws LookupException {
+		return relation.componentType().baseType().signature().name()+"_shadow_class_for_"+relation.signature().name();
 	}
 	
 	public void replaceSuperCalls(final ComponentRelation relation) throws LookupException {
@@ -140,12 +221,17 @@ public class JavaTranslator {
 	
 	public MemberVariableDeclarator fieldForComponent(ComponentRelation relation) throws LookupException {
 		if(! overrides(relation)) {
-		MemberVariableDeclarator result = new MemberVariableDeclarator(relation.componentTypeReference().clone());
+//		MemberVariableDeclarator result = new MemberVariableDeclarator(relation.componentTypeReference().clone());
+			MemberVariableDeclarator result = new MemberVariableDeclarator(innerClassTypeReference(relation));
 		result.add(new VariableDeclaration(fieldName(relation)));
 		return result;
 		} else {
 			return null;
 		}
+	}
+
+	private JavaTypeReference innerClassTypeReference(ComponentRelation relation) throws LookupException {
+		return new JavaTypeReference(innerClassName(relation));
 	}
 	
 	public String getterName(ComponentRelation relation) {
@@ -154,7 +240,7 @@ public class JavaTranslator {
 	
 	public Method getterForComponent(ComponentRelation relation) throws LookupException {
 		if(! overrides(relation)) {
-		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(getterName(relation)), relation.componentTypeReference().clone());
+		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(getterName(relation)), innerClassTypeReference(relation));
 		result.addModifier(new Public());
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
@@ -212,15 +298,13 @@ public class JavaTranslator {
 		if(member instanceof Method) {
 			Method<?,?,?,?> method = (Method) member;
 			Method<?,?,?,?> origin = (Method) method.origin();
+			String methodName = fieldName(relation);
 			Method result = new NormalMethod(method.header().clone(), new JavaTypeReference(method.returnType().getFullyQualifiedName()));
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = new RegularMethodInvocation(origin.name(), new NamedTargetExpression(fieldName(relation), null));
-			// pass parameters.
-			for(FormalParameter param: method.formalParameters()) {
-				invocation.addArgument(new ActualArgument(new NamedTargetExpression(param.signature().name(), null)));
-			}
-			if(origin.returnType().getFullyQualifiedName().equals("void")) {
+			Invocation invocation = invocation(method, origin);
+			invocation.setTarget(new NamedTargetExpression(methodName, null));
+			if(origin.returnType().equals(origin.language(ObjectOrientedLanguage.class).voidType())) {
 				body.addStatement(new StatementExpression(invocation));
 			} else {
 				body.addStatement(new ReturnStatement(invocation));
@@ -232,6 +316,15 @@ public class JavaTranslator {
 		} else {
 			throw new ChameleonProgrammerException("Translation of member of type "+member.getClass().getName()+" not supported.");
 		}
+	}
+
+	private Invocation invocation(Method<?, ?, ?, ?> method, Method<?, ?, ?, ?> origin) {
+		Invocation invocation = new RegularMethodInvocation(origin.name(), null);
+		// pass parameters.
+		for(FormalParameter param: method.formalParameters()) {
+			invocation.addArgument(new ActualArgument(new NamedTargetExpression(param.signature().name(), null)));
+		}
+		return invocation;
 	}
 	
 	public String fieldName(ComponentRelation relation) {
@@ -258,12 +351,17 @@ public class JavaTranslator {
     BasicConfigurator.configure();
     Logger.getRootLogger().setLevel(Level.FATAL);
     Config.setCacheLanguage(true);
+    Config.setCacheElementReferences(true);
+    Config.setCacheElementProperties(true);
     ProviderProvider provider = new ProviderProvider(new SubobjectJavaModelFactory(),".java",true,true);
     provider.processArguments(args);
+    long start = System.currentTimeMillis();
     Java result = new JavaTranslator((SubobjectJava) provider.language(), provider.namespaceProvider()).translate();
     // Output
+    long stop = System.currentTimeMillis();
     File outputDir = provider.outputDir();
     TypeWriter writer = new TypeWriter(result, new BasicDescendantProvider<Type>(provider.namespaceProvider(), Type.class),outputDir);
     writer.write();
+    System.out.println("Translation took "+(stop - start) + " milliseconds.");
   }
 }
