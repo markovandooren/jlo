@@ -36,10 +36,13 @@ import chameleon.core.method.RegularMethod;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
+import chameleon.core.reference.CrossReference;
 import chameleon.core.statement.Block;
 import chameleon.core.type.RegularType;
 import chameleon.core.type.Type;
 import chameleon.core.type.TypeReference;
+import chameleon.core.type.generics.InstantiatedTypeParameter;
+import chameleon.core.type.generics.TypeParameter;
 import chameleon.core.type.inheritance.SubtypeRelation;
 import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ChameleonProgrammerException;
@@ -168,24 +171,45 @@ public class JavaTranslator {
 	}
 	
 	public Method createOriginal(Method<?,?,?,?> method) throws LookupException {
+		NormalMethod<?,?,?> result;
 		if(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) {
-		NormalMethod<?,?,?> result = new NormalMethod(method.header().clone(), method.getReturnTypeReference().clone());
-		((SimpleNameMethodHeader)result.header()).setName(original(method.name()));
-		Block body = new Block();
-		result.setImplementation(new RegularImplementation(body));
-		Invocation invocation = invocation(result, method);
-		invocation.setTarget(new SuperTarget());
-		if(method.returnType().equals(method.language(Java.class).voidType())) {
-			body.addStatement(new StatementExpression(invocation));
-		} else {
-			body.addStatement(new ReturnStatement(invocation));
-		}
-		  result.addModifier(new Public());
-			return result;
+			result = new NormalMethod(method.header().clone(), method.getReturnTypeReference().clone());
+			((SimpleNameMethodHeader)result.header()).setName(original(method.name()));
+			Block body = new Block();
+			result.setImplementation(new RegularImplementation(body));
+			Invocation invocation = invocation(result, method);
+			invocation.setTarget(new SuperTarget());
+			if(method.returnType().equals(method.language(Java.class).voidType())) {
+				body.addStatement(new StatementExpression(invocation));
+			} else {
+				body.addStatement(new ReturnStatement(invocation));
+			}
+			result.addModifier(new Public());
+			result.setUniParent(method.parent());
+			Type type = method.nearestAncestor(Type.class);
+			List<TypeParameter> typeParameters = type.parameters();
+			for(TypeParameter par: typeParameters) {
+				if(par instanceof InstantiatedTypeParameter) {
+					((InstantiatedTypeParameter)par).substitute(result);
+				}
+			}
+			result.setUniParent(null);
+//		  List<CrossReference> crossReferences = 
+//		      result.descendants(CrossReference.class, 
+//				              new UnsafePredicate<CrossReference,LookupException>() {
+//
+//												@Override
+//												public boolean eval(CrossReference object) throws LookupException {
+//													return object.getElement().equals(selectionDeclaration());
+//												}
+//			 
+//		 });
+
 		}
 		else {
-			return null;
+			result = null;
 		}
+		return result;
 	}
 	
 	public String innerClassName(ComponentRelation relation) throws LookupException {
