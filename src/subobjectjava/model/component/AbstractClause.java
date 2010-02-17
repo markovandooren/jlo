@@ -5,9 +5,12 @@ import java.util.List;
 
 import org.rejuse.association.SingleAssociation;
 
+import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.element.Element;
+import chameleon.core.lookup.LookupException;
+import chameleon.core.reference.SimpleReference;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
@@ -51,6 +54,12 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 
 	public void setOldFqn(QualifiedName fqn) {
 	  setAsParent(_fqn, fqn);
+	}
+	
+	public Declaration oldDeclaration() throws LookupException {
+		SimpleReference<Declaration> ref = new SimpleReference<Declaration>(oldFqn(), Declaration.class);
+		ref.setUniParent(nearestAncestor(ComponentRelation.class).componentType());
+		return ref.getElement();
 	}
 
 	/**

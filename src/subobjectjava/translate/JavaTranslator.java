@@ -3,8 +3,10 @@ package subobjectjava.translate;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import jnome.core.language.Java;
@@ -20,9 +22,15 @@ import org.rejuse.predicate.UnsafePredicate;
 
 import subobjectjava.input.SubobjectJavaModelFactory;
 import subobjectjava.model.component.ComponentRelation;
+import subobjectjava.model.component.ConfigurationBlock;
+import subobjectjava.model.component.ConfigurationClause;
+import subobjectjava.model.component.OverridesClause;
 import subobjectjava.model.language.SubobjectJava;
 import subobjectjava.model.language.SubobjectJavaOverridesRelation;
 import chameleon.core.Config;
+import chameleon.core.declaration.Declaration;
+import chameleon.core.declaration.QualifiedName;
+import chameleon.core.declaration.Signature;
 import chameleon.core.element.Element;
 import chameleon.core.expression.ActualArgument;
 import chameleon.core.expression.Invocation;
@@ -39,6 +47,7 @@ import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.reference.SimpleReference;
 import chameleon.core.statement.Block;
 import chameleon.core.type.RegularType;
 import chameleon.core.type.Type;
@@ -52,7 +61,9 @@ import chameleon.input.ParseException;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.expression.SuperTarget;
+import chameleon.support.expression.ThisLiteral;
 import chameleon.support.member.simplename.SimpleNameMethodHeader;
+import chameleon.support.member.simplename.SimpleNameMethodSignature;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
@@ -87,6 +98,11 @@ public class JavaTranslator {
 		for(Type type: typeProvider().elements(result)) {
 			ensureTranslation(type);
 		}
+		for(Type type: typeProvider().elements(result)) {
+			for(ComponentRelation relation: type.descendants(ComponentRelation.class)) {
+				relation.disconnect();
+			}
+		}
 		return result;
 	}
 	
@@ -106,8 +122,10 @@ public class JavaTranslator {
 	private Set<Type> _processed = new HashSet<Type>();
 
 	public void translate(Type type) throws ChameleonProgrammerException, LookupException {
+		Type backup = type.clone();
 		List<ComponentRelation> relations = type.directlyDeclaredMembers(ComponentRelation.class);
 		for(ComponentRelation relation : relations) {
+      ensureTranslation(relation.componentType());
 			// Add a field and a getter for the subobject
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation);
 			if(fieldForComponent != null) {
@@ -117,18 +135,62 @@ public class JavaTranslator {
 			if(setterForComponent != null) {
 				type.add(setterForComponent);
 			}
-			type.addAll(aliasMethods(relation));
+			List<Method> aliasMethods = aliasMethods(relation);
+			type.addAll(aliasMethods);
 			// Replace super calls on subobjects with calls to the original methods on the getter
 			replaceSuperCalls(relation);
-			createInnerClassFor(relation);
+			Type innerClass = createInnerClassFor(relation);
+			_innerClassMap.put(relation, type);
+			type.add(innerClass);
+			addOutwardDelegations(relation, innerClass);
 			// Replace component with getter
 			SingleAssociation<ComponentRelation, Element> parentLink = relation.parentLink();
 			Association<? extends Element, ? super ComponentRelation> childLink = parentLink.getOtherRelation();
 			Method getterForComponent = getterForComponent(relation);
 			if(getterForComponent != null) {
+//				type.add(getterForComponent);
 			  childLink.replace(parentLink, getterForComponent.parentLink());
-			} else {
+			}
+			else {
 				relation.disconnect();
+			}
+		}
+	}
+	
+	private Map<ComponentRelation, Type> _innerClassMap = new HashMap<ComponentRelation, Type>();
+	
+	public void addOutwardDelegations(ComponentRelation relation, Type innerClass) throws LookupException {
+		ConfigurationBlock block = relation.configurationBlock();
+		for(ConfigurationClause clause: block.clauses()) {
+			if(clause instanceof OverridesClause) {
+				OverridesClause ov = (OverridesClause)clause;
+				QualifiedName qn = ov.oldFqn();
+				QualifiedName poppedName = qn.popped();
+				int size = poppedName.length();
+				Element container = innerClass;
+				if(size > 0) {
+					SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);
+					ref.setUniParent(relation.componentType());
+				  container = ref.getElement();
+				}
+				Signature lastSignature = qn.lastSignature();
+				SimpleReference<Declaration> ref = new SimpleReference<Declaration>(null, lastSignature.clone(), Declaration.class);
+				ref.setUniParent(container);
+				Declaration decl = ref.getElement();
+				if(decl instanceof Method) {
+					Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
+				  Method original = createOriginal(method, original(method.name()));
+				  if(original != null) {
+				  	innerClass.add(original);
+				  }
+				  Method outward = createOutward(method,((SimpleNameMethodSignature)ov.newSignature()).name(),relation);
+				  if(outward != null) {
+				  	innerClass.add(outward);
+				  }
+				}
+				// oldName(....) {
+				//   DirectOuterClass.this.newName();
+				// }
 			}
 		}
 	}
@@ -141,7 +203,7 @@ public class JavaTranslator {
 		return result;
 	}
 	
-	public void createInnerClassFor(ComponentRelation relation) throws ChameleonProgrammerException, LookupException {
+	public Type createInnerClassFor(ComponentRelation relation) throws ChameleonProgrammerException, LookupException {
 		NamespacePart nsp = relation.furthestAncestor(NamespacePart.class);
 		Type parentType = relation.nearestAncestor(Type.class);
 		RegularType componentType = (RegularType) relation.componentType();
@@ -161,49 +223,84 @@ public class JavaTranslator {
 //		  superReference.addArgument(new BasicTypeArgument(new JavaTypeReference(param.signature().name())));
 //		}
 		// ADD STUB TO PARENT
-		parentType.add(stub);
-		// ADD ORIGINAL DEFINITION FOR SUPER CALLS
-		ensureTranslation(componentType);
-		for(Member member: stub.members()) {
-			if(member instanceof Method) {
-			  Method original = createOriginal((Method) member);
-			  if(original != null) {
-				  stub.add(original);
-			  }
-			}
-		}
+//		parentType.add(stub);
+		return stub;
 		
-//		Type clone = translation(componentType);
-//		clone.addModifier();
+		// ADD ORIGINAL DEFINITION FOR SUPER CALLS
+//		for(Member member: stub.members()) {
+//			if(member instanceof Method) {
+//			  Method method = (Method) member;
+//				Method original = createOriginal(method, original(method.name()));
+//			  if(original != null) {
+//				  stub.add(original);
+//			  }
+//				Method temporary = createOriginal(method, method.name());
+//			  if(temporary != null) {
+//				  stub.add(temporary);
+//			  }
+//			} else if(member instanceof Type) {
+//				//TODO modify inheritance relation.
+//				Type it = (Type)member;
+//				if(it.getName().contains(SHADOW)) {
+//					Type clonedInnerType = it.clone();
+//					clonedInnerType.removeAllInheritanceRelations();
+//					clonedInnerType.addInheritanceRelation(new SubtypeRelation(new JavaTypeReference(it.getFullyQualifiedName())));
+//					clonedInnerType.setUniParent(it);
+//					substituteTypeParameters(clonedInnerType, it.nearestAncestor(Type.class));
+//					clonedInnerType.setUniParent(null);
+//					stub.add(clonedInnerType);// hides inner class of actual component type
+//				}
+//			}
+//			// TODO override getter when component is overridden.
+//			// TODO Rewrite overridden methods.
+//		}
+		
 	}
+	public final static String SHADOW = "_shadow_class_for_";
 	
-	public Method createOriginal(Method<?,?,?,?> method) throws LookupException {
+	public Method createOutward(Method<?,?,?,?> method, String newName, ComponentRelation relation) throws LookupException {
 		NormalMethod<?,?,?> result;
-		if(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) {
-			result = new NormalMethod(method.header().clone(), method.getReturnTypeReference().clone());
-			((SimpleNameMethodHeader)result.header()).setName(original(method.name()));
-			ExceptionClause exceptionClause = method.getExceptionClause();
-			ExceptionClause clone = (exceptionClause != null ? exceptionClause.clone(): null);
-			result.setExceptionClause(clone);
+		if((method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
+				(method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
+			result = innerMethod(method, method.name());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = invocation(result, method);
+			Invocation invocation = invocation(result, newName);
+			TypeReference ref = getRelativeClassName(relation);
+			ThisLiteral target = new ThisLiteral(ref);
+			invocation.setTarget(target);
+			substituteTypeParameters(method, result);
+			addImplementation(method, body, invocation);
+		} else {
+			result = null;
+		}
+		return result;
+	}
+	
+	public TypeReference getRelativeClassName(ComponentRelation relation) {
+		Type type = relation.nearestAncestor(Type.class);
+		StringBuffer qn = new StringBuffer();
+		while(type != null) {
+			qn.append(type.signature().name());
+			type = type.nearestAncestor(Type.class);
+			if(type != null) {
+				qn.append(".");
+			}
+		}
+		return new JavaTypeReference(qn.toString());
+	}
+	
+	public Method createOriginal(Method<?,?,?,?> method, String original) throws LookupException {
+		NormalMethod<?,?,?> result;
+		if((method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
+				(method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
+			result = innerMethod(method, original);
+			Block body = new Block();
+			result.setImplementation(new RegularImplementation(body));
+			Invocation invocation = invocation(result, method.name());
 			invocation.setTarget(new SuperTarget());
-			if(method.returnType().equals(method.language(Java.class).voidType())) {
-				body.addStatement(new StatementExpression(invocation));
-			} else {
-				body.addStatement(new ReturnStatement(invocation));
-			}
-			result.addModifier(new Public());
-			result.setUniParent(method);
-			Type type = method.nearestAncestor(Type.class);
-			List<TypeParameter> typeParameters = type.parameters();
-			for(TypeParameter par: typeParameters) {
-				if(par instanceof InstantiatedTypeParameter) {
-					((InstantiatedTypeParameter)par).substitute(result);
-				}
-			}
-			result.setUniParent(null);
+			addImplementation(method, body, invocation);
+			substituteTypeParameters(method, result);
 //		  List<CrossReference> crossReferences = 
 //		      result.descendants(CrossReference.class, 
 //				              new UnsafePredicate<CrossReference,LookupException>() {
@@ -221,9 +318,44 @@ public class JavaTranslator {
 		}
 		return result;
 	}
+
+	private void substituteTypeParameters(Method<?, ?, ?, ?> method, NormalMethod<?, ?, ?> result) throws LookupException {
+		result.setUniParent(method);
+		Type type = method.nearestAncestor(Type.class);
+		substituteTypeParameters(result, type);
+		result.setUniParent(null);
+	}
+
+	private void addImplementation(Method<?, ?, ?, ?> method, Block body, Invocation invocation) throws LookupException {
+		if(method.returnType().equals(method.language(Java.class).voidType())) {
+			body.addStatement(new StatementExpression(invocation));
+		} else {
+			body.addStatement(new ReturnStatement(invocation));
+		}
+	}
+
+	private NormalMethod<?, ?, ?> innerMethod(Method<?, ?, ?, ?> method, String original) {
+		NormalMethod<?, ?, ?> result;
+		result = new NormalMethod(method.header().clone(), method.getReturnTypeReference().clone());
+		((SimpleNameMethodHeader)result.header()).setName(original);
+		ExceptionClause exceptionClause = method.getExceptionClause();
+		ExceptionClause clone = (exceptionClause != null ? exceptionClause.clone(): null);
+		result.setExceptionClause(clone);
+		result.addModifier(new Public());
+		return result;
+	}
+
+	public void substituteTypeParameters(Element<?, ?> result, Type type) throws LookupException {
+		List<TypeParameter> typeParameters = type.parameters();
+		for(TypeParameter par: typeParameters) {
+			if(par instanceof InstantiatedTypeParameter) {
+				((InstantiatedTypeParameter)par).substitute(result);
+			}
+		}
+	}
 	
 	public String innerClassName(ComponentRelation relation) throws LookupException {
-		return relation.componentType().baseType().signature().name()+"_shadow_class_for_"+relation.signature().name();
+		return relation.componentType().baseType().signature().name()+SHADOW+relation.signature().name();
 	}
 	
 	public void replaceSuperCalls(final ComponentRelation relation) throws LookupException {
@@ -269,24 +401,26 @@ public class JavaTranslator {
 	}
 	
 	public String getterName(ComponentRelation relation) {
-		return relation.signature().name()+"__component";
+		return relation.signature().name()+COMPONENT;
 	}
+	
+	public final static String COMPONENT = "__component__lkjkberfuncye__";
 	
 	public Method getterForComponent(ComponentRelation relation) throws LookupException {
 		if(! overrides(relation)) {
-		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(getterName(relation)), innerClassTypeReference(relation));
-		result.addModifier(new Public());
-		Block body = new Block();
-		result.setImplementation(new RegularImplementation(body));
-		body.addStatement(new ReturnStatement(new NamedTargetExpression(fieldName(relation), null)));
-		return result;
+			RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(getterName(relation)), innerClassTypeReference(relation));
+			result.addModifier(new Public());
+			Block body = new Block();
+			result.setImplementation(new RegularImplementation(body));
+			body.addStatement(new ReturnStatement(new NamedTargetExpression(fieldName(relation), null)));
+			return result;
 		} else {
 			return null;
 		}
 	}
 	
 	public String setterName(ComponentRelation relation) {
-		return "set__component__"+relation.signature().name();
+		return "set"+COMPONENT+"__"+relation.signature().name();
 	}
 	
 	public Method setterForComponent(ComponentRelation relation) throws LookupException {
@@ -336,7 +470,7 @@ public class JavaTranslator {
 			Method result = new NormalMethod(method.header().clone(), new JavaTypeReference(method.returnType().getFullyQualifiedName()));
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = invocation(method, origin);
+			Invocation invocation = invocation(method, origin.name());
 			invocation.setTarget(new NamedTargetExpression(methodName, null));
 			if(origin.returnType().equals(origin.language(ObjectOrientedLanguage.class).voidType())) {
 				body.addStatement(new StatementExpression(invocation));
@@ -352,8 +486,8 @@ public class JavaTranslator {
 		}
 	}
 
-	private Invocation invocation(Method<?, ?, ?, ?> method, Method<?, ?, ?, ?> origin) {
-		Invocation invocation = new RegularMethodInvocation(origin.name(), null);
+	private Invocation invocation(Method<?, ?, ?, ?> method, String origin) {
+		Invocation invocation = new RegularMethodInvocation(origin, null);
 		// pass parameters.
 		for(FormalParameter param: method.formalParameters()) {
 			invocation.addArgument(new ActualArgument(new NamedTargetExpression(param.signature().name(), null)));

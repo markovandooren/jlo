@@ -20,6 +20,7 @@ import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.QualifiedName;
+import chameleon.core.declaration.CompositeQualifiedName;
 
 import chameleon.core.element.Element;
 
@@ -267,6 +268,16 @@ signature returns [Signature element]
         
 fqn returns [QualifiedName element] 
         :	sig=signature {retval.element=sig.element;}
-        |     id=Identifier '.' ff=fqn {ff.element.prefix(new SimpleNameSignature($id.text)); retval.element = ff.element;}
+        |     id=Identifier '.' ff=fqn {
+              Signature signature = new SimpleNameSignature($id.text);
+              if(ff.element instanceof CompositeQualifiedName) {
+                ((CompositeQualifiedName)ff.element).prefix(signature); 
+                retval.element = ff.element;
+              } else {
+                retval.element=new CompositeQualifiedName();
+                ((CompositeQualifiedName)retval.element).append(signature);
+                ((CompositeQualifiedName)retval.element).append((Signature)ff.element);
+              }
+              }
         ;
         
