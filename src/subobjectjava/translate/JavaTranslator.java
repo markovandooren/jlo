@@ -33,10 +33,12 @@ import chameleon.core.member.Member;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularImplementation;
 import chameleon.core.method.RegularMethod;
+import chameleon.core.method.exception.ExceptionClause;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
-import chameleon.core.reference.CrossReference;
+import chameleon.core.namespacepart.Import;
+import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.statement.Block;
 import chameleon.core.type.RegularType;
 import chameleon.core.type.Type;
@@ -140,8 +142,13 @@ public class JavaTranslator {
 	}
 	
 	public void createInnerClassFor(ComponentRelation relation) throws ChameleonProgrammerException, LookupException {
+		NamespacePart nsp = relation.furthestAncestor(NamespacePart.class);
 		Type parentType = relation.nearestAncestor(Type.class);
 		RegularType componentType = (RegularType) relation.componentType();
+		NamespacePart originalNsp = componentType.furthestAncestor(NamespacePart.class);
+		for(Import imp: originalNsp.imports()) {
+			nsp.addImport(imp.clone());
+		}
 		// CREATE TYPE
 		Type stub = new RegularType(innerClassName(relation));
 		// CREATE INHERITANCE RELATION
@@ -175,6 +182,9 @@ public class JavaTranslator {
 		if(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) {
 			result = new NormalMethod(method.header().clone(), method.getReturnTypeReference().clone());
 			((SimpleNameMethodHeader)result.header()).setName(original(method.name()));
+			ExceptionClause exceptionClause = method.getExceptionClause();
+			ExceptionClause clone = (exceptionClause != null ? exceptionClause.clone(): null);
+			result.setExceptionClause(clone);
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
 			Invocation invocation = invocation(result, method);
@@ -185,7 +195,7 @@ public class JavaTranslator {
 				body.addStatement(new ReturnStatement(invocation));
 			}
 			result.addModifier(new Public());
-			result.setUniParent(method.parent());
+			result.setUniParent(method);
 			Type type = method.nearestAncestor(Type.class);
 			List<TypeParameter> typeParameters = type.parameters();
 			for(TypeParameter par: typeParameters) {
@@ -283,7 +293,7 @@ public class JavaTranslator {
 		if(! overrides(relation)) {
 		String name = relation.signature().name();
 		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(setterName(relation)), new JavaTypeReference("void"));
-		result.header().addParameter(new FormalParameter(name, relation.componentTypeReference().clone()));
+		result.header().addParameter(new FormalParameter(name, innerClassTypeReference(relation)));
 		result.addModifier(new Protected());
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
