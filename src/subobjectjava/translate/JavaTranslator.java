@@ -121,11 +121,11 @@ public class JavaTranslator {
 	
 	private Set<Type> _processed = new HashSet<Type>();
 
-	public void translate(Type type) throws ChameleonProgrammerException, LookupException {
-		Type backup = type.clone();
-		List<ComponentRelation> relations = type.directlyDeclaredMembers(ComponentRelation.class);
+	public Type translate(Type original) throws ChameleonProgrammerException, LookupException {
+		Type type = original.clone();
+		List<ComponentRelation> relations = original.directlyDeclaredMembers(ComponentRelation.class);
 		for(ComponentRelation relation : relations) {
-      ensureTranslation(relation.componentType());
+      //ensureTranslation(relation.componentType());
 			// Add a field and a getter for the subobject
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation);
 			if(fieldForComponent != null) {
@@ -138,13 +138,13 @@ public class JavaTranslator {
 			List<Method> aliasMethods = aliasMethods(relation);
 			type.addAll(aliasMethods);
 			// Replace super calls on subobjects with calls to the original methods on the getter
-			replaceSuperCalls(relation);
+			replaceSuperCalls(relation, type);
 			Type innerClass = createInnerClassFor(relation);
-			_innerClassMap.put(relation, type);
+			//_innerClassMap.put(relation, type);
 			type.add(innerClass);
 			addOutwardDelegations(relation, innerClass);
 			// Replace component with getter
-			SingleAssociation<ComponentRelation, Element> parentLink = relation.parentLink();
+			###SingleAssociation<ComponentRelation, Element> parentLink = relation.parentLink();
 			Association<? extends Element, ? super ComponentRelation> childLink = parentLink.getOtherRelation();
 			Method getterForComponent = getterForComponent(relation);
 			if(getterForComponent != null) {
@@ -358,8 +358,7 @@ public class JavaTranslator {
 		return relation.componentType().baseType().signature().name()+SHADOW+relation.signature().name();
 	}
 	
-	public void replaceSuperCalls(final ComponentRelation relation) throws LookupException {
-		Type parent = relation.nearestAncestor(Type.class);
+	public void replaceSuperCalls(final ComponentRelation relation, Type parent) throws LookupException {
 		List<SuperTarget> superTargets = parent.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
 
 			@Override
