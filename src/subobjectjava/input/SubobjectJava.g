@@ -281,3 +281,20 @@ fqn returns [QualifiedName element]
               }
         ;
         
+expression returns [Expression element]
+    :   ex=conditionalExpression {retval.element=ex.element;} (op=assignmentOperator exx=expression 
+        {String txt = $op.text; 
+         if(txt.equals("=")) {
+           retval.element = new AssignmentExpression(ex.element,exx.element);
+         } else {
+           retval.element = new InfixOperatorInvocation($op.text,ex.element);
+           ((InfixOperatorInvocation)retval.element).addArgument(new ActualArgument(exx.element));
+         }
+         setLocation(retval.element,op.start,op.stop,"__NAME");
+         setLocation(retval.element,retval.start,exx.stop);
+        }
+        )?
+        | 'subobject' '.' id=Identifier args=arguments {
+          retval.element = new SubobjectConstructorCall($id.text, args.element);
+           }
+    ;
