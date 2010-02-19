@@ -185,7 +185,7 @@ import subobjectjava.model.component.ConfigurationBlock;
 import subobjectjava.model.component.ConfigurationClause;
 import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.component.OverridesClause;
-
+import subobjectjava.model.expression.SubobjectConstructorCall;
 import java.util.List;
 import java.util.ArrayList;
 }
