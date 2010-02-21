@@ -294,7 +294,9 @@ expression returns [Expression element]
          setLocation(retval.element,retval.start,exx.stop);
         }
         )?
-        | 'subobject' '.' id=Identifier args=arguments {
+        | sb='subobject' '.' id=Identifier args=arguments {
           retval.element = new SubobjectConstructorCall($id.text, args.element);
+         setLocation(retval.element,sb,args.stop);
+         setKeyword(retval.element,sb);
            }
     ;
