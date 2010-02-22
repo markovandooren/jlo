@@ -23,11 +23,11 @@ import chameleon.support.member.simplename.method.NormalMethod;
 
 public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCall, NormalMethod> {
 
-  public SubobjectConstructorCall(InvocationTarget subobjectTarget) {
+  public SubobjectConstructorCall(NamedTarget subobjectTarget) {
   	super(subobjectTarget);
   }
 
-  public SubobjectConstructorCall(InvocationTarget subobjectTarget, List<ActualArgument> arguments) {
+  public SubobjectConstructorCall(NamedTarget subobjectTarget, List<ActualArgument> arguments) {
   	super(subobjectTarget);
   	addAllArguments(arguments);
   }
@@ -40,11 +40,16 @@ public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCal
   	super(new NamedTarget(subobjectName));
   	addAllArguments(arguments);
   }
+  
+  @Override
+  public NamedTarget getTarget() {
+  	return (NamedTarget) super.getTarget();
+  }
 	
 	@Override
 	protected SubobjectConstructorCall cloneInvocation(InvocationTarget target) {
 		List<ActualArgument> arguments = new ArrayList<ActualArgument>();
-		return new SubobjectConstructorCall(getTarget().clone(), arguments);
+		return new SubobjectConstructorCall((NamedTarget)getTarget().clone(), arguments);
 	}
 
 	@Override
