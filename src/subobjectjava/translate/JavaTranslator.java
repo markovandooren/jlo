@@ -120,6 +120,9 @@ public class JavaTranslator {
 	
 	private Language _language;
 	
+	/**
+	 * Return a type that represents the translation of the given JLow class to a Java class.
+	 */
 	public Type translation(Type original) throws ChameleonProgrammerException, LookupException {
 		Type type = original.clone();
 		List<ComponentRelation> relations = original.directlyDeclaredMembers(ComponentRelation.class);
@@ -319,14 +322,14 @@ public class JavaTranslator {
 		for(Method<?,?,?,?> method: localMethods) {
 			if(method.is(method.language(ObjectOrientedLanguage.class).CONSTRUCTOR) == Ternary.TRUE) {
 				NormalMethod clone = (NormalMethod) method.clone();
-				// substitute parameters before replace the return type, method name, and the body.
-				// the types are not known in the component type, and the super class of the component type
-				// may not have a constructor with the same signature as the current constructor.
-				substituteTypeParameters(method, clone);
 				String name = stub.signature().name();
 				RegularImplementation impl = (RegularImplementation) clone.implementation();
 				Block block = new Block();
 				impl.setBody(block);
+				// substitute parameters before replace the return type, method name, and the body.
+				// the types are not known in the component type, and the super class of the component type
+				// may not have a constructor with the same signature as the current constructor.
+				substituteTypeParameters(method, clone);
 				Invocation inv = new SuperConstructorDelegation();
 				useParametersInInvocation(clone, inv);
 				block.addStatement(new StatementExpression(inv));
