@@ -5,15 +5,15 @@ import java.util.List;
 
 import org.rejuse.logic.ternary.Ternary;
 
+import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.declaration.Signature;
 import chameleon.core.expression.ActualArgument;
+import chameleon.core.expression.CrossReferenceTarget;
 import chameleon.core.expression.Invocation;
 import chameleon.core.expression.InvocationTarget;
 import chameleon.core.expression.NamedTarget;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.lookup.SelectorWithoutOrder;
-import chameleon.core.method.Method;
 import chameleon.core.method.MethodSignature;
 import chameleon.core.relation.WeakPartialOrder;
 import chameleon.core.type.Type;
@@ -23,33 +23,33 @@ import chameleon.support.member.simplename.method.NormalMethod;
 
 public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCall, NormalMethod> {
 
-  public SubobjectConstructorCall(NamedTarget subobjectTarget) {
+  public SubobjectConstructorCall(CrossReferenceTarget<ComponentRelation> subobjectTarget) {
   	super(subobjectTarget);
   }
 
-  public SubobjectConstructorCall(NamedTarget subobjectTarget, List<ActualArgument> arguments) {
+  public SubobjectConstructorCall(CrossReferenceTarget<ComponentRelation> subobjectTarget, List<ActualArgument> arguments) {
   	super(subobjectTarget);
   	addAllArguments(arguments);
   }
 
   public SubobjectConstructorCall(String subobjectName) {
-  	super(new NamedTarget(subobjectName));
+  	super(new CrossReferenceTarget<ComponentRelation>(subobjectName, ComponentRelation.class));
   }
 
   public SubobjectConstructorCall(String subobjectName, List<ActualArgument> arguments) {
-  	super(new NamedTarget(subobjectName));
+  	super(new CrossReferenceTarget<ComponentRelation>(subobjectName, ComponentRelation.class));
   	addAllArguments(arguments);
   }
   
   @Override
-  public NamedTarget getTarget() {
-  	return (NamedTarget) super.getTarget();
+  public CrossReferenceTarget<ComponentRelation> getTarget() {
+  	return (CrossReferenceTarget<ComponentRelation>) super.getTarget();
   }
 	
 	@Override
 	protected SubobjectConstructorCall cloneInvocation(InvocationTarget target) {
 		List<ActualArgument> arguments = new ArrayList<ActualArgument>();
-		return new SubobjectConstructorCall((NamedTarget)getTarget().clone(), arguments);
+		return new SubobjectConstructorCall((CrossReferenceTarget<ComponentRelation>)getTarget().clone(), arguments);
 	}
 
 	@Override

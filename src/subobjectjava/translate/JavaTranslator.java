@@ -29,6 +29,7 @@ import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.SubobjectJava;
 import subobjectjava.model.language.SubobjectJavaOverridesRelation;
 import chameleon.core.Config;
+import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
@@ -119,6 +120,19 @@ public class JavaTranslator {
 	}
 	
 	private Language _language;
+	
+ /*@
+   @ public behavior
+   @
+   @ pre compilationUnit != null;
+   @
+   @ post \result != null;
+   @ post \fresh(\result);
+   @*/
+	public CompilationUnit translation(CompilationUnit compilationUnit) {
+		CompilationUnit clone = compilationUnit.clone();
+	}
+	
 	
 	/**
 	 * Return a type that represents the translation of the given JLow class to a Java class.
@@ -232,9 +246,6 @@ public class JavaTranslator {
 				  	targetInnerClass.add(outward);
 				  }
 				}
-				// oldName(....) {
-				//   DirectOuterClass.this.newName();
-				// }
 			}
 		}
 	}
@@ -259,42 +270,6 @@ public class JavaTranslator {
 		return result;
 	}
 
-//	public void addOutwardDelegations(ComponentRelation relation, Type innerClass) throws LookupException {
-//		ConfigurationBlock block = relation.configurationBlock();
-//		for(ConfigurationClause clause: block.clauses()) {
-//			if(clause instanceof OverridesClause) {
-//				OverridesClause ov = (OverridesClause)clause;
-//				QualifiedName qn = ov.oldFqn();
-//				QualifiedName poppedName = qn.popped();
-//				int size = poppedName.length();
-//				Element container = innerClass;
-//				if(size > 0) {
-//					SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);
-//					ref.setUniParent(relation.componentType());
-//				  container = ref.getElement();
-//				}
-//				Signature lastSignature = qn.lastSignature();
-//				SimpleReference<Declaration> ref = new SimpleReference<Declaration>(null, lastSignature.clone(), Declaration.class);
-//				ref.setUniParent(container);
-//				Declaration decl = ref.getElement();
-//				if(decl instanceof Method) {
-//					Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
-//				  Method original = createOriginal(method, original(method.name()));
-//				  if(original != null) {
-//				  	innerClass.add(original);
-//				  }
-//				  Method outward = createOutward(method,((SimpleNameMethodSignature)ov.newSignature()).name(),relation);
-//				  if(outward != null) {
-//				  	innerClass.add(outward);
-//				  }
-//				}
-//				// oldName(....) {
-//				//   DirectOuterClass.this.newName();
-//				// }
-//			}
-//		}
-//	}
-	
 	/**
 	 * 
 	 * @param relation A component relation from either the original class, or one of its nested components.
@@ -376,17 +351,6 @@ public class JavaTranslator {
 			invocation.setTarget(new SuperTarget());
 			addImplementation(method, body, invocation);
 			substituteTypeParameters(method, result);
-//		  List<CrossReference> crossReferences = 
-//		      result.descendants(CrossReference.class, 
-//				              new UnsafePredicate<CrossReference,LookupException>() {
-//
-//												@Override
-//												public boolean eval(CrossReference object) throws LookupException {
-//													return object.getElement().equals(selectionDeclaration());
-//												}
-//			 
-//		 });
-
 		}
 		else {
 			result = null;
@@ -445,8 +409,6 @@ public class JavaTranslator {
 	}
 	
 	public String innerClassName(ComponentRelation relation, Type outer) throws LookupException {
-//		return outer.signature().name()+"_"+relation.componentType().baseType().signature().name()+SHADOW+relation.signature().name();
-		//return outer.signature().name()+SHADOW+relation.signature().name();
 		return innerClassName(outer, relation.signature()); 
 	}
 	
