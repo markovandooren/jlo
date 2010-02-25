@@ -82,56 +82,10 @@ import chameleon.test.provider.ElementProvider;
 
 public class JavaTranslator {
 
-	public JavaTranslator(SubobjectJava language, ElementProvider<Namespace> namespaceProvider) throws ParseException, IOException {
-		super();
-		_language = language;
-		_typeProvider = new BasicDescendantProvider<Type>(namespaceProvider, Type.class);
-	}
-	
-	public ElementProvider<Type> typeProvider() {
-		return _typeProvider;
-	}
-
-	private ElementProvider<Type> _typeProvider;
-
-	public Java translate() throws ParseException, IOException, ChameleonProgrammerException, LookupException {
-		RootNamespace clone = language().defaultNamespace().clone();
-		Java result = new Java();
-		result.cloneConnectorsFrom(language());
-		result.cloneProcessorsFrom(language());
-		result.setDefaultNamespace(clone);
-		Map<Type,Type> map = new HashMap<Type,Type>();
-		for(Type type: typeProvider().elements(result)) {
-			Type newType = translation(type);
-			map.put(newType, type);
-		}
-		
-		for(Entry<Type,Type> entry : map.entrySet()) {
-			SingleAssociation newParentlink = entry.getKey().parentLink();
-			SingleAssociation oldParentlink = entry.getValue().parentLink();
-			Association childLink = oldParentlink.getOtherRelation();
-			childLink.replace(oldParentlink, newParentlink);
-		}
-		return result;
-	}
-	
-	public Language language() throws ParseException, IOException {
-		return _language;
-	}
-	
-	private Language _language;
-	
- /*@
-   @ public behavior
-   @
-   @ pre compilationUnit != null;
-   @
-   @ post \result != null;
-   @ post \fresh(\result);
-   @*/
-	public CompilationUnit translation(CompilationUnit compilationUnit) {
-		CompilationUnit clone = compilationUnit.clone();
-	}
+//	public JavaTranslator(SubobjectJava language, ElementProvider<Namespace> namespaceProvider) throws ParseException, IOException {
+//		_sourceLanguage = language;
+//		_typeProvider = new BasicDescendantProvider<Type>(namespaceProvider, Type.class);
+//	}
 	
 	
 	/**
@@ -143,10 +97,10 @@ public class JavaTranslator {
 		for(ComponentRelation relation : relations) {
       //ensureTranslation(relation.componentType());
 			// Add a field subobject
-			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,type);
-			if(fieldForComponent != null) {
-			  type.add(fieldForComponent);
-			}
+//			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,type);
+//			if(fieldForComponent != null) {
+//			  type.add(fieldForComponent);
+//			}
 			
 			// Add a getter for subobject
 			Method getterForComponent = getterForComponent(relation,type);
@@ -168,12 +122,20 @@ public class JavaTranslator {
   		addOutwardDelegations(relation, type);
   		
   		// Replace constructor calls
+  		
+  		//translate inner classes
 
 		}
 		for(ComponentRelation relation: type.directlyDeclaredMembers(ComponentRelation.class)) {
 			type.setUniParent(original.parent());
 			replaceSuperCalls(relation, type);
 			replaceConstructorCalls(relation);
+
+			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,type);
+			if(fieldForComponent != null) {
+			  type.add(fieldForComponent);
+			}
+			
 			type.setUniParent(null);
 			relation.disconnect();
 		}
@@ -440,10 +402,9 @@ public class JavaTranslator {
 	
 	public MemberVariableDeclarator fieldForComponent(ComponentRelation relation, Type outer) throws LookupException {
 		if(! overrides(relation)) {
-//		MemberVariableDeclarator result = new MemberVariableDeclarator(relation.componentTypeReference().clone());
 			MemberVariableDeclarator result = new MemberVariableDeclarator(innerClassTypeReference(relation, outer));
-		result.add(new VariableDeclaration(fieldName(relation)));
-		return result;
+		  result.add(new VariableDeclaration(fieldName(relation)));
+		  return result;
 		} else {
 			return null;
 		}
@@ -485,6 +446,7 @@ public class JavaTranslator {
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
 		NamedTargetExpression componentFieldRef = new NamedTargetExpression(fieldName(relation), null);
+		componentFieldRef.setTarget(new ThisLiteral());
 		body.addStatement(new StatementExpression(new AssignmentExpression(componentFieldRef, new NamedTargetExpression(name, null))));
 		return result;
 		} else {
@@ -553,40 +515,8 @@ public class JavaTranslator {
 	}
 	
 	public String fieldName(ComponentRelation relation) {
-		return "__component_" + relation.signature().name();
+		return relation.signature().name();
 	}
 	
 	
-  /**
-   * args[0] = path for the directory to write output
-   * args[1] = path to read input files
-   * ...1 or more input paths possible...
-   * args[i] = fqn of package to read, let this start with "@" to read the package recursively
-   *...1 or more packageFqns possible...
-   * args[n] = fqn of package to read, let this start with "#" to NOT read the package recursively.
-   *...1 or more packageFqns possible...
-   *
-   * Example 
-   * java Copy outputDir baseInputDir customInputDir1 customInputDir2 @myPackage.subPackage 
-   */
-  public static void main(String[] args) throws Exception {
-    if(args.length < 2) {
-      System.out.println("Usage: java .... JavaTranslator outputDir inputDir* @recursivePackageFQN* #packageFQN* $typeFQN*");
-    }
-    BasicConfigurator.configure();
-    Logger.getRootLogger().setLevel(Level.FATAL);
-    Config.setCacheLanguage(true);
-    Config.setCacheElementReferences(true);
-    Config.setCacheElementProperties(true);
-    ProviderProvider provider = new ProviderProvider(new SubobjectJavaModelFactory(),".java",true,true);
-    provider.processArguments(args);
-    long start = System.currentTimeMillis();
-    Java result = new JavaTranslator((SubobjectJava) provider.language(), provider.namespaceProvider()).translate();
-    // Output
-    long stop = System.currentTimeMillis();
-    File outputDir = provider.outputDir();
-    TypeWriter writer = new TypeWriter(result, new BasicDescendantProvider<Type>(provider.namespaceProvider(), Type.class),outputDir);
-    writer.write();
-    System.out.println("Translation took "+(stop - start) + " milliseconds.");
-  }
 }
