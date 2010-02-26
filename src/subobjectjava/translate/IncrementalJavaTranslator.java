@@ -1,8 +1,10 @@
 package subobjectjava.translate;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import jnome.core.language.Java;
 
@@ -23,6 +25,22 @@ public class IncrementalJavaTranslator {
 		_sourceLanguage = source;
 		_targetLanguage = target;
 		_translator = new JavaTranslator();
+	}
+	
+	private boolean _initialized=false;
+	
+	private void initTargetLanguage() throws LookupException {
+		Set<CompilationUnit> compilationUnits = new HashSet<CompilationUnit>();
+		for(NamespacePart nsp: sourceLanguage().defaultNamespace().descendants(NamespacePart.class)) {
+			CompilationUnit cu = nsp.nearestAncestor(CompilationUnit.class);
+			if(cu != null) {
+				compilationUnits.add(cu);
+			}
+		}
+		for(CompilationUnit compilationUnit: compilationUnits) {
+			fullyCloneCompilationUnit(compilationUnit);
+		}
+		_initialized=true;
 	}
 	
 	public Language sourceLanguage() {
@@ -51,15 +69,36 @@ public class IncrementalJavaTranslator {
    @ post \result != null;
    @ post \fresh(\result);
    @*/
-	public void build(CompilationUnit compilationUnit) throws LookupException {
-		CompilationUnit clone = compilationUnit.clone();
-		
+	public CompilationUnit build(CompilationUnit compilationUnit) throws LookupException {
+		if(!_initialized) {
+			initTargetLanguage();
+		}
 		// Remove a possible old translation of the given compilation unit
 		// from the target model.
+		CompilationUnit clone = fullyCloneCompilationUnit(compilationUnit);
+		NamespacePart nsp = compilationUnit.namespaceParts().get(0);
+		NamespacePart newNamespacePart = clone.namespaceParts().get(0);
+
+		List<Type> originalTypes = nsp.children(Type.class);
+		List<Type> newTypes = newNamespacePart.children(Type.class);
+		int size = originalTypes.size();
+		for(int i=0; i<size;i++) {
+			SingleAssociation<Type, Element> newParentLink = newTypes.get(i).parentLink();
+			Type translated = basicTranslator().translation(originalTypes.get(i));
+			newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
+		}
+		return clone;
+	}
+	
+	private Map<CompilationUnit,CompilationUnit> _cuMap = new HashMap<CompilationUnit,CompilationUnit>();
+
+	
+	public CompilationUnit fullyCloneCompilationUnit(CompilationUnit compilationUnit) throws LookupException {
 		CompilationUnit old = _cuMap.get(compilationUnit);
 		if(old != null) {
 			old.disconnect();
 		}
+		CompilationUnit clone = compilationUnit.clone();
 		// connect the namespacepart of the clone compilation unit
 		// to the proper namespace in the target model. The cloned
 		// namespace part is not connected to a namespace, so we
@@ -70,18 +109,7 @@ public class IncrementalJavaTranslator {
 		Namespace newNs = targetLanguage().defaultNamespace().getOrCreateNamespace(fqn);
 		NamespacePart newNamespacePart = clone.namespaceParts().get(0);
 		newNs.addNamespacePart(newNamespacePart);
-		// Warning: check for overlapping FQNs
-		List<Type> originalTypes = nsp.children(Type.class);
-		List<Type> newTypes = newNamespacePart.children(Type.class);
-		int size = originalTypes.size();
-		for(int i=0; i<size;i++) {
-			SingleAssociation<Type, Element> newParentLink = newTypes.get(i).parentLink();
-			Type translated = basicTranslator().translation(originalTypes.get(i));
-			newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
-		}
-//		return clone;
+		_cuMap.put(compilationUnit, clone);
+    return clone;
 	}
-	
-	private Map<CompilationUnit,CompilationUnit> _cuMap = new HashMap<CompilationUnit,CompilationUnit>();
-
 }
