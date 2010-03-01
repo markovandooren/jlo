@@ -170,6 +170,7 @@ import jnome.core.modifier.Transient;
 import jnome.core.modifier.Volatile;
 import jnome.core.modifier.Synchronized;
 import jnome.core.modifier.JavaConstructor;
+import jnome.core.modifier.Implements;
 
 import jnome.core.type.JavaTypeReference;
 

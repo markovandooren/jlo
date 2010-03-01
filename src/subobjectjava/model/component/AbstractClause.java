@@ -57,7 +57,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	}
 	
 	public Declaration oldDeclaration() throws LookupException {
-		SimpleReference<Declaration> ref = new SimpleReference<Declaration>(oldFqn(), Declaration.class);
+		SimpleReference<Declaration> ref = new SimpleReference<Declaration>(oldFqn().clone(), Declaration.class);
 		ref.setUniParent(nearestAncestor(ComponentRelation.class).componentType());
 		return ref.getElement();
 	}

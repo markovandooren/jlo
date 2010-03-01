@@ -1,5 +1,6 @@
 package subobjectjava.model.component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.rejuse.predicate.UnsafePredicate;
@@ -20,8 +21,8 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 	}
 	
 	@Override
-	public Member process(Member member) throws LookupException {
-		Member result = null;
+	public List<Member> process(Type type) throws LookupException {
+		List<Member> result = new ArrayList<Member>();
 //		if(member.signature().sameAs(oldFqn())) {
 //			result = member.clone();
 //			result.setSignature(newSignature().clone());

@@ -118,10 +118,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 	public List<? extends Member> getIntroducedMembers() throws LookupException {
 		List<Member> result = new ArrayList<Member>();
 		result.add(this);
-		List<Member> superMembers = componentType().members();
+//		List<Member> superMembers = componentType().members();
 		ConfigurationBlock configurationBlock = configurationBlock();
 		if(configurationBlock != null) {
-		  result.addAll(configurationBlock.processedMembers(superMembers));
+		  result.addAll(configurationBlock.processedMembers(componentType()));
 		}
 		return result;
 //		return declaredMembers();

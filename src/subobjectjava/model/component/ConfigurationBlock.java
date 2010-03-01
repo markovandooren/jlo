@@ -11,6 +11,7 @@ import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.core.namespace.NamespaceElementImpl;
+import chameleon.core.type.Type;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 
@@ -58,19 +59,12 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock,
 		return _elements.getOtherEnds();
 	}
 
-	public Collection<? extends Member> processedMembers(List<Member> members) throws LookupException {
+	public Collection<? extends Member> processedMembers(Type type) throws LookupException {
 		Set<Member> result = new HashSet<Member>();
-		for(Member member: members) {
 			for(ConfigurationClause clause: clauses()) {
-				Member renamedMember = clause.process(member);
-				if(renamedMember != null) {
-					result.add(renamedMember);
-				}
-				else {
-					defaultProcess(member, result);
-				}
+				List<Member> renamedMembers = clause.process(type);
+				result.addAll(renamedMembers);
 			}
-		}
 		return result;
 	}
 
