@@ -79,11 +79,11 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 		}
 	}
 
-	@Override
-	//FIXME: remove this method when the API is parsed
-	public void initializePredefinedElements() {
-	  addPrimitives(language().defaultNamespace());
-	}
+//	@Override
+//	//FIXME: remove this method when the API is parsed
+//	public void initializePredefinedElements() {
+//	  addPrimitives(language().defaultNamespace());
+//	}
   
 
 }

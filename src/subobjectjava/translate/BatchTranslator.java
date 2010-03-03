@@ -97,7 +97,7 @@ public class BatchTranslator {
     BasicConfigurator.configure();
     Logger.getRootLogger().setLevel(Level.FATAL);
     Config.setCacheLanguage(true);
-//    Config.setCacheElementReferences(true);
+    Config.setCacheElementReferences(true);
     Config.setCacheElementProperties(true);
     ProviderProvider provider = new ProviderProvider(new SubobjectJavaModelFactory(),".java",true,true);
     provider.processArguments(args);
