@@ -1,35 +1,25 @@
 package subobjectjava.translate;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import jnome.core.expression.ConstructorInvocation;
 import jnome.core.language.Java;
 import jnome.core.type.JavaTypeReference;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.UnsafePredicate;
 
-import subobjectjava.input.SubobjectJavaModelFactory;
+import subobjectjava.model.component.AbstractClause;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ConfigurationBlock;
 import subobjectjava.model.component.ConfigurationClause;
-import subobjectjava.model.component.OverridesClause;
+import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.expression.SubobjectConstructorCall;
-import subobjectjava.model.language.SubobjectJava;
 import subobjectjava.model.language.SubobjectJavaOverridesRelation;
-import chameleon.core.Config;
-import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
@@ -37,9 +27,9 @@ import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.expression.ActualArgument;
+import chameleon.core.expression.Expression;
 import chameleon.core.expression.Invocation;
 import chameleon.core.expression.NamedTargetExpression;
-import chameleon.core.language.Language;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.core.method.Method;
@@ -47,8 +37,6 @@ import chameleon.core.method.RegularImplementation;
 import chameleon.core.method.RegularMethod;
 import chameleon.core.method.exception.ExceptionClause;
 import chameleon.core.modifier.Modifier;
-import chameleon.core.namespace.Namespace;
-import chameleon.core.namespace.RootNamespace;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.reference.SimpleReference;
@@ -61,7 +49,6 @@ import chameleon.core.type.generics.TypeParameter;
 import chameleon.core.type.inheritance.SubtypeRelation;
 import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ChameleonProgrammerException;
-import chameleon.input.ParseException;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.expression.SuperConstructorDelegation;
@@ -77,8 +64,6 @@ import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
 import chameleon.support.variable.VariableDeclaration;
-import chameleon.test.provider.BasicDescendantProvider;
-import chameleon.test.provider.ElementProvider;
 
 public class JavaTranslator {
 
@@ -114,7 +99,7 @@ public class JavaTranslator {
 				type.add(setterForComponent);
 			}
 			
-			type.addAll(aliasMethods(relation));
+			//type.addAll(aliasMethods(relation));
 			
 			// Create the inner classes for the components
 			inner(type, relation, type);
@@ -126,9 +111,11 @@ public class JavaTranslator {
   		//translate inner classes
 
 		}
+		type.setUniParent(original.parent());
+		
+		replaceSuperCalls(type);
 		for(ComponentRelation relation: type.directlyDeclaredMembers(ComponentRelation.class)) {
-			type.setUniParent(original.parent());
-			replaceSuperCalls(relation, type);
+//			replaceSuperCalls(relation, type);
 			replaceConstructorCalls(relation);
 
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,type);
@@ -136,9 +123,9 @@ public class JavaTranslator {
 			  type.add(fieldForComponent);
 			}
 			
-			type.setUniParent(null);
 			relation.disconnect();
 		}
+		type.setUniParent(null);
 		return type;
 	}
 	
@@ -181,8 +168,8 @@ public class JavaTranslator {
 	public void addOutwardDelegations(ComponentRelation relation, Type outer) throws LookupException {
 		ConfigurationBlock block = relation.configurationBlock();
 		for(ConfigurationClause clause: block.clauses()) {
-			if(clause instanceof OverridesClause) {
-				OverridesClause ov = (OverridesClause)clause;
+			if(clause instanceof AbstractClause) {
+				AbstractClause ov = (AbstractClause)clause;
 				QualifiedName qn = ov.oldFqn();
 				QualifiedName poppedName = qn.popped();
 				int size = poppedName.length();
@@ -207,9 +194,26 @@ public class JavaTranslator {
 				  if(outward != null) {
 				  	targetInnerClass.add(outward);
 				  }
+				  if(ov instanceof RenamingClause) {
+				  	outer.add(createAlias(relation, method, ((SimpleNameMethodSignature)ov.newSignature()).name()));
+				  }
 				}
 			}
 		}
+	}
+	
+	public Method createAlias(ComponentRelation relation, Method<?,?,?,?> method, String newName) throws LookupException {
+		NormalMethod<?,?,?> result;
+		result = innerMethod(method, newName);
+		Block body = new Block();
+		result.setImplementation(new RegularImplementation(body));
+		Invocation invocation = invocation(result, original(method.name()));
+		TypeReference ref = getRelativeClassName(relation);
+		Expression target = new RegularMethodInvocation(getterName(relation), null);
+		invocation.setTarget(target);
+		substituteTypeParameters(method, result);
+		addImplementation(method, body, invocation);
+		return result;
 	}
 
 	
@@ -374,7 +378,29 @@ public class JavaTranslator {
 		return innerClassName(outer, relation.signature()); 
 	}
 	
-	public void replaceSuperCalls(final ComponentRelation relation, Type parent) throws LookupException {
+	public void replaceSuperCalls(Type type) throws LookupException {
+		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
+
+			@Override
+			public boolean eval(SuperTarget superTarget) throws LookupException {
+				return superTarget.getTargetDeclaration() instanceof ComponentRelation;
+			}
+			
+		}
+		);
+		for(SuperTarget superTarget: superTargets) {
+			Element<?,?> inv = superTarget.parent();
+			if(inv instanceof RegularMethodInvocation) {
+				RegularMethodInvocation call = (RegularMethodInvocation) inv;
+			  Invocation subObjectSelection = new RegularMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
+			  call.setTarget(subObjectSelection);
+			  call.setName(original(call.name()));
+			}
+      
+		}
+	}
+	
+/*	public void replaceSuperCalls(final ComponentRelation relation, Type parent) throws LookupException {
 		List<SuperTarget> superTargets = parent.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
 
 			@Override
@@ -394,7 +420,7 @@ public class JavaTranslator {
 			}
       
 		}
-	}
+	}*/
 	
 	public String original(String name) {
 		return "original__"+name;
