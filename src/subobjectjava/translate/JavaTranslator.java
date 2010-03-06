@@ -103,9 +103,9 @@ public class JavaTranslator {
 			
 			// Create the inner classes for the components
 			inner(type, relation, type);
-
+      type.flushCache();
   		addOutwardDelegations(relation, type);
-  		
+  		type.flushCache();
   		// Replace constructor calls
   		
   		//translate inner classes

@@ -112,6 +112,11 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		public boolean selectedRegardlessOfName(D declaration) throws LookupException {
 			return _original.selectedRegardlessOfName(declaration);
 		}
+
+		@Override
+		public String selectionName() throws LookupException {
+			return _original.selectionName();
+		}
 		
 	}
 
