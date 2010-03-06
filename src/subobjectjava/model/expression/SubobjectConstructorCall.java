@@ -64,12 +64,12 @@ public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCal
 	
   public class ConstructorSelector extends DeclarationSelector<NormalMethod> {
     
-    public boolean selectedRegardlessOfSignature(NormalMethod declaration) throws LookupException {
+    public boolean selectedRegardlessOfName(NormalMethod declaration) throws LookupException {
     	return declaration.is(language(ObjectOrientedLanguage.class).CONSTRUCTOR)==Ternary.TRUE;
     }
     
 		@Override
-		public boolean selected(Signature signature) throws LookupException {
+		public boolean selectedBasedOnName(Signature signature) throws LookupException {
     	boolean result = false;
 			if(signature instanceof MethodSignature) {
 				MethodSignature<?,?> sig = (MethodSignature<?,?>)signature;

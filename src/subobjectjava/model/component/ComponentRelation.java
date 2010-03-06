@@ -99,8 +99,8 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		}
 
 		@Override
-		public boolean selected(Signature signature) throws LookupException {
-			return _original.selected(signature);
+		public boolean selectedBasedOnName(Signature signature) throws LookupException {
+			return _original.selectedBasedOnName(signature);
 		}
 
 		@Override
@@ -109,8 +109,8 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		}
 
 		@Override
-		public boolean selectedRegardlessOfSignature(D declaration) throws LookupException {
-			return _original.selectedRegardlessOfSignature(declaration);
+		public boolean selectedRegardlessOfName(D declaration) throws LookupException {
+			return _original.selectedRegardlessOfName(declaration);
 		}
 		
 	}
