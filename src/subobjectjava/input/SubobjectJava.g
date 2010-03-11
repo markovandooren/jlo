@@ -162,6 +162,7 @@ import jnome.core.expression.ClassLiteral;
 import jnome.core.expression.ArrayAccessExpression;
 import jnome.core.expression.ArrayCreationExpression;
 import jnome.core.expression.ConstructorInvocation;
+import jnome.core.expression.JavaMethodInvocation;
 
 import jnome.core.language.Java;
 
