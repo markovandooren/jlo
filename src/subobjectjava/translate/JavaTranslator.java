@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jnome.core.expression.ConstructorInvocation;
+import jnome.core.expression.invocation.ConstructorInvocation;
 import jnome.core.language.Java;
 import jnome.core.type.JavaTypeReference;
 
