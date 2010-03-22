@@ -21,6 +21,7 @@ import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.CompositeQualifiedName;
+import chameleon.core.declaration.TargetDeclaration;
 
 import chameleon.core.element.Element;
 
@@ -56,6 +57,8 @@ import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.TypeImport;
 import chameleon.core.namespacepart.DemandImport;
+
+import chameleon.core.reference.CrossReference;
 
 import chameleon.core.statement.Block;
 import chameleon.core.statement.Statement;
@@ -161,8 +164,8 @@ import jnome.core.expression.ArrayInitializer;
 import jnome.core.expression.ClassLiteral;
 import jnome.core.expression.ArrayAccessExpression;
 import jnome.core.expression.ArrayCreationExpression;
-import jnome.core.expression.ConstructorInvocation;
-import jnome.core.expression.JavaMethodInvocation;
+import jnome.core.expression.invocation.ConstructorInvocation;
+import jnome.core.expression.invocation.JavaMethodInvocation;
 
 import jnome.core.language.Java;
 

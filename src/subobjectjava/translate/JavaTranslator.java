@@ -256,7 +256,7 @@ public class JavaTranslator {
 		  superReference = relation.componentTypeReference().clone();
 		} else {
 		   String innerClassName = innerClassName(relation, relation.nearestAncestor(Type.class));
-		  superReference = new JavaTypeReference(innerClassName);
+		  superReference = relation.language(Java.class).createTypeReference(innerClassName);
 		 }
 		stub.addInheritanceRelation(new SubtypeRelation(superReference));
 		List<Method> localMethods = componentType.directlyDeclaredMembers(Method.class);
@@ -274,7 +274,7 @@ public class JavaTranslator {
 				Invocation inv = new SuperConstructorDelegation();
 				useParametersInInvocation(clone, inv);
 				block.addStatement(new StatementExpression(inv));
-				clone.setReturnTypeReference(new JavaTypeReference(name));
+				clone.setReturnTypeReference(relation.language(Java.class).createTypeReference(name));
 				((SimpleNameMethodHeader)clone.header()).setName(name);
 				stub.add(clone);
 			}
@@ -303,7 +303,7 @@ public class JavaTranslator {
 	}
 	
 	public TypeReference getRelativeClassName(ComponentRelation relation) {
-		return new JavaTypeReference(relation.nearestAncestor(Type.class).signature().name());
+		return relation.language(Java.class).createTypeReference(relation.nearestAncestor(Type.class).signature().name());
 	}
 	
 	public Method createOriginal(Method<?,?,?,?> method, String original) throws LookupException {
@@ -437,7 +437,7 @@ public class JavaTranslator {
 	}
 
 	private JavaTypeReference innerClassTypeReference(ComponentRelation relation, Type outer) throws LookupException {
-		return new JavaTypeReference(innerClassName(relation, outer));
+		return relation.language(Java.class).createTypeReference(innerClassName(relation, outer));
 	}
 	
 	public String getterName(ComponentRelation relation) {
@@ -503,12 +503,13 @@ public class JavaTranslator {
 		return result;
 	
 	}
-	public Method aliasFor(Member member, ComponentRelation relation) throws LookupException{
+	public Method aliasFor(Member<?,?,?,?> member, ComponentRelation relation) throws LookupException{
+		Java lang = member.language(Java.class);
 		if(member instanceof Method) {
 			Method<?,?,?,?> method = (Method) member;
 			Method<?,?,?,?> origin = (Method) method.origin();
 			String methodName = fieldName(relation);
-			Method result = new NormalMethod(method.header().clone(), new JavaTypeReference(method.returnType().getFullyQualifiedName()));
+			Method result = new NormalMethod(method.header().clone(), lang.createTypeReference(method.returnType().getFullyQualifiedName()));
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
 			Invocation invocation = invocation(method, origin.name());
