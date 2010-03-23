@@ -466,7 +466,7 @@ public class JavaTranslator {
 	public Method setterForComponent(ComponentRelation relation, Type outer) throws LookupException {
 		if(! overrides(relation)) {
 		String name = relation.signature().name();
-		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(setterName(relation)), new JavaTypeReference("void"));
+		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(setterName(relation)), relation.language(Java.class).createTypeReference("void"));
 		result.header().addParameter(new FormalParameter(name, innerClassTypeReference(relation,outer)));
 		result.addModifier(new Protected());
 		Block body = new Block();
