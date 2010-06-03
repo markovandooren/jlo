@@ -5,8 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import chameleon.core.language.Language;
-import chameleon.core.type.Type;
 import chameleon.exception.ModelException;
+import chameleon.oo.type.Type;
 import chameleon.output.Syntax;
 import chameleon.test.provider.ElementProvider;
 

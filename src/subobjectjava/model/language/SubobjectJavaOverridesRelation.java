@@ -11,8 +11,8 @@ import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.core.relation.StrictPartialOrder;
-import chameleon.core.type.Type;
 import chameleon.oo.language.ObjectOrientedLanguage;
+import chameleon.oo.type.Type;
 
 public class SubobjectJavaOverridesRelation extends StrictPartialOrder<Member> {
 

@@ -9,9 +9,9 @@ import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
-import chameleon.core.type.Type;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.VerificationResult;
+import chameleon.oo.type.Type;
 
 public class OverridesClause extends AbstractClause<OverridesClause> {
 

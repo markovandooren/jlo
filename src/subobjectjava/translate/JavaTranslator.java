@@ -7,6 +7,7 @@ import java.util.Map;
 
 import jnome.core.expression.invocation.ConstructorInvocation;
 import jnome.core.language.Java;
+import jnome.core.type.BasicJavaTypeReference;
 import jnome.core.type.JavaTypeReference;
 
 import org.rejuse.association.SingleAssociation;
@@ -41,15 +42,15 @@ import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.statement.Block;
-import chameleon.core.type.RegularType;
-import chameleon.core.type.Type;
-import chameleon.core.type.TypeReference;
-import chameleon.core.type.generics.InstantiatedTypeParameter;
-import chameleon.core.type.generics.TypeParameter;
-import chameleon.core.type.inheritance.SubtypeRelation;
 import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.oo.language.ObjectOrientedLanguage;
+import chameleon.oo.type.RegularType;
+import chameleon.oo.type.Type;
+import chameleon.oo.type.TypeReference;
+import chameleon.oo.type.generics.InstantiatedTypeParameter;
+import chameleon.oo.type.generics.TypeParameter;
+import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.expression.SuperConstructorDelegation;
 import chameleon.support.expression.SuperTarget;
@@ -139,7 +140,7 @@ public class JavaTranslator {
 		}
 		);
 		for(SubobjectConstructorCall call: constructorCalls) {
-			Invocation inv = new ConstructorInvocation(innerClassTypeReference(relation, type), null);
+			Invocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
 			// move actual arguments from subobject constructor call to new constructor call. 
 			inv.addAllArguments(call.actualArgumentList().getActualParameters());
 			Invocation setterCall = new RegularMethodInvocation(setterName(relation), null);
@@ -242,10 +243,10 @@ public class JavaTranslator {
 	 * @param outer The outer class being generated.
 	 */
 	public Type createInnerClassFor(ComponentRelation relation, Type outer) throws ChameleonProgrammerException, LookupException {
-		NamespacePart nsp = relation.furthestAncestor(NamespacePart.class);
+		NamespacePart nsp = relation.farthestAncestor(NamespacePart.class);
 //		Type parentType = relation.nearestAncestor(Type.class);
-		RegularType componentType = (RegularType) relation.componentType();
-		NamespacePart originalNsp = componentType.furthestAncestor(NamespacePart.class);
+		Type componentType = relation.componentType();
+		NamespacePart originalNsp = componentType.farthestAncestor(NamespacePart.class);
 		for(Import imp: originalNsp.imports()) {
 			nsp.addImport(imp.clone());
 		}
@@ -341,7 +342,7 @@ public class JavaTranslator {
 
 	private NormalMethod<?, ?, ?> innerMethod(Method<?, ?, ?, ?> method, String original) {
 		NormalMethod<?, ?, ?> result;
-		result = new NormalMethod(method.header().clone(), method.getReturnTypeReference().clone());
+		result = new NormalMethod(method.header().clone(), method.returnTypeReference().clone());
 		((SimpleNameMethodHeader)result.header()).setName(original);
 		ExceptionClause exceptionClause = method.getExceptionClause();
 		ExceptionClause clone = (exceptionClause != null ? exceptionClause.clone(): null);
@@ -467,7 +468,7 @@ public class JavaTranslator {
 		if(! overrides(relation)) {
 		String name = relation.signature().name();
 		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(setterName(relation)), relation.language(Java.class).createTypeReference("void"));
-		result.header().addParameter(new FormalParameter(name, innerClassTypeReference(relation,outer)));
+		result.header().addFormalParameter(new FormalParameter(name, innerClassTypeReference(relation,outer)));
 		result.addModifier(new Protected());
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));

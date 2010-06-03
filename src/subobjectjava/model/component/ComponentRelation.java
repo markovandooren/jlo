@@ -7,23 +7,22 @@ import org.rejuse.association.SingleAssociation;
 import org.rejuse.logic.ternary.Ternary;
 
 import chameleon.core.declaration.Declaration;
-import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.Definition;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
+import chameleon.core.lookup.DeclarationContainerSkipper;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
-import chameleon.core.relation.WeakPartialOrder;
-import chameleon.core.type.DeclarationWithType;
-import chameleon.core.type.Type;
-import chameleon.core.type.TypeReference;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
+import chameleon.oo.type.DeclarationWithType;
+import chameleon.oo.type.Type;
+import chameleon.oo.type.TypeReference;
 import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>{
@@ -73,53 +72,6 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		
 	}
 	
-	public static class DeclarationContainerSkipper<D extends Declaration> extends DeclarationSelector<D> {
-
-		private DeclarationSelector<D> _original;
-		
-		private DeclarationContainer _skipped;
-		
-		public DeclarationContainerSkipper(DeclarationSelector<D> original, DeclarationContainer skipped) {
-			_original = original;
-			_skipped = skipped;
-		}
-
-		@Override
-		public List<D> declarations(DeclarationContainer container) throws LookupException {
-			if(container.equals(_skipped)) {
-				return new ArrayList<D>();
-			} else {
-				return super.declarations(container);
-			}
-		}
-
-		@Override
-		public WeakPartialOrder order() {
-			return _original.order();
-		}
-
-		@Override
-		public boolean selectedBasedOnName(Signature signature) throws LookupException {
-			return _original.selectedBasedOnName(signature);
-		}
-
-		@Override
-		public Class selectedClass() {
-			return _original.selectedClass();
-		}
-
-		@Override
-		public boolean selectedRegardlessOfName(D declaration) throws LookupException {
-			return _original.selectedRegardlessOfName(declaration);
-		}
-
-		@Override
-		public String selectionName() throws LookupException {
-			return _original.selectionName();
-		}
-		
-	}
-
 	public List<? extends Member> getIntroducedMembers() throws LookupException {
 		List<Member> result = new ArrayList<Member>();
 		result.add(this);
@@ -211,6 +163,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 
 	public Ternary complete() {
 		return Ternary.TRUE;
+	}
+
+	public Declaration declarator() {
+		return this;
 	}
 
 }

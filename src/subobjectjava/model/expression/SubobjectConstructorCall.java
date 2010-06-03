@@ -6,18 +6,19 @@ import java.util.List;
 import org.rejuse.logic.ternary.Ternary;
 
 import subobjectjava.model.component.ComponentRelation;
+import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.Signature;
 import chameleon.core.expression.ActualArgument;
 import chameleon.core.expression.CrossReferenceTarget;
 import chameleon.core.expression.Invocation;
 import chameleon.core.expression.InvocationTarget;
-import chameleon.core.expression.NamedTarget;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.lookup.TwoPhaseDeclarationSelector;
 import chameleon.core.method.MethodSignature;
 import chameleon.core.relation.WeakPartialOrder;
-import chameleon.core.type.Type;
 import chameleon.oo.language.ObjectOrientedLanguage;
+import chameleon.oo.type.Type;
 import chameleon.support.member.MoreSpecificTypesOrder;
 import chameleon.support.member.simplename.method.NormalMethod;
 
@@ -62,7 +63,7 @@ public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCal
 		return language(ObjectOrientedLanguage.class).voidType();
 	}
 	
-  public class ConstructorSelector extends DeclarationSelector<NormalMethod> {
+  public class ConstructorSelector extends TwoPhaseDeclarationSelector<NormalMethod> {
     
     public boolean selectedRegardlessOfName(NormalMethod declaration) throws LookupException {
     	return declaration.is(language(ObjectOrientedLanguage.class).CONSTRUCTOR)==Ternary.TRUE;
@@ -88,7 +89,7 @@ public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCal
         @Override
         public boolean contains(NormalMethod first, NormalMethod second)
             throws LookupException {
-          return MoreSpecificTypesOrder.create().contains(first.header().getParameterTypes(), second.header().getParameterTypes());
+          return MoreSpecificTypesOrder.create().contains(first.header().formalParameterTypes(), second.header().formalParameterTypes());
         }
       };
     }
@@ -99,7 +100,7 @@ public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCal
 		}
 
 		@Override
-		public String selectionName() throws LookupException {
+		public String selectionName(DeclarationContainer<?,?> container) throws LookupException {
 			// FIXME: this is horribly inefficient, but otherwise we must add more redundancy
 			//        in the source code.
 			return getTarget().getElement().componentType().signature().name();

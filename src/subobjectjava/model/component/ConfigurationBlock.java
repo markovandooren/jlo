@@ -11,9 +11,9 @@ import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.core.namespace.NamespaceElementImpl;
-import chameleon.core.type.Type;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
+import chameleon.oo.type.Type;
 
 public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock,Element> {
 

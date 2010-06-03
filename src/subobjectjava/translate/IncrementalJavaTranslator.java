@@ -17,7 +17,7 @@ import chameleon.core.language.Language;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespacepart.NamespacePart;
-import chameleon.core.type.Type;
+import chameleon.oo.type.Type;
 
 public class IncrementalJavaTranslator {
 

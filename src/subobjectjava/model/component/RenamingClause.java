@@ -10,7 +10,7 @@ import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupRedirector;
 import chameleon.core.member.Member;
-import chameleon.core.type.Type;
+import chameleon.oo.type.Type;
 
 public class RenamingClause extends AbstractClause<RenamingClause> {
 

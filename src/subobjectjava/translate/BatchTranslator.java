@@ -21,9 +21,9 @@ import chameleon.core.language.Language;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
-import chameleon.core.type.Type;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ParseException;
+import chameleon.oo.type.Type;
 import chameleon.test.provider.BasicDescendantProvider;
 import chameleon.test.provider.ElementProvider;
 
