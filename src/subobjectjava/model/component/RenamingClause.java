@@ -27,27 +27,19 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 		if(member != null) {
 			Member resulting = member.clone();
 			resulting.setOrigin(member);
-			resulting.setSignature(newSignature().clone());
+			
+			// change the name
+			resulting.signature().setName(newSignature().name());
+//			resulting.setSignature(newSignature().clone());
+			
 			// reroute lookup from within the clone (result) to the parent of the original member. 
 			LookupRedirector redirector = new LookupRedirector(member.parent());
 			redirector.add(resulting);
 			redirector.setUniParent(nearestAncestor(Type.class));
+
 			resultList.add(resulting);
 		}
 		
-//		for(Member member: nearestAncestor(ComponentRelation.class).componentType().members()) {
-//			Member result = null;
-//			if(member.signature().sameAs(oldFqn())) {
-//				result = member.clone();
-//				result.setOrigin(member);
-//				result.setSignature(newSignature().clone());
-//				// reroute lookup from within the clone (result) to the parent of the original member. 
-//				LookupRedirector redirector = new LookupRedirector(member.parent());
-//				redirector.add(result);
-//				redirector.setUniParent(nearestAncestor(Type.class));
-//				resultList.add(result);
-//			}
-//		}
 
 		return resultList;
 	}

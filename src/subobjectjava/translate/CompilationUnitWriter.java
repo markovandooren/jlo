@@ -78,8 +78,8 @@ public class CompilationUnitWriter {
 	
 	public String fileName(CompilationUnit compilationUnit) throws LookupException, ModelException {
 		Type result = mainType(compilationUnit);
-		String name = result.getName();
-		return name+".java";
+		String name = (result == null ? null : result.getName()+".java");
+		return name;
 	}
 
 	public String packageFQN(CompilationUnit compilationUnit) throws LookupException, ModelException {

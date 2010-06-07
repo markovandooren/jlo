@@ -8,9 +8,11 @@ import org.rejuse.association.SingleAssociation;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
+import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
+import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.reference.SimpleReference;
+import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
@@ -57,15 +59,30 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	}
 	
 	public Declaration oldDeclaration() throws LookupException {
-		SimpleReference<Declaration> ref = new SimpleReference<Declaration>(oldFqn().clone(), Declaration.class);
-		ref.setUniParent(nearestAncestor(ComponentRelation.class).componentType());
-		return ref.getElement();
+		TargetDeclaration container = nearestAncestor(ComponentRelation.class).componentType();
+		List<Signature> signatures = oldFqn().signatures();
+		Declaration result = null;
+		int size = signatures.size();
+		for(int i = 0; i< size; i++) {
+			final Signature sig = signatures.get(i);
+			DeclarationSelector<Declaration> selector = new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
+				public Signature signature() {
+					return sig;
+				}
+			},Declaration.class);
+			if(i < size - 1) {
+			container = (TargetDeclaration) container.targetContext().lookUp(selector);
+			} else {
+				result = container.targetContext().lookUp(selector);
+			}
+		}
+		return result;
 	}
 
 	/**
 	 * Return the signature of this member.
 	 */
-	public QualifiedName oldFqn() {
+	public QualifiedName<?,?> oldFqn() {
 	  return _fqn.getOtherEnd();
 	}
 
