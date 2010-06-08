@@ -270,6 +270,9 @@ public class JavaTranslator {
 			nsp.addImport(imp.clone());
 		}
 		Type stub = new RegularType(innerClassName(relation, outer));
+		for(Modifier mod: relation.modifiers()) {
+			stub.addModifier(mod.clone());
+		}
 		
 		TypeReference superReference;
 		if(relation.nearestAncestor(Type.class).signature().equals(outer.signature()) && (outer.nearestAncestor(Type.class) == null)) {
