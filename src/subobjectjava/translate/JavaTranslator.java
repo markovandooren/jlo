@@ -52,6 +52,7 @@ import chameleon.oo.type.BasicTypeReference;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
+import chameleon.oo.type.generics.ActualType;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.generics.TypeParameterSubstitution;
@@ -265,7 +266,8 @@ public class JavaTranslator {
 		NamespacePart nsp = relation.farthestAncestor(NamespacePart.class);
 //		Type parentType = relation.nearestAncestor(Type.class);
 		Type componentType = relation.componentType();
-		NamespacePart originalNsp = componentType.farthestAncestor(NamespacePart.class);
+		Type baseT = componentType.baseType();
+		NamespacePart originalNsp = baseT.farthestAncestor(NamespacePart.class);
 		for(Import imp: originalNsp.imports()) {
 			nsp.addImport(imp.clone());
 		}
@@ -289,9 +291,10 @@ public class JavaTranslator {
 				clone.setUniParent(method.parent());
 				for(BasicTypeReference<?> tref: clone.descendants(BasicTypeReference.class)) {
 					if(tref.getTarget() == null) {
-					  Type t = tref.getElement().baseType();
-					  if(t instanceof RegularType) {
-					  	String fqn = t.getFullyQualifiedName();
+					  Type element = tref.getElement();
+						Type base = element.baseType();
+					  if((! (element instanceof ActualType)) && base instanceof RegularType) {
+					  	String fqn = base.getFullyQualifiedName();
 					  	String qn = Util.getAllButLastPart(fqn);
 					  	if(qn != null && (! qn.isEmpty())) {
 					  		tref.setTarget(new SimpleReference<TargetDeclaration>(qn, TargetDeclaration.class));

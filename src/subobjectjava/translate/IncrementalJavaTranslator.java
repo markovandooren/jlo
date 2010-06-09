@@ -16,6 +16,7 @@ import chameleon.core.element.Element;
 import chameleon.core.language.Language;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.namespace.Namespace;
+import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.oo.type.Type;
 
@@ -86,6 +87,10 @@ public class IncrementalJavaTranslator {
 			SingleAssociation<Type, Element> newParentLink = newTypes.get(i).parentLink();
 			Type translated = basicTranslator().translation(originalTypes.get(i));
 			newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
+		}
+		newNamespacePart.clearImports();
+		for(Import imp: nsp.imports()) {
+			newNamespacePart.addImport(imp.clone());
 		}
 		return clone;
 	}
