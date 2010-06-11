@@ -10,6 +10,7 @@ import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
 import jnome.core.type.JavaTypeReference;
 
+import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.UnsafePredicate;
@@ -42,6 +43,7 @@ import chameleon.core.method.exception.ExceptionClause;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.statement.Block;
 import chameleon.core.variable.FormalParameter;
@@ -53,6 +55,8 @@ import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.ActualType;
+import chameleon.oo.type.generics.CapturedTypeParameter;
+import chameleon.oo.type.generics.EqualityConstraint;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.generics.TypeParameterSubstitution;
@@ -165,7 +169,7 @@ public class JavaTranslator {
 			// subst parameters
 			ComponentRelation clonedNestedRelation = nestedRelation.clone();
 			clonedNestedRelation.setUniParent(nestedRelation.parent());
-			substituteTypeParameters(clonedNestedRelation, componentType);
+			substituteTypeParameters(clonedNestedRelation);
 			inner(innerClass, clonedNestedRelation, outer);
 		}
 	}
@@ -366,8 +370,9 @@ public class JavaTranslator {
 
 	private void substituteTypeParameters(Method<?, ?, ?, ?> methodInTypeWhoseParametersMustBeSubstituted, NormalMethod<?, ?, ?> methodWhereActualTypeParametersMustBeFilledIn) throws LookupException {
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(methodInTypeWhoseParametersMustBeSubstituted);
-		Type type = methodInTypeWhoseParametersMustBeSubstituted.nearestAncestor(Type.class);
-		substituteTypeParameters(methodWhereActualTypeParametersMustBeFilledIn, type);
+//		Type type = methodInTypeWhoseParametersMustBeSubstituted.nearestAncestor(Type.class);
+//		substituteTypeParameters(methodWhereActualTypeParametersMustBeFilledIn, type);
+		substituteTypeParameters(methodWhereActualTypeParametersMustBeFilledIn);
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(null);
 	}
 
@@ -388,6 +393,51 @@ public class JavaTranslator {
 		result.setExceptionClause(clone);
 		result.addModifier(new Public());
 		return result;
+	}
+
+
+	public void substituteTypeParameters(Element<?, ?> element) throws LookupException {
+//		List<CrossReference> captureReferences = 
+//			 element.descendants(CrossReference.class, 
+//					              new UnsafePredicate<CrossReference,LookupException>() {
+//	
+//													@Override
+//													public boolean eval(CrossReference object) throws LookupException {
+//														return object.getDeclarator() instanceof CapturedTypeParameter;
+//													}
+//				 
+//			                  });
+//		for(CrossReference cref: captureReferences) {
+//			SingleAssociation parentLink = cref.parentLink();
+//			Association childLink = parentLink.getOtherRelation();
+//			CapturedTypeParameter declarator = (CapturedTypeParameter) cref.getDeclarator();
+//			EqualityConstraint constraint = (EqualityConstraint) declarator.constraints().get(0);
+//			TypeReference namedTargetExpression = constraint.typeReference().clone();
+//			childLink.replace(parentLink, namedTargetExpression.parentLink());
+//		}
+		List<CrossReference> crossReferences = 
+			 element.descendants(CrossReference.class, 
+					              new UnsafePredicate<CrossReference,LookupException>() {
+	
+													@Override
+													public boolean eval(CrossReference object) throws LookupException {
+//														return object.getElement().sameAs(selectionDeclaration());
+														return object.getDeclarator() instanceof InstantiatedTypeParameter;
+													}
+				 
+			                  });
+		for(CrossReference cref: crossReferences) {
+			SingleAssociation parentLink = cref.parentLink();
+			Association childLink = parentLink.getOtherRelation();
+			InstantiatedTypeParameter declarator = (InstantiatedTypeParameter) cref.getDeclarator(); 
+//			TypeReference namedTargetExpression = declarator.argument().substitutionReference().clone();
+			Type type = (Type) cref.getElement();
+			while(type instanceof ActualType) {
+				type = ((ActualType)type).aliasedType();
+			}
+			TypeReference namedTargetExpression = element.language(ObjectOrientedLanguage.class).createTypeReference(type.getFullyQualifiedName());
+			childLink.replace(parentLink, namedTargetExpression.parentLink());
+		}
 	}
 
 	public void substituteTypeParameters(Element<?, ?> result, Type type) throws LookupException {
