@@ -441,7 +441,7 @@ public class JavaTranslator {
 	}
 
 	public void substituteTypeParameters(Element<?, ?> result, Type type) throws LookupException {
-		List<TypeParameter> typeParameters = type.parameters();
+		List<TypeParameter> typeParameters = type.parameters(TypeParameter.class);
 		List<TypeParameterSubstitution> substitutions = new ArrayList<TypeParameterSubstitution>();
 		for(TypeParameter par: typeParameters) {
 			if(par instanceof InstantiatedTypeParameter) {

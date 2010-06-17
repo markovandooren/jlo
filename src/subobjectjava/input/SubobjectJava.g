@@ -201,6 +201,8 @@ import subobjectjava.model.component.ConfigurationClause;
 import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.component.OverridesClause;
 import subobjectjava.model.expression.SubobjectConstructorCall;
+import subobjectjava.model.expression.ComponentParameterCall;
+
 import java.util.List;
 import java.util.ArrayList;
 }
@@ -314,4 +316,27 @@ expression returns [Expression element]
          setLocation(retval.element,sb,args.stop);
          setKeyword(retval.element,sb);
            }
+        | t=conditionalExpression at='@' id=Identifier 
+             {retval.element = new ComponentParameterCall(t.element, $id.text);
+              setLocation(retval.element,t.start,id);
+              setKeyword(retval.element,at);
+             }
     ;
+
+classParameters[Type type]
+  : (params=typeParameters
+     {for(FormalTypeParameter par: params.element) {
+        type.addParameter(TypeParameter.class,par);
+      }
+     })?
+     (cparams=componentParameters)?
+  ;    
+
+componentParameters returns [List<ComponentParameter> element]
+  	: '(' par=componentParameter{retval.element.add(par.element);} (',' par=componentParameter{retval.element.add(par.element);})* ')'	
+  	;
+  	
+componentParameter returns [ComponentParameter element]
+	: Identifier type '->' type
+	;
+  	
