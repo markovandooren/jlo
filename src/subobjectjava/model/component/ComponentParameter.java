@@ -18,11 +18,12 @@ import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
+import chameleon.oo.type.Parameter;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.util.Util;
 
-public class ComponentParameter extends NamespaceElementImpl<ComponentParameter,Element> implements TargetDeclaration<ComponentParameter, Element, SimpleNameSignature, ComponentParameter> {
+public class ComponentParameter extends Parameter<ComponentParameter,ComponentParameter> implements TargetDeclaration<ComponentParameter, Element, SimpleNameSignature, ComponentParameter> {
 
 	public ComponentParameter(SimpleNameSignature signature, TypeReference containerTypeReference, TypeReference componentTypeReference) {
 		setSignature(signature);
@@ -119,7 +120,7 @@ public class ComponentParameter extends NamespaceElementImpl<ComponentParameter,
 		return nearestAncestor(Type.class).scope();
 	}
 
-	public Declaration<?, ?, ?, ComponentParameter> selectionDeclaration() throws LookupException {
+	public ComponentParameter selectionDeclaration() throws LookupException {
 		return this;
 	}
 

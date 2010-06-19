@@ -24,17 +24,20 @@ import chameleon.util.Util;
 
 public class ComponentParameterCall extends Expression<ComponentParameterCall> implements CrossReference<ComponentParameterCall,Element,ComponentParameter> {
 
-	public ComponentParameterCall(SimpleNameSignature signature) {
+	public ComponentParameterCall(InvocationTarget target, SimpleNameSignature signature) {
 		setSignature(signature);
+		setTarget(target);
+	}
+	public ComponentParameterCall(SimpleNameSignature signature) {
+		this(null,signature);
 	}
 	
 	public ComponentParameterCall(InvocationTarget target, String name) {
-		this(name);
-		setTarget(target);
+		this(target,new SimpleNameSignature(name));
 	}
 
 	public ComponentParameterCall(String name) {
-		this(new SimpleNameSignature(name));
+		this(null,name);
 	}
 
 	public String name() {
@@ -62,7 +65,7 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
 
 	@Override
 	public ComponentParameterCall clone() {
-		return new ComponentParameterCall(signature().clone());
+		return new ComponentParameterCall(target().clone(),signature().clone());
 	}
 
 	@Override
@@ -90,22 +93,22 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
   
   @SuppressWarnings("unchecked")
   public <X extends Declaration> X getElement(DeclarationSelector<X> selector) throws LookupException {
-    InvocationTarget target = target();
+//    InvocationTarget target = target();
     X result;
-    if(target != null) {
-      result = target.targetContext().lookUp(selector);//findElement(getName());
-    } else {
+//    if(target != null) {
+//      result = target.targetContext().lookUp(selector);//findElement(getName());
+//    } else {
       result = lexicalLookupStrategy().lookUp(selector);//findElement(getName());
-    }
+//    }
     if(result != null) {
       return result;
     } else {
     	// repeat for debugging purposes
-      if(target != null) {
-        result = target.targetContext().lookUp(selector);//findElement(getName());
-      } else {
+//      if(target != null) {
+//        result = target.targetContext().lookUp(selector);//findElement(getName());
+//      } else {
         result = lexicalLookupStrategy().lookUp(selector);//findElement(getName());
-      }
+//      }
     	throw new LookupException("Lookup of component parameter with name: "+name()+" returned null.");
     }
   }

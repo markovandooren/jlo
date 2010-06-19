@@ -16,10 +16,12 @@ import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.UnsafePredicate;
 
 import subobjectjava.model.component.AbstractClause;
+import subobjectjava.model.component.ComponentParameter;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ConfigurationBlock;
 import subobjectjava.model.component.ConfigurationClause;
 import subobjectjava.model.component.RenamingClause;
+import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.SubobjectJavaOverridesRelation;
 import chameleon.core.declaration.CompositeQualifiedName;
@@ -47,16 +49,17 @@ import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.statement.Block;
 import chameleon.core.variable.FormalParameter;
+import chameleon.core.variable.MemberVariable;
 import chameleon.core.variable.VariableDeclaration;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.type.BasicTypeReference;
+import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.ActualType;
-import chameleon.oo.type.generics.CapturedTypeParameter;
-import chameleon.oo.type.generics.EqualityConstraint;
+import chameleon.oo.type.generics.BasicTypeArgument;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.generics.TypeParameterSubstitution;
@@ -66,24 +69,21 @@ import chameleon.support.expression.SuperConstructorDelegation;
 import chameleon.support.expression.SuperTarget;
 import chameleon.support.expression.ThisLiteral;
 import chameleon.support.member.simplename.SimpleNameMethodHeader;
+import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.SimpleNameMethodSignature;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
+import chameleon.support.modifier.Abstract;
 import chameleon.support.modifier.Protected;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
+import chameleon.support.statement.ThrowStatement;
 import chameleon.util.Util;
 
 public class JavaTranslator {
 
-//	public JavaTranslator(SubobjectJava language, ElementProvider<Namespace> namespaceProvider) throws ParseException, IOException {
-//		_sourceLanguage = language;
-//		_typeProvider = new BasicDescendantProvider<Type>(namespaceProvider, Type.class);
-//	}
-	
-	
 	/**
 	 * Return a type that represents the translation of the given JLow class to a Java class.
 	 */
@@ -92,13 +92,6 @@ public class JavaTranslator {
 		type.setUniParent(original.parent());
 		List<ComponentRelation> relations = original.directlyDeclaredMembers(ComponentRelation.class);
 		for(ComponentRelation relation : relations) {
-      //ensureTranslation(relation.componentType());
-			// Add a field subobject
-//			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,type);
-//			if(fieldForComponent != null) {
-//			  type.add(fieldForComponent);
-//			}
-			
 			// Add a getter for subobject
 			Method getterForComponent = getterForComponent(relation,type);
 			if(getterForComponent != null) {
@@ -111,19 +104,12 @@ public class JavaTranslator {
 				type.add(setterForComponent);
 			}
 			
-			//type.addAll(aliasMethods(relation));
-			
 			// Create the inner classes for the components
 			inner(type, relation, type);
       type.flushCache();
   		addOutwardDelegations(relation, type);
   		type.flushCache();
-  		// Replace constructor calls
-  		
-  		//translate inner classes
-
 		}
-		
 		replaceSuperCalls(type);
 		for(ComponentRelation relation: type.directlyDeclaredMembers(ComponentRelation.class)) {
 //			replaceSuperCalls(relation, type);
@@ -136,10 +122,53 @@ public class JavaTranslator {
 			
 			relation.disconnect();
 		}
+		
+		List<Method> decls = componentSelectorsFor(type);
+		for(Method decl:decls) {
+			type.add(decl);
+		}
+
+		List<ComponentParameterCall> calls = type.descendants(ComponentParameterCall.class);
+		for(ComponentParameterCall call: calls) {
+			ComponentParameter parameter = call.getElement();
+			Invocation expr = new RegularMethodInvocation(selectorName(parameter),null);
+			expr.addArgument(new ActualArgument((Expression) call.target()));
+			SingleAssociation pl = call.parentLink();
+			pl.getOtherRelation().replace(pl, expr.parentLink());
+		}
+		
 		type.setUniParent(null);
 		return type;
 	}
 	
+	protected List<Method> componentSelectorsFor(Type type) {
+		ParameterBlock<?,ComponentParameter> block = type.parameterBlock(ComponentParameter.class);
+		List<Method> result = new ArrayList<Method>();
+		if(block != null) {
+		  for(ComponentParameter par: block.parameters()) {
+		  	result.add(selectorFor(par));
+		  }
+		}
+		return result;
+	}
+
+	protected String selectorName(ComponentParameter par) {
+		return "__select$"+ par.nearestAncestor(Type.class).getFullyQualifiedName()+"$"+par.signature().name();
+	}
+	
+	protected Method selectorFor(ComponentParameter par) {
+		SimpleNameMethodHeader header = new SimpleNameMethodHeader(selectorName(par));
+		Method result = new NormalMethod(header,par.componentTypeReference().clone());
+		result.addModifier(new Protected());
+//		result.addModifier(new Abstract());
+		header.addFormalParameter(new FormalParameter("argument", par.containerTypeReference().clone()));
+		Block body = new Block();
+		result.setImplementation(new RegularImplementation(body));
+		ConstructorInvocation cons = new ConstructorInvocation((BasicJavaTypeReference) par.language(Java.class).createTypeReference("java.lang.Error"), null);
+		body.addStatement(new ThrowStatement(cons));
+		return result;
+	}
+
 	public void replaceConstructorCalls(final ComponentRelation relation) throws LookupException {
 		Type type = relation.nearestAncestor(Type.class);
 		List<SubobjectConstructorCall> constructorCalls = type.descendants(SubobjectConstructorCall.class, new UnsafePredicate<SubobjectConstructorCall,LookupException>() {
@@ -370,8 +399,6 @@ public class JavaTranslator {
 
 	private void substituteTypeParameters(Method<?, ?, ?, ?> methodInTypeWhoseParametersMustBeSubstituted, NormalMethod<?, ?, ?> methodWhereActualTypeParametersMustBeFilledIn) throws LookupException {
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(methodInTypeWhoseParametersMustBeSubstituted);
-//		Type type = methodInTypeWhoseParametersMustBeSubstituted.nearestAncestor(Type.class);
-//		substituteTypeParameters(methodWhereActualTypeParametersMustBeFilledIn, type);
 		substituteTypeParameters(methodWhereActualTypeParametersMustBeFilledIn);
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(null);
 	}
@@ -397,24 +424,6 @@ public class JavaTranslator {
 
 
 	public void substituteTypeParameters(Element<?, ?> element) throws LookupException {
-//		List<CrossReference> captureReferences = 
-//			 element.descendants(CrossReference.class, 
-//					              new UnsafePredicate<CrossReference,LookupException>() {
-//	
-//													@Override
-//													public boolean eval(CrossReference object) throws LookupException {
-//														return object.getDeclarator() instanceof CapturedTypeParameter;
-//													}
-//				 
-//			                  });
-//		for(CrossReference cref: captureReferences) {
-//			SingleAssociation parentLink = cref.parentLink();
-//			Association childLink = parentLink.getOtherRelation();
-//			CapturedTypeParameter declarator = (CapturedTypeParameter) cref.getDeclarator();
-//			EqualityConstraint constraint = (EqualityConstraint) declarator.constraints().get(0);
-//			TypeReference namedTargetExpression = constraint.typeReference().clone();
-//			childLink.replace(parentLink, namedTargetExpression.parentLink());
-//		}
 		List<CrossReference> crossReferences = 
 			 element.descendants(CrossReference.class, 
 					              new UnsafePredicate<CrossReference,LookupException>() {
@@ -493,28 +502,6 @@ public class JavaTranslator {
       
 		}
 	}
-	
-/*	public void replaceSuperCalls(final ComponentRelation relation, Type parent) throws LookupException {
-		List<SuperTarget> superTargets = parent.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
-
-			@Override
-			public boolean eval(SuperTarget superTarget) throws LookupException {
-				return superTarget.getTargetDeclaration().equals(relation);
-			}
-			
-		}
-		);
-		for(SuperTarget superTarget: superTargets) {
-			Element<?,?> inv = superTarget.parent();
-			if(inv instanceof RegularMethodInvocation) {
-				RegularMethodInvocation call = (RegularMethodInvocation) inv;
-			  Invocation subObjectSelection = new RegularMethodInvocation(getterName(relation), null);
-			  call.setTarget(subObjectSelection);
-			  call.setName(original(call.name()));
-			}
-      
-		}
-	}*/
 	
 	public String original(String name) {
 		return "original__"+name;

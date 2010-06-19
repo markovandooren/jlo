@@ -69,6 +69,7 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeElement;
 import chameleon.oo.type.TypeWithBody;
+import chameleon.oo.type.ParameterBlock;
 
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.generics.FormalTypeParameter;
@@ -78,7 +79,6 @@ import chameleon.oo.type.generics.TypeConstraint;
 import chameleon.oo.type.generics.ExtendsConstraint;
 import chameleon.oo.type.generics.ExtendsWildcard;
 import chameleon.oo.type.generics.SuperWildcard;
-
 import chameleon.oo.type.inheritance.SubtypeRelation;
 
 import chameleon.core.variable.Variable;
@@ -202,6 +202,7 @@ import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.component.OverridesClause;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.expression.ComponentParameterCall;
+import subobjectjava.model.component.ComponentParameter;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -316,12 +317,22 @@ expression returns [Expression element]
          setLocation(retval.element,sb,args.stop);
          setKeyword(retval.element,sb);
            }
-        | t=conditionalExpression at='@' id=Identifier 
-             {retval.element = new ComponentParameterCall(t.element, $id.text);
-              setLocation(retval.element,t.start,id);
-              setKeyword(retval.element,at);
-             }
     ;
+    
+conditionalOrExpression returns [Expression element]
+    :   ex=componentParameterCall {retval.element = ex.element;} ( '||' exx=componentParameterCall 
+        {retval.element = new ConditionalOrExpression(retval.element, exx.element);
+         setLocation(retval.element,retval.start,exx.stop);
+        })*
+    ;
+
+componentParameterCall returns [Expression element]
+  	: ex=conditionalAndExpression {retval.element = ex.element;} (at='#' id=Identifier 
+             {retval.element = new ComponentParameterCall(ex.element, $id.text);
+              setLocation(retval.element,ex.start,id);
+              setKeyword(retval.element,at);
+             })?
+  	;
 
 classParameters[Type type]
   : (params=typeParameters
@@ -329,14 +340,25 @@ classParameters[Type type]
         type.addParameter(TypeParameter.class,par);
       }
      })?
-     (cparams=componentParameters)?
+     (cparams=componentParameters 
+         {ParameterBlock block = new ParameterBlock(ComponentParameter.class);
+          type.addParameterBlock(block);
+          for(ComponentParameter cpar: cparams.element) {
+            block.add(cpar);
+          }
+          }
+      )?
   ;    
 
 componentParameters returns [List<ComponentParameter> element]
-  	: '(' par=componentParameter{retval.element.add(par.element);} (',' par=componentParameter{retval.element.add(par.element);})* ')'	
+  	: '(' par=componentParameter{retval.element = new ArrayList<ComponentParameter>(); retval.element.add(par.element);} (',' par=componentParameter{retval.element.add(par.element);})* ')'	
   	;
   	
 componentParameter returns [ComponentParameter element]
-	: Identifier type '->' type
+	: id=Identifier tcontainer=type arrow='->' tcomp=type 
+	  {retval.element = new ComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
+	   setLocation(retval.element,id,tcomp.stop);
+	   setKeyword(retval.element,arrow);
+	   }
 	;
   	
