@@ -16,7 +16,7 @@ import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.UnsafePredicate;
 
 import subobjectjava.model.component.AbstractClause;
-import subobjectjava.model.component.ComponentParameter;
+import subobjectjava.model.component.FormalComponentParameter;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ConfigurationBlock;
 import subobjectjava.model.component.ConfigurationClause;
@@ -130,7 +130,7 @@ public class JavaTranslator {
 
 		List<ComponentParameterCall> calls = type.descendants(ComponentParameterCall.class);
 		for(ComponentParameterCall call: calls) {
-			ComponentParameter parameter = call.getElement();
+			FormalComponentParameter parameter = call.getElement();
 			Invocation expr = new RegularMethodInvocation(selectorName(parameter),null);
 			expr.addArgument(new ActualArgument((Expression) call.target()));
 			SingleAssociation pl = call.parentLink();
@@ -142,21 +142,21 @@ public class JavaTranslator {
 	}
 	
 	protected List<Method> componentSelectorsFor(Type type) {
-		ParameterBlock<?,ComponentParameter> block = type.parameterBlock(ComponentParameter.class);
+		ParameterBlock<?,FormalComponentParameter> block = type.parameterBlock(FormalComponentParameter.class);
 		List<Method> result = new ArrayList<Method>();
 		if(block != null) {
-		  for(ComponentParameter par: block.parameters()) {
+		  for(FormalComponentParameter par: block.parameters()) {
 		  	result.add(selectorFor(par));
 		  }
 		}
 		return result;
 	}
 
-	protected String selectorName(ComponentParameter par) {
+	protected String selectorName(FormalComponentParameter<?> par) {
 		return "__select$"+ par.nearestAncestor(Type.class).getFullyQualifiedName()+"$"+par.signature().name();
 	}
 	
-	protected Method selectorFor(ComponentParameter par) {
+	protected Method selectorFor(FormalComponentParameter<?> par) {
 		SimpleNameMethodHeader header = new SimpleNameMethodHeader(selectorName(par));
 		Method result = new NormalMethod(header,par.componentTypeReference().clone());
 		result.addModifier(new Protected());

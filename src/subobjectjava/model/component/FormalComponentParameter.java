@@ -23,15 +23,15 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.util.Util;
 
-public class ComponentParameter extends Parameter<ComponentParameter,ComponentParameter> implements TargetDeclaration<ComponentParameter, Element, SimpleNameSignature, ComponentParameter> {
+public abstract class FormalComponentParameter<E extends FormalComponentParameter<E>> extends ComponentParameter<E> {
 
-	public ComponentParameter(SimpleNameSignature signature, TypeReference containerTypeReference, TypeReference componentTypeReference) {
-		setSignature(signature);
+	public FormalComponentParameter(SimpleNameSignature signature, TypeReference containerTypeReference, TypeReference componentTypeReference) {
+		super(signature);
 		setContainerType(containerTypeReference);
 		setComponentType(componentTypeReference);
 	}
 	
-	private SingleAssociation<ComponentParameter,TypeReference> _containerTypeReference = new SingleAssociation<ComponentParameter,TypeReference>(this);
+	private SingleAssociation<FormalComponentParameter,TypeReference> _containerTypeReference = new SingleAssociation<FormalComponentParameter,TypeReference>(this);
 
 	public TypeReference containerTypeReference() {
 		return _containerTypeReference.getOtherEnd();
@@ -50,7 +50,7 @@ public class ComponentParameter extends Parameter<ComponentParameter,ComponentPa
 		}
 	}
 
-	private SingleAssociation<ComponentParameter,TypeReference> _typeReference = new SingleAssociation<ComponentParameter,TypeReference>(this);
+	private SingleAssociation<FormalComponentParameter,TypeReference> _typeReference = new SingleAssociation<FormalComponentParameter,TypeReference>(this);
 
 	public TypeReference componentTypeReference() {
 		return _typeReference.getOtherEnd();
@@ -69,18 +69,6 @@ public class ComponentParameter extends Parameter<ComponentParameter,ComponentPa
 		}
 	}
 
-  public void setSignature(Signature signature) {
-  	if(signature instanceof SimpleNameSignature) {
-  		if(signature != null) {
-  			_signature.connectTo(signature.parentLink());
-  		} else {
-  			_signature.connectTo(null);
-  		}
-  	} else {
-  		throw new ChameleonProgrammerException("Setting wrong type of signature. Provided: "+(signature == null ? null :signature.getClass().getName())+" Expected SimpleNameSignature");
-  	}
-  }
-  
   /**
    * Return the signature of this member.
    */
@@ -88,12 +76,12 @@ public class ComponentParameter extends Parameter<ComponentParameter,ComponentPa
     return _signature.getOtherEnd();
   }
 
-  private SingleAssociation<ComponentParameter, SimpleNameSignature> _signature = new SingleAssociation<ComponentParameter, SimpleNameSignature>(this);
+  private SingleAssociation<FormalComponentParameter, SimpleNameSignature> _signature = new SingleAssociation<FormalComponentParameter, SimpleNameSignature>(this);
 
-	@Override
-	public ComponentParameter clone() {
-		return new ComponentParameter(signature().clone(), containerTypeReference().clone(), componentTypeReference().clone());
-	}
+//	@Override
+//	public E clone() {
+//		return (E) new ComponentParameter(signature().clone(), containerTypeReference().clone(), componentTypeReference().clone());
+//	}
 
 	@Override
 	public VerificationResult verifySelf() {
@@ -108,7 +96,7 @@ public class ComponentParameter extends Parameter<ComponentParameter,ComponentPa
 		return result;
 	}
 
-	public ComponentParameter actualDeclaration() throws LookupException {
+	public FormalComponentParameter actualDeclaration() throws LookupException {
 		return this;
 	}
 
@@ -120,7 +108,7 @@ public class ComponentParameter extends Parameter<ComponentParameter,ComponentPa
 		return nearestAncestor(Type.class).scope();
 	}
 
-	public ComponentParameter selectionDeclaration() throws LookupException {
+	public TargetDeclaration selectionDeclaration() throws LookupException {
 		return this;
 	}
 

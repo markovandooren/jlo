@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.rejuse.association.SingleAssociation;
 
-import subobjectjava.model.component.ComponentParameter;
+import subobjectjava.model.component.FormalComponentParameter;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
@@ -22,7 +22,7 @@ import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
-public class ComponentParameterCall extends Expression<ComponentParameterCall> implements CrossReference<ComponentParameterCall,Element,ComponentParameter> {
+public class ComponentParameterCall extends Expression<ComponentParameterCall> implements CrossReference<ComponentParameterCall,Element,FormalComponentParameter> {
 
 	public ComponentParameterCall(InvocationTarget target, SimpleNameSignature signature) {
 		setSignature(signature);
@@ -70,7 +70,7 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
 
 	@Override
 	public VerificationResult verifySelf() {
-		ComponentParameter referencedElement;
+		FormalComponentParameter referencedElement;
 		try {
 			referencedElement = getElement();
 			if(referencedElement != null) {
@@ -83,7 +83,7 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
 		}
 	}
 
-  public ComponentParameter getElement() throws LookupException {
+  public FormalComponentParameter getElement() throws LookupException {
   	return getElement(selector());
   }
   
@@ -113,12 +113,12 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
     }
   }
 
-	public DeclarationSelector<ComponentParameter> selector() {
-		return new SelectorWithoutOrder<ComponentParameter>(new SelectorWithoutOrder.SignatureSelector() {
+	public DeclarationSelector<FormalComponentParameter> selector() {
+		return new SelectorWithoutOrder<FormalComponentParameter>(new SelectorWithoutOrder.SignatureSelector() {
 			public Signature signature() {
 				return ComponentParameterCall.this.signature();
 			}
-		}, ComponentParameter.class);
+		}, FormalComponentParameter.class);
 	}
 
 	public List<? extends Element> children() {

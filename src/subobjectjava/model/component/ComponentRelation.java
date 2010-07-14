@@ -108,14 +108,17 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		}
 	}
 	
+	public void setName(String name) {
+		setSignature(new SimpleNameSignature(name));
+	}
+
+	
   public void setSignature(Signature signature) {
   	if(signature instanceof SimpleNameSignature) {
-  		if(signature != null) {
   			_signature.connectTo(signature.parentLink());
-  		} else {
-  			_signature.connectTo(null);
-  		}
-  	} else {
+  	} else if(signature == null) {
+			_signature.connectTo(null);
+		} else {
   		throw new ChameleonProgrammerException("Setting wrong type of signature. Provided: "+(signature == null ? null :signature.getClass().getName())+" Expected SimpleNameSignature");
   	}
   }

@@ -203,6 +203,8 @@ import subobjectjava.model.component.OverridesClause;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.component.ComponentParameter;
+import subobjectjava.model.component.FormalComponentParameter;
+import subobjectjava.model.component.SingleFormalComponentParameter;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -356,7 +358,7 @@ componentParameters returns [List<ComponentParameter> element]
   	
 componentParameter returns [ComponentParameter element]
 	: id=Identifier tcontainer=type arrow='->' tcomp=type 
-	  {retval.element = new ComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
+	  {retval.element = new SingleFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
 	   setLocation(retval.element,id,tcomp.stop);
 	   setKeyword(retval.element,arrow);
 	   }
