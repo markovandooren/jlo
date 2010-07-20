@@ -205,6 +205,11 @@ import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.component.ComponentParameter;
 import subobjectjava.model.component.FormalComponentParameter;
 import subobjectjava.model.component.SingleFormalComponentParameter;
+import subobjectjava.model.component.MultiFormalComponentParameter;
+import subobjectjava.model.component.ActualComponentArgument;
+import subobjectjava.model.component.SingleActualComponentArgument;
+import subobjectjava.model.component.MultiActualComponentArgument;
+import subobjectjava.model.component.ComponentParameterTypeReference;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -239,6 +244,22 @@ import java.util.ArrayList;
   
   public JavaFactory factory() {
     return gJavaP.factory();
+  }
+
+  public JavaTypeReference typeRef(String qn) {
+    return gJavaP.typeRef(qn);
+  }
+
+  public JavaTypeReference createTypeReference(CrossReference<?, ?, ? extends TargetDeclaration> target, String name) {
+    return gJavaP.createTypeReference(target,name);
+  }
+  
+  public JavaTypeReference createTypeReference(CrossReference<?, ?, ? extends TargetDeclaration> target, SimpleNameSignature signature) {
+    return gJavaP.createTypeReference(target,signature);
+  }
+
+  public JavaTypeReference createTypeReference(NamedTarget target) {
+    return gJavaP.createTypeReference(target);
   }
 
 }
@@ -336,20 +357,20 @@ componentParameterCall returns [Expression element]
              })?
   	;
 
-classParameters[Type type]
-  : (params=typeParameters
-     {for(FormalTypeParameter par: params.element) {
-        type.addParameter(TypeParameter.class,par);
-      }
-     })?
+nameAndParams returns [RegularType element]
+  :
+    tt=createClassHereBecauseANTLRisAnnoying {retval.element=tt.element;} 
+     (params=typeParameters 
+       {for(FormalTypeParameter par: params.element){retval.element.addParameter(TypeParameter.class,par);}})?
      (cparams=componentParameters 
          {ParameterBlock block = new ParameterBlock(ComponentParameter.class);
-          type.addParameterBlock(block);
+          retval.element.addParameterBlock(block);
           for(ComponentParameter cpar: cparams.element) {
             block.add(cpar);
           }
           }
       )?
+
   ;    
 
 componentParameters returns [List<ComponentParameter> element]
@@ -357,10 +378,125 @@ componentParameters returns [List<ComponentParameter> element]
   	;
   	
 componentParameter returns [ComponentParameter element]
+	: single=singleComponentParameter {retval.element = single.element;}
+	 | multi=multiComponentParameter {retval.element = multi.element;}
+	;
+
+singleComponentParameter returns [ComponentParameter element]
 	: id=Identifier tcontainer=type arrow='->' tcomp=type 
 	  {retval.element = new SingleFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
 	   setLocation(retval.element,id,tcomp.stop);
 	   setKeyword(retval.element,arrow);
 	   }
 	;
+
+multiComponentParameter returns [ComponentParameter element]
+	: '[' id=Identifier tcontainer=type arrow='->' tcomp=type ']'
+	  {retval.element = new MultiFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
+	   setLocation(retval.element,id,tcomp.stop);
+	   setKeyword(retval.element,arrow);
+	   }
+	;
+
+
+classOrInterfaceType returns [JavaTypeReference element]
+@init{NamespaceOrTypeReference target = null;
+      Token stop = null;
+     }
+// We will process the different parts. The current type reference (return value) is kept in retval. Alongside that
+// we keep a version of the latest namespace or type reference. If at any point after processing the first identifier
+// target is null, we know that we have encountered a real type reference before, so anything after that becomes a type reference.
+	:	name=Identifier 
+	          {
+	           retval.element = typeRef($name.text); 
+	           target =  new NamespaceOrTypeReference($name.text);
+	           stop=name; 
+	          } 
+	        (args=typeArguments 
+	          {
+	           // Add the type arguments
+	           ((BasicJavaTypeReference)retval.element).addAllArguments(args.element);
+	           // In this case, we know that the current element must be a type reference,
+	           // so we set the target to null, and only create type references afterwards.
+	           target = null;
+	           stop=args.stop;
+	          })?
+	          {setLocation(retval.element,name,stop);} 
+	          	          (
+	           cp=componentArguments
+	            {
+	            retval.element = new ComponentParameterTypeReference(retval.element);
+	            ((ComponentParameterTypeReference)retval.element).addAllArguments(cp.element);
+	            target = null;
+	            stop = cp.stop;
+	            setLocation(retval.element,name,stop);
+	            }
+	          )?
+
+	        ('.' namex=Identifier 
+	          {
+	           if(target != null) {
+	             retval.element = createTypeReference(target,$namex.text);
+	             // We must clone the target here, or else it will be removed from the
+	             // type reference we just created.
+	             target = new NamespaceOrTypeReference(target.clone(),$namex.text);
+	           } else {
+	             throw new Error();
+	             //retval.element = createTypeReference(retval.element,$namex.text);
+	           }
+	           stop=namex;
+	          } 
+	        (argsx=typeArguments 
+	          {
+	           // Add the type arguments
+             ((BasicJavaTypeReference)retval.element).addAllArguments(argsx.element);
+	           // In this case, we know that the current element must be a type reference,
+	           // so we se the target to the current type reference.
+	           target = null;
+	           stop = argsx.stop;
+	          })? {setLocation(retval.element,name,stop);}
+	          
+	          (
+	           cpx=componentArguments
+	            {
+	            retval.element = new ComponentParameterTypeReference(retval.element);
+	            ((ComponentParameterTypeReference)retval.element).addAllArguments(cpx.element);
+	            target = null;
+	            stop = cpx.stop;
+	            setLocation(retval.element,name,stop);
+	            }
+	          )?
+	          
+	          )*
+	;
+
+
+componentArguments returns [List<ActualComponentArgument> element]
+@init{retval.element = new ArrayList<ActualComponentArgument>();}
+    :   
+          
+         '##' cp=componentArgument {
+                                   retval.element.add(cp.element);}
+             (',' cpx=componentArgument {retval.element.add(cpx.element);})*
+         '##'
+        
+    ;
   	
+componentArgument returns [ActualComponentArgument element]
+ 	:
+ 	  s=singleComponentArgument {retval.element=s.element;} 
+ 	 | ss=multiComponentArgument {retval.element=ss.element;}
+ 	;
+ 	
+singleComponentArgument returns [SingleActualComponentArgument element]
+	:
+	 id=Identifier {retval.element = new SingleActualComponentArgument($id.text);}
+	;
+	
+multiComponentArgument returns [MultiActualComponentArgument element]
+@init{retval.element = new MultiActualComponentArgument();}
+	:
+	 '[' single=singleComponentArgument {retval.element.add(single.element);} 
+	     (',' singlee=singleComponentArgument {retval.element.add(singlee.element);} )*
+	 ']' 
+	;	

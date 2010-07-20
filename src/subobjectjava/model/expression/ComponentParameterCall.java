@@ -60,7 +60,7 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
 
 	@Override
 	protected Type actualType() throws LookupException {
-		return getElement().componentType();
+		return getElement().declarationType();
 	}
 
 	@Override

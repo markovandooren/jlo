@@ -92,6 +92,7 @@ public class IncrementalJavaTranslator {
 		for(Import imp: nsp.imports()) {
 			newNamespacePart.addImport(imp.clone());
 		}
+		clone.flushCache();
 		return clone;
 	}
 	

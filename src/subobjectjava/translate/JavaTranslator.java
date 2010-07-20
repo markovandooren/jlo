@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import jnome.core.expression.invocation.ConstructorInvocation;
+import jnome.core.expression.invocation.JavaMethodInvocation;
+import jnome.core.expression.invocation.NonLocalJavaTypeReference;
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
 import jnome.core.type.JavaTypeReference;
@@ -16,11 +18,18 @@ import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.UnsafePredicate;
 
 import subobjectjava.model.component.AbstractClause;
-import subobjectjava.model.component.FormalComponentParameter;
+import subobjectjava.model.component.ActualComponentArgument;
+import subobjectjava.model.component.ComponentParameter;
+import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
+import subobjectjava.model.component.ComponentRelationSet;
 import subobjectjava.model.component.ConfigurationBlock;
 import subobjectjava.model.component.ConfigurationClause;
+import subobjectjava.model.component.FormalComponentParameter;
+import subobjectjava.model.component.InstantiatedComponentParameter;
+import subobjectjava.model.component.MultiActualComponentArgument;
 import subobjectjava.model.component.RenamingClause;
+import subobjectjava.model.component.SingleActualComponentArgument;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.SubobjectJavaOverridesRelation;
@@ -34,6 +43,7 @@ import chameleon.core.element.Element;
 import chameleon.core.expression.ActualArgument;
 import chameleon.core.expression.Expression;
 import chameleon.core.expression.Invocation;
+import chameleon.core.expression.NamedTarget;
 import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
@@ -49,7 +59,6 @@ import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.statement.Block;
 import chameleon.core.variable.FormalParameter;
-import chameleon.core.variable.MemberVariable;
 import chameleon.core.variable.VariableDeclaration;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.oo.language.ObjectOrientedLanguage;
@@ -69,17 +78,16 @@ import chameleon.support.expression.SuperConstructorDelegation;
 import chameleon.support.expression.SuperTarget;
 import chameleon.support.expression.ThisLiteral;
 import chameleon.support.member.simplename.SimpleNameMethodHeader;
-import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.SimpleNameMethodSignature;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
-import chameleon.support.modifier.Abstract;
 import chameleon.support.modifier.Protected;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
 import chameleon.support.statement.ThrowStatement;
+import chameleon.support.variable.LocalVariableDeclarator;
 import chameleon.util.Util;
 
 public class JavaTranslator {
@@ -123,7 +131,7 @@ public class JavaTranslator {
 			relation.disconnect();
 		}
 		
-		List<Method> decls = componentSelectorsFor(type);
+		List<Method> decls = selectorsFor(type);
 		for(Method decl:decls) {
 			type.add(decl);
 		}
@@ -131,34 +139,140 @@ public class JavaTranslator {
 		List<ComponentParameterCall> calls = type.descendants(ComponentParameterCall.class);
 		for(ComponentParameterCall call: calls) {
 			FormalComponentParameter parameter = call.getElement();
-			Invocation expr = new RegularMethodInvocation(selectorName(parameter),null);
+			Invocation expr = new JavaMethodInvocation(selectorName(parameter),null);
 			expr.addArgument(new ActualArgument((Expression) call.target()));
 			SingleAssociation pl = call.parentLink();
 			pl.getOtherRelation().replace(pl, expr.parentLink());
 		}
 		
+		
+		expandReferences(type);
+		removeNonLocalReferences(type);
 		type.setUniParent(null);
+		
+		// Remove non local references
 		return type;
 	}
+
+	protected void removeNonLocalReferences(Type type) throws LookupException {
+		for(NonLocalJavaTypeReference tref: type.descendants(NonLocalJavaTypeReference.class)) {
+			SingleAssociation<NonLocalJavaTypeReference, Element> parentLink = tref.parentLink();
+			parentLink.getOtherRelation().replace(parentLink, tref.actualReference().parentLink());
+		}
+	}
+
+	protected void expandReferences(Type type) throws LookupException {
+		for(BasicJavaTypeReference tref: type.descendants(BasicJavaTypeReference.class)) {
+			if(tref.getTarget() == null) {
+				try {
+					// Filthy hack, should add meta information to such references, and use that instead.
+					if(! tref.signature().name().contains(SHADOW)) {
+						String fullyQualifiedName = tref.getElement().getFullyQualifiedName();
+						String predecessor = Util.getAllButLastPart(fullyQualifiedName);
+						if(predecessor != null) {
+							NamedTarget nt = new NamedTarget(predecessor);
+							tref.setTarget(nt);
+						}
+					}
+				} catch(LookupException exc) {
+					// This occurs because a generated element cannot be resolved in the original model. E.g.
+					// an inner class of another class than the one that has been generated.
+				}
+			}
+		}
+	}
 	
-	protected List<Method> componentSelectorsFor(Type type) {
-		ParameterBlock<?,FormalComponentParameter> block = type.parameterBlock(FormalComponentParameter.class);
+	protected List<Method> selectorsFor(ComponentRelation rel) throws LookupException {
+		List<Method> result = new ArrayList<Method>();
+		Type t = rel.componentType();
+		for(ComponentParameter par: t.parameters(ComponentParameter.class)) {
+			
+			Method realSelector= realSelectorFor((InstantiatedComponentParameter) par);
+			realSelector.setUniParent(t);
+			substituteTypeParameters(realSelector);
+			realSelector.setUniParent(null);
+			result.add(realSelector);
+		}
+		return result;
+	}
+	
+	protected Method realSelectorFor(InstantiatedComponentParameter<?> par) throws LookupException {
+		SimpleNameMethodHeader header = new SimpleNameMethodHeader(selectorName(par));
+		FormalComponentParameter formal = par.formalParameter();
+		Java language = par.language(Java.class);
+//		Method result = new NormalMethod(header,formal.componentTypeReference().clone());
+		JavaTypeReference reference = language.reference(formal.declarationType());
+		reference.setUniParent(null);
+		Method result = new NormalMethod(header,reference);
+		result.addModifier(new Protected());
+//		result.addModifier(new Abstract());
+		header.addFormalParameter(new FormalParameter("argument", formal.containerTypeReference().clone()));
+		Block body = new Block();
+		result.setImplementation(new RegularImplementation(body));
+		NamedTargetExpression nt = new NamedTargetExpression("argument", null);
+		ActualComponentArgument arg = par.argument();
+		Expression expr;
+		if(arg instanceof SingleActualComponentArgument) {
+			SingleActualComponentArgument singarg = (SingleActualComponentArgument) arg;
+			expr = new NamedTargetExpression(singarg.name(),nt);
+			body.addStatement(new ReturnStatement(expr));
+		} else {
+			// result variable declaration
+			LocalVariableDeclarator varDecl = new LocalVariableDeclarator(reference.clone());
+			VariableDeclaration declaration = new VariableDeclaration("result");
+			BasicJavaTypeReference arrayList = language.createTypeReference("java.util.ArrayList");
+			JavaTypeReference componentType = language.reference(formal.componentTypeReference().getElement());
+			componentType.setUniParent(null);
+			BasicTypeArgument targ = language.createBasicTypeArgument(componentType);
+			arrayList.addArgument(targ);
+			Expression init = new ConstructorInvocation(arrayList, null);
+			declaration.setInitialization(init);
+			varDecl.add(declaration);
+			body.addStatement(varDecl);
+			
+			// add all components
+			ComponentRelationSet componentRelations = ((MultiActualComponentArgument)arg).declaration();
+			for(ComponentRelation rel: componentRelations.relations()) {
+				Expression t = new NamedTargetExpression("result", null);
+				Invocation inv = new JavaMethodInvocation("add", t);
+				NamedTargetExpression componentSelector = new NamedTargetExpression(rel.signature().name(), new NamedTargetExpression("argument",null));
+				inv.addArgument(new ActualArgument(componentSelector));
+				body.addStatement(new StatementExpression(inv));
+			}
+			
+			// return statement
+			expr = new NamedTargetExpression("result",null);
+			body.addStatement(new ReturnStatement(expr));
+		}
+    return result;		
+	}
+	
+	protected List<Method> selectorsFor(Type type) throws LookupException {
+		ParameterBlock<?,ComponentParameter> block = type.parameterBlock(ComponentParameter.class);
 		List<Method> result = new ArrayList<Method>();
 		if(block != null) {
-		  for(FormalComponentParameter par: block.parameters()) {
-		  	result.add(selectorFor(par));
+		  for(ComponentParameter par: block.parameters()) {
+		  	result.add(selectorFor((FormalComponentParameter<?>) par));
 		  }
 		}
 		return result;
 	}
 
-	protected String selectorName(FormalComponentParameter<?> par) {
-		return "__select$"+ par.nearestAncestor(Type.class).getFullyQualifiedName()+"$"+par.signature().name();
+	protected String selectorName(ComponentParameter<?> par) {
+		return "__select$"+ toUnderScore(par.nearestAncestor(Type.class).getFullyQualifiedName())+"$"+par.signature().name();
 	}
 	
-	protected Method selectorFor(FormalComponentParameter<?> par) {
+	protected String toUnderScore(String string) {
+		return string.replace('.', '_');
+	}
+	
+	protected Method selectorFor(FormalComponentParameter<?> par) throws LookupException {
 		SimpleNameMethodHeader header = new SimpleNameMethodHeader(selectorName(par));
-		Method result = new NormalMethod(header,par.componentTypeReference().clone());
+		Java language = par.language(Java.class);
+//	Method result = new NormalMethod(header,par.componentTypeReference().clone());
+	JavaTypeReference reference = language.reference(par.declarationType());
+	reference.setUniParent(null);
+	Method result = new NormalMethod(header,reference);
 		result.addModifier(new Protected());
 //		result.addModifier(new Abstract());
 		header.addFormalParameter(new FormalParameter("argument", par.containerTypeReference().clone()));
@@ -182,7 +296,7 @@ public class JavaTranslator {
 			Invocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
 			// move actual arguments from subobject constructor call to new constructor call. 
 			inv.addAllArguments(call.actualArgumentList().getActualParameters());
-			Invocation setterCall = new RegularMethodInvocation(setterName(relation), null);
+			Invocation setterCall = new JavaMethodInvocation(setterName(relation), null);
 			setterCall.addArgument(new ActualArgument(inv));
 			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
@@ -263,7 +377,7 @@ public class JavaTranslator {
 		result.setImplementation(new RegularImplementation(body));
 		Invocation invocation = invocation(result, original(method.name()));
 		TypeReference ref = getRelativeClassName(relation);
-		Expression target = new RegularMethodInvocation(getterName(relation), null);
+		Expression target = new JavaMethodInvocation(getterName(relation), null);
 		invocation.setTarget(target);
 		substituteTypeParameters(method, result);
 		addImplementation(method, body, invocation);
@@ -316,7 +430,16 @@ public class JavaTranslator {
 		   String innerClassName = innerClassName(relation, relation.nearestAncestor(Type.class));
 		  superReference = relation.language(Java.class).createTypeReference(innerClassName);
 		 }
+		if(superReference instanceof ComponentParameterTypeReference) {
+			superReference = ((ComponentParameterTypeReference) superReference).componentTypeReference();
+		}
 		stub.addInheritanceRelation(new SubtypeRelation(superReference));
+		
+		List<Method> selectors = selectorsFor(relation);
+		for(Method selector:selectors) {
+			stub.add(selector);
+		}
+		
 		List<Method> localMethods = componentType.directlyDeclaredMembers(Method.class);
 		for(Method<?,?,?,?> method: localMethods) {
 			if(method.is(method.language(ObjectOrientedLanguage.class).CONSTRUCTOR) == Ternary.TRUE) {
@@ -495,7 +618,7 @@ public class JavaTranslator {
 			Element<?,?> inv = superTarget.parent();
 			if(inv instanceof RegularMethodInvocation) {
 				RegularMethodInvocation call = (RegularMethodInvocation) inv;
-			  Invocation subObjectSelection = new RegularMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
+			  Invocation subObjectSelection = new JavaMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
 			  call.setTarget(subObjectSelection);
 			  call.setName(original(call.name()));
 			}
@@ -610,7 +733,7 @@ public class JavaTranslator {
 	}
 
 	private Invocation invocation(Method<?, ?, ?, ?> method, String origin) {
-		Invocation invocation = new RegularMethodInvocation(origin, null);
+		Invocation invocation = new JavaMethodInvocation(origin, null);
 		// pass parameters.
 		useParametersInInvocation(method, invocation);
 		return invocation;

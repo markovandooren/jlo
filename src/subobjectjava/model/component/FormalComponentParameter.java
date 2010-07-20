@@ -56,10 +56,6 @@ public abstract class FormalComponentParameter<E extends FormalComponentParamete
 		return _typeReference.getOtherEnd();
 	}
 	
-	public Type componentType() throws LookupException {
-		return componentTypeReference().getType();
-	}
-
 	public void setComponentType(TypeReference type) {
 		if(type != null) {
 			_typeReference.connectTo(type.parentLink());
@@ -68,15 +64,6 @@ public abstract class FormalComponentParameter<E extends FormalComponentParamete
 			_typeReference.connectTo(null);
 		}
 	}
-
-  /**
-   * Return the signature of this member.
-   */
-  public SimpleNameSignature signature() {
-    return _signature.getOtherEnd();
-  }
-
-  private SingleAssociation<FormalComponentParameter, SimpleNameSignature> _signature = new SingleAssociation<FormalComponentParameter, SimpleNameSignature>(this);
 
 //	@Override
 //	public E clone() {
@@ -113,7 +100,8 @@ public abstract class FormalComponentParameter<E extends FormalComponentParamete
 	}
 
 	public LookupStrategy targetContext() throws LookupException {
-		return componentType().targetContext();
+		return declarationType().targetContext();
 	}
+	
 
 }
