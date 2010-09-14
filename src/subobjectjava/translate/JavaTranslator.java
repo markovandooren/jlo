@@ -19,6 +19,7 @@ import org.rejuse.predicate.UnsafePredicate;
 
 import subobjectjava.model.component.AbstractClause;
 import subobjectjava.model.component.ActualComponentArgument;
+import subobjectjava.model.component.ComponentNameActualArgument;
 import subobjectjava.model.component.ComponentParameter;
 import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
@@ -28,8 +29,9 @@ import subobjectjava.model.component.ConfigurationClause;
 import subobjectjava.model.component.FormalComponentParameter;
 import subobjectjava.model.component.InstantiatedComponentParameter;
 import subobjectjava.model.component.MultiActualComponentArgument;
+import subobjectjava.model.component.MultiFormalComponentParameter;
+import subobjectjava.model.component.ParameterReferenceActualArgument;
 import subobjectjava.model.component.RenamingClause;
-import subobjectjava.model.component.SingleActualComponentArgument;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.SubobjectJavaOverridesRelation;
@@ -63,6 +65,7 @@ import chameleon.core.variable.VariableDeclaration;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.type.BasicTypeReference;
+import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
@@ -72,12 +75,14 @@ import chameleon.oo.type.generics.BasicTypeArgument;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.generics.TypeParameterSubstitution;
+import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.expression.SuperConstructorDelegation;
 import chameleon.support.expression.SuperTarget;
 import chameleon.support.expression.ThisLiteral;
 import chameleon.support.member.simplename.SimpleNameMethodHeader;
+import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.SimpleNameMethodSignature;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
@@ -144,7 +149,9 @@ public class JavaTranslator {
 			SingleAssociation pl = call.parentLink();
 			pl.getOtherRelation().replace(pl, expr.parentLink());
 		}
-		
+		for(InheritanceRelation rel: type.inheritanceRelations()) {
+			processSuperComponentParameters(rel);
+		}
 		
 		expandReferences(type);
 		removeNonLocalReferences(type);
@@ -152,6 +159,17 @@ public class JavaTranslator {
 		
 		// Remove non local references
 		return type;
+	}
+	
+	protected void processSuperComponentParameters(InheritanceRelation<?> relation) throws LookupException {
+		TypeReference tref = relation.superClassReference();
+		Type type = relation.nearestAncestor(Type.class);
+		if(tref instanceof ComponentParameterTypeReference) {
+			ComponentParameterTypeReference ctref = (ComponentParameterTypeReference) tref;
+			Type ctype = tref.getType();
+			type.addAll(selectorsForComponent(ctype));
+			relation.setSuperClassReference(ctref.componentTypeReference());
+		}
 	}
 
 	protected void removeNonLocalReferences(Type type) throws LookupException {
@@ -161,7 +179,7 @@ public class JavaTranslator {
 		}
 	}
 
-	protected void expandReferences(Type type) throws LookupException {
+	protected void expandReferences(Element<?,?> type) throws LookupException {
 		for(BasicJavaTypeReference tref: type.descendants(BasicJavaTypeReference.class)) {
 			if(tref.getTarget() == null) {
 				try {
@@ -183,8 +201,12 @@ public class JavaTranslator {
 	}
 	
 	protected List<Method> selectorsFor(ComponentRelation rel) throws LookupException {
-		List<Method> result = new ArrayList<Method>();
 		Type t = rel.componentType();
+		return selectorsForComponent(t);
+	}
+
+	public List<Method> selectorsForComponent(Type t) throws LookupException {
+		List<Method> result = new ArrayList<Method>();
 		for(ComponentParameter par: t.parameters(ComponentParameter.class)) {
 			
 			Method realSelector= realSelectorFor((InstantiatedComponentParameter) par);
@@ -212,11 +234,18 @@ public class JavaTranslator {
 		NamedTargetExpression nt = new NamedTargetExpression("argument", null);
 		ActualComponentArgument arg = par.argument();
 		Expression expr;
-		if(arg instanceof SingleActualComponentArgument) {
-			SingleActualComponentArgument singarg = (SingleActualComponentArgument) arg;
+		if(arg instanceof ComponentNameActualArgument) {
+			ComponentNameActualArgument singarg = (ComponentNameActualArgument) arg;
 			expr = new NamedTargetExpression(singarg.name(),nt);
 			body.addStatement(new ReturnStatement(expr));
-		} else {
+		} else if(arg instanceof ParameterReferenceActualArgument) {
+			ParameterReferenceActualArgument ref = (ParameterReferenceActualArgument) arg;
+			ComponentParameter p = ref.declaration();
+			expr = new JavaMethodInvocation(selectorName(p), null);
+			((JavaMethodInvocation)expr).addArgument(new ActualArgument(new NamedTargetExpression("argument",null)));
+			body.addStatement(new ReturnStatement(expr));
+		}
+		 else {
 			// result variable declaration
 			LocalVariableDeclarator varDecl = new LocalVariableDeclarator(reference.clone());
 			VariableDeclaration declaration = new VariableDeclaration("result");
@@ -232,10 +261,19 @@ public class JavaTranslator {
 			
 			// add all components
 			ComponentRelationSet componentRelations = ((MultiActualComponentArgument)arg).declaration();
-			for(ComponentRelation rel: componentRelations.relations()) {
+			for(DeclarationWithType rel: componentRelations.relations()) {
 				Expression t = new NamedTargetExpression("result", null);
-				Invocation inv = new JavaMethodInvocation("add", t);
-				NamedTargetExpression componentSelector = new NamedTargetExpression(rel.signature().name(), new NamedTargetExpression("argument",null));
+				SimpleNameMethodInvocation inv = new JavaMethodInvocation("add", t);
+				Expression componentSelector;
+				if(rel instanceof ComponentParameter) {
+					if(rel instanceof MultiFormalComponentParameter) {
+						inv.setName("addAll");
+					}
+					componentSelector = new JavaMethodInvocation(selectorName((ComponentParameter)rel), null);
+					((JavaMethodInvocation)componentSelector).addArgument(new ActualArgument(new NamedTargetExpression("argument",null)));
+				} else {
+				  componentSelector = new NamedTargetExpression(rel.signature().name(), new NamedTargetExpression("argument",null));
+				}
 				inv.addArgument(new ActualArgument(componentSelector));
 				body.addStatement(new StatementExpression(inv));
 			}
@@ -481,8 +519,8 @@ public class JavaTranslator {
 	
 	public Method createOutward(Method<?,?,?,?> method, String newName, ComponentRelation relation) throws LookupException {
 		NormalMethod<?,?,?> result;
-		if((method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
-				(method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
+		if(//(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
+			 (method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
 			result = innerMethod(method, method.name());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
@@ -504,8 +542,9 @@ public class JavaTranslator {
 	
 	public Method createOriginal(Method<?,?,?,?> method, String original) throws LookupException {
 		NormalMethod<?,?,?> result;
-		if((method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
-				(method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
+		if(
+			 (method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
+			 (method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
 			result = innerMethod(method, original);
 			substituteTypeParameters(method, result);
 			Block body = new Block();
@@ -534,9 +573,20 @@ public class JavaTranslator {
 		}
 	}
 
-	private NormalMethod<?, ?, ?> innerMethod(Method<?, ?, ?, ?> method, String original) {
+	private NormalMethod<?, ?, ?> innerMethod(Method<?, ?, ?, ?> method, String original) throws LookupException {
 		NormalMethod<?, ?, ?> result;
-		result = new NormalMethod(method.header().clone(), method.returnTypeReference().clone());
+		TypeReference returnTypeReference = method.returnTypeReference();
+		BasicJavaTypeReference tref = (BasicJavaTypeReference) returnTypeReference.clone();
+		String fullyQualifiedName = returnTypeReference.getElement().getFullyQualifiedName();
+		String predecessor = null;
+		if(! (returnTypeReference.getDeclarator() instanceof TypeParameter)) {
+			predecessor = Util.getAllButLastPart(fullyQualifiedName);
+		}
+		if(predecessor != null) {
+			NamedTarget nt = new NamedTarget(predecessor);
+			tref.setTarget(nt);
+		}
+		result = new NormalMethod(method.header().clone(), tref);
 		((SimpleNameMethodHeader)result.header()).setName(original);
 		ExceptionClause exceptionClause = method.getExceptionClause();
 		ExceptionClause clone = (exceptionClause != null ? exceptionClause.clone(): null);
@@ -547,23 +597,23 @@ public class JavaTranslator {
 
 
 	public void substituteTypeParameters(Element<?, ?> element) throws LookupException {
-		List<CrossReference> crossReferences = 
-			 element.descendants(CrossReference.class, 
-					              new UnsafePredicate<CrossReference,LookupException>() {
+		List<TypeReference> crossReferences = 
+			 element.descendants(TypeReference.class, 
+					              new UnsafePredicate<TypeReference,LookupException>() {
 	
 													@Override
-													public boolean eval(CrossReference object) throws LookupException {
+													public boolean eval(TypeReference object) throws LookupException {
 //														return object.getElement().sameAs(selectionDeclaration());
 														return object.getDeclarator() instanceof InstantiatedTypeParameter;
 													}
 				 
 			                  });
-		for(CrossReference cref: crossReferences) {
+		for(TypeReference cref: crossReferences) {
 			SingleAssociation parentLink = cref.parentLink();
 			Association childLink = parentLink.getOtherRelation();
 			InstantiatedTypeParameter declarator = (InstantiatedTypeParameter) cref.getDeclarator(); 
 //			TypeReference namedTargetExpression = declarator.argument().substitutionReference().clone();
-			Type type = (Type) cref.getElement();
+			Type type = cref.getElement();
 			while(type instanceof ActualType) {
 				type = ((ActualType)type).aliasedType();
 			}

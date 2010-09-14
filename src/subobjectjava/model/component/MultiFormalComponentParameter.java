@@ -1,13 +1,12 @@
 package subobjectjava.model.component;
 
 import jnome.core.language.Java;
-import jnome.core.type.ArrayType;
 import jnome.core.type.BasicJavaTypeReference;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.lookup.LookupException;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
-import chameleon.oo.type.generics.BasicTypeArgument;
+import chameleon.oo.type.generics.ActualTypeArgument;
 
 public class MultiFormalComponentParameter extends FormalComponentParameter<MultiFormalComponentParameter> {
 
@@ -24,7 +23,7 @@ public class MultiFormalComponentParameter extends FormalComponentParameter<Mult
 	public Type declarationType() throws LookupException {
 		BasicJavaTypeReference list = (BasicJavaTypeReference) language(Java.class).createTypeReference("java.util.List");
 		TypeReference clone = componentTypeReference().clone();
-		BasicTypeArgument arg = language(Java.class).createBasicTypeArgument(clone);
+		ActualTypeArgument arg = language(Java.class).createExtendsWildcard(clone);
 		list.addArgument(arg);
 		list.setUniParent(this);
 		return list.getElement();

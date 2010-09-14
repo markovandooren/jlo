@@ -20,8 +20,4 @@ public abstract class ActualComponentArgument<E extends ActualComponentArgument<
 		return nearestAncestor(ComponentArgumentContainer.class).containerType(this);
 	}
 	
-//	Type enclosing = tref.containerType(this);
-//	int index = tref.indexOf(this);
-//	return (FormalComponentParameter) enclosing.parameter(ComponentParameter.class, index);	
-
 }

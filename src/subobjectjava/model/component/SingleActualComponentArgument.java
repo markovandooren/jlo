@@ -6,19 +6,16 @@ import java.util.List;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
-import chameleon.core.lookup.LookupException;
-import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.lookup.SelectorWithoutOrder.SignatureSelector;
-import chameleon.core.validation.Valid;
-import chameleon.core.validation.VerificationResult;
-import chameleon.oo.type.DeclarationWithType;
-import chameleon.oo.type.Type;
+import chameleon.exception.ChameleonProgrammerException;
 
-public class SingleActualComponentArgument extends ActualComponentArgument<SingleActualComponentArgument> {
+public abstract class SingleActualComponentArgument<E extends SingleActualComponentArgument<E>> extends ActualComponentArgument<E> {
 
 	public SingleActualComponentArgument(String name) {
 		setName(name);
 	}
+	
+	public abstract E clone();
 	
 	private String _name;
 	
@@ -34,32 +31,15 @@ public class SingleActualComponentArgument extends ActualComponentArgument<Singl
 		return new ArrayList<Element>();
 	}
 
-	@Override
-	public ComponentRelation declaration() throws LookupException {
-		//Type enclosing = tref.target().getElement();
-		Type enclosing = containerType();
+	protected SignatureSelector selector() {
 		SignatureSelector signatureSelector = new SignatureSelector() {
-			private Signature _signature = new SimpleNameSignature(_name);
+			private Signature _signature = new SimpleNameSignature(name());
 
 			public Signature signature() {
 				return _signature;
 			}
-		}; 
-		ComponentRelation result = enclosing.targetContext().lookUp(new SelectorWithoutOrder<ComponentRelation>(signatureSelector, ComponentRelation.class));
-		if(result == null) {
-			System.out.println("debug");
-		}
-		return result;
-	}
-
-	@Override
-	public SingleActualComponentArgument clone() {
-		return new SingleActualComponentArgument(name());
-	}
-
-	@Override
-	public VerificationResult verifySelf() {
-		return Valid.create();
+		};
+		return signatureSelector;
 	}
 
 }

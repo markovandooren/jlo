@@ -8,7 +8,7 @@ import java.util.List;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.lookup.LookupRedirector;
+import chameleon.core.lookup.Stub;
 import chameleon.core.member.Member;
 import chameleon.oo.type.Type;
 
@@ -34,12 +34,10 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 			resulting.setName(newSignature().name());
 			
 			// reroute lookup from within the clone (result) to the parent of the original member. 
-			LookupRedirector redirector = new LookupRedirector(member.parent());
-			redirector.add(resulting);
+//			LookupRedirector redirector = new LookupRedirector(member.parent(),resulting);
+			Stub redirector = new ComponentStub(nearestAncestor(ComponentRelation.class), resulting);
 			redirector.setUniParent(nearestAncestor(Type.class));
 
-//			resulting.setUniParent(nearestAncestor(Type.class));
-			
 			resultList.add(resulting);
 		}
 		

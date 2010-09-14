@@ -210,6 +210,8 @@ import subobjectjava.model.component.ActualComponentArgument;
 import subobjectjava.model.component.SingleActualComponentArgument;
 import subobjectjava.model.component.MultiActualComponentArgument;
 import subobjectjava.model.component.ComponentParameterTypeReference;
+import subobjectjava.model.component.ComponentNameActualArgument;
+import subobjectjava.model.component.ParameterReferenceActualArgument;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -262,6 +264,13 @@ import java.util.ArrayList;
     return gJavaP.createTypeReference(target);
   }
 
+  public InvocationTarget cloneTarget(InvocationTarget target) {
+    return gJavaP.cloneTarget(target);
+  }
+  
+  public RegularMethodInvocation invocation(String name, InvocationTarget target) {
+    return gJavaP.invocation(name,target);
+  }
 }
 
 memberDecl returns [TypeElement element]
@@ -342,19 +351,33 @@ expression returns [Expression element]
            }
     ;
     
-conditionalOrExpression returns [Expression element]
-    :   ex=componentParameterCall {retval.element = ex.element;} ( '||' exx=componentParameterCall 
-        {retval.element = new ConditionalOrExpression(retval.element, exx.element);
-         setLocation(retval.element,retval.start,exx.stop);
-        })*
-    ;
+//conditionalOrExpression returns [Expression element]
+//    :   ex=componentParameterCall {retval.element = ex.element;} ( '||' exx=componentParameterCall 
+//        {retval.element = new ConditionalOrExpression(retval.element, exx.element);
+//         setLocation(retval.element,retval.start,exx.stop);
+//        })*
+//    ;
 
-componentParameterCall returns [Expression element]
-  	: ex=conditionalAndExpression {retval.element = ex.element;} (at='#' id=Identifier 
-             {retval.element = new ComponentParameterCall(ex.element, $id.text);
-              setLocation(retval.element,ex.start,id);
+//componentParameterCall returns [Expression element]
+// 	: ex=conditionalAndExpression {retval.element = ex.element;} (at='#' id=Identifier 
+//            {retval.element = new ComponentParameterCall(ex.element, $id.text);
+//              setLocation(retval.element,ex.start,id);
+//              setKeyword(retval.element,at);
+//             })?
+//  	;
+
+// NEEDS_TARGET
+
+
+nonTargetPrimary returns [Expression element]
+  	:
+  	lit=literal {retval.element = lit.element;}
+  	   |
+  	   at='#' id=Identifier '(' ex=expression {retval.element = ex.element;} stop=')'
+           {retval.element = new ComponentParameterCall(ex.element, $id.text);
+              setLocation(retval.element,at,stop);
               setKeyword(retval.element,at);
-             })?
+             }
   	;
 
 nameAndParams returns [RegularType element]
@@ -391,7 +414,7 @@ singleComponentParameter returns [ComponentParameter element]
 	;
 
 multiComponentParameter returns [ComponentParameter element]
-	: '[' id=Identifier tcontainer=type arrow='->' tcomp=type ']'
+	:  id=Identifier '[' tcontainer=type arrow='->' tcomp=type ']'
 	  {retval.element = new MultiFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
 	   setLocation(retval.element,id,tcomp.stop);
 	   setKeyword(retval.element,arrow);
@@ -490,13 +513,14 @@ componentArgument returns [ActualComponentArgument element]
  	
 singleComponentArgument returns [SingleActualComponentArgument element]
 	:
-	 id=Identifier {retval.element = new SingleActualComponentArgument($id.text);}
+	 id=Identifier {retval.element = new ComponentNameActualArgument($id.text);}
+        | '@' idd=Identifier {retval.element = new ParameterReferenceActualArgument($idd.text);}
 	;
 	
 multiComponentArgument returns [MultiActualComponentArgument element]
 @init{retval.element = new MultiActualComponentArgument();}
 	:
-	 '[' single=singleComponentArgument {retval.element.add(single.element);} 
-	     (',' singlee=singleComponentArgument {retval.element.add(singlee.element);} )*
+	 '[' (single=singleComponentArgument {retval.element.add(single.element);} 
+	     (',' singlee=singleComponentArgument {retval.element.add(singlee.element);} )* )?
 	 ']' 
 	;	

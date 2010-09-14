@@ -23,8 +23,8 @@ import chameleon.oo.type.Type;
 public class ComponentRelationSet extends NamespaceElementImpl<ComponentRelationSet,Element> implements DeclarationWithType<ComponentRelationSet, Element, SimpleNameSignature, ComponentRelationSet>{
 
 	
-	public ComponentRelationSet(List<ComponentRelation> relations, FormalComponentParameter formal) {
-		_relations = new ArrayList<ComponentRelation>(relations);
+	public ComponentRelationSet(List<DeclarationWithType> relations, FormalComponentParameter formal) {
+		_relations = new ArrayList<DeclarationWithType>(relations);
 		setSignature(formal.signature().clone());
 		_formal = formal;
 	}
@@ -35,11 +35,11 @@ public class ComponentRelationSet extends NamespaceElementImpl<ComponentRelation
 	
 	private FormalComponentParameter _formal;
 	
-	public List<ComponentRelation> relations() {
-		return new ArrayList<ComponentRelation>(_relations);
+	public List<DeclarationWithType> relations() {
+		return new ArrayList<DeclarationWithType>(_relations);
 	}
 	
-	private List<ComponentRelation> _relations;
+	private List<DeclarationWithType> _relations;
 	
 	public List<? extends Element> children() {
 		return new ArrayList<Element>();

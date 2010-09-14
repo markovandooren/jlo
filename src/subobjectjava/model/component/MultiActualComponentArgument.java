@@ -28,8 +28,8 @@ public class MultiActualComponentArgument extends ActualComponentArgument<MultiA
 
 	@Override
 	public ComponentRelationSet declaration() throws LookupException {
-		List<ComponentRelation> relations = new ArrayList<ComponentRelation>();
-		for(SingleActualComponentArgument argument : arguments()) {
+		List<DeclarationWithType> relations = new ArrayList<DeclarationWithType>();
+		for(SingleActualComponentArgument<?> argument : arguments()) {
 			relations.add(argument.declaration());
 		}
 		return new ComponentRelationSet(relations, formalParameter());
