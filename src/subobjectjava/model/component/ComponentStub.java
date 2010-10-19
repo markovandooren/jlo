@@ -57,8 +57,11 @@ public class ComponentStub extends NamespaceElementImpl<ComponentStub,Element> i
 	
 	@Override
 	public LookupStrategy lexicalLookupStrategy(Element child) throws LookupException {
-//		ComponentRelation relation = nearestAncestor(ComponentRelation.class);
-		return generator().componentType().lexicalLookupStrategy(child);
+//		return generator().componentType().lexicalLookupStrategy(child);
+//		if(child.origin() == child) {
+//			System.out.println("DEBUG");
+//		}
+		return child.origin().lexicalLookupStrategy();
 	}
 
 

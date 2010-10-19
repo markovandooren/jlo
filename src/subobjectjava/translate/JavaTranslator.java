@@ -223,7 +223,8 @@ public class JavaTranslator {
 		FormalComponentParameter formal = par.formalParameter();
 		Java language = par.language(Java.class);
 //		Method result = new NormalMethod(header,formal.componentTypeReference().clone());
-		JavaTypeReference reference = language.reference(formal.declarationType());
+		Type declarationType = formal.declarationType();
+		JavaTypeReference reference = language.reference(declarationType);
 		reference.setUniParent(null);
 		Method result = new NormalMethod(header,reference);
 		result.addModifier(new Protected());
@@ -247,13 +248,16 @@ public class JavaTranslator {
 		}
 		 else {
 			// result variable declaration
-			LocalVariableDeclarator varDecl = new LocalVariableDeclarator(reference.clone());
 			VariableDeclaration declaration = new VariableDeclaration("result");
 			BasicJavaTypeReference arrayList = language.createTypeReference("java.util.ArrayList");
 			JavaTypeReference componentType = language.reference(formal.componentTypeReference().getElement());
 			componentType.setUniParent(null);
 			BasicTypeArgument targ = language.createBasicTypeArgument(componentType);
 			arrayList.addArgument(targ);
+			
+//			LocalVariableDeclarator varDecl = new LocalVariableDeclarator(reference.clone());
+			LocalVariableDeclarator varDecl = new LocalVariableDeclarator(arrayList.clone());
+
 			Expression init = new ConstructorInvocation(arrayList, null);
 			declaration.setInitialization(init);
 			varDecl.add(declaration);
