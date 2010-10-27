@@ -24,6 +24,7 @@ import subobjectjava.model.component.ComponentParameter;
 import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ComponentRelationSet;
+import subobjectjava.model.component.ComponentType;
 import subobjectjava.model.component.ConfigurationBlock;
 import subobjectjava.model.component.ConfigurationClause;
 import subobjectjava.model.component.FormalComponentParameter;
@@ -33,6 +34,7 @@ import subobjectjava.model.component.MultiFormalComponentParameter;
 import subobjectjava.model.component.ParameterReferenceActualArgument;
 import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.expression.ComponentParameterCall;
+import subobjectjava.model.expression.OuterTarget;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.SubobjectJavaOverridesRelation;
 import chameleon.core.declaration.CompositeQualifiedName;
@@ -57,7 +59,6 @@ import chameleon.core.method.exception.ExceptionClause;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
-import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.statement.Block;
 import chameleon.core.variable.FormalParameter;
@@ -69,7 +70,9 @@ import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
+import chameleon.oo.type.TypeElement;
 import chameleon.oo.type.TypeReference;
+import chameleon.oo.type.TypeWithBody;
 import chameleon.oo.type.generics.ActualType;
 import chameleon.oo.type.generics.BasicTypeArgument;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
@@ -363,6 +366,13 @@ public class JavaTranslator {
 	
 	public void addOutwardDelegations(ComponentRelation relation, Type outer) throws LookupException {
 		ConfigurationBlock block = relation.configurationBlock();
+		TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
+		List<Method> elements;
+		if(componentTypeDeclaration != null) {
+			elements = componentTypeDeclaration.body().children(Method.class);
+		} else {
+			elements = new ArrayList<Method>();
+		}
 		for(ConfigurationClause clause: block.clauses()) {
 			if(clause instanceof AbstractClause) {
 				
@@ -395,8 +405,16 @@ public class JavaTranslator {
 				Type targetInnerClass = targetInnerClass(outer, relation, poppedName);
 				Declaration decl = container.targetContext().lookUp(selector);
 				if(decl instanceof Method) {
-					Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
-				  Method original = createOriginal(method, original(method.name()));
+					final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
+				  Method original = null;
+				  boolean overriddenInSubobject = new UnsafePredicate<Method, LookupException>() {
+						public boolean eval(Method object) throws LookupException {
+							return object.signature().sameAs(method.signature());
+						}
+					}.exists(elements);
+				  if(! overriddenInSubobject) {
+				    original= createOriginal(method, original(method.name()));
+				  }
 				  if(original != null) {
 				  	targetInnerClass.add(original);
 				  }
@@ -454,7 +472,7 @@ public class JavaTranslator {
 	public Type createInnerClassFor(ComponentRelation relation, Type outer) throws ChameleonProgrammerException, LookupException {
 		NamespacePart nsp = relation.farthestAncestor(NamespacePart.class);
 //		Type parentType = relation.nearestAncestor(Type.class);
-		Type componentType = relation.componentType();
+		Type componentType = relation.referencedComponentType();
 		Type baseT = componentType.baseType();
 		NamespacePart originalNsp = baseT.farthestAncestor(NamespacePart.class);
 		for(Import imp: originalNsp.imports()) {
@@ -516,6 +534,31 @@ public class JavaTranslator {
 				((SimpleNameMethodHeader)clone.header()).setName(name);
 				stub.add(clone);
 			}
+		}
+		ComponentType ctype = relation.componentTypeDeclaration();
+		if(ctype != null) {
+			String name = relation.nearestAncestor(Type.class).getName();
+			for(TypeElement typeElement:ctype.body().elements()) {
+				TypeElement clone = typeElement.clone();
+				if(clone instanceof Declaration) {
+					Declaration clonedDeclaration = (Declaration) clone;
+					clonedDeclaration.setName(original(clonedDeclaration.signature().name()));
+				}
+				List<OuterTarget> outers = clone.descendants(OuterTarget.class);
+				for(OuterTarget o: outers) {
+					SingleAssociation parentLink = o.parentLink();
+					ThisLiteral e = new ThisLiteral();
+					e.setTypeReference(new BasicJavaTypeReference(name));
+					parentLink.getOtherRelation().replace(parentLink, e.parentLink());
+				}
+				stub.add(clone);
+			}
+//			for(Method m: ctype.implicitConstructors()) {
+//				Method clone = m.clone();
+//				m.setName(stub.getName());
+//				stub.add(m);
+//			}
+			
 		}
 		return stub;
 	}

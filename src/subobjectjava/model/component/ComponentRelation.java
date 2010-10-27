@@ -3,6 +3,10 @@ package subobjectjava.model.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import jnome.core.expression.invocation.ConstructorInvocation;
+import jnome.core.type.AnonymousInnerClass;
+
+import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.logic.ternary.Ternary;
 
@@ -13,16 +17,22 @@ import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationContainerSkipper;
 import chameleon.core.lookup.DeclarationSelector;
+import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
+import chameleon.core.lookup.LookupStrategySelector;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
+import chameleon.core.statement.Block;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
+import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.DeclarationWithType;
+import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
+import chameleon.oo.type.TypeWithBody;
 import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>{
@@ -35,7 +45,14 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 	@Override
 	public ComponentRelation clone() {
 		ComponentRelation result = new ComponentRelation(signature().clone(), componentTypeReference().clone());
-		result.setConfigurationBlock(configurationBlock().clone());
+		ConfigurationBlock configurationBlock = configurationBlock();
+		if(configurationBlock != null) {
+		  result.setConfigurationBlock(configurationBlock.clone());
+		}
+		ComponentType t = componentTypeDeclaration();
+		if(t != null) {
+			result.setComponentTypeDeclaration(t.clone());
+		}
 		return result;
 	}
 
@@ -43,13 +60,20 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 	public VerificationResult verifySelf() {
 		return Valid.create();
 	}
-
+	
 	@Override
 	public LookupStrategy lexicalLookupStrategy(Element child) throws LookupException {
 		LookupStrategy result = parent().lexicalLookupStrategy(this);
-//		if(child == componentTypeReference()) {
-			result = new ComponentTypeLookupStrategy(result, nearestAncestor(Type.class));
-//		}
+		result = new ComponentTypeLookupStrategy(result, nearestAncestor(Type.class));
+//    if(child.nearestAncestor(ClassBody.class).sameAs(body())) {
+//    	LookupStrategy componentStrategy = componentType().localStrategy();
+//    	final LookupStrategy lexical = result;
+//    	result = language().lookupFactory().createLexicalLookupStrategy(componentStrategy, this, new LookupStrategySelector(){
+//				public LookupStrategy strategy() throws LookupException {
+//					return lexical;
+//				}
+//			});
+//    }
 		return result;
 	}
 
@@ -95,8 +119,16 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		return _typeReference.getOtherEnd();
 	}
 	
+	public Type referencedComponentType() throws LookupException {
+		return componentTypeReference().getElement();
+	}
+	
 	public Type componentType() throws LookupException {
-		return componentTypeReference().getType();
+		Type result = componentTypeDeclaration();
+		if(result == null) {
+		 result = componentTypeReference().getElement();
+		}
+		return result;
 	}
 
 	public void setComponentType(TypeReference type) {
@@ -137,6 +169,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
   	Util.addNonNull(signature(), result);
   	Util.addNonNull(componentTypeReference(), result);
   	Util.addNonNull(configurationBlock(), result);
+  	Util.addNonNull(componentTypeDeclaration(), result);
   	return result;
   }
   
@@ -171,5 +204,48 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 	public Declaration declarator() {
 		return this;
 	}
+
+//  public void setBody(ClassBody body) {
+//  	setAsParent(_body, body);
+//  }
+  
+  
+	private SingleAssociation<ComponentRelation,ComponentType> _body = new SingleAssociation<ComponentRelation,ComponentType>(this);
+	
+	public void setBody(ClassBody body) {
+		if(body == null) {
+			_body.connectTo(null);
+		} else {
+			_body.connectTo((Association<? extends ComponentType, ? super ComponentRelation>) createComponentType(body).parentLink());
+		}
+	}
+
+  private TypeWithBody createComponentType(ClassBody body) {
+  	RegularType anon = new ComponentType();
+	  anon.setBody(body);
+		return anon;
+	}
+  
+  public ComponentType componentTypeDeclaration() {
+  	return _body.getOtherEnd();
+  }
+
+  
+  private void setComponentTypeDeclaration(ComponentType componentType) {
+  	if(componentType == null) {
+  		_body.connectTo(null);
+  	} else {
+  		_body.connectTo((Association<? extends ComponentType, ? super ComponentRelation>) componentType.parentLink());
+  	}
+  }
+
+//  /**
+//   * Return the ConfigurationBlock of this member.
+//   */
+//  public ClassBody body() {
+//    return _body.getOtherEnd();
+//  }
+  
+//  private SingleAssociation<ComponentRelation, ClassBody> _body = new SingleAssociation<ComponentRelation, ClassBody>(this);
 
 }

@@ -33,6 +33,7 @@ import chameleon.core.expression.Assignable;
 import chameleon.core.expression.NamedTarget;
 import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.expression.InvocationTarget;
+import chameleon.core.expression.TargetedExpression;
 import chameleon.core.expression.VariableReference;
 
 import chameleon.core.language.Language;
@@ -202,6 +203,7 @@ import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.component.OverridesClause;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.expression.ComponentParameterCall;
+import subobjectjava.model.expression.OuterTarget;
 import subobjectjava.model.component.ComponentParameter;
 import subobjectjava.model.component.FormalComponentParameter;
 import subobjectjava.model.component.SingleFormalComponentParameter;
@@ -285,15 +287,16 @@ memberDecl returns [TypeElement element]
     ;
 
 componentDeclaration returns [ComponentRelation element]
-    	:	cp='subobject' name=Identifier tp=type cfg=configurationBlock? ';' 
-    	     {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), tp.element);
+    	:	cp='subobject' name=Identifier tp=type? body=classBody? cfg=configurationBlock?   ';'
+    	     {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), $tp.element);
     	      if(cfg != null) {retval.element.setConfigurationBlock($cfg.element);}
+    	      if(body != null) {retval.element.setBody($body.element);}
     	      setKeyword(retval.element,cp);
     	     }
     	;
 configurationBlock returns [ConfigurationBlock element] 
 @after{setLocation(retval.element, (CommonToken)retval.start, (CommonToken)retval.stop);}
-        : {retval.element = new ConfigurationBlock();}'{' (cl=configurationClause{retval.element.add(cl.element);} (',' cll=configurationClause{retval.element.add(cll.element);})*)? '}'
+        : al='alias' '{' {retval.element = new ConfigurationBlock(); setKeyword(retval.element,al);} (cl=configurationClause{retval.element.add(cl.element);} (',' cll=configurationClause{retval.element.add(cll.element);})*)? '}'
         ;
         
 configurationClause returns [ConfigurationClause element]
@@ -378,6 +381,14 @@ nonTargetPrimary returns [Expression element]
               setLocation(retval.element,at,stop);
               setKeyword(retval.element,at);
              }
+             | okw='outer'
+                supsuf=superSuffix 
+                {retval.element = supsuf.element;
+                 InvocationTarget tar = new OuterTarget();
+                 ((TargetedExpression)retval.element).setTarget(tar);
+                 setLocation(retval.element,okw,okw); // put locations on the SuperTarget.
+                 setKeyword(tar,okw);
+                }
   	;
 
 nameAndParams returns [RegularType element]
