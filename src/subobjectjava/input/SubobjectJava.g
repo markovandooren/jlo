@@ -25,7 +25,6 @@ import chameleon.core.declaration.TargetDeclaration;
 
 import chameleon.core.element.Element;
 
-import chameleon.core.expression.ActualArgument;
 import chameleon.core.expression.Expression;
 import chameleon.core.expression.Invocation;
 import chameleon.core.expression.Literal;
@@ -341,7 +340,7 @@ expression returns [Expression element]
            retval.element = new AssignmentExpression(ex.element,exx.element);
          } else {
            retval.element = new InfixOperatorInvocation($op.text,ex.element);
-           ((InfixOperatorInvocation)retval.element).addArgument(new ActualArgument(exx.element));
+           ((InfixOperatorInvocation)retval.element).addArgument(exx.element);
          }
          setLocation(retval.element,op.start,op.stop,"__NAME");
          setLocation(retval.element,retval.start,exx.stop);

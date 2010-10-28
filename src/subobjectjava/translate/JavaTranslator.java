@@ -44,7 +44,6 @@ import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
-import chameleon.core.expression.ActualArgument;
 import chameleon.core.expression.Expression;
 import chameleon.core.expression.Invocation;
 import chameleon.core.expression.NamedTarget;
@@ -148,7 +147,7 @@ public class JavaTranslator {
 		for(ComponentParameterCall call: calls) {
 			FormalComponentParameter parameter = call.getElement();
 			Invocation expr = new JavaMethodInvocation(selectorName(parameter),null);
-			expr.addArgument(new ActualArgument((Expression) call.target()));
+			expr.addArgument((Expression) call.target());
 			SingleAssociation pl = call.parentLink();
 			pl.getOtherRelation().replace(pl, expr.parentLink());
 		}
@@ -246,7 +245,7 @@ public class JavaTranslator {
 			ParameterReferenceActualArgument ref = (ParameterReferenceActualArgument) arg;
 			ComponentParameter p = ref.declaration();
 			expr = new JavaMethodInvocation(selectorName(p), null);
-			((JavaMethodInvocation)expr).addArgument(new ActualArgument(new NamedTargetExpression("argument",null)));
+			((JavaMethodInvocation)expr).addArgument(new NamedTargetExpression("argument",null));
 			body.addStatement(new ReturnStatement(expr));
 		}
 		 else {
@@ -277,11 +276,11 @@ public class JavaTranslator {
 						inv.setName("addAll");
 					}
 					componentSelector = new JavaMethodInvocation(selectorName((ComponentParameter)rel), null);
-					((JavaMethodInvocation)componentSelector).addArgument(new ActualArgument(new NamedTargetExpression("argument",null)));
+					((JavaMethodInvocation)componentSelector).addArgument(new NamedTargetExpression("argument",null));
 				} else {
 				  componentSelector = new NamedTargetExpression(rel.signature().name(), new NamedTargetExpression("argument",null));
 				}
-				inv.addArgument(new ActualArgument(componentSelector));
+				inv.addArgument(componentSelector);
 				body.addStatement(new StatementExpression(inv));
 			}
 			
@@ -342,7 +341,7 @@ public class JavaTranslator {
 			// move actual arguments from subobject constructor call to new constructor call. 
 			inv.addAllArguments(call.getActualParameters());
 			Invocation setterCall = new JavaMethodInvocation(setterName(relation), null);
-			setterCall.addArgument(new ActualArgument(inv));
+			setterCall.addArgument(inv);
 			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
 		}
@@ -838,7 +837,7 @@ public class JavaTranslator {
 
 	private void useParametersInInvocation(Method<?, ?, ?, ?> method, Invocation invocation) {
 		for(FormalParameter param: method.formalParameters()) {
-			invocation.addArgument(new ActualArgument(new NamedTargetExpression(param.signature().name(), null)));
+			invocation.addArgument(new NamedTargetExpression(param.signature().name(), null));
 		}
 	}
 	

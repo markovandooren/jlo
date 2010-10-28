@@ -8,8 +8,8 @@ import org.rejuse.logic.ternary.Ternary;
 import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.Signature;
-import chameleon.core.expression.ActualArgument;
 import chameleon.core.expression.CrossReferenceTarget;
+import chameleon.core.expression.Expression;
 import chameleon.core.expression.Invocation;
 import chameleon.core.expression.InvocationTarget;
 import chameleon.core.lookup.DeclarationSelector;
@@ -28,7 +28,7 @@ public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCal
   	super(subobjectTarget);
   }
 
-  public SubobjectConstructorCall(CrossReferenceTarget<ComponentRelation> subobjectTarget, List<ActualArgument> arguments) {
+  public SubobjectConstructorCall(CrossReferenceTarget<ComponentRelation> subobjectTarget, List<Expression> arguments) {
   	super(subobjectTarget);
   	addAllArguments(arguments);
   }
@@ -37,7 +37,7 @@ public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCal
   	super(new CrossReferenceTarget<ComponentRelation>(subobjectName, ComponentRelation.class));
   }
 
-  public SubobjectConstructorCall(String subobjectName, List<ActualArgument> arguments) {
+  public SubobjectConstructorCall(String subobjectName, List<Expression> arguments) {
   	super(new CrossReferenceTarget<ComponentRelation>(subobjectName, ComponentRelation.class));
   	addAllArguments(arguments);
   }
@@ -49,8 +49,7 @@ public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCal
 	
 	@Override
 	protected SubobjectConstructorCall cloneInvocation(InvocationTarget target) {
-		List<ActualArgument> arguments = new ArrayList<ActualArgument>();
-		return new SubobjectConstructorCall((CrossReferenceTarget<ComponentRelation>)getTarget().clone(), arguments);
+		return new SubobjectConstructorCall((CrossReferenceTarget<ComponentRelation>)getTarget().clone(), new ArrayList<Expression>());
 	}
 
 	@Override
