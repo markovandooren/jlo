@@ -340,7 +340,7 @@ public class JavaTranslator {
 		for(SubobjectConstructorCall call: constructorCalls) {
 			Invocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
 			// move actual arguments from subobject constructor call to new constructor call. 
-			inv.addAllArguments(call.actualArgumentList().getActualParameters());
+			inv.addAllArguments(call.getActualParameters());
 			Invocation setterCall = new JavaMethodInvocation(setterName(relation), null);
 			setterCall.addArgument(new ActualArgument(inv));
 			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
