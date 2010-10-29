@@ -33,6 +33,7 @@ import subobjectjava.model.component.MultiActualComponentArgument;
 import subobjectjava.model.component.MultiFormalComponentParameter;
 import subobjectjava.model.component.ParameterReferenceActualArgument;
 import subobjectjava.model.component.RenamingClause;
+import subobjectjava.model.expression.AbstractTarget;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.OuterTarget;
 import subobjectjava.model.expression.SubobjectConstructorCall;
@@ -536,20 +537,13 @@ public class JavaTranslator {
 		}
 		ComponentType ctype = relation.componentTypeDeclaration();
 		if(ctype != null) {
-			String name = relation.nearestAncestor(Type.class).getName();
 			for(TypeElement typeElement:ctype.body().elements()) {
 				TypeElement clone = typeElement.clone();
 				if(clone instanceof Declaration) {
 					Declaration clonedDeclaration = (Declaration) clone;
 					clonedDeclaration.setName(original(clonedDeclaration.signature().name()));
 				}
-				List<OuterTarget> outers = clone.descendants(OuterTarget.class);
-				for(OuterTarget o: outers) {
-					SingleAssociation parentLink = o.parentLink();
-					ThisLiteral e = new ThisLiteral();
-					e.setTypeReference(new BasicJavaTypeReference(name));
-					parentLink.getOtherRelation().replace(parentLink, e.parentLink());
-				}
+				replaceOuterAndRootTargets(clone);
 				stub.add(clone);
 			}
 //			for(Method m: ctype.implicitConstructors()) {
@@ -560,6 +554,16 @@ public class JavaTranslator {
 			
 		}
 		return stub;
+	}
+
+	private void replaceOuterAndRootTargets(TypeElement<?,?> clone) {
+		List<AbstractTarget> outers = clone.descendants(AbstractTarget.class);
+		for(AbstractTarget o: outers) {
+			SingleAssociation parentLink = o.parentLink();
+			ThisLiteral e = new ThisLiteral();
+			e.setTypeReference(new BasicJavaTypeReference(o.getTargetDeclaration().getName()));
+			parentLink.getOtherRelation().replace(parentLink, e.parentLink());
+		}
 	}
 	public final static String SHADOW = "_subobject_";
 	

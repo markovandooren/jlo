@@ -203,6 +203,7 @@ import subobjectjava.model.component.OverridesClause;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.OuterTarget;
+import subobjectjava.model.expression.RootTarget;
 import subobjectjava.model.component.ComponentParameter;
 import subobjectjava.model.component.FormalComponentParameter;
 import subobjectjava.model.component.SingleFormalComponentParameter;
@@ -374,20 +375,25 @@ expression returns [Expression element]
 nonTargetPrimary returns [Expression element]
   	:
   	lit=literal {retval.element = lit.element;}
-  	   |
-  	   at='#' id=Identifier '(' ex=expression {retval.element = ex.element;} stop=')'
+  	| at='#' id=Identifier '(' ex=expression {retval.element = ex.element;} stop=')'
            {retval.element = new ComponentParameterCall(ex.element, $id.text);
               setLocation(retval.element,at,stop);
               setKeyword(retval.element,at);
-             }
-             | okw='outer'
-                supsuf=superSuffix 
-                {retval.element = supsuf.element;
-                 InvocationTarget tar = new OuterTarget();
-                 ((TargetedExpression)retval.element).setTarget(tar);
-                 setLocation(retval.element,okw,okw); // put locations on the SuperTarget.
-                 setKeyword(tar,okw);
-                }
+           }
+        | okw='outer' supsuf=superSuffix 
+           {retval.element = supsuf.element;
+            InvocationTarget tar = new OuterTarget();
+            ((TargetedExpression)retval.element).setTarget(tar);
+            setLocation(retval.element,okw,okw); // put locations on the SuperTarget.
+            setKeyword(tar,okw);
+           }
+        | rkw='rooot' supsuf=superSuffix 
+           {retval.element = supsuf.element;
+            InvocationTarget tar = new RootTarget();
+            ((TargetedExpression)retval.element).setTarget(tar);
+            setLocation(retval.element,rkw,rkw); // put locations on the SuperTarget.
+            setKeyword(tar,rkw);
+           }
   	;
 
 nameAndParams returns [RegularType element]
