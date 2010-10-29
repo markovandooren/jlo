@@ -121,7 +121,7 @@ public class JavaTranslator {
 			}
 			
 			// Create the inner classes for the components
-			inner(type, relation, type);
+			inner(type, relation, type,original);
       type.flushCache();
   		addOutwardDelegations(relation, type);
   		type.flushCache();
@@ -348,8 +348,8 @@ public class JavaTranslator {
 		}
 	}
 
-	public void inner(Type type, ComponentRelation relation, Type outer) throws LookupException {
-		Type innerClass = createInnerClassFor(relation,type);
+	public void inner(Type type, ComponentRelation relation, Type outer, Type outerTypeBeingTranslated) throws LookupException {
+		Type innerClass = createInnerClassFor(relation,type,outerTypeBeingTranslated);
 		//_innerClassMap.put(relation, type);
 		type.add(innerClass);
 		Type componentType = relation.componentType();
@@ -358,7 +358,7 @@ public class JavaTranslator {
 			ComponentRelation clonedNestedRelation = nestedRelation.clone();
 			clonedNestedRelation.setUniParent(nestedRelation.parent());
 			substituteTypeParameters(clonedNestedRelation);
-			inner(innerClass, clonedNestedRelation, outer);
+			inner(innerClass, clonedNestedRelation, outer,outerTypeBeingTranslated);
 		}
 	}
 	
@@ -469,7 +469,7 @@ public class JavaTranslator {
 	 * @param relation A component relation from either the original class, or one of its nested components.
 	 * @param outer The outer class being generated.
 	 */
-	public Type createInnerClassFor(ComponentRelation relation, Type outer) throws ChameleonProgrammerException, LookupException {
+	public Type createInnerClassFor(ComponentRelation relation, Type outer, Type outerTypeBeingTranslated) throws ChameleonProgrammerException, LookupException {
 		NamespacePart nsp = relation.farthestAncestor(NamespacePart.class);
 //		Type parentType = relation.nearestAncestor(Type.class);
 		Type componentType = relation.referencedComponentType();
@@ -537,31 +537,29 @@ public class JavaTranslator {
 		}
 		ComponentType ctype = relation.componentTypeDeclaration();
 		if(ctype != null) {
-			for(TypeElement typeElement:ctype.body().elements()) {
-				TypeElement clone = typeElement.clone();
-				if(clone instanceof Declaration) {
-					Declaration clonedDeclaration = (Declaration) clone;
+			if(ctype.ancestors().contains(outerTypeBeingTranslated)) {
+			ComponentType clonedType = ctype.clone();
+			clonedType.setUniParent(relation);
+			replaceOuterAndRootTargets(relation,clonedType);
+			for(TypeElement typeElement:clonedType.body().elements()) {
+				if(typeElement instanceof Declaration) {
+					Declaration clonedDeclaration = (Declaration) typeElement;
 					clonedDeclaration.setName(original(clonedDeclaration.signature().name()));
 				}
-				replaceOuterAndRootTargets(clone);
-				stub.add(clone);
+				stub.add(typeElement);
 			}
-//			for(Method m: ctype.implicitConstructors()) {
-//				Method clone = m.clone();
-//				m.setName(stub.getName());
-//				stub.add(m);
-//			}
-			
+			}
 		}
 		return stub;
 	}
 
-	private void replaceOuterAndRootTargets(TypeElement<?,?> clone) {
+	private void replaceOuterAndRootTargets(ComponentRelation rel, TypeElement<?,?> clone) {
 		List<AbstractTarget> outers = clone.descendants(AbstractTarget.class);
 		for(AbstractTarget o: outers) {
+			String name = o.getTargetDeclaration().getName();
 			SingleAssociation parentLink = o.parentLink();
 			ThisLiteral e = new ThisLiteral();
-			e.setTypeReference(new BasicJavaTypeReference(o.getTargetDeclaration().getName()));
+			e.setTypeReference(new BasicJavaTypeReference(name));
 			parentLink.getOtherRelation().replace(parentLink, e.parentLink());
 		}
 	}
@@ -709,6 +707,7 @@ public class JavaTranslator {
 
 			@Override
 			public boolean eval(SuperTarget superTarget) throws LookupException {
+//				return (superTarget.getTarget() != null) && ((NamedTarget)superTarget.getTarget()).getElement() instanceof ComponentRelation;
 				return superTarget.getTargetDeclaration() instanceof ComponentRelation;
 			}
 			

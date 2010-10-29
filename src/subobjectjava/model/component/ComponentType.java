@@ -74,7 +74,7 @@ public class ComponentType extends AnonymousType {
 	@Override
 	public ComponentType clone() {
 		ComponentType result = new ComponentType();
-		copyEverythingExceptInheritanceRelations(result, false);
+		result.copyEverythingExceptInheritanceRelations(this, false);
 		return result;
 	}
 

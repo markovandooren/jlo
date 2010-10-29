@@ -22,7 +22,9 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 	@Override
 	public List<Member> process(Type type) throws LookupException {
 		List<Member> resultList = new ArrayList<Member>();
-		
+		if(type.nearestAncestor(ComponentRelation.class) == nearestAncestor(ComponentRelation.class)) {
+			System.out.println("debug");
+		}
 		Member member = (Member) oldDeclaration();
 		if(member != null) {
 			Member resulting = member.clone();
