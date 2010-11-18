@@ -22,6 +22,7 @@ import chameleon.core.lookup.LookupException;
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
 import chameleon.exception.ChameleonProgrammerException;
+import chameleon.exception.ModelException;
 import chameleon.input.ParseException;
 import chameleon.oo.type.Type;
 import chameleon.test.provider.BasicDescendantProvider;
@@ -55,25 +56,26 @@ public class BatchTranslator {
 	private ElementProvider<Type> _typeProvider;
 
 
-	public Java translate() throws ParseException, IOException, ChameleonProgrammerException, LookupException {
-		RootNamespace clone = sourceLanguage().defaultNamespace().clone();
-		Java result = new Java();
-		result.cloneConnectorsFrom(sourceLanguage());
-		result.cloneProcessorsFrom(sourceLanguage());
-		result.setDefaultNamespace(clone);
-		Map<Type,Type> map = new HashMap<Type,Type>();
-		for(Type type: typeProvider().elements(result)) {
-			Type newType = basicTranslator().translation(type);
-			map.put(newType, type);
-		}
-		
-		for(Entry<Type,Type> entry : map.entrySet()) {
-			SingleAssociation newParentlink = entry.getKey().parentLink();
-			SingleAssociation oldParentlink = entry.getValue().parentLink();
-			Association childLink = oldParentlink.getOtherRelation();
-			childLink.replace(oldParentlink, newParentlink);
-		}
-		return result;
+	public Java translate() throws ParseException, IOException, ChameleonProgrammerException, ModelException {
+//		RootNamespace clone = sourceLanguage().defaultNamespace().clone();
+//		Java result = new Java();
+//		result.cloneConnectorsFrom(sourceLanguage());
+//		result.cloneProcessorsFrom(sourceLanguage());
+//		result.setDefaultNamespace(clone);
+//		Map<Type,Type> map = new HashMap<Type,Type>();
+//		for(Type type: typeProvider().elements(result)) {
+//			Type newType = basicTranslator().translatedImplementation(type);
+//			map.put(newType, type);
+//		}
+//		
+//		for(Entry<Type,Type> entry : map.entrySet()) {
+//			SingleAssociation newParentlink = entry.getKey().parentLink();
+//			SingleAssociation oldParentlink = entry.getValue().parentLink();
+//			Association childLink = oldParentlink.getOtherRelation();
+//			childLink.replace(oldParentlink, newParentlink);
+//		}
+//		return result;
+		throw new Error();
 	}
 	
 

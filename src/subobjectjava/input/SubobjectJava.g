@@ -91,8 +91,6 @@ import chameleon.input.Position2D;
 
 import chameleon.support.expression.RegularLiteral;
 import chameleon.support.expression.NullLiteral;
-import chameleon.support.expression.ThisConstructorDelegation;
-import chameleon.support.expression.SuperConstructorDelegation;
 import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.expression.ConditionalExpression;
 import chameleon.support.expression.ConditionalAndExpression;
@@ -168,6 +166,8 @@ import jnome.core.expression.ArrayAccessExpression;
 import jnome.core.expression.ArrayCreationExpression;
 import jnome.core.expression.invocation.ConstructorInvocation;
 import jnome.core.expression.invocation.JavaMethodInvocation;
+import jnome.core.expression.invocation.ThisConstructorDelegation;
+import jnome.core.expression.invocation.SuperConstructorDelegation;
 
 import jnome.core.imports.SingleStaticImport;
 
