@@ -51,6 +51,7 @@ import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.expression.Expression;
 import chameleon.core.expression.Invocation;
+import chameleon.core.expression.InvocationTarget;
 import chameleon.core.expression.NamedTarget;
 import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.lookup.LookupException;
@@ -66,6 +67,7 @@ import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.CrossReferenceWithName;
 import chameleon.core.reference.CrossReferenceWithTarget;
 import chameleon.core.reference.SimpleReference;
@@ -135,8 +137,8 @@ public class JavaTranslator {
   	result.add(implementationCompilationUnit);
   	implementationCompilationUnit.namespacePart(1).getNamespaceLink().lock();
   	result.add(interfaceCompilationUnit(source, implementationCompilationUnit));
-		rewriteConstructorCalls(implementationCompilationUnit);
-		rewriteThisLiterals(implementationCompilationUnit);
+//		rewriteConstructorCalls(implementationCompilationUnit);
+//		rewriteThisLiterals(implementationCompilationUnit);
   	return result;
   }
 
@@ -193,7 +195,46 @@ public class JavaTranslator {
 		}
 	}
 
-			private void transformToInterfaceDeep(Type type) throws ModelException {
+	private void rewriteComponentAccess(Element<?,?> type) throws LookupException {
+		Java language = type.language(Java.class);
+		List<CrossReference> literals = type.descendants(CrossReference.class);
+		for(CrossReference literal: literals) {
+			if((literal instanceof CrossReferenceWithTarget)) {
+				transformComponentAccessors((CrossReferenceWithTarget) literal);
+			}
+		}
+	}
+
+
+
+
+	private void transformComponentAccessors(CrossReferenceWithTarget cwt) {
+		Element target = cwt.getTarget();
+		if(target instanceof CrossReferenceWithTarget) {
+			transformComponentAccessors((CrossReferenceWithTarget) target);
+		}
+		boolean rewrite = false;
+		String name = null;
+		if((! (cwt instanceof Invocation)) && (! (cwt instanceof TypeReference))) {
+			name = ((CrossReferenceWithName)cwt).name();
+			try {
+				Declaration decl = cwt.getElement();
+				if(decl instanceof ComponentRelation) {
+					rewrite = true;
+				}
+			}catch(LookupException exc) {
+//				rewrite = true;
+			}
+		}
+		if(rewrite) {
+			String getterName = getterName(name);
+			Invocation inv = new JavaMethodInvocation(getterName,(InvocationTarget) target);
+			SingleAssociation parentLink = cwt.parentLink();
+			parentLink.getOtherRelation().replace(parentLink, inv.parentLink());
+		}
+	}
+
+	private void transformToInterfaceDeep(Type type) throws ModelException {
 		List<Type> types = type.descendants(Type.class);
 		types.add(type);
 		for(Type t: types) {
@@ -371,6 +412,9 @@ public class JavaTranslator {
 			processSuperComponentParameters(rel);
 		}
 		
+		rewriteConstructorCalls(result);
+		rewriteThisLiterals(result);
+		rewriteComponentAccess(result);
 		expandReferences(result);
 		removeNonLocalReferences(result);
 		
@@ -441,11 +485,19 @@ public class JavaTranslator {
 	private void copyTypeParametersIfNecessary(Type type, BasicJavaTypeReference createTypeReference) {
 		Java language = type.language(Java.class);
 		if(! (type.is(language.CLASS) == Ternary.TRUE)) {
-			Type farthestAncestor = type.farthestAncestorOrSelf(Type.class);
-			List<TypeParameter> tpars = farthestAncestor.parameters(TypeParameter.class);
-			for(TypeParameter parameter:tpars) {
-				createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
-			}
+			copyTypeParametersFromFarthestAncestor(type, createTypeReference);
+		}
+	}
+
+
+
+
+	private void copyTypeParametersFromFarthestAncestor(Element<?,?> type, BasicJavaTypeReference createTypeReference) {
+		Type farthestAncestor = type.farthestAncestorOrSelf(Type.class);
+		Java language = type.language(Java.class);
+		List<TypeParameter> tpars = farthestAncestor.parameters(TypeParameter.class);
+		for(TypeParameter parameter:tpars) {
+			createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
 		}
 	}
 	
@@ -1047,9 +1099,13 @@ public class JavaTranslator {
 	}
 	
 	public String getterName(ComponentRelation relation) {
-		return relation.signature().name()+COMPONENT;
+		return getterName(relation.signature().name());
 	}
 	
+	public String getterName(String componentName) {
+		return componentName+COMPONENT;
+	}
+
 	public final static String COMPONENT = "__component__lkjkberfuncye__";
 	
 	public Method getterForComponent(ComponentRelation relation, Type outer) throws LookupException {
@@ -1093,6 +1149,7 @@ public class JavaTranslator {
 
 	private BasicJavaTypeReference componentTypeReference(ComponentRelation relation, Type outer) throws LookupException {
 		BasicJavaTypeReference tref = innerClassTypeReference(relation,outer);
+		copyTypeParametersFromFarthestAncestor(outer,tref);
 		transformToInterfaceReference(tref);
 		return tref;
 	}
