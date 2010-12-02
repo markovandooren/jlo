@@ -16,6 +16,7 @@ import jnome.core.type.JavaTypeReference;
 
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
+import org.rejuse.java.collections.TypeFilter;
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.UnsafePredicate;
 import org.rejuse.property.Property;
@@ -713,61 +714,71 @@ public class JavaTranslator {
 		} else {
 			elements = new ArrayList<Method>();
 		}
-		for(ConfigurationClause clause: block.clauses()) {
-			if(clause instanceof AbstractClause) {
-				
-				AbstractClause ov = (AbstractClause)clause;
-				QualifiedName qn = ov.oldFqn();
-				final QualifiedName poppedName = qn.popped();
-				int size = poppedName.length();
-				TargetDeclaration container = relation.componentType();
-				for(int i = 1; i<= size; i++) {
-					final int x = i;
+		if(block != null) {
+			for(ConfigurationClause clause: block.clauses()) {
+				if(clause instanceof AbstractClause) {
+
+					AbstractClause ov = (AbstractClause)clause;
+					QualifiedName qn = ov.oldFqn();
+					final QualifiedName poppedName = qn.popped();
+					int size = poppedName.length();
+					TargetDeclaration container = relation.componentType();
+					for(int i = 1; i<= size; i++) {
+						final int x = i;
+						SelectorWithoutOrder<Declaration> selector = 
+							new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
+								public Signature signature() {
+									return poppedName.elementAt(x);
+								}}, Declaration.class);
+
+						//SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);
+						//					ref.setUniParent(relation.parent());
+						container = (TargetDeclaration) container.targetContext().lookUp(selector);//x ref.getElement();
+					}
+					final Signature lastSignature = qn.lastSignature();
 					SelectorWithoutOrder<Declaration> selector = 
 						new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
 							public Signature signature() {
-								return poppedName.elementAt(x);
+								return lastSignature;
 							}}, Declaration.class);
-					
-//SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);
-//					ref.setUniParent(relation.parent());
-				    container = (TargetDeclaration) container.targetContext().lookUp(selector);//x ref.getElement();
-				}
-				final Signature lastSignature = qn.lastSignature();
-				SelectorWithoutOrder<Declaration> selector = 
-					new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
-						public Signature signature() {
-							return lastSignature;
-						}}, Declaration.class);
-				
-//				SimpleReference<Declaration> ref = new SimpleReference<Declaration>(null, lastSignature.clone(), Declaration.class);
-//				ref.setUniParent(relation.parent());
-				Type targetInnerClass = targetInnerClass(outer, relation, poppedName);
-				Declaration decl = container.targetContext().lookUp(selector);
-				if(decl instanceof Method) {
-					final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
-				  Method original = null;
-				  boolean overriddenInSubobject = new UnsafePredicate<Method, LookupException>() {
-						public boolean eval(Method object) throws LookupException {
-							return object.signature().sameAs(method.signature());
+
+					//				SimpleReference<Declaration> ref = new SimpleReference<Declaration>(null, lastSignature.clone(), Declaration.class);
+					//				ref.setUniParent(relation.parent());
+					Type targetInnerClass = targetInnerClass(outer, relation, poppedName);
+					Declaration decl = container.targetContext().lookUp(selector);
+					if(decl instanceof Method) {
+						final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
+						Method original = null;
+						boolean overriddenInSubobject = containsMethodWithSameSignature(elements, method);
+						if(! overriddenInSubobject) {
+							original= createOriginal(method, original(method.name()));
 						}
-					}.exists(elements);
-				  if(! overriddenInSubobject) {
-				    original= createOriginal(method, original(method.name()));
-				  }
-				  if(original != null) {
-				  	targetInnerClass.add(original);
-				  }
-				  Method outward = createOutward(method,((SimpleNameMethodSignature)ov.newSignature()).name(),relation);
-				  if(outward != null) {
-				  	targetInnerClass.add(outward);
-				  }
-				  if(ov instanceof RenamingClause) {
-				  	outer.add(createAlias(relation, method, ((SimpleNameMethodSignature)ov.newSignature()).name()));
-				  }
+						if(original != null) {
+							targetInnerClass.add(original);
+						}
+						Method outward = createOutward(method,((SimpleNameMethodSignature)ov.newSignature()).name(),relation);
+						if(outward != null) {
+							targetInnerClass.add(outward);
+						}
+						if(ov instanceof RenamingClause) {
+							outer.add(createAlias(relation, method, ((SimpleNameMethodSignature)ov.newSignature()).name()));
+						}
+					}
 				}
 			}
 		}
+	}
+
+
+
+
+	private boolean containsMethodWithSameSignature(List<Method> elements, final Method<?, ?, ?, ?> method) throws LookupException {
+		boolean overriddenInSubobject = new UnsafePredicate<Method, LookupException>() {
+			public boolean eval(Method subobjectMethod) throws LookupException {
+				return subobjectMethod.signature().sameAs(method.signature());
+			}
+		}.exists(elements);
+		return overriddenInSubobject;
 	}
 	
 	public Method createAlias(ComponentRelation relation, Method<?,?,?,?> method, String newName) throws LookupException {
@@ -872,10 +883,19 @@ public class JavaTranslator {
 			ComponentType clonedType = ctype.clone();
 			clonedType.setUniParent(relation);
 			replaceOuterAndRootTargets(relation,clonedType);
+			List<Method> meths = (List<Method>) new TypeFilter(Method.class).retain(result.directlyDeclaredElements());
 			for(TypeElement typeElement:clonedType.body().elements()) {
 				if(typeElement instanceof Method) {
-					Declaration clonedDeclaration = (Declaration) typeElement;
-					clonedDeclaration.setName(original(clonedDeclaration.signature().name()));
+					Method clonedDeclaration = (Method) typeElement;
+					if(clonedDeclaration.name().equals("setValue") && relation.signature().name().equals("lowerBound")) {
+						System.out.println("debug");
+					}
+					clonedDeclaration.setUniParent(result);
+					boolean alreadyPresent = containsMethodWithSameSignature(meths, clonedDeclaration);
+					if(alreadyPresent) {
+					  clonedDeclaration.setName(original(clonedDeclaration.signature().name()));
+					}
+					clonedDeclaration.setUniParent(null);
 					result.add(typeElement);
 				} else if (typeElement instanceof ComponentRelation) {
 					
