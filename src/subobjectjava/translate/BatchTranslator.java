@@ -14,9 +14,11 @@ import org.apache.log4j.Logger;
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 
+import subobjectjava.build.JLoBuilder;
 import subobjectjava.input.SubobjectJavaModelFactory;
 import subobjectjava.model.language.SubobjectJava;
 import chameleon.core.Config;
+import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.language.Language;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.namespace.Namespace;
@@ -30,24 +32,23 @@ import chameleon.test.provider.ElementProvider;
 
 public class BatchTranslator {
 
-	public BatchTranslator(SubobjectJava language, ElementProvider<Namespace> namespaceProvider) throws ParseException, IOException {
+	public BatchTranslator(SubobjectJava language, ElementProvider<Namespace> namespaceProvider, File outputDir) throws ParseException, IOException {
 		_sourceLanguage = language;
 		_typeProvider = new BasicDescendantProvider<Type>(namespaceProvider, Type.class);
-		_translator = new JavaTranslator();
+		_builder = new JLoBuilder(_sourceLanguage, outputDir);
 	}
 
+	private JLoBuilder _builder;
 	
-	private JavaTranslator _translator;
-	
-	public JavaTranslator basicTranslator() {
-		return _translator;
+	public JLoBuilder builder() {
+		return _builder;
 	}
 	
-	public Language sourceLanguage() {
+	public SubobjectJava sourceLanguage() {
 		return _sourceLanguage;
 	}
 	
-	private Language _sourceLanguage;
+	private SubobjectJava _sourceLanguage;
 	
 	public ElementProvider<Type> typeProvider() {
 		return _typeProvider;
@@ -56,29 +57,11 @@ public class BatchTranslator {
 	private ElementProvider<Type> _typeProvider;
 
 
-	public Java translate() throws ParseException, IOException, ChameleonProgrammerException, ModelException {
-//		RootNamespace clone = sourceLanguage().defaultNamespace().clone();
-//		Java result = new Java();
-//		result.cloneConnectorsFrom(sourceLanguage());
-//		result.cloneProcessorsFrom(sourceLanguage());
-//		result.setDefaultNamespace(clone);
-//		Map<Type,Type> map = new HashMap<Type,Type>();
-//		for(Type type: typeProvider().elements(result)) {
-//			Type newType = basicTranslator().translatedImplementation(type);
-//			map.put(newType, type);
-//		}
-//		
-//		for(Entry<Type,Type> entry : map.entrySet()) {
-//			SingleAssociation newParentlink = entry.getKey().parentLink();
-//			SingleAssociation oldParentlink = entry.getValue().parentLink();
-//			Association childLink = oldParentlink.getOtherRelation();
-//			childLink.replace(oldParentlink, newParentlink);
-//		}
-//		return result;
-		throw new Error();
+	public void translate() throws ParseException, IOException, ChameleonProgrammerException, ModelException {
+		for(Type type: typeProvider().elements(sourceLanguage())) {
+			_builder.build(type.nearestAncestor(CompilationUnit.class));
+		}
 	}
-	
-
 	
   /**
    * args[0] = path for the directory to write output
@@ -90,26 +73,21 @@ public class BatchTranslator {
    *...1 or more packageFqns possible...
    *
    * Example 
-   * java Copy outputDir baseInputDir customInputDir1 customInputDir2 @myPackage.subPackage 
+   * java Copy outputDir apiInputDir customInputDir1 customInputDir2 @myPackage.subPackage 
    */
   public static void main(String[] args) throws Exception {
     if(args.length < 2) {
-      System.out.println("Usage: java .... JavaTranslator outputDir inputDir* @recursivePackageFQN* #packageFQN* $typeFQN*");
+      System.out.println("Usage: java .... JavaTranslator outputDir apiDir inputDir* @recursivePackageFQN* #packageFQN* $typeFQN*");
     }
     BasicConfigurator.configure();
     Logger.getRootLogger().setLevel(Level.FATAL);
     Config.setCaching(true);
-//    Config.setCacheElementReferences(true);
-//    Config.setCacheElementProperties(true);
-    ProviderProvider provider = new ProviderProvider(new SubobjectJavaModelFactory(),".java",true,true);
+    ProviderProvider provider = new ProviderProvider(new SubobjectJavaModelFactory(),".jlow",true,true);
     provider.processArguments(args);
-    long start = System.currentTimeMillis();
-    Java result = new BatchTranslator((SubobjectJava) provider.language(), provider.namespaceProvider()).translate();
-    // Output
-    long stop = System.currentTimeMillis();
     File outputDir = provider.outputDir();
-    TypeWriter writer = new TypeWriter(result, new BasicDescendantProvider<Type>(provider.namespaceProvider(), Type.class),outputDir);
-    writer.write();
+    long start = System.currentTimeMillis();
+    new BatchTranslator((SubobjectJava) provider.language(), provider.namespaceProvider(),outputDir).translate();
+    long stop = System.currentTimeMillis();
     System.out.println("Translation took "+(stop - start) + " milliseconds.");
   }
 

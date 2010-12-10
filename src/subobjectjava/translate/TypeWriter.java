@@ -7,7 +7,7 @@ import java.io.IOException;
 import chameleon.core.language.Language;
 import chameleon.exception.ModelException;
 import chameleon.oo.type.Type;
-import chameleon.output.Syntax;
+import chameleon.plugin.output.Syntax;
 import chameleon.test.provider.ElementProvider;
 
 public class TypeWriter {
@@ -42,7 +42,7 @@ public class TypeWriter {
 	private File _outputDir;
 	
 	public void write() throws IOException, ModelException {
-    Syntax writer = language().connector(Syntax.class);
+    Syntax writer = language().plugin(Syntax.class);
     int i = 1;
     for(Type type:typeProvider().elements(language())) {
     	if(type.nearestAncestor(Type.class) == null) {

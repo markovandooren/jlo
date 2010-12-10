@@ -35,6 +35,7 @@ import subobjectjava.model.component.FormalComponentParameter;
 import subobjectjava.model.component.InstantiatedComponentParameter;
 import subobjectjava.model.component.MultiActualComponentArgument;
 import subobjectjava.model.component.MultiFormalComponentParameter;
+import subobjectjava.model.component.OverridesClause;
 import subobjectjava.model.component.ParameterReferenceActualArgument;
 import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.expression.AbstractTarget;
@@ -717,48 +718,22 @@ public class JavaTranslator {
 		if(block != null) {
 			for(ConfigurationClause clause: block.clauses()) {
 				if(clause instanceof AbstractClause) {
-
 					AbstractClause ov = (AbstractClause)clause;
-					QualifiedName qn = ov.oldFqn();
-					final QualifiedName poppedName = qn.popped();
-					int size = poppedName.length();
-					TargetDeclaration container = relation.componentType();
-					for(int i = 1; i<= size; i++) {
-						final int x = i;
-						SelectorWithoutOrder<Declaration> selector = 
-							new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
-								public Signature signature() {
-									return poppedName.elementAt(x);
-								}}, Declaration.class);
-
-						//SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);
-						//					ref.setUniParent(relation.parent());
-						container = (TargetDeclaration) container.targetContext().lookUp(selector);//x ref.getElement();
-					}
-					final Signature lastSignature = qn.lastSignature();
-					SelectorWithoutOrder<Declaration> selector = 
-						new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
-							public Signature signature() {
-								return lastSignature;
-							}}, Declaration.class);
-
-					//				SimpleReference<Declaration> ref = new SimpleReference<Declaration>(null, lastSignature.clone(), Declaration.class);
-					//				ref.setUniParent(relation.parent());
+					final QualifiedName poppedName = ov.oldFqn().popped();
 					Type targetInnerClass = targetInnerClass(outer, relation, poppedName);
-					Declaration decl = container.targetContext().lookUp(selector);
+					Declaration decl = ((AbstractClause) clause).oldDeclaration();
 					if(decl instanceof Method) {
 						final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
-						Method original = null;
 						boolean overriddenInSubobject = containsMethodWithSameSignature(elements, method);
 						if(! overriddenInSubobject) {
-							original= createOriginal(method, original(method.name()));
-						}
-						if(original != null) {
-							targetInnerClass.add(original);
-						}
-						Method outward = createOutward(method,((SimpleNameMethodSignature)ov.newSignature()).name(),relation);
-						if(outward != null) {
-							targetInnerClass.add(outward);
+							Method original = createOriginal(method, original(method.name()));
+							if(original != null) {
+								targetInnerClass.add(original);
+								Method outward = createDispathToOriginal(method,((SimpleNameMethodSignature)ov.newSignature()).name(),relation);
+								if(outward != null) {
+                  targetInnerClass.add(outward);
+								}
+							}
 						}
 						if(ov instanceof RenamingClause) {
 							outer.add(createAlias(relation, method, ((SimpleNameMethodSignature)ov.newSignature()).name()));
@@ -786,7 +761,12 @@ public class JavaTranslator {
 		result = innerMethod(method, newName);
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
-		Invocation invocation = invocation(result, original(method.name()));
+		Invocation invocation = invocation(result, method.name());
+// We now bind to the regular method name in case the method has not been overridden
+// and there is no 'original' method.
+// If it is overridden, then this adds 1 extra delegation, so we should optimize it later on.
+//		Invocation invocation = invocation(result, original(method.name()));
+		
 		TypeReference ref = getRelativeClassName(relation);
 		Expression target = new JavaMethodInvocation(getterName(relation), null);
 		invocation.setTarget(target);
@@ -887,14 +867,14 @@ public class JavaTranslator {
 			for(TypeElement typeElement:clonedType.body().elements()) {
 				if(typeElement instanceof Method) {
 					Method clonedDeclaration = (Method) typeElement;
-					if(clonedDeclaration.name().equals("setValue") && relation.signature().name().equals("lowerBound")) {
-						System.out.println("debug");
-					}
+//					if(clonedDeclaration.name().equals("setValue") && relation.signature().name().equals("lowerBound")) {
+//						System.out.println("debug");
+//					}
 					clonedDeclaration.setUniParent(result);
 					boolean alreadyPresent = containsMethodWithSameSignature(meths, clonedDeclaration);
-					if(alreadyPresent) {
+//					if(alreadyPresent) {
 					  clonedDeclaration.setName(original(clonedDeclaration.signature().name()));
-					}
+//					}
 					clonedDeclaration.setUniParent(null);
 					result.add(typeElement);
 				} else if (typeElement instanceof ComponentRelation) {
@@ -954,6 +934,22 @@ public class JavaTranslator {
 			addImplementation(method, body, invocation);
 		} else {
 			result = null;
+		}
+		return result;
+	}
+	
+	public Method createDispathToOriginal(Method<?,?,?,?> method, String newName, ComponentRelation relation) throws LookupException {
+		NormalMethod<?,?,?> result = null;
+		if((method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
+			result = innerMethod(method, method.name());
+			Block body = new Block();
+			result.setImplementation(new RegularImplementation(body));
+			Invocation invocation = invocation(result, original(method.name()));
+//			TypeReference ref = getRelativeClassName(relation);
+//			ThisLiteral target = new ThisLiteral(ref);
+//			invocation.setTarget(target);
+			substituteTypeParameters(method, result);
+			addImplementation(method, body, invocation);
 		}
 		return result;
 	}
@@ -1187,40 +1183,40 @@ public class JavaTranslator {
 		return false;
 	}
 
-	public List<Method> aliasMethods(ComponentRelation relation) throws LookupException {
-		List<Method> result = new ArrayList<Method>();
-		List<? extends Member> members = relation.getIntroducedMembers();
-		members.remove(relation);
-		for(Member member: members) {
-			result.add(aliasFor(member, relation));
-		}
-		return result;
-	
-	}
-	public Method aliasFor(Member<?,?,?,?> member, ComponentRelation relation) throws LookupException{
-		Java lang = member.language(Java.class);
-		if(member instanceof Method) {
-			Method<?,?,?,?> method = (Method) member;
-			Method<?,?,?,?> origin = (Method) method.origin();
-			String methodName = fieldName(relation);
-			Method result = new NormalMethod(method.header().clone(), lang.createTypeReference(method.returnType().getFullyQualifiedName()));
-			Block body = new Block();
-			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = invocation(method, origin.name());
-			invocation.setTarget(new NamedTargetExpression(methodName, null));
-			if(origin.returnType().equals(origin.language(ObjectOrientedLanguage.class).voidType())) {
-				body.addStatement(new StatementExpression(invocation));
-			} else {
-				body.addStatement(new ReturnStatement(invocation));
-			}
-			for(Modifier mod: origin.modifiers()) {
-				result.addModifier(mod.clone());
-			}
-			return result;
-		} else {
-			throw new ChameleonProgrammerException("Translation of member of type "+member.getClass().getName()+" not supported.");
-		}
-	}
+//	public List<Method> aliasMethods(ComponentRelation relation) throws LookupException {
+//		List<Method> result = new ArrayList<Method>();
+//		List<? extends Member> members = relation.getIntroducedMembers();
+//		members.remove(relation);
+//		for(Member member: members) {
+//			result.add(aliasFor(member, relation));
+//		}
+//		return result;
+//	
+//	}
+//	public Method aliasFor(Member<?,?,?,?> member, ComponentRelation relation) throws LookupException{
+//		Java lang = member.language(Java.class);
+//		if(member instanceof Method) {
+//			Method<?,?,?,?> method = (Method) member;
+//			Method<?,?,?,?> origin = (Method) method.origin();
+//			String methodName = fieldName(relation);
+//			Method result = new NormalMethod(method.header().clone(), lang.createTypeReference(method.returnType().getFullyQualifiedName()));
+//			Block body = new Block();
+//			result.setImplementation(new RegularImplementation(body));
+//			Invocation invocation = invocation(method, origin.name());
+//			invocation.setTarget(new NamedTargetExpression(methodName, null));
+//			if(origin.returnType().equals(origin.language(ObjectOrientedLanguage.class).voidType())) {
+//				body.addStatement(new StatementExpression(invocation));
+//			} else {
+//				body.addStatement(new ReturnStatement(invocation));
+//			}
+//			for(Modifier mod: origin.modifiers()) {
+//				result.addModifier(mod.clone());
+//			}
+//			return result;
+//		} else {
+//			throw new ChameleonProgrammerException("Translation of member of type "+member.getClass().getName()+" not supported.");
+//		}
+//	}
 
 	private Invocation invocation(Method<?, ?, ?, ?> method, String origin) {
 		Invocation invocation = new JavaMethodInvocation(origin, null);

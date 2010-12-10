@@ -16,10 +16,10 @@ import subobjectjava.model.language.SubobjectJava;
 import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
 import chameleon.oo.language.ObjectOrientedLanguage;
-import chameleon.output.Syntax;
+import chameleon.plugin.Plugin;
+import chameleon.plugin.output.Syntax;
 import chameleon.support.input.ChameleonParser;
 import chameleon.support.input.ModelFactoryUsingANTLR;
-import chameleon.tool.Connector;
 
 public class SubobjectJavaModelFactory extends JavaModelFactory {
 
@@ -31,7 +31,7 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 	 */
 	public SubobjectJavaModelFactory() {
 		SubobjectJava lang = new SubobjectJava();
-		lang.setConnector(Syntax.class, new JavaCodeWriter());
+		lang.setPlugin(Syntax.class, new JavaCodeWriter());
 		setLanguage(lang, ModelFactory.class);
 	}
 	

@@ -82,7 +82,7 @@ public class IncrementalJavaTranslator {
 
   public List<CompilationUnit> translate(CompilationUnit source, CompilationUnit implementationCompilationUnit) throws LookupException, ModelException {
     return _translator.translate(source, implementationCompilationUnit);
-}
+  }
 	
 //	private CompilationUnit interfaceCompilationUnit(CompilationUnit key, CompilationUnit implementation) throws ModelException {
 //		CompilationUnit result = _translator.interfaceCompilationUnit(key, implementation);

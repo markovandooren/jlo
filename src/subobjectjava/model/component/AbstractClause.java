@@ -16,6 +16,7 @@ import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
+import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
 public abstract class AbstractClause<E extends AbstractClause> extends ConfigurationClause<E> {
@@ -89,5 +90,35 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	public AbstractClause() {
 		super();
 	}
+	
+  public Declaration originalDeclaration() throws LookupException {
+		QualifiedName qn = oldFqn();
+		final QualifiedName poppedName = qn.popped();
+		int size = poppedName.length();
+		TargetDeclaration container = nearestAncestor(ComponentRelation.class).componentType();
+		for(int i = 1; i<= size; i++) {
+			final int x = i;
+			SelectorWithoutOrder<Declaration> selector = 
+				new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
+					public Signature signature() {
+						return poppedName.elementAt(x);
+					}}, Declaration.class);
+
+			//SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);
+			//					ref.setUniParent(relation.parent());
+			container = (TargetDeclaration) container.targetContext().lookUp(selector);//x ref.getElement();
+		}
+		final Signature lastSignature = qn.lastSignature();
+		SelectorWithoutOrder<Declaration> selector = 
+			new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
+				public Signature signature() {
+					return lastSignature;
+				}}, Declaration.class);
+
+		//				SimpleReference<Declaration> ref = new SimpleReference<Declaration>(null, lastSignature.clone(), Declaration.class);
+		//				ref.setUniParent(relation.parent());
+		Declaration decl = container.targetContext().lookUp(selector);
+		return decl;
+  }
 
 }
