@@ -48,11 +48,13 @@ import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
+import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
+import chameleon.core.declaration.SimpleNameDeclarationWithParametersSignature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.Invocation;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.InvocationTarget;
 import chameleon.core.expression.NamedTarget;
 import chameleon.core.expression.NamedTargetExpression;
@@ -100,9 +102,7 @@ import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.expression.SuperTarget;
 import chameleon.support.expression.ThisLiteral;
-import chameleon.support.member.simplename.SimpleNameMethodHeader;
 import chameleon.support.member.simplename.SimpleNameMethodInvocation;
-import chameleon.support.member.simplename.SimpleNameMethodSignature;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
@@ -217,7 +217,7 @@ public class JavaTranslator {
 		}
 		boolean rewrite = false;
 		String name = null;
-		if((! (cwt instanceof Invocation)) && (! (cwt instanceof TypeReference))) {
+		if((! (cwt instanceof MethodInvocation)) && (! (cwt instanceof TypeReference))) {
 			name = ((CrossReferenceWithName)cwt).name();
 			try {
 				Declaration decl = cwt.getElement();
@@ -230,7 +230,7 @@ public class JavaTranslator {
 		}
 		if(rewrite) {
 			String getterName = getterName(name);
-			Invocation inv = new JavaMethodInvocation(getterName,(InvocationTarget) target);
+			MethodInvocation inv = new JavaMethodInvocation(getterName,(InvocationTarget) target);
 			SingleAssociation parentLink = cwt.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, inv.parentLink());
 		}
@@ -405,7 +405,7 @@ public class JavaTranslator {
 		List<ComponentParameterCall> calls = result.descendants(ComponentParameterCall.class);
 		for(ComponentParameterCall call: calls) {
 			FormalComponentParameter parameter = call.getElement();
-			Invocation expr = new JavaMethodInvocation(selectorName(parameter),null);
+			MethodInvocation expr = new JavaMethodInvocation(selectorName(parameter),null);
 			expr.addArgument((Expression) call.target());
 			SingleAssociation pl = call.parentLink();
 			pl.getOtherRelation().replace(pl, expr.parentLink());
@@ -565,7 +565,7 @@ public class JavaTranslator {
 	}
 	
 	protected Method realSelectorFor(InstantiatedComponentParameter<?> par) throws LookupException {
-		SimpleNameMethodHeader header = new SimpleNameMethodHeader(selectorName(par));
+		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(selectorName(par));
 		FormalComponentParameter formal = par.formalParameter();
 		Java language = par.language(Java.class);
 //		Method result = new NormalMethod(header,formal.componentTypeReference().clone());
@@ -654,7 +654,7 @@ public class JavaTranslator {
 	}
 	
 	protected Method selectorFor(FormalComponentParameter<?> par) throws LookupException {
-		SimpleNameMethodHeader header = new SimpleNameMethodHeader(selectorName(par));
+		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(selectorName(par));
 		Java language = par.language(Java.class);
 //	Method result = new NormalMethod(header,par.componentTypeReference().clone());
 	JavaTypeReference reference = language.reference(par.declarationType());
@@ -680,10 +680,10 @@ public class JavaTranslator {
 		}
 		);
 		for(SubobjectConstructorCall call: constructorCalls) {
-			Invocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
+			MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
 			// move actual arguments from subobject constructor call to new constructor call. 
 			inv.addAllArguments(call.getActualParameters());
-			Invocation setterCall = new JavaMethodInvocation(setterName(relation), null);
+			MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
 			setterCall.addArgument(inv);
 			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
@@ -729,14 +729,14 @@ public class JavaTranslator {
 							Method original = createOriginal(method, original(method.name()));
 							if(original != null) {
 								targetInnerClass.add(original);
-								Method outward = createDispathToOriginal(method,((SimpleNameMethodSignature)ov.newSignature()).name(),relation);
+								Method outward = createDispathToOriginal(method,((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name(),relation);
 								if(outward != null) {
                   targetInnerClass.add(outward);
 								}
 							}
 						}
 						if(ov instanceof RenamingClause) {
-							outer.add(createAlias(relation, method, ((SimpleNameMethodSignature)ov.newSignature()).name()));
+							outer.add(createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name()));
 						}
 					}
 				}
@@ -761,7 +761,7 @@ public class JavaTranslator {
 		result = innerMethod(method, newName);
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
-		Invocation invocation = invocation(result, method.name());
+		MethodInvocation invocation = invocation(result, method.name());
 // We now bind to the regular method name in case the method has not been overridden
 // and there is no 'original' method.
 // If it is overridden, then this adds 1 extra delegation, so we should optimize it later on.
@@ -849,11 +849,11 @@ public class JavaTranslator {
 				// the types are not known in the component type, and the super class of the component type
 				// may not have a constructor with the same signature as the current constructor.
 				substituteTypeParameters(method, clone);
-				Invocation inv = new SuperConstructorDelegation();
+				MethodInvocation inv = new SuperConstructorDelegation();
 				useParametersInInvocation(clone, inv);
 				block.addStatement(new StatementExpression(inv));
 				clone.setReturnTypeReference(relation.language(Java.class).createTypeReference(name));
-				((SimpleNameMethodHeader)clone.header()).setName(name);
+				((SimpleNameDeclarationWithParametersHeader)clone.header()).setName(name);
 				result.add(clone);
 			}
 		}
@@ -926,7 +926,7 @@ public class JavaTranslator {
 			result = innerMethod(method, method.name());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = invocation(result, newName);
+			MethodInvocation invocation = invocation(result, newName);
 			TypeReference ref = getRelativeClassName(relation);
 			ThisLiteral target = new ThisLiteral(ref);
 			invocation.setTarget(target);
@@ -944,7 +944,7 @@ public class JavaTranslator {
 			result = innerMethod(method, method.name());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = invocation(result, original(method.name()));
+			MethodInvocation invocation = invocation(result, original(method.name()));
 //			TypeReference ref = getRelativeClassName(relation);
 //			ThisLiteral target = new ThisLiteral(ref);
 //			invocation.setTarget(target);
@@ -967,7 +967,7 @@ public class JavaTranslator {
 			substituteTypeParameters(method, result);
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = invocation(result, method.name());
+			MethodInvocation invocation = invocation(result, method.name());
 			invocation.setTarget(new SuperTarget());
 			addImplementation(method, body, invocation);
 		}
@@ -983,7 +983,7 @@ public class JavaTranslator {
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(null);
 	}
 
-	private void addImplementation(Method<?, ?, ?, ?> method, Block body, Invocation invocation) throws LookupException {
+	private void addImplementation(Method<?, ?, ?, ?> method, Block body, MethodInvocation invocation) throws LookupException {
 		if(method.returnType().equals(method.language(Java.class).voidType())) {
 			body.addStatement(new StatementExpression(invocation));
 		} else {
@@ -1005,7 +1005,7 @@ public class JavaTranslator {
 			tref.setTarget(nt);
 		}
 		result = new NormalMethod(method.header().clone(), tref);
-		((SimpleNameMethodHeader)result.header()).setName(original);
+		((SimpleNameDeclarationWithParametersHeader)result.header()).setName(original);
 		ExceptionClause exceptionClause = method.getExceptionClause();
 		ExceptionClause clone = (exceptionClause != null ? exceptionClause.clone(): null);
 		result.setExceptionClause(clone);
@@ -1088,7 +1088,7 @@ public class JavaTranslator {
 			Element<?,?> inv = superTarget.parent();
 			if(inv instanceof RegularMethodInvocation) {
 				RegularMethodInvocation call = (RegularMethodInvocation) inv;
-			  Invocation subObjectSelection = new JavaMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
+			  MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
 			  call.setTarget(subObjectSelection);
 			  call.setName(original(call.name()));
 			}
@@ -1127,7 +1127,7 @@ public class JavaTranslator {
 	public Method getterForComponent(ComponentRelation relation, Type outer) throws LookupException {
 		if(! overrides(relation)) {
 			JavaTypeReference returnTypeReference = componentTypeReference(relation, outer);
-			RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(getterName(relation)), returnTypeReference);
+			RegularMethod result = new NormalMethod(new SimpleNameDeclarationWithParametersHeader(getterName(relation)), returnTypeReference);
 			result.addModifier(new Public());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
@@ -1147,7 +1147,7 @@ public class JavaTranslator {
 	public Method setterForComponent(ComponentRelation relation, Type outer) throws LookupException {
 		if(! overrides(relation)) {
 		String name = relation.signature().name();
-		RegularMethod result = new NormalMethod(new SimpleNameMethodHeader(setterName(relation)), relation.language(Java.class).createTypeReference("void"));
+		RegularMethod result = new NormalMethod(new SimpleNameDeclarationWithParametersHeader(setterName(relation)), relation.language(Java.class).createTypeReference("void"));
 		BasicJavaTypeReference tref = componentTypeReference(relation, outer);
 		result.header().addFormalParameter(new FormalParameter(name, tref));
 		result.addModifier(new Public());
@@ -1218,14 +1218,14 @@ public class JavaTranslator {
 //		}
 //	}
 
-	private Invocation invocation(Method<?, ?, ?, ?> method, String origin) {
-		Invocation invocation = new JavaMethodInvocation(origin, null);
+	private MethodInvocation invocation(Method<?, ?, ?, ?> method, String origin) {
+		MethodInvocation invocation = new JavaMethodInvocation(origin, null);
 		// pass parameters.
 		useParametersInInvocation(method, invocation);
 		return invocation;
 	}
 
-	private void useParametersInInvocation(Method<?, ?, ?, ?> method, Invocation invocation) {
+	private void useParametersInInvocation(Method<?, ?, ?, ?> method, MethodInvocation invocation) {
 		for(FormalParameter param: method.formalParameters()) {
 			invocation.addArgument(new NamedTargetExpression(param.signature().name(), null));
 		}
