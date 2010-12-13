@@ -46,7 +46,7 @@ import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.Invocation;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.NamedTarget;
 import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.lookup.LookupException;
@@ -147,7 +147,7 @@ public class JavaTranslator {
 		List<ComponentParameterCall> calls = type.descendants(ComponentParameterCall.class);
 		for(ComponentParameterCall call: calls) {
 			FormalComponentParameter parameter = call.getElement();
-			Invocation expr = new JavaMethodInvocation(selectorName(parameter),null);
+			MethodInvocation expr = new JavaMethodInvocation(selectorName(parameter),null);
 			expr.addArgument((Expression) call.target());
 			SingleAssociation pl = call.parentLink();
 			pl.getOtherRelation().replace(pl, expr.parentLink());
@@ -338,10 +338,10 @@ public class JavaTranslator {
 		}
 		);
 		for(SubobjectConstructorCall call: constructorCalls) {
-			Invocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
+			MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
 			// move actual arguments from subobject constructor call to new constructor call. 
 			inv.addAllArguments(call.getActualParameters());
-			Invocation setterCall = new JavaMethodInvocation(setterName(relation), null);
+			MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
 			setterCall.addArgument(inv);
 			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
@@ -435,7 +435,7 @@ public class JavaTranslator {
 		result = innerMethod(method, newName);
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
-		Invocation invocation = invocation(result, original(method.name()));
+		MethodInvocation invocation = invocation(result, original(method.name()));
 		TypeReference ref = getRelativeClassName(relation);
 		Expression target = new JavaMethodInvocation(getterName(relation), null);
 		invocation.setTarget(target);
@@ -527,7 +527,7 @@ public class JavaTranslator {
 				// the types are not known in the component type, and the super class of the component type
 				// may not have a constructor with the same signature as the current constructor.
 				substituteTypeParameters(method, clone);
-				Invocation inv = new SuperConstructorDelegation();
+				MethodInvocation inv = new SuperConstructorDelegation();
 				useParametersInInvocation(clone, inv);
 				block.addStatement(new StatementExpression(inv));
 				clone.setReturnTypeReference(relation.language(Java.class).createTypeReference(name));
@@ -574,7 +574,7 @@ public class JavaTranslator {
 			result = innerMethod(method, method.name());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = invocation(result, newName);
+			MethodInvocation invocation = invocation(result, newName);
 			TypeReference ref = getRelativeClassName(relation);
 			ThisLiteral target = new ThisLiteral(ref);
 			invocation.setTarget(target);
@@ -599,7 +599,7 @@ public class JavaTranslator {
 			substituteTypeParameters(method, result);
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = invocation(result, method.name());
+			MethodInvocation invocation = invocation(result, method.name());
 			invocation.setTarget(new SuperTarget());
 			addImplementation(method, body, invocation);
 		}
@@ -615,7 +615,7 @@ public class JavaTranslator {
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(null);
 	}
 
-	private void addImplementation(Method<?, ?, ?, ?> method, Block body, Invocation invocation) throws LookupException {
+	private void addImplementation(Method<?, ?, ?, ?> method, Block body, MethodInvocation invocation) throws LookupException {
 		if(method.returnType().equals(method.language(Java.class).voidType())) {
 			body.addStatement(new StatementExpression(invocation));
 		} else {
@@ -718,7 +718,7 @@ public class JavaTranslator {
 			Element<?,?> inv = superTarget.parent();
 			if(inv instanceof RegularMethodInvocation) {
 				RegularMethodInvocation call = (RegularMethodInvocation) inv;
-			  Invocation subObjectSelection = new JavaMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
+			  MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
 			  call.setTarget(subObjectSelection);
 			  call.setName(original(call.name()));
 			}
@@ -816,7 +816,7 @@ public class JavaTranslator {
 			Method result = new NormalMethod(method.header().clone(), lang.createTypeReference(method.returnType().getFullyQualifiedName()));
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			Invocation invocation = invocation(method, origin.name());
+			MethodInvocation invocation = invocation(method, origin.name());
 			invocation.setTarget(new NamedTargetExpression(methodName, null));
 			if(origin.returnType().equals(origin.language(ObjectOrientedLanguage.class).voidType())) {
 				body.addStatement(new StatementExpression(invocation));
@@ -832,14 +832,14 @@ public class JavaTranslator {
 		}
 	}
 
-	private Invocation invocation(Method<?, ?, ?, ?> method, String origin) {
-		Invocation invocation = new JavaMethodInvocation(origin, null);
+	private MethodInvocation invocation(Method<?, ?, ?, ?> method, String origin) {
+		MethodInvocation invocation = new JavaMethodInvocation(origin, null);
 		// pass parameters.
 		useParametersInInvocation(method, invocation);
 		return invocation;
 	}
 
-	private void useParametersInInvocation(Method<?, ?, ?, ?> method, Invocation invocation) {
+	private void useParametersInInvocation(Method<?, ?, ?, ?> method, MethodInvocation invocation) {
 		for(FormalParameter param: method.formalParameters()) {
 			invocation.addArgument(new NamedTargetExpression(param.signature().name(), null));
 		}

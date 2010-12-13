@@ -10,7 +10,7 @@ import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.Signature;
 import chameleon.core.expression.CrossReferenceTarget;
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.Invocation;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.InvocationTarget;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
@@ -22,7 +22,7 @@ import chameleon.oo.type.Type;
 import chameleon.support.member.MoreSpecificTypesOrder;
 import chameleon.support.member.simplename.method.NormalMethod;
 
-public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCall, NormalMethod> {
+public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstructorCall, NormalMethod> {
 
   public SubobjectConstructorCall(CrossReferenceTarget<ComponentRelation> subobjectTarget) {
   	super(subobjectTarget);

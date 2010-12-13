@@ -7,10 +7,13 @@ import java.util.Collection;
 
 import jnome.core.language.Java;
 import jnome.input.JavaModelFactory;
+import jnome.input.parser.JavaLexer;
+import jnome.input.parser.JavaParser;
 import jnome.output.JavaCodeWriter;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.Lexer;
 
 import subobjectjava.model.language.SubobjectJava;
 import chameleon.input.ModelFactory;
@@ -58,16 +61,18 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 	public SubobjectJavaModelFactory(SubobjectJava language, Collection<File> base) throws IOException, ParseException {
 		super(language, base);
 	}
-
+	
+    // TODO: documentation (Jens)
 	@Override
-  public ChameleonParser getParser(InputStream inputStream, String fileName) throws IOException {
-    ANTLRInputStream input = new ANTLRInputStream(inputStream);
-    SubobjectJavaLexer lexer = new SubobjectJavaLexer(input);
-    CommonTokenStream tokens = new CommonTokenStream(lexer);
-    SubobjectJavaParser parser = new Parser(tokens);
-    parser.setLanguage((ObjectOrientedLanguage) language());
-    return parser;
-  }
+    public Lexer lexer(ANTLRInputStream input) {
+    	return new SubobjectJavaLexer(input);
+    }
+    
+    // TODO: documentation (Jens)
+	@Override
+    public ChameleonParser parser(CommonTokenStream tokens) {
+    	return new SubobjectJavaParser(tokens);
+    }
 	
   @Override
 	public ModelFactoryUsingANTLR clone() {
