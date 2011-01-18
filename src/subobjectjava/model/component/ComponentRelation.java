@@ -1,14 +1,13 @@
 package subobjectjava.model.component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-
-import jnome.core.expression.invocation.ConstructorInvocation;
-import jnome.core.type.AnonymousInnerClass;
 
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.logic.ternary.Ternary;
+import org.rejuse.predicate.TypePredicate;
 
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Definition;
@@ -17,13 +16,10 @@ import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationContainerSkipper;
 import chameleon.core.lookup.DeclarationSelector;
-import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
-import chameleon.core.lookup.LookupStrategySelector;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
-import chameleon.core.statement.Block;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
@@ -33,9 +29,10 @@ import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
+import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.util.Util;
 
-public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>{
+public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>, InheritanceRelation<ComponentRelation,Type>{
 
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
@@ -99,13 +96,13 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 	public List<? extends Member> getIntroducedMembers() throws LookupException {
 		List<Member> result = new ArrayList<Member>();
 		result.add(this);
-//		List<Member> superMembers = componentType().members();
-		ConfigurationBlock configurationBlock = configurationBlock();
-		if(configurationBlock != null) {
-		  result.addAll(configurationBlock.processedMembers(componentType()));
-		}
+		// ComponentRelation is now an InheritanceRelation, so the inherited members are incorporated in the surrounding type
+		// through the standard inheritance mechanism.
+//		ConfigurationBlock configurationBlock = configurationBlock();
+//		if(configurationBlock != null) {
+//		  result.addAll(configurationBlock.processedMembers(componentType()));
+//		}
 		return result;
-//		return declaredMembers();
 	}
 	
 	@Override
@@ -205,11 +202,6 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		return this;
 	}
 
-//  public void setBody(ClassBody body) {
-//  	setAsParent(_body, body);
-//  }
-  
-  
 	private SingleAssociation<ComponentRelation,ComponentType> _body = new SingleAssociation<ComponentRelation,ComponentType>(this);
 	
 	public void setBody(ClassBody body) {
@@ -239,13 +231,27 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
   	}
   }
 
-//  /**
-//   * Return the ConfigurationBlock of this member.
-//   */
-//  public ClassBody body() {
-//    return _body.getOtherEnd();
-//  }
-  
-//  private SingleAssociation<ComponentRelation, ClassBody> _body = new SingleAssociation<ComponentRelation, ClassBody>(this);
+	@Override
+	public Type superElement() throws LookupException {
+		return componentTypeReference().getElement(); 
+	}
+
+	@Override
+	public <X extends Member> void accumulateInheritedMembers(Class<X> kind, List<X> current) throws LookupException {
+		ConfigurationBlock configurationBlock = configurationBlock();
+		if(configurationBlock != null) {
+			List<Member> members = configurationBlock.processedMembers(componentType());
+			new TypePredicate(kind).filter(members);
+		  current.addAll((Collection<? extends X>) members);
+		}
+	}
+
+	@Override
+	public <X extends Member> void accumulateInheritedMembers(DeclarationSelector<X> selector, List<X> current) throws LookupException {
+		ConfigurationBlock configurationBlock = configurationBlock();
+		if(configurationBlock != null) {
+		  current.addAll(selector.selection(configurationBlock.processedMembers(componentType())));
+		}
+	}
 
 }

@@ -1,9 +1,8 @@
 package subobjectjava.model.component;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.rejuse.association.OrderedMultiAssociation;
 
@@ -32,7 +31,7 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock,
 	}
 
 	public List<? extends Element> children() {
-		return clauses();
+		return localClauses();
 	}
 
 	public void addAll(Collection<? extends ConfigurationClause> elements) {
@@ -59,8 +58,12 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock,
 		return _elements.getOtherEnds();
 	}
 
-	public Collection<? extends Member> processedMembers(Type type) throws LookupException {
-		Set<Member> result = new HashSet<Member>();
+	public List<ConfigurationClause> localClauses() {
+		return _elements.getOtherEnds();
+	}
+
+	public List<Member> processedMembers(Type type) throws LookupException {
+		List<Member> result = new ArrayList<Member>();
 			for(ConfigurationClause clause: clauses()) {
 				List<Member> renamedMembers = clause.process(type);
 				result.addAll(renamedMembers);
@@ -68,7 +71,4 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock,
 		return result;
 	}
 
-	protected void defaultProcess(Member member, Collection<Member> result) {
-		
-	}
 }
