@@ -18,6 +18,8 @@ public abstract class AbstractTarget<E extends AbstractTarget<E>> extends Namesp
 	public AbstractTarget() {
 		super();
 	}
+	
+	public abstract E clone();
 
 	public List<Element> children() {
 		return new ArrayList<Element>();

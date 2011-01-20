@@ -208,7 +208,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		if(body == null) {
 			_body.connectTo(null);
 		} else {
-			_body.connectTo((Association<? extends ComponentType, ? super ComponentRelation>) createComponentType(body).parentLink());
+			_body.connectTo((Association) createComponentType(body).parentLink());
 		}
 	}
 
