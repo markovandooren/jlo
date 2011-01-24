@@ -3,6 +3,7 @@ package subobjectjava.model.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
@@ -23,8 +24,14 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument<C
 	@Override
 	public ComponentRelation declaration() throws LookupException {
 		Type enclosing = containerType();
-		SignatureSelector signatureSelector = selector(); 
-		ComponentRelation result = enclosing.targetContext().lookUp(new SelectorWithoutOrder<ComponentRelation>(signatureSelector, ComponentRelation.class));
+		ComponentRelation result = enclosing.targetContext().lookUp(
+				 new SelectorWithoutOrder<ComponentRelation>(ComponentRelation.class) {
+					@Override
+					public Signature signature() {
+						return ComponentNameActualArgument.this.signature();
+					}
+				 }
+		);
 		return result;
 	}
 

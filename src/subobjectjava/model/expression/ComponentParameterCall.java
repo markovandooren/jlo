@@ -114,11 +114,11 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
   }
 
 	public DeclarationSelector<FormalComponentParameter> selector() {
-		return new SelectorWithoutOrder<FormalComponentParameter>(new SelectorWithoutOrder.SignatureSelector() {
+		return new SelectorWithoutOrder<FormalComponentParameter>(FormalComponentParameter.class) {
 			public Signature signature() {
 				return ComponentParameterCall.this.signature();
 			}
-		}, FormalComponentParameter.class);
+		};
 	}
 
 	public List<? extends Element> children() {

@@ -66,11 +66,11 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 		int size = signatures.size();
 		for(int i = 0; i< size; i++) {
 			final Signature sig = signatures.get(i);
-			DeclarationSelector<Declaration> selector = new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
+			DeclarationSelector<Declaration> selector = new SelectorWithoutOrder<Declaration>(Declaration.class) {
 				public Signature signature() {
 					return sig;
 				}
-			},Declaration.class);
+			};
 			if(i < size - 1) {
 			container = (TargetDeclaration) container.targetContext().lookUp(selector);
 			} else {
@@ -99,10 +99,10 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 		for(int i = 1; i<= size; i++) {
 			final int x = i;
 			SelectorWithoutOrder<Declaration> selector = 
-				new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
+				new SelectorWithoutOrder<Declaration>(Declaration.class) {
 					public Signature signature() {
 						return poppedName.elementAt(x);
-					}}, Declaration.class);
+					}};
 
 			//SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);
 			//					ref.setUniParent(relation.parent());
@@ -110,10 +110,10 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 		}
 		final Signature lastSignature = qn.lastSignature();
 		SelectorWithoutOrder<Declaration> selector = 
-			new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
+			new SelectorWithoutOrder<Declaration>(Declaration.class) {
 				public Signature signature() {
 					return lastSignature;
-				}}, Declaration.class);
+				}};
 
 		//				SimpleReference<Declaration> ref = new SimpleReference<Declaration>(null, lastSignature.clone(), Declaration.class);
 		//				ref.setUniParent(relation.parent());

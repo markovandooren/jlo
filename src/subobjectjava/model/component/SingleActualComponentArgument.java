@@ -17,29 +17,22 @@ public abstract class SingleActualComponentArgument<E extends SingleActualCompon
 	
 	public abstract E clone();
 	
-	private String _name;
-	
+	private Signature _signature;
 	public String name() {
-		return _name;
+		return _signature.name();
+	}
+	
+	public Signature signature() {
+		return _signature;
 	}
 	
 	public void setName(String name) {
-		_name = name;
+		_signature.setName(name);
 	}
 	
 	public List<? extends Element> children() {
 		return new ArrayList<Element>();
 	}
 
-	protected SignatureSelector selector() {
-		SignatureSelector signatureSelector = new SignatureSelector() {
-			private Signature _signature = new SimpleNameSignature(name());
-
-			public Signature signature() {
-				return _signature;
-			}
-		};
-		return signatureSelector;
-	}
 
 }

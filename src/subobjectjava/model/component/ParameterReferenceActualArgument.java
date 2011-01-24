@@ -1,11 +1,11 @@
 package subobjectjava.model.component;
 
+import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
-import chameleon.oo.type.DeclarationWithType;
 
 public class ParameterReferenceActualArgument extends SingleActualComponentArgument<ParameterReferenceActualArgument> {
 
@@ -20,7 +20,11 @@ public class ParameterReferenceActualArgument extends SingleActualComponentArgum
 
 	@Override
 	public ComponentParameter declaration() throws LookupException {
-		return lexicalLookupStrategy().lookUp(new SelectorWithoutOrder<ComponentParameter>(selector(), ComponentParameter.class));
+		return lexicalLookupStrategy().lookUp(new SelectorWithoutOrder<ComponentParameter>(ComponentParameter.class){
+			public Signature signature() {
+				return ParameterReferenceActualArgument.this.signature();
+			}
+		});
 	}
 
 	@Override
