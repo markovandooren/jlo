@@ -42,7 +42,6 @@ import subobjectjava.model.expression.AbstractTarget;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.SubobjectJava;
-import subobjectjava.model.language.SubobjectJavaOverridesRelation;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.Declaration;
@@ -1152,7 +1151,7 @@ public class JavaTranslator {
 				}
 			}
 			for(ComponentRelation superComponent: superComponents) {
-				if(new SubobjectJavaOverridesRelation().contains(relation, superComponent)) {
+				if(relation.overridesSelector().selects(superComponent)) {
 					return true;
 				}
 			}

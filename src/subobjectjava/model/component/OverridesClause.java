@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.rejuse.predicate.UnsafePredicate;
 
+import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
+import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.Type;
@@ -21,16 +23,8 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 	}
 	
 	@Override
-	public List<Member> process(Type type) throws LookupException {
+	public List<Member> introducedMembers() throws LookupException {
 		List<Member> result = new ArrayList<Member>();
-//		if(member.signature().sameAs(oldFqn())) {
-//			result = member.clone();
-//			result.setSignature(newSignature().clone());
-//			// reroute lookup from within the clone (result) to the parent of the original member. 
-//			LookupRedirector redirector = new LookupRedirector(member.parent());
-//			redirector.add(result);
-//			redirector.setUniParent(nearestAncestor(Type.class));
-//		}
 		return result;
 	}
 	
@@ -63,6 +57,16 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 	@Override
 	public OverridesClause clone() {
 		return new OverridesClause(newSignature().clone(), oldFqn().clone());
+	}
+
+	@Override
+	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
+		List<D> result = new ArrayList<D>();
+		Declaration newDeclaration = introducedMembers().get(0);
+		if(selector.selects(newSignature(),oldDeclaration())) {
+			result.add((D)oldDeclaration());
+		}
+		return result;
 	}
 
 }

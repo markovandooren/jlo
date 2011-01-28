@@ -40,6 +40,7 @@ import chameleon.core.language.Language;
 import chameleon.core.member.Member;
 
 import chameleon.core.method.Method;
+import chameleon.core.method.MethodHeader;
 import chameleon.core.method.Implementation;
 import chameleon.core.method.RegularImplementation;
 

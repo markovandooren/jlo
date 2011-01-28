@@ -13,16 +13,33 @@ import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
+import chameleon.core.member.Member;
+import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
-import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
 public abstract class AbstractClause<E extends AbstractClause> extends ConfigurationClause<E> {
 
 	private SingleAssociation<AbstractClause, Signature> _signature = new SingleAssociation<AbstractClause, Signature>(this);
 
+	public QualifiedName oldNameFor(Signature signature) throws LookupException {
+		QualifiedName result = null;
+		if(newSignature().sameAs(signature)) {
+			result = oldFqn();
+		}
+		return result;
+	}
+	
+//  public <D extends Declaration> Pair<Set<D>,Set<D>> selected(DeclarationSelector<D> selector, Type type) throws LookupException {
+//  	List<D> list = selector.selection(process(type));
+//  	Set old = new HashSet();
+//  	old.add(oldDeclaration());
+//  	Pair<Set<D>,Set<D>> result = new Pair<Set<D>,Set<D>>(new HashSet<D>(list),old);
+//  	return result;
+//  }
+	
 	@Override
 	public VerificationResult verifySelf() {
 		VerificationResult result = Valid.create();

@@ -3,6 +3,7 @@ package subobjectjava.model.component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
@@ -20,6 +21,7 @@ import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
+import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
@@ -30,6 +32,7 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
 import chameleon.oo.type.inheritance.InheritanceRelation;
+import chameleon.util.Pair;
 import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>, InheritanceRelation<ComponentRelation,Type>{
@@ -98,10 +101,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		result.add(this);
 		// ComponentRelation is now an InheritanceRelation, so the inherited members are incorporated in the surrounding type
 		// through the standard inheritance mechanism.
-//		ConfigurationBlock configurationBlock = configurationBlock();
-//		if(configurationBlock != null) {
-//		  result.addAll(configurationBlock.processedMembers(componentType()));
-//		}
+		ConfigurationBlock configurationBlock = configurationBlock();
+		if(configurationBlock != null) {
+		  result.addAll(configurationBlock.processedMembers());
+		}
 		return result;
 	}
 	
@@ -238,20 +241,25 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 
 	@Override
 	public <X extends Member> void accumulateInheritedMembers(Class<X> kind, List<X> current) throws LookupException {
-		ConfigurationBlock configurationBlock = configurationBlock();
-		if(configurationBlock != null) {
-			List<Member> members = configurationBlock.processedMembers(componentType());
-			new TypePredicate(kind).filter(members);
-		  current.addAll((Collection<? extends X>) members);
-		}
+//		ConfigurationBlock configurationBlock = configurationBlock();
+//		if(configurationBlock != null) {
+//			List<Member> members = configurationBlock.processedMembers();
+//			new TypePredicate(kind).filter(members);
+//		  current.addAll((Collection<? extends X>) members);
+//		}
 	}
 
 	@Override
 	public <X extends Member> void accumulateInheritedMembers(DeclarationSelector<X> selector, List<X> current) throws LookupException {
-		ConfigurationBlock configurationBlock = configurationBlock();
-		if(configurationBlock != null) {
-		  current.addAll(selector.selection(configurationBlock.processedMembers(componentType())));
-		}
+//		ConfigurationBlock configurationBlock = configurationBlock();
+//		if(configurationBlock != null) {
+//		  current.addAll(selector.selection(configurationBlock.processedMembers()));
+//		}
+	}
+
+	@Override
+	public <D extends Member> List<D> membersOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
+		return configurationBlock().membersDirectlyOverriddenBy(selector);
 	}
 
 }
