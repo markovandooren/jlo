@@ -47,13 +47,15 @@ public class JLoBuilder extends PluginImpl implements Builder {
 
 	CompilationUnitWriter _writer;
 
-	public void build(Collection<CompilationUnit> compilationUnits) throws ModelException, IOException {
+	public void build(Collection<CompilationUnit> compilationUnits,
+			List<CompilationUnit> allProjectCompilationUnits) throws ModelException, IOException {
 		for(CompilationUnit cu: compilationUnits) {
-			build(cu);
+			build(cu, allProjectCompilationUnits);
 		}
 	}
 	
-	public void build(CompilationUnit compilationUnit) throws ModelException, IOException {
+	public void build(CompilationUnit compilationUnit,
+			List<CompilationUnit> allProjectCompilationUnits) throws ModelException, IOException {
 		try {
 			String fileName = _writer.fileName(compilationUnit);
 			System.out.println("Building "+fileName);

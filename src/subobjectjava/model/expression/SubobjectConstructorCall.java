@@ -11,15 +11,15 @@ import chameleon.core.declaration.DeclarationWithParametersSignature;
 import chameleon.core.declaration.Signature;
 import chameleon.core.expression.CrossReferenceTarget;
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.InvocationTarget;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.TwoPhaseDeclarationSelector;
+import chameleon.core.member.MoreSpecificTypesOrder;
 import chameleon.core.relation.WeakPartialOrder;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.type.Type;
-import chameleon.support.member.MoreSpecificTypesOrder;
 import chameleon.support.member.simplename.method.NormalMethod;
 
 public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstructorCall, NormalMethod> {

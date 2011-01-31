@@ -26,7 +26,7 @@ import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.Invocation;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.Literal;
 import chameleon.core.expression.Assignable;
 import chameleon.core.expression.NamedTarget;
