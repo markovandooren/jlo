@@ -17,6 +17,8 @@ import chameleon.core.lookup.LookupStrategyFactory;
 
 import chameleon.core.compilationunit.CompilationUnit;
 
+import chameleon.core.declaration.SimpleNameDeclarationWithParametersSignature;
+import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.QualifiedName;
@@ -26,7 +28,7 @@ import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.Invocation;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.Literal;
 import chameleon.core.expression.Assignable;
 import chameleon.core.expression.NamedTarget;
@@ -40,7 +42,6 @@ import chameleon.core.language.Language;
 import chameleon.core.member.Member;
 
 import chameleon.core.method.Method;
-import chameleon.core.method.MethodHeader;
 import chameleon.core.method.Implementation;
 import chameleon.core.method.RegularImplementation;
 
@@ -105,8 +106,6 @@ import chameleon.support.expression.ClassCastExpression;
 import chameleon.support.expression.SuperTarget;
 
 import chameleon.support.member.simplename.method.NormalMethod;
-import chameleon.support.member.simplename.SimpleNameMethodHeader;
-import chameleon.support.member.simplename.SimpleNameMethodSignature;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import chameleon.support.member.simplename.operator.infix.InfixOperatorInvocation;
 import chameleon.support.member.simplename.operator.prefix.PrefixOperatorInvocation;
@@ -315,9 +314,9 @@ configurationClause returns [ConfigurationClause element]
 	
 signature returns [Signature element]
         : sig=Identifier {retval.element = new SimpleNameSignature($sig.text);}
-        | sigg=Identifier {retval.element = new SimpleNameMethodSignature($sigg.text);} 
-                '(' (t=type {((SimpleNameMethodSignature)retval.element).add(t.element);} 
-                 (',' tt=type {((SimpleNameMethodSignature)retval.element).add(tt.element);})*)?')'
+        | sigg=Identifier {retval.element = new SimpleNameDeclarationWithParametersSignature($sigg.text);} 
+                '(' (t=type {((SimpleNameDeclarationWithParametersSignature)retval.element).add(t.element);} 
+                 (',' tt=type {((SimpleNameDeclarationWithParametersSignature)retval.element).add(tt.element);})*)?')'
         ;
         
 fqn returns [QualifiedName element] 

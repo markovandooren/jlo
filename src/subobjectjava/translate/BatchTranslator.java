@@ -2,27 +2,18 @@ package subobjectjava.translate;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import jnome.core.language.Java;
+import java.util.ArrayList;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.rejuse.association.Association;
-import org.rejuse.association.SingleAssociation;
 
 import subobjectjava.build.JLoBuilder;
 import subobjectjava.input.SubobjectJavaModelFactory;
 import subobjectjava.model.language.SubobjectJava;
 import chameleon.core.Config;
 import chameleon.core.compilationunit.CompilationUnit;
-import chameleon.core.language.Language;
-import chameleon.core.lookup.LookupException;
 import chameleon.core.namespace.Namespace;
-import chameleon.core.namespace.RootNamespace;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.input.ParseException;
@@ -59,7 +50,9 @@ public class BatchTranslator {
 
 	public void translate() throws ParseException, IOException, ChameleonProgrammerException, ModelException {
 		for(Type type: typeProvider().elements(sourceLanguage())) {
-			_builder.build(type.nearestAncestor(CompilationUnit.class));
+			// The second argument is never used, but for now it must be present because otherwise the
+			// aspects compiler does not know which compilation units are present in the project.
+			_builder.build(type.nearestAncestor(CompilationUnit.class), new ArrayList<CompilationUnit>());
 		}
 	}
 	
