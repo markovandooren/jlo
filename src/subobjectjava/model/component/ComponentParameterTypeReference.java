@@ -26,7 +26,7 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.util.Util;
 
-public class ComponentParameterTypeReference extends NamespaceElementImpl<ComponentParameterTypeReference,Element> implements JavaTypeReference<ComponentParameterTypeReference>,ComponentArgumentContainer<ComponentParameterTypeReference> {
+public class ComponentParameterTypeReference extends NamespaceElementImpl<ComponentParameterTypeReference> implements JavaTypeReference<ComponentParameterTypeReference>,ComponentArgumentContainer<ComponentParameterTypeReference> {
 
 	public ComponentParameterTypeReference(JavaTypeReference target) {
 		setTarget(target);

@@ -29,19 +29,19 @@ public class JLoCapturedType extends CapturedType {
 		return new JLoCapturedType(clonedParameters(),baseType());
 	}
 
-//	@Override
-//	public List<InheritanceRelation> inheritanceRelations() {
-//		// first take the subtype relations
-//		List<InheritanceRelation> result = super.inheritanceRelations();
-//		// then add the component relations
-//		List<ComponentRelation> components = directlyDeclaredElements(ComponentRelation.class);
-//		result.addAll(components);
-//		return result;
-//	}
-//	
-//	public List<InheritanceRelation> nonMemberInheritanceRelations() {
-//		return super.inheritanceRelations();
-//	}
+	@Override
+	public List<InheritanceRelation> inheritanceRelations() {
+		// first take the subtype relations
+		List<InheritanceRelation> result = super.inheritanceRelations();
+		// then add the component relations
+		List<ComponentRelation> components = directlyDeclaredElements(ComponentRelation.class);
+		result.addAll(components);
+		return result;
+	}
+	
+	public List<InheritanceRelation> nonMemberInheritanceRelations() {
+		return super.inheritanceRelations();
+	}
 
 	
 }

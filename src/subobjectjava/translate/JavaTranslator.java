@@ -69,6 +69,7 @@ import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.reference.CrossReference;
+import chameleon.core.reference.CrossReferenceWithArguments;
 import chameleon.core.reference.CrossReferenceWithName;
 import chameleon.core.reference.CrossReferenceWithTarget;
 import chameleon.core.reference.SimpleReference;
@@ -161,7 +162,7 @@ public class JavaTranslator {
 		return interfaceCompilationUnit;
 	}
 	
-	private void rewriteConstructorCalls(Element<?,?> type) throws LookupException {
+	private void rewriteConstructorCalls(Element<?> type) throws LookupException {
 		Java language = type.language(Java.class);
 		List<ConstructorInvocation> invocations = type.descendants(ConstructorInvocation.class);
 		for(ConstructorInvocation invocation: invocations) {
@@ -176,7 +177,7 @@ public class JavaTranslator {
 		}
 	}
 
-	private void rewriteThisLiterals(Element<?,?> type) throws LookupException {
+	private void rewriteThisLiterals(Element<?> type) throws LookupException {
 		Java language = type.language(Java.class);
 		List<ThisLiteral> literals = type.descendants(ThisLiteral.class);
 		for(ThisLiteral literal: literals) {
@@ -187,7 +188,7 @@ public class JavaTranslator {
 		}
 	}
 
-	private void rewriteComponentAccess(Element<?,?> type) throws LookupException {
+	private void rewriteComponentAccess(Element<?> type) throws LookupException {
 		Java language = type.language(Java.class);
 		List<CrossReference> literals = type.descendants(CrossReference.class);
 		for(CrossReference literal: literals) {
@@ -278,7 +279,7 @@ public class JavaTranslator {
 	}
 
 
-	private void makePublic(ElementWithModifiers<?,?> type) throws ModelException {
+	private void makePublic(ElementWithModifiers<?> type) throws ModelException {
 		Java language = type.language(Java.class);
 		Property access = type.property(language.SCOPE_MUTEX);
 		if(access != language.PRIVATE) {
@@ -469,7 +470,7 @@ public class JavaTranslator {
 
 
 
-	private void copyTypeParametersFromFarthestAncestor(Element<?,?> type, BasicJavaTypeReference createTypeReference) {
+	private void copyTypeParametersFromFarthestAncestor(Element<?> type, BasicJavaTypeReference createTypeReference) {
 		Type farthestAncestor = type.farthestAncestorOrSelf(Type.class);
 		Java language = type.language(Java.class);
 		List<TypeParameter> tpars = farthestAncestor.parameters(TypeParameter.class);
@@ -496,7 +497,7 @@ public class JavaTranslator {
 		}
 	}
 
-	protected void expandReferences(Element<?,?> type) throws LookupException {
+	protected void expandReferences(Element<?> type) throws LookupException {
 		Java language = type.language(Java.class);
 		for(BasicJavaTypeReference tref: type.descendants(BasicJavaTypeReference.class)) {
 			if(tref.getTarget() == null) {
@@ -893,7 +894,7 @@ public class JavaTranslator {
 		return superReference;
 	}
 
-	private void replaceOuterAndRootTargets(ComponentRelation rel, TypeElement<?,?> clone) {
+	private void replaceOuterAndRootTargets(ComponentRelation rel, TypeElement<?> clone) {
 		List<AbstractTarget> outers = clone.descendants(AbstractTarget.class);
 		for(AbstractTarget o: outers) {
 			String name = o.getTargetDeclaration().getName();
@@ -997,7 +998,7 @@ public class JavaTranslator {
 	}
 
 
-	public void substituteTypeParameters(Element<?, ?> element) throws LookupException {
+	public void substituteTypeParameters(Element<?> element) throws LookupException {
 		List<TypeReference> crossReferences = 
 			 element.descendants(TypeReference.class, 
 					              new UnsafePredicate<TypeReference,LookupException>() {
@@ -1018,7 +1019,7 @@ public class JavaTranslator {
 		}
 	}
 
-	public void substituteTypeParameters(Element<?, ?> result, Type type) throws LookupException {
+	public void substituteTypeParameters(Element<?> result, Type type) throws LookupException {
 		List<TypeParameter> typeParameters = type.parameters(TypeParameter.class);
 		List<TypeParameterSubstitution> substitutions = new ArrayList<TypeParameterSubstitution>();
 		for(TypeParameter par: typeParameters) {
@@ -1060,12 +1061,15 @@ public class JavaTranslator {
 		}
 		);
 		for(SuperTarget superTarget: superTargets) {
-			Element<?,?> inv = superTarget.parent();
-			if(inv instanceof RegularMethodInvocation) {
-				RegularMethodInvocation call = (RegularMethodInvocation) inv;
-			  MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
-			  call.setTarget(subObjectSelection);
-			  call.setName(original(call.name()));
+			Element<?> cr = superTarget.parent();
+			if(cr instanceof CrossReferenceWithArguments) {
+				Element<?> inv = cr.parent();
+				if(inv instanceof RegularMethodInvocation) {
+					RegularMethodInvocation call = (RegularMethodInvocation) inv;
+					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
+					call.setTarget(subObjectSelection);
+					call.setName(original(call.name()));
+				}
 			}
 		}
 	}

@@ -22,7 +22,7 @@ import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.Type;
 import chameleon.util.Pair;
 
-public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock,Element> {
+public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock> {
 
 	@Override
 	public ConfigurationBlock clone() {

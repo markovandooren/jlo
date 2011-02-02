@@ -22,7 +22,7 @@ import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
-public class ComponentParameterCall extends Expression<ComponentParameterCall> implements CrossReference<ComponentParameterCall,Element,FormalComponentParameter> {
+public class ComponentParameterCall extends Expression<ComponentParameterCall> implements CrossReference<ComponentParameterCall,FormalComponentParameter> {
 
 	public ComponentParameterCall(InvocationTarget target, SimpleNameSignature signature) {
 		setSignature(signature);

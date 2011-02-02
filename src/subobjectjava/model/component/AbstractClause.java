@@ -100,7 +100,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	/**
 	 * Return the signature of this member.
 	 */
-	public QualifiedName<?,?> oldFqn() {
+	public QualifiedName<?> oldFqn() {
 	  return _fqn.getOtherEnd();
 	}
 

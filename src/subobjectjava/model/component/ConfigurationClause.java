@@ -15,7 +15,7 @@ import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.oo.type.Type;
 import chameleon.util.Pair;
 
-public abstract class ConfigurationClause<E extends ConfigurationClause> extends NamespaceElementImpl<E, ConfigurationBlock> {
+public abstract class ConfigurationClause<E extends ConfigurationClause> extends NamespaceElementImpl<E> {
 
 	/**
 	 * Return a list of members that are inherited from the given type because of the current
