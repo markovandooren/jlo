@@ -18,13 +18,13 @@ public class RegularJLoType extends RegularJavaType {
 		super(name);
 	}
 
-	@Override
 	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
 		// first take the subtype relations
 		List<InheritanceRelation> result = super.inheritanceRelations();
 		// then add the component relations
-		List<ComponentRelation> components = directlyDeclaredElements(ComponentRelation.class);
-		result.addAll(components);
+		List<ComponentRelation> components;
+			components = body().members(ComponentRelation.class);
+			result.addAll(components);
 		return result;
 	}
 	
