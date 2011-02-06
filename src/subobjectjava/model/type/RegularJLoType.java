@@ -5,6 +5,7 @@ import java.util.List;
 import jnome.core.type.RegularJavaType;
 import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.declaration.SimpleNameSignature;
+import chameleon.core.lookup.LookupException;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 
 public class RegularJLoType extends RegularJavaType {
@@ -18,7 +19,7 @@ public class RegularJLoType extends RegularJavaType {
 	}
 
 	@Override
-	public List<InheritanceRelation> inheritanceRelations() {
+	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
 		// first take the subtype relations
 		List<InheritanceRelation> result = super.inheritanceRelations();
 		// then add the component relations
@@ -27,9 +28,4 @@ public class RegularJLoType extends RegularJavaType {
 		return result;
 	}
 	
-	public List<InheritanceRelation> nonMemberInheritanceRelations() {
-		return super.inheritanceRelations();
-	}
-
-
 }

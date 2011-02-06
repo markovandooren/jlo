@@ -96,18 +96,6 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		
 	}
 	
-	public List<? extends Member> getIntroducedMembers() throws LookupException {
-		List<Member> result = new ArrayList<Member>();
-		result.add(this);
-		// ComponentRelation is now an InheritanceRelation, so the inherited members are incorporated in the surrounding type
-		// through the standard inheritance mechanism.
-//		ConfigurationBlock configurationBlock = configurationBlock();
-//		if(configurationBlock != null) {
-//		  result.addAll(configurationBlock.processedMembers());
-//		}
-		return result;
-	}
-	
 	@Override
 	public List<? extends Member> declaredMembers() {
 		return Util.<Member>createSingletonList(this);
@@ -257,6 +245,18 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		}
 	}
 
+	public List<? extends Member> getIntroducedMembers() throws LookupException {
+		List<Member> result = new ArrayList<Member>();
+		result.add(this);
+//		 ComponentRelation is now an InheritanceRelation, so the inherited members are incorporated in the surrounding type
+//		 through the standard inheritance mechanism.
+//		ConfigurationBlock configurationBlock = configurationBlock();
+//		if(configurationBlock != null) {
+//		  result.addAll(configurationBlock.processedMembers());
+//		}
+		return result;
+	}
+	
 	@Override
 	public <D extends Member> List<D> membersOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
 		return configurationBlock().membersDirectlyOverriddenBy(selector);

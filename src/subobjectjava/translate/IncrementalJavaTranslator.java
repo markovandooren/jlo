@@ -11,7 +11,7 @@ import jnome.core.language.Java;
 
 import org.rejuse.association.SingleAssociation;
 
-import subobjectjava.model.language.SubobjectJava;
+import subobjectjava.model.language.JLo;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.element.Element;
 import chameleon.core.language.Language;
@@ -23,7 +23,7 @@ import chameleon.oo.type.Type;
 
 public class IncrementalJavaTranslator {
 
-	public IncrementalJavaTranslator(SubobjectJava source, Java target) {
+	public IncrementalJavaTranslator(JLo source, Java target) {
 		_sourceLanguage = source;
 		_targetLanguage = target;
 		_translator = new JavaTranslator();

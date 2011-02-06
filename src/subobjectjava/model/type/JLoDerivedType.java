@@ -4,6 +4,7 @@ import java.util.List;
 
 import subobjectjava.model.component.ComponentRelation;
 
+import chameleon.core.lookup.LookupException;
 import chameleon.oo.type.DerivedType;
 import chameleon.oo.type.Parameter;
 import chameleon.oo.type.ParameterSubstitution;
@@ -35,18 +36,14 @@ public class JLoDerivedType extends DerivedType {
 	}
 
 	@Override
-	public List<InheritanceRelation> inheritanceRelations() {
+	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
 		// first take the subtype relations
 		List<InheritanceRelation> result = super.inheritanceRelations();
 		// then add the component relations
-		List<ComponentRelation> components = directlyDeclaredElements(ComponentRelation.class);
-		result.addAll(components);
+		List<ComponentRelation> components;
+			components = body().members(ComponentRelation.class);
+			result.addAll(components);
 		return result;
 	}
 	
-	public List<InheritanceRelation> nonMemberInheritanceRelations() {
-		return super.inheritanceRelations();
-	}
-	
-
 }

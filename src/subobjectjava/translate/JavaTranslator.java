@@ -41,7 +41,7 @@ import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.expression.AbstractTarget;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.SubobjectConstructorCall;
-import subobjectjava.model.language.SubobjectJava;
+import subobjectjava.model.language.JLo;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.Declaration;
@@ -238,7 +238,7 @@ public class JavaTranslator {
 		if(name.endsWith(IMPL)) {
 			copyTypeParametersIfNecessary(type);
 			makePublic(type);
-			List<SubtypeRelation> inheritanceRelations = type.inheritanceRelations(SubtypeRelation.class);
+			List<SubtypeRelation> inheritanceRelations = type.nonMemberInheritanceRelations(SubtypeRelation.class);
 			int last = inheritanceRelations.size() - 1;
 			inheritanceRelations.get(last).disconnect();
 			for(TypeElement decl: type.directlyDeclaredElements()) {
@@ -386,7 +386,7 @@ public class JavaTranslator {
 			SingleAssociation pl = call.parentLink();
 			pl.getOtherRelation().replace(pl, expr.parentLink());
 		}
-		for(SubtypeRelation rel: result.inheritanceRelations(SubtypeRelation.class)) {
+		for(SubtypeRelation rel: result.nonMemberInheritanceRelations(SubtypeRelation.class)) {
 			processSuperComponentParameters(rel);
 		}
 		
@@ -410,7 +410,7 @@ public class JavaTranslator {
 	}
 
 	private void transformToImpl(Type type) throws ModelException {
-		SubobjectJava lang = type.language(SubobjectJava.class);
+		JLo lang = type.language(JLo.class);
 		if(! type.isTrue(lang.PRIVATE)) {
 			// Change the name of the outer type.
 			// What a crappy code. I would probably be easier to not add IMPL
@@ -422,7 +422,7 @@ public class JavaTranslator {
 				name = name +IMPL;
 				type.signature().setName(name);
 			}
-			for(SubtypeRelation relation: type.inheritanceRelations(SubtypeRelation.class)) {
+			for(SubtypeRelation relation: type.nonMemberInheritanceRelations(SubtypeRelation.class)) {
 				BasicJavaTypeReference tref = (BasicJavaTypeReference) relation.superClassReference();
 				if(
 						(! relation.isTrue(lang.IMPLEMENTS_RELATION))
@@ -447,7 +447,7 @@ public class JavaTranslator {
 
 
 	private void implementOwnInterface(Type type) {
-		SubobjectJava language = type.language(SubobjectJava.class);
+		JLo language = type.language(JLo.class);
 		if(!type.isTrue(language.PRIVATE)) {
 			String oldFQN = type.getFullyQualifiedName();
 			BasicJavaTypeReference createTypeReference = language.createTypeReference(oldFQN);

@@ -5,6 +5,7 @@ import java.util.List;
 import subobjectjava.model.component.ComponentRelation;
 
 import jnome.core.type.CapturedType;
+import chameleon.core.lookup.LookupException;
 import chameleon.oo.type.ParameterSubstitution;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.generics.ActualTypeArgument;
@@ -30,7 +31,7 @@ public class JLoCapturedType extends CapturedType {
 	}
 
 	@Override
-	public List<InheritanceRelation> inheritanceRelations() {
+	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
 		// first take the subtype relations
 		List<InheritanceRelation> result = super.inheritanceRelations();
 		// then add the component relations
@@ -39,9 +40,5 @@ public class JLoCapturedType extends CapturedType {
 		return result;
 	}
 	
-	public List<InheritanceRelation> nonMemberInheritanceRelations() {
-		return super.inheritanceRelations();
-	}
-
 	
 }

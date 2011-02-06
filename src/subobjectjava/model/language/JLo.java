@@ -12,20 +12,21 @@ import chameleon.oo.type.DerivedType;
 import chameleon.oo.type.Parameter;
 import chameleon.oo.type.ParameterSubstitution;
 import chameleon.oo.type.Type;
+import chameleon.oo.type.generics.ActualTypeArgument;
 
-public class SubobjectJava extends Java {
+public class JLo extends Java {
 
-	public SubobjectJava() {
-		this("JLow");
+	public JLo() {
+		this("J.Lo");
 	}
 
-	protected SubobjectJava(String name) {
+	protected JLo(String name) {
 		super(name);
 	}
 
 	@Override
 	protected Language cloneThis() {
-		return new SubobjectJava();
+		return new JLo();
 	}
 
 	@Override
@@ -35,6 +36,10 @@ public class SubobjectJava extends Java {
 	
 	public <P extends Parameter> DerivedType createDerivedType(Class<P> kind, List<P> parameters, Type baseType) {
 		return new JLoDerivedType(kind, parameters, baseType);
+	}
+
+	public DerivedType createDerivedType(Type baseType, List<ActualTypeArgument> typeArguments) {
+		return new JLoDerivedType(baseType,typeArguments);
 	}
 
 	public Type createdCapturedType(ParameterSubstitution parameterSubstitution, Type base) {

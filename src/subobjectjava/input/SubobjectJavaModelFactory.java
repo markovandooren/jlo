@@ -12,7 +12,7 @@ import jnome.output.JavaCodeWriter;
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 
-import subobjectjava.model.language.SubobjectJava;
+import subobjectjava.model.language.JLo;
 import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
 import chameleon.oo.language.ObjectOrientedLanguage;
@@ -30,7 +30,7 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 	 * @throws ParseException
 	 */
 	public SubobjectJavaModelFactory() {
-		SubobjectJava lang = new SubobjectJava();
+		JLo lang = new JLo();
 		lang.setPlugin(Syntax.class, new JavaCodeWriter());
 		setLanguage(lang, ModelFactory.class);
 	}
@@ -41,7 +41,7 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public SubobjectJavaModelFactory(SubobjectJava language) throws IOException, ParseException {
+	public SubobjectJavaModelFactory(JLo language) throws IOException, ParseException {
 		super(language);
 	}
 	
@@ -51,11 +51,11 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 	 * All predefined elements of the language will be initialized. 
 	 */
 	public SubobjectJavaModelFactory(Collection<File> base) throws IOException, ParseException {
-		this(new SubobjectJava(), base);
+		this(new JLo(), base);
 	}
 	
 	//FIXME: Object and String must be parsed.
-	public SubobjectJavaModelFactory(SubobjectJava language, Collection<File> base) throws IOException, ParseException {
+	public SubobjectJavaModelFactory(JLo language, Collection<File> base) throws IOException, ParseException {
 		super(language, base);
 	}
 

@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import subobjectjava.build.JLoBuilder;
 import subobjectjava.input.SubobjectJavaModelFactory;
-import subobjectjava.model.language.SubobjectJava;
+import subobjectjava.model.language.JLo;
 import chameleon.core.Config;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.namespace.Namespace;
@@ -23,7 +23,7 @@ import chameleon.test.provider.ElementProvider;
 
 public class BatchTranslator {
 
-	public BatchTranslator(SubobjectJava language, ElementProvider<Namespace> namespaceProvider, File outputDir) throws ParseException, IOException {
+	public BatchTranslator(JLo language, ElementProvider<Namespace> namespaceProvider, File outputDir) throws ParseException, IOException {
 		_sourceLanguage = language;
 		_typeProvider = new BasicDescendantProvider<Type>(namespaceProvider, Type.class);
 		_builder = new JLoBuilder(_sourceLanguage, outputDir);
@@ -35,11 +35,11 @@ public class BatchTranslator {
 		return _builder;
 	}
 	
-	public SubobjectJava sourceLanguage() {
+	public JLo sourceLanguage() {
 		return _sourceLanguage;
 	}
 	
-	private SubobjectJava _sourceLanguage;
+	private JLo _sourceLanguage;
 	
 	public ElementProvider<Type> typeProvider() {
 		return _typeProvider;
@@ -79,7 +79,7 @@ public class BatchTranslator {
     provider.processArguments(args);
     File outputDir = provider.outputDir();
     long start = System.currentTimeMillis();
-    new BatchTranslator((SubobjectJava) provider.language(), provider.namespaceProvider(),outputDir).translate();
+    new BatchTranslator((JLo) provider.language(), provider.namespaceProvider(),outputDir).translate();
     long stop = System.currentTimeMillis();
     System.out.println("Translation took "+(stop - start) + " milliseconds.");
   }

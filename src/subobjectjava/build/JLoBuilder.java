@@ -8,7 +8,7 @@ import java.util.List;
 import jnome.core.language.Java;
 import jnome.output.CompilationUnitWriter;
 import jnome.output.JavaCodeWriter;
-import subobjectjava.model.language.SubobjectJava;
+import subobjectjava.model.language.JLo;
 import subobjectjava.translate.IncrementalJavaTranslator;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.language.Language;
@@ -21,7 +21,7 @@ import chameleon.plugin.output.Syntax;
 
 public class JLoBuilder extends PluginImpl implements Builder {
 	
-	public JLoBuilder(SubobjectJava source, File outputDir) {
+	public JLoBuilder(JLo source, File outputDir) {
 		this(outputDir);
 		setLanguage(source, Builder.class);
 	}
@@ -32,13 +32,13 @@ public class JLoBuilder extends PluginImpl implements Builder {
 	
 	@Override
 	public <T extends Plugin> void setLanguage(Language lang, Class<T> pluginInterface) {
-		if(! (lang instanceof SubobjectJava)) {
+		if(! (lang instanceof JLo)) {
 			throw new ChameleonProgrammerException();
 		}
 		super.setLanguage(lang, pluginInterface);
 		Java target = new Java();
 		target.setPlugin(Syntax.class, new JavaCodeWriter());
-		_translator = new IncrementalJavaTranslator((SubobjectJava) lang, target);
+		_translator = new IncrementalJavaTranslator((JLo) lang, target);
 	}
 
   public CompilationUnitWriter writer() {
