@@ -90,7 +90,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 			};
 			if(i < size - 1) {
 			container = (TargetDeclaration) container.targetContext().lookUp(selector);
-			} else {
+			} else {// i = size - 1, after which the iteration stops.
 				result = container.targetContext().lookUp(selector);
 			}
 		}

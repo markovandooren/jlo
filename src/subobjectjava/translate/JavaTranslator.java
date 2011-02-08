@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import jnome.core.expression.invocation.ConstructorInvocation;
 import jnome.core.expression.invocation.JavaMethodInvocation;
@@ -53,11 +54,12 @@ import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.InvocationTarget;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.NamedTarget;
 import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.member.Member;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularImplementation;
 import chameleon.core.method.RegularMethod;
@@ -393,6 +395,7 @@ public class JavaTranslator {
 		rewriteConstructorCalls(result);
 		rewriteThisLiterals(result);
 		rewriteComponentAccess(result);
+		rebindOverriddenMethods(result,original);
 		expandReferences(result);
 		removeNonLocalReferences(result);
 		
@@ -400,6 +403,16 @@ public class JavaTranslator {
 		transformToImplRecursive(result);
 		result.setUniParent(null);
 		return result;
+	}
+	
+	private void rebindOverriddenMethods(Type result, Type original) throws LookupException {
+		List<Method> methods = original.descendants(Method.class);
+		for(Method method: methods) {
+			Set<? extends Member> overridden = method.overriddenMembers();
+			if(original.getName().equals("SpecialRadio")) {
+			  overridden = null;
+			}
+		}
 	}
 	
 	private void transformToImplRecursive(Type type) throws ModelException {

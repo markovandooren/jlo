@@ -62,7 +62,6 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 	@Override
 	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
 		List<D> result = new ArrayList<D>();
-		Declaration newDeclaration = introducedMembers().get(0);
 		if(selector.selects(newSignature(),oldDeclaration())) {
 			result.add((D)oldDeclaration());
 		}

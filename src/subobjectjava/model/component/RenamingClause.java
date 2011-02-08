@@ -53,12 +53,12 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 	@Override
 	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
 		List<D> result = new ArrayList<D>();
-		if(selector.selects(introducedMember())) {
-			D member = selector.declaration();
-			if(! member.ancestors().contains(nearestAncestor(Type.class))) {
-				result.add((D)oldDeclaration());
-			} 
-		}
+//		if(selector.selects(introducedMember())) {
+//			D member = selector.declaration();
+//			if(! member.ancestors().contains(nearestAncestor(Type.class))) {
+//				result.add((D)oldDeclaration());
+//			} 
+//		}
 		return result;
 	}
 
