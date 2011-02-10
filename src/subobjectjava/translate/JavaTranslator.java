@@ -136,7 +136,14 @@ public class JavaTranslator {
   	implementationCompilationUnit.flushCache();
   	result.add(implementationCompilationUnit);
   	implementationCompilationUnit.namespacePart(1).getNamespaceLink().lock();
-  	result.add(interfaceCompilationUnit(source, implementationCompilationUnit));
+  	CompilationUnit interfaceCompilationUnit = interfaceCompilationUnit(source, implementationCompilationUnit);
+  	for(NamespacePart part: implementationCompilationUnit.descendants(NamespacePart.class)) {
+  		part.removeDuplicateImports();
+  	}
+  	for(NamespacePart part: interfaceCompilationUnit.descendants(NamespacePart.class)) {
+  		part.removeDuplicateImports();
+  	}
+	result.add(interfaceCompilationUnit);
   	return result;
   }
 
@@ -353,12 +360,12 @@ public class JavaTranslator {
 			if(setterForComponent != null) {
 				result.add(setterForComponent);
 			}
-			
+
 			// Create the inner classes for the components
 			inner(result, relation, result,original);
-      result.flushCache();
-  		addOutwardDelegations(relation, result);
-  		result.flushCache();
+			result.flushCache();
+			addOutwardDelegations(relation, result);
+			result.flushCache();
 		}
 		replaceSuperCalls(result);
 		for(ComponentRelation relation: result.directlyDeclaredMembers(ComponentRelation.class)) {
@@ -366,9 +373,9 @@ public class JavaTranslator {
 
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,result);
 			if(fieldForComponent != null) {
-			  result.add(fieldForComponent);
+				result.add(fieldForComponent);
 			}
-			
+
 			relation.disconnect();
 		}
 		
@@ -413,25 +420,33 @@ public class JavaTranslator {
 	}
 	
 	private void rebind(Type container, Method newDefinition, Method toBeRebound) {
-		Type target = createOrGetInnerTypeForMethod(container, toBeRebound);
-		pp
+//		Type target = createOrGetInnerTypeForMethod(container, toBeRebound);
 	}
 	
 	private Type createOrGetInnerTypeForMethod(Type container, Method method) throws LookupException {
 		List<ComponentRelation> ancestors = method.ancestors(ComponentRelation.class);
-		return createOrGetInnerTypeForComponents(container, ancestors);
+		return createOrGetInnerTypeForComponents(container, ancestors,1);
 	}
 	
-	private Type createOrGetInnerTypeForComponents(Type container, List<ComponentRelation> relations) throws LookupException {
-		ComponentRelation relation = relations.get(relations.size() - 1);
-		relations.remove(relations.size() - 1);
-		SimpleReference<Type> tref = new SimpleReference<Type>(relation.signature().clone(), Type.class);
-		tref.setUniParent(container);
-		Type result = tref.getElement().componentType();
-		if(! relations.isEmpty()) {
-			result = createOrGetInnerTypeForComponents(result, relations);
+	private Type createOrGetInnerTypeForComponents(Type container, List<ComponentRelation> relations, int baseOneIndex) throws LookupException {
+		if(baseOneIndex <= relations.size()) {
+			CompositeQualifiedName innerName = new CompositeQualifiedName();
+			CompositeQualifiedName acc = new CompositeQualifiedName();
+			for(int i = relations.size()-1; i > relations.size()- 1 - baseOneIndex ;i--) {
+				ComponentRelation relation = relations.get(i);
+				acc.append(relation.signature().clone());
+			}
+			innerName.append(new SimpleNameSignature(innerClassName(container, acc)));
+			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
+			tref.setUniParent(container);
+			Type result = tref.getElement();
+			if(! relations.isEmpty()) {
+				result = createOrGetInnerTypeForComponents(result, relations, baseOneIndex++);
+			}
+			return result;
+		} else {
+			return container;
 		}
-		return result;
 	}
 
 	private void transformToImplRecursive(Type type) throws ModelException {
@@ -555,7 +570,7 @@ public class JavaTranslator {
 	}
 	
 	private List<Method> selectorsFor(ComponentRelation rel) throws LookupException {
-		Type t = rel.componentType();
+		Type t = rel.referencedComponentType();
 		return selectorsForComponent(t);
 	}
 
@@ -702,14 +717,14 @@ public class JavaTranslator {
 		Type innerClass = createInnerClassFor(relation,type,outerTypeBeingTranslated);
 		//_innerClassMap.put(relation, type);
 		type.add(innerClass);
-		Type componentType = relation.componentType();
-		for(ComponentRelation nestedRelation: componentType.members(ComponentRelation.class)) {
-			// subst parameters
-			ComponentRelation clonedNestedRelation = nestedRelation.clone();
-			clonedNestedRelation.setUniParent(nestedRelation.parent());
-			substituteTypeParameters(clonedNestedRelation);
-			inner(innerClass, clonedNestedRelation, outer,outerTypeBeingTranslated);
-		}
+//		Type componentType = relation.componentType();
+//		for(ComponentRelation nestedRelation: componentType.members(ComponentRelation.class)) {
+//			// subst parameters
+//			ComponentRelation clonedNestedRelation = nestedRelation.clone();
+//			clonedNestedRelation.setUniParent(nestedRelation.parent());
+//			substituteTypeParameters(clonedNestedRelation);
+//			inner(innerClass, clonedNestedRelation, outer,outerTypeBeingTranslated);
+//		}
 	}
 	
 	private void addOutwardDelegations(ComponentRelation relation, Type outer) throws LookupException {
@@ -827,9 +842,18 @@ public class JavaTranslator {
 	 * @param outer The outer class being generated.
 	 */
 	private Type createInnerClassFor(ComponentRelation relation, Type outer, Type outerTypeBeingTranslated) throws ChameleonProgrammerException, LookupException {
-		NamespacePart nsp = relation.farthestAncestor(NamespacePart.class);
 		Type componentType = relation.referencedComponentType();
-		Type baseT = componentType.baseType();
+		Type result = innerClassFor(relation, outer);
+		
+		processInnerClassMethod(relation, componentType, result);
+		processComponentRelationBody(relation, outer, outerTypeBeingTranslated, result);
+		return result;
+	}
+
+	private Type innerClassFor(ComponentRelation relation, Type outer)
+			throws LookupException {
+		NamespacePart nsp = relation.farthestAncestor(NamespacePart.class);
+		Type baseT = relation.referencedComponentType().baseType();
 		NamespacePart originalNsp = baseT.farthestAncestor(NamespacePart.class);
 		for(Import imp: originalNsp.imports()) {
 			nsp.addImport(imp.clone());
@@ -846,9 +870,6 @@ public class JavaTranslator {
 		for(Method selector:selectors) {
 			result.add(selector);
 		}
-		
-		processInnerClassMethod(relation, componentType, result);
-		processComponentRelationBody(relation, outer, outerTypeBeingTranslated, result);
 		return result;
 	}
 

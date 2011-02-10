@@ -115,7 +115,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	public Type componentType() throws LookupException {
 		Type result = componentTypeDeclaration();
 		if(result == null) {
-		 result = componentTypeReference().getElement();
+		 result = referencedComponentType();
 		}
 		return result;
 	}
@@ -225,7 +225,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 
 	@Override
 	public Type superElement() throws LookupException {
-		return componentTypeReference().getElement(); 
+		return referencedComponentType(); 
 	}
 
 	@Override
