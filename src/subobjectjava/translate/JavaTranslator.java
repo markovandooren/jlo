@@ -96,7 +96,6 @@ import chameleon.oo.type.generics.BasicTypeArgument;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.generics.TypeParameterBlock;
-import chameleon.oo.type.generics.TypeParameterSubstitution;
 import chameleon.oo.type.inheritance.AbstractInheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.expression.AssignmentExpression;
@@ -180,7 +179,6 @@ public class JavaTranslator {
 	}
 
 	private void rewriteThisLiterals(Element<?> type) throws LookupException {
-		Java language = type.language(Java.class);
 		List<ThisLiteral> literals = type.descendants(ThisLiteral.class);
 		for(ThisLiteral literal: literals) {
 			TypeReference typeReference = literal.getTypeReference();
@@ -191,7 +189,6 @@ public class JavaTranslator {
 	}
 
 	private void rewriteComponentAccess(Element<?> type) throws LookupException {
-		Java language = type.language(Java.class);
 		List<CrossReference> literals = type.descendants(CrossReference.class);
 		for(CrossReference literal: literals) {
 			if((literal instanceof CrossReferenceWithTarget)) {
@@ -409,16 +406,34 @@ public class JavaTranslator {
 		List<Method> methods = original.descendants(Method.class);
 		for(Method method: methods) {
 			Set<? extends Member> overridden = method.overriddenMembers();
-			if(original.getName().equals("SpecialRadio")) {
-			  overridden = null;
+			for(Member toBeRebound: overridden) {
+				rebind(result, method, (Method) toBeRebound);
 			}
 		}
 	}
 	
-	private void rebind(Method newDefinition, Method toBeRebound) {
-		
+	private void rebind(Type container, Method newDefinition, Method toBeRebound) {
+		Type target = createOrGetInnerTypeForMethod(container, toBeRebound);
+		pp
 	}
 	
+	private Type createOrGetInnerTypeForMethod(Type container, Method method) throws LookupException {
+		List<ComponentRelation> ancestors = method.ancestors(ComponentRelation.class);
+		return createOrGetInnerTypeForComponents(container, ancestors);
+	}
+	
+	private Type createOrGetInnerTypeForComponents(Type container, List<ComponentRelation> relations) throws LookupException {
+		ComponentRelation relation = relations.get(relations.size() - 1);
+		relations.remove(relations.size() - 1);
+		SimpleReference<Type> tref = new SimpleReference<Type>(relation.signature().clone(), Type.class);
+		tref.setUniParent(container);
+		Type result = tref.getElement().componentType();
+		if(! relations.isEmpty()) {
+			result = createOrGetInnerTypeForComponents(result, relations);
+		}
+		return result;
+	}
+
 	private void transformToImplRecursive(Type type) throws ModelException {
 		transformToImpl(type);
 		for(Type nested: type.directlyDeclaredMembers(Type.class)) {
@@ -496,7 +511,7 @@ public class JavaTranslator {
 		}
 	}
 	
-	protected void processSuperComponentParameters(AbstractInheritanceRelation<?> relation) throws LookupException {
+	private void processSuperComponentParameters(AbstractInheritanceRelation<?> relation) throws LookupException {
 		TypeReference tref = relation.superClassReference();
 		Type type = relation.nearestAncestor(Type.class);
 		if(tref instanceof ComponentParameterTypeReference) {
@@ -507,14 +522,14 @@ public class JavaTranslator {
 		}
 	}
 
-	protected void removeNonLocalReferences(Type type) throws LookupException {
+	private void removeNonLocalReferences(Type type) throws LookupException {
 		for(NonLocalJavaTypeReference tref: type.descendants(NonLocalJavaTypeReference.class)) {
 			SingleAssociation<NonLocalJavaTypeReference, Element> parentLink = tref.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, tref.actualReference().parentLink());
 		}
 	}
 
-	protected void expandReferences(Element<?> type) throws LookupException {
+	private void expandReferences(Element<?> type) throws LookupException {
 		Java language = type.language(Java.class);
 		for(BasicJavaTypeReference tref: type.descendants(BasicJavaTypeReference.class)) {
 			if(tref.getTarget() == null) {
@@ -539,12 +554,12 @@ public class JavaTranslator {
 		}
 	}
 	
-	protected List<Method> selectorsFor(ComponentRelation rel) throws LookupException {
+	private List<Method> selectorsFor(ComponentRelation rel) throws LookupException {
 		Type t = rel.componentType();
 		return selectorsForComponent(t);
 	}
 
-	public List<Method> selectorsForComponent(Type t) throws LookupException {
+	private List<Method> selectorsForComponent(Type t) throws LookupException {
 		List<Method> result = new ArrayList<Method>();
 		for(ComponentParameter par: t.parameters(ComponentParameter.class)) {
 			
@@ -557,7 +572,7 @@ public class JavaTranslator {
 		return result;
 	}
 	
-	protected Method realSelectorFor(InstantiatedComponentParameter<?> par) throws LookupException {
+	private Method realSelectorFor(InstantiatedComponentParameter<?> par) throws LookupException {
 		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(selectorName(par));
 		FormalComponentParameter formal = par.formalParameter();
 		Java language = par.language(Java.class);
@@ -627,7 +642,7 @@ public class JavaTranslator {
     return result;		
 	}
 	
-	protected List<Method> selectorsFor(Type type) throws LookupException {
+	private List<Method> selectorsFor(Type type) throws LookupException {
 		ParameterBlock<?,ComponentParameter> block = type.parameterBlock(ComponentParameter.class);
 		List<Method> result = new ArrayList<Method>();
 		if(block != null) {
@@ -638,15 +653,15 @@ public class JavaTranslator {
 		return result;
 	}
 
-	protected String selectorName(ComponentParameter<?> par) {
+	private String selectorName(ComponentParameter<?> par) {
 		return "__select$"+ toUnderScore(par.nearestAncestor(Type.class).getFullyQualifiedName())+"$"+par.signature().name();
 	}
 	
-	protected String toUnderScore(String string) {
+	private String toUnderScore(String string) {
 		return string.replace('.', '_');
 	}
 	
-	protected Method selectorFor(FormalComponentParameter<?> par) throws LookupException {
+	private Method selectorFor(FormalComponentParameter<?> par) throws LookupException {
 		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(selectorName(par));
 		Java language = par.language(Java.class);
 //	Method result = new NormalMethod(header,par.componentTypeReference().clone());
@@ -663,7 +678,7 @@ public class JavaTranslator {
 		return result;
 	}
 
-	public void replaceConstructorCalls(final ComponentRelation relation) throws LookupException {
+	private void replaceConstructorCalls(final ComponentRelation relation) throws LookupException {
 		Type type = relation.nearestAncestor(Type.class);
 		List<SubobjectConstructorCall> constructorCalls = type.descendants(SubobjectConstructorCall.class, new UnsafePredicate<SubobjectConstructorCall,LookupException>() {
 			@Override
@@ -683,7 +698,7 @@ public class JavaTranslator {
 		}
 	}
 
-	public void inner(Type type, ComponentRelation relation, Type outer, Type outerTypeBeingTranslated) throws LookupException {
+	private void inner(Type type, ComponentRelation relation, Type outer, Type outerTypeBeingTranslated) throws LookupException {
 		Type innerClass = createInnerClassFor(relation,type,outerTypeBeingTranslated);
 		//_innerClassMap.put(relation, type);
 		type.add(innerClass);
@@ -697,9 +712,7 @@ public class JavaTranslator {
 		}
 	}
 	
-	private Map<ComponentRelation, Type> _innerClassMap = new HashMap<ComponentRelation, Type>();
-	
-	public void addOutwardDelegations(ComponentRelation relation, Type outer) throws LookupException {
+	private void addOutwardDelegations(ComponentRelation relation, Type outer) throws LookupException {
 		ConfigurationBlock block = relation.configurationBlock();
 		if(block != null) {
 			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
@@ -708,7 +721,7 @@ public class JavaTranslator {
 				if(clause instanceof AbstractClause) {
 					AbstractClause ov = (AbstractClause)clause;
 					final QualifiedName poppedName = ov.oldFqn().popped();
-					Type targetInnerClass = targetInnerClass(outer, relation, poppedName);
+					Type targetInnerClass = searchInnerClass(outer, relation, poppedName);
 					Declaration decl = ov.oldDeclaration();
 					if(decl instanceof Method) {
 						final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
@@ -780,18 +793,30 @@ public class JavaTranslator {
 	}
 
 	
-	private Type targetInnerClass(Type outer, ComponentRelation relation, QualifiedName poppedName) throws LookupException {
+	/**
+	 * Retrieve an (inner) type that is reached when resolving the given qualified name with the given
+	 * component relation as target in the context of the given type. First an element is resolved in the
+	 * container type that has the same signature as the given component relation. This yields a declaration 'd'. 
+	 * Then, the given qualified name is resolved with 'd' as its target. 
+	 * 
+	 * @param containerType The type in which the actually lookup is done.
+	 * @param relation The component relation that is resolved within the container type.
+	 * @param qualifiedName The qualified name that must be resolved relative to the relation.
+	 * @return
+	 * @throws LookupException
+	 */
+	private Type searchInnerClass(Type containerType, ComponentRelation relation, QualifiedName qualifiedName) throws LookupException {
 		List<Signature> sigs = new ArrayList<Signature>();
 		sigs.add(relation.signature());
-		sigs.addAll(poppedName.signatures());
+		sigs.addAll(qualifiedName.signatures());
 		CompositeQualifiedName innerName = new CompositeQualifiedName();
 		CompositeQualifiedName acc = new CompositeQualifiedName();
 		for(Signature signature: sigs) {
 			acc.append(signature.clone());
-		  innerName.append(new SimpleNameSignature(innerClassName(outer, acc)));
+		  innerName.append(new SimpleNameSignature(innerClassName(containerType, acc)));
 		}
 		SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
-		tref.setUniParent(outer);
+		tref.setUniParent(containerType);
 		Type result = tref.getElement();
 		return result;
 	}
