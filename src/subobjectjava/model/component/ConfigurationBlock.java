@@ -108,4 +108,19 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock>
 		return result;
 	}
 
+	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+		List<D> result = new ArrayList<D>();
+		for(ConfigurationClause clause: clauses()) {
+			result.addAll(clause.membersDirectlyAliasedBy(selector));
+		}
+		return result;
+	}
+
+	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+		List<D> result = new ArrayList<D>();
+		for(ConfigurationClause clause: clauses()) {
+			result.addAll(clause.membersDirectlyAliasing(selector));
+		}
+		return result;
+	}
 }

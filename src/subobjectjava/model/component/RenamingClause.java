@@ -31,8 +31,8 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 	}
 	
 	public Member introducedMember() throws LookupException {
-		Member member = (Member) oldDeclaration();
 		Member result = null;
+		Member member = (Member) oldDeclaration();
 		if(member != null) {
 			result = member.clone();
 			result.setOrigin(member);
@@ -62,4 +62,36 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 		return result;
 	}
 
+	@Override
+	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+		Member aliased = null;
+		List<D> result = new ArrayList<D>();
+		if(selector.selects(introducedMember())) {
+			Member oldDeclaration = (Member) oldDeclaration();
+			if(oldDeclaration != null) {
+				aliased = oldDeclaration.clone();
+				aliased.setOrigin(oldDeclaration);
+				aliased.setName(newSignature().name());
+
+				ComponentRelation componentRelation = nearestAncestor(ComponentRelation.class);
+				Stub redirector = new ComponentStub(componentRelation, aliased);
+				redirector.setUniParent(componentRelation.componentType());
+
+			} else {
+				throw new LookupException("Cannot find aliased declaration");
+			}
+			result.add((D) aliased);
+		}
+		return result;
+	}
+
+	@Override
+	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+		List<D> result = new ArrayList<D>();
+		if(selector.selects(oldDeclaration())) {
+			result.add((D) introducedMember());
+		}
+		return result;
+	}
+	
 }

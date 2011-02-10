@@ -68,4 +68,13 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 		return result;
 	}
 
+	@Override
+	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+		return new ArrayList<D>();
+	}
+
+	@Override
+	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+		return new ArrayList<D>();
+	}
 }

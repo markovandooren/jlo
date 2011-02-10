@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import subobjectjava.build.JLoBuilder;
 import subobjectjava.input.SubobjectJavaModelFactory;
 import subobjectjava.model.language.JLo;
+import subobjectjava.model.type.RegularJLoType;
 import chameleon.core.Config;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.namespace.Namespace;
@@ -25,7 +26,7 @@ public class BatchTranslator {
 
 	public BatchTranslator(JLo language, ElementProvider<Namespace> namespaceProvider, File outputDir) throws ParseException, IOException {
 		_sourceLanguage = language;
-		_typeProvider = new BasicDescendantProvider<Type>(namespaceProvider, Type.class);
+		_typeProvider = new BasicDescendantProvider<RegularJLoType>(namespaceProvider, RegularJLoType.class);
 		_builder = new JLoBuilder(_sourceLanguage, outputDir);
 	}
 
@@ -41,11 +42,11 @@ public class BatchTranslator {
 	
 	private JLo _sourceLanguage;
 	
-	public ElementProvider<Type> typeProvider() {
+	public ElementProvider<? extends Type> typeProvider() {
 		return _typeProvider;
 	}
 
-	private ElementProvider<Type> _typeProvider;
+	private ElementProvider<RegularJLoType> _typeProvider;
 
 
 	public void translate() throws ParseException, IOException, ChameleonProgrammerException, ModelException {

@@ -40,6 +40,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
 		setComponentType(type);
+		setBody(new ClassBody());
 	}
 	
 	@Override
@@ -193,13 +194,13 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return this;
 	}
 
-	private SingleAssociation<ComponentRelation,ComponentType> _body = new SingleAssociation<ComponentRelation,ComponentType>(this);
+	private SingleAssociation<ComponentRelation,ComponentType> _componentType = new SingleAssociation<ComponentRelation,ComponentType>(this);
 	
 	public void setBody(ClassBody body) {
 		if(body == null) {
-			_body.connectTo(null);
+			_componentType.connectTo((Association)createComponentType(new ClassBody()).parentLink());
 		} else {
-			_body.connectTo((Association) createComponentType(body).parentLink());
+			_componentType.connectTo((Association) createComponentType(body).parentLink());
 		}
 	}
 
@@ -210,15 +211,15 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	}
   
   public ComponentType componentTypeDeclaration() {
-  	return _body.getOtherEnd();
+  	return _componentType.getOtherEnd();
   }
 
   
   private void setComponentTypeDeclaration(ComponentType componentType) {
   	if(componentType == null) {
-  		_body.connectTo(null);
+  		_componentType.connectTo(null);
   	} else {
-  		_body.connectTo((Association<? extends ComponentType, ? super ComponentRelation>) componentType.parentLink());
+  		_componentType.connectTo((Association<? extends ComponentType, ? super ComponentRelation>) componentType.parentLink());
   	}
   }
 
@@ -263,4 +264,26 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return result;
 	}
 
+	@Override
+	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+		ConfigurationBlock configurationBlock = configurationBlock();
+		List<D> result;
+		if(configurationBlock == null) {
+		  result = new ArrayList<D>();
+		} else {
+			result = configurationBlock.membersDirectlyAliasedBy(selector);
+		}
+		return result;
+	}
+
+	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+		ConfigurationBlock configurationBlock = configurationBlock();
+		List<D> result;
+		if(configurationBlock == null) {
+		  result = new ArrayList<D>();
+		} else {
+			result = configurationBlock.membersDirectlyAliasing(selector);
+		}
+		return result;
+	}
 }

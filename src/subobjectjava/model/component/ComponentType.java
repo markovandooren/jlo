@@ -7,6 +7,8 @@ import jnome.core.type.AnonymousType;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.member.Member;
+import chameleon.core.member.MemberRelationSelector;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.inheritance.AbstractInheritanceRelation;
 import chameleon.oo.type.inheritance.InheritanceRelation;
@@ -58,6 +60,10 @@ public class ComponentType extends AnonymousType {
 		ComponentType result = new ComponentType();
 		result.copyEverythingExceptInheritanceRelations(this, false);
 		return result;
+	}
+
+	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+		return nearestAncestor(ComponentRelation.class).membersDirectlyAliasing(selector);
 	}
 
 }
