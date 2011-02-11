@@ -6,6 +6,7 @@ import jnome.core.type.RegularJavaType;
 import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.lookup.LookupException;
+import chameleon.oo.type.RegularType;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 
 public class RegularJLoType extends RegularJavaType {
@@ -27,5 +28,10 @@ public class RegularJLoType extends RegularJavaType {
 			result.addAll(components);
 		return result;
 	}
+	
+	protected RegularJLoType cloneThis() {
+		return new RegularJLoType(signature().clone());
+	}
+
 	
 }
