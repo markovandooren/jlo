@@ -399,7 +399,7 @@ public class JavaTranslator {
 		rewriteConstructorCalls(result);
 		rewriteThisLiterals(result);
 		rewriteComponentAccess(result);
-		rebindOverriddenMethods(result,original);
+//		rebindOverriddenMethods(result,original);
 		expandReferences(result);
 		removeNonLocalReferences(result);
 		

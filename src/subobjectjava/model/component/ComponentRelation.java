@@ -19,6 +19,7 @@ import chameleon.core.lookup.DeclarationContainerSkipper;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
+import chameleon.core.lookup.Stub;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
 import chameleon.core.member.MemberRelationSelector;
@@ -112,11 +113,11 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return componentTypeReference().getElement();
 	}
 	
-	public Type componentType() throws LookupException {
-		Type result = componentTypeDeclaration();
-		if(result == null) {
-		 result = referencedComponentType();
-		}
+	public ComponentType componentType() throws LookupException {
+		ComponentType result = componentTypeDeclaration();
+//		if(result == null) {
+//		 result = referencedComponentType();
+//		}
 		return result;
 	}
 
@@ -284,6 +285,79 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		} else {
 			result = configurationBlock.membersDirectlyAliasing(selector);
 		}
+		return result;
+	}
+	
+	/**
+	 * Return a clone of the given member that is 'incorporated' into the component type of this component
+	 * relation. The parent of the result is a ComponentStub that is unidirectionally connected to the
+	 * component type, and whose generator is set to this.
+	 * 
+	 * @param toBeIncorporated
+	 *        The member that must be incorporated into the component type.
+	 */
+ /*@
+   @ public behavior
+   @
+   @ pre toBeIncorporated != null;
+   @
+   @ post \result != null;
+   @ post \result == toBeIncorporated.clone();
+   @ post \result.parent() instanceof ComponentStub;
+   @ post ((ComponentStub)\result.parent()).parent() == componentType();
+   @ post ((ComponentStub)\result.parent()).generator() == this;
+   @*/
+	public Member incorporatedIntoComponentType(Member toBeIncorporated) throws LookupException {
+		return incorporatedInto(toBeIncorporated, componentType());
+	}
+	
+	/**
+	 * Return a clone of the given member that is 'incorporated' into the type containing this component
+	 * relation. The parent of the result is a ComponentStub that is unidirectionally connected to the
+	 * containing type, and whose generator is set to this.
+	 * 
+	 * @param toBeIncorporated
+	 *        The member that must be incorporated into the containing type.
+	 */
+ /*@
+   @ public behavior
+   @
+   @ pre toBeIncorporated != null;
+   @
+   @ post \result != null;
+   @ post \result == toBeIncorporated.clone();
+   @ post \result.parent() instanceof ComponentStub;
+   @ post ((ComponentStub)\result.parent()).parent() == nearestAncestor(Type.class);
+   @ post ((ComponentStub)\result.parent()).generator() == this;
+   @*/
+	public Member incorporatedIntoContainerType(Member toBeIncorporated) throws LookupException {
+		return incorporatedInto(toBeIncorporated, nearestAncestor(Type.class));
+	}
+	
+	/**
+	 * Return a clone of the given member that is 'incorporated' into the given type. 
+	 * The parent of the result is a ComponentStub that is unidirectionally connected to the
+	 * given type, and whose generator is set to this.
+	 * 
+	 * @param toBeIncorporated
+	 *        The member that must be incorporated into the containing type.
+	 */
+ /*@
+   @ public behavior
+   @
+   @ pre toBeIncorporated != null;
+   @
+   @ post \result != null;
+   @ post \result == toBeIncorporated.clone();
+   @ post \result.parent() instanceof ComponentStub;
+   @ post ((ComponentStub)\result.parent()).parent() == type;
+   @ post ((ComponentStub)\result.parent()).generator() == this;
+   @*/
+	protected Member incorporatedInto(Member toBeIncorporated, Type incorporatingType) throws LookupException {
+		Member result = toBeIncorporated.clone();
+		result.setOrigin(toBeIncorporated);
+		Stub redirector = new ComponentStub(this, result);
+		redirector.setUniParent(incorporatingType);
 		return result;
 	}
 }

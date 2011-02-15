@@ -9,6 +9,7 @@ import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.lookup.Stub;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.validation.BasicProblem;
@@ -63,7 +64,19 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
 		List<D> result = new ArrayList<D>();
 		if(selector.selects(newSignature(),oldDeclaration())) {
-			result.add((D)oldDeclaration());
+//			result.add((D)oldDeclaration());
+			Member oldDeclaration = (Member) oldDeclaration();
+			if(oldDeclaration != null) {
+				Member overridden = oldDeclaration.clone();
+				overridden.setOrigin(oldDeclaration);
+//			aliased.setName(newSignature().name());
+				ComponentRelation componentRelation = nearestAncestor(ComponentRelation.class);
+				Stub redirector = new ComponentStub(componentRelation, overridden);
+				redirector.setUniParent(componentRelation.componentType());
+				result.add((D) overridden);
+			} else {
+				throw new LookupException("Cannot find aliased declaration");
+			}
 		}
 		return result;
 	}

@@ -34,12 +34,13 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 		Member result = null;
 		Member member = (Member) oldDeclaration();
 		if(member != null) {
-			result = member.clone();
-			result.setOrigin(member);
+			result = nearestAncestor(ComponentRelation.class).incorporatedIntoContainerType(member);
+//			result = member.clone();
+//			result.setOrigin(member);
 			result.setName(newSignature().name());
 			
-			Stub redirector = new ComponentStub(nearestAncestor(ComponentRelation.class), result);
-			redirector.setUniParent(nearestAncestor(Type.class));
+//			Stub redirector = new ComponentStub(nearestAncestor(ComponentRelation.class), result);
+//			redirector.setUniParent(nearestAncestor(Type.class));
 
 		}
 		return result;
@@ -64,26 +65,20 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 
 	@Override
 	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
-		Member aliased = null;
 		List<D> result = new ArrayList<D>();
 		if(selector.selects(introducedMember())) {
+			// Incorporating is done by the component type.
 			Member oldDeclaration = (Member) oldDeclaration();
-			if(oldDeclaration != null) {
-				aliased = oldDeclaration.clone();
-				aliased.setOrigin(oldDeclaration);
-				aliased.setName(newSignature().name());
-
-				ComponentRelation componentRelation = nearestAncestor(ComponentRelation.class);
-				Stub redirector = new ComponentStub(componentRelation, aliased);
-				redirector.setUniParent(componentRelation.componentType());
-
-			} else {
-				throw new LookupException("Cannot find aliased declaration");
-			}
-			result.add((D) aliased);
+			result.add((D)oldDeclaration);
+//			if(oldDeclaration != null) {
+//				result.add((D) nearestAncestor(ComponentRelation.class).incorporatedIntoComponentType(oldDeclaration));
+//			} else {
+//				throw new LookupException("Cannot find aliased declaration");
+//			}
 		}
 		return result;
 	}
+
 
 	@Override
 	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {

@@ -7,10 +7,10 @@ import jnome.core.type.AnonymousType;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.lookup.Stub;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberRelationSelector;
 import chameleon.oo.type.TypeReference;
-import chameleon.oo.type.inheritance.AbstractInheritanceRelation;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.util.Util;
@@ -33,15 +33,9 @@ public class ComponentType extends AnonymousType {
 
 	@Override
 	public List<InheritanceRelation> inheritanceRelations() {
+		must store this, or else the check for the context returns the wrong result.
 		List<InheritanceRelation> result = new ArrayList<InheritanceRelation>();
-		SubtypeRelation subtypeRelation = new SubtypeRelation(typeReference().clone()){
-
-			@Override
-			public boolean uniSameAs(Element other) throws LookupException {
-				return other instanceof SubtypeRelation && other.parent() == ComponentType.this;
-			}
-			
-		};
+		SubtypeRelation subtypeRelation = new ComponentSubtypeRelation(typeReference().clone());
 		subtypeRelation.setUniParent(this);
 		result.add(subtypeRelation);
 		return result;
