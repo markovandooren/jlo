@@ -19,12 +19,16 @@ import chameleon.oo.type.inheritance.SubtypeRelation;
  */
 public class ComponentSubtypeRelation extends SubtypeRelation {
 	
-	public ComponentSubtypeRelation(TypeReference ref) {
-		super(ref);
+	public ComponentSubtypeRelation() {
+		super(null);
 	}
 	
+	public TypeReference superClassReference() {
+		return nearestAncestor(ComponentRelation.class).componentTypeReference();
+	}
+
 	public Type componentType() {
-		return _componentType;
+		return nearestAncestor(Type.class);
 	}
 	
 	private ComponentType _componentType;

@@ -19,6 +19,7 @@ public class ComponentType extends AnonymousType {
 
 	public ComponentType() {
 		super("");
+		addInheritanceRelation(new ComponentSubtypeRelation());
 	}
 	
 	public SimpleNameSignature signature() {
@@ -29,16 +30,6 @@ public class ComponentType extends AnonymousType {
 	
 	public TypeReference typeReference() {
 		return nearestAncestor(ComponentRelation.class).componentTypeReference();
-	}
-
-	@Override
-	public List<InheritanceRelation> inheritanceRelations() {
-		must store this, or else the check for the context returns the wrong result.
-		List<InheritanceRelation> result = new ArrayList<InheritanceRelation>();
-		SubtypeRelation subtypeRelation = new ComponentSubtypeRelation(typeReference().clone());
-		subtypeRelation.setUniParent(this);
-		result.add(subtypeRelation);
-		return result;
 	}
 
 	public List<Element> children() {
