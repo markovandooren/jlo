@@ -69,6 +69,7 @@ import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.namespacepart.TypeImport;
 import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.CrossReferenceWithArguments;
 import chameleon.core.reference.CrossReferenceWithName;
@@ -284,14 +285,14 @@ public class JavaTranslator {
 	}
 
 
-	private void makePublic(ElementWithModifiers<?> type) throws ModelException {
-		Java language = type.language(Java.class);
-		Property access = type.property(language.SCOPE_MUTEX);
+	private void makePublic(ElementWithModifiers<?> element) throws ModelException {
+		Java language = element.language(Java.class);
+		Property access = element.property(language.SCOPE_MUTEX);
 		if(access != language.PRIVATE) {
-			for(Modifier mod: type.modifiers(language.SCOPE_MUTEX)) {
+			for(Modifier mod: element.modifiers(language.SCOPE_MUTEX)) {
 				mod.disconnect();
 			}
-			type.addModifier(new Public());
+			element.addModifier(new Public());
 		}
 	}
 
@@ -395,10 +396,10 @@ public class JavaTranslator {
 			processSuperComponentParameters(rel);
 		}
 		
+		rebindOverriddenMethods(result,original);//TODO
 		rewriteConstructorCalls(result);
 		rewriteThisLiterals(result);
 		rewriteComponentAccess(result);
-		rebindOverriddenMethods(result,original);
 		expandReferences(result);
 		removeNonLocalReferences(result);
 		
@@ -431,8 +432,13 @@ public class JavaTranslator {
 			System.out.println("Source: "+source.getName()+"."+newDefinition.name());
 			System.out.println("Target: "+target.getName()+"."+toBeRebound.name());
 			System.out.println("----------------------");
-			Method clone = toBeRebound.clone();
-			clone.setImplementation(null);
+//			Method clone = toBeRebound.clone();
+//			clone.setImplementation(null);
+			Method clone = createOutward(toBeRebound, newDefinition.name(),source.getFullyQualifiedName());
+			//FIXME this is tricky.
+			clone.setUniParent(toBeRebound);
+			substituteTypeParameters(clone);
+			clone.setUniParent(null);
 			target.add(clone);
 		}
 	}
@@ -458,7 +464,13 @@ public class JavaTranslator {
 				result= tref.getElement();
 			} catch(LookupException exc) {
 				// We add the imports to the original. They are copied later on to 'container'.
-				result = innerClassFor(relations.get(relations.size()-baseOneIndex), original);
+				ComponentRelation relationBeingTranslated = relations.get(relations.size()-baseOneIndex);
+				result = innerClassFor(relationBeingTranslated, original);
+				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
+				incorporateImports(relationBeingTranslated, namespacePart);
+				// Since we are adding inner classes that were not written in the current namespacepart, their type
+				// may not have been imported yet. Therefore, we add an import of the referenced component type.
+				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relationBeingTranslated.referencedComponentType().getFullyQualifiedName())));
 				container.add(result);
 			}
 			return createOrGetInnerTypeForComponents(result, original, relations, baseOneIndex + 1);
@@ -489,16 +501,17 @@ public class JavaTranslator {
 			}
 			for(SubtypeRelation relation: type.nonMemberInheritanceRelations(SubtypeRelation.class)) {
 				BasicJavaTypeReference tref = (BasicJavaTypeReference) relation.superClassReference();
-				if(
-						(! relation.isTrue(lang.IMPLEMENTS_RELATION))
-						&& isJLo(tref.getElement()) 
-				) {
-					tref.setSignature(new SimpleNameSignature(tref.signature().name()+IMPL));
+				try {
+					if((! relation.isTrue(lang.IMPLEMENTS_RELATION)) && isJLo(tref.getElement())) {
+						tref.setSignature(new SimpleNameSignature(tref.signature().name()+IMPL));
+					}
+				}
+				catch(LookupException exc) {
+					tref.getElement();
+					throw exc;
 				}
 			}
-
 			implementOwnInterface(type);
-
 			for(TypeElement decl: type.directlyDeclaredElements()) {
 				if((decl instanceof Method) && (decl.is(lang.CONSTRUCTOR) == Ternary.TRUE)) {
 					((Method)decl).setName(name);
@@ -768,10 +781,10 @@ public class JavaTranslator {
                   targetInnerClass.add(outward);
 								}
 							} else {
-								Method outward = createOutward(method,((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name(),relation);
-								if(outward != null) {
-                  targetInnerClass.add(outward);
-								}
+//								Method outward = createOutward(method,((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name(),relation);
+//								if(outward != null) {
+//                  targetInnerClass.add(outward);
+//								}
 							}
 						} 
 						if(ov instanceof RenamingClause) {
@@ -813,7 +826,7 @@ public class JavaTranslator {
 // If it is overridden, then this adds 1 extra delegation, so we should optimize it later on.
 //		Invocation invocation = invocation(result, original(method.name()));
 		
-		TypeReference ref = getRelativeClassName(relation);
+		TypeReference ref = getRelativeClassReference(relation);
 		Expression target = new JavaMethodInvocation(getterName(relation), null);
 		invocation.setTarget(target);
 		substituteTypeParameters(method, result);
@@ -865,18 +878,17 @@ public class JavaTranslator {
 	}
 
 	private Type innerClassFor(ComponentRelation relationBeingTranslated, Type outer) throws LookupException {
-		NamespacePart nsp = relationBeingTranslated.farthestAncestor(NamespacePart.class);
-		Type baseT = relationBeingTranslated.referencedComponentType().baseType();
-		NamespacePart originalNsp = baseT.farthestAncestor(NamespacePart.class);
-		for(Import imp: originalNsp.imports()) {
-			nsp.addImport(imp.clone());
-		}
+		incorporateImports(relationBeingTranslated);
 		Type result = new RegularJLoType(innerClassName(relationBeingTranslated, outer));
 		for(Modifier mod: relationBeingTranslated.modifiers()) {
 			result.addModifier(mod.clone());
 		}
 		
 		TypeReference superReference = superClassReference(relationBeingTranslated, outer);
+		superReference.setUniParent(relationBeingTranslated);
+		substituteTypeParameters(superReference);
+		superReference.setUniParent(null);
+		
 		result.addInheritanceRelation(new SubtypeRelation(superReference));
 		
 		List<Method> selectors = selectorsFor(relationBeingTranslated);
@@ -884,6 +896,32 @@ public class JavaTranslator {
 			result.add(selector);
 		}
 		return result;
+	}
+
+	/**
+	 * Incorporate the imports of the namespace part of the declared type of the component relation to
+	 * the namespace part of the component relation.
+	 * @param relationBeingTranslated
+	 * @throws LookupException
+	 */
+	private void incorporateImports(ComponentRelation relationBeingTranslated)
+	throws LookupException {
+		incorporateImports(relationBeingTranslated, relationBeingTranslated.farthestAncestor(NamespacePart.class));
+	}
+
+	/**
+	 * Incorporate the imports of the namespace part of the declared type of the component relation to
+	 * the given namespace part.
+	 * @param relationBeingTranslated
+	 * @throws LookupException
+	 */
+	private void incorporateImports(ComponentRelation relationBeingTranslated, NamespacePart target)
+			throws LookupException {
+		Type baseT = relationBeingTranslated.referencedComponentType().baseType();
+		NamespacePart originalNsp = baseT.farthestAncestor(NamespacePart.class);
+		for(Import imp: originalNsp.imports()) {
+			target.addImport(imp.clone());
+		}
 	}
 
 	private void processComponentRelationBody(ComponentRelation relation, Type outer, Type outerTypeBeingTranslated, Type result)
@@ -985,6 +1023,9 @@ public class JavaTranslator {
 	public final static String IMPL = "_implementation";
 
 	private Method createOutward(Method<?,?,?,?> method, String newName, ComponentRelation relation) throws LookupException {
+		return createOutward(method,newName,getRelativeClassName(relation));
+	}
+	private Method createOutward(Method<?,?,?,?> method, String newName, String className) throws LookupException {
 		NormalMethod<?,?,?> result;
 		if(//(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
 			 (method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
@@ -992,7 +1033,7 @@ public class JavaTranslator {
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
 			MethodInvocation invocation = invocation(result, newName);
-			TypeReference ref = getRelativeClassName(relation);
+			TypeReference ref = method.language(Java.class).createTypeReference(className);
 			ThisLiteral target = new ThisLiteral(ref);
 			invocation.setTarget(target);
 			substituteTypeParameters(method, result);
@@ -1014,8 +1055,11 @@ public class JavaTranslator {
 		return result;
 	}
 	
-	private TypeReference getRelativeClassName(ComponentRelation relation) {
-		return relation.language(Java.class).createTypeReference(relation.nearestAncestor(Type.class).signature().name());
+	private TypeReference getRelativeClassReference(ComponentRelation relation) {
+		return relation.language(Java.class).createTypeReference(getRelativeClassName(relation));
+	}
+	private String getRelativeClassName(ComponentRelation relation) {
+		return relation.nearestAncestor(Type.class).signature().name();
 	}
 	
 	private Method createOriginal(Method<?,?,?,?> method, String original) throws LookupException {
@@ -1055,15 +1099,19 @@ public class JavaTranslator {
 		NormalMethod<?, ?, ?> result;
 		TypeReference returnTypeReference = method.returnTypeReference();
 		BasicJavaTypeReference tref = (BasicJavaTypeReference) returnTypeReference.clone();
-		String fullyQualifiedName = returnTypeReference.getElement().getFullyQualifiedName();
-		String predecessor = null;
-		if(! (returnTypeReference.getDeclarator() instanceof TypeParameter)) {
-			predecessor = Util.getAllButLastPart(fullyQualifiedName);
-		}
-		if(predecessor != null) {
-			NamedTarget nt = new NamedTarget(predecessor);
-			tref.setTarget(nt);
-		}
+		
+//      FIXME: this code can 99,99% sure be removed since expansion of references is done
+//      afterwards anyway.
+		
+//		String fullyQualifiedName = returnTypeReference.getElement().getFullyQualifiedName();
+//		String predecessor = null;
+//		if(! (returnTypeReference.getDeclarator() instanceof TypeParameter)) {
+//			predecessor = Util.getAllButLastPart(fullyQualifiedName);
+//		}
+//		if(predecessor != null) {
+//			NamedTarget nt = new NamedTarget(predecessor);
+//			tref.setTarget(nt);
+//		}
 		result = method.language(Java.class).createNormalMethod(method.header().clone(), tref);
 		((SimpleNameDeclarationWithParametersHeader)result.header()).setName(original);
 		ExceptionClause exceptionClause = method.getExceptionClause();
@@ -1074,6 +1122,11 @@ public class JavaTranslator {
 	}
 
 
+	/**
+	 * Replace all references to type parameters 
+	 * @param element
+	 * @throws LookupException
+	 */
 	private void substituteTypeParameters(Element<?> element) throws LookupException {
 		List<TypeReference> crossReferences = 
 			 element.descendants(TypeReference.class, 

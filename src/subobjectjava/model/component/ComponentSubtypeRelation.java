@@ -52,8 +52,7 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 		ComponentRelation componentRelation = componentType().nearestAncestor(ComponentRelation.class);
 		List<M> result = new ArrayList<M>();
 		for(M m:tmp) {
-			M incorporated = (M) componentRelation.incorporatedIntoComponentType(m);
-			result.add(incorporated);
+			result.add((M) componentRelation.incorporatedIntoComponentType(m));
 		}
 		return result;
 	}
@@ -62,6 +61,5 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 	public <M extends Member> List<M> potentiallyInheritedMembers(DeclarationSelector<M> selector) throws LookupException {
 		return incorporated(super.potentiallyInheritedMembers(selector));
 	}
-	
 	
 }
