@@ -410,16 +410,11 @@ public class JavaTranslator {
 	}
 	
 	private void rebindOverriddenMethods(Type result, Type original) throws LookupException {
-		List<Method> methods = original.descendants(Method.class);
-		for(Method method: methods) {
+		for(Method method: original.descendants(Method.class)) {
 			Set<? extends Member> overridden;
-			try {
-				overridden = method.overriddenMembers();
-				for(Member toBeRebound: overridden) {
-					rebind(result, original, method, (Method) toBeRebound);
-				}
-			} catch(LookupException exc) {
-				overridden = method.overriddenMembers();
+			overridden = method.overriddenMembers();
+			for(Member toBeRebound: overridden) {
+				rebind(result, original, method, (Method) toBeRebound);
 			}
 		}
 	}
@@ -432,8 +427,6 @@ public class JavaTranslator {
 			System.out.println("Source: "+source.getName()+"."+newDefinition.name());
 			System.out.println("Target: "+target.getName()+"."+toBeRebound.name());
 			System.out.println("----------------------");
-//			Method clone = toBeRebound.clone();
-//			clone.setImplementation(null);
 			Method clone = createOutward(toBeRebound, newDefinition.name(),source.getFullyQualifiedName());
 			//FIXME this is tricky.
 			clone.setUniParent(toBeRebound);
@@ -771,22 +764,22 @@ public class JavaTranslator {
 					Declaration decl = ov.oldDeclaration();
 					if(decl instanceof Method) {
 						final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
-						boolean overriddenInSubobject = containsMethodWithSameSignature(elements, method);
-						if(! overriddenInSubobject) {
-							Method original = createOriginal(method, original(method.name()));
-							if(original != null) {
-								targetInnerClass.add(original);
-								Method outward = createDispathToOriginal(method,relation);
-								if(outward != null) {
-                  targetInnerClass.add(outward);
-								}
-							} else {
-//								Method outward = createOutward(method,((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name(),relation);
+//						boolean overriddenInSubobject = containsMethodWithSameSignature(elements, method);
+//						if(! overriddenInSubobject) {
+//							Method original = createOriginal(method, original(method.name()));
+//							if(original != null) {
+//								targetInnerClass.add(original);
+//								Method outward = createDispathToOriginal(method,relation);
 //								if(outward != null) {
-//                  targetInnerClass.add(outward);
+//									targetInnerClass.add(outward);
 //								}
-							}
-						} 
+//							} else {
+//								//								Method outward = createOutward(method,((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name(),relation);
+//								//								if(outward != null) {
+//								//                  targetInnerClass.add(outward);
+//								//								}
+//							}
+//						} 
 						if(ov instanceof RenamingClause) {
 							outer.add(createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name()));
 						}
@@ -865,15 +858,13 @@ public class JavaTranslator {
 
 	/**
 	 * 
-	 * @param relation A component relation from either the original class, or one of its nested components.
+	 * @param relationBeingTranslated A component relation from either the original class, or one of its nested components.
 	 * @param outer The outer class being generated.
 	 */
-	private Type createInnerClassFor(ComponentRelation relation, Type outer, Type outerTypeBeingTranslated) throws ChameleonProgrammerException, LookupException {
-		Type result = innerClassFor(relation, outer);
-		
-		Type componentType = relation.referencedComponentType();
-		processInnerClassMethod(relation, componentType, result);
-		processComponentRelationBody(relation, outer, outerTypeBeingTranslated, result);
+	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type outer, Type outerTypeBeingTranslated) throws ChameleonProgrammerException, LookupException {
+		Type result = innerClassFor(relationBeingTranslated, outer);
+//		processInnerClassMethod(relationBeingTranslated, relationBeingTranslated.referencedComponentType(), result);
+		processComponentRelationBody(relationBeingTranslated, outer, outerTypeBeingTranslated, result);
 		return result;
 	}
 
@@ -895,6 +886,7 @@ public class JavaTranslator {
 		for(Method selector:selectors) {
 			result.add(selector);
 		}
+		processInnerClassMethod(relationBeingTranslated, relationBeingTranslated.referencedComponentType(), result);
 		return result;
 	}
 
