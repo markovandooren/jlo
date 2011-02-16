@@ -64,19 +64,19 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
 		List<D> result = new ArrayList<D>();
 		if(selector.selects(newSignature(),oldDeclaration())) {
-//			result.add((D)oldDeclaration());
-			Member oldDeclaration = (Member) oldDeclaration();
-			if(oldDeclaration != null) {
-				Member overridden = oldDeclaration.clone();
-				overridden.setOrigin(oldDeclaration);
-//			aliased.setName(newSignature().name());
-				ComponentRelation componentRelation = nearestAncestor(ComponentRelation.class);
-				Stub redirector = new ComponentStub(componentRelation, overridden);
-				redirector.setUniParent(componentRelation.componentType());
-				result.add((D) overridden);
-			} else {
-				throw new LookupException("Cannot find aliased declaration");
-			}
+			// Incorporating is done by the component type.
+			result.add((D)oldDeclaration());
+//			Member oldDeclaration = (Member) oldDeclaration();
+//			if(oldDeclaration != null) {
+//				Member overridden = oldDeclaration.clone();
+//				overridden.setOrigin(oldDeclaration);
+//				ComponentRelation componentRelation = nearestAncestor(ComponentRelation.class);
+//				Stub redirector = new ComponentStub(componentRelation, overridden);
+//				redirector.setUniParent(componentRelation.componentType());
+//				result.add((D) overridden);
+//			} else {
+//				throw new LookupException("Cannot find aliased declaration");
+//			}
 		}
 		return result;
 	}

@@ -68,8 +68,7 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 		List<D> result = new ArrayList<D>();
 		if(selector.selects(introducedMember())) {
 			// Incorporating is done by the component type.
-			Member oldDeclaration = (Member) oldDeclaration();
-			result.add((D)oldDeclaration);
+			result.add((D)oldDeclaration());
 //			if(oldDeclaration != null) {
 //				result.add((D) nearestAncestor(ComponentRelation.class).incorporatedIntoComponentType(oldDeclaration));
 //			} else {

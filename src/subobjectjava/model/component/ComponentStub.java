@@ -12,6 +12,7 @@ import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.TypeElementStub;
+import chameleon.util.CreationStackTrace;
 import chameleon.util.Util;
 
 public class ComponentStub extends NamespaceElementImpl<ComponentStub> implements TypeElementStub<ComponentStub>{
@@ -61,7 +62,8 @@ public class ComponentStub extends NamespaceElementImpl<ComponentStub> implement
 		if(child.origin() == child) {
 			System.out.println("DEBUG");
 		}
-		return child.origin().parent().lexicalLookupStrategy();
+//		return child.origin().parent().lexicalLookupStrategy();
+		return child.origin().lexicalLookupStrategy();
 	}
 
 

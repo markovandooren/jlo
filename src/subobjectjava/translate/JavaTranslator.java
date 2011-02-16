@@ -1,10 +1,8 @@
 package subobjectjava.translate;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import jnome.core.expression.invocation.ConstructorInvocation;
@@ -43,6 +41,7 @@ import subobjectjava.model.expression.AbstractTarget;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.JLo;
+import subobjectjava.model.type.RegularJLoType;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.Declaration;
@@ -412,9 +411,14 @@ public class JavaTranslator {
 	private void rebindOverriddenMethods(Type result, Type original) throws LookupException {
 		List<Method> methods = original.descendants(Method.class);
 		for(Method method: methods) {
-			Set<? extends Member> overridden = method.overriddenMembers();
-			for(Member toBeRebound: overridden) {
-				rebind(result, original, method, (Method) toBeRebound);
+			Set<? extends Member> overridden;
+			try {
+				overridden = method.overriddenMembers();
+				for(Member toBeRebound: overridden) {
+					rebind(result, original, method, (Method) toBeRebound);
+				}
+			} catch(LookupException exc) {
+				overridden = method.overriddenMembers();
 			}
 		}
 	}
@@ -424,8 +428,8 @@ public class JavaTranslator {
 		Type source = createOrGetInnerTypeForMethod(container, original, newDefinition);
 		if(! target.sameAs(source)) {
 			System.out.println("----------------------");
-			System.out.println("Source: "+source.getName());
-			System.out.println("Target: "+target.getName());
+			System.out.println("Source: "+source.getName()+"."+newDefinition.name());
+			System.out.println("Target: "+target.getName()+"."+toBeRebound.name());
 			System.out.println("----------------------");
 			Method clone = toBeRebound.clone();
 			clone.setImplementation(null);
@@ -779,10 +783,6 @@ public class JavaTranslator {
 		}
 	}
 	
-	private void redirectAllOverriddenMethods() {
-		
-	}
-
 	private List<Method> methodsOfComponentBody(TypeWithBody componentTypeDeclaration) {
 		List<Method> elements;
 		if(componentTypeDeclaration != null) {
@@ -871,7 +871,7 @@ public class JavaTranslator {
 		for(Import imp: originalNsp.imports()) {
 			nsp.addImport(imp.clone());
 		}
-		Type result = new RegularType(innerClassName(relationBeingTranslated, outer));
+		Type result = new RegularJLoType(innerClassName(relationBeingTranslated, outer));
 		for(Modifier mod: relationBeingTranslated.modifiers()) {
 			result.addModifier(mod.clone());
 		}
@@ -1095,19 +1095,6 @@ public class JavaTranslator {
 		}
 	}
 
-//	private void substituteTypeParameters(Element<?> result, Type type) throws LookupException {
-//		List<TypeParameter> typeParameters = type.parameters(TypeParameter.class);
-//		List<TypeParameterSubstitution> substitutions = new ArrayList<TypeParameterSubstitution>();
-//		for(TypeParameter par: typeParameters) {
-//			if(par instanceof InstantiatedTypeParameter) {
-//				substitutions.add(((InstantiatedTypeParameter)par).substitution(result));
-//			}
-//		}
-//		for(TypeParameterSubstitution substitution: substitutions){
-//			substitution.apply();
-//		}
-//	}
-	
 	private String innerClassName(Type outer, QualifiedName qn) {
 		StringBuffer result = new StringBuffer();
 		result.append(outer.signature().name());
