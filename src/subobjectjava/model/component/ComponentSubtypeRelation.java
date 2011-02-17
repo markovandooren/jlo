@@ -7,6 +7,7 @@ import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
+import chameleon.core.member.MemberRelationSelector;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.inheritance.SubtypeRelation;
@@ -61,5 +62,18 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 	public <M extends Member> List<M> potentiallyInheritedMembers(DeclarationSelector<M> selector) throws LookupException {
 		return incorporated(super.potentiallyInheritedMembers(selector));
 	}
+
+	@Override
+	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
+		return incorporated(super.membersDirectlyOverriddenBy(selector));
+	}
+
+	@Override
+	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+//		return incorporated(super.membersDirectlyAliasedBy(selector));
+		return new ArrayList<D>();
+	}
+	
+	
 	
 }

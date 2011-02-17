@@ -10,6 +10,7 @@ import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.Stub;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberRelationSelector;
+import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
@@ -48,7 +49,20 @@ public class ComponentType extends AnonymousType {
 	}
 
 	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
-		return nearestAncestor(ComponentRelation.class).membersDirectlyAliasing(selector);
+		if(selector.declaration().nearestAncestor(ClassBody.class) == body()) {
+			return nearestAncestor(ComponentRelation.class).membersDirectlyAliasing(selector);
+		} else {
+			return new ArrayList<D>();//FIXME I think this is wrong and should look for deeper nested declarations.
+		}
 	}
+	
+//	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+//		List<D> result = new ArrayList<D>();
+//		for(InheritanceRelation relation:inheritanceRelations()) {
+//			result.addAll(relation.membersDirectlyAliasedBy(selector));
+//		}
+//		return result;
+//	}
+
 
 }

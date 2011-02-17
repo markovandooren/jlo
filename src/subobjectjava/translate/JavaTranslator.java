@@ -57,8 +57,10 @@ import chameleon.core.expression.InvocationTarget;
 import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.NamedTarget;
 import chameleon.core.expression.NamedTargetExpression;
+import chameleon.core.language.WrongLanguageException;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
+import chameleon.core.method.Implementation;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularImplementation;
 import chameleon.core.method.RegularMethod;
@@ -414,6 +416,10 @@ public class JavaTranslator {
 			Set<? extends Member> overridden;
 			overridden = method.overriddenMembers();
 			for(Member toBeRebound: overridden) {
+				if(toBeRebound.signature().name().equals("setValue") && method.name().equals("setValue")) {
+					System.out.println("debug");
+					overridden = method.overriddenMembers();
+				}
 				rebind(result, original, method, (Method) toBeRebound);
 			}
 		}
@@ -427,10 +433,14 @@ public class JavaTranslator {
 			System.out.println("Source: "+source.getName()+"."+newDefinition.name());
 			System.out.println("Target: "+target.getName()+"."+toBeRebound.name());
 			System.out.println("----------------------");
-			Method clone = createOutward(toBeRebound, newDefinition.name(),source.getFullyQualifiedName());
+			String thisName = source.getFullyQualifiedName();
+			Method clone = createOutward(toBeRebound, newDefinition.name(),thisName);
 			//FIXME this is tricky.
 			clone.setUniParent(toBeRebound);
+			Implementation<Implementation> impl = clone.implementation();
+			clone.setImplementation(null);
 			substituteTypeParameters(clone);
+			clone.setImplementation(impl);
 			clone.setUniParent(null);
 			target.add(clone);
 		}
@@ -1014,9 +1024,10 @@ public class JavaTranslator {
 	
 	public final static String IMPL = "_implementation";
 
-	private Method createOutward(Method<?,?,?,?> method, String newName, ComponentRelation relation) throws LookupException {
-		return createOutward(method,newName,getRelativeClassName(relation));
-	}
+//	private Method createOutward(Method<?,?,?,?> method, String newName, ComponentRelation relation) throws LookupException {
+//		return createOutward(method,newName,getRelativeClassName(relation));
+//	}
+	
 	private Method createOutward(Method<?,?,?,?> method, String newName, String className) throws LookupException {
 		NormalMethod<?,?,?> result;
 		if(//(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
@@ -1054,24 +1065,24 @@ public class JavaTranslator {
 		return relation.nearestAncestor(Type.class).signature().name();
 	}
 	
-	private Method createOriginal(Method<?,?,?,?> method, String original) throws LookupException {
-		NormalMethod<?,?,?> result;
-		if(
-			 (method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
-			 (method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
-			result = innerMethod(method, original);
-			substituteTypeParameters(method, result);
-			Block body = new Block();
-			result.setImplementation(new RegularImplementation(body));
-			MethodInvocation invocation = invocation(result, method.name());
-			invocation.setTarget(new SuperTarget());
-			addImplementation(method, body, invocation);
-		}
-		else {
-			result = null;
-		}
-		return result;
-	}
+//	private Method createOriginal(Method<?,?,?,?> method, String original) throws LookupException {
+//		NormalMethod<?,?,?> result;
+//		if(
+//			 (method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
+//			 (method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
+//			result = innerMethod(method, original);
+//			substituteTypeParameters(method, result);
+//			Block body = new Block();
+//			result.setImplementation(new RegularImplementation(body));
+//			MethodInvocation invocation = invocation(result, method.name());
+//			invocation.setTarget(new SuperTarget());
+//			addImplementation(method, body, invocation);
+//		}
+//		else {
+//			result = null;
+//		}
+//		return result;
+//	}
 
 	private void substituteTypeParameters(Method<?, ?, ?, ?> methodInTypeWhoseParametersMustBeSubstituted, NormalMethod<?, ?, ?> methodWhereActualTypeParametersMustBeFilledIn) throws LookupException {
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(methodInTypeWhoseParametersMustBeSubstituted);
@@ -1089,8 +1100,7 @@ public class JavaTranslator {
 
 	private NormalMethod<?, ?, ?> innerMethod(Method<?, ?, ?, ?> method, String original) throws LookupException {
 		NormalMethod<?, ?, ?> result;
-		TypeReference returnTypeReference = method.returnTypeReference();
-		BasicJavaTypeReference tref = (BasicJavaTypeReference) returnTypeReference.clone();
+		TypeReference tref = method.returnTypeReference().clone();
 		
 //      FIXME: this code can 99,99% sure be removed since expansion of references is done
 //      afterwards anyway.
@@ -1120,24 +1130,29 @@ public class JavaTranslator {
 	 * @throws LookupException
 	 */
 	private void substituteTypeParameters(Element<?> element) throws LookupException {
-		List<TypeReference> crossReferences = 
-			 element.descendants(TypeReference.class, 
-					              new UnsafePredicate<TypeReference,LookupException>() {
-													public boolean eval(TypeReference object) throws LookupException {
-														return object.getDeclarator() instanceof InstantiatedTypeParameter;
-													}
-			                  });
-		for(TypeReference cref: crossReferences) {
-			SingleAssociation parentLink = cref.parentLink();
-			Association childLink = parentLink.getOtherRelation();
-			InstantiatedTypeParameter declarator = (InstantiatedTypeParameter) cref.getDeclarator(); 
-			Type type = cref.getElement();
-			while(type instanceof ActualType) {
-				type = ((ActualType)type).aliasedType();
+			List<TypeReference> crossReferences = 
+				 element.descendants(TypeReference.class, 
+						              new UnsafePredicate<TypeReference,LookupException>() {
+														public boolean eval(TypeReference object) throws LookupException {
+															try {
+															return object.getDeclarator() instanceof InstantiatedTypeParameter;
+															} catch (LookupException e) {
+																e.printStackTrace();
+																throw e;
+															}
+														}
+				                  });
+			for(TypeReference cref: crossReferences) {
+				SingleAssociation parentLink = cref.parentLink();
+				Association childLink = parentLink.getOtherRelation();
+				InstantiatedTypeParameter declarator = (InstantiatedTypeParameter) cref.getDeclarator(); 
+				Type type = cref.getElement();
+				while(type instanceof ActualType) {
+					type = ((ActualType)type).aliasedType();
+				}
+				TypeReference namedTargetExpression = element.language(ObjectOrientedLanguage.class).createTypeReference(type.getFullyQualifiedName());
+				childLink.replace(parentLink, namedTargetExpression.parentLink());
 			}
-			TypeReference namedTargetExpression = element.language(ObjectOrientedLanguage.class).createTypeReference(type.getFullyQualifiedName());
-			childLink.replace(parentLink, namedTargetExpression.parentLink());
-		}
 	}
 
 	private String innerClassName(Type outer, QualifiedName qn) {
