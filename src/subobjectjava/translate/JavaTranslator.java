@@ -45,6 +45,7 @@ import subobjectjava.model.type.RegularJLoType;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.Declaration;
+import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
@@ -57,8 +58,9 @@ import chameleon.core.expression.InvocationTarget;
 import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.NamedTarget;
 import chameleon.core.expression.NamedTargetExpression;
-import chameleon.core.language.WrongLanguageException;
+import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.member.Member;
 import chameleon.core.method.Implementation;
 import chameleon.core.method.Method;
@@ -412,9 +414,29 @@ public class JavaTranslator {
 	}
 	
 	private void rebindOverriddenMethods(Type result, Type original) throws LookupException {
-		for(Method method: original.descendants(Method.class)) {
-			Set<? extends Member> overridden;
-			overridden = method.overriddenMembers();
+		for(final Method method: original.descendants(Method.class)) {
+			Set<? extends Member> overridden = method.overriddenMembers();
+//			if(! overridden.isEmpty()) {
+//				final Method tmp = method.clone();
+//				tmp.setUniParent(method.parent());
+//				substituteTypeParameters(method);
+//				Type containerOfNewDefinition = createOrGetInnerTypeForMethod(result, original, method);
+//				DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
+//					@Override
+//					public Signature signature() {
+//						return tmp.signature();
+//					}
+//				};
+//				Method newDefinitionInResult = null;
+//				try {
+//					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
+//				} catch (IndexOutOfBoundsException e) {
+//					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
+//				}
+//				Method<?,?,?,?> stat = newDefinitionInResult.clone();
+//				stat.setName(toImplName(containerOfNewDefinition.getFullyQualifiedName().replace('.', '_'))+"_"+method.name());
+//				result.add(stat);
+//			}
 			for(Member toBeRebound: overridden) {
 				if(toBeRebound.signature().name().equals("setValue") && method.name().equals("setValue")) {
 					System.out.println("debug");
@@ -426,14 +448,14 @@ public class JavaTranslator {
 	}
 	
 	private void rebind(Type container, Type original, Method<?,?,?,?> newDefinition, Method toBeRebound) throws LookupException {
-		Type target = createOrGetInnerTypeForMethod(container, original, toBeRebound);
-		Type source = createOrGetInnerTypeForMethod(container, original, newDefinition);
-		if(! target.sameAs(source)) {
+		Type containerOfToBebound = createOrGetInnerTypeForMethod(container, original, toBeRebound);
+		Type containerOfNewDefinition = createOrGetInnerTypeForMethod(container, original, newDefinition);
+		if(! containerOfToBebound.sameAs(containerOfNewDefinition)) {
 			System.out.println("----------------------");
-			System.out.println("Source: "+source.getName()+"."+newDefinition.name());
-			System.out.println("Target: "+target.getName()+"."+toBeRebound.name());
+			System.out.println("Source: "+containerOfNewDefinition.getFullyQualifiedName()+"."+newDefinition.name());
+			System.out.println("Target: "+containerOfToBebound.getFullyQualifiedName()+"."+toBeRebound.name());
 			System.out.println("----------------------");
-			String thisName = source.getFullyQualifiedName();
+			String thisName = containerOfNewDefinition.getFullyQualifiedName();
 			Method clone = createOutward(toBeRebound, newDefinition.name(),thisName);
 			//FIXME this is tricky.
 			clone.setUniParent(toBeRebound);
@@ -442,8 +464,24 @@ public class JavaTranslator {
 			substituteTypeParameters(clone);
 			clone.setImplementation(impl);
 			clone.setUniParent(null);
-			target.add(clone);
+			containerOfToBebound.add(clone);
+			Method<?,?,?,?> stat = clone.clone();
+			stat.setName(containerOfToBebound.getFullyQualifiedName().replace('.', '_')+"_"+clone.name());
+			for(SimpleNameMethodInvocation inv:stat.descendants(SimpleNameMethodInvocation.class)) {
+				String name = containerOfNewDefinition.getFullyQualifiedName().replace('.', '_');
+				name = toImplName(name);
+				inv.setName(name+"_"+newDefinition.name());
+			}
+			containerOfToBebound.add(stat);
+			containerOfToBebound.flushCache();
 		}
+	}
+
+	private String toImplName(String name) {
+		if(! name.endsWith(IMPL)) {
+			name = name + IMPL;
+		}
+		return name;
 	}
 	
 	private Type createOrGetInnerTypeForMethod(Type container, Type original, Method method) throws LookupException {
@@ -453,13 +491,8 @@ public class JavaTranslator {
 	
 	private Type createOrGetInnerTypeForComponents(Type container, Type original, List<ComponentRelation> relations, int baseOneIndex) throws LookupException {
 		if(baseOneIndex <= relations.size()) {
-			CompositeQualifiedName innerName = new CompositeQualifiedName();
-			CompositeQualifiedName acc = new CompositeQualifiedName();
-			for(int i = relations.size()-1; i > relations.size()- 1 - baseOneIndex ;i--) {
-				ComponentRelation relation = relations.get(i);
-				acc.append(relation.signature().clone());
-			}
-			innerName.append(new SimpleNameSignature(innerClassName(container, acc)));
+			Signature innerName = null;
+			innerName = (new SimpleNameSignature(innerClassName(relations.get(relations.size() - baseOneIndex), original)));
 			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
 			tref.setUniParent(container);
 			Type result;
@@ -475,6 +508,7 @@ public class JavaTranslator {
 				// may not have been imported yet. Therefore, we add an import of the referenced component type.
 				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relationBeingTranslated.referencedComponentType().getFullyQualifiedName())));
 				container.add(result);
+				container.flushCache();
 			}
 			return createOrGetInnerTypeForComponents(result, original, relations, baseOneIndex + 1);
 		} else {
@@ -880,7 +914,8 @@ public class JavaTranslator {
 
 	private Type innerClassFor(ComponentRelation relationBeingTranslated, Type outer) throws LookupException {
 		incorporateImports(relationBeingTranslated);
-		Type result = new RegularJLoType(innerClassName(relationBeingTranslated, outer));
+		String className = innerClassName(relationBeingTranslated, outer);
+		Type result = new RegularJLoType(className);
 		for(Modifier mod: relationBeingTranslated.modifiers()) {
 			result.addModifier(mod.clone());
 		}
@@ -999,11 +1034,11 @@ public class JavaTranslator {
 
 	private TypeReference superClassReference(ComponentRelation relation, Type outer) throws LookupException {
 		TypeReference superReference;
-		if(relation.nearestAncestor(Type.class).signature().equals(outer.signature()) && (outer.nearestAncestor(Type.class) == null)) {
+//		if(relation.nearestAncestor(Type.class).signature().equals(outer.signature()) && (outer.nearestAncestor(Type.class) == null)) {
 		  superReference = relation.componentTypeReference().clone();
-		} else {
-			superReference = relation.componentTypeReference().clone();
-		 }
+//		} else {
+//			superReference = relation.componentTypeReference().clone();
+//		}
 		if(superReference instanceof ComponentParameterTypeReference) {
 			superReference = ((ComponentParameterTypeReference) superReference).componentTypeReference();
 		}
@@ -1065,12 +1100,13 @@ public class JavaTranslator {
 		return relation.nearestAncestor(Type.class).signature().name();
 	}
 	
-//	private Method createOriginal(Method<?,?,?,?> method, String original) throws LookupException {
+//	private Method createOriginal(Method<?,?,?,?> method) throws LookupException {
 //		NormalMethod<?,?,?> result;
 //		if(
 //			 (method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
 //			 (method.is(method.language(ObjectOrientedLanguage.class).OVERRIDABLE) == Ternary.TRUE)) {
-//			result = innerMethod(method, original);
+//		  String typeName = method.nearestAncestor(Type.class).getFullyQualifiedName().replace('.', '_');
+//			result = innerMethod(method, typeName+"_"+method.name());
 //			substituteTypeParameters(method, result);
 //			Block body = new Block();
 //			result.setImplementation(new RegularImplementation(body));

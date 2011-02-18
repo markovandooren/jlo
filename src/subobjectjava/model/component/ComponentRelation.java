@@ -360,4 +360,11 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		redirector.setUniParent(incorporatingType);
 		return result;
 	}
+	
+	/**
+	 * For debugging purposes because Eclipse detail formatters simply don't work.
+	 */
+	public String toString() {
+		return signature().name();
+	}
 }
