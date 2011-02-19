@@ -416,27 +416,27 @@ public class JavaTranslator {
 	private void rebindOverriddenMethods(Type result, Type original) throws LookupException {
 		for(final Method method: original.descendants(Method.class)) {
 			Set<? extends Member> overridden = method.overriddenMembers();
-//			if(! overridden.isEmpty()) {
-//				final Method tmp = method.clone();
-//				tmp.setUniParent(method.parent());
+			if(! overridden.isEmpty()) {
+				final Method tmp = method.clone();
+				Type containerOfNewDefinition = createOrGetInnerTypeForMethod(result, original, method);
+				tmp.setUniParent(containerOfNewDefinition);
 //				substituteTypeParameters(method);
-//				Type containerOfNewDefinition = createOrGetInnerTypeForMethod(result, original, method);
-//				DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
-//					@Override
-//					public Signature signature() {
-//						return tmp.signature();
-//					}
-//				};
-//				Method newDefinitionInResult = null;
-//				try {
-//					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-//				} catch (IndexOutOfBoundsException e) {
-//					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-//				}
-//				Method<?,?,?,?> stat = newDefinitionInResult.clone();
-//				stat.setName(toImplName(containerOfNewDefinition.getFullyQualifiedName().replace('.', '_'))+"_"+method.name());
-//				result.add(stat);
-//			}
+				DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
+					@Override
+					public Signature signature() {
+						return tmp.signature();
+					}
+				};
+				Method newDefinitionInResult = null;
+				try {
+					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
+				} catch (IndexOutOfBoundsException e) {
+					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
+				}
+				Method<?,?,?,?> stat = newDefinitionInResult.clone();
+				stat.setName(toImplName(containerOfNewDefinition.getFullyQualifiedName().replace('.', '_'))+"_"+method.name());
+				result.add(stat);
+			}
 			for(Member toBeRebound: overridden) {
 				if(toBeRebound.signature().name().equals("setValue") && method.name().equals("setValue")) {
 					System.out.println("debug");
