@@ -492,7 +492,8 @@ public class JavaTranslator {
 	private Type createOrGetInnerTypeForComponents(Type container, Type original, List<ComponentRelation> relations, int baseOneIndex) throws LookupException {
 		if(baseOneIndex <= relations.size()) {
 			Signature innerName = null;
-			innerName = (new SimpleNameSignature(innerClassName(relations.get(relations.size() - baseOneIndex), original)));
+			ComponentRelation relationBeingTranslated = relations.get(relations.size()-baseOneIndex);
+			innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
 			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
 			tref.setUniParent(container);
 			Type result;
@@ -500,7 +501,6 @@ public class JavaTranslator {
 				result= tref.getElement();
 			} catch(LookupException exc) {
 				// We add the imports to the original. They are copied later on to 'container'.
-				ComponentRelation relationBeingTranslated = relations.get(relations.size()-baseOneIndex);
 				result = innerClassFor(relationBeingTranslated, original);
 				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
 				incorporateImports(relationBeingTranslated, namespacePart);
