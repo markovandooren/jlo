@@ -39,13 +39,13 @@ import subobjectjava.model.component.ParameterReferenceActualArgument;
 import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.expression.AbstractTarget;
 import subobjectjava.model.expression.ComponentParameterCall;
+import subobjectjava.model.expression.OuterTarget;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.JLo;
 import subobjectjava.model.type.RegularJLoType;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.Declaration;
-import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
@@ -436,6 +436,9 @@ public class JavaTranslator {
 				Method<?,?,?,?> stat = newDefinitionInResult.clone();
 				stat.setName(toImplName(containerOfNewDefinition.getFullyQualifiedName().replace('.', '_'))+"_"+method.name());
 				result.add(stat);
+				if(!stat.descendants(OuterTarget.class).isEmpty()) {
+					throw new Error();
+				}
 			}
 			for(Member toBeRebound: overridden) {
 				if(toBeRebound.signature().name().equals("setValue") && method.name().equals("setValue")) {
@@ -455,6 +458,7 @@ public class JavaTranslator {
 			System.out.println("Source: "+containerOfNewDefinition.getFullyQualifiedName()+"."+newDefinition.name());
 			System.out.println("Target: "+containerOfToBebound.getFullyQualifiedName()+"."+toBeRebound.name());
 			System.out.println("----------------------");
+			containerOfNewDefinition = createOrGetInnerTypeForMethod(container, original, newDefinition);
 			String thisName = containerOfNewDefinition.getFullyQualifiedName();
 			Method clone = createOutward(toBeRebound, newDefinition.name(),thisName);
 			//FIXME this is tricky.
@@ -489,6 +493,34 @@ public class JavaTranslator {
 		return createOrGetInnerTypeForComponents(container, original, ancestors,1);
 	}
 	
+//	private Type createOrGetInnerTypeForComponents(Type container, Type original, List<Type> types, int baseOneIndex) throws LookupException {
+//		if(baseOneIndex < types.size()) {
+//			Type current = types.get(types.size()-baseOneIndex);
+////			Signature innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
+//			Signature innerName = current.signature().clone();
+//			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
+//			tref.setUniParent(container);
+//			Type result;
+//			try { 
+//				result= tref.getElement();
+//			} catch(LookupException exc) {
+//				// We add the imports to the original. They are copied later on to 'container'.
+//				ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
+//				result = innerClassFor(relation, original);
+//				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
+//				incorporateImports(relation, namespacePart);
+//				// Since we are adding inner classes that were not written in the current namespacepart, their type
+//				// may not have been imported yet. Therefore, we add an import of the referenced component type.
+//				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relation.referencedComponentType().getFullyQualifiedName())));
+//				container.add(result);
+//				container.flushCache();
+//			}
+//			return createOrGetInnerTypeForComponents(result, original, types, baseOneIndex + 1);
+//		} else {
+//			return container;
+//		}
+//	}
+
 	private Type createOrGetInnerTypeForComponents(Type container, Type original, List<ComponentRelation> relations, int baseOneIndex) throws LookupException {
 		if(baseOneIndex <= relations.size()) {
 			Signature innerName = null;
@@ -920,7 +952,7 @@ public class JavaTranslator {
 			result.addModifier(mod.clone());
 		}
 		
-		TypeReference superReference = superClassReference(relationBeingTranslated, outer);
+		TypeReference superReference = superClassReference(relationBeingTranslated);
 		superReference.setUniParent(relationBeingTranslated);
 		substituteTypeParameters(superReference);
 		superReference.setUniParent(null);
@@ -1032,7 +1064,7 @@ public class JavaTranslator {
 		}
 	}
 
-	private TypeReference superClassReference(ComponentRelation relation, Type outer) throws LookupException {
+	private TypeReference superClassReference(ComponentRelation relation) throws LookupException {
 		TypeReference superReference;
 //		if(relation.nearestAncestor(Type.class).signature().equals(outer.signature()) && (outer.nearestAncestor(Type.class) == null)) {
 		  superReference = relation.componentTypeReference().clone();
