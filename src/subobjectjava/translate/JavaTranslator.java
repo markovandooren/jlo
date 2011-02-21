@@ -18,6 +18,7 @@ import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.java.collections.TypeFilter;
 import org.rejuse.logic.ternary.Ternary;
+import org.rejuse.predicate.SafePredicate;
 import org.rejuse.predicate.UnsafePredicate;
 import org.rejuse.property.Property;
 
@@ -419,25 +420,27 @@ public class JavaTranslator {
 			if(! overridden.isEmpty()) {
 				final Method tmp = method.clone();
 				Type containerOfNewDefinition = createOrGetInnerTypeForMethod(result, original, method);
-				tmp.setUniParent(containerOfNewDefinition);
-//				substituteTypeParameters(method);
-				DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
-					@Override
-					public Signature signature() {
-						return tmp.signature();
+				if(containerOfNewDefinition != null) {
+					tmp.setUniParent(containerOfNewDefinition);
+					//				substituteTypeParameters(method);
+					DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
+						@Override
+						public Signature signature() {
+							return tmp.signature();
+						}
+					};
+					Method newDefinitionInResult = null;
+					try {
+						newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
+					} catch (IndexOutOfBoundsException e) {
+						newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
 					}
-				};
-				Method newDefinitionInResult = null;
-				try {
-					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-				} catch (IndexOutOfBoundsException e) {
-					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-				}
-				Method<?,?,?,?> stat = newDefinitionInResult.clone();
-				stat.setName(toImplName(containerOfNewDefinition.getFullyQualifiedName().replace('.', '_'))+"_"+method.name());
-				result.add(stat);
-				if(!stat.descendants(OuterTarget.class).isEmpty()) {
-					throw new Error();
+					Method<?,?,?,?> stat = newDefinitionInResult.clone();
+					stat.setName(toImplName(containerOfNewDefinition.getFullyQualifiedName().replace('.', '_'))+"_"+method.name());
+					result.add(stat);
+					if(!stat.descendants(ComponentParameterCall.class).isEmpty()) {
+						throw new Error();
+					}
 				}
 			}
 			for(Member toBeRebound: overridden) {
@@ -453,7 +456,7 @@ public class JavaTranslator {
 	private void rebind(Type container, Type original, Method<?,?,?,?> newDefinition, Method toBeRebound) throws LookupException {
 		Type containerOfToBebound = createOrGetInnerTypeForMethod(container, original, toBeRebound);
 		Type containerOfNewDefinition = createOrGetInnerTypeForMethod(container, original, newDefinition);
-		if(! containerOfToBebound.sameAs(containerOfNewDefinition)) {
+		if((containerOfToBebound != null) && ! containerOfToBebound.sameAs(containerOfNewDefinition)) {
 			System.out.println("----------------------");
 			System.out.println("Source: "+containerOfNewDefinition.getFullyQualifiedName()+"."+newDefinition.name());
 			System.out.println("Target: "+containerOfToBebound.getFullyQualifiedName()+"."+toBeRebound.name());
@@ -489,15 +492,43 @@ public class JavaTranslator {
 	}
 	
 	private Type createOrGetInnerTypeForMethod(Type container, Type original, Method method) throws LookupException {
-		List<ComponentRelation> ancestors = method.ancestors(ComponentRelation.class);
-		return createOrGetInnerTypeForComponents(container, original, ancestors,1);
+		List<Element> ancestors = filterAncestors(method);
+		if(ancestors.get(ancestors.size()-1).sameAs(original)) {
+			ancestors.remove(ancestors.size()-1);
+			return createOrGetInnerTypeAux(container, original, ancestors,1);
+		} else {
+			return null;
+		}
 	}
 	
-//	private Type createOrGetInnerTypeForComponents(Type container, Type original, List<Type> types, int baseOneIndex) throws LookupException {
-//		if(baseOneIndex < types.size()) {
-//			Type current = types.get(types.size()-baseOneIndex);
-////			Signature innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
-//			Signature innerName = current.signature().clone();
+	private Type createOrGetInnerTypeForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
+//			Signature innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
+			Signature innerName = current.signature().clone();
+			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
+			tref.setUniParent(container);
+			Type result;
+			try { 
+				result= tref.getElement();
+			} catch(LookupException exc) {
+				// We add the imports to the original. They are copied later on to 'container'.
+				ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
+				result = innerClassFor(relation, original);
+				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
+				incorporateImports(relation, namespacePart);
+				// Since we are adding inner classes that were not written in the current namespacepart, their type
+				// may not have been imported yet. Therefore, we add an import of the referenced component type.
+				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relation.referencedComponentType().getFullyQualifiedName())));
+				container.add(result);
+				container.flushCache();
+			}
+			return createOrGetInnerTypeAux(result, original, elements, baseOneIndex + 1);
+	}
+
+//	private Type createOrGetInnerTypeForComponents(Type container, Type original, List<ComponentRelation> relationss, int baseOneIndex) throws LookupException {
+//		if(baseOneIndex <= relations.size()) {
+//			Signature innerName = null;
+//			ComponentRelation relationBeingTranslated = relations.get(relations.size()-baseOneIndex);
+//			innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
 //			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
 //			tref.setUniParent(container);
 //			Type result;
@@ -505,26 +536,23 @@ public class JavaTranslator {
 //				result= tref.getElement();
 //			} catch(LookupException exc) {
 //				// We add the imports to the original. They are copied later on to 'container'.
-//				ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
-//				result = innerClassFor(relation, original);
+//				result = innerClassFor(relationBeingTranslated, original);
 //				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
-//				incorporateImports(relation, namespacePart);
+//				incorporateImports(relationBeingTranslated, namespacePart);
 //				// Since we are adding inner classes that were not written in the current namespacepart, their type
 //				// may not have been imported yet. Therefore, we add an import of the referenced component type.
-//				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relation.referencedComponentType().getFullyQualifiedName())));
+//				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relationBeingTranslated.referencedComponentType().getFullyQualifiedName())));
 //				container.add(result);
 //				container.flushCache();
 //			}
-//			return createOrGetInnerTypeForComponents(result, original, types, baseOneIndex + 1);
+//			return createOrGetInnerTypeForComponents(result, original, relations, baseOneIndex + 1);
 //		} else {
 //			return container;
 //		}
 //	}
 
-	private Type createOrGetInnerTypeForComponents(Type container, Type original, List<ComponentRelation> relations, int baseOneIndex) throws LookupException {
-		if(baseOneIndex <= relations.size()) {
+	private Type createOrGetInnerTypeForComponent(Type container, Type original, ComponentRelation relationBeingTranslated, List<Element> elements, int baseOneIndex) throws LookupException {
 			Signature innerName = null;
-			ComponentRelation relationBeingTranslated = relations.get(relations.size()-baseOneIndex);
 			innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
 			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
 			tref.setUniParent(container);
@@ -542,7 +570,26 @@ public class JavaTranslator {
 				container.add(result);
 				container.flushCache();
 			}
-			return createOrGetInnerTypeForComponents(result, original, relations, baseOneIndex + 1);
+			return createOrGetInnerTypeAux(result, original, elements, baseOneIndex + 1);
+	}
+	
+	private List<Element> filterAncestors(Element<?> element) {
+		return element.ancestors(Element.class, new SafePredicate<Element>(){
+			@Override
+			public boolean eval(Element object) {
+				return (object instanceof ComponentRelation) || (object instanceof Type && !(object instanceof ComponentType));
+			}});
+	}
+	
+	private Type createOrGetInnerTypeAux(Type container, Type original, List<Element> elements, int baseOneIndex) throws LookupException {
+		int index = baseOneIndex - 1;
+		if(index < elements.size()) {
+			Element element = elements.get(index);
+			if(element instanceof ComponentRelation) {
+				return createOrGetInnerTypeForComponent(container,original, (ComponentRelation) element, elements,baseOneIndex);
+			} else {
+				return createOrGetInnerTypeForType(container,original, (Type) element, elements,baseOneIndex);
+			}
 		} else {
 			return container;
 		}
