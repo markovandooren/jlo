@@ -874,7 +874,7 @@ public class JavaTranslator {
 				if(clause instanceof AbstractClause) {
 					AbstractClause ov = (AbstractClause)clause;
 					final QualifiedName poppedName = ov.oldFqn().popped();
-					Type targetInnerClass = searchInnerClass(outer, relation, poppedName);
+//					Type targetInnerClass = searchInnerClass(outer, relation, poppedName);
 					Declaration decl = ov.oldDeclaration();
 					if(decl instanceof Method) {
 						final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
