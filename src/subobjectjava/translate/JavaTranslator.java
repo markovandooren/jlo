@@ -461,23 +461,24 @@ public class JavaTranslator {
 	}
 	
 	private void rebind(Type container, Type original, Method<?,?,?,?> newDefinition, Method toBeRebound) throws LookupException {
-//		container = newDefinition.nearestAncestor(Type.class);
-//		boolean found = false;
-//		while(! found) {
-//			if(container instanceof ComponentType) {
-//				container = container.nearestAncestor(Type.class);
-//			} else {
-//				found = true;
-//			}
-//		}
 		Type containerOfNewDefinition = createOrGetInnerTypeForMethod(container, original, newDefinition);
-		Type containerOfToBebound = createOrGetInnerTypeForMethod(container, original, toBeRebound);
+		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
+		Type rootInContainer = container;
+		List<Element> trailOfRootInOriginal = filterAncestors(rootOfNewDefinitionInOriginal);
+		if(! trailOfRootInOriginal.isEmpty()) {
+			trailOfRootInOriginal.remove(trailOfRootInOriginal.size()-1);
+			trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
+			rootInContainer = createOrGetInnerTypeAux(container, original, trailOfRootInOriginal,1);
+		}
+		Type containerOfToBebound = createOrGetInnerTypeForMethod(rootInContainer, original, toBeRebound);
 		if((containerOfToBebound != null) && ! containerOfToBebound.sameAs(containerOfNewDefinition)) {
+			if(newDefinition.name().equals("hashCode")) {
+				System.out.println("debug");
+			}
 			System.out.println("----------------------");
 			System.out.println("Source: "+containerOfNewDefinition.getFullyQualifiedName()+"."+newDefinition.name());
 			System.out.println("Target: "+containerOfToBebound.getFullyQualifiedName()+"."+toBeRebound.name());
 			System.out.println("----------------------");
-			containerOfNewDefinition = createOrGetInnerTypeForMethod(container, original, newDefinition);
 			String thisName = containerOfNewDefinition.getFullyQualifiedName();
 			Method clone = createOutward(toBeRebound, newDefinition.name(),thisName);
 			//FIXME this is tricky.
@@ -490,9 +491,6 @@ public class JavaTranslator {
 			containerOfToBebound.add(clone);
 			Method<?,?,?,?> stat = clone.clone();
 			String newName = containerOfToBebound.getFullyQualifiedName().replace('.', '_')+"_"+clone.name();
-			if(newName.equals("jlow_graph_WeightedDigraph_equals")) {
-				System.out.println("debug");
-			}
 			stat.setName(newName);
 			String name = containerOfNewDefinition.getFullyQualifiedName().replace('.', '_');
 			for(SimpleNameMethodInvocation inv:stat.descendants(SimpleNameMethodInvocation.class)) {
@@ -503,6 +501,16 @@ public class JavaTranslator {
 			containerOfToBebound.flushCache();
 		}
 	}
+	
+	private Type levelOfDefinition(Element<?> element) {
+		Type result = element.nearestAncestor(Type.class, new SafePredicate<Type>(){
+
+			@Override
+			public boolean eval(Type object) {
+				return ! (object instanceof ComponentType);
+			}});
+		return result;
+	}
 
 	private String toImplName(String name) {
 		if(! name.endsWith(IMPL)) {
@@ -511,14 +519,18 @@ public class JavaTranslator {
 		return name;
 	}
 	
-	private Type createOrGetInnerTypeForMethod(Type container, Type original, Method method) throws LookupException {
+	private Type createOrGetInnerTypeForMethod(Type container, Type original, Method<?,?,?,?> method) throws LookupException {
 		List<Element> ancestors = filterAncestors(method);
-		if(original.subTypeOf((Type) ancestors.get(ancestors.size()-1))) {
+		Type level = method.nearestAncestor(Type.class, nonComponentTypePredicate());
+		while(! (ancestors.get(ancestors.size()-1) == level)) {
+			ancestors.remove(ancestors.size()-1);
+		}
+//		if(original.subTypeOf((Type) ancestors.get(ancestors.size()-1))) {
 			ancestors.remove(ancestors.size()-1);
 			return createOrGetInnerTypeAux(container, original, ancestors,1);
-		} else {
-			return null;
-		}
+//		} else {
+//			return null;
+//		}
 	}
 	
 	private Type createOrGetInnerTypeForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
@@ -567,11 +579,24 @@ public class JavaTranslator {
 	}
 	
 	private List<Element> filterAncestors(Element<?> element) {
-		return element.ancestors(Element.class, new SafePredicate<Element>(){
+		SafePredicate<Element> predicate = componentRelationOrNonComponentTypePredicate();
+		return element.ancestors(Element.class, predicate);
+	}
+
+	private SafePredicate<Element> componentRelationOrNonComponentTypePredicate() {
+		return new SafePredicate<Element>(){
 			@Override
 			public boolean eval(Element object) {
 				return (object instanceof ComponentRelation) || (object instanceof Type && !(object instanceof ComponentType));
-			}});
+			}};
+	}
+	
+	private SafePredicate<Type> nonComponentTypePredicate() {
+		return new SafePredicate<Type>(){
+			@Override
+			public boolean eval(Type object) {
+				return !(object instanceof ComponentType);
+			}};
 	}
 	
 	private Type createOrGetInnerTypeAux(Type container, Type original, List<Element> elements, int baseOneIndex) throws LookupException {
