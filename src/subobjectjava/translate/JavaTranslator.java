@@ -423,13 +423,14 @@ public class JavaTranslator {
 	}
 
 	private void rebindOverriddenMethodsOf(Type result, Type original, Method method) throws LookupException, Error {
-		if(method.name().equals("length")) {
+		if(method.name().equals("isValid")) {
 			System.out.println("debug");
 		}
 		Set<? extends Member> overridden = method.overriddenMembers();
 		if(! overridden.isEmpty()) {
 			final Method tmp = method.clone();
-			Type containerOfNewDefinition = createOrGetInnerTypeForMethod(result, original, method);
+//			Type containerOfNewDefinition = createOrGetInnerTypeForMethod(result, original, method);
+			Type containerOfNewDefinition = containerOfDefinition(result,original, method);
 			if(containerOfNewDefinition != null) {
 				tmp.setUniParent(containerOfNewDefinition);
 				//				substituteTypeParameters(method);
@@ -443,7 +444,7 @@ public class JavaTranslator {
 				try {
 					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
 				} catch (IndexOutOfBoundsException e) {
-					containerOfNewDefinition = createOrGetInnerTypeForMethod(result, original, method);
+					containerOfNewDefinition = containerOfDefinition(result, original, method);
 					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
 				}
 				Method<?,?,?,?> stat = newDefinitionInResult.clone();
@@ -461,18 +462,35 @@ public class JavaTranslator {
 	}
 	
 	private void rebind(Type container, Type original, Method<?,?,?,?> newDefinition, Method toBeRebound) throws LookupException {
-		Type containerOfNewDefinition = createOrGetInnerTypeForMethod(container, original, newDefinition);
+		Type containerOfNewDefinition = containerOfDefinition(container,original, newDefinition);
 		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
-		Type rootInContainer = container;
 		List<Element> trailOfRootInOriginal = filterAncestors(rootOfNewDefinitionInOriginal);
-		if(! trailOfRootInOriginal.isEmpty()) {
-			trailOfRootInOriginal.remove(trailOfRootInOriginal.size()-1);
-			trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
-			rootInContainer = createOrGetInnerTypeAux(container, original, trailOfRootInOriginal,1);
+		trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
+		trailOfRootInOriginal.remove(trailOfRootInOriginal.size()-1);
+		Type containerToAdd = createOrGetInnerTypeAux(container, original, trailOfRootInOriginal,1);
+		
+		List<Element> trailtoBeReboundInOriginal = filterAncestors(toBeRebound);
+		Type rootOfToBeRebound = levelOfDefinition(toBeRebound);
+		if(! trailtoBeReboundInOriginal.contains(rootOfToBeRebound)) {
+			System.out.println("debug");
 		}
-		Type containerOfToBebound = createOrGetInnerTypeForMethod(rootInContainer, original, toBeRebound);
+		while(! (trailtoBeReboundInOriginal.get(trailtoBeReboundInOriginal.size()-1) == rootOfToBeRebound)) {
+			trailtoBeReboundInOriginal.remove(trailtoBeReboundInOriginal.size()-1);
+		}
+		trailtoBeReboundInOriginal.remove(trailtoBeReboundInOriginal.size()-1);
+		Type x = containerToAdd;
+		if(! trailtoBeReboundInOriginal.isEmpty()) {
+			x = createOrGetInnerTypeAux(containerToAdd, original, trailtoBeReboundInOriginal,1);
+		}
+
+//		Type containerOfToBebound = containerOfDefinition(containerOfNewDefinition, original, toBeRebound);
+		Type containerOfToBebound = x;
+		if(x != containerOfToBebound) {
+			System.out.println("debug");
+		}
+//		containerOfToBebound = x;
 		if((containerOfToBebound != null) && ! containerOfToBebound.sameAs(containerOfNewDefinition)) {
-			if(newDefinition.name().equals("hashCode")) {
+			if(newDefinition.name().equals("isValid")) {
 				System.out.println("debug");
 			}
 			System.out.println("----------------------");
@@ -481,6 +499,10 @@ public class JavaTranslator {
 			System.out.println("----------------------");
 			String thisName = containerOfNewDefinition.getFullyQualifiedName();
 			Method clone = createOutward(toBeRebound, newDefinition.name(),thisName);
+			String newName = containerOfToBebound.getFullyQualifiedName().replace('.', '_')+"_"+clone.name();
+			if(newName.equals("radio_Radio_Radio_subobject_frequency_implementation_Radio_subobject_frequency_implementation_subobject_value_implementation_Radio_subobject_frequency_implementation_subobject_value_implementation_subobject_frequency_implementation_Radio_subobject_frequency_implementation_subobject_value_implementation_subobject_frequency_implementation_subobject_value_implementation_getValue")) {
+				System.out.println("debug");	
+			}
 			//FIXME this is tricky.
 			clone.setUniParent(toBeRebound);
 			Implementation<Implementation> impl = clone.implementation();
@@ -490,7 +512,6 @@ public class JavaTranslator {
 			clone.setUniParent(null);
 			containerOfToBebound.add(clone);
 			Method<?,?,?,?> stat = clone.clone();
-			String newName = containerOfToBebound.getFullyQualifiedName().replace('.', '_')+"_"+clone.name();
 			stat.setName(newName);
 			String name = containerOfNewDefinition.getFullyQualifiedName().replace('.', '_');
 			for(SimpleNameMethodInvocation inv:stat.descendants(SimpleNameMethodInvocation.class)) {
@@ -500,6 +521,28 @@ public class JavaTranslator {
 			containerOfToBebound.add(stat);
 			containerOfToBebound.flushCache();
 		}
+	}
+
+	private Type containerOfDefinition(Type container, Type original,
+			Method<?, ?, ?, ?> newDefinition) throws LookupException {
+		Type containerOfNewDefinition = container;
+		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
+		List<Element> trailOfRootInOriginal = filterAncestors(rootOfNewDefinitionInOriginal);
+		trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
+		trailOfRootInOriginal.remove(trailOfRootInOriginal.size()-1);
+		containerOfNewDefinition = createOrGetInnerTypeAux(container, original, trailOfRootInOriginal,1);
+		List<Element> trailNewDefinitionInOriginal = filterAncestors(newDefinition);
+		// Remove everything up to the container.
+		while(! (trailNewDefinitionInOriginal.get(trailNewDefinitionInOriginal.size()-1) == rootOfNewDefinitionInOriginal)) {
+			trailNewDefinitionInOriginal.remove(trailNewDefinitionInOriginal.size()-1);
+		}
+		// Remove the container.
+		trailNewDefinitionInOriginal.remove(trailNewDefinitionInOriginal.size()-1);
+		if(! trailNewDefinitionInOriginal.isEmpty()) {
+//			trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
+			containerOfNewDefinition = createOrGetInnerTypeAux(containerOfNewDefinition, original, trailNewDefinitionInOriginal,1);
+		}
+		return containerOfNewDefinition;
 	}
 	
 	private Type levelOfDefinition(Element<?> element) {
@@ -517,20 +560,6 @@ public class JavaTranslator {
 			name = name + IMPL;
 		}
 		return name;
-	}
-	
-	private Type createOrGetInnerTypeForMethod(Type container, Type original, Method<?,?,?,?> method) throws LookupException {
-		List<Element> ancestors = filterAncestors(method);
-		Type level = method.nearestAncestor(Type.class, nonComponentTypePredicate());
-		while(! (ancestors.get(ancestors.size()-1) == level)) {
-			ancestors.remove(ancestors.size()-1);
-		}
-//		if(original.subTypeOf((Type) ancestors.get(ancestors.size()-1))) {
-			ancestors.remove(ancestors.size()-1);
-			return createOrGetInnerTypeAux(container, original, ancestors,1);
-//		} else {
-//			return null;
-//		}
 	}
 	
 	private Type createOrGetInnerTypeForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
