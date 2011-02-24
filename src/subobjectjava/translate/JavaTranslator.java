@@ -423,7 +423,7 @@ public class JavaTranslator {
 	}
 
 	private void rebindOverriddenMethodsOf(Type result, Type original, Method method) throws LookupException, Error {
-		if(method.name().equals("isValid")) {
+		if(method.name().equals("setFrequency")) {
 			System.out.println("debug");
 		}
 		Set<? extends Member> overridden = method.overriddenMembers();
@@ -471,9 +471,6 @@ public class JavaTranslator {
 		
 		List<Element> trailtoBeReboundInOriginal = filterAncestors(toBeRebound);
 		Type rootOfToBeRebound = levelOfDefinition(toBeRebound);
-		if(! trailtoBeReboundInOriginal.contains(rootOfToBeRebound)) {
-			System.out.println("debug");
-		}
 		while(! (trailtoBeReboundInOriginal.get(trailtoBeReboundInOriginal.size()-1) == rootOfToBeRebound)) {
 			trailtoBeReboundInOriginal.remove(trailtoBeReboundInOriginal.size()-1);
 		}
@@ -485,9 +482,6 @@ public class JavaTranslator {
 
 //		Type containerOfToBebound = containerOfDefinition(containerOfNewDefinition, original, toBeRebound);
 		Type containerOfToBebound = x;
-		if(x != containerOfToBebound) {
-			System.out.println("debug");
-		}
 //		containerOfToBebound = x;
 		if((containerOfToBebound != null) && ! containerOfToBebound.sameAs(containerOfNewDefinition)) {
 			if(newDefinition.name().equals("isValid")) {
@@ -500,9 +494,6 @@ public class JavaTranslator {
 			String thisName = containerOfNewDefinition.getFullyQualifiedName();
 			Method clone = createOutward(toBeRebound, newDefinition.name(),thisName);
 			String newName = containerOfToBebound.getFullyQualifiedName().replace('.', '_')+"_"+clone.name();
-			if(newName.equals("radio_Radio_Radio_subobject_frequency_implementation_Radio_subobject_frequency_implementation_subobject_value_implementation_Radio_subobject_frequency_implementation_subobject_value_implementation_subobject_frequency_implementation_Radio_subobject_frequency_implementation_subobject_value_implementation_subobject_frequency_implementation_subobject_value_implementation_getValue")) {
-				System.out.println("debug");	
-			}
 			//FIXME this is tricky.
 			clone.setUniParent(toBeRebound);
 			Implementation<Implementation> impl = clone.implementation();
@@ -573,7 +564,7 @@ public class JavaTranslator {
 			} catch(LookupException exc) {
 				// We add the imports to the original. They are copied later on to 'container'.
 				ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
-				result = innerClassFor(relation, container);
+				result = emptyInnerClassFor(relation, container);
 				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
 				incorporateImports(relation, namespacePart);
 				// Since we are adding inner classes that were not written in the current namespacepart, their type
@@ -595,7 +586,7 @@ public class JavaTranslator {
 				result= tref.getElement();
 			} catch(LookupException exc) {
 				// We add the imports to the original. They are copied later on to 'container'.
-				result = innerClassFor(relationBeingTranslated, container);
+				result = emptyInnerClassFor(relationBeingTranslated, container);
 				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
 				incorporateImports(relationBeingTranslated, namespacePart);
 				// Since we are adding inner classes that were not written in the current namespacepart, their type
@@ -971,7 +962,6 @@ public class JavaTranslator {
 // If it is overridden, then this adds 1 extra delegation, so we should optimize it later on.
 //		Invocation invocation = invocation(result, original(method.name()));
 		
-		TypeReference ref = getRelativeClassReference(relation);
 		Expression target = new JavaMethodInvocation(getterName(relation), null);
 		invocation.setTarget(target);
 		substituteTypeParameters(method, result);
@@ -981,46 +971,18 @@ public class JavaTranslator {
 
 	
 	/**
-	 * Retrieve an (inner) type that is reached when resolving the given qualified name with the given
-	 * component relation as target in the context of the given type. First an element is resolved in the
-	 * container type that has the same signature as the given component relation. This yields a declaration 'd'. 
-	 * Then, the given qualified name is resolved with 'd' as its target. 
-	 * 
-	 * @param containerType The type in which the actually lookup is done.
-	 * @param relation The component relation that is resolved within the container type.
-	 * @param qualifiedName The qualified name that must be resolved relative to the relation.
-	 * @return
-	 * @throws LookupException
-	 */
-	private Type searchInnerClass(Type containerType, ComponentRelation relation, QualifiedName qualifiedName) throws LookupException {
-		List<Signature> sigs = new ArrayList<Signature>();
-		sigs.add(relation.signature());
-		sigs.addAll(qualifiedName.signatures());
-		CompositeQualifiedName innerName = new CompositeQualifiedName();
-		CompositeQualifiedName acc = new CompositeQualifiedName();
-		for(Signature signature: sigs) {
-			acc.append(signature.clone());
-		  innerName.append(new SimpleNameSignature(innerClassName(containerType, acc)));
-		}
-		SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
-		tref.setUniParent(containerType);
-		Type result = tref.getElement();
-		return result;
-	}
-
-	/**
 	 * 
 	 * @param relationBeingTranslated A component relation from either the original class, or one of its nested components.
 	 * @param outer The outer class being generated.
 	 */
 	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type outer, Type outerTypeBeingTranslated) throws ChameleonProgrammerException, LookupException {
-		Type result = innerClassFor(relationBeingTranslated, outer);
+		Type result = emptyInnerClassFor(relationBeingTranslated, outer);
 		List<? extends TypeElement> elements = relationBeingTranslated.componentType().directlyDeclaredElements();
 		processComponentRelationBody(relationBeingTranslated, outer, outerTypeBeingTranslated, result);
 		return result;
 	}
 
-	private Type innerClassFor(ComponentRelation relationBeingTranslated, Type outer) throws LookupException {
+	private Type emptyInnerClassFor(ComponentRelation relationBeingTranslated, Type outer) throws LookupException {
 		incorporateImports(relationBeingTranslated);
 		String className = innerClassName(relationBeingTranslated, outer);
 		Type result = new RegularJLoType(className);
