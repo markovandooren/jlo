@@ -110,6 +110,7 @@ import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
+import chameleon.support.modifier.Final;
 import chameleon.support.modifier.Interface;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
@@ -153,8 +154,45 @@ public class JavaTranslator {
   }
 
 	private boolean isJLo(NamespaceElement element) {
-		Namespace ns = element.getNamespace();
-		return ! ns.getFullyQualifiedName().startsWith("java.");
+		String fullyQualifiedName = element.getNamespace().getFullyQualifiedName();
+		return (! fullyQualifiedName.startsWith("java.")) &&
+		       (! fullyQualifiedName.startsWith("javax.")) &&
+		       (! fullyQualifiedName.equals("org.ietf.jgss")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA_2_3")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA_2_3.portable")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA.DynAnyPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA.ORBPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA.Portable")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA.TypeCodePackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.CosNaming")) &&
+		       (! fullyQualifiedName.equals("org.omg.CosNaming.NamingContextExtPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.CosNaming.NamingContextPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.Dynamic")) &&
+		       (! fullyQualifiedName.equals("org.omg.DynamicAny")) &&
+		       (! fullyQualifiedName.equals("org.omg.DynamicAny.DynAnyFactoryPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.DynamicAny.DynAnyPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.IOP")) &&
+		       (! fullyQualifiedName.equals("org.omg.IOP.CodecFactoryPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.IOP.CodecPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.Messaging")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableInterceptor")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableInterceptor.ORBInitInfoPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.CurrentPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.PAOManagerPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.PAOPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.portable")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.ServantLocatorPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.SendingContext")) &&
+		       (! fullyQualifiedName.equals("org.omg.stub.java.rmi")) &&
+		       (! fullyQualifiedName.equals("org.w3c.dom")) &&
+		       (! fullyQualifiedName.equals("org.w3c.dom.bootstrap")) &&
+		       (! fullyQualifiedName.equals("org.w3c.dom.events")) &&
+		       (! fullyQualifiedName.equals("org.w3c.dom.ls")) &&
+		       (! fullyQualifiedName.equals("org.xml.sax")) &&
+		       (! fullyQualifiedName.equals("org.xml.sax.ext")) &&
+		       (! fullyQualifiedName.equals("org.xml.sax.helpers"));
 	}
 
 	private CompilationUnit interfaceCompilationUnit(CompilationUnit original, CompilationUnit implementation) throws ModelException {
@@ -264,14 +302,22 @@ public class JavaTranslator {
 					 (decl instanceof VariableDeclarator && (! (decl.is(language.CLASS) == Ternary.TRUE)))) {
 					decl.disconnect();
 				}
-				if(decl instanceof ElementWithModifiers) {
+//				if(decl instanceof ElementWithModifiers) {
 					makePublic(decl);
-				}
+					removeFinal(decl);
+//				}
 			}
 			type.signature().setName(interfaceName(name));
 			if(! (type.is(language.INTERFACE) == Ternary.TRUE)) {
 				type.addModifier(new Interface());
 			} 
+		}
+	}
+	
+	private void removeFinal(TypeElement<?> element) throws ModelException {
+		Property property = element.language(ObjectOrientedLanguage.class).OVERRIDABLE.inverse();
+		for(Modifier modifier: element.modifiers(property)) {
+			element.removeModifier(modifier);
 		}
 	}
 
@@ -403,7 +449,8 @@ public class JavaTranslator {
 		if(result.getFullyQualifiedName().equals("example.meta.Klass")) {
 			System.out.println("debug");
 		}
-		rebindOverriddenMethods(result,original);//TODO
+		rebindOverriddenMethods(result,original);
+    addNonOverriddenStaticHooks(result,original);
 		rewriteConstructorCalls(result);
 		rewriteThisLiterals(result);
 		rewriteComponentAccess(result);
@@ -416,6 +463,20 @@ public class JavaTranslator {
 		return result;
 	}
 	
+	private void addNonOverriddenStaticHooks(Type result,Type original) throws LookupException {
+		for(ComponentRelation relation: original.descendants(ComponentRelation.class)) {
+			addNonOverriddenStaticHooks(result,relation);
+		}
+	}
+	
+	private void addNonOverriddenStaticHooks(Type result,ComponentRelation relation) throws LookupException {
+		Type root = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
+//		System.out.println("Root for "+relation.componentType().getFullyQualifiedName()+" is "+root.getFullyQualifiedName());
+		List<Member> membersOfRelation = relation.componentType().members();
+		
+		Set<ComponentRelation> overriddenRelations = (Set<ComponentRelation>) relation.overriddenMembers();
+	}
+	
 	private void rebindOverriddenMethods(Type result, Type original) throws LookupException {
 		for(final Method method: original.descendants(Method.class)) {
 			rebindOverriddenMethodsOf(result, original, method);
@@ -423,9 +484,6 @@ public class JavaTranslator {
 	}
 
 	private void rebindOverriddenMethodsOf(Type result, Type original, Method method) throws LookupException, Error {
-		if(method.name().equals("setFrequency")) {
-			System.out.println("debug");
-		}
 		Set<? extends Member> overridden = method.overriddenMembers();
 		if(! overridden.isEmpty()) {
 			final Method tmp = method.clone();
@@ -448,7 +506,8 @@ public class JavaTranslator {
 					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
 				}
 				Method<?,?,?,?> stat = newDefinitionInResult.clone();
-				String name = toImplName(containerOfNewDefinition.getFullyQualifiedName().replace('.', '_'))+"_"+method.name();
+				String name = staticMethodName(method, containerOfNewDefinition);
+//				String name = staticMethodName(method);
 				stat.setName(name);
 				containerOfNewDefinition.add(stat);
 				if(!stat.descendants(ComponentParameterCall.class).isEmpty()) {
@@ -460,7 +519,7 @@ public class JavaTranslator {
 			rebind(result, original, method, (Method) toBeRebound);
 		}
 	}
-	
+
 	private void rebind(Type container, Type original, Method<?,?,?,?> newDefinition, Method toBeRebound) throws LookupException {
 		Type containerOfNewDefinition = containerOfDefinition(container,original, newDefinition);
 		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
@@ -475,47 +534,58 @@ public class JavaTranslator {
 			trailtoBeReboundInOriginal.remove(trailtoBeReboundInOriginal.size()-1);
 		}
 		trailtoBeReboundInOriginal.remove(trailtoBeReboundInOriginal.size()-1);
-		Type x = containerToAdd;
+		Type containerOfToBebound = containerToAdd;
 		if(! trailtoBeReboundInOriginal.isEmpty()) {
-			x = createOrGetInnerTypeAux(containerToAdd, original, trailtoBeReboundInOriginal,1);
+			containerOfToBebound = createOrGetInnerTypeAux(containerToAdd, original, trailtoBeReboundInOriginal,1);
 		}
-
-//		Type containerOfToBebound = containerOfDefinition(containerOfNewDefinition, original, toBeRebound);
-		Type containerOfToBebound = x;
-//		containerOfToBebound = x;
 		if((containerOfToBebound != null) && ! containerOfToBebound.sameAs(containerOfNewDefinition)) {
-			if(newDefinition.name().equals("isValid")) {
-				System.out.println("debug");
-			}
 			System.out.println("----------------------");
 			System.out.println("Source: "+containerOfNewDefinition.getFullyQualifiedName()+"."+newDefinition.name());
 			System.out.println("Target: "+containerOfToBebound.getFullyQualifiedName()+"."+toBeRebound.name());
 			System.out.println("----------------------");
 			String thisName = containerOfNewDefinition.getFullyQualifiedName();
-			Method clone = createOutward(toBeRebound, newDefinition.name(),thisName);
-			String newName = containerOfToBebound.getFullyQualifiedName().replace('.', '_')+"_"+clone.name();
+			Method reboundMethod = createOutward(toBeRebound, newDefinition.name(),thisName);
+			String newName = staticMethodName(reboundMethod,containerOfToBebound);
 			//FIXME this is tricky.
-			clone.setUniParent(toBeRebound);
-			Implementation<Implementation> impl = clone.implementation();
-			clone.setImplementation(null);
-			substituteTypeParameters(clone);
-			clone.setImplementation(impl);
-			clone.setUniParent(null);
-			containerOfToBebound.add(clone);
-			Method<?,?,?,?> stat = clone.clone();
-			stat.setName(newName);
+			reboundMethod.setUniParent(toBeRebound);
+			Implementation<Implementation> impl = reboundMethod.implementation();
+			reboundMethod.setImplementation(null);
+			substituteTypeParameters(reboundMethod);
+			reboundMethod.setImplementation(impl);
+			reboundMethod.setUniParent(null);
+			containerOfToBebound.add(reboundMethod);
+			
+			Method<?,?,?,?> staticReboundMethod = reboundMethod.clone();
+			staticReboundMethod.addModifier(new Final());
+			staticReboundMethod.setName(newName);
 			String name = containerOfNewDefinition.getFullyQualifiedName().replace('.', '_');
-			for(SimpleNameMethodInvocation inv:stat.descendants(SimpleNameMethodInvocation.class)) {
+			for(SimpleNameMethodInvocation inv:staticReboundMethod.descendants(SimpleNameMethodInvocation.class)) {
 				name = toImplName(name);
-				inv.setName(name+"_"+newDefinition.name());
+				inv.setName(staticMethodName(newDefinition, containerOfNewDefinition));
 			}
-			containerOfToBebound.add(stat);
+			containerOfToBebound.add(staticReboundMethod);
 			containerOfToBebound.flushCache();
 		}
 	}
 
+	private String staticMethodName(String methodName,Type containerOfToBebound) {
+		return stripImpl(containerOfToBebound.getFullyQualifiedName().replace('.', '_')+"_"+methodName);
+	}
+
+	private String staticMethodName(Method clone,Type containerOfToBebound) {
+		return staticMethodName(clone.name(), containerOfToBebound);
+	}
+	
+	private String stripImpl(String string) {
+		return string.replaceAll(IMPL, "");
+	}
+
+//	private String staticMethodNameInOriginal(Method method, Type containerOfNewDefinition) {
+//		return containerOfNewDefinition.getFullyQualifiedName().replace('.', '_')+"_"+method.name();
+//	}
+	
 	private Type containerOfDefinition(Type container, Type original,
-			Method<?, ?, ?, ?> newDefinition) throws LookupException {
+			Element newDefinition) throws LookupException {
 		Type containerOfNewDefinition = container;
 		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
 		List<Element> trailOfRootInOriginal = filterAncestors(rootOfNewDefinitionInOriginal);
@@ -977,7 +1047,6 @@ public class JavaTranslator {
 	 */
 	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type outer, Type outerTypeBeingTranslated) throws ChameleonProgrammerException, LookupException {
 		Type result = emptyInnerClassFor(relationBeingTranslated, outer);
-		List<? extends TypeElement> elements = relationBeingTranslated.componentType().directlyDeclaredElements();
 		processComponentRelationBody(relationBeingTranslated, outer, outerTypeBeingTranslated, result);
 		return result;
 	}
@@ -1236,9 +1305,11 @@ public class JavaTranslator {
 				Element<?> inv = cr.parent();
 				if(inv instanceof RegularMethodInvocation) {
 					RegularMethodInvocation call = (RegularMethodInvocation) inv;
-					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName((ComponentRelation) superTarget.getTargetDeclaration()), null);
+					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
+					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName(targetComponent), null);
 					call.setTarget(subObjectSelection);
-					call.setName(original(call.name()));
+					String name = staticMethodName(call.name(), targetComponent.componentType());
+					call.setName(name);
 				}
 			}
 		}
