@@ -34,8 +34,7 @@ public class ComponentType extends AnonymousType {
 	}
 
 	public List<Element> children() {
-		List<Element> result = new ArrayList<Element>();
-		result.addAll(modifiers());
+		List<Element> result = (List)modifiers();
 		result.addAll(parameterBlocks());
 		Util.addNonNull(body(), result);
 		return result;

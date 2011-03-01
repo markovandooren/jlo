@@ -1,7 +1,9 @@
 package subobjectjava.model.component;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationSelector;
@@ -44,11 +46,6 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 		return other instanceof SubtypeRelation && other.parent() == componentType();
 	}
 
-	@Override
-	public <M extends Member> List<M> potentiallyInheritedMembers(Class<M> kind) throws LookupException {
-		return incorporated(super.potentiallyInheritedMembers(kind));
-	}
-
 	private <M extends Member> List<M> incorporated(List<M> tmp) throws LookupException {
 		ComponentRelation componentRelation = componentType().nearestAncestor(ComponentRelation.class);
 		List<M> result = new ArrayList<M>();
@@ -60,7 +57,16 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 
 	@Override
 	public <M extends Member> List<M> potentiallyInheritedMembers(DeclarationSelector<M> selector) throws LookupException {
-		return incorporated(super.potentiallyInheritedMembers(selector));
+		List<M> potentiallyInheritedMembers = super.potentiallyInheritedMembers(selector);
+		filterMembersIncorporatedInOverriddenSubobjects(potentiallyInheritedMembers, selector);
+		return incorporated(potentiallyInheritedMembers);
+	}
+
+	@Override
+	public <M extends Member> List<M> potentiallyInheritedMembers(Class<M> kind) throws LookupException {
+		List<M> potentiallyInheritedMembers = super.potentiallyInheritedMembers(kind);
+		filterMembersIncorporatedInOverriddenSubobjects(potentiallyInheritedMembers, kind);
+		return incorporated(potentiallyInheritedMembers);
 	}
 
 	@Override
@@ -74,6 +80,145 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 		return new ArrayList<D>();
 	}
 	
+	@Override
+	public List<Member> potentiallyInheritedMembers() throws LookupException {
+		List<Member> potentiallyInheritedMembers = super.potentiallyInheritedMembers();
+		filterMembersIncorporatedInOverriddenSubobjects(potentiallyInheritedMembers);
+		return incorporated(potentiallyInheritedMembers);
+	}
+
+	/**
+	 * Remove the members that are already incorporated into a subobject that is overridden by the subobject that contains
+	 * this subtype relation.
+	 * 
+	 * @param <M>
+	 * @param potentiallyInherited
+	 * @param selector
+	 * @throws LookupException
+	 */
+	protected void filterMembersIncorporatedInOverriddenSubobjects(List<Member> potentiallyInherited) throws LookupException {
+		for(Type superSubobjectType: typesOfOverriddenSubobjects()) {
+			filterOverriddenSubobject(superSubobjectType, potentiallyInherited);
+		}
+	}
+
+	/**
+	 * Remove the members that are already incorporated into a subobject that is overridden by the subobject that contains
+	 * this subtype relation.
+	 * 
+	 * @param <M>
+	 * @param potentiallyInherited
+	 * @param selector
+	 * @throws LookupException
+	 */
+	protected <M extends Member> void filterMembersIncorporatedInOverriddenSubobjects(List<M> potentiallyInherited, DeclarationSelector<M> selector) throws LookupException {
+		for(Type superSubobjectType: typesOfOverriddenSubobjects()) {
+			filterOverriddenSubobject(superSubobjectType, potentiallyInherited, selector);
+		}
+	}
+
+	/**
+	 * Remove the members that are already incorporated into a subobject that is overridden by the subobject that contains
+	 * this subtype relation.
+	 * 
+	 * @param <M>
+	 * @param potentiallyInherited
+	 * @param selector
+	 * @throws LookupException
+	 */
+	protected <M extends Member> void filterMembersIncorporatedInOverriddenSubobjects(List<M> potentiallyInherited, Class<M> kind) throws LookupException {
+		for(Type superSubobjectType: typesOfOverriddenSubobjects()) {
+			filterOverriddenSubobject(superSubobjectType, potentiallyInherited, kind);
+		}
+	}
+
+	/**
+	 * Filter the potentially inherited members by removing those that are already incorporated by
+	 * a subobject that is overridden by the subobject that contains this subtype relation.
+	 *  
+	 * @param <M> The type of the member that is being looked up
+	 * @param superSubobjectType The type of the overridden subobject
+	 * @param potentiallyInherited A list containing the members of the super class of this subtype relation
+	 * @param selector The selector that selects the member being looked up.
+	 * @throws LookupException
+	 */
+	protected void filterOverriddenSubobject(Type superSubobjectType, List<Member> potentiallyInherited) throws LookupException {
+		List<Member> potentiallyOverridden = superSubobjectType.members();
+		filterOverridden(potentiallyInherited, potentiallyOverridden);
+	}
+
+	/**
+	 * Filter the potentially inherited members by removing those that are already incorporated by
+	 * a subobject that is overridden by the subobject that contains this subtype relation.
+	 *  
+	 * @param <M> The type of the member that is being looked up
+	 * @param superSubobjectType The type of the overridden subobject
+	 * @param potentiallyInherited A list containing the members of the super class of this subtype relation
+	 * @param selector The selector that selects the member being looked up.
+	 * @throws LookupException
+	 */
+	protected <M extends Member> void filterOverriddenSubobject(Type superSubobjectType, List<M> potentiallyInherited, DeclarationSelector<M> selector) throws LookupException {
+		List<M> potentiallyOverridden = superSubobjectType.members(selector);
+		filterOverridden(potentiallyInherited, potentiallyOverridden);
+	}
+
+	/**
+	 * Filter the potentially inherited members by removing those that are already incorporated by
+	 * a subobject that is overridden by the subobject that contains this subtype relation.
+	 *  
+	 * @param <M> The type of the member that is being looked up
+	 * @param superSubobjectType The type of the overridden subobject
+	 * @param potentiallyInherited A list containing the members of the super class of this subtype relation
+	 * @param selector The kind of the objects being requested.
+	 * @throws LookupException
+	 */
+	protected <M extends Member> void filterOverriddenSubobject(Type superSubobjectType, List<M> potentiallyInherited, Class<M> kind) throws LookupException {
+		List<M> potentiallyOverridden = superSubobjectType.members(kind);
+		filterOverridden(potentiallyInherited, potentiallyOverridden);
+	}
+
+	/**
+	 * Filter the potentially inherited members by removing those that are already incorporated by
+	 * a subobject that is overridden by the subobject that contains this subtype relation.
+	 */  
+	protected <M extends Member> void filterOverridden(List<M> potentiallyInherited, List<M> potentiallyOverriding) throws LookupException {
+		for(M m: potentiallyOverriding) {
+			Iterator<M> iterator = potentiallyInherited.iterator(); 
+			while(iterator.hasNext()) {
+				M p = iterator.next();
+				if(m.aliasedMembers().contains(p) || m.overriddenMembers().contains(p)) {
+					iterator.remove();
+				}
+			}
+		}
+	}
 	
+	/**
+	 * Return the types of the subobjects that are overridden by the subobject that contains this subtype relation.
+	 * @return
+	 * @throws LookupException
+	 */
+ /*@
+   @ public behavior
+   @
+   @ post \fresh(\result);
+   @ post (\forall ComponentRelation c; 
+   @               nearestAncestors(ComponentRelation.class).overriddenMembers().contains(c); 
+   @               \result.contains(c.componentType())); 
+   @ post (\forall Type t;
+   @               \result.contains(t); 
+   @               (\exists ComponentRelation c;
+   @                        nearestAncestors(ComponentRelation.class).overriddenMembers().contains(c);
+   @                        c.componentType() == t)); 
+   @*/
+	public List<Type> typesOfOverriddenSubobjects() throws LookupException {
+		ComponentRelation subobjectRelation = nearestAncestor(ComponentRelation.class);
+		Set<ComponentRelation> superSubobjectRelations = (Set)subobjectRelation.overriddenMembers();
+		List<Type> result = new ArrayList<Type>();
+		for(ComponentRelation superSubobjectRelation: superSubobjectRelations) {
+			result.add(superSubobjectRelation.componentType());
+		}
+		return result;
+	}
 	
 }
