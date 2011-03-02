@@ -58,14 +58,21 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 	@Override
 	public <M extends Member> List<M> potentiallyInheritedMembers(DeclarationSelector<M> selector) throws LookupException {
 		List<M> potentiallyInheritedMembers = super.potentiallyInheritedMembers(selector);
-		filterMembersIncorporatedInOverriddenSubobjects(potentiallyInheritedMembers, selector);
+//		filterMembersIncorporatedInOverriddenSubobjects(potentiallyInheritedMembers, selector);
 		return incorporated(potentiallyInheritedMembers);
 	}
 
 	@Override
 	public <M extends Member> List<M> potentiallyInheritedMembers(Class<M> kind) throws LookupException {
 		List<M> potentiallyInheritedMembers = super.potentiallyInheritedMembers(kind);
-		filterMembersIncorporatedInOverriddenSubobjects(potentiallyInheritedMembers, kind);
+//		filterMembersIncorporatedInOverriddenSubobjects(potentiallyInheritedMembers, kind);
+		return incorporated(potentiallyInheritedMembers);
+	}
+
+	@Override
+	public List<Member> potentiallyInheritedMembers() throws LookupException {
+		List<Member> potentiallyInheritedMembers = super.potentiallyInheritedMembers();
+//		filterMembersIncorporatedInOverriddenSubobjects(potentiallyInheritedMembers);
 		return incorporated(potentiallyInheritedMembers);
 	}
 
@@ -80,13 +87,6 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 		return new ArrayList<D>();
 	}
 	
-	@Override
-	public List<Member> potentiallyInheritedMembers() throws LookupException {
-		List<Member> potentiallyInheritedMembers = super.potentiallyInheritedMembers();
-		filterMembersIncorporatedInOverriddenSubobjects(potentiallyInheritedMembers);
-		return incorporated(potentiallyInheritedMembers);
-	}
-
 	/**
 	 * Remove the members that are already incorporated into a subobject that is overridden by the subobject that contains
 	 * this subtype relation.
@@ -112,6 +112,9 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 	 * @throws LookupException
 	 */
 	protected <M extends Member> void filterMembersIncorporatedInOverriddenSubobjects(List<M> potentiallyInherited, DeclarationSelector<M> selector) throws LookupException {
+		if(nearestAncestor(Type.class).getFullyQualifiedName().equals("cityroad.City.cityTocityOne")) {
+			System.out.println("debug");
+		}
 		for(Type superSubobjectType: typesOfOverriddenSubobjects()) {
 			filterOverriddenSubobject(superSubobjectType, potentiallyInherited, selector);
 		}

@@ -76,7 +76,7 @@ public class BatchTranslator {
     BasicConfigurator.configure();
     Logger.getRootLogger().setLevel(Level.FATAL);
     Config.setCaching(true);
-    ProviderProvider provider = new ProviderProvider(new SubobjectJavaModelFactory(),".jlow",true,true);
+    ProviderProvider provider = new ProviderProvider(new SubobjectJavaModelFactory(),".jlo",true,true);
     provider.processArguments(args);
     File outputDir = provider.outputDir();
     long start = System.currentTimeMillis();

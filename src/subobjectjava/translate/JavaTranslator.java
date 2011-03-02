@@ -16,7 +16,6 @@ import jnome.core.type.JavaTypeReference;
 
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
-import org.rejuse.java.collections.TypeFilter;
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.SafePredicate;
 import org.rejuse.predicate.UnsafePredicate;
@@ -40,12 +39,10 @@ import subobjectjava.model.component.ParameterReferenceActualArgument;
 import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.expression.AbstractTarget;
 import subobjectjava.model.expression.ComponentParameterCall;
-import subobjectjava.model.expression.OuterTarget;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.JLo;
 import subobjectjava.model.type.RegularJLoType;
 import chameleon.core.compilationunit.CompilationUnit;
-import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
@@ -70,7 +67,6 @@ import chameleon.core.method.RegularMethod;
 import chameleon.core.method.exception.ExceptionClause;
 import chameleon.core.modifier.ElementWithModifiers;
 import chameleon.core.modifier.Modifier;
-import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
@@ -450,6 +446,7 @@ public class JavaTranslator {
 			System.out.println("debug");
 		}
 		rebindOverriddenMethods(result,original);
+    addStaticHooksForMethodsOverriddenInSuperSubobject(result,original);
     addNonOverriddenStaticHooks(result,original);
 		rewriteConstructorCalls(result);
 		rewriteThisLiterals(result);
@@ -461,6 +458,26 @@ public class JavaTranslator {
 		transformToImplRecursive(result);
 		result.setUniParent(null);
 		return result;
+	}
+	
+	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,Type original) throws LookupException {
+		for(ComponentRelation relation: original.descendants(ComponentRelation.class)) {
+			addStaticHooksForMethodsOverriddenInSuperSubobject(result,relation);
+		}
+	}
+	
+	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws LookupException {
+		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
+		Set<ComponentRelation> overriddenSubobjects = (Set<ComponentRelation>) relation.overriddenMembers(); //Dirty me!
+		List<Method> methods = relation.componentType().members(Method.class);
+		// First, we remove those that are defined in the body of the subobject.
+		// We include them at first because invoking members on the component type
+		// will automatically remove the overridden members from the referenced subobject
+		// type.
+		methods.removeAll(relation.componentType().body().members());
+		for(ComponentRelation overridden: overriddenSubobjects) {
+			List<? extends Declaration> overriddenDeclarations = overridden.componentType().locallyDeclaredDeclarations();
+		}
 	}
 	
 	private void addNonOverriddenStaticHooks(Type result,Type original) throws LookupException {
@@ -681,13 +698,13 @@ public class JavaTranslator {
 			}};
 	}
 	
-	private SafePredicate<Type> nonComponentTypePredicate() {
-		return new SafePredicate<Type>(){
-			@Override
-			public boolean eval(Type object) {
-				return !(object instanceof ComponentType);
-			}};
-	}
+//	private SafePredicate<Type> nonComponentTypePredicate() {
+//		return new SafePredicate<Type>(){
+//			@Override
+//			public boolean eval(Type object) {
+//				return !(object instanceof ComponentType);
+//			}};
+//	}
 	
 	private Type createOrGetInnerTypeAux(Type container, Type original, List<Element> elements, int baseOneIndex) throws LookupException {
 		int index = elements.size()-baseOneIndex;
@@ -1196,23 +1213,24 @@ public class JavaTranslator {
 		return result;
 	}
 	
-	private Method createDispathToOriginal(Method<?,?,?,?> method, ComponentRelation relation) throws LookupException {
-		NormalMethod<?,?,?> result = null;
-		result = innerMethod(method, method.name());
-		Block body = new Block();
-		result.setImplementation(new RegularImplementation(body));
-		MethodInvocation invocation = invocation(result, original(method.name()));
-		substituteTypeParameters(method, result);
-		addImplementation(method, body, invocation);
-		return result;
-	}
+//	private Method createDispathToOriginal(Method<?,?,?,?> method, ComponentRelation relation) throws LookupException {
+//		NormalMethod<?,?,?> result = null;
+//		result = innerMethod(method, method.name());
+//		Block body = new Block();
+//		result.setImplementation(new RegularImplementation(body));
+//		MethodInvocation invocation = invocation(result, original(method.name()));
+//		substituteTypeParameters(method, result);
+//		addImplementation(method, body, invocation);
+//		return result;
+//	}
 	
-	private TypeReference getRelativeClassReference(ComponentRelation relation) {
-		return relation.language(Java.class).createTypeReference(getRelativeClassName(relation));
-	}
-	private String getRelativeClassName(ComponentRelation relation) {
-		return relation.nearestAncestor(Type.class).signature().name();
-	}
+//	private TypeReference getRelativeClassReference(ComponentRelation relation) {
+//		return relation.language(Java.class).createTypeReference(getRelativeClassName(relation));
+//	}
+	
+//	private String getRelativeClassName(ComponentRelation relation) {
+//		return relation.nearestAncestor(Type.class).signature().name();
+//	}
 	
 	private void substituteTypeParameters(Method<?, ?, ?, ?> methodInTypeWhoseParametersMustBeSubstituted, NormalMethod<?, ?, ?> methodWhereActualTypeParametersMustBeFilledIn) throws LookupException {
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(methodInTypeWhoseParametersMustBeSubstituted);
@@ -1315,9 +1333,9 @@ public class JavaTranslator {
 		}
 	}
 	
-	private String original(String name) {
-		return "original__"+name;
-	}
+//	private String original(String name) {
+//		return "original__"+name;
+//	}
 	
 	private MemberVariableDeclarator fieldForComponent(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {

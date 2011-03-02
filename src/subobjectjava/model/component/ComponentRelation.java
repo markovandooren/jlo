@@ -257,7 +257,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
 		List<D> result;
-		if(configurationBlock == null) {
+		if((configurationBlock == null) || (selector.declaration() == this)) {
 		  result = new ArrayList<D>();
 		} else {
 			result = configurationBlock.membersDirectlyOverriddenBy(selector);
