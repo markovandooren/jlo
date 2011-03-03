@@ -118,7 +118,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 			SelectorWithoutOrder<Declaration> selector = 
 				new SelectorWithoutOrder<Declaration>(Declaration.class) {
 					public Signature signature() {
-						return poppedName.elementAt(x);
+						return poppedName.signatureAt(x);
 					}};
 
 			//SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);

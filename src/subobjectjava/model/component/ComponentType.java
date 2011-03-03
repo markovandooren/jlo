@@ -2,6 +2,7 @@ package subobjectjava.model.component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import jnome.core.type.AnonymousType;
 import chameleon.core.declaration.SimpleNameSignature;
@@ -11,6 +12,7 @@ import chameleon.core.lookup.Stub;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberRelationSelector;
 import chameleon.oo.type.ClassBody;
+import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
@@ -21,6 +23,18 @@ public class ComponentType extends AnonymousType {
 	public ComponentType() {
 		super("");
 		addInheritanceRelation(new ComponentSubtypeRelation());
+	}
+	
+	@Override
+	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
+		List<InheritanceRelation> result = super.inheritanceRelations();
+		List<Type> superTypes = nearestAncestor(ComponentRelation.class).typesOfOverriddenSubobjects();
+		return result;
+	}
+	
+	@Override
+	public boolean hasInheritanceRelation(InheritanceRelation relation) {
+		return relation.parent() == this;
 	}
 	
 	public SimpleNameSignature signature() {

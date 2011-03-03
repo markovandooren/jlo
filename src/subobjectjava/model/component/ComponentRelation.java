@@ -5,14 +5,18 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import jnome.core.language.Java;
+
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.TypePredicate;
 
 import chameleon.core.declaration.Declaration;
+import chameleon.core.declaration.DeclarationWithParametersSignature;
 import chameleon.core.declaration.Definition;
 import chameleon.core.declaration.Signature;
+import chameleon.core.declaration.SimpleNameDeclarationWithParametersSignature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationContainerSkipper;
@@ -23,6 +27,8 @@ import chameleon.core.lookup.Stub;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
 import chameleon.core.member.MemberRelationSelector;
+import chameleon.core.member.OverridesRelation;
+import chameleon.core.method.Method;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
@@ -367,4 +373,48 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	public String toString() {
 		return signature().name();
 	}
+
+	public MemberRelationSelector<ComponentRelation> overridesSelector() {
+		return new MemberRelationSelector<ComponentRelation>(ComponentRelation.class,this,_overridesSelector);
+	}
+
+  public OverridesRelation<? extends Member> overridesRelation() {
+  	return _overridesSelector;
+  }
+  
+	private static OverridesRelation<ComponentRelation> _overridesSelector = new OverridesRelation<ComponentRelation>(ComponentRelation.class) {
+		
+		@Override
+		public boolean containsBasedOnRest(ComponentRelation first, ComponentRelation second) throws LookupException {
+			return true;
+		}
+
+		@Override
+		public boolean containsBasedOnName(Signature first, Signature second) throws LookupException {
+			return first.name().equals(second.name());
+		}
+	};
+	
+	 /*@
+	   @ public behavior
+	   @
+	   @ post \fresh(\result);
+	   @ post (\forall ComponentRelation c; 
+	   @               nearestAncestors(ComponentRelation.class).overriddenMembers().contains(c); 
+	   @               \result.contains(c.componentType())); 
+	   @ post (\forall Type t;
+	   @               \result.contains(t); 
+	   @               (\exists ComponentRelation c;
+	   @                        nearestAncestors(ComponentRelation.class).overriddenMembers().contains(c);
+	   @                        c.componentType() == t)); 
+	   @*/
+	public List<Type> typesOfOverriddenSubobjects() throws LookupException {
+		Set<ComponentRelation> superSubobjectRelations = (Set)overriddenMembers();
+		List<Type> result = new ArrayList<Type>();
+		for(ComponentRelation superSubobjectRelation: superSubobjectRelations) {
+			result.add(superSubobjectRelation.componentType());
+		}
+		return result;
+	}
+
 }

@@ -470,11 +470,6 @@ public class JavaTranslator {
 	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws LookupException {
 		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
 		Set<ComponentRelation> overriddenSubobjects = (Set<ComponentRelation>) relation.overriddenMembers(); //Dirty me!
-		for(Element overridden: overriddenSubobjects) {
-			if(overridden instanceof Method) {
-				overriddenSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
-			}
-		}
 		
 		List<Method> methods = relation.componentType().members(Method.class);
 		// First, we remove those that are defined in the body of the subobject.
