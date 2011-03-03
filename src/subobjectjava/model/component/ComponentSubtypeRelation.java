@@ -29,7 +29,7 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 	public TypeReference superClassReference() {
 		return nearestAncestor(ComponentRelation.class).componentTypeReference();
 	}
-
+	
 	public Type componentType() {
 		return nearestAncestor(Type.class);
 	}
@@ -224,4 +224,26 @@ public class ComponentSubtypeRelation extends SubtypeRelation {
 		return result;
 	}
 	
+	protected <M extends Member>
+  void removeNonMostSpecificMembers(List<M> current, final List<M> potential) throws LookupException {
+	final List<M> toAdd = new ArrayList<M>();
+	for(M m: potential) {
+		boolean add = true;
+		Iterator<M> iterCurrent = current.iterator();
+		while(add && iterCurrent.hasNext()) {
+			M alreadyInherited = (M) iterCurrent.next().origin();
+			// Remove the already inherited member if potentially inherited member m overrides or hides it.
+			if((alreadyInherited.sameAs(m) || alreadyInherited.overrides(m) || alreadyInherited.canImplement(m) || alreadyInherited.hides(m))) {
+				add = false;
+			} else if((!alreadyInherited.sameAs(m)) && (m.overrides(alreadyInherited) || m.canImplement(alreadyInherited) || m.hides(alreadyInherited))) {
+				iterCurrent.remove();
+			}
+		}
+		if(add == true) {
+			toAdd.add(m);
+		}
+	}
+	current.addAll(toAdd);
+}
+
 }
