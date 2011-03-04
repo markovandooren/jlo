@@ -7,19 +7,19 @@ import org.rejuse.logic.ternary.Ternary;
 
 import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.declaration.DeclarationContainer;
+import chameleon.core.declaration.DeclarationWithParametersSignature;
 import chameleon.core.declaration.Signature;
 import chameleon.core.expression.CrossReferenceTarget;
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.InvocationTarget;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.TwoPhaseDeclarationSelector;
-import chameleon.core.method.MethodSignature;
+import chameleon.core.member.MoreSpecificTypesOrder;
 import chameleon.core.relation.WeakPartialOrder;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.type.Type;
-import chameleon.support.member.MoreSpecificTypesOrder;
 import chameleon.support.member.simplename.method.NormalMethod;
 
 public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstructorCall, NormalMethod> {
@@ -71,10 +71,10 @@ public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstruc
 		@Override
 		public boolean selectedBasedOnName(Signature signature) throws LookupException {
     	boolean result = false;
-			if(signature instanceof MethodSignature) {
-				MethodSignature<?,?> sig = (MethodSignature<?,?>)signature;
+			if(signature instanceof DeclarationWithParametersSignature) {
+				DeclarationWithParametersSignature<?> sig = (DeclarationWithParametersSignature<?>)signature;
 				List<Type> actuals = getActualParameterTypes();
-				List<Type> formals = ((MethodSignature)signature).parameterTypes();
+				List<Type> formals = ((DeclarationWithParametersSignature)signature).parameterTypes();
 				if (MoreSpecificTypesOrder.create().contains(actuals, formals)) {
 						result = true;
 				}
@@ -99,14 +99,13 @@ public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstruc
 		}
 
 		@Override
-		public String selectionName(DeclarationContainer<?,?> container) throws LookupException {
+		public String selectionName(DeclarationContainer<?> container) throws LookupException {
 			// FIXME: this is horribly inefficient, but otherwise we must add more redundancy
 			//        in the source code.
 			return getTarget().getElement().componentType().signature().name();
 		}
 
   }
-
 
 }
 

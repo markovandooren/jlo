@@ -17,6 +17,8 @@ import chameleon.core.lookup.LookupStrategyFactory;
 
 import chameleon.core.compilationunit.CompilationUnit;
 
+import chameleon.core.declaration.SimpleNameDeclarationWithParametersSignature;
+import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.QualifiedName;
@@ -26,7 +28,7 @@ import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 
 import chameleon.core.expression.Expression;
-import chameleon.core.expression.Invocation;
+import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.Literal;
 import chameleon.core.expression.Assignable;
 import chameleon.core.expression.NamedTarget;
@@ -91,8 +93,6 @@ import chameleon.input.Position2D;
 
 import chameleon.support.expression.RegularLiteral;
 import chameleon.support.expression.NullLiteral;
-import chameleon.support.expression.ThisConstructorDelegation;
-import chameleon.support.expression.SuperConstructorDelegation;
 import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.expression.ConditionalExpression;
 import chameleon.support.expression.ConditionalAndExpression;
@@ -106,8 +106,6 @@ import chameleon.support.expression.ClassCastExpression;
 import chameleon.support.expression.SuperTarget;
 
 import chameleon.support.member.simplename.method.NormalMethod;
-import chameleon.support.member.simplename.SimpleNameMethodHeader;
-import chameleon.support.member.simplename.SimpleNameMethodSignature;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import chameleon.support.member.simplename.operator.infix.InfixOperatorInvocation;
 import chameleon.support.member.simplename.operator.prefix.PrefixOperatorInvocation;
@@ -168,6 +166,8 @@ import jnome.core.expression.ArrayAccessExpression;
 import jnome.core.expression.ArrayCreationExpression;
 import jnome.core.expression.invocation.ConstructorInvocation;
 import jnome.core.expression.invocation.JavaMethodInvocation;
+import jnome.core.expression.invocation.ThisConstructorDelegation;
+import jnome.core.expression.invocation.SuperConstructorDelegation;
 
 import jnome.core.imports.SingleStaticImport;
 
@@ -254,11 +254,11 @@ import java.util.ArrayList;
     return gJavaP.typeRef(qn);
   }
 
-  public JavaTypeReference createTypeReference(CrossReference<?, ?, ? extends TargetDeclaration> target, String name) {
+  public JavaTypeReference createTypeReference(CrossReference<?, ? extends TargetDeclaration> target, String name) {
     return gJavaP.createTypeReference(target,name);
   }
   
-  public JavaTypeReference createTypeReference(CrossReference<?, ?, ? extends TargetDeclaration> target, SimpleNameSignature signature) {
+  public JavaTypeReference createTypeReference(CrossReference<?, ? extends TargetDeclaration> target, SimpleNameSignature signature) {
     return gJavaP.createTypeReference(target,signature);
   }
 
@@ -314,9 +314,9 @@ configurationClause returns [ConfigurationClause element]
 	
 signature returns [Signature element]
         : sig=Identifier {retval.element = new SimpleNameSignature($sig.text);}
-        | sigg=Identifier {retval.element = new SimpleNameMethodSignature($sigg.text);} 
-                '(' (t=type {((SimpleNameMethodSignature)retval.element).add(t.element);} 
-                 (',' tt=type {((SimpleNameMethodSignature)retval.element).add(tt.element);})*)?')'
+        | sigg=Identifier {retval.element = new SimpleNameDeclarationWithParametersSignature($sigg.text);} 
+                '(' (t=type {((SimpleNameDeclarationWithParametersSignature)retval.element).add(t.element);} 
+                 (',' tt=type {((SimpleNameDeclarationWithParametersSignature)retval.element).add(tt.element);})*)?')'
         ;
         
 fqn returns [QualifiedName element] 

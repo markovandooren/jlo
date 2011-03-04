@@ -13,11 +13,13 @@ import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.Type;
 
-public abstract class AbstractTarget<E extends AbstractTarget<E>> extends NamespaceElementImpl<E, Element> implements InvocationTarget<E,Element> {
+public abstract class AbstractTarget<E extends AbstractTarget<E>> extends NamespaceElementImpl<E> implements InvocationTarget<E> {
 
 	public AbstractTarget() {
 		super();
 	}
+	
+	public abstract E clone();
 
 	public List<Element> children() {
 		return new ArrayList<Element>();

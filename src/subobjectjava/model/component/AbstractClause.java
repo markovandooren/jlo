@@ -13,6 +13,8 @@ import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
+import chameleon.core.member.Member;
+import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
@@ -22,6 +24,22 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 
 	private SingleAssociation<AbstractClause, Signature> _signature = new SingleAssociation<AbstractClause, Signature>(this);
 
+	public QualifiedName oldNameFor(Signature signature) throws LookupException {
+		QualifiedName result = null;
+		if(newSignature().sameAs(signature)) {
+			result = oldFqn();
+		}
+		return result;
+	}
+	
+//  public <D extends Declaration> Pair<Set<D>,Set<D>> selected(DeclarationSelector<D> selector, Type type) throws LookupException {
+//  	List<D> list = selector.selection(process(type));
+//  	Set old = new HashSet();
+//  	old.add(oldDeclaration());
+//  	Pair<Set<D>,Set<D>> result = new Pair<Set<D>,Set<D>>(new HashSet<D>(list),old);
+//  	return result;
+//  }
+	
 	@Override
 	public VerificationResult verifySelf() {
 		VerificationResult result = Valid.create();
@@ -65,14 +83,14 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 		int size = signatures.size();
 		for(int i = 0; i< size; i++) {
 			final Signature sig = signatures.get(i);
-			DeclarationSelector<Declaration> selector = new SelectorWithoutOrder<Declaration>(new SelectorWithoutOrder.SignatureSelector() {
+			DeclarationSelector<Declaration> selector = new SelectorWithoutOrder<Declaration>(Declaration.class) {
 				public Signature signature() {
 					return sig;
 				}
-			},Declaration.class);
+			};
 			if(i < size - 1) {
 			container = (TargetDeclaration) container.targetContext().lookUp(selector);
-			} else {
+			} else {// i = size - 1, after which the iteration stops.
 				result = container.targetContext().lookUp(selector);
 			}
 		}
@@ -82,12 +100,42 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	/**
 	 * Return the signature of this member.
 	 */
-	public QualifiedName<?,?> oldFqn() {
+	public QualifiedName<?> oldFqn() {
 	  return _fqn.getOtherEnd();
 	}
 
 	public AbstractClause() {
 		super();
 	}
+	
+  public Declaration originalDeclaration() throws LookupException {
+		QualifiedName qn = oldFqn();
+		final QualifiedName poppedName = qn.popped();
+		int size = poppedName.length();
+		TargetDeclaration container = nearestAncestor(ComponentRelation.class).componentType();
+		for(int i = 1; i<= size; i++) {
+			final int x = i;
+			SelectorWithoutOrder<Declaration> selector = 
+				new SelectorWithoutOrder<Declaration>(Declaration.class) {
+					public Signature signature() {
+						return poppedName.signatureAt(x);
+					}};
+
+			//SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);
+			//					ref.setUniParent(relation.parent());
+			container = (TargetDeclaration) container.targetContext().lookUp(selector);//x ref.getElement();
+		}
+		final Signature lastSignature = qn.lastSignature();
+		SelectorWithoutOrder<Declaration> selector = 
+			new SelectorWithoutOrder<Declaration>(Declaration.class) {
+				public Signature signature() {
+					return lastSignature;
+				}};
+
+		//				SimpleReference<Declaration> ref = new SimpleReference<Declaration>(null, lastSignature.clone(), Declaration.class);
+		//				ref.setUniParent(relation.parent());
+		Declaration decl = container.targetContext().lookUp(selector);
+		return decl;
+  }
 
 }

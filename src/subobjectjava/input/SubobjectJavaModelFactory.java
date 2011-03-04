@@ -15,14 +15,14 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.Lexer;
 
-import subobjectjava.model.language.SubobjectJava;
+import subobjectjava.model.language.JLo;
 import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
 import chameleon.oo.language.ObjectOrientedLanguage;
-import chameleon.output.Syntax;
+import chameleon.plugin.Plugin;
+import chameleon.plugin.output.Syntax;
 import chameleon.support.input.ChameleonParser;
 import chameleon.support.input.ModelFactoryUsingANTLR;
-import chameleon.tool.Connector;
 
 public class SubobjectJavaModelFactory extends JavaModelFactory {
 
@@ -33,8 +33,8 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 	 * @throws ParseException
 	 */
 	public SubobjectJavaModelFactory() {
-		SubobjectJava lang = new SubobjectJava();
-		lang.setConnector(Syntax.class, new JavaCodeWriter());
+		JLo lang = new JLo();
+		lang.setPlugin(Syntax.class, new JavaCodeWriter());
 		setLanguage(lang, ModelFactory.class);
 	}
 	
@@ -44,7 +44,7 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	public SubobjectJavaModelFactory(SubobjectJava language) throws IOException, ParseException {
+	public SubobjectJavaModelFactory(JLo language) throws IOException, ParseException {
 		super(language);
 	}
 	
@@ -54,27 +54,15 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 	 * All predefined elements of the language will be initialized. 
 	 */
 	public SubobjectJavaModelFactory(Collection<File> base) throws IOException, ParseException {
-		this(new SubobjectJava(), base);
+		this(new JLo(), base);
 	}
 	
 	//FIXME: Object and String must be parsed.
-	public SubobjectJavaModelFactory(SubobjectJava language, Collection<File> base) throws IOException, ParseException {
+	public SubobjectJavaModelFactory(JLo language, Collection<File> base) throws IOException, ParseException {
 		super(language, base);
 	}
 	
-    // TODO: documentation (Jens)
-	@Override
-    public Lexer lexer(ANTLRInputStream input) {
-    	return new SubobjectJavaLexer(input);
-    }
-    
-    // TODO: documentation (Jens)
-	@Override
-    public ChameleonParser parser(CommonTokenStream tokens) {
-    	return new SubobjectJavaParser(tokens);
-    }
-	
-  @Override
+   @Override
 	public ModelFactoryUsingANTLR clone() {
 		try {
 			SubobjectJavaModelFactory result = new SubobjectJavaModelFactory();

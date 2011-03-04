@@ -19,13 +19,14 @@ import chameleon.core.lookup.LookupException;
 import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
+import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.type.DerivedType;
 import chameleon.oo.type.IntersectionTypeReference;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.util.Util;
 
-public class ComponentParameterTypeReference extends NamespaceElementImpl<ComponentParameterTypeReference,Element> implements JavaTypeReference<ComponentParameterTypeReference>,ComponentArgumentContainer<ComponentParameterTypeReference> {
+public class ComponentParameterTypeReference extends NamespaceElementImpl<ComponentParameterTypeReference> implements JavaTypeReference<ComponentParameterTypeReference>,ComponentArgumentContainer<ComponentParameterTypeReference> {
 
 	public ComponentParameterTypeReference(JavaTypeReference target) {
 		setTarget(target);
@@ -88,7 +89,7 @@ public class ComponentParameterTypeReference extends NamespaceElementImpl<Compon
 			Signature sig = formals.next().signature().clone();
 			parameters.add(new InstantiatedComponentParameter((SimpleNameSignature) sig, arg));
 		}
-		DerivedType result = new DerivedType(ComponentParameter.class, parameters, componentType);
+		DerivedType result = language(ObjectOrientedLanguage.class).createDerivedType(ComponentParameter.class, parameters, componentType);
 		result.setUniParent(componentType.parent());
 		return result;
 	}

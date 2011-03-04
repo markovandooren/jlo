@@ -1,29 +1,34 @@
 package subobjectjava.model.component;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
-import jnome.core.expression.invocation.ConstructorInvocation;
-import jnome.core.type.AnonymousInnerClass;
+import jnome.core.language.Java;
 
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.logic.ternary.Ternary;
+import org.rejuse.predicate.TypePredicate;
 
 import chameleon.core.declaration.Declaration;
+import chameleon.core.declaration.DeclarationWithParametersSignature;
 import chameleon.core.declaration.Definition;
 import chameleon.core.declaration.Signature;
+import chameleon.core.declaration.SimpleNameDeclarationWithParametersSignature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationContainerSkipper;
 import chameleon.core.lookup.DeclarationSelector;
-import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
-import chameleon.core.lookup.LookupStrategySelector;
+import chameleon.core.lookup.Stub;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
-import chameleon.core.statement.Block;
+import chameleon.core.member.MemberRelationSelector;
+import chameleon.core.member.OverridesRelation;
+import chameleon.core.method.Method;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
@@ -33,13 +38,16 @@ import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
+import chameleon.oo.type.inheritance.InheritanceRelation;
+import chameleon.util.Pair;
 import chameleon.util.Util;
 
-public class ComponentRelation extends MemberImpl<ComponentRelation,Element,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,Element,SimpleNameSignature, ComponentRelation>{
+public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,SimpleNameSignature, ComponentRelation>, InheritanceRelation<ComponentRelation,Type>{
 
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
 		setComponentType(type);
+		setBody(new ClassBody());
 	}
 	
 	@Override
@@ -96,18 +104,6 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		
 	}
 	
-	public List<? extends Member> getIntroducedMembers() throws LookupException {
-		List<Member> result = new ArrayList<Member>();
-		result.add(this);
-//		List<Member> superMembers = componentType().members();
-		ConfigurationBlock configurationBlock = configurationBlock();
-		if(configurationBlock != null) {
-		  result.addAll(configurationBlock.processedMembers(componentType()));
-		}
-		return result;
-//		return declaredMembers();
-	}
-	
 	@Override
 	public List<? extends Member> declaredMembers() {
 		return Util.<Member>createSingletonList(this);
@@ -123,11 +119,11 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		return componentTypeReference().getElement();
 	}
 	
-	public Type componentType() throws LookupException {
-		Type result = componentTypeDeclaration();
-		if(result == null) {
-		 result = componentTypeReference().getElement();
-		}
+	public ComponentType componentType() throws LookupException {
+		ComponentType result = componentTypeDeclaration();
+//		if(result == null) {
+//		 result = referencedComponentType();
+//		}
 		return result;
 	}
 
@@ -205,18 +201,13 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 		return this;
 	}
 
-//  public void setBody(ClassBody body) {
-//  	setAsParent(_body, body);
-//  }
-  
-  
-	private SingleAssociation<ComponentRelation,ComponentType> _body = new SingleAssociation<ComponentRelation,ComponentType>(this);
+	private SingleAssociation<ComponentRelation,ComponentType> _componentType = new SingleAssociation<ComponentRelation,ComponentType>(this);
 	
 	public void setBody(ClassBody body) {
 		if(body == null) {
-			_body.connectTo(null);
+			_componentType.connectTo((Association)createComponentType(new ClassBody()).parentLink());
 		} else {
-			_body.connectTo((Association<? extends ComponentType, ? super ComponentRelation>) createComponentType(body).parentLink());
+			_componentType.connectTo((Association) createComponentType(body).parentLink());
 		}
 	}
 
@@ -227,25 +218,203 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,Element,Simp
 	}
   
   public ComponentType componentTypeDeclaration() {
-  	return _body.getOtherEnd();
+  	return _componentType.getOtherEnd();
   }
 
   
   private void setComponentTypeDeclaration(ComponentType componentType) {
   	if(componentType == null) {
-  		_body.connectTo(null);
+  		_componentType.connectTo(null);
   	} else {
-  		_body.connectTo((Association<? extends ComponentType, ? super ComponentRelation>) componentType.parentLink());
+  		_componentType.connectTo((Association<? extends ComponentType, ? super ComponentRelation>) componentType.parentLink());
   	}
   }
 
-//  /**
-//   * Return the ConfigurationBlock of this member.
-//   */
-//  public ClassBody body() {
-//    return _body.getOtherEnd();
-//  }
+	@Override
+	public Type superElement() throws LookupException {
+		return referencedComponentType(); 
+	}
+
+	@Override
+	public <X extends Member> void accumulateInheritedMembers(Class<X> kind, List<X> current) throws LookupException {
+		ConfigurationBlock configurationBlock = configurationBlock();
+		if(configurationBlock != null) {
+			List<Member> members = configurationBlock.processedMembers();
+			new TypePredicate(kind).filter(members);
+		  current.addAll((Collection<? extends X>) members);
+		}
+	}
+
+	@Override
+	public <X extends Member> void accumulateInheritedMembers(DeclarationSelector<X> selector, List<X> current) throws LookupException {
+		ConfigurationBlock configurationBlock = configurationBlock();
+		if(configurationBlock != null) {
+		  current.addAll(selector.selection(configurationBlock.processedMembers()));
+		}
+	}
+
+	public List<? extends Member> getIntroducedMembers() throws LookupException {
+		List<Member> result = new ArrayList<Member>();
+		result.add(this);
+		return result;
+	}
+	
+	@Override
+	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
+		ConfigurationBlock configurationBlock = configurationBlock();
+		List<D> result;
+		if((configurationBlock == null) || (selector.declaration() == this)) {
+		  result = new ArrayList<D>();
+		} else {
+			result = configurationBlock.membersDirectlyOverriddenBy(selector);
+		}
+		return result;
+	}
+
+	@Override
+	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+		ConfigurationBlock configurationBlock = configurationBlock();
+		List<D> result;
+		if(configurationBlock == null) {
+		  result = new ArrayList<D>();
+		} else {
+			result = configurationBlock.membersDirectlyAliasedBy(selector);
+		}
+		return result;
+	}
+
+	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+		ConfigurationBlock configurationBlock = configurationBlock();
+		List<D> result;
+		if(configurationBlock == null) {
+		  result = new ArrayList<D>();
+		} else {
+			result = configurationBlock.membersDirectlyAliasing(selector);
+		}
+		return result;
+	}
+	
+	/**
+	 * Return a clone of the given member that is 'incorporated' into the component type of this component
+	 * relation. The parent of the result is a ComponentStub that is unidirectionally connected to the
+	 * component type, and whose generator is set to this.
+	 * 
+	 * @param toBeIncorporated
+	 *        The member that must be incorporated into the component type.
+	 */
+ /*@
+   @ public behavior
+   @
+   @ pre toBeIncorporated != null;
+   @
+   @ post \result != null;
+   @ post \result == toBeIncorporated.clone();
+   @ post \result.parent() instanceof ComponentStub;
+   @ post ((ComponentStub)\result.parent()).parent() == componentType();
+   @ post ((ComponentStub)\result.parent()).generator() == this;
+   @*/
+	public Member incorporatedIntoComponentType(Member toBeIncorporated) throws LookupException {
+		return incorporatedInto(toBeIncorporated, componentType());
+	}
+	
+	/**
+	 * Return a clone of the given member that is 'incorporated' into the type containing this component
+	 * relation. The parent of the result is a ComponentStub that is unidirectionally connected to the
+	 * containing type, and whose generator is set to this.
+	 * 
+	 * @param toBeIncorporated
+	 *        The member that must be incorporated into the containing type.
+	 */
+ /*@
+   @ public behavior
+   @
+   @ pre toBeIncorporated != null;
+   @
+   @ post \result != null;
+   @ post \result == toBeIncorporated.clone();
+   @ post \result.parent() instanceof ComponentStub;
+   @ post ((ComponentStub)\result.parent()).parent() == nearestAncestor(Type.class);
+   @ post ((ComponentStub)\result.parent()).generator() == this;
+   @*/
+	public Member incorporatedIntoContainerType(Member toBeIncorporated) throws LookupException {
+		return incorporatedInto(toBeIncorporated, nearestAncestor(Type.class));
+	}
+	
+	/**
+	 * Return a clone of the given member that is 'incorporated' into the given type. 
+	 * The parent of the result is a ComponentStub that is unidirectionally connected to the
+	 * given type, and whose generator is set to this.
+	 * 
+	 * @param toBeIncorporated
+	 *        The member that must be incorporated into the containing type.
+	 */
+ /*@
+   @ public behavior
+   @
+   @ pre toBeIncorporated != null;
+   @
+   @ post \result != null;
+   @ post \result == toBeIncorporated.clone();
+   @ post \result.parent() instanceof ComponentStub;
+   @ post ((ComponentStub)\result.parent()).parent() == type;
+   @ post ((ComponentStub)\result.parent()).generator() == this;
+   @*/
+	protected Member incorporatedInto(Member toBeIncorporated, Type incorporatingType) throws LookupException {
+		Member result = toBeIncorporated.clone();
+		result.setOrigin(toBeIncorporated);
+		Stub redirector = new ComponentStub(this, result);
+		redirector.setUniParent(incorporatingType);
+		return result;
+	}
+	
+	/**
+	 * For debugging purposes because Eclipse detail formatters simply don't work.
+	 */
+	public String toString() {
+		return signature().name();
+	}
+
+	public MemberRelationSelector<ComponentRelation> overridesSelector() {
+		return new MemberRelationSelector<ComponentRelation>(ComponentRelation.class,this,_overridesSelector);
+	}
+
+  public OverridesRelation<? extends Member> overridesRelation() {
+  	return _overridesSelector;
+  }
   
-//  private SingleAssociation<ComponentRelation, ClassBody> _body = new SingleAssociation<ComponentRelation, ClassBody>(this);
+	private static OverridesRelation<ComponentRelation> _overridesSelector = new OverridesRelation<ComponentRelation>(ComponentRelation.class) {
+		
+		@Override
+		public boolean containsBasedOnRest(ComponentRelation first, ComponentRelation second) throws LookupException {
+			return true;
+		}
+
+		@Override
+		public boolean containsBasedOnName(Signature first, Signature second) throws LookupException {
+			return first.name().equals(second.name());
+		}
+	};
+	
+	 /*@
+	   @ public behavior
+	   @
+	   @ post \fresh(\result);
+	   @ post (\forall ComponentRelation c; 
+	   @               nearestAncestors(ComponentRelation.class).overriddenMembers().contains(c); 
+	   @               \result.contains(c.componentType())); 
+	   @ post (\forall Type t;
+	   @               \result.contains(t); 
+	   @               (\exists ComponentRelation c;
+	   @                        nearestAncestors(ComponentRelation.class).overriddenMembers().contains(c);
+	   @                        c.componentType() == t)); 
+	   @*/
+	public List<Type> typesOfOverriddenSubobjects() throws LookupException {
+		Set<ComponentRelation> superSubobjectRelations = (Set)overriddenMembers();
+		List<Type> result = new ArrayList<Type>();
+		for(ComponentRelation superSubobjectRelation: superSubobjectRelations) {
+			result.add(superSubobjectRelation.componentType());
+		}
+		return result;
+	}
 
 }

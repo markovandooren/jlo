@@ -1,5 +1,6 @@
 package subobjectjava.translate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -10,19 +11,19 @@ import jnome.core.language.Java;
 
 import org.rejuse.association.SingleAssociation;
 
-import subobjectjava.model.language.SubobjectJava;
+import subobjectjava.model.language.JLo;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.element.Element;
 import chameleon.core.language.Language;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.namespace.Namespace;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
+import chameleon.exception.ModelException;
 import chameleon.oo.type.Type;
 
 public class IncrementalJavaTranslator {
 
-	public IncrementalJavaTranslator(SubobjectJava source, Java target) {
+	public IncrementalJavaTranslator(JLo source, Java target) {
 		_sourceLanguage = source;
 		_targetLanguage = target;
 		_translator = new JavaTranslator();
@@ -39,7 +40,7 @@ public class IncrementalJavaTranslator {
 			}
 		}
 		for(CompilationUnit compilationUnit: compilationUnits) {
-			fullyCloneCompilationUnit(compilationUnit);
+			implementationCompilationUnit(compilationUnit);
 		}
 		_initialized=true;
 	}
@@ -70,52 +71,47 @@ public class IncrementalJavaTranslator {
    @ post \result != null;
    @ post \fresh(\result);
    @*/
-	public CompilationUnit build(CompilationUnit compilationUnit) throws LookupException {
+	public List<CompilationUnit> build(CompilationUnit source) throws ModelException {
 		if(!_initialized) {
 			initTargetLanguage();
 		}
-		// Remove a possible old translation of the given compilation unit
-		// from the target model.
-		CompilationUnit clone = fullyCloneCompilationUnit(compilationUnit);
-		NamespacePart nsp = compilationUnit.namespaceParts().get(0);
-		NamespacePart newNamespacePart = clone.namespaceParts().get(0);
-
-		List<Type> originalTypes = nsp.children(Type.class);
-		List<Type> newTypes = newNamespacePart.children(Type.class);
-		int size = originalTypes.size();
-		for(int i=0; i<size;i++) {
-			SingleAssociation<Type, Element> newParentLink = newTypes.get(i).parentLink();
-			Type translated = basicTranslator().translation(originalTypes.get(i));
-			newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
-		}
-		newNamespacePart.clearImports();
-		for(Import imp: nsp.imports()) {
-			newNamespacePart.addImport(imp.clone());
-		}
-		clone.flushCache();
-		return clone;
+		List<CompilationUnit> result = translate(source,implementationCompilationUnit(source));
+		store(source, result.get(1),_interfaceMap);
+		return result;
 	}
-	
-	private Map<CompilationUnit,CompilationUnit> _cuMap = new HashMap<CompilationUnit,CompilationUnit>();
 
+  public List<CompilationUnit> translate(CompilationUnit source, CompilationUnit implementationCompilationUnit) throws LookupException, ModelException {
+    return _translator.translate(source, implementationCompilationUnit);
+  }
 	
-	public CompilationUnit fullyCloneCompilationUnit(CompilationUnit compilationUnit) throws LookupException {
-		CompilationUnit old = _cuMap.get(compilationUnit);
+//	private CompilationUnit interfaceCompilationUnit(CompilationUnit key, CompilationUnit implementation) throws ModelException {
+//		CompilationUnit result = _translator.interfaceCompilationUnit(key, implementation);
+//		store(key, result,_interfaceMap);
+//		return result;
+//  }
+	
+	private Map<CompilationUnit,CompilationUnit> _implementationMap = new HashMap<CompilationUnit,CompilationUnit>();
+
+	private Map<CompilationUnit,CompilationUnit> _interfaceMap = new HashMap<CompilationUnit,CompilationUnit>();
+	
+	public CompilationUnit implementationCompilationUnit(CompilationUnit compilationUnit) throws LookupException {
+		CompilationUnit clone = compilationUnit.cloneTo(targetLanguage());
+		store(compilationUnit, clone,_implementationMap);
+    return clone;
+	}
+
+	private void store(CompilationUnit compilationUnit, CompilationUnit generated, Map<CompilationUnit,CompilationUnit> storage) throws LookupException {
+		CompilationUnit old = storage.get(compilationUnit);
 		if(old != null) {
+			if(generated != old) {
+				old.namespacePart(1).getNamespaceLink().unlock();
+			}
 			old.disconnect();
 		}
-		CompilationUnit clone = compilationUnit.clone();
 		// connect the namespacepart of the clone compilation unit
 		// to the proper namespace in the target model. The cloned
 		// namespace part is not connected to a namespace, so we
 		// need the original namespacepart to obtain the fqn.
-		NamespacePart nsp = compilationUnit.namespaceParts().get(0);
-		Namespace ns = nsp.namespace();
-		String fqn = ns.getFullyQualifiedName();
-		Namespace newNs = targetLanguage().defaultNamespace().getOrCreateNamespace(fqn);
-		NamespacePart newNamespacePart = clone.namespaceParts().get(0);
-		newNs.addNamespacePart(newNamespacePart);
-		_cuMap.put(compilationUnit, clone);
-    return clone;
+		storage.put(compilationUnit, generated);
 	}
 }

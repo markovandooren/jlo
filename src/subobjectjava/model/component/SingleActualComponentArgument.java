@@ -3,43 +3,41 @@ package subobjectjava.model.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.rejuse.association.SingleAssociation;
+
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
-import chameleon.core.lookup.SelectorWithoutOrder.SignatureSelector;
-import chameleon.exception.ChameleonProgrammerException;
 
 public abstract class SingleActualComponentArgument<E extends SingleActualComponentArgument<E>> extends ActualComponentArgument<E> {
 
 	public SingleActualComponentArgument(String name) {
-		setName(name);
+		setSignature(new SimpleNameSignature(name));
 	}
 	
 	public abstract E clone();
 	
-	private String _name;
+	private SingleAssociation<SingleActualComponentArgument,Signature> _signature = new SingleAssociation<SingleActualComponentArgument,Signature>(this);
 	
 	public String name() {
-		return _name;
+		return signature().name();
+	}
+	
+	public Signature signature() {
+		return _signature.getOtherEnd();
 	}
 	
 	public void setName(String name) {
-		_name = name;
+		signature().setName(name);
+	}
+	
+	public void setSignature(Signature signature) {
+		setAsParent(_signature, signature);
 	}
 	
 	public List<? extends Element> children() {
 		return new ArrayList<Element>();
 	}
 
-	protected SignatureSelector selector() {
-		SignatureSelector signatureSelector = new SignatureSelector() {
-			private Signature _signature = new SimpleNameSignature(name());
-
-			public Signature signature() {
-				return _signature;
-			}
-		};
-		return signatureSelector;
-	}
 
 }

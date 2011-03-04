@@ -7,7 +7,7 @@ import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.Type;
 
-public abstract class ActualComponentArgument<E extends ActualComponentArgument<E>> extends NamespaceElementImpl<E, Element> {
+public abstract class ActualComponentArgument<E extends ActualComponentArgument<E>> extends NamespaceElementImpl<E> {
 
 	
 	public abstract DeclarationWithType declaration() throws LookupException;

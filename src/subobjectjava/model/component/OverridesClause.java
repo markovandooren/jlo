@@ -5,10 +5,13 @@ import java.util.List;
 
 import org.rejuse.predicate.UnsafePredicate;
 
+import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.lookup.Stub;
 import chameleon.core.member.Member;
+import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.Type;
@@ -21,16 +24,8 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 	}
 	
 	@Override
-	public List<Member> process(Type type) throws LookupException {
+	public List<Member> introducedMembers() throws LookupException {
 		List<Member> result = new ArrayList<Member>();
-//		if(member.signature().sameAs(oldFqn())) {
-//			result = member.clone();
-//			result.setSignature(newSignature().clone());
-//			// reroute lookup from within the clone (result) to the parent of the original member. 
-//			LookupRedirector redirector = new LookupRedirector(member.parent());
-//			redirector.add(result);
-//			redirector.setUniParent(nearestAncestor(Type.class));
-//		}
 		return result;
 	}
 	
@@ -65,4 +60,34 @@ public class OverridesClause extends AbstractClause<OverridesClause> {
 		return new OverridesClause(newSignature().clone(), oldFqn().clone());
 	}
 
+	@Override
+	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
+		List<D> result = new ArrayList<D>();
+		if(selector.selects(newSignature(),oldDeclaration())) {
+			// Incorporating is done by the component type.
+			result.add((D)oldDeclaration());
+//			Member oldDeclaration = (Member) oldDeclaration();
+//			if(oldDeclaration != null) {
+//				Member overridden = oldDeclaration.clone();
+//				overridden.setOrigin(oldDeclaration);
+//				ComponentRelation componentRelation = nearestAncestor(ComponentRelation.class);
+//				Stub redirector = new ComponentStub(componentRelation, overridden);
+//				redirector.setUniParent(componentRelation.componentType());
+//				result.add((D) overridden);
+//			} else {
+//				throw new LookupException("Cannot find aliased declaration");
+//			}
+		}
+		return result;
+	}
+
+	@Override
+	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+		return new ArrayList<D>();
+	}
+
+	@Override
+	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+		return new ArrayList<D>();
+	}
 }
