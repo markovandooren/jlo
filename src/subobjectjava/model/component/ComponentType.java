@@ -25,10 +25,36 @@ public class ComponentType extends AnonymousType {
 		addInheritanceRelation(new ComponentSubtypeRelation());
 	}
 	
-	@Override
-	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
-		List<InheritanceRelation> result = super.inheritanceRelations();
-		List<Type> superTypes = nearestAncestor(ComponentRelation.class).typesOfOverriddenSubobjects();
+//	@Override
+//	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
+//		List<InheritanceRelation> result = super.inheritanceRelations();
+//		List<Type> superTypes = typesOfOverriddenSubobjects();
+//		for(Type superType:superTypes) {
+//			InheritanceRelation relation = new DirectSubtypeRelation(superType);
+//			relation.setUniParent(this);
+//			result.add(relation);
+//		}
+//		return result;
+//	}
+
+	private List<Type> typesOfOverriddenSubobjects() throws LookupException {
+		ComponentRelation relation = (ComponentRelation) nearestAncestor(ComponentRelation.class).origin();
+		Set<ComponentRelation> overridden = (Set<ComponentRelation>)relation.overriddenMembers();
+		List<ComponentRelation> superSubobjectRelations = new ArrayList<ComponentRelation>();
+		Type outer = farthestAncestor(Type.class);
+		for(ComponentRelation overriddenRelation: overridden) {
+			ComponentRelation sup;
+			if(overriddenRelation.farthestAncestor(Type.class) != outer) {
+				sup = nearestAncestor(ComponentRelation.class).incorporatedIntoComponentType(overriddenRelation);
+			} else {
+				sup = overriddenRelation;
+			}
+			superSubobjectRelations.add(sup);
+		}
+		List<Type> result = new ArrayList<Type>();
+		for(ComponentRelation superSubobjectRelation: superSubobjectRelations) {
+			result.add(superSubobjectRelation.componentType());
+		}
 		return result;
 	}
 	

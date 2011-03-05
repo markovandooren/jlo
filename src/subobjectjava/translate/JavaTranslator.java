@@ -442,9 +442,6 @@ public class JavaTranslator {
 		for(SubtypeRelation rel: result.nonMemberInheritanceRelations(SubtypeRelation.class)) {
 			processSuperComponentParameters(rel);
 		}
-		if(result.getFullyQualifiedName().equals("example.meta.Klass")) {
-			System.out.println("debug");
-		}
 		rebindOverriddenMethods(result,original);
     addStaticHooksForMethodsOverriddenInSuperSubobject(result,original);
     addNonOverriddenStaticHooks(result,original);
@@ -503,6 +500,9 @@ public class JavaTranslator {
 	}
 
 	private void rebindOverriddenMethodsOf(Type result, Type original, Method method) throws LookupException, Error {
+		if(method.name().equals("length")) {
+			System.out.println("debug");
+		}
 		Set<? extends Member> overridden = method.overriddenMembers();
 		if(! overridden.isEmpty()) {
 			final Method tmp = method.clone();

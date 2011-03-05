@@ -313,7 +313,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
    @ post ((ComponentStub)\result.parent()).parent() == componentType();
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
-	public Member incorporatedIntoComponentType(Member toBeIncorporated) throws LookupException {
+	public <M extends Member> M incorporatedIntoComponentType(M toBeIncorporated) throws LookupException {
 		return incorporatedInto(toBeIncorporated, componentType());
 	}
 	
@@ -336,7 +336,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
    @ post ((ComponentStub)\result.parent()).parent() == nearestAncestor(Type.class);
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
-	public Member incorporatedIntoContainerType(Member toBeIncorporated) throws LookupException {
+	public <M extends Member> M incorporatedIntoContainerType(M toBeIncorporated) throws LookupException {
 		return incorporatedInto(toBeIncorporated, nearestAncestor(Type.class));
 	}
 	
@@ -359,8 +359,8 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
    @ post ((ComponentStub)\result.parent()).parent() == type;
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
-	protected Member incorporatedInto(Member toBeIncorporated, Type incorporatingType) throws LookupException {
-		Member result = toBeIncorporated.clone();
+	protected <M extends Member> M incorporatedInto(M toBeIncorporated, Type incorporatingType) throws LookupException {
+		M result = (M) toBeIncorporated.clone();
 		result.setOrigin(toBeIncorporated);
 		Stub redirector = new ComponentStub(this, result);
 		redirector.setUniParent(incorporatingType);
