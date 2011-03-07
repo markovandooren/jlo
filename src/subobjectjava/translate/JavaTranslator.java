@@ -71,6 +71,7 @@ import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.namespacepart.TypeImport;
+import chameleon.core.property.ChameleonProperty;
 import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.CrossReferenceWithArguments;
 import chameleon.core.reference.CrossReferenceWithName;
@@ -131,7 +132,7 @@ public class JavaTranslator {
   		Type translated = translatedImplementation(originalTypes.next());
   		newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
   	}
-  	newNamespacePart.clearImports();
+//  	newNamespacePart.clearImports();
   	for(Import imp: originalNamespacePart.imports()) {
   		newNamespacePart.addImport(imp.clone());
   	}
@@ -457,25 +458,35 @@ public class JavaTranslator {
 		return result;
 	}
 	
-	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,Type original) throws LookupException {
+	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,Type original) throws ModelException {
 		for(ComponentRelation relation: original.descendants(ComponentRelation.class)) {
 			addStaticHooksForMethodsOverriddenInSuperSubobject(result,relation);
 		}
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws LookupException {
+	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws ModelException {
 		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
-		Set<ComponentRelation> overriddenSubobjects = (Set<ComponentRelation>) relation.overriddenMembers(); //Dirty me!
-		
-		List<Method> methods = relation.componentType().members(Method.class);
-		// First, we remove those that are defined in the body of the subobject.
-		// We include them at first because invoking members on the component type
-		// will automatically remove the overridden members from the referenced subobject
-		// type.
-		methods.removeAll(relation.componentType().body().members());
-		for(ComponentRelation overridden: overriddenSubobjects) {
-			List<? extends Declaration> overriddenDeclarations = overridden.componentType().locallyDeclaredDeclarations();
+		List<Member> members = relation.componentType().members();
+		Java lang = relation.language(Java.class);
+		ChameleonProperty ov = lang.OVERRIDABLE;
+		ChameleonProperty def = lang.DEFINED;
+		incorporateImports(relation,result.nearestAncestor(NamespacePart.class));
+		for(Member member: members) {
+			if(member instanceof Method && member.nearestAncestor(ComponentRelation.class) == relation && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
+				Method newMethod = staticMethod(container, (Method) member);
+				newMethod.setUniParent(member.parent());
+				incorporateImports(newMethod);
+				substituteTypeParameters(newMethod);
+				newMethod.setUniParent(null);
+				RegularImplementation implementation = (RegularImplementation) newMethod.implementation();
+				if(implementation == null) {
+					implementation = new RegularImplementation(new Block());
+					newMethod.setImplementation(implementation);
+				}
+				implementation.getBody().clear();
+				container.add(newMethod);
+			}
 		}
 	}
 	
@@ -493,16 +504,13 @@ public class JavaTranslator {
 		Set<ComponentRelation> overriddenRelations = (Set<ComponentRelation>) relation.overriddenMembers();
 	}
 	
-	private void rebindOverriddenMethods(Type result, Type original) throws LookupException {
+	private void rebindOverriddenMethods(Type result, Type original) throws ModelException {
 		for(final Method method: original.descendants(Method.class)) {
 			rebindOverriddenMethodsOf(result, original, method);
 		}
 	}
 
-	private void rebindOverriddenMethodsOf(Type result, Type original, Method method) throws LookupException, Error {
-		if(method.name().equals("length")) {
-			System.out.println("debug");
-		}
+	private void rebindOverriddenMethodsOf(Type result, Type original, Method method) throws Error, ModelException {
 		Set<? extends Member> overridden = method.overriddenMembers();
 		if(! overridden.isEmpty()) {
 			final Method tmp = method.clone();
@@ -539,7 +547,7 @@ public class JavaTranslator {
 		}
 	}
 
-	private void rebind(Type container, Type original, Method<?,?,?,?> newDefinition, Method toBeRebound) throws LookupException {
+	private void rebind(Type container, Type original, Method<?,?,?,?> newDefinition, Method toBeRebound) throws ModelException {
 		Type containerOfNewDefinition = containerOfDefinition(container,original, newDefinition);
 		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
 		List<Element> trailOfRootInOriginal = filterAncestors(rootOfNewDefinitionInOriginal);
@@ -564,7 +572,6 @@ public class JavaTranslator {
 			System.out.println("----------------------");
 			String thisName = containerOfNewDefinition.getFullyQualifiedName();
 			Method reboundMethod = createOutward(toBeRebound, newDefinition.name(),thisName);
-			String newName = staticMethodName(reboundMethod,containerOfToBebound);
 			//FIXME this is tricky.
 			reboundMethod.setUniParent(toBeRebound);
 			Implementation<Implementation> impl = reboundMethod.implementation();
@@ -574,9 +581,7 @@ public class JavaTranslator {
 			reboundMethod.setUniParent(null);
 			containerOfToBebound.add(reboundMethod);
 			
-			Method<?,?,?,?> staticReboundMethod = reboundMethod.clone();
-			staticReboundMethod.addModifier(new Final());
-			staticReboundMethod.setName(newName);
+			Method<?, ?, ?, ?> staticReboundMethod = staticMethod(containerOfToBebound, reboundMethod);
 			String name = containerOfNewDefinition.getFullyQualifiedName().replace('.', '_');
 			for(SimpleNameMethodInvocation inv:staticReboundMethod.descendants(SimpleNameMethodInvocation.class)) {
 				name = toImplName(name);
@@ -585,6 +590,21 @@ public class JavaTranslator {
 			containerOfToBebound.add(staticReboundMethod);
 			containerOfToBebound.flushCache();
 		}
+	}
+
+	private Method<?, ?, ?, ?> staticMethod(Type containerOfToBebound, Method<?,?,?,?> reboundMethod) throws ModelException {
+		Method<?,?,?,?> staticReboundMethod = reboundMethod.clone();
+		staticReboundMethod.setOrigin(reboundMethod);
+		String newName = staticMethodName(reboundMethod,containerOfToBebound);
+//		staticReboundMethod.addModifier(new Final());
+		ChameleonProperty nat = reboundMethod.language(Java.class).NATIVE;
+		staticReboundMethod.setUniParent(reboundMethod.parent());
+		for(Modifier modifier: staticReboundMethod.modifiers(nat)) {
+			modifier.disconnect();
+		}
+		staticReboundMethod.setUniParent(null);
+		staticReboundMethod.setName(newName);
+		return staticReboundMethod;
 	}
 
 	private String staticMethodName(String methodName,Type containerOfToBebound) {
@@ -1104,6 +1124,22 @@ public class JavaTranslator {
 		incorporateImports(relationBeingTranslated, relationBeingTranslated.farthestAncestor(NamespacePart.class));
 	}
 
+	private void incorporateImports(Method<?,?,?,?> method) throws LookupException {
+		Java java = method.language(Java.class);
+		NamespacePart namespacePart = method.nearestAncestor(NamespacePart.class);
+		for(TypeReference tref: method.descendants(TypeReference.class)) {
+			try {
+			Type type = tref.getElement().baseType();
+			if(type instanceof RegularType) {
+				TypeReference importRef = java.createTypeReference(type.getFullyQualifiedName());
+				namespacePart.addImport(new TypeImport(importRef));
+			}
+			} catch(LookupException exc) {
+				tref.getElement();
+			}
+		}
+	}
+	
 	/**
 	 * Incorporate the imports of the namespace part of the declared type of the component relation to
 	 * the given namespace part.
@@ -1290,6 +1326,33 @@ public class JavaTranslator {
 				childLink.replace(parentLink, namedTargetExpression.parentLink());
 			}
 	}
+
+//	private void substituteTypeParameters(Element<?> element,NamespacePart nsp) throws LookupException {
+//		List<TypeReference> crossReferences = 
+//			element.descendants(TypeReference.class, 
+//					new UnsafePredicate<TypeReference,LookupException>() {
+//				public boolean eval(TypeReference object) throws LookupException {
+//					try {
+//						return object.getDeclarator() instanceof InstantiatedTypeParameter;
+//					} catch (LookupException e) {
+//						e.printStackTrace();
+//						throw e;
+//					}
+//				}
+//			});
+//		for(TypeReference cref: crossReferences) {
+//				SingleAssociation parentLink = cref.parentLink();
+//				Association childLink = parentLink.getOtherRelation();
+//				InstantiatedTypeParameter declarator = (InstantiatedTypeParameter) cref.getDeclarator(); 
+//				Type type = cref.getElement();
+//				while(type instanceof ActualType) {
+//					type = ((ActualType)type).aliasedType();
+//				}
+//				TypeReference namedTargetExpression = element.language(ObjectOrientedLanguage.class).createTypeReference(type.getFullyQualifiedName());
+//				nsp.addImport(new TypeImport(namedTargetExpression.clone()));
+//				childLink.replace(parentLink, namedTargetExpression.parentLink());
+//			}
+//	}
 
 	private String innerClassName(Type outer, QualifiedName qn) {
 		StringBuffer result = new StringBuffer();
