@@ -21,6 +21,8 @@ import org.rejuse.predicate.SafePredicate;
 import org.rejuse.predicate.UnsafePredicate;
 import org.rejuse.property.Property;
 
+import quicktime.std.image.NearestPointInfo;
+
 import subobjectjava.model.component.AbstractClause;
 import subobjectjava.model.component.ActualComponentArgument;
 import subobjectjava.model.component.ComponentNameActualArgument;
@@ -321,7 +323,7 @@ public class JavaTranslator {
 
 	private void copyTypeParametersIfNecessary(Type type) {
 		Type outmost = type.farthestAncestor(Type.class);
-		if(outmost != null) {
+		if(outmost != null && (! type.isTrue(type.language(Java.class).CLASS))) {
 			List<TypeParameter> typeParameters = outmost.parameters(TypeParameter.class);
 			ParameterBlock tpars = type.parameterBlock(TypeParameter.class);
 			if(tpars == null) {
@@ -337,7 +339,7 @@ public class JavaTranslator {
 	private void makePublic(ElementWithModifiers<?> element) throws ModelException {
 		Java language = element.language(Java.class);
 		Property access = element.property(language.SCOPE_MUTEX);
-		if(access != language.PRIVATE) {
+		if(access != language.PUBLIC) {
 			for(Modifier mod: element.modifiers(language.SCOPE_MUTEX)) {
 				mod.disconnect();
 			}
@@ -461,7 +463,7 @@ public class JavaTranslator {
 	
 	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,Type original) throws ModelException {
 		for(ComponentRelation relation: original.descendants(ComponentRelation.class)) {
-			addStaticHooksForMethodsOverriddenInSuperSubobject(result,relation);
+//			addStaticHooksForMethodsOverriddenInSuperSubobject(result,relation);
 		}
 	}
 	
@@ -789,36 +791,61 @@ public class JavaTranslator {
 
 	private void implementOwnInterface(Type type) {
 		JLo language = type.language(JLo.class);
-		if(!type.isTrue(language.PRIVATE)) {
+//		if(!type.isTrue(language.PRIVATE)) {
 			String oldFQN = type.getFullyQualifiedName();
+			if(oldFQN.contains("jlo.graph.WeightedDigraph.MyPair_implementation")) {
+				System.out.println("debug");
+			}
+			if(oldFQN.equals("jlo.graph.Digraph_implementation")) {
+				System.out.println("debug");
+			}
 			BasicJavaTypeReference createTypeReference = language.createTypeReference(oldFQN);
 			transformToInterfaceReference(createTypeReference);
+			// Copy own type parameters
+//			List<TypeParameter> tpars = type.parameters(TypeParameter.class);
+//			for(TypeParameter parameter:tpars) {
+//				createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
+//			}
+			// Copy type parameters from outer classes if necessary
 			copyTypeParametersIfNecessary(type, createTypeReference);
 			SubtypeRelation relation = new SubtypeRelation(createTypeReference);
 			relation.addModifier(new Implements());
 			type.addInheritanceRelation(relation);
-		}
+//		}
 	}
 
 
 	private void copyTypeParametersIfNecessary(Type type, BasicJavaTypeReference createTypeReference) {
-		Java language = type.language(Java.class);
-		if(! (type.is(language.CLASS) == Ternary.TRUE)) {
-			copyTypeParametersFromFarthestAncestor(type, createTypeReference);
-		}
+		copyTypeParametersFromAncestors(type, createTypeReference);
 	}
 
 
 
 
-	private void copyTypeParametersFromFarthestAncestor(Element<?> type, BasicJavaTypeReference createTypeReference) {
-		Type farthestAncestor = type.farthestAncestorOrSelf(Type.class);
+	private void copyTypeParametersFromAncestors(Element<?> type, BasicJavaTypeReference createTypeReference) {
+		Type ancestor = type.nearestAncestorOrSelf(Type.class);
 		Java language = type.language(Java.class);
-		List<TypeParameter> tpars = farthestAncestor.parameters(TypeParameter.class);
-		for(TypeParameter parameter:tpars) {
-			createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
+		while(ancestor != null) {
+			List<TypeParameter> tpars = ancestor.parameters(TypeParameter.class);
+			for(TypeParameter parameter:tpars) {
+				createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
+			}
+			if(type.isTrue(language.CLASS)) {
+				ancestor = null;
+			} else {
+			  ancestor = ancestor.nearestAncestor(Type.class);
+			}
 		}
 	}
+	
+//	private void copyTypeParametersFromFarthestAncestor(Element<?> type, BasicJavaTypeReference createTypeReference) {
+//		Type farthestAncestor = type.farthestAncestorOrSelf(Type.class);
+//		Java language = type.language(Java.class);
+//		List<TypeParameter> tpars = farthestAncestor.parameters(TypeParameter.class);
+//		for(TypeParameter parameter:tpars) {
+//			createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
+//		}
+//	}
 	
 	private void processSuperComponentParameters(AbstractInheritanceRelation<?> relation) throws LookupException {
 		TypeReference tref = relation.superClassReference();
@@ -1465,7 +1492,7 @@ public class JavaTranslator {
 
 	private BasicJavaTypeReference componentTypeReference(ComponentRelation relation, Type outer) throws LookupException {
 		BasicJavaTypeReference tref = innerClassTypeReference(relation,outer);
-		copyTypeParametersFromFarthestAncestor(outer,tref);
+		copyTypeParametersFromAncestors(outer,tref);
 		transformToInterfaceReference(tref);
 		return tref;
 	}
