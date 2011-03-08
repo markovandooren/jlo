@@ -216,7 +216,8 @@ public class JavaTranslator {
 		for(ConstructorInvocation invocation: invocations) {
 			try {
 				Type constructedType = invocation.getType();
-				if(isJLo(constructedType) && (! constructedType.isTrue(language.PRIVATE))) {
+				if(isJLo(constructedType) //&& (! constructedType.isTrue(language.PRIVATE))
+						) {
 					transformToImplReference((CrossReferenceWithName) invocation.getTypeReference());
 				}
 			} catch(LookupException exc) {
@@ -295,7 +296,7 @@ public class JavaTranslator {
 					}
 				}
 				if((decl.is(language.CONSTRUCTOR) == Ternary.TRUE) ||
-					 (decl.is(language.PRIVATE) == Ternary.TRUE) ||
+					 (decl.is(language.PRIVATE) == Ternary.TRUE && (! (decl instanceof Type))) ||
 					 (decl instanceof VariableDeclarator && (! (decl.is(language.CLASS) == Ternary.TRUE)))) {
 					decl.disconnect();
 				}
@@ -751,7 +752,7 @@ public class JavaTranslator {
 
 	private void transformToImpl(Type type) throws ModelException {
 		JLo lang = type.language(JLo.class);
-		if(! type.isTrue(lang.PRIVATE)) {
+//		if(! type.isTrue(lang.PRIVATE)) {
 			// Change the name of the outer type.
 			// What a crappy code. I would probably be easier to not add IMPL
 			// to the generated subobject class in the first place, but add
@@ -783,7 +784,7 @@ public class JavaTranslator {
 					makePublic(decl);
 				}
 			}
-		}
+//		}
 	}
 
 	private void implementOwnInterface(Type type) {
@@ -1130,7 +1131,7 @@ public class JavaTranslator {
 		for(TypeReference tref: method.descendants(TypeReference.class)) {
 			try {
 			Type type = tref.getElement().baseType();
-			if(type instanceof RegularType) {
+			if(type instanceof RegularType && (! type.isTrue(java.PRIMITIVE_TYPE))) {
 				TypeReference importRef = java.createTypeReference(type.getFullyQualifiedName());
 				namespacePart.addImport(new TypeImport(importRef));
 			}
