@@ -21,8 +21,6 @@ import org.rejuse.predicate.SafePredicate;
 import org.rejuse.predicate.UnsafePredicate;
 import org.rejuse.property.Property;
 
-import quicktime.std.image.NearestPointInfo;
-
 import subobjectjava.model.component.AbstractClause;
 import subobjectjava.model.component.ActualComponentArgument;
 import subobjectjava.model.component.ComponentNameActualArgument;
@@ -109,7 +107,6 @@ import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
-import chameleon.support.modifier.Final;
 import chameleon.support.modifier.Interface;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
@@ -212,8 +209,7 @@ public class JavaTranslator {
 		return interfaceCompilationUnit;
 	}
 	
-	private void rewriteConstructorCalls(Element<?> type) throws LookupException {
-		Java language = type.language(Java.class);
+	private void replaceConstructorCalls(Element<?> type) throws LookupException {
 		List<ConstructorInvocation> invocations = type.descendants(ConstructorInvocation.class);
 		for(ConstructorInvocation invocation: invocations) {
 			try {
@@ -228,7 +224,7 @@ public class JavaTranslator {
 		}
 	}
 
-	private void rewriteThisLiterals(Element<?> type) throws LookupException {
+	private void replaceThisLiterals(Element<?> type) throws LookupException {
 		List<ThisLiteral> literals = type.descendants(ThisLiteral.class);
 		for(ThisLiteral literal: literals) {
 			TypeReference typeReference = literal.getTypeReference();
@@ -238,7 +234,7 @@ public class JavaTranslator {
 		}
 	}
 
-	private void rewriteComponentAccess(Element<?> type) throws LookupException {
+	private void replaceComponentAccess(Element<?> type) throws LookupException {
 		List<CrossReference> literals = type.descendants(CrossReference.class);
 		for(CrossReference literal: literals) {
 			if((literal instanceof CrossReferenceWithTarget)) {
@@ -388,7 +384,8 @@ public class JavaTranslator {
 		if(! name.endsWith(IMPL)) {
 			throw new IllegalArgumentException();
 		}
-		return name.substring(0, name.length()-IMPL.length());
+		//return name.substring(0, name.length()-IMPL.length());
+		return name.replaceAll(IMPL,"");
 	}
 	
 	/**
@@ -397,6 +394,7 @@ public class JavaTranslator {
 	 */
 	private Type translatedImplementation(Type original) throws ChameleonProgrammerException, ModelException {
 		Type result = original.clone();
+		result.setOrigin(original);
 		result.setUniParent(original.parent());
 		List<ComponentRelation> relations = original.directlyDeclaredMembers(ComponentRelation.class);
 		for(ComponentRelation relation : relations) {
@@ -420,7 +418,7 @@ public class JavaTranslator {
 		}
 		replaceSuperCalls(result);
 		for(ComponentRelation relation: result.directlyDeclaredMembers(ComponentRelation.class)) {
-			replaceConstructorCalls(relation);
+			replaceSubobjectConstructorCalls(relation);
 
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,result);
 			if(fieldForComponent != null) {
@@ -449,21 +447,21 @@ public class JavaTranslator {
 		rebindOverriddenMethods(result,original);
     addStaticHooksForMethodsOverriddenInSuperSubobject(result,original);
     addNonOverriddenStaticHooks(result,original);
-		rewriteConstructorCalls(result);
-		rewriteThisLiterals(result);
-		rewriteComponentAccess(result);
+		replaceThisLiterals(result);
+		replaceComponentAccess(result);
 		expandReferences(result);
 		removeNonLocalReferences(result);
 		
 		// The result is still temporarily attached to the original model.
 		transformToImplRecursive(result);
+		replaceConstructorCalls(result);
 		result.setUniParent(null);
 		return result;
 	}
 	
 	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,Type original) throws ModelException {
 		for(ComponentRelation relation: original.descendants(ComponentRelation.class)) {
-//			addStaticHooksForMethodsOverriddenInSuperSubobject(result,relation);
+			addStaticHooksForMethodsOverriddenInSuperSubobject(result,relation);
 		}
 	}
 	
@@ -471,6 +469,7 @@ public class JavaTranslator {
 	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws ModelException {
 		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
 		List<Member> members = relation.componentType().members();
+		members.removeAll(relation.componentType().directlyDeclaredMembers());
 		Java lang = relation.language(Java.class);
 		ChameleonProperty ov = lang.OVERRIDABLE;
 		ChameleonProperty def = lang.DEFINED;
@@ -478,20 +477,34 @@ public class JavaTranslator {
 		for(Member member: members) {
 			if(member instanceof Method && member.nearestAncestor(ComponentRelation.class) == relation && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
 				Method newMethod = staticMethod(container, (Method) member);
+				if(newMethod.name().equals("example_meta_Klass_Klass_subobject_superTypes_isValid")) {
+					System.out.println("debug");
+				}
 				newMethod.setUniParent(member.parent());
 				incorporateImports(newMethod);
 				substituteTypeParameters(newMethod);
 				newMethod.setUniParent(null);
-				RegularImplementation implementation = (RegularImplementation) newMethod.implementation();
-				if(implementation == null) {
-					implementation = new RegularImplementation(new Block());
-					newMethod.setImplementation(implementation);
-				}
-				implementation.getBody().clear();
+				createSuperImplementation(newMethod,(Method) member);
+//				RegularImplementation implementation = (RegularImplementation) newMethod.implementation();
+//				if(implementation == null) {
+//					implementation = new RegularImplementation(new Block());
+//					newMethod.setImplementation(implementation);
+//				}
+//				implementation.getBody().clear();
 				container.add(newMethod);
 			}
 		}
 	}
+	
+  public void createSuperImplementation(Method<?,?,?,?> method, Method original) throws LookupException {
+  	Block body = new Block();
+  	method.setImplementation(new RegularImplementation(body));
+  	MethodInvocation invocation = invocation(method, original.signature().name());
+  	invocation.setTarget(new SuperTarget());
+  	addImplementation(original, body, invocation);
+}
+
+
 	
 	private void addNonOverriddenStaticHooks(Type result,Type original) throws LookupException {
 		for(ComponentRelation relation: original.descendants(ComponentRelation.class)) {
@@ -611,7 +624,15 @@ public class JavaTranslator {
 	}
 
 	private String staticMethodName(String methodName,Type containerOfToBebound) {
-		return stripImpl(containerOfToBebound.getFullyQualifiedName().replace('.', '_')+"_"+methodName);
+//		String tmp = containerOfToBebound.getFullyQualifiedName().replace("\\.", SHADOW)+"_"+methodName;
+		String tmp = containerOfToBebound.getFullyQualifiedName().replace('.', '_')+"_"+methodName;
+		return stripImpl(tmp);
+	}
+	
+	private String superName(ComponentRelation relation) {
+		StringBuffer result = new StringBuffer();
+		
+		return result.toString();
 	}
 
 	private String staticMethodName(Method clone,Type containerOfToBebound) {
@@ -793,12 +814,6 @@ public class JavaTranslator {
 		JLo language = type.language(JLo.class);
 //		if(!type.isTrue(language.PRIVATE)) {
 			String oldFQN = type.getFullyQualifiedName();
-			if(oldFQN.contains("jlo.graph.WeightedDigraph.MyPair_implementation")) {
-				System.out.println("debug");
-			}
-			if(oldFQN.equals("jlo.graph.Digraph_implementation")) {
-				System.out.println("debug");
-			}
 			BasicJavaTypeReference createTypeReference = language.createTypeReference(oldFQN);
 			transformToInterfaceReference(createTypeReference);
 			// Copy own type parameters
@@ -1014,7 +1029,10 @@ public class JavaTranslator {
 		return result;
 	}
 
-	private void replaceConstructorCalls(final ComponentRelation relation) throws LookupException {
+	private void replaceSubobjectConstructorCalls(final ComponentRelation relation) throws LookupException {
+		if(relation.name().equals("incoming")) {
+			System.out.println("debug");
+		}
 		Type type = relation.nearestAncestor(Type.class);
 		List<SubobjectConstructorCall> constructorCalls = type.descendants(SubobjectConstructorCall.class, new UnsafePredicate<SubobjectConstructorCall,LookupException>() {
 			@Override
@@ -1384,9 +1402,8 @@ public class JavaTranslator {
 
 	private String innerClassName(Type outer, QualifiedName qn) {
 		StringBuffer result = new StringBuffer();
-		result.append(outer.signature().name());
-		result.append(SHADOW);
 		List<Signature> sigs = qn.signatures();
+//		sigs.add(0, outer.signature());
 		int size = sigs.size();
 		for(int i = 0; i < size; i++) {
 			result.append(((SimpleNameSignature)sigs.get(i)).name());
@@ -1399,7 +1416,7 @@ public class JavaTranslator {
 	}
 	
 	private String innerClassName(ComponentRelation relation, Type outer) throws LookupException {
-		return innerClassName(outer, relation.signature()); 
+		return innerClassName((Type) outer.origin(), relation.signature()); 
 	}
 	
 	private void replaceSuperCalls(Type type) throws LookupException {
