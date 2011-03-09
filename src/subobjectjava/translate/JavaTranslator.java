@@ -320,7 +320,7 @@ public class JavaTranslator extends AbstractTranslator {
 			// Create the inner classes for the components
 			inner(result, relation, result,original);
 			result.flushCache();
-			addAliasDelegations(relation, result);
+			addAliasDelegations(relation, result,original);
 			result.flushCache();
 		}
 		replaceSuperCalls(result);
@@ -352,8 +352,8 @@ public class JavaTranslator extends AbstractTranslator {
 			processSuperComponentParameters(rel);
 		}
 		rebindOverriddenMethods(result,original);
-    addStaticHooksForMethodsOverriddenInSuperSubobject(result,original);
-    addNonOverriddenStaticHooks(result,original);
+		addStaticHooksForMethodsOverriddenInSuperSubobject(result,original);
+		addNonOverriddenStaticHooks(result,original);
 		replaceThisLiterals(result);
 		replaceComponentAccess(result);
 		expandReferences(result);
@@ -384,20 +384,11 @@ public class JavaTranslator extends AbstractTranslator {
 		for(Member member: members) {
 			if(member instanceof Method && member.nearestAncestor(ComponentRelation.class) == relation && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
 				Method newMethod = staticMethod(container, (Method) member);
-				if(newMethod.name().equals("example_meta_Klass_Klass_subobject_superTypes_isValid")) {
-					System.out.println("debug");
-				}
 				newMethod.setUniParent(member.parent());
 				incorporateImports(newMethod);
 				substituteTypeParameters(newMethod);
 				newMethod.setUniParent(null);
 				createSuperImplementation(newMethod,(Method) member);
-//				RegularImplementation implementation = (RegularImplementation) newMethod.implementation();
-//				if(implementation == null) {
-//					implementation = new RegularImplementation(new Block());
-//					newMethod.setImplementation(implementation);
-//				}
-//				implementation.getBody().clear();
 				container.add(newMethod);
 			}
 		}
@@ -433,15 +424,15 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void rebindOverriddenMethodsOf(Type result, Type original, Method method) throws Error, ModelException {
+	private void rebindOverriddenMethodsOf(Type result, Type original, Method<?,?,?,?> method) throws Error, ModelException {
 		Set<? extends Member> overridden = method.overriddenMembers();
+		Java language = method.language(Java.class);
 		if(! overridden.isEmpty()) {
+		if(! method.isTrue(language.CONSTRUCTOR)) {
 			final Method tmp = method.clone();
-//			Type containerOfNewDefinition = createOrGetInnerTypeForMethod(result, original, method);
 			Type containerOfNewDefinition = containerOfDefinition(result,original, method);
 			if(containerOfNewDefinition != null) {
 				tmp.setUniParent(containerOfNewDefinition);
-				//				substituteTypeParameters(method);
 				DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
 					@Override
 					public Signature signature() {
@@ -449,21 +440,16 @@ public class JavaTranslator extends AbstractTranslator {
 					}
 				};
 				Method newDefinitionInResult = null;
-				try {
-					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-				} catch (IndexOutOfBoundsException e) {
-					containerOfNewDefinition = containerOfDefinition(result, original, method);
-					newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-				}
+				newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
 				Method<?,?,?,?> stat = newDefinitionInResult.clone();
 				String name = staticMethodName(method, containerOfNewDefinition);
-//				String name = staticMethodName(method);
 				stat.setName(name);
 				containerOfNewDefinition.add(stat);
 				if(!stat.descendants(ComponentParameterCall.class).isEmpty()) {
 					throw new Error();
 				}
 			}
+		}
 		}
 		for(Member toBeRebound: overridden) {
 			rebind(result, original, method, (Method) toBeRebound);
@@ -948,28 +934,49 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
-	private void addAliasDelegations(ComponentRelation relation, Type outer) throws LookupException {
-		ConfigurationBlock block = relation.configurationBlock();
-		if(block != null) {
+	private void addAliasDelegations(ComponentRelation relation, Type outer, Type original) throws LookupException {
 			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
 			List<Method> elements = methodsOfComponentBody(componentTypeDeclaration);
-			for(ConfigurationClause clause: block.clauses()) {
-				if(clause instanceof AbstractClause) {
-					AbstractClause ov = (AbstractClause)clause;
-					final QualifiedName poppedName = ov.oldFqn().popped();
+			for(ConfigurationClause clause: relation.clauses()) {
+				if(clause instanceof RenamingClause) {
+					RenamingClause ov = (RenamingClause)clause;
+//					final QualifiedName poppedName = ov.oldFqn().popped();
 //					Type targetInnerClass = searchInnerClass(outer, relation, poppedName);
 					Declaration decl = ov.oldDeclaration();
 					if(decl instanceof Method) {
 						final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
-						if(ov instanceof RenamingClause) {
-							outer.add(createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name()));
-						}
+						Method alias = createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name());
+						outer.add(alias);
+						outer.add(staticAlias(alias,method,original));
 					}
 				}
 			}
-		}
 	}
 	
+	private Method createAlias(ComponentRelation relation, Method<?,?,?,?> method, String newName) throws LookupException {
+		NormalMethod<?,?,?> result;
+		result = innerMethod(method, newName);
+		Block body = new Block();
+		result.setImplementation(new RegularImplementation(body));
+		MethodInvocation invocation = invocation(result, method.name());
+		Expression target = new JavaMethodInvocation(getterName(relation), null);
+		invocation.setTarget(target);
+		substituteTypeParameters(method, result);
+		addImplementation(method, body, invocation);
+		return result;
+	}
+	
+	private Method staticAlias(Method alias, Method<?,?,?,?> aliasedMethod, Type original) {
+		Method<?,?,?,?> result = alias.clone();
+		result.setName(staticMethodName(alias, original));
+//		for(SimpleNameMethodInvocation invocation:result.descendants(SimpleNameMethodInvocation.class)) {
+//			if(invocation.getTarget() != null) {
+//				invocation.setName(staticMethodName(aliasedMethod, aliasedMethod.nearestAncestor(Type.class)));
+//			}
+//		}
+		return result;
+	}
+
 	private List<Method> methodsOfComponentBody(TypeWithBody componentTypeDeclaration) {
 		List<Method> elements;
 		if(componentTypeDeclaration != null) {
@@ -978,33 +985,6 @@ public class JavaTranslator extends AbstractTranslator {
 			elements = new ArrayList<Method>();
 		}
 		return elements;
-	}
-
-//	private boolean containsMethodWithSameSignature(List<Method> elements, final Method<?, ?, ?, ?> method) throws LookupException {
-//		boolean overriddenInSubobject = new UnsafePredicate<Method, LookupException>() {
-//			public boolean eval(Method subobjectMethod) throws LookupException {
-//				return subobjectMethod.signature().sameAs(method.signature());
-//			}
-//		}.exists(elements);
-//		return overriddenInSubobject;
-//	}
-	
-	private Method createAlias(ComponentRelation relation, Method<?,?,?,?> method, String newName) throws LookupException {
-		NormalMethod<?,?,?> result;
-		result = innerMethod(method, newName);
-		Block body = new Block();
-		result.setImplementation(new RegularImplementation(body));
-		MethodInvocation invocation = invocation(result, method.name());
-// We now bind to the regular method name in case the method has not been overridden
-// and there is no 'original' method.
-// If it is overridden, then this adds 1 extra delegation, so we should optimize it later on.
-//		Invocation invocation = invocation(result, original(method.name()));
-		
-		Expression target = new JavaMethodInvocation(getterName(relation), null);
-		invocation.setTarget(target);
-		substituteTypeParameters(method, result);
-		addImplementation(method, body, invocation);
-		return result;
 	}
 
 	

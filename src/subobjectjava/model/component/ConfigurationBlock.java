@@ -27,7 +27,7 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock>
 	@Override
 	public ConfigurationBlock clone() {
 		ConfigurationBlock result = new ConfigurationBlock();
-		for(ConfigurationClause<?> clause:clauses()) {
+		for(ConfigurationClause<?> clause:localClauses()) {
 			result.add(clause.clone());
 		}
 		return result;
@@ -62,9 +62,10 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock>
 	  }
 	}
 	
-	public List<ConfigurationClause> clauses() {
+	public List<ConfigurationClause> clauses() throws LookupException {
 		//FIXME implement furtherbinding by including the clauses of overriden component relations.
-		return _elements.getOtherEnds();
+		List<ConfigurationClause> result = localClauses();
+		return result;
 	}
 
 	public List<ConfigurationClause> localClauses() {

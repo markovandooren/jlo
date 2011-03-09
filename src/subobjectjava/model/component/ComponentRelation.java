@@ -183,6 +183,21 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
     return _configurationBlock.getOtherEnd();
   }
   
+  public List<ConfigurationClause> clauses() throws LookupException {
+	  List<ConfigurationClause> result;
+	  ConfigurationBlock block = configurationBlock();
+	  if(block == null) {
+		  result = new ArrayList<ConfigurationClause>();
+	  } else {
+		  result = block.clauses();
+	  }
+	  Set<ComponentRelation> overridden = (Set<ComponentRelation>) overriddenMembers();
+	  for(ComponentRelation relation: overridden) {
+		  result.addAll(relation.configurationBlock().clauses());
+	  }
+	  return result;
+  }
+  
   private SingleAssociation<ComponentRelation, ConfigurationBlock> _configurationBlock = new SingleAssociation<ComponentRelation, ConfigurationBlock>(this);
 
 	public LookupStrategy targetContext() throws LookupException {
