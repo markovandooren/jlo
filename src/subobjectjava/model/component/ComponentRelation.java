@@ -25,6 +25,7 @@ import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.lookup.Stub;
+import chameleon.core.member.HidesRelation;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
 import chameleon.core.member.MemberRelationSelector;
@@ -394,7 +395,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return new MemberRelationSelector<ComponentRelation>(ComponentRelation.class,this,_overridesSelector);
 	}
 
-  public OverridesRelation<? extends Member> overridesRelation() {
+  public OverridesRelation<? extends ComponentRelation> overridesRelation() {
   	return _overridesSelector;
   }
   
@@ -407,10 +408,22 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 
 		@Override
 		public boolean containsBasedOnName(Signature first, Signature second) throws LookupException {
-			return first.name().equals(second.name());
+			return first.sameAs(second);
 		}
 	};
 	
+  public HidesRelation<? extends ComponentRelation> hidesRelation() {
+		return _hidesSelector;
+  }
+  
+  private static HidesRelation<ComponentRelation> _hidesSelector = new HidesRelation<ComponentRelation>(ComponentRelation.class) {
+		
+		public boolean containsBasedOnRest(ComponentRelation first, ComponentRelation second) throws LookupException {
+			return true;
+		}
+
+	};
+
 	 /*@
 	   @ public behavior
 	   @

@@ -320,7 +320,7 @@ public class JavaTranslator extends AbstractTranslator {
 			// Create the inner classes for the components
 			inner(result, relation, result,original);
 			result.flushCache();
-			addAliasDelegations(relation, result,original);
+//			addAliasDelegations(relation, result,original);
 			result.flushCache();
 		}
 		replaceSuperCalls(result);
@@ -381,8 +381,11 @@ public class JavaTranslator extends AbstractTranslator {
 		ChameleonProperty ov = lang.OVERRIDABLE;
 		ChameleonProperty def = lang.DEFINED;
 		incorporateImports(relation,result.nearestAncestor(NamespacePart.class));
+		if(relation.componentType().getFullyQualifiedName().equals("radio.Radio.frequency")) {
+			System.out.println("debug");
+		}
 		for(Member member: members) {
-			if(member instanceof Method && member.nearestAncestor(ComponentRelation.class) == relation && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
+			if(member instanceof Method && member.ancestors().contains(relation) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
 				Method newMethod = staticMethod(container, (Method) member);
 				newMethod.setUniParent(member.parent());
 				incorporateImports(newMethod);
@@ -932,22 +935,26 @@ public class JavaTranslator extends AbstractTranslator {
 			substituteTypeParameters(clonedNestedRelation);
 			inner(innerClass, clonedNestedRelation, outer,outerTypeBeingTranslated);
 		}
+		addAliasDelegations(relation, innerClass.nearestAncestor(Type.class),relation.nearestAncestor(Type.class));
 	}
 	
 	private void addAliasDelegations(ComponentRelation relation, Type outer, Type original) throws LookupException {
 			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
-			List<Method> elements = methodsOfComponentBody(componentTypeDeclaration);
-			for(ConfigurationClause clause: relation.clauses()) {
-				if(clause instanceof RenamingClause) {
-					RenamingClause ov = (RenamingClause)clause;
-//					final QualifiedName poppedName = ov.oldFqn().popped();
-//					Type targetInnerClass = searchInnerClass(outer, relation, poppedName);
-					Declaration decl = ov.oldDeclaration();
-					if(decl instanceof Method) {
-						final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
-						Method alias = createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name());
-						outer.add(alias);
-						outer.add(staticAlias(alias,method,original));
+//			List<Method> elements = methodsOfComponentBody(componentTypeDeclaration);
+			ConfigurationBlock block = relation.configurationBlock();
+			if(block != null) {
+				for(ConfigurationClause clause: block.clauses()) {
+					if(clause instanceof RenamingClause) {
+						RenamingClause ov = (RenamingClause)clause;
+						//					final QualifiedName poppedName = ov.oldFqn().popped();
+						//					Type targetInnerClass = searchInnerClass(outer, relation, poppedName);
+						Declaration decl = ov.oldDeclaration();
+						if(decl instanceof Method) {
+							final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
+							Method alias = createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name());
+							outer.add(alias);
+							outer.add(staticAlias(alias,method,original));
+						}
 					}
 				}
 			}
@@ -968,12 +975,16 @@ public class JavaTranslator extends AbstractTranslator {
 	
 	private Method staticAlias(Method alias, Method<?,?,?,?> aliasedMethod, Type original) {
 		Method<?,?,?,?> result = alias.clone();
-		result.setName(staticMethodName(alias, original));
-//		for(SimpleNameMethodInvocation invocation:result.descendants(SimpleNameMethodInvocation.class)) {
-//			if(invocation.getTarget() != null) {
-//				invocation.setName(staticMethodName(aliasedMethod, aliasedMethod.nearestAncestor(Type.class)));
-//			}
-//		}
+		String name = staticMethodName(alias, original);
+		if(name.equals("radio_Radio_frequency_setValue")) {
+			System.out.println("debug");
+		}
+		result.setName(name);
+		for(SimpleNameMethodInvocation invocation:result.descendants(SimpleNameMethodInvocation.class)) {
+			if(invocation.getTarget() != null) {
+				invocation.setName(staticMethodName(aliasedMethod, aliasedMethod.nearestAncestor(Type.class)));
+			}
+		}
 		return result;
 	}
 
