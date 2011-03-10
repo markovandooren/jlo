@@ -21,6 +21,7 @@ import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationContainerSkipper;
 import chameleon.core.lookup.DeclarationSelector;
+import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.lookup.Stub;
@@ -200,8 +201,8 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
   
   private SingleAssociation<ComponentRelation, ConfigurationBlock> _configurationBlock = new SingleAssociation<ComponentRelation, ConfigurationBlock>(this);
 
-	public LookupStrategy targetContext() throws LookupException {
-		return componentType().localStrategy();
+	public LocalLookupStrategy<?> targetContext() throws LookupException {
+		return componentType().targetContext();
 	}
 
 	public Type declarationType() throws LookupException {

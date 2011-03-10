@@ -5,6 +5,7 @@ import java.util.List;
 
 import chameleon.core.element.Element;
 import chameleon.core.expression.InvocationTarget;
+import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.namespace.NamespaceElementImpl;
@@ -35,7 +36,7 @@ public abstract class AbstractTarget<E extends AbstractTarget<E>> extends Namesp
 
 	public abstract Type getTargetDeclaration();
 	
-	public LookupStrategy targetContext() throws LookupException {
+	public LocalLookupStrategy<?> targetContext() throws LookupException {
 	  return getTargetDeclaration().targetContext();
 	}
 

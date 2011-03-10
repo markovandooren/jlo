@@ -10,6 +10,7 @@ import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
+import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.namespace.NamespaceElementImpl;
@@ -99,7 +100,7 @@ public abstract class FormalComponentParameter<E extends FormalComponentParamete
 		return this;
 	}
 
-	public LookupStrategy targetContext() throws LookupException {
+	public LocalLookupStrategy<?> targetContext() throws LookupException {
 		return declarationType().targetContext();
 	}
 	
