@@ -1,6 +1,7 @@
 package subobjectjava.translate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +21,6 @@ import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.SafePredicate;
 import org.rejuse.predicate.UnsafePredicate;
 
-import subobjectjava.model.component.AbstractClause;
 import subobjectjava.model.component.ActualComponentArgument;
 import subobjectjava.model.component.ComponentNameActualArgument;
 import subobjectjava.model.component.ComponentParameter;
@@ -78,13 +78,14 @@ import chameleon.core.reference.CrossReferenceWithTarget;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.reference.SpecificReference;
 import chameleon.core.statement.Block;
+import chameleon.core.statement.Statement;
 import chameleon.core.variable.FormalParameter;
 import chameleon.core.variable.VariableDeclaration;
-import chameleon.core.variable.VariableDeclarator;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.type.BasicTypeReference;
+import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.RegularType;
@@ -96,18 +97,18 @@ import chameleon.oo.type.generics.ActualType;
 import chameleon.oo.type.generics.BasicTypeArgument;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
 import chameleon.oo.type.generics.TypeParameter;
-import chameleon.oo.type.generics.TypeParameterBlock;
 import chameleon.oo.type.inheritance.AbstractInheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.expression.AssignmentExpression;
+import chameleon.support.expression.NullLiteral;
 import chameleon.support.expression.SuperTarget;
 import chameleon.support.expression.ThisLiteral;
 import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
-import chameleon.support.modifier.Interface;
 import chameleon.support.modifier.Public;
+import chameleon.support.statement.IfThenElseStatement;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
 import chameleon.support.statement.ThrowStatement;
@@ -325,7 +326,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 		replaceSuperCalls(result);
 		for(ComponentRelation relation: result.directlyDeclaredMembers(ComponentRelation.class)) {
-			replaceSubobjectConstructorCalls(relation);
+//			replaceSubobjectConstructorCalls(relation);
 
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,result);
 			if(fieldForComponent != null) {
@@ -335,11 +336,10 @@ public class JavaTranslator extends AbstractTranslator {
 			relation.disconnect();
 		}
 		
-		List<Method> decls = selectorsFor(result);
-		for(Method decl:decls) {
-			result.add(decl);
-		}
-
+		cons; // commented out the replaceSubobjectConstructorCalls above
+		
+		result.addAll(selectorsFor(result));
+		
 		List<ComponentParameterCall> calls = result.descendants(ComponentParameterCall.class);
 		for(ComponentParameterCall call: calls) {
 			FormalComponentParameter parameter = call.getElement();
@@ -904,18 +904,45 @@ public class JavaTranslator extends AbstractTranslator {
 		return result;
 	}
 
-	private void replaceSubobjectConstructorCalls(final ComponentRelation relation) throws LookupException {
-		Type type = relation.nearestAncestor(Type.class);
-		List<SubobjectConstructorCall> constructorCalls = type.descendants(SubobjectConstructorCall.class, new UnsafePredicate<SubobjectConstructorCall,LookupException>() {
+	private void replaceSubobjectConstructorCalls(final ComponentRelation relation, Method<?,?,?,?> constructor) throws LookupException {
+		boolean overridden = isOverriddenInSuperType(relation);
+		if(overridden) {
+			replaceSubobjectConstructorCallOverridden(relation, constructor);
+		} else {
+			replaceSubobjectConstructorCallNonOverridden(relation, constructor);
+		}
+	}
+
+	private boolean isOverriddenInSuperType(
+			final ComponentRelation relation) throws LookupException {
+		Collection<ComponentRelation> overridden = (Collection<ComponentRelation>) relation.overriddenMembers();
+		new SafePredicate<ComponentRelation>() {
+			@Override
+			public boolean eval(ComponentRelation object) {
+				return object.farthestAncestor(Type.class) != relation.farthestAncestor(Type.class);
+			}
+		}.filter(overridden);
+		return !overridden.isEmpty();
+	}
+
+	private List<SubobjectConstructorCall> constructorCallsOfRelation(
+			final ComponentRelation relation, Method<?, ?, ?, ?> constructor)
+			throws LookupException {
+		List<SubobjectConstructorCall> constructorCalls = constructor.descendants(SubobjectConstructorCall.class, new UnsafePredicate<SubobjectConstructorCall,LookupException>() {
 			@Override
 			public boolean eval(SubobjectConstructorCall constructorCall) throws LookupException {
 				return constructorCall.getTarget().getElement().equals(relation);
 			}
 		}
 		);
-		for(SubobjectConstructorCall call: constructorCalls) {
+		return constructorCalls;
+	}
+
+	private void replaceSubobjectConstructorCallNonOverridden(ComponentRelation relation, Method constructor)
+			throws LookupException {
+		Type type = relation.nearestAncestor(Type.class);
+		for(SubobjectConstructorCall call: constructorCallsOfRelation(relation, constructor)) {
 			MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
-			// move actual arguments from subobject constructor call to new constructor call. 
 			inv.addAllArguments(call.getActualParameters());
 			MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
 			setterCall.addArgument(inv);
@@ -924,6 +951,64 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
+	private void replaceSubobjectConstructorCallOverridden(ComponentRelation relation, Method constructor)
+	throws LookupException {
+		List<SuperConstructorDelegation> superCalls = constructor.descendants(SuperConstructorDelegation.class);
+		SuperConstructorDelegation superCall;
+		if(superCalls.isEmpty()) {
+			superCall = new SuperConstructorDelegation();
+			((RegularImplementation)constructor.implementation()).getBody().addInFront(new StatementExpression(superCall));
+		} else {
+			superCall = superCalls.get(0);
+		}
+		Type type = relation.nearestAncestor(Type.class);
+		for(SubobjectConstructorCall call: constructorCallsOfRelation(relation, constructor)) {
+			MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
+			inv.addAllArguments(call.getActualParameters());
+			MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
+			setterCall.addArgument(inv);
+			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
+			parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
+		}
+	}
+
+	private void replaceSubobjectConstructorCalls(Method<?,?,?,?> constructor)
+	throws LookupException {
+		List<SuperConstructorDelegation> superCalls = constructor.descendants(SuperConstructorDelegation.class);
+		SuperConstructorDelegation superCall;
+		if(superCalls.isEmpty()) {
+			superCall = new SuperConstructorDelegation();
+			((RegularImplementation)constructor.implementation()).getBody().addInFront(new StatementExpression(superCall));
+		} else {
+			superCall = superCalls.get(0);
+		}
+		Type type = constructor.nearestAncestor(Type.class);
+		for(ComponentRelation relation: type.members(ComponentRelation.class)) {
+			ClassBody body = relation.nearestAncestor(ClassBody.class);
+			if(body != null && type.subTypeOf(body.nearestAncestor(Type.class))) {
+				List<SubobjectConstructorCall> subCalls = constructorCallsOfRelation(relation, constructor);
+				if(subCalls.isEmpty()) {
+					superCall.addArgument(new NullLiteral());
+				} else {
+					if(isOverriddenInSuperType(relation)) {
+						// create a strategy that will create the new subobject.
+					} else {
+						// Create and set the subobject
+						for(SubobjectConstructorCall call: subCalls) {
+							MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
+							inv.addAllArguments(call.getActualParameters());
+							MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
+							setterCall.addArgument(inv);
+							SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
+							parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
 	private void inner(Type type, ComponentRelation relation, Type outer, Type outerTypeBeingTranslated) throws LookupException {
 		Type innerClass = createInnerClassFor(relation,type,outerTypeBeingTranslated);
 		type.add(innerClass);
