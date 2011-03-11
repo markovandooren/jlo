@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 import jnome.core.language.Java;
+import jnome.input.JavaFactory;
 import jnome.output.CompilationUnitWriter;
 import jnome.output.JavaCodeWriter;
 import subobjectjava.model.language.JLo;
@@ -14,6 +15,7 @@ import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.language.Language;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
+import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.Plugin;
 import chameleon.plugin.PluginImpl;
 import chameleon.plugin.build.Builder;
@@ -38,6 +40,7 @@ public class JLoBuilder extends PluginImpl implements Builder {
 		super.setLanguage(lang, pluginInterface);
 		Java target = new Java();
 		target.setPlugin(Syntax.class, new JavaCodeWriter());
+		target.setPlugin(ObjectOrientedFactory.class, new JavaFactory());
 		_translator = new IncrementalJavaTranslator((JLo) lang, target);
 	}
 

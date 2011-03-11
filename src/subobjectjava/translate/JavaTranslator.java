@@ -1,7 +1,6 @@
 package subobjectjava.translate;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -43,6 +42,7 @@ import subobjectjava.model.language.JLo;
 import subobjectjava.model.type.RegularJLoType;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.Declaration;
+import chameleon.core.declaration.DeclarationWithParametersHeader;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
@@ -84,6 +84,7 @@ import chameleon.core.variable.VariableDeclaration;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.oo.language.ObjectOrientedLanguage;
+import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.oo.type.BasicTypeReference;
 import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.DeclarationWithType;
@@ -106,7 +107,9 @@ import chameleon.support.expression.ThisLiteral;
 import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
+import chameleon.support.member.simplename.operator.infix.InfixOperatorInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
+import chameleon.support.modifier.Abstract;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.IfThenElseStatement;
 import chameleon.support.statement.ReturnStatement;
@@ -325,6 +328,7 @@ public class JavaTranslator extends AbstractTranslator {
 			result.flushCache();
 		}
 		replaceSuperCalls(result);
+		replaceSubobjectConstructorCalls(result); // commented out the replaceSubobjectConstructorCalls below
 		for(ComponentRelation relation: result.directlyDeclaredMembers(ComponentRelation.class)) {
 //			replaceSubobjectConstructorCalls(relation);
 
@@ -336,7 +340,6 @@ public class JavaTranslator extends AbstractTranslator {
 			relation.disconnect();
 		}
 		
-		cons; // commented out the replaceSubobjectConstructorCalls above
 		
 		result.addAll(selectorsFor(result));
 		
@@ -904,25 +907,28 @@ public class JavaTranslator extends AbstractTranslator {
 		return result;
 	}
 
-	private void replaceSubobjectConstructorCalls(final ComponentRelation relation, Method<?,?,?,?> constructor) throws LookupException {
-		boolean overridden = isOverriddenInSuperType(relation);
-		if(overridden) {
-			replaceSubobjectConstructorCallOverridden(relation, constructor);
-		} else {
-			replaceSubobjectConstructorCallNonOverridden(relation, constructor);
-		}
-	}
+//	private void replaceSubobjectConstructorCalls(final ComponentRelation relation, Method<?,?,?,?> constructor) throws LookupException {
+//		boolean overridden = isOverriddenInSuperType(relation);
+//		if(overridden) {
+//			replaceSubobjectConstructorCallOverridden(relation, constructor);
+//		} else {
+//			replaceSubobjectConstructorCallNonOverridden(relation, constructor);
+//		}
+//	}
 
-	private boolean isOverriddenInSuperType(
-			final ComponentRelation relation) throws LookupException {
-		Collection<ComponentRelation> overridden = (Collection<ComponentRelation>) relation.overriddenMembers();
-		new SafePredicate<ComponentRelation>() {
-			@Override
-			public boolean eval(ComponentRelation object) {
-				return object.farthestAncestor(Type.class) != relation.farthestAncestor(Type.class);
-			}
-		}.filter(overridden);
-		return !overridden.isEmpty();
+//	private boolean isLocallyDefinedAndOverriddenInSuperType(final ComponentRelation relation, Type type) throws LookupException {
+//		Collection<ComponentRelation> overridden = (Collection<ComponentRelation>) relation.overriddenMembers();
+//		new SafePredicate<ComponentRelation>() {
+//			@Override
+//			public boolean eval(ComponentRelation object) {
+//				return object.farthestAncestor(Type.class) != relation.farthestAncestor(Type.class);
+//			}
+//		}.filter(overridden);
+//		return isLocallyDefined(relation, type) && !overridden.isEmpty();
+//	}
+
+	private boolean isLocallyDefined(ComponentRelation relation,Type type) throws LookupException {
+		return relation.ancestors().contains(type);
 	}
 
 	private List<SubobjectConstructorCall> constructorCallsOfRelation(
@@ -938,42 +944,112 @@ public class JavaTranslator extends AbstractTranslator {
 		return constructorCalls;
 	}
 
-	private void replaceSubobjectConstructorCallNonOverridden(ComponentRelation relation, Method constructor)
-			throws LookupException {
+//	private void replaceSubobjectConstructorCallNonOverridden(ComponentRelation relation, Method constructor)
+//			throws LookupException {
+//		Type type = relation.nearestAncestor(Type.class);
+//		for(SubobjectConstructorCall call: constructorCallsOfRelation(relation, constructor)) {
+//			MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
+//			inv.addAllArguments(call.getActualParameters());
+//			MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
+//			setterCall.addArgument(inv);
+//			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
+//			parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
+//		}
+//	}
+
+//	private void replaceSubobjectConstructorCallOverridden(ComponentRelation relation, Method constructor)
+//	throws LookupException {
+//		List<SuperConstructorDelegation> superCalls = constructor.descendants(SuperConstructorDelegation.class);
+//		SuperConstructorDelegation superCall;
+//		if(superCalls.isEmpty()) {
+//			superCall = new SuperConstructorDelegation();
+//			((RegularImplementation)constructor.implementation()).getBody().addInFront(new StatementExpression(superCall));
+//		} else {
+//			superCall = superCalls.get(0);
+//		}
+//		Type type = relation.nearestAncestor(Type.class);
+//		for(SubobjectConstructorCall call: constructorCallsOfRelation(relation, constructor)) {
+//			MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
+//			inv.addAllArguments(call.getActualParameters());
+//			MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
+//			setterCall.addArgument(inv);
+//			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
+//			parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
+//		}
+//	}
+	
+	private void replaceSubobjectConstructorCalls(Type type) throws LookupException {
+		Java lang = type.language(Java.class);
+		for(Method constructor: type.descendants(Method.class, lang.CONSTRUCTOR)) {
+			createStrategyCloneOfConstructor(constructor);
+			replaceSubobjectConstructorCalls(constructor, false);
+		}
+	}
+	
+
+
+	private void createStrategyCloneOfConstructor(Method<?,?,?,?> constructor) throws LookupException {
+		Java language = constructor.language(Java.class);
+	  Type container = constructor.nearestAncestor(Type.class);
+	  Method<?,?,?,?> clone = constructor.clone();
+	  DeclarationWithParametersHeader header = clone.header();
+	  boolean added = false;
+	  for(ComponentRelation relation: container.members(ComponentRelation.class)) {
+			ClassBody body = relation.nearestAncestor(ClassBody.class);
+	  	if(body != null && container.subTypeOf(body.nearestAncestor(Type.class))) {
+	  		if(body.nearestAncestor(Type.class) == container) {
+	  			createStrategy(relation);
+	  		}
+	  		header.addFormalParameter(new FormalParameter(new SimpleNameSignature(constructorArgumentName(relation)), language.createTypeReference(strategyName(relation))));
+	  		added = true;
+	  	}
+	  }
+	  if(added) {
+	  	container.add(clone);
+	  	replaceSubobjectConstructorCalls(clone, true);
+	  }
+  }
+
+	private String constructorArgumentName(ComponentRelation relation) throws LookupException {
+		return "strategyFor"+toUnderScore(relation.componentType().getFullyQualifiedName());
+	}
+	
+	private void createStrategy(ComponentRelation relation) throws LookupException {
+		String componentTypeName = relation.componentType().getFullyQualifiedName();
+		String name = strategyName(relation);
 		Type type = relation.nearestAncestor(Type.class);
-		for(SubobjectConstructorCall call: constructorCallsOfRelation(relation, constructor)) {
-			MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
-			inv.addAllArguments(call.getActualParameters());
-			MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
-			setterCall.addArgument(inv);
-			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
-			parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
+		Java language = type.language(Java.class);
+		List<Member> members = type.directlyDeclaredMembers();
+		boolean add = true;
+		for(Member member: members) {
+			if(member.signature().name().equals(name)) {
+				add = false;
+			}
+		}
+		if(add) {
+			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(new SimpleNameSignature(name));
+			DeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
+			TypeReference typeRef = language.createTypeReference(relation.nearestAncestor(Type.class).getFullyQualifiedName());
+			header.addFormalParameter(new FormalParameter(new SimpleNameSignature("object"), typeRef));
+			Method constructor = language.createNormalMethod(header, language.createTypeReference(componentTypeName));
+			constructor.setImplementation(null);
+			constructor.addModifier(new Abstract());
+			strategy.add(constructor);
+			strategy.addModifier(new Abstract());
+			type.add(strategy);
 		}
 	}
 
-	private void replaceSubobjectConstructorCallOverridden(ComponentRelation relation, Method constructor)
-	throws LookupException {
-		List<SuperConstructorDelegation> superCalls = constructor.descendants(SuperConstructorDelegation.class);
-		SuperConstructorDelegation superCall;
-		if(superCalls.isEmpty()) {
-			superCall = new SuperConstructorDelegation();
-			((RegularImplementation)constructor.implementation()).getBody().addInFront(new StatementExpression(superCall));
-		} else {
-			superCall = superCalls.get(0);
-		}
-		Type type = relation.nearestAncestor(Type.class);
-		for(SubobjectConstructorCall call: constructorCallsOfRelation(relation, constructor)) {
-			MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
-			inv.addAllArguments(call.getActualParameters());
-			MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
-			setterCall.addArgument(inv);
-			SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
-			parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
-		}
+	private String strategyName(ComponentRelation relation) throws LookupException {
+		String name = toUnderScore(relation.componentType().getFullyQualifiedName()) + STRATEGY;
+		return name;
 	}
+	
+	public final String STRATEGY = "_constructor";
 
-	private void replaceSubobjectConstructorCalls(Method<?,?,?,?> constructor)
+	private void replaceSubobjectConstructorCalls(Method<?,?,?,?> constructor, boolean clonedConstructor)
 	throws LookupException {
+		Java language = constructor.language(Java.class);
 		List<SuperConstructorDelegation> superCalls = constructor.descendants(SuperConstructorDelegation.class);
 		SuperConstructorDelegation superCall;
 		if(superCalls.isEmpty()) {
@@ -987,18 +1063,35 @@ public class JavaTranslator extends AbstractTranslator {
 			ClassBody body = relation.nearestAncestor(ClassBody.class);
 			if(body != null && type.subTypeOf(body.nearestAncestor(Type.class))) {
 				List<SubobjectConstructorCall> subCalls = constructorCallsOfRelation(relation, constructor);
-				if(subCalls.isEmpty()) {
-					superCall.addArgument(new NullLiteral());
+				if(!isLocallyDefined(relation,type)) {
+					if(subCalls.isEmpty()) {
+						superCall.addArgument(new NullLiteral());
+					}
+					// create a strategy that will create the new subobject.
 				} else {
-					if(isOverriddenInSuperType(relation)) {
-						// create a strategy that will create the new subobject.
-					} else {
-						// Create and set the subobject
-						for(SubobjectConstructorCall call: subCalls) {
-							MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
-							inv.addAllArguments(call.getActualParameters());
-							MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
-							setterCall.addArgument(inv);
+					// Create and set the subobject
+					for(SubobjectConstructorCall call: subCalls) {
+						MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation, type), null);
+						inv.addAllArguments(call.getActualParameters());
+						MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
+						setterCall.addArgument(inv);
+						if(clonedConstructor) {
+							MethodInvocation expression = new InfixOperatorInvocation("==", new NamedTargetExpression(constructorArgumentName(relation)));
+							expression.addArgument(new NullLiteral());
+							Block ifBlock = new Block();
+							ifBlock.addStatement(new StatementExpression(setterCall));
+							Block elseBlock = new Block();
+							MethodInvocation<?,?> strategyCall = setterCall.clone();
+							strategyCall.getActualParameters().get(0).disconnect();
+							elseBlock.addStatement(new StatementExpression(strategyCall));
+							MethodInvocation strategyInvocation = new JavaMethodInvocation(CONSTRUCT, new NamedTargetExpression(constructorArgumentName(relation)));
+							strategyInvocation.addArgument(new ThisLiteral());
+							strategyCall.addArgument(strategyInvocation);
+							Statement ifthenelse = new IfThenElseStatement(expression, ifBlock, elseBlock);
+							
+							SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parent().parentLink();
+							parentLink.getOtherRelation().replace(parentLink, ifthenelse.parentLink());
+						} else {
 							SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
 							parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
 						}
@@ -1008,7 +1101,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
-	
+	public final String CONSTRUCT = "construct";
 	private void inner(Type type, ComponentRelation relation, Type outer, Type outerTypeBeingTranslated) throws LookupException {
 		Type innerClass = createInnerClassFor(relation,type,outerTypeBeingTranslated);
 		type.add(innerClass);
