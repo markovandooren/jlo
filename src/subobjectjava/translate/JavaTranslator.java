@@ -18,6 +18,7 @@ import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.SafePredicate;
+import org.rejuse.predicate.TypePredicate;
 import org.rejuse.predicate.UnsafePredicate;
 
 import subobjectjava.model.component.ActualComponentArgument;
@@ -436,8 +437,9 @@ public class JavaTranslator extends AbstractTranslator {
 		if(! overridden.isEmpty()) {
 		if(! method.isTrue(language.CONSTRUCTOR)) {
 			final Method tmp = method.clone();
-			Type containerOfNewDefinition = containerOfDefinition(result,original, method);
-			if(containerOfNewDefinition != null) {
+//			Type containerOfNewDefinition = containerOfDefinition(result,original, method);
+			Type containerOfNewDefinition = typeOfDefinition(result,original, method); // OK: SUBOBJECT
+		if(containerOfNewDefinition != null) {
 				tmp.setUniParent(containerOfNewDefinition);
 				DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
 					@Override
@@ -535,6 +537,55 @@ public class JavaTranslator extends AbstractTranslator {
 		return string.replaceAll(IMPL, "");
 	}
 
+	private Type f(Type container, Type original, Element newDefinition) throws LookupException {
+		List<ComponentRelation> ancestors = newDefinition.ancestors(ComponentRelation.class);
+		Type result = container;
+		int size = ancestors.size();
+		for(int i=0; i< size; i++) {
+			ComponentRelation originalRelation = ancestors.get(size-1-i);
+			ComponentRelation newRelation = createOrGetSubobject(result, originalRelation);
+			result = newRelation.componentType();
+		}
+		return result;
+	}
+	
+	private Type typeOfDefinition(Type container, Type original, Element<?> newDefinition) throws LookupException {
+		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
+    List<Element> ancestors = newDefinition.ancestors();
+    while(ancestors.get(ancestors.size()-1) != rootOfNewDefinitionInOriginal) {
+    	ancestors.remove(ancestors.size()-1);
+    }
+    ancestors.remove(ancestors.size()-1);
+    new TypePredicate<Element,ComponentRelation>(ComponentRelation.class).filter(ancestors);
+		Type result = container;
+		int size = ancestors.size();
+		for(int i=0; i< size; i++) {
+			ComponentRelation originalRelation = (ComponentRelation) ancestors.get(size-1-i);
+			ComponentRelation newRelation = createOrGetSubobject(result, originalRelation);
+			result = newRelation.componentType();
+		}
+		return result;
+	}
+	
+	private ComponentRelation createOrGetSubobject(Type container, ComponentRelation originalRelation) throws LookupException {
+		List<ComponentRelation> relations = container.members(ComponentRelation.class);
+		ComponentRelation result = null;
+		for(ComponentRelation relation: relations) {
+			if(isLocallyDefined(relation, container) && relation.signature().sameAs(originalRelation.signature())) {
+				result = relation;
+				break;
+			}
+		}
+		if(result == null) {
+			result = originalRelation.clone();
+			result.setUniParent(originalRelation.parent());
+			substituteTypeParameters(result);
+			result.setUniParent(null);
+			container.add(result);
+		}
+		return result;
+	}
+	
 	private Type containerOfDefinition(Type container, Type original,
 			Element newDefinition) throws LookupException {
 		Type containerOfNewDefinition = container;
@@ -559,7 +610,6 @@ public class JavaTranslator extends AbstractTranslator {
 	
 	private Type levelOfDefinition(Element<?> element) {
 		Type result = element.nearestAncestor(Type.class, new SafePredicate<Type>(){
-
 			@Override
 			public boolean eval(Type object) {
 				return ! (object instanceof ComponentType);
