@@ -220,6 +220,9 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 
 	private SingleAssociation<ComponentRelation,ComponentType> _componentType = new SingleAssociation<ComponentRelation,ComponentType>(this);
 	
+	/**
+	 * Set the body of this component relation.
+	 */
 	public void setBody(ClassBody body) {
 		if(body == null) {
 			_componentType.connectTo((Association)createComponentType(new ClassBody()).parentLink());
@@ -388,7 +391,8 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	 * For debugging purposes because Eclipse detail formatters simply don't work.
 	 */
 	public String toString() {
-		return signature().name();
+		Type nearestAncestor = nearestAncestor(Type.class);
+		return (nearestAncestor != null ? nearestAncestor.getFullyQualifiedName() + "." + signature().name() : signature().name());
 	}
 
 	public MemberRelationSelector<ComponentRelation> overridesSelector() {
