@@ -308,7 +308,10 @@ public class JavaTranslator extends AbstractTranslator {
 		Type result = original.clone();
 		result.setOrigin(original);
 		result.setUniParent(original.parent());
-		List<ComponentRelation> relations = original.directlyDeclaredMembers(ComponentRelation.class);
+		rebindOverriddenMethods(result,original);
+		result.flushCache();
+//		List<ComponentRelation> relations = original.directlyDeclaredMembers(ComponentRelation.class);
+		List<ComponentRelation> relations = result.directlyDeclaredMembers(ComponentRelation.class);
 		for(ComponentRelation relation : relations) {
 			// Add a getter for subobject
 			Method getterForComponent = getterForComponent(relation,result);
@@ -323,8 +326,8 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 
 			// Create the inner classes for the components
-			inner(result, relation, result,original);
-			result.flushCache();
+			inner(result, relation);
+//			result.flushCache();
 //			addAliasDelegations(relation, result,original);
 			result.flushCache();
 		}
@@ -355,17 +358,23 @@ public class JavaTranslator extends AbstractTranslator {
 		for(SubtypeRelation rel: result.nonMemberInheritanceRelations(SubtypeRelation.class)) {
 			processSuperComponentParameters(rel);
 		}
-		rebindOverriddenMethods(result,original);
+//X		rebindOverriddenMethods(result,original);
+
 		addStaticHooksForMethodsOverriddenInSuperSubobject(result,original);
 		addNonOverriddenStaticHooks(result,original);
-		replaceThisLiterals(result);
-		replaceComponentAccess(result);
-		expandReferences(result);
-		removeNonLocalReferences(result);
+
+//M		replaceThisLiterals(result);
+//N		replaceComponentAccess(result);
+//Y		expandReferences(result);
+//Z		removeNonLocalReferences(result);
 		
 		// The result is still temporarily attached to the original model.
+		replaceThisLiterals(result); //M
+		replaceComponentAccess(result);//N
 		transformToImplRecursive(result);
 		replaceConstructorCalls(result);
+		expandReferences(result); //Y
+		removeNonLocalReferences(result); //Z
 		result.setUniParent(null);
 		return result;
 	}
@@ -437,7 +446,7 @@ public class JavaTranslator extends AbstractTranslator {
 		if(! overridden.isEmpty()) {
 		if(! method.isTrue(language.CONSTRUCTOR)) {
 			final Method tmp = method.clone();
-//			Type containerOfNewDefinition = containerOfDefinition(result,original, method);
+//			Type containerOfNewDefinition = containerOfDefinition(result,original, method); // SUBOBJECT
 			Type containerOfNewDefinition = typeOfDefinition(result,original, method); // OK: SUBOBJECT
 		if(containerOfNewDefinition != null) {
 				tmp.setUniParent(containerOfNewDefinition);
@@ -453,9 +462,9 @@ public class JavaTranslator extends AbstractTranslator {
 				String name = staticMethodName(method, containerOfNewDefinition);
 				stat.setName(name);
 				containerOfNewDefinition.add(stat);
-				if(!stat.descendants(ComponentParameterCall.class).isEmpty()) {
-					throw new Error();
-				}
+//				if(!stat.descendants(ComponentParameterCall.class).isEmpty()) {
+//					throw new Error();
+//				}
 			}
 		}
 		}
@@ -465,12 +474,19 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	private void rebind(Type container, Type original, Method<?,?,?,?> newDefinition, Method toBeRebound) throws ModelException {
-		Type containerOfNewDefinition = containerOfDefinition(container,original, newDefinition);
+		try {
+			String newwFQN = newDefinition.nearestAncestor(Type.class).getFullyQualifiedName()+"."+newDefinition.name();
+			if(newDefinition.name().equals("length")) {
+				System.out.println("debug");
+			}
+//		Type containerOfNewDefinition = containerOfDefinition(container,original, newDefinition);
+    Type containerOfNewDefinition = typeOfDefinition(container,original, newDefinition);
 		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
 		List<Element> trailOfRootInOriginal = filterAncestors(rootOfNewDefinitionInOriginal);
 		trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
 		trailOfRootInOriginal.remove(trailOfRootInOriginal.size()-1);
-		Type containerToAdd = createOrGetInnerTypeAux(container, original, trailOfRootInOriginal,1);
+//		Type containerToAdd = createOrGetInnerTypeAux(container, original, trailOfRootInOriginal,1);
+		Type containerToAdd = createOrGetSubobject(container, original, trailOfRootInOriginal,1);
 		
 		List<Element> trailtoBeReboundInOriginal = filterAncestors(toBeRebound);
 		Type rootOfToBeRebound = levelOfDefinition(toBeRebound);
@@ -480,11 +496,15 @@ public class JavaTranslator extends AbstractTranslator {
 		trailtoBeReboundInOriginal.remove(trailtoBeReboundInOriginal.size()-1);
 		Type containerOfToBebound = containerToAdd;
 		if(! trailtoBeReboundInOriginal.isEmpty()) {
-			containerOfToBebound = createOrGetInnerTypeAux(containerToAdd, original, trailtoBeReboundInOriginal,1);
+			containerOfToBebound = createOrGetSubobject(containerToAdd, original, trailtoBeReboundInOriginal,1);
 		}
 		if((containerOfToBebound != null) && ! containerOfToBebound.sameAs(containerOfNewDefinition)) {
 			System.out.println("----------------------");
-			System.out.println("Source: "+containerOfNewDefinition.getFullyQualifiedName()+"."+newDefinition.name());
+			String newFQN = containerOfNewDefinition.getFullyQualifiedName()+"."+newDefinition.name();
+			if(newFQN.equals("jlo.graph.WeightedDigraph.hashCode")) {
+				System.out.println("debug");
+			}
+			System.out.println("Source: " + newFQN);
 			System.out.println("Target: "+containerOfToBebound.getFullyQualifiedName()+"."+toBeRebound.name());
 			System.out.println("----------------------");
 			String thisName = containerOfNewDefinition.getFullyQualifiedName();
@@ -506,6 +526,9 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 			containerOfToBebound.add(staticReboundMethod);
 			containerOfToBebound.flushCache();
+		}
+		} catch(ModelException exc) {
+			System.out.println("debug");
 		}
 	}
 
@@ -551,18 +574,47 @@ public class JavaTranslator extends AbstractTranslator {
 	
 	private Type typeOfDefinition(Type container, Type original, Element<?> newDefinition) throws LookupException {
 		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
-    List<Element> ancestors = newDefinition.ancestors();
+		Type result = container;
+
+		List<Element> trailOfRootInOriginal = filterAncestors(rootOfNewDefinitionInOriginal);
+		trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
+		trailOfRootInOriginal.remove(trailOfRootInOriginal.size()-1);
+		result = createOrGetSubobject(container, original, trailOfRootInOriginal,1);
+
+		List<Element> ancestors = newDefinition.ancestors();
     while(ancestors.get(ancestors.size()-1) != rootOfNewDefinitionInOriginal) {
     	ancestors.remove(ancestors.size()-1);
     }
     ancestors.remove(ancestors.size()-1);
     new TypePredicate<Element,ComponentRelation>(ComponentRelation.class).filter(ancestors);
-		Type result = container;
 		int size = ancestors.size();
 		for(int i=0; i< size; i++) {
 			ComponentRelation originalRelation = (ComponentRelation) ancestors.get(size-1-i);
 			ComponentRelation newRelation = createOrGetSubobject(result, originalRelation);
 			result = newRelation.componentType();
+		}
+		return result;
+	}
+	
+	private Type containerOfDefinition(Type container, Type original,
+			Element newDefinition) throws LookupException {
+		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
+		Type result = container;
+		List<Element> trailOfRootInOriginal = filterAncestors(rootOfNewDefinitionInOriginal);
+		trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
+		trailOfRootInOriginal.remove(trailOfRootInOriginal.size()-1);
+		result = createOrGetInnerTypeAux(container, original, trailOfRootInOriginal,1);
+		
+		List<Element> trailNewDefinitionInOriginal = filterAncestors(newDefinition);
+		// Remove everything up to the container.
+		while(! (trailNewDefinitionInOriginal.get(trailNewDefinitionInOriginal.size()-1) == rootOfNewDefinitionInOriginal)) {
+			trailNewDefinitionInOriginal.remove(trailNewDefinitionInOriginal.size()-1);
+		}
+		// Remove the container.
+		trailNewDefinitionInOriginal.remove(trailNewDefinitionInOriginal.size()-1);
+		if(! trailNewDefinitionInOriginal.isEmpty()) {
+//			trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
+			result = createOrGetInnerTypeAux(result, original, trailNewDefinitionInOriginal,1);
 		}
 		return result;
 	}
@@ -576,36 +628,19 @@ public class JavaTranslator extends AbstractTranslator {
 				break;
 			}
 		}
-		if(result == null) {
+		if((result == null) || (result.nearestAncestor(Type.class) != container)){
 			result = originalRelation.clone();
+			x;
+			// Must clear the body here, otherwise an overridden member gets into the class of the overriding member, and
+			// the overridden member then also 'overrides' the super method of the overriding member, and thus a second copy
+			// of the overriding member is generated to delegate to the subobject, but this causes a conflict.
 			result.setUniParent(originalRelation.parent());
 			substituteTypeParameters(result);
+			expandReferences(result);
 			result.setUniParent(null);
 			container.add(result);
 		}
 		return result;
-	}
-	
-	private Type containerOfDefinition(Type container, Type original,
-			Element newDefinition) throws LookupException {
-		Type containerOfNewDefinition = container;
-		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
-		List<Element> trailOfRootInOriginal = filterAncestors(rootOfNewDefinitionInOriginal);
-		trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
-		trailOfRootInOriginal.remove(trailOfRootInOriginal.size()-1);
-		containerOfNewDefinition = createOrGetInnerTypeAux(container, original, trailOfRootInOriginal,1);
-		List<Element> trailNewDefinitionInOriginal = filterAncestors(newDefinition);
-		// Remove everything up to the container.
-		while(! (trailNewDefinitionInOriginal.get(trailNewDefinitionInOriginal.size()-1) == rootOfNewDefinitionInOriginal)) {
-			trailNewDefinitionInOriginal.remove(trailNewDefinitionInOriginal.size()-1);
-		}
-		// Remove the container.
-		trailNewDefinitionInOriginal.remove(trailNewDefinitionInOriginal.size()-1);
-		if(! trailNewDefinitionInOriginal.isEmpty()) {
-//			trailOfRootInOriginal.add(0, rootOfNewDefinitionInOriginal);
-			containerOfNewDefinition = createOrGetInnerTypeAux(containerOfNewDefinition, original, trailNewDefinitionInOriginal,1);
-		}
-		return containerOfNewDefinition;
 	}
 	
 	private Type levelOfDefinition(Element<?> element) {
@@ -647,6 +682,28 @@ public class JavaTranslator extends AbstractTranslator {
 			return createOrGetInnerTypeAux(result, original, elements, baseOneIndex + 1);
 	}
 
+	private Type createOrGetSubobjectForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
+//	Signature innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
+	Signature innerName = current.signature().clone();
+	SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
+	tref.setUniParent(container);
+	Type result;
+	try { 
+		result= tref.getElement();
+	} catch(LookupException exc) {
+		// We add the imports to the original. They are copied later on to 'container'.
+		ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
+		result = emptyInnerClassFor(relation, container);
+		NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
+		incorporateImports(relation, namespacePart);
+		// Since we are adding inner classes that were not written in the current namespacepart, their type
+		// may not have been imported yet. Therefore, we add an import of the referenced component type.
+		namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relation.referencedComponentType().getFullyQualifiedName())));
+		container.add(result);
+		container.flushCache();
+	}
+	return createOrGetSubobject(result, original, elements, baseOneIndex + 1);
+}
 	private Type createOrGetInnerTypeForComponent(Type container, Type original, ComponentRelation relationBeingTranslated, List<Element> elements, int baseOneIndex) throws LookupException {
 			Signature innerName = null;
 			innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, container)));
@@ -669,6 +726,32 @@ public class JavaTranslator extends AbstractTranslator {
 			return createOrGetInnerTypeAux(result, original, elements, baseOneIndex + 1);
 	}
 	
+	//createOrGetSubobjectForComponent
+	
+	private Type createOrGetSubobjectForComponent(Type container, Type original, ComponentRelation relationBeingTranslated, List<Element> elements, int baseOneIndex) throws LookupException {
+//		Signature innerName = null;
+//		innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, container)));
+//		SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
+//		tref.setUniParent(container);
+//		Type result;
+//		try { 
+//			result= tref.getElement();
+//		} catch(LookupException exc) {
+//			// We add the imports to the original. They are copied later on to 'container'.
+//			result = emptyInnerClassFor(relationBeingTranslated, container);
+//			NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
+//			incorporateImports(relationBeingTranslated, namespacePart);
+//			// Since we are adding inner classes that were not written in the current namespacepart, their type
+//			// may not have been imported yet. Therefore, we add an import of the referenced component type.
+//			namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relationBeingTranslated.referencedComponentType().getFullyQualifiedName())));
+//			container.add(result);
+//			container.flushCache();
+//		}
+//		return createOrGetInnerTypeAux(result, original, elements, baseOneIndex + 1);
+		ComponentRelation relation = createOrGetSubobject(container, relationBeingTranslated);
+		Type result = relation.componentType();
+		return createOrGetSubobject(result, original, elements, baseOneIndex + 1);
+}
 	private List<Element> filterAncestors(Element<?> element) {
 		SafePredicate<Element> predicate = componentRelationOrNonComponentTypePredicate();
 		return element.ancestors(Element.class, predicate);
@@ -690,6 +773,21 @@ public class JavaTranslator extends AbstractTranslator {
 				return createOrGetInnerTypeForComponent(container,original, (ComponentRelation) element, elements,baseOneIndex);
 			} else {
 				return createOrGetInnerTypeForType(container,original, (Type) element, elements,baseOneIndex);
+			}
+		} else {
+			return container;
+		}
+	}
+
+	private Type createOrGetSubobject(Type container, Type original, List<Element> elements, int baseOneIndex) throws LookupException {
+		int index = elements.size()-baseOneIndex;
+		if(index >= 0) {
+			Element element = elements.get(index);
+			if(element instanceof ComponentRelation) {
+				return createOrGetSubobjectForComponent(container,original, (ComponentRelation) element, elements,baseOneIndex);
+			} else {
+				//return createOrGetInnerTypeForType(container,original, (Type) element, elements,baseOneIndex);
+				return createOrGetSubobjectForType(container,original, (Type) element, elements,baseOneIndex);
 			}
 		} else {
 			return container;
@@ -1152,16 +1250,16 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 	
 	public final String CONSTRUCT = "construct";
-	private void inner(Type type, ComponentRelation relation, Type outer, Type outerTypeBeingTranslated) throws LookupException {
-		Type innerClass = createInnerClassFor(relation,type,outerTypeBeingTranslated);
-		type.add(innerClass);
+	private void inner(Type javaType, ComponentRelation relation) throws LookupException {
+		Type innerClass = createInnerClassFor(relation,javaType);
+		javaType.add(innerClass);
 		Type componentType = relation.componentType();
 		for(ComponentRelation nestedRelation: componentType.directlyDeclaredElements(ComponentRelation.class)) {
 			// subst parameters
 			ComponentRelation clonedNestedRelation = nestedRelation.clone();
 			clonedNestedRelation.setUniParent(nestedRelation.parent());
 			substituteTypeParameters(clonedNestedRelation);
-			inner(innerClass, clonedNestedRelation, outer,outerTypeBeingTranslated);
+			inner(innerClass, clonedNestedRelation);
 		}
 		addAliasDelegations(relation, innerClass.nearestAncestor(Type.class),relation.nearestAncestor(Type.class));
 	}
@@ -1230,11 +1328,11 @@ public class JavaTranslator extends AbstractTranslator {
 	/**
 	 * 
 	 * @param relationBeingTranslated A component relation from either the original class, or one of its nested components.
-	 * @param outer The outer class being generated.
+	 * @param outerJavaType The outer class being generated.
 	 */
-	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type outer, Type outerTypeBeingTranslated) throws ChameleonProgrammerException, LookupException {
-		Type result = emptyInnerClassFor(relationBeingTranslated, outer);
-		processComponentRelationBody(relationBeingTranslated, outer, outerTypeBeingTranslated, result);
+	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type outerJavaType) throws ChameleonProgrammerException, LookupException {
+		Type result = emptyInnerClassFor(relationBeingTranslated, outerJavaType);
+		processComponentRelationBody(relationBeingTranslated, result);
 		return result;
 	}
 
@@ -1303,19 +1401,20 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void processComponentRelationBody(ComponentRelation relation, Type outer, Type outerTypeBeingTranslated, Type result)
+	private void processComponentRelationBody(ComponentRelation relation, Type result)
 	throws LookupException {
 		ComponentType ctype = relation.componentTypeDeclaration();
-		if(ctype != null) {
-			if(ctype.ancestors().contains(outerTypeBeingTranslated)) {
-				ComponentType clonedType = ctype.clone();
-				clonedType.setUniParent(relation);
-				replaceOuterAndRootTargets(relation,clonedType);
-				for(TypeElement typeElement:clonedType.body().elements()) {
-					if(! (typeElement instanceof ComponentRelation)) {
-						result.add(typeElement);
-					}
-				}
+		ComponentType clonedType = ctype.clone();
+		clonedType.setUniParent(relation);
+		// The outer and root targets are replaced now because they need to be in the subobjects themselves in order
+		// to use the target semantics of the Outer call. Otherwise we must encode its semantics in the translator.
+		replaceOuterAndRootTargets(clonedType);
+		for(TypeElement typeElement:clonedType.body().elements()) {
+			if(! (typeElement instanceof ComponentRelation)) {
+				result.add(typeElement);
+			}
+			if(relation.signature().name().equals("value") && typeElement instanceof Method && (((Method)typeElement).name().equals("getValue"))) {
+				System.out.println("debug");
 			}
 		}
 	}
@@ -1366,7 +1465,7 @@ public class JavaTranslator extends AbstractTranslator {
 		return superReference;
 	}
 
-	private void replaceOuterAndRootTargets(ComponentRelation rel, TypeElement<?> clone) {
+	private void replaceOuterAndRootTargets(TypeElement<?> clone) {
 		List<AbstractTarget> outers = clone.descendants(AbstractTarget.class);
 		for(AbstractTarget o: outers) {
 			String name = o.getTargetDeclaration().getName();
@@ -1486,7 +1585,11 @@ public class JavaTranslator extends AbstractTranslator {
 		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
 			@Override
 			public boolean eval(SuperTarget superTarget) throws LookupException {
-				return superTarget.getTargetDeclaration() instanceof ComponentRelation;
+				try {
+					return superTarget.getTargetDeclaration() instanceof ComponentRelation;
+				} catch(LookupException exc) {
+					throw exc;
+				}
 			}
 		}
 		);

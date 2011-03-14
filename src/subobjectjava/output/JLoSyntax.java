@@ -8,6 +8,8 @@ import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.MultiActualComponentArgument;
 import subobjectjava.model.component.SingleActualComponentArgument;
+import subobjectjava.model.expression.ComponentParameterCall;
+import subobjectjava.model.expression.SubobjectConstructorCall;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 
@@ -24,6 +26,10 @@ public class JLoSyntax extends JavaCodeWriter {
 			result = toCodeMultiActualComponentArgument((MultiActualComponentArgument) element);
 		} else if(isSingleActualComponentArgument(element)) {
 			result = toCodeSingleActualComponentArgument((SingleActualComponentArgument) element);
+		} else if(isSubobjectConstructorCall(element)) {
+			result = toCodeSubobjectConstructorCall((SubobjectConstructorCall) element);
+		} else if(isComponentParameterCall(element)) {
+			result = toCodeComponentParameterCall((ComponentParameterCall) element);
 		} else {
 			result = super.toCode(element);
 		}
@@ -89,4 +95,21 @@ public class JLoSyntax extends JavaCodeWriter {
 		}
 		return result.toString();
 	}
+	
+	public boolean isSubobjectConstructorCall(Element element) {
+		return element instanceof SubobjectConstructorCall;
+	}
+	
+	public String toCodeSubobjectConstructorCall(SubobjectConstructorCall argument) throws LookupException {
+		return "subobject."+toCode(argument.getTarget())+getActualArgs(argument);
+	}
+
+	public boolean isComponentParameterCall(Element element) {
+		return element instanceof ComponentParameterCall;
+	}
+	
+	public String toCodeComponentParameterCall(ComponentParameterCall argument) throws LookupException {
+		return "#"+ argument.name() + "(" + toCode(argument.target()) + ")";
+	}
+
 }
