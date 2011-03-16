@@ -450,4 +450,9 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return result;
 	}
 
+	@Override
+	public Type superType() throws LookupException {
+		return null;
+	}
+
 }

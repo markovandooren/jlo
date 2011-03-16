@@ -100,7 +100,6 @@ import chameleon.oo.type.generics.ActualType;
 import chameleon.oo.type.generics.BasicTypeArgument;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
 import chameleon.oo.type.generics.TypeParameter;
-import chameleon.oo.type.generics.TypeParameterBlock.Stub;
 import chameleon.oo.type.inheritance.AbstractInheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.expression.AssignmentExpression;
@@ -114,6 +113,7 @@ import chameleon.support.member.simplename.operator.infix.InfixOperatorInvocatio
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import chameleon.support.modifier.Abstract;
 import chameleon.support.modifier.Public;
+import chameleon.support.modifier.Static;
 import chameleon.support.statement.IfThenElseStatement;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
@@ -1142,6 +1142,7 @@ public class JavaTranslator extends AbstractTranslator {
 			  if(body.nearestAncestor(Type.class) == container) {
 				  createStrategy(relation);
 			  }
+			  
 			  Method cons = null;
 			  for(SubobjectConstructorCall call: constructor.descendants(SubobjectConstructorCall.class)) {
 			  	if(call.getTarget().getElement() == relation) {
@@ -1152,11 +1153,14 @@ public class JavaTranslator extends AbstractTranslator {
 			  		cons.setUniParent(relation.nearestAncestor(Type.class));
 			  	}
 			  }
-			  if(cons != null) {
-				  createSpecificStrategy(relation,cons);
-			  }
+			  Type defaultFactory = null;
 			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(constructorArgumentName(relation)), language.createTypeReference(strategyName(relation))));
-			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature("default"+constructorArgumentName(relation)), language.createTypeReference(defaultStrategyName(relation,superCall))));
+			  if(cons != null) {
+			  	defaultFactory = createSpecificStrategy(relation,cons);
+			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature("default"+constructorArgumentName(relation)), language.createTypeReference(defaultStrategyName(relation, cons))));
+			  } else {
+			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature("default"+constructorArgumentName(relation)), language.createTypeReference(defaultStrategyName(relation, superCall))));
+			  }
 			  added = true;
 		  }
 	  }
@@ -1165,21 +1169,6 @@ public class JavaTranslator extends AbstractTranslator {
 	  	replaceSubobjectConstructorCalls(clone, true);
 	  }
   }
-
-	private String defaultStrategyName(ComponentRelation relation,	MethodInvocation superCall) throws LookupException {
-		Type type = relation.nearestAncestor(Type.class);
-		Method constructor = superCall.getElement();
-		while(constructor.nearestAncestor(Type.class) != type) {
-			List<SuperConstructorDelegation> supers = constructor.descendants(SuperConstructorDelegation.class);
-			if(supers.isEmpty()) {
-				MethodInvocation defaultConstructorInvocation = new SuperConstructorDelegation();
-				defaultConstructorInvocation.setUniParent(constructor.implementation());
-				constructor = defaultConstructorInvocation.getElement();
-			} else {
-				constructor = supers.get(0).getElement();
-			}
-		}
-	}
 
 	private String constructorArgumentName(ComponentRelation relation) throws LookupException {
 		return "strategyFor"+toUnderScore(relation.componentType().getFullyQualifiedName());
@@ -1209,6 +1198,7 @@ public class JavaTranslator extends AbstractTranslator {
 			constructor.addModifier(new Abstract());
 			strategy.add(constructor);
 			strategy.addModifier(new Abstract());
+			strategy.addModifier(new Static());
 			type.add(strategy);
 			result = strategy;
 		}
@@ -1218,12 +1208,8 @@ public class JavaTranslator extends AbstractTranslator {
 	private Type createSpecificStrategy(ComponentRelation relation, Method<?,?,?,?> constructor) throws LookupException {
 		Type type = relation.nearestAncestor(Type.class);
 		Type result = null;
-		String name = strategyName(relation);
 		String componentTypeName = relation.componentType().getFullyQualifiedName();
-		List<Type> parameterTypes = constructor.formalParameterTypes();
-		for(Type t: parameterTypes) {
-			name += toUnderScore(t.getFullyQualifiedName());
-		}
+		String name = defaultStrategyName(relation, constructor);
 
 		List<Member> members = type.directlyDeclaredMembers();
 		boolean add = true;
@@ -1247,13 +1233,73 @@ public class JavaTranslator extends AbstractTranslator {
 			factoryMethod.addModifier(new Abstract());
 			strategy.add(factoryMethod);
 			strategy.addModifier(new Abstract());
+			strategy.addModifier(new Static());
+			for(TypeParameter<?> parameter: constructor.nearestAncestor(Type.class).parameters(TypeParameter.class)) {
+				strategy.addParameter(TypeParameter.class, parameter.clone());
+			}
 			type.add(strategy);
 			result = strategy;
+		}
+		if(result == null) {
+			System.out.println("debug");
 		}
 		return result;
 	}
 
-	
+	private String defaultStrategyName(ComponentRelation relation, Method<?, ?, ?, ?> constructor) throws LookupException {
+		String name = strategyName(relation);
+		List<Type> parameterTypes = constructor.formalParameterTypes();
+		for(Type t: parameterTypes) {
+			name += toUnderScore(t.getName());
+		}
+		return name;
+	}
+
+	@SuppressWarnings("unchecked")
+	private String defaultStrategyName(ComponentRelation relation,	MethodInvocation<?,?> superCall) throws LookupException {
+		Type type = relation.nearestAncestor(Type.class);
+		Type originalOuter = superCall.farthestAncestor(Type.class);
+		Method<?,?,?,?> constructor = superCall.getElement();
+		while(constructor != null && constructor.nearestAncestor(Type.class) != type) {
+			List<SuperConstructorDelegation> supers = constructor.descendants(SuperConstructorDelegation.class);
+			if(supers.isEmpty()) {
+				MethodInvocation defaultConstructorInvocation = new SuperConstructorDelegation();
+				defaultConstructorInvocation.setUniParent(constructor.implementation());
+				constructor = defaultConstructorInvocation.getElement();
+			} else {
+				constructor = supers.get(0).getElement();
+			}
+		}
+		if(constructor == null) {
+			return strategyName(relation);
+		} else {
+//			Method cons = constructor.clone();
+//			cons.setUniParent(constructor.parent());
+//			substituteTypeParameters(cons);
+//			cons.setUniParent(original);
+		  Method cons = null;
+		  for(SubobjectConstructorCall call: constructor.descendants(SubobjectConstructorCall.class)) {
+		  	if(call.getTarget().getElement() == relation) {
+		  		if(! originalOuter.subTypeOf(constructor.nearestAncestor(Type.class))) {
+		  			cons = call.getElement();
+		  		} else {
+		  			Method originalCons = call.getElement();
+		  			cons = originalCons.clone();
+		  			cons.setUniParent(originalCons.parent());
+		  			substituteTypeParameters(cons);
+		  			cons.setUniParent(relation.nearestAncestor(Type.class));
+		  		}
+		  	}
+		  }
+		  String defaultStrategyName = defaultStrategyName(relation, cons);
+		  if(defaultStrategyName.equals("jlo_interval_Interval_lowerBound_constructorFloatboolean")) {
+		  	System.out.println("debug");
+		  }
+			return defaultStrategyName;
+		}
+	}
+
+
 	private String strategyName(ComponentRelation relation) throws LookupException {
 		String name = toUnderScore(relation.componentType().getFullyQualifiedName()) + STRATEGY;
 		return name;
