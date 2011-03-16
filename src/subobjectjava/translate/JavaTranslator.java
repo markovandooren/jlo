@@ -1311,27 +1311,56 @@ public class JavaTranslator extends AbstractTranslator {
 	throws LookupException {
 		SuperConstructorDelegation superCall = constructor.descendants(SuperConstructorDelegation.class).get(0);
 		Type type = constructor.nearestAncestor(Type.class);
-		for(ComponentRelation relation: type.members(ComponentRelation.class)) {
+		List<ComponentRelation> members = type.members(ComponentRelation.class);
+		List<FormalParameter> formalParameters = constructor.formalParameters();
+		int firstStrategyIndex = constructor.nbFormalParameters()- (2*members.size());
+		// We need the list of subobjects of the super class because we must pass the strategies in the correct order.
+		List<ComponentRelation> superSubobjects = type.getDirectSuperTypes().iterator().next().members(ComponentRelation.class);
+		// We store the additional arguments for the super constructor call locally, and add them
+		// at the end. Otherwise I have to add a setter to OrderedMultiAssociation, and I am too tired
+		// now to do that correctly.
+		List<Expression> arguments = new ArrayList<Expression>();
+		for(int i=0; i< superSubobjects.size();i++) {
+			arguments.add(null);
+			arguments.add(null);
+		}
+		int indexInCurrent = firstStrategyIndex;
+		for(ComponentRelation relation: members) {
+			int relativeIndexInSuper = -1;
+			int size = superSubobjects.size();
+			for(int i = 0; i < size; i++) {
+				if(superSubobjects.get(i).signature().sameAs(relation.signature())) {
+					relativeIndexInSuper = 2*i;
+				}
+			}
 			ClassBody body = relation.nearestAncestor(ClassBody.class);
 			if(body != null && type.subTypeOf(body.nearestAncestor(Type.class))) {
 				List<SubobjectConstructorCall> subCalls = constructorCallsOfRelation(relation, constructor);
 				if(!isLocallyDefined(relation,type)) {
+					if(relativeIndexInSuper == -1) {
+						throw new Error();
+					}
 					if(subCalls.isEmpty()) {
 						// Neither strategy is set.
-						superCall.addArgument(new NullLiteral());
-						superCall.addArgument(new NullLiteral());
+						if(! clonedConstructor) {
+							arguments.set(relativeIndexInSuper,new NullLiteral());
+							arguments.set(relativeIndexInSuper+1,new NullLiteral());
+						} else {
+							arguments.set(relativeIndexInSuper,new NamedTargetExpression(formalParameters.get(indexInCurrent).getName()));
+							arguments.set(relativeIndexInSuper+1,new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName()));
+						}
 					}
 				} else if (! relation.overriddenMembers().isEmpty()) {
 					// create a strategy that will create the new subobject.
 					if(subCalls.isEmpty()) {
-						superCall.addArgument(new NullLiteral());
+						arguments.set(relativeIndexInSuper,new NullLiteral());
 						// add default strategy
-						superCall.addArgument(new NullLiteral()); // FIX
+						arguments.set(relativeIndexInSuper+1,new NullLiteral()); // FIX
 					} else {
 						// add explicit strategy
-						superCall.addArgument(new NullLiteral()); // FIX
+						arguments.set(relativeIndexInSuper,new NullLiteral()); // FIX
 						// default is null;
-						superCall.addArgument(new NullLiteral());
+						arguments.set(relativeIndexInSuper+1,new NullLiteral());
 					}
 				} else {
 					// Create and set the subobject
@@ -1363,7 +1392,9 @@ public class JavaTranslator extends AbstractTranslator {
 					}
 				}
 			}
+			indexInCurrent += 2;
 		}
+		superCall.addAllArguments(arguments);
 	}
 	
 	public final String CONSTRUCT = "construct";
