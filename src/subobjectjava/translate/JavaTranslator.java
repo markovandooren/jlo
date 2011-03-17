@@ -1116,7 +1116,7 @@ public class JavaTranslator extends AbstractTranslator {
 		return constructorCalls;
 	}
 
-	private void replaceSubobjectConstructorCalls(Type type) throws LookupException {
+	private void replaceSubobjectConstructorCalls(Type type) throws ModelException {
 		Java lang = type.language(Java.class);
 		for(Method constructor: type.descendants(Method.class, lang.CONSTRUCTOR)) {
 			createStrategyCloneOfConstructor(constructor);
@@ -1124,7 +1124,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
-	private void createStrategyCloneOfConstructor(Method<?,?,?,?> constructor) throws LookupException {
+	private void createStrategyCloneOfConstructor(Method<?,?,?,?> constructor) throws ModelException {
 		// create super call if it does not already exist.
 		List<SuperConstructorDelegation> superCalls = constructor.descendants(SuperConstructorDelegation.class);
 		MethodInvocation superCall;
@@ -1313,7 +1313,7 @@ public class JavaTranslator extends AbstractTranslator {
 	public final String STRATEGY = "_constructor";
 
 	private void replaceSubobjectConstructorCalls(Method<?,?,?,?> constructor, boolean clonedConstructor)
-	throws LookupException {
+	throws ModelException {
 		Java language = constructor.language(Java.class);
 		if(constructor.name().equals("SpecialRadio")) {
 			System.out.println("debug");
@@ -1378,9 +1378,12 @@ public class JavaTranslator extends AbstractTranslator {
 							MethodInvocation condition = new InfixOperatorInvocation("&&", conditionLeft);
 							condition.addArgument(conditionRight);
 							ConstructorInvocation strategy = new ConstructorInvocation((BasicJavaTypeReference) formalParameters.get(indexInCurrent+1).getTypeReference().clone(), null);
+							Expression conditional = new ConditionalExpression(condition, strategy, arg);
 							ClassBody b = new ClassBody();
 							strategy.setBody(b);
-							Expression conditional = new ConditionalExpression(condition, strategy, arg);
+							SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);  
+							Method method = language.createNormalMethod(header, language.createTypeReference(relation.componentType().getFullyQualifiedName()));
+							b.add(method);
 							arguments[relativeIndexInSuper+1] = conditional;
 						}
 					} else {
