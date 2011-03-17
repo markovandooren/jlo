@@ -845,8 +845,9 @@ public class JavaTranslator extends AbstractTranslator {
 					}
 				}
 				catch(LookupException exc) {
-					tref.getElement();
-					throw exc;
+//					tref.getElement();
+//					throw exc;
+					tref.setSignature(new SimpleNameSignature(tref.signature().name()+IMPL));
 				}
 			}
 			implementOwnInterface(type);
@@ -1195,6 +1196,11 @@ public class JavaTranslator extends AbstractTranslator {
 			strategy.add(constructor);
 			strategy.addModifier(new Abstract());
 			strategy.addModifier(new Static());
+			for(Member<?,?,?> member: relation.directlyOverriddenMembers()) {
+				if(type.subTypeOf(member.nearestAncestor(Type.class))) {
+					strategy.addInheritanceRelation(new SubtypeRelation(language.createTypeReference(strategyName((ComponentRelation) member))));
+				}
+			}
 			type.add(strategy);
 //			result = strategy;
 		}
@@ -1255,17 +1261,19 @@ public class JavaTranslator extends AbstractTranslator {
 		Type originalOuter = superCall.farthestAncestor(Type.class);
 		Method<?,?,?,?> constructor = superCall.getElement();
 		ComponentRelation actuallyConstructedSubobject = null;
-		while(constructor != null && (actuallyConstructedSubobject == null)) { // && constructor.nearestAncestor(Type.class) != type) {
+		MethodInvocation subobjectConstructorCall = null;
+		while(constructor != null && (subobjectConstructorCall == null)) { // && constructor.nearestAncestor(Type.class) != type) {
 		  for(SubobjectConstructorCall call: constructor.descendants(SubobjectConstructorCall.class)) {
 		  	ComponentRelation subobject = call.getTarget().getElement();
 				if(allRelatedSubobjects.contains(subobject)) {
 					actuallyConstructedSubobject = subobject;
+					subobjectConstructorCall = call;
 		  		break;
 		  	}
 		  }
 		  // If we haven't found the appropriate constructor yet, we continue searching in the super class hierarchy by following
 		  // the super constructor delegations.
-			if(actuallyConstructedSubobject == null) {
+			if(subobjectConstructorCall == null) {
 				List<SuperConstructorDelegation> supers = constructor.descendants(SuperConstructorDelegation.class);
 				if(supers.isEmpty()) {
 					MethodInvocation defaultConstructorInvocation = new SuperConstructorDelegation();
@@ -1279,25 +1287,20 @@ public class JavaTranslator extends AbstractTranslator {
 		if(constructor == null) {
 			return strategyName(relation);
 		} else {
-		  Method cons = null;
-		  for(SubobjectConstructorCall call: constructor.descendants(SubobjectConstructorCall.class)) {
-		  	if(call.getTarget().getElement() == relation) {
-		  		if(! originalOuter.subTypeOf(constructor.nearestAncestor(Type.class))) {
-		  			cons = call.getElement();
-		  		} else {
-		  			Method originalCons = call.getElement();
-		  			cons = originalCons.clone();
-		  			cons.setUniParent(originalCons.parent());
-		  			substituteTypeParameters(cons);
-		  			cons.setUniParent(relation.nearestAncestor(Type.class));
-		  		}
-		  	}
+		  Method cons = subobjectConstructorCall.getElement();
+		  // Only substitute parameters if we are not in the context of the subobject type
+		  if(originalOuter.subTypeOf(constructor.nearestAncestor(Type.class))) {
+			  Method originalCons = subobjectConstructorCall.getElement();
+			  cons = originalCons.clone();
+			  cons.setUniParent(originalCons.parent());
+			  substituteTypeParameters(cons);
+			  cons.setUniParent(relation.nearestAncestor(Type.class));
 		  }
-		  String defaultStrategyName = defaultStrategyName(relation, cons);
-		  if(defaultStrategyName.equals("jlo_interval_Interval_lowerBound_constructorFloatboolean")) {
-		  	System.out.println("debug");
+		  String defaultStrategyName = defaultStrategyName(actuallyConstructedSubobject, cons);
+		  if(defaultStrategyName.equals("radio_SpecialRadio_frequency_constructorFloatFloatFloat")) {
+			  System.out.println("debug");
 		  }
-			return defaultStrategyName;
+		  return defaultStrategyName;
 		}
 	}
 
@@ -1365,7 +1368,7 @@ public class JavaTranslator extends AbstractTranslator {
 							// add default strategy
 							arguments[relativeIndexInSuper+1] = new NullLiteral(); // FIX
 						} else {
-							arguments[relativeIndexInSuper] = new NullLiteral();
+							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
 							Expression arg = new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName());
 							MethodInvocation conditionRight = new InfixOperatorInvocation("==", arg.clone());
 							conditionRight.addArgument(new NullLiteral());
