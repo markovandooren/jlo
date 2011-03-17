@@ -7,6 +7,7 @@ import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
+import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.scope.Scope;
@@ -99,7 +100,7 @@ public class InstantiatedComponentParameter<E extends InstantiatedComponentParam
 		
 //	}
 
-	public LookupStrategy targetContext() throws LookupException {
+	public LocalLookupStrategy<?> targetContext() throws LookupException {
 		return declaration().targetContext();
 	}
 

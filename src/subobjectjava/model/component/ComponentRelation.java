@@ -21,9 +21,11 @@ import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationContainerSkipper;
 import chameleon.core.lookup.DeclarationSelector;
+import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.lookup.Stub;
+import chameleon.core.member.HidesRelation;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
 import chameleon.core.member.MemberRelationSelector;
@@ -183,10 +185,25 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
     return _configurationBlock.getOtherEnd();
   }
   
+  public List<ConfigurationClause> clauses() throws LookupException {
+	  List<ConfigurationClause> result;
+	  ConfigurationBlock block = configurationBlock();
+	  if(block == null) {
+		  result = new ArrayList<ConfigurationClause>();
+	  } else {
+		  result = block.clauses();
+	  }
+	  Set<ComponentRelation> overridden = (Set<ComponentRelation>) overriddenMembers();
+	  for(ComponentRelation relation: overridden) {
+		  result.addAll(relation.configurationBlock().clauses());
+	  }
+	  return result;
+  }
+  
   private SingleAssociation<ComponentRelation, ConfigurationBlock> _configurationBlock = new SingleAssociation<ComponentRelation, ConfigurationBlock>(this);
 
-	public LookupStrategy targetContext() throws LookupException {
-		return componentType().localStrategy();
+	public LocalLookupStrategy<?> targetContext() throws LookupException {
+		return componentType().targetContext();
 	}
 
 	public Type declarationType() throws LookupException {
@@ -313,7 +330,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
    @ post ((ComponentStub)\result.parent()).parent() == componentType();
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
-	public Member incorporatedIntoComponentType(Member toBeIncorporated) throws LookupException {
+	public <M extends Member> M incorporatedIntoComponentType(M toBeIncorporated) throws LookupException {
 		return incorporatedInto(toBeIncorporated, componentType());
 	}
 	
@@ -336,7 +353,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
    @ post ((ComponentStub)\result.parent()).parent() == nearestAncestor(Type.class);
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
-	public Member incorporatedIntoContainerType(Member toBeIncorporated) throws LookupException {
+	public <M extends Member> M incorporatedIntoContainerType(M toBeIncorporated) throws LookupException {
 		return incorporatedInto(toBeIncorporated, nearestAncestor(Type.class));
 	}
 	
@@ -359,8 +376,8 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
    @ post ((ComponentStub)\result.parent()).parent() == type;
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
-	protected Member incorporatedInto(Member toBeIncorporated, Type incorporatingType) throws LookupException {
-		Member result = toBeIncorporated.clone();
+	protected <M extends Member> M incorporatedInto(M toBeIncorporated, Type incorporatingType) throws LookupException {
+		M result = (M) toBeIncorporated.clone();
 		result.setOrigin(toBeIncorporated);
 		Stub redirector = new ComponentStub(this, result);
 		redirector.setUniParent(incorporatingType);
@@ -378,7 +395,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return new MemberRelationSelector<ComponentRelation>(ComponentRelation.class,this,_overridesSelector);
 	}
 
-  public OverridesRelation<? extends Member> overridesRelation() {
+  public OverridesRelation<? extends ComponentRelation> overridesRelation() {
   	return _overridesSelector;
   }
   
@@ -391,10 +408,22 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 
 		@Override
 		public boolean containsBasedOnName(Signature first, Signature second) throws LookupException {
-			return first.name().equals(second.name());
+			return first.sameAs(second);
 		}
 	};
 	
+  public HidesRelation<? extends ComponentRelation> hidesRelation() {
+		return _hidesSelector;
+  }
+  
+  private static HidesRelation<ComponentRelation> _hidesSelector = new HidesRelation<ComponentRelation>(ComponentRelation.class) {
+		
+		public boolean containsBasedOnRest(ComponentRelation first, ComponentRelation second) throws LookupException {
+			return true;
+		}
+
+	};
+
 	 /*@
 	   @ public behavior
 	   @

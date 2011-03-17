@@ -59,7 +59,7 @@ public class IncrementalJavaTranslator {
 	
 	private JavaTranslator _translator;
 	
-	public JavaTranslator basicTranslator() {
+	public AbstractTranslator basicTranslator() {
 		return _translator;
 	}
 	
