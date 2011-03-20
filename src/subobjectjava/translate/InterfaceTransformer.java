@@ -2,16 +2,18 @@ package subobjectjava.translate;
 
 import java.util.List;
 
+import jnome.core.language.Java;
+import jnome.core.type.BasicJavaTypeReference;
+
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.property.Property;
 
-import jnome.core.language.Java;
-import jnome.core.type.BasicJavaTypeReference;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.method.Method;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.reference.SimpleReference;
 import chameleon.core.variable.VariableDeclarator;
 import chameleon.exception.ModelException;
 import chameleon.oo.language.ObjectOrientedLanguage;
@@ -34,6 +36,12 @@ public class InterfaceTransformer extends AbstractTranslator {
 		interfaceType.addModifier(new Interface());
 		transformToInterfaceDeep(interfaceType);
 		for(BasicJavaTypeReference tref: interfaceType.descendants(BasicJavaTypeReference.class)) {
+			String name = tref.signature().name();
+			if(name.endsWith(IMPL)) {
+			  tref.setSignature(new SimpleNameSignature(interfaceName(name)));
+			}
+		}
+		for(SimpleReference tref: interfaceType.descendants(SimpleReference.class)) {
 			String name = tref.signature().name();
 			if(name.endsWith(IMPL)) {
 			  tref.setSignature(new SimpleNameSignature(interfaceName(name)));
