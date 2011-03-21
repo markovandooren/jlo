@@ -68,6 +68,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 			List<SubtypeRelation> inheritanceRelations = type.nonMemberInheritanceRelations(SubtypeRelation.class);
 			int last = inheritanceRelations.size() - 1;
 			inheritanceRelations.get(last).disconnect();
+			
 			for(TypeElement decl: type.directlyDeclaredElements()) {
 				if(decl instanceof Method) {
 					((Method) decl).setImplementation(null);

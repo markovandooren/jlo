@@ -97,7 +97,6 @@ import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
 import chameleon.oo.type.generics.ActualType;
 import chameleon.oo.type.generics.BasicTypeArgument;
-import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.inheritance.AbstractInheritanceRelation;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
@@ -898,11 +897,6 @@ public class JavaTranslator extends AbstractTranslator {
 			String oldFQN = type.getFullyQualifiedName();
 			BasicJavaTypeReference createTypeReference = language.createTypeReference(oldFQN);
 			transformToInterfaceReference(createTypeReference);
-			// Copy own type parameters
-//			List<TypeParameter> tpars = type.parameters(TypeParameter.class);
-//			for(TypeParameter parameter:tpars) {
-//				createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
-//			}
 			// Copy type parameters from outer classes if necessary
 			copyTypeParametersIfNecessary(type, createTypeReference);
 			SubtypeRelation relation = new SubtypeRelation(createTypeReference);
@@ -919,31 +913,6 @@ public class JavaTranslator extends AbstractTranslator {
 
 
 
-	private void copyTypeParametersFromAncestors(Element<?> type, BasicJavaTypeReference createTypeReference) {
-		Type ancestor = type.nearestAncestorOrSelf(Type.class);
-		Java language = type.language(Java.class);
-		while(ancestor != null) {
-			List<TypeParameter> tpars = ancestor.parameters(TypeParameter.class);
-			for(TypeParameter parameter:tpars) {
-				createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
-			}
-			if(type.isTrue(language.CLASS)) {
-				ancestor = null;
-			} else {
-			  ancestor = ancestor.nearestAncestor(Type.class);
-			}
-		}
-	}
-	
-//	private void copyTypeParametersFromFarthestAncestor(Element<?> type, BasicJavaTypeReference createTypeReference) {
-//		Type farthestAncestor = type.farthestAncestorOrSelf(Type.class);
-//		Java language = type.language(Java.class);
-//		List<TypeParameter> tpars = farthestAncestor.parameters(TypeParameter.class);
-//		for(TypeParameter parameter:tpars) {
-//			createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
-//		}
-//	}
-	
 	private void processSuperComponentParameters(AbstractInheritanceRelation<?> relation) throws LookupException {
 		TypeReference tref = relation.superClassReference();
 		Type type = relation.nearestAncestor(Type.class);

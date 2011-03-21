@@ -6,6 +6,7 @@ import java.util.Set;
 
 import jnome.core.expression.invocation.SuperConstructorDelegation;
 import jnome.core.language.Java;
+import jnome.core.type.BasicJavaTypeReference;
 
 import org.rejuse.logic.ternary.Ternary;
 
@@ -14,6 +15,7 @@ import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.type.RegularJLoType;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.TargetDeclaration;
+import chameleon.core.element.Element;
 import chameleon.core.expression.MethodInvocation;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.method.Method;
@@ -76,6 +78,9 @@ private TypeReference superClassReference(ComponentRelation relation) throws Loo
 }
 
 private List<TypeReference> superClassReferences(ComponentRelation relation) throws LookupException {
+	if(relation.componentType().getFullyQualifiedName().contains("frequency")) {
+		System.out.println("debug");
+	}
 	Java language = relation.language(Java.class);
 	List<TypeReference> result = new ArrayList<TypeReference>();
 	TypeReference superReference = relation.componentTypeReference().clone();
@@ -89,7 +94,20 @@ private List<TypeReference> superClassReferences(ComponentRelation relation) thr
 	result.add(superReference);
 	Set<ComponentRelation> superSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
 	for(ComponentRelation superSubobject: superSubobjects) {
-		result.add(language.createNonLocalTypeReference(language.createTypeReference(innerClassFQN(superSubobject)), language.defaultNamespace()));
+		Element origin = superSubobject.origin();
+		BasicJavaTypeReference tref;
+		if(origin != superSubobject) {
+			ComponentRelation tmp = superSubobject;
+			superSubobject = (ComponentRelation) origin; 
+   		    tref = language.createTypeReference(innerClassFQN(superSubobject));
+   		    copyTypeParametersFromAncestors(superSubobject.componentType(), tref);
+   		    tref.setUniParent(superSubobject);
+   		    substituteTypeParameters(tref);
+   		    tref.setUniParent(null);
+		} else {
+		  tref = language.createTypeReference(innerClassFQN(superSubobject));
+		}
+		result.add(language.createNonLocalTypeReference(tref, language.defaultNamespace()));
 	}
 	return result;
 }

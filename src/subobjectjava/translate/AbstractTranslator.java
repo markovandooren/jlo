@@ -49,6 +49,7 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.ActualType;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
+import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.modifier.Public;
@@ -228,6 +229,22 @@ public class AbstractTranslator {
 		result.setExceptionClause(clone);
 		result.addModifier(new Public());
 		return result;
+	}
+
+	protected void copyTypeParametersFromAncestors(Element<?> type, BasicJavaTypeReference createTypeReference) {
+		Type ancestor = type.nearestAncestorOrSelf(Type.class);
+		Java language = type.language(Java.class);
+		while(ancestor != null) {
+			List<TypeParameter> tpars = ancestor.parameters(TypeParameter.class);
+			for(TypeParameter parameter:tpars) {
+				createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
+			}
+			if(type.isTrue(language.CLASS)) {
+				ancestor = null;
+			} else {
+			  ancestor = ancestor.nearestAncestor(Type.class);
+			}
+		}
 	}
 
 }
