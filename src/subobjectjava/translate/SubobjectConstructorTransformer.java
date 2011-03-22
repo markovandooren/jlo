@@ -40,6 +40,7 @@ import chameleon.support.expression.NullLiteral;
 import chameleon.support.expression.ThisLiteral;
 import chameleon.support.member.simplename.operator.infix.InfixOperatorInvocation;
 import chameleon.support.modifier.Abstract;
+import chameleon.support.modifier.Public;
 import chameleon.support.modifier.Static;
 import chameleon.support.statement.IfThenElseStatement;
 import chameleon.support.statement.StatementExpression;
@@ -188,17 +189,39 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	@SuppressWarnings("unchecked")
 	private String defaultStrategyNameWhenNoLocalSubobjectConstruction(ComponentRelation relation,	MethodInvocation<?,?> superCall) throws LookupException {
+		SubobjectConstructorCall subobjectConstructorCall = subobjectConstructorCall(relation, superCall);
+		if(subobjectConstructorCall == null) {
+			return strategyName(relation);
+		} else {
+			ComponentRelation actuallyConstructedSubobject = subobjectConstructorCall.getTarget().getElement();
+		  Method cons = subobjectConstructorCall.getElement();
+		  // Only substitute parameters if we are not in the context of the subobject type
+			Type originalOuter = superCall.farthestAncestor(Type.class);
+		  if(originalOuter.subTypeOf(subobjectConstructorCall.nearestAncestor(Type.class))) {
+			  Method originalCons = subobjectConstructorCall.getElement();
+			  cons = originalCons.clone();
+			  cons.setUniParent(originalCons.parent());
+			  substituteTypeParameters(cons);
+			  cons.setUniParent(relation.nearestAncestor(Type.class));
+		  }
+		  String defaultStrategyName = defaultStrategyName(actuallyConstructedSubobject, cons);
+		  if(defaultStrategyName.equals("radio_SpecialRadio_frequency_constructorFloatFloatFloat")) {
+			  System.out.println("debug");
+		  }
+		  return defaultStrategyName;
+		}
+	}
+
+	private SubobjectConstructorCall subobjectConstructorCall(ComponentRelation relation, MethodInvocation<?, ?> superCall)
+			throws LookupException {
+		SubobjectConstructorCall subobjectConstructorCall = null;
 		Set<ComponentRelation> allRelatedSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
 		allRelatedSubobjects.add(relation);
-		Type originalOuter = superCall.farthestAncestor(Type.class);
 		Method<?,?,?,?> constructor = superCall.getElement();
-		ComponentRelation actuallyConstructedSubobject = null;
-		MethodInvocation subobjectConstructorCall = null;
 		while(constructor != null && (subobjectConstructorCall == null)) { // && constructor.nearestAncestor(Type.class) != type) {
 		  for(SubobjectConstructorCall call: constructor.descendants(SubobjectConstructorCall.class)) {
 		  	ComponentRelation subobject = call.getTarget().getElement();
 				if(allRelatedSubobjects.contains(subobject)) {
-					actuallyConstructedSubobject = subobject;
 					subobjectConstructorCall = call;
 		  		break;
 		  	}
@@ -216,24 +239,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 				}
 			}
 		}
-		if(constructor == null) {
-			return strategyName(relation);
-		} else {
-		  Method cons = subobjectConstructorCall.getElement();
-		  // Only substitute parameters if we are not in the context of the subobject type
-		  if(originalOuter.subTypeOf(constructor.nearestAncestor(Type.class))) {
-			  Method originalCons = subobjectConstructorCall.getElement();
-			  cons = originalCons.clone();
-			  cons.setUniParent(originalCons.parent());
-			  substituteTypeParameters(cons);
-			  cons.setUniParent(relation.nearestAncestor(Type.class));
-		  }
-		  String defaultStrategyName = defaultStrategyName(actuallyConstructedSubobject, cons);
-		  if(defaultStrategyName.equals("radio_SpecialRadio_frequency_constructorFloatFloatFloat")) {
-			  System.out.println("debug");
-		  }
-		  return defaultStrategyName;
-		}
+		return subobjectConstructorCall;
 	}
 
 
@@ -315,7 +321,18 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							strategy.setBody(b);
 							SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
 							header.addFormalParameter(new FormalParameter("o",language.createTypeReference("java.lang.Object")));
+							SubobjectConstructorCall subobjectConstructorCall=subobjectConstructorCall(relation,superCall);
+							Method<?,?,?,?> subobjectConstructor = subobjectConstructorCall.getElement();
+							for(FormalParameter param: subobjectConstructor.formalParameters()) {
+								FormalParameter clone = param.clone();
+								clone.setUniParent(param.parent());
+								substituteTypeParameters(clone);
+								clone.setUniParent(null);
+								header.addFormalParameter(clone);
+							}
+							
 							Method method = language.createNormalMethod(header, language.createTypeReference(relation.componentType().getFullyQualifiedName()));
+							method.addModifier(new Public());
 							b.add(method);
 							Block methodBody = new Block();
 							method.setImplementation(new RegularImplementation(methodBody));
