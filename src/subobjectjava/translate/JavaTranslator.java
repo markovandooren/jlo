@@ -441,7 +441,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
 //	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws ModelException {
 //		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
 //		List<Member> members = relation.componentType().members();
@@ -478,13 +478,14 @@ public class JavaTranslator extends AbstractTranslator {
 		ChameleonProperty ov = lang.OVERRIDABLE;
 		ChameleonProperty def = lang.DEFINED;
 		incorporateImports(relation,result.nearestAncestor(NamespacePart.class));
-		if(relation.componentType().getFullyQualifiedName().equals("radio.Radio.frequency")) {
+		if(relation.componentType().getFullyQualifiedName().equals("radio.Radio.frequency.value")) {
 			System.out.println("debug");
 		}
 		for(Member member: members) {
 			if(member.signature().name().endsWith("hashCode")) {
 				System.out.println("debug");
 			}
+			Element farthestOrigin = member.farthestOrigin();
 			if(member instanceof Method && overriddenSubobjects.contains(member.nearestAncestor(ComponentRelation.class)) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
 				Method newMethod = staticMethod(container, (Method) member);
 				newMethod.setUniParent(member.parent());

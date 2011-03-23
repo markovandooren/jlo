@@ -25,17 +25,17 @@ public class ComponentType extends AnonymousType {
 		addInheritanceRelation(new ComponentSubtypeRelation());
 	}
 	
-//	@Override
-//	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
-//		List<InheritanceRelation> result = super.inheritanceRelations();
-//		List<Type> superTypes = typesOfOverriddenSubobjects();
-//		for(Type superType:superTypes) {
-//			InheritanceRelation relation = new DirectSubtypeRelation(superType);
-//			relation.setUniParent(this);
-//			result.add(relation);
-//		}
-//		return result;
-//	}
+	@Override
+	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
+		List<InheritanceRelation> result = super.inheritanceRelations();
+		List<Type> superTypes = typesOfOverriddenSubobjects();
+		for(Type superType:superTypes) {
+			InheritanceRelation relation = new DirectSubtypeRelation(superType);
+			relation.setUniParent(this);
+			result.add(relation);
+		}
+		return result;
+	}
 
 	private List<Type> typesOfOverriddenSubobjects() throws LookupException {
 		ComponentRelation relation = (ComponentRelation) nearestAncestor(ComponentRelation.class).origin();
