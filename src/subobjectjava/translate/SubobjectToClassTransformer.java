@@ -57,20 +57,17 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	
 	private void addAliasDelegations(ComponentRelation relation, Type outer, Type original) throws LookupException {
 			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
-//			List<Method> elements = methodsOfComponentBody(componentTypeDeclaration);
 			ConfigurationBlock block = relation.configurationBlock();
 			if(block != null) {
 				for(ConfigurationClause clause: block.clauses()) {
 					if(clause instanceof RenamingClause) {
 						RenamingClause ov = (RenamingClause)clause;
-						//					final QualifiedName poppedName = ov.oldFqn().popped();
-						//					Type targetInnerClass = searchInnerClass(outer, relation, poppedName);
 						Declaration decl = ov.oldDeclaration();
 						if(decl instanceof Method) {
 							final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
 							Method alias = createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name());
 							outer.add(alias);
-							outer.add(staticAlias(alias,method,original));
+							//outer.add(staticAlias(alias,method,original));
 						}
 					}
 				}

@@ -442,8 +442,36 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 	
 	@SuppressWarnings("unchecked")
+//	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws ModelException {
+//		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
+//		List<Member> members = relation.componentType().members();
+//		members.removeAll(relation.componentType().directlyDeclaredMembers());
+//		Java lang = relation.language(Java.class);
+//		ChameleonProperty ov = lang.OVERRIDABLE;
+//		ChameleonProperty def = lang.DEFINED;
+//		incorporateImports(relation,result.nearestAncestor(NamespacePart.class));
+//		if(relation.componentType().getFullyQualifiedName().equals("radio.Radio.frequency")) {
+//			System.out.println("debug");
+//		}
+//		for(Member member: members) {
+//			if(member.signature().name().endsWith("hashCode")) {
+//				System.out.println("debug");
+//			}
+//			if(member instanceof Method && member.ancestors().contains(relation) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
+//				Method newMethod = staticMethod(container, (Method) member);
+//				newMethod.setUniParent(member.parent());
+//				incorporateImports(newMethod);
+//				substituteTypeParameters(newMethod);
+//				newMethod.setUniParent(null);
+//				createSuperImplementation(newMethod,(Method) member);
+//				container.add(newMethod);
+//			}
+//		}
+//	}
+	
 	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws ModelException {
 		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
+		Set<ComponentRelation> overriddenSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
 		List<Member> members = relation.componentType().members();
 		members.removeAll(relation.componentType().directlyDeclaredMembers());
 		Java lang = relation.language(Java.class);
@@ -454,7 +482,10 @@ public class JavaTranslator extends AbstractTranslator {
 			System.out.println("debug");
 		}
 		for(Member member: members) {
-			if(member instanceof Method && member.ancestors().contains(relation) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
+			if(member.signature().name().endsWith("hashCode")) {
+				System.out.println("debug");
+			}
+			if(member instanceof Method && overriddenSubobjects.contains(member.nearestAncestor(ComponentRelation.class)) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
 				Method newMethod = staticMethod(container, (Method) member);
 				newMethod.setUniParent(member.parent());
 				incorporateImports(newMethod);
@@ -465,7 +496,6 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 		}
 	}
-	
 	private void incorporateImports(Method<?,?,?,?> method) throws LookupException {
 		Java java = method.language(Java.class);
 		NamespacePart namespacePart = method.nearestAncestor(NamespacePart.class);
@@ -977,7 +1007,39 @@ public class JavaTranslator extends AbstractTranslator {
 		return result;
 	}
 	
-	private void replaceSuperCalls(Type type) throws LookupException {
+//	private void replaceSuperCalls(Type type) throws LookupException {
+//		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
+//			@Override
+//			public boolean eval(SuperTarget superTarget) throws LookupException {
+//				try {
+//					return superTarget.getTargetDeclaration() instanceof ComponentRelation;
+//				} catch(LookupException exc) {
+//					throw exc;
+//				}
+//			}
+//		}
+//		);
+//		for(SuperTarget superTarget: superTargets) {
+//			Element<?> cr = superTarget.parent();
+//			if(cr instanceof CrossReferenceWithArguments) {
+//				Element<?> inv = cr.parent();
+//				if(inv instanceof RegularMethodInvocation) {
+//					RegularMethodInvocation call = (RegularMethodInvocation) inv;
+//					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
+//					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName(targetComponent), null);
+//					call.setTarget(subObjectSelection);
+//					String name = staticMethodName(call.name(), targetComponent.componentType());
+//					if(name.equals("radio_SpecialRadio_frequency_setValue")) {
+//						System.out.println("debug");
+//						targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
+//					}
+//					call.setName(name);
+//				}
+//			}
+//		}
+//	}
+	
+	public void replaceSuperCalls(Type type) throws LookupException {
 		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
 			@Override
 			public boolean eval(SuperTarget superTarget) throws LookupException {
@@ -989,25 +1051,25 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 		}
 		);
-		for(SuperTarget superTarget: superTargets) {
+		for(SuperTarget superTarget : superTargets) {
 			Element<?> cr = superTarget.parent();
 			if(cr instanceof CrossReferenceWithArguments) {
 				Element<?> inv = cr.parent();
 				if(inv instanceof RegularMethodInvocation) {
 					RegularMethodInvocation call = (RegularMethodInvocation) inv;
+					Method<?,?,?,?> invoked = call.getElement();
+					Method<?,?,?,?> farthestOrigin = (Method) invoked.farthestOrigin();
 					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
 					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName(targetComponent), null);
 					call.setTarget(subObjectSelection);
-					String name = staticMethodName(call.name(), targetComponent.componentType());
-					if(name.equals("radio_SpecialRadio_frequency_setValue")) {
-						System.out.println("debug");
-						targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
-					}
+					String name = staticMethodName(call.name(), farthestOrigin.nearestAncestor(Type.class));
 					call.setName(name);
 				}
 			}
+			
 		}
 	}
+
 	
 	private MemberVariableDeclarator fieldForComponent(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {
