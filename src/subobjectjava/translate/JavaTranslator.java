@@ -1,6 +1,7 @@
 package subobjectjava.translate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -8,7 +9,6 @@ import java.util.Set;
 import jnome.core.expression.invocation.ConstructorInvocation;
 import jnome.core.expression.invocation.JavaMethodInvocation;
 import jnome.core.expression.invocation.NonLocalJavaTypeReference;
-import jnome.core.expression.invocation.SuperConstructorDelegation;
 import jnome.core.language.Java;
 import jnome.core.modifier.Implements;
 import jnome.core.type.BasicJavaTypeReference;
@@ -20,35 +20,18 @@ import org.rejuse.predicate.SafePredicate;
 import org.rejuse.predicate.TypePredicate;
 import org.rejuse.predicate.UnsafePredicate;
 
-import subobjectjava.model.component.ActualComponentArgument;
-import subobjectjava.model.component.ComponentNameActualArgument;
-import subobjectjava.model.component.ComponentParameter;
 import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
-import subobjectjava.model.component.ComponentRelationSet;
 import subobjectjava.model.component.ComponentType;
-import subobjectjava.model.component.ConfigurationBlock;
-import subobjectjava.model.component.ConfigurationClause;
 import subobjectjava.model.component.FormalComponentParameter;
-import subobjectjava.model.component.InstantiatedComponentParameter;
-import subobjectjava.model.component.MultiActualComponentArgument;
-import subobjectjava.model.component.MultiFormalComponentParameter;
-import subobjectjava.model.component.ParameterReferenceActualArgument;
-import subobjectjava.model.component.RenamingClause;
-import subobjectjava.model.expression.AbstractTarget;
 import subobjectjava.model.expression.ComponentParameterCall;
-import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.JLo;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.Declaration;
-import chameleon.core.declaration.DeclarationWithParametersHeader;
-import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
-import chameleon.core.declaration.SimpleNameDeclarationWithParametersSignature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.StubDeclarationContainer;
-import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.expression.Expression;
 import chameleon.core.expression.InvocationTarget;
@@ -63,7 +46,6 @@ import chameleon.core.method.Implementation;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularImplementation;
 import chameleon.core.method.RegularMethod;
-import chameleon.core.method.exception.ExceptionClause;
 import chameleon.core.modifier.ElementWithModifiers;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespace.NamespaceElement;
@@ -78,46 +60,29 @@ import chameleon.core.reference.CrossReferenceWithTarget;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.reference.SpecificReference;
 import chameleon.core.statement.Block;
-import chameleon.core.statement.Statement;
 import chameleon.core.variable.FormalParameter;
 import chameleon.core.variable.VariableDeclaration;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
-import chameleon.oo.language.ObjectOrientedLanguage;
-import chameleon.oo.plugin.ObjectOrientedFactory;
-import chameleon.oo.type.BasicTypeReference;
 import chameleon.oo.type.ClassBody;
-import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.NonLocalTypeReference;
-import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeElement;
 import chameleon.oo.type.TypeReference;
-import chameleon.oo.type.TypeWithBody;
-import chameleon.oo.type.generics.ActualType;
-import chameleon.oo.type.generics.BasicTypeArgument;
 import chameleon.oo.type.inheritance.AbstractInheritanceRelation;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.expression.AssignmentExpression;
-import chameleon.support.expression.ConditionalExpression;
-import chameleon.support.expression.NullLiteral;
 import chameleon.support.expression.SuperTarget;
 import chameleon.support.expression.ThisLiteral;
 import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
-import chameleon.support.member.simplename.operator.infix.InfixOperatorInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
-import chameleon.support.modifier.Abstract;
 import chameleon.support.modifier.Public;
-import chameleon.support.modifier.Static;
-import chameleon.support.statement.IfThenElseStatement;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
-import chameleon.support.statement.ThrowStatement;
-import chameleon.support.variable.LocalVariableDeclarator;
 import chameleon.util.Util;
 
 public class JavaTranslator extends AbstractTranslator {
@@ -472,6 +437,10 @@ public class JavaTranslator extends AbstractTranslator {
 	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws ModelException {
 		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
 		Set<ComponentRelation> overriddenSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
+		Set<ComponentRelation> originsOfOverriddenSubobjects = new HashSet<ComponentRelation>();
+		for(ComponentRelation overriddenSubobject: overriddenSubobjects) {
+			originsOfOverriddenSubobjects.add((ComponentRelation) overriddenSubobject.origin());
+		}
 		List<Member> members = relation.componentType().members();
 		members.removeAll(relation.componentType().directlyDeclaredMembers());
 		Java lang = relation.language(Java.class);
@@ -481,13 +450,16 @@ public class JavaTranslator extends AbstractTranslator {
 		if(relation.componentType().getFullyQualifiedName().equals("radio.Radio.frequency.value")) {
 			System.out.println("debug");
 		}
-		for(Member member: members) {
+		for(Member<?,?,?> member: members) {
 			if(member.signature().name().endsWith("hashCode")) {
 				System.out.println("debug");
 			}
 			Element farthestOrigin = member.farthestOrigin();
-			if(member instanceof Method && overriddenSubobjects.contains(member.nearestAncestor(ComponentRelation.class)) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
-				Method newMethod = staticMethod(container, (Method) member);
+			ComponentRelation nearestSubobject = member.nearestAncestor(ComponentRelation.class);
+			ComponentRelation originOfNearestSubobject = (nearestSubobject == null ? null : (ComponentRelation) nearestSubobject.origin());
+			if(member instanceof Method && originsOfOverriddenSubobjects.contains(originOfNearestSubobject) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
+//				Method newMethod = staticMethod(container, (Method) member);
+				Method newMethod = staticMethod(originOfNearestSubobject.componentType(), (Method) member);
 				newMethod.setUniParent(member.parent());
 				incorporateImports(newMethod);
 				substituteTypeParameters(newMethod);
