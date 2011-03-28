@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Set;
 
 import jnome.core.expression.invocation.ConstructorInvocation;
@@ -1030,22 +1031,38 @@ public class JavaTranslator extends AbstractTranslator {
 				Element<?> inv = cr.parent();
 				if(inv instanceof RegularMethodInvocation) {
 					RegularMethodInvocation call = (RegularMethodInvocation) inv;
+					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
 					Method<?,?,?,?> invoked = call.getElement();
-					List<Element> origins = new ArrayList<Element>();
+					List<ComponentRelation> trail = new ArrayList<ComponentRelation>();
+					trail.add(targetComponent);
 					Element el = invoked;
-					origins.add(el);
 					while(el.origin() != el) {
+						Element previous = el;
 						el = el.origin();
-						origins.add(el);
+						if(el.ancestors().contains(previous.nearestAncestor(Type.class))) {
+							List<ComponentRelation> previousAncestors = previous.ancestors(ComponentRelation.class);
+							List<ComponentRelation> currentAncestors = el.ancestors(ComponentRelation.class);
+							currentAncestors.removeAll(previousAncestors);
+							int size = currentAncestors.size();
+							if(size > 0) {
+								for(int i = size-1; i>=0;i--) {
+									trail.add(currentAncestors.get(i));
+								}
+							}
+						}
 					}
 //					Method<?,?,?,?> farthestIncorporatedOrigin = invoked;
 //					while(farthestIncorporatedOrigin.origin().ancestors().contains(type)) {
 //						farthestIncorporatedOrigin = (Method<?, ?, ?, ?>) farthestIncorporatedOrigin.origin();
 //					}
+					
+					
+					MethodInvocation subobjectSelection = null;
+					for(ComponentRelation rel: trail) {
+						subobjectSelection = new JavaMethodInvocation(getterName(rel), subobjectSelection);
+					}
 					Method<?,?,?,?> farthestOrigin = (Method) invoked.farthestOrigin();
-					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
-					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName(targetComponent), null);
-					call.setTarget(subObjectSelection);
+					call.setTarget(subobjectSelection);
 					String name = staticMethodName(call.name(), farthestOrigin.nearestAncestor(Type.class));
 					call.setName(name);
 				}
