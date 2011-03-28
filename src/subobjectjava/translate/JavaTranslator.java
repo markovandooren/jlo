@@ -1031,6 +1031,17 @@ public class JavaTranslator extends AbstractTranslator {
 				if(inv instanceof RegularMethodInvocation) {
 					RegularMethodInvocation call = (RegularMethodInvocation) inv;
 					Method<?,?,?,?> invoked = call.getElement();
+					List<Element> origins = new ArrayList<Element>();
+					Element el = invoked;
+					origins.add(el);
+					while(el.origin() != el) {
+						el = el.origin();
+						origins.add(el);
+					}
+//					Method<?,?,?,?> farthestIncorporatedOrigin = invoked;
+//					while(farthestIncorporatedOrigin.origin().ancestors().contains(type)) {
+//						farthestIncorporatedOrigin = (Method<?, ?, ?, ?>) farthestIncorporatedOrigin.origin();
+//					}
 					Method<?,?,?,?> farthestOrigin = (Method) invoked.farthestOrigin();
 					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
 					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName(targetComponent), null);
