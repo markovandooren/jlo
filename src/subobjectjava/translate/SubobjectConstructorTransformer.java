@@ -35,6 +35,7 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.inheritance.SubtypeRelation;
+import chameleon.support.expression.ClassCastExpression;
 import chameleon.support.expression.ConditionalExpression;
 import chameleon.support.expression.NullLiteral;
 import chameleon.support.expression.ThisLiteral;
@@ -43,6 +44,7 @@ import chameleon.support.modifier.Abstract;
 import chameleon.support.modifier.Public;
 import chameleon.support.modifier.Static;
 import chameleon.support.statement.IfThenElseStatement;
+import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
 
 public class SubobjectConstructorTransformer extends AbstractTranslator {
@@ -304,9 +306,16 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 						if(! clonedConstructor) {
 							arguments[relativeIndexInSuper] = new NullLiteral();
 							// add default strategy
-							arguments[relativeIndexInSuper+1] = new NullLiteral(); // FIX
+							ConstructorInvocation strategy = defaultConstructionStrategy(
+									constructor, superCall,
+									formalParameters, relation);
+							arguments[relativeIndexInSuper+1] = strategy; // FIX
 						} else {
 							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
+							ConstructorInvocation strategy = defaultConstructionStrategy(
+									constructor, superCall,
+									formalParameters, relation);
+
 							Expression arg = new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName());
 							MethodInvocation conditionRight = new InfixOperatorInvocation("==", arg.clone());
 							conditionRight.addArgument(new NullLiteral());
@@ -315,27 +324,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							conditionLeft.addArgument(new NullLiteral());
 							MethodInvocation condition = new InfixOperatorInvocation("&&", conditionLeft);
 							condition.addArgument(conditionRight);
-							ConstructorInvocation strategy = new ConstructorInvocation((BasicJavaTypeReference) formalParameters.get(indexInCurrent+1).getTypeReference().clone(), null);
 							Expression conditional = new ConditionalExpression(condition, strategy, arg);
-							ClassBody b = new ClassBody();
-							strategy.setBody(b);
-							SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
-							header.addFormalParameter(new FormalParameter("o",language.createTypeReference("java.lang.Object")));
-							SubobjectConstructorCall subobjectConstructorCall=subobjectConstructorCall(relation,superCall);
-							Method<?,?,?,?> subobjectConstructor = subobjectConstructorCall.getElement();
-							for(FormalParameter param: subobjectConstructor.formalParameters()) {
-								FormalParameter clone = param.clone();
-								clone.setUniParent(param.parent());
-								substituteTypeParameters(clone);
-								clone.setUniParent(null);
-								header.addFormalParameter(clone);
-							}
-							
-							Method method = language.createNormalMethod(header, language.createTypeReference(relation.componentType().getFullyQualifiedName()));
-							method.addModifier(new Public());
-							b.add(method);
-							Block methodBody = new Block();
-							method.setImplementation(new RegularImplementation(methodBody));
 							arguments[relativeIndexInSuper+1] = conditional;
 						}
 					} else {
@@ -385,6 +374,48 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		for(Expression argument: arguments) {
 		  superCall.addArgument(argument);
 		}
+	}
+
+	private ConstructorInvocation defaultConstructionStrategy(
+			Method<?, ?, ?, ?> constructor, 
+			SuperConstructorDelegation superCall,
+			List<FormalParameter> formalParameters, 
+			ComponentRelation relation) throws LookupException {
+		Java language = constructor.language(Java.class);
+//		BasicJavaTypeReference strategyType = (BasicJavaTypeReference) formalParameters.get(indexInCurrent+1).getTypeReference().clone() x;
+		BasicJavaTypeReference strategyType = language.createTypeReference(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall));
+		ConstructorInvocation strategy = new ConstructorInvocation(strategyType, null);
+		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
+		header.addFormalParameter(new FormalParameter("o",language.createTypeReference("java.lang.Object")));
+		SubobjectConstructorCall subobjectConstructorCall=subobjectConstructorCall(relation,superCall);
+		Method<?,?,?,?> subobjectConstructor = subobjectConstructorCall.getElement();
+		for(FormalParameter param: subobjectConstructor.formalParameters()) {
+			FormalParameter clone = param.clone();
+			clone.setUniParent(param.parent());
+			substituteTypeParameters(clone);
+			clone.setUniParent(null);
+			header.addFormalParameter(clone);
+		}
+		
+		BasicJavaTypeReference returnTypeReference = language.createTypeReference(relation.componentType().getFullyQualifiedName());
+		Method method = language.createNormalMethod(header, returnTypeReference);
+		method.addModifier(new Public());
+		Block methodBody = new Block();
+		BasicJavaTypeReference castTypeReference = language.createTypeReference(toImplName(constructor.nearestAncestor(Type.class).getName()));
+		ClassCastExpression cast = new ClassCastExpression(castTypeReference, new NamedTargetExpression("o"));
+		BasicJavaTypeReference subobjectTypeReference = language.createTypeReference(toImplName(relation.componentType().getName()));
+		
+		ConstructorInvocation constructorInvocation = new ConstructorInvocation(subobjectTypeReference, cast);
+		for(FormalParameter param: subobjectConstructor.formalParameters()) {
+			NamedTargetExpression constructorArgument = new NamedTargetExpression(param.getName());
+			constructorInvocation.addArgument(constructorArgument);
+		}
+		methodBody.addStatement(new ReturnStatement(constructorInvocation));
+		method.setImplementation(new RegularImplementation(methodBody));
+		ClassBody b = new ClassBody();
+		strategy.setBody(b);
+		b.add(method);
+		return strategy;
 	}
 	
 	private List<SubobjectConstructorCall> constructorCallsOfRelation(

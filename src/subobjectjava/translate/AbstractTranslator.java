@@ -247,4 +247,11 @@ public class AbstractTranslator {
 		}
 	}
 
+	protected String toImplName(String name) {
+		if(! name.endsWith(IMPL)) {
+			name = name + IMPL;
+		}
+		return name;
+	}
+
 }

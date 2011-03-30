@@ -708,13 +708,6 @@ public class JavaTranslator extends AbstractTranslator {
 		return result;
 	}
 
-	private String toImplName(String name) {
-		if(! name.endsWith(IMPL)) {
-			name = name + IMPL;
-		}
-		return name;
-	}
-	
 	private Type createOrGetInnerTypeForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
 //			Signature innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
 			Signature innerName = current.signature().clone();
