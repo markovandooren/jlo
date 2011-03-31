@@ -59,9 +59,6 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	
 	private void createStrategyCloneOfConstructor(Method<?,?,?,?> constructor) throws ModelException {
 		// create super call if it does not already exist.
-		if(constructor.name().startsWith("WeightedBidiEdge")) {
-			System.out.println("debug");
-		}
 		List<SuperConstructorDelegation> superCalls = constructor.descendants(SuperConstructorDelegation.class);
 		MethodInvocation superCall;
 		if(superCalls.isEmpty()) {
@@ -76,9 +73,6 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	  DeclarationWithParametersHeader header = clone.header();
 	  boolean added = false;
 	  for(ComponentRelation relation: container.members(ComponentRelation.class)) {
-	  	if(relation.name().equals("frequency")) {
-	  		System.out.println("debug");
-	  	}
 		  ClassBody body = relation.nearestAncestor(ClassBody.class);
 		  if((body != null) && container.subTypeOf(body.nearestAncestor(Type.class))) { // (relation.origin() == relation) &&
 			  if(body.nearestAncestor(Type.class) == container) {

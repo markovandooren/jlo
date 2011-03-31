@@ -189,7 +189,11 @@ public class AbstractTranslator {
 	}
 	
 	protected String staticMethodName(Method clone,Type containerOfToBebound) {
-		return staticMethodName(clone.name(), containerOfToBebound);
+		String result = staticMethodName(clone.name(), containerOfToBebound);
+		if(result.equals("jlo_graph_WeightedUniEdge_weight")) {
+			System.out.println("debug");
+		}
+		return result;
 	}
 	
 	private String stripImpl(String string) {

@@ -383,7 +383,6 @@ public class JavaTranslator extends AbstractTranslator {
 //X		rebindOverriddenMethods(result,original);
 
 		addStaticHooksForMethodsOverriddenInSuperSubobject(result,original);
-		addNonOverriddenStaticHooks(result,original);
 
 //M		replaceThisLiterals(result);
 //N		replaceComponentAccess(result);
@@ -496,20 +495,6 @@ public class JavaTranslator extends AbstractTranslator {
 
 
 	
-	private void addNonOverriddenStaticHooks(Type result,Type original) throws LookupException {
-		for(ComponentRelation relation: original.descendants(ComponentRelation.class)) {
-			addNonOverriddenStaticHooks(result,relation);
-		}
-	}
-	
-	private void addNonOverriddenStaticHooks(Type result,ComponentRelation relation) throws LookupException {
-		Type root = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
-//		System.out.println("Root for "+relation.componentType().getFullyQualifiedName()+" is "+root.getFullyQualifiedName());
-		List<Member> membersOfRelation = relation.componentType().members();
-		
-		Set<ComponentRelation> overriddenRelations = (Set<ComponentRelation>) relation.overriddenMembers();
-	}
-	
 	private void rebindOverriddenMethods(Type result, Type original) throws ModelException {
 		for(final Method method: original.descendants(Method.class)) {
 			rebindOverriddenMethodsOf(result, original, method);
@@ -520,29 +505,24 @@ public class JavaTranslator extends AbstractTranslator {
 		Set<? extends Member> overridden = method.overriddenMembers();
 		Java language = method.language(Java.class);
 		if(! overridden.isEmpty()) {
-		if(! method.isTrue(language.CONSTRUCTOR)) {
-			final Method tmp = method.clone();
-//			Type containerOfNewDefinition = containerOfDefinition(result,original, method); // SUBOBJECT
-			Type containerOfNewDefinition = typeOfDefinition(result,original, method); // OK: SUBOBJECT
-		if(containerOfNewDefinition != null) {
-				tmp.setUniParent(containerOfNewDefinition);
-				DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
-					@Override
-					public Signature signature() {
-						return tmp.signature();
-					}
-				};
-				Method newDefinitionInResult = null;
-				newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-				Method<?,?,?,?> stat = newDefinitionInResult.clone();
-				String name = staticMethodName(method, containerOfNewDefinition);
-				stat.setName(name);
-				containerOfNewDefinition.add(stat);
-//				if(!stat.descendants(ComponentParameterCall.class).isEmpty()) {
-//					throw new Error();
-//				}
+			if(! method.isTrue(language.CONSTRUCTOR) && (method.implementation()!=null)) {
+				final Method tmp = method.clone();
+				Type containerOfNewDefinition = typeOfDefinition(result,original, method); // OK: SUBOBJECT
+				if(containerOfNewDefinition != null) {
+					tmp.setUniParent(containerOfNewDefinition);
+					DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
+						@Override
+						public Signature signature() {
+							return tmp.signature();
+						}
+					};
+					Method newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
+					Method<?,?,?,?> stat = newDefinitionInResult.clone();
+					String name = staticMethodName(method, containerOfNewDefinition);
+					stat.setName(name);
+					containerOfNewDefinition.add(stat);
+				}
 			}
-		}
 		}
 		for(Member toBeRebound: overridden) {
 			rebind(result, original, method, (Method) toBeRebound);
