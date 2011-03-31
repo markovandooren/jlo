@@ -154,7 +154,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		String componentTypeName = relation.componentType().getFullyQualifiedName();
 		String name = defaultStrategyName(relation, constructor);
 
-		if(strategyDoesNotExistFor(relation,defaultStrategyName(relation,constructor))) {
+		if(strategyDoesNotExistFor(relation,name)) {
 			Java language = type.language(Java.class);
 			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(new SimpleNameSignature(name));
 			type.add(strategy);
@@ -188,20 +188,25 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	@SuppressWarnings("unchecked")
 	private String defaultStrategyNameWhenNoLocalSubobjectConstruction(ComponentRelation relation,	MethodInvocation<?,?> superCall) throws LookupException {
-		SubobjectConstructorCall subobjectConstructorCall = subobjectConstructorCall(relation, superCall);
+		if(relation.componentType().getFullyQualifiedName().equals("jlo.graph.WiredGraph.object")) {
+			System.out.println("debug");
+		}
+		SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) subobjectConstructorCall(relation, superCall).farthestOrigin();
 		if(subobjectConstructorCall == null) {
 			return strategyName(relation);
 		} else {
 			ComponentRelation actuallyConstructedSubobject = subobjectConstructorCall.getTarget().getElement();
 		  Method cons = subobjectConstructorCall.getElement();
 		  // Only substitute parameters if we are not in the context of the subobject type
-			Type originalOuter = superCall.farthestAncestor(Type.class);
+			Type originalOuter = (Type) superCall.farthestAncestor(Type.class).farthestOrigin();
 		  if(originalOuter.subTypeOf(subobjectConstructorCall.nearestAncestor(Type.class))) {
 			  Method originalCons = subobjectConstructorCall.getElement();
 			  cons = originalCons.clone();
-			  cons.setUniParent(originalCons.parent());
+			  Element parent = originalCons.parent();//.origin();
+			  cons.setUniParent(parent);
 			  substituteTypeParameters(cons);
-			  cons.setUniParent(relation.nearestAncestor(Type.class));
+//			  cons.setUniParent(superCall.nearestAncestor(Type.class));
+			  cons.setUniParent(subobjectConstructorCall.nearestAncestor(Type.class));
 		  }
 		  String defaultStrategyName = defaultStrategyName(actuallyConstructedSubobject, cons);
 		  if(defaultStrategyName.equals("radio_SpecialRadio_frequency_constructorFloatFloatFloat")) {

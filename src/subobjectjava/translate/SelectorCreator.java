@@ -76,6 +76,10 @@ public class SelectorCreator extends AbstractTranslator {
 		Expression expr;
 		if(arg instanceof ComponentNameActualArgument) {
 			ComponentNameActualArgument singarg = (ComponentNameActualArgument) arg;
+			if(singarg.declaration() == null) {
+				System.out.println("debug");
+				singarg.declaration();
+			}
 			expr = new JavaMethodInvocation(getterName(singarg.declaration()),new NamedTargetExpression("argument", null));
 			body.addStatement(new ReturnStatement(expr));
 		} else if(arg instanceof ParameterReferenceActualArgument) {

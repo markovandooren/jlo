@@ -49,7 +49,9 @@ public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstruc
 	
 	@Override
 	protected SubobjectConstructorCall cloneInvocation(InvocationTarget target) {
-		return new SubobjectConstructorCall((CrossReferenceTarget<ComponentRelation>)getTarget().clone(), new ArrayList<Expression>());
+		SubobjectConstructorCall result = new SubobjectConstructorCall((CrossReferenceTarget<ComponentRelation>)getTarget().clone(), new ArrayList<Expression>());
+		result.setOrigin(this);
+		return result;
 	}
 
 	@Override
