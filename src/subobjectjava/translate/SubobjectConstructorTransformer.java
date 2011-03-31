@@ -59,6 +59,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	
 	private void createStrategyCloneOfConstructor(Method<?,?,?,?> constructor) throws ModelException {
 		// create super call if it does not already exist.
+		if(constructor.name().startsWith("WeightedBidiEdge")) {
+			System.out.println("debug");
+		}
 		List<SuperConstructorDelegation> superCalls = constructor.descendants(SuperConstructorDelegation.class);
 		MethodInvocation superCall;
 		if(superCalls.isEmpty()) {
@@ -223,7 +226,15 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		while(constructor != null && (subobjectConstructorCall == null)) { // && constructor.nearestAncestor(Type.class) != type) {
 		  for(SubobjectConstructorCall call: constructor.descendants(SubobjectConstructorCall.class)) {
 		  	ComponentRelation subobject = call.getTarget().getElement();
-				if(allRelatedSubobjects.contains(subobject)) {
+		  	boolean contains = false;
+		  	for(ComponentRelation sub: allRelatedSubobjects) {
+		  		if((subobject.signature().sameAs(sub.signature())) && (subobject.nearestAncestor(Type.class).sameAs(sub.nearestAncestor(Type.class)))) {
+		  			contains = true;
+		  			break;
+		  		}
+		  	}
+		  	if(contains) {
+//				if(allRelatedSubobjects.contains(subobject)) {
 					subobjectConstructorCall = call;
 		  		break;
 		  	}
@@ -234,7 +245,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 				List<SuperConstructorDelegation> supers = constructor.descendants(SuperConstructorDelegation.class);
 				if(supers.isEmpty()) {
 					MethodInvocation defaultConstructorInvocation = new SuperConstructorDelegation();
-					defaultConstructorInvocation.setUniParent(constructor.implementation());
+					defaultConstructorInvocation.setUniParent(constructor);
 					constructor = defaultConstructorInvocation.getElement();
 				} else {
 					constructor = supers.get(0).getElement();
