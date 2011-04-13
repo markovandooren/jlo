@@ -92,9 +92,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(constructorArgumentName(relation)), language.createTypeReference(strategyName(relation))));
 			  if(cons != null) {
 			  	createSpecificStrategy(relation,cons);
-			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature("default"+constructorArgumentName(relation)), language.createTypeReference(defaultStrategyName(relation, cons))));
+			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(defaultStrategyName(relation, cons))));
 			  } else {
-			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature("default"+constructorArgumentName(relation)), language.createTypeReference(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall))));
+			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall))));
 			  }
 			  added = true;
 		  }
@@ -104,6 +104,11 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	  	replaceSubobjectConstructorCalls(clone, true);
 	  }
   }
+
+	private String defaultConstructorArgumentName(ComponentRelation relation)
+			throws LookupException {
+		return "default"+constructorArgumentName(relation);
+	}
 
 	private String constructorArgumentName(ComponentRelation relation) throws LookupException {
 		return "strategyFor"+toUnderScore(relation.componentType().getFullyQualifiedName());
@@ -352,7 +357,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 				} else {
 					// Create and set the subobject
 					for(SubobjectConstructorCall call: subCalls) {
-						MethodInvocation inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation), null);
+						MethodInvocation<?,?> inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation), null);
 						inv.addAllArguments(call.getActualParameters());
 						MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
 						setterCall.addArgument(inv);
@@ -360,7 +365,24 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							MethodInvocation expression = new InfixOperatorInvocation("==", new NamedTargetExpression(constructorArgumentName(relation)));
 							expression.addArgument(new NullLiteral());
 							Block ifBlock = new Block();
-							ifBlock.addStatement(new StatementExpression(setterCall));
+							
+							MethodInvocation nestedExpression = new InfixOperatorInvocation("==", new NamedTargetExpression(defaultConstructorArgumentName(relation)));
+							nestedExpression.addArgument(new NullLiteral());
+							Block nestedIfBlock = new Block();
+							nestedIfBlock.addStatement(new StatementExpression(setterCall));
+							Block nestedElseBlock = new Block();
+							MethodInvocation<?,?> defaultStrategyCall = setterCall.clone();
+							defaultStrategyCall.getActualParameters().get(0).disconnect();
+							nestedElseBlock.addStatement(new StatementExpression(defaultStrategyCall));
+							MethodInvocation defaultStrategyInvocation = new JavaMethodInvocation(CONSTRUCT, new NamedTargetExpression(defaultConstructorArgumentName(relation)));
+							defaultStrategyInvocation.addArgument(new ThisLiteral());
+							defaultStrategyCall.addArgument(defaultStrategyInvocation);
+							for(Expression arg: inv.getActualParameters()) {
+								defaultStrategyInvocation.addArgument(arg.clone());
+							}
+							Statement ifthenelseDefault = new IfThenElseStatement(nestedExpression, nestedIfBlock, nestedElseBlock);
+							
+							ifBlock.addStatement(ifthenelseDefault);
 							Block elseBlock = new Block();
 							MethodInvocation<?,?> strategyCall = setterCall.clone();
 							strategyCall.getActualParameters().get(0).disconnect();
