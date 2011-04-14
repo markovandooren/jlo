@@ -29,6 +29,7 @@ import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.language.JLo;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.Declaration;
+import chameleon.core.declaration.DeclarationWithParametersHeader;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameSignature;
@@ -81,6 +82,7 @@ import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.method.RegularMethodInvocation;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
+import chameleon.support.modifier.Constructor;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
@@ -325,7 +327,8 @@ public class JavaTranslator extends AbstractTranslator {
 		StubDeclarationContainer stub = new StubDeclarationContainer();
 		stub.add(result);
 		stub.setUniParent(original.parent());
-
+		ensureConstructor(result);
+		
 		result.setOrigin(original);
 		replaceSuperCalls(result);
 		result.flushCache();
@@ -400,6 +403,25 @@ public class JavaTranslator extends AbstractTranslator {
 		return result;
 	}
 	
+	private void ensureConstructor(Type result) {
+		Java language = result.language(Java.class);
+		List<Method> methods =result.directlyDeclaredElements(Method.class);
+		boolean hasConstructor = false;
+		for(Method method: methods) {
+			if(method.isTrue(language.CONSTRUCTOR)) {
+				hasConstructor = true;
+			}
+		}
+		if(! hasConstructor) {
+			DeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(result.getName());
+			Method method = language.createNormalMethod(header, language.createTypeReference(result.getName()));
+			method.addModifier(new Constructor());
+			method.setImplementation(new RegularImplementation(new Block()));
+			result.add(method);
+		}
+		
+	}
+
 	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,Type original) throws ModelException {
 		for(ComponentRelation relation: original.descendants(ComponentRelation.class)) {
 			addStaticHooksForMethodsOverriddenInSuperSubobject(result,relation);
