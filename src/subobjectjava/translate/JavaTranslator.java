@@ -284,7 +284,7 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 		} catch(LookupException exc) {
 			change = true;
-			if(ref.name().equals("radio")) {
+			if(ref.name().equals("jlo")) {
 				System.out.println("debug");
 				try {
 					ref.getElement();
@@ -294,7 +294,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 		if(change) {
 			String name = ref.name();
-			if(name.equals("radio")) {
+			if(name.equals("jlo")) {
 				System.out.println("debug");
 			}
 			if(! name.endsWith(IMPL)) {
@@ -694,64 +694,64 @@ public class JavaTranslator extends AbstractTranslator {
 			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
 			tref.setUniParent(container);
 			Type result;
-			try { 
+//			try { 
 				result= tref.getElement();
-			} catch(LookupException exc) {
-				// We add the imports to the original. They are copied later on to 'container'.
-				ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
-				result = innerClassCreator().emptyInnerClassFor(relation, container);
-				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
-				incorporateImports(relation, namespacePart);
-				// Since we are adding inner classes that were not written in the current namespacepart, their type
-				// may not have been imported yet. Therefore, we add an import of the referenced component type.
-				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relation.referencedComponentType().getFullyQualifiedName())));
-				container.add(result);
-				container.flushCache();
-			}
+//			} catch(LookupException exc) {
+//				// We add the imports to the original. They are copied later on to 'container'.
+//				ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
+//				result = innerClassCreator().emptyInnerClassFor(relation);
+//				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
+//				incorporateImports(relation, namespacePart);
+//				// Since we are adding inner classes that were not written in the current namespacepart, their type
+//				// may not have been imported yet. Therefore, we add an import of the referenced component type.
+//				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relation.referencedComponentType().getFullyQualifiedName())));
+//				container.add(result);
+//				container.flushCache();
+//			}
 			return createOrGetInnerTypeAux(result, original, elements, baseOneIndex + 1);
 	}
 
 	private Type createOrGetSubobjectForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
-//	Signature innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
 	Signature innerName = current.signature().clone();
 	SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
 	tref.setUniParent(container);
 	Type result;
-	try { 
+//	try { 
 		result= tref.getElement();
-	} catch(LookupException exc) {
-		// We add the imports to the original. They are copied later on to 'container'.
-		ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
-		result = innerClassCreator().emptyInnerClassFor(relation, container);
-		NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
-		incorporateImports(relation, namespacePart);
-		// Since we are adding inner classes that were not written in the current namespacepart, their type
-		// may not have been imported yet. Therefore, we add an import of the referenced component type.
-		namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relation.referencedComponentType().getFullyQualifiedName())));
-		container.add(result);
-		container.flushCache();
-	}
+//	} catch(LookupException exc) {
+//		// We add the imports to the original. They are copied later on to 'container'.
+//		ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
+//		result = innerClassCreator().emptyInnerClassFor(relation);
+//		NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
+//		incorporateImports(relation, namespacePart);
+//		// Since we are adding inner classes that were not written in the current namespacepart, their type
+//		// may not have been imported yet. Therefore, we add an import of the referenced component type.
+//		namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relation.referencedComponentType().getFullyQualifiedName())));
+//		container.add(result);
+//		container.flushCache();
+//	}
 	return createOrGetSubobject(result, original, elements, baseOneIndex + 1);
 }
 	private Type createOrGetInnerTypeForComponent(Type container, Type original, ComponentRelation relationBeingTranslated, List<Element> elements, int baseOneIndex) throws LookupException {
-			Signature innerName = null;
-			innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated)));
-			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
-			tref.setUniParent(container);
-			Type result;
-			try { 
-				result= tref.getElement();
-			} catch(LookupException exc) {
-				// We add the imports to the original. They are copied later on to 'container'.
-				result = innerClassCreator().emptyInnerClassFor(relationBeingTranslated, container);
-				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
-				incorporateImports(relationBeingTranslated, namespacePart);
-				// Since we are adding inner classes that were not written in the current namespacepart, their type
-				// may not have been imported yet. Therefore, we add an import of the referenced component type.
-				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relationBeingTranslated.referencedComponentType().getFullyQualifiedName())));
-				container.add(result);
-				container.flushCache();
+			String innerName = innerClassName(relationBeingTranslated);
+			Type result = null;
+			List<Type> types = container.directlyDeclaredElements(Type.class);
+			for(Type type: types) {
+				if(type.signature().name().equals(innerName)) {
+					result = type;
+				}
 			}
+//			if(result == null) {
+//				// We add the imports to the original. They are copied later on to 'container'.
+//				result = innerClassCreator().emptyInnerClassFor(relationBeingTranslated);
+//				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
+//				incorporateImports(relationBeingTranslated, namespacePart);
+//				// Since we are adding inner classes that were not written in the current namespacepart, their type
+//				// may not have been imported yet. Therefore, we add an import of the referenced component type.
+//				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relationBeingTranslated.referencedComponentType().getFullyQualifiedName())));
+//				container.add(result);
+//				container.flushCache();
+//			}
 			return createOrGetInnerTypeAux(result, original, elements, baseOneIndex + 1);
 	}
 	

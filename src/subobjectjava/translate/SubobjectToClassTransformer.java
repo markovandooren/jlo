@@ -42,7 +42,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	}
 
 	public void inner(Type javaType, ComponentRelation relation) throws LookupException {
-		Type innerClass = createInnerClassFor(relation,javaType);
+		Type innerClass = createInnerClassFor(relation);
 		javaType.add(innerClass);
 		Type componentType = relation.componentType();
 		for(ComponentRelation nestedRelation: componentType.directlyDeclaredElements(ComponentRelation.class)) {
@@ -56,7 +56,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	}
 	
 	private void addAliasDelegations(ComponentRelation relation, Type outer, Type original) throws LookupException {
-			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
+//			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
 			ConfigurationBlock block = relation.configurationBlock();
 			if(block != null) {
 				for(ConfigurationClause clause: block.clauses()) {
@@ -107,8 +107,8 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	 * @param relationBeingTranslated A component relation from either the original class, or one of its nested components.
 	 * @param outerJavaType The outer class being generated.
 	 */
-	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type outerJavaType) throws ChameleonProgrammerException, LookupException {
-		Type result = innerClassCreator().emptyInnerClassFor(relationBeingTranslated, outerJavaType);
+	private Type createInnerClassFor(ComponentRelation relationBeingTranslated) throws ChameleonProgrammerException, LookupException {
+		Type result = innerClassCreator().emptyInnerClassFor(relationBeingTranslated);
 		processComponentRelationBody(relationBeingTranslated, result);
 		return result;
 	}

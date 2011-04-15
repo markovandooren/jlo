@@ -14,19 +14,20 @@
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.6"/>
     <property name="source" value="1.6"/>
+    <property name="bin.relative.location" value="bin"/>
     <path id="rejuse.classpath">
         <pathelement location="${rejuse.location}/dist/classes"/>
         <pathelement location="${rejuse.location}/lib/jregex1.2_00.jar"/>
         <pathelement location="${rejuse.location}/lib/junit-4.7.jar"/>
     </path>
     <path id="Chameleon.classpath">
-        <pathelement location="${Chameleon.location}/bin"/>
+        <pathelement location="${Chameleon.location}/${bin.relative.location}"/>
         <pathelement location="${Chameleon.location}/lib/log4j-1.2.15.jar"/>
         <pathelement location="${Chameleon.location}/lib/junit-4.7.jar"/>
         <path refid="rejuse.classpath"/>
     </path>
     <path id="Chameleon Support.classpath">
-        <pathelement location="${Chameleon Support.location}/bin"/>
+        <pathelement location="${Chameleon Support.location}/${bin.relative.location}"/>
         <path refid="Chameleon.classpath"/>
         <path refid="rejuse.classpath"/>
         <pathelement location="${Chameleon Support.location}/lib/log4j-1.2.15.jar"/>
@@ -34,13 +35,13 @@
         <pathelement location="${Chameleon Support.location}/lib/antlr-3.2.jar"/>
     </path>
     <path id="Chameleon Tools.classpath">
-        <pathelement location="${Chameleon Tools.location}/bin"/>
+        <pathelement location="${Chameleon Tools.location}/${bin.relative.location}"/>
         <path refid="Chameleon.classpath"/>
         <path refid="rejuse.classpath"/>
         <path refid="Chameleon Support.classpath"/>
     </path>
     <path id="Jnome.classpath">
-        <pathelement location="${Jnome.location}/bin"/>
+        <pathelement location="${Jnome.location}/${bin.relative.location}"/>
         <path refid="Chameleon.classpath"/>
         <path refid="Chameleon Support.classpath"/>
         <path refid="rejuse.classpath"/>
@@ -50,7 +51,7 @@
         <pathelement location="${Chameleon Support.location}/lib/antlr-3.2.jar"/>
     </path>
     <path id="Subobject Java.classpath">
-        <pathelement location="bin"/>
+        <pathelement location="${bin.relative.location}"/>
         <path refid="Chameleon.classpath"/>
         <path refid="Chameleon Support.classpath"/>
         <path refid="rejuse.classpath"/>
@@ -60,8 +61,8 @@
         <pathelement location="${Chameleon.location}/lib/log4j-1.2.15.jar"/>
     </path>
     <target name="init">
-        <mkdir dir="bin"/>
-        <copy includeemptydirs="false" todir="bin">
+        <mkdir dir="${bin.relative.location}"/>
+        <copy includeemptydirs="false" todir="${bin.relative.location}">
             <fileset dir="src">
                 <exclude name="**/*.launch"/>
                 <exclude name="**/*.java"/>
@@ -69,7 +70,7 @@
         </copy>
     </target>
     <target name="clean">
-        <delete dir="bin"/>
+        <delete dir="${bin.relative.location}"/>
     </target>
     <target depends="clean" name="cleanall">
         <ant antfile="build.xml" dir="${rejuse.location}" inheritAll="false" target="clean"/>
@@ -78,7 +79,7 @@
         <ant antfile="build.xml" dir="${Chameleon Tools.location}" inheritAll="false" target="clean"/>
         <ant antfile="build.xml" dir="${Jnome.location}" inheritAll="false" target="clean"/>
     </target>
-    <target depends="build-subprojects,build-project" name="build"/>
+    <target depends="compiler" name="build"/>
     <target name="build-subprojects">
         <ant antfile="build.xml" dir="${rejuse.location}" inheritAll="false" target="build-project"/>
         <ant antfile="build.xml" dir="${Chameleon.location}" inheritAll="false" target="build-project"/>
@@ -88,9 +89,23 @@
     </target>
     <target depends="init" name="build-project">
         <echo message="${ant.project.name}: ${ant.file}"/>
-        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+        <javac debug="true" debuglevel="${debuglevel}" destdir="${bin.relative.location}" source="${source}" target="${target}">
             <src path="src"/>
             <classpath refid="Subobject Java.classpath"/>
         </javac>
+    </target>
+    <target depends="build-subprojects,build-project" name="compiler">
+      <jar jarfile="jlo.jar" manifest="src/MANIFEST.MF">  
+        <fileset dir="${bin.relative.location}" includes="**/*.class" />  
+        <fileset dir="${rejuse.location}/dist/classes" includes="**/*.class" />  
+        <fileset dir="${Chameleon.location}/${bin.relative.location}" includes="**/*.class" />  
+        <fileset dir="${Chameleon Support.location}/${bin.relative.location}" includes="**/*.class" />  
+        <fileset dir="${Chameleon Tools.location}/${bin.relative.location}" includes="**/*.class" />  
+        <fileset dir="${Jnome.location}/${bin.relative.location}" includes="**/*.class" />  
+        <zipfileset src="${rejuse.location}/lib/jregex1.2_00.jar" excludes="META-INF/*" />  
+        <zipfileset src="${Chameleon.location}/lib/log4j-1.2.15.jar" excludes="META-INF/*" />  
+        <zipfileset src="${Chameleon.location}/lib/junit-4.7.jar" excludes="META-INF/*" />  
+        <zipfileset src="${Chameleon Support.location}/lib/antlr-3.2.jar" excludes="META-INF/*" />  
+      </jar>
     </target>
 </project>
