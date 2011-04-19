@@ -67,7 +67,7 @@ public class InnerClassCreator extends AbstractTranslator {
 		for(Method selector:selectors) {
 			result.add(selector);
 		}
-		processInnerClassMethod(relationBeingTranslated, relationBeingTranslated.referencedComponentType(), result);
+		processInnerClassMethod(relationBeingTranslated, result);
 		return result;
 	}
 
@@ -96,10 +96,13 @@ private List<TypeReference> superClassReferences(ComponentRelation relation, Typ
 	List<ActualTypeArgument> typeArguments = ((BasicJavaTypeReference)superReference).typeArguments();
 	for(ActualTypeArgument arg: typeArguments) {
 		TypeReference tref = arg.substitutionReference();
+		Type trefType = tref.getElement();
+		BasicJavaTypeReference expandedTrefTypeReference = language.createTypeReference(trefType.getFullyQualifiedName());
 		// Creating the non-local reference will disconnect 'tref' from its parent, so we must store
 		// the association end to which it is connected.
+		Association parentLink = tref.parentLink().getOtherRelation();
+		expandedTrefTypeReference.parentLink().connectTo(parentLink);
 		expandedSuperTypeReference.addArgument(arg);
-//		Association parentLink = tref.parentLink().getOtherRelation();
 //		TypeReference nonLocalTref = language.createNonLocalTypeReference(tref, tref.getElement());
 //		nonLocalTref.parentLink().connectTo(parentLink);
 	}
@@ -132,7 +135,8 @@ private String innerClassFQN(ComponentRelation relation) throws LookupException 
 	return relation.componentType().getFullyQualifiedName();//innerClassName(relation.signature()); 
 }
 
-private void processInnerClassMethod(ComponentRelation relation, Type componentType, Type result) throws LookupException {
+private void processInnerClassMethod(ComponentRelation relationBeingTranslated, Type result) throws LookupException {
+	Type componentType = relationBeingTranslated.referencedComponentType();
 	List<Method> localMethods = componentType.directlyDeclaredMembers(Method.class);
 	for(Method<?,?,?,?> method: localMethods) {
 		if(method.is(method.language(ObjectOrientedLanguage.class).CONSTRUCTOR) == Ternary.TRUE) {
@@ -163,7 +167,7 @@ private void processInnerClassMethod(ComponentRelation relation, Type componentT
 			MethodInvocation inv = new SuperConstructorDelegation();
 			useParametersInInvocation(clone, inv);
 			block.addStatement(new StatementExpression(inv));
-			clone.setReturnTypeReference(relation.language(Java.class).createTypeReference(name));
+			clone.setReturnTypeReference(relationBeingTranslated.language(Java.class).createTypeReference(name));
 			((SimpleNameDeclarationWithParametersHeader)clone.header()).setName(name);
 			result.add(clone);
 		}

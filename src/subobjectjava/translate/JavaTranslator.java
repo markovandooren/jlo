@@ -112,7 +112,7 @@ public class JavaTranslator extends AbstractTranslator {
 		return _innerClassCreator;
 	}
 
-	private SubobjectToClassTransformer _subobjectToClassTransformer = new SubobjectToClassTransformer(_innerClassCreator);
+	private SubobjectToClassTransformer _subobjectToClassTransformer = new SubobjectToClassTransformer(_innerClassCreator,_subobjectConstructorTransformer);
 	
 	public SubobjectToClassTransformer subobjectToClassTransformer() {
 		return _subobjectToClassTransformer;
