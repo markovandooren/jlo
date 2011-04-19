@@ -2,10 +2,11 @@ package subobjectjava.translate;
 
 import java.util.List;
 
-import org.rejuse.association.SingleAssociation;
-
 import jnome.core.expression.invocation.JavaMethodInvocation;
 import jnome.core.type.BasicJavaTypeReference;
+
+import org.rejuse.association.SingleAssociation;
+
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ComponentType;
 import subobjectjava.model.component.ConfigurationBlock;
@@ -19,20 +20,20 @@ import chameleon.core.expression.MethodInvocation;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularImplementation;
-import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.statement.Block;
 import chameleon.exception.ChameleonProgrammerException;
+import chameleon.exception.ModelException;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeElement;
-import chameleon.oo.type.TypeWithBody;
+import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.support.expression.ThisLiteral;
-import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.member.simplename.method.NormalMethod;
 
 public class SubobjectToClassTransformer extends AbstractTranslator {
 	
-	public SubobjectToClassTransformer(InnerClassCreator innerClassCreator) {
+	public SubobjectToClassTransformer(InnerClassCreator innerClassCreator, SubobjectConstructorTransformer subobjectConstructorTransformer) {
 		_innerClassCreator = innerClassCreator;
+		_subobjectConstructorTransformer = subobjectConstructorTransformer;
 	}
 	
 	private InnerClassCreator _innerClassCreator;
@@ -40,10 +41,15 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	public InnerClassCreator innerClassCreator() {
 		return _innerClassCreator;
 	}
+	
+	private SubobjectConstructorTransformer _subobjectConstructorTransformer;
+	
+	public SubobjectConstructorTransformer subobjectConstructorTransformer() {
+		return _subobjectConstructorTransformer;
+	}
 
-	public void inner(Type javaType, ComponentRelation relation) throws LookupException {
+	public void inner(Type javaType, ComponentRelation relation) throws ChameleonProgrammerException, ModelException {
 		Type innerClass = createInnerClassFor(relation,javaType);
-		javaType.add(innerClass);
 		Type componentType = relation.componentType();
 		for(ComponentRelation nestedRelation: componentType.directlyDeclaredElements(ComponentRelation.class)) {
 			// subst parameters
@@ -56,7 +62,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	}
 	
 	private void addAliasDelegations(ComponentRelation relation, Type outer, Type original) throws LookupException {
-			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
+//			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
 			ConfigurationBlock block = relation.configurationBlock();
 			if(block != null) {
 				for(ConfigurationClause clause: block.clauses()) {
@@ -87,30 +93,52 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		return result;
 	}
 	
-	private Method staticAlias(Method alias, Method<?,?,?,?> aliasedMethod, Type original) {
-		Method<?,?,?,?> result = alias.clone();
-		String name = staticMethodName(alias, original);
-		if(name.equals("radio_Radio_frequency_setValue")) {
-			System.out.println("debug");
-		}
-		result.setName(name);
-		for(SimpleNameMethodInvocation invocation:result.descendants(SimpleNameMethodInvocation.class)) {
-			if(invocation.getTarget() != null) {
-				invocation.setName(staticMethodName(aliasedMethod, aliasedMethod.nearestAncestor(Type.class)));
-			}
-		}
-		return result;
-	}
+//	private Method staticAlias(Method alias, Method<?,?,?,?> aliasedMethod, Type original) {
+//		Method<?,?,?,?> result = alias.clone();
+//		String name = staticMethodName(alias, original);
+//		if(name.equals("radio_Radio_frequency_setValue")) {
+//			System.out.println("debug");
+//		}
+//		result.setName(name);
+//		for(SimpleNameMethodInvocation invocation:result.descendants(SimpleNameMethodInvocation.class)) {
+//			if(invocation.getTarget() != null) {
+//				invocation.setName(staticMethodName(aliasedMethod, aliasedMethod.nearestAncestor(Type.class)));
+//			}
+//		}
+//		return result;
+//	}
 
 	/**
 	 * 
 	 * @param relationBeingTranslated A component relation from either the original class, or one of its nested components.
 	 * @param outerJavaType The outer class being generated.
+	 * @throws ModelException 
 	 */
-	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type outerJavaType) throws ChameleonProgrammerException, LookupException {
-		Type result = innerClassCreator().emptyInnerClassFor(relationBeingTranslated, outerJavaType);
+	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type javaType) throws ChameleonProgrammerException, ModelException {
+		Type result = innerClassCreator().emptyInnerClassFor(relationBeingTranslated);
 		processComponentRelationBody(relationBeingTranslated, result);
+		javaType.add(result);
+		if(PROCESS_NESTED_CONSTRUCTORS) {
+			List<InheritanceRelation> inheritanceRelations = result.inheritanceRelations();
+			int size = inheritanceRelations.size();
+			for(int i=1; i< size; i++) {
+				inheritanceRelations.get(i).setUniParent(null);
+			}
+			subobjectConstructorTransformer().replaceSubobjectConstructorCalls(result);
+			removeSubobjects(result);
+			for(int i=1; i< size; i++) {
+				result.addInheritanceRelation(inheritanceRelations.get(i));
+			}
+		}
 		return result;
+	}
+	
+	
+
+	private void removeSubobjects(Type result) {
+		for(ComponentRelation relation:result.directlyDeclaredElements(ComponentRelation.class)) {
+			relation.disconnect();
+		}
 	}
 
 	private void processComponentRelationBody(ComponentRelation relation, Type result)
@@ -122,7 +150,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		// to use the target semantics of the Outer call. Otherwise we must encode its semantics in the translator.
 		replaceOuterAndRootTargets(clonedType);
 		for(TypeElement typeElement:clonedType.body().elements()) {
-			if(! (typeElement instanceof ComponentRelation)) {
+			if(PROCESS_NESTED_CONSTRUCTORS || ! (typeElement instanceof ComponentRelation)) {
 				result.add(typeElement);
 			}
 			if(relation.signature().name().equals("value") && typeElement instanceof Method && (((Method)typeElement).name().equals("getValue"))) {
@@ -130,6 +158,8 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 			}
 		}
 	}
+	
+	private static boolean PROCESS_NESTED_CONSTRUCTORS=true;
 
 	private void replaceOuterAndRootTargets(TypeElement<?> clone) {
 		List<AbstractTarget> outers = clone.descendants(AbstractTarget.class);

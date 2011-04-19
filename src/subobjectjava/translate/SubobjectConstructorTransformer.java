@@ -50,6 +50,9 @@ import chameleon.support.statement.StatementExpression;
 public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	public void replaceSubobjectConstructorCalls(Type type) throws ModelException {
+		if(type.getName().equals("frequency_implementation")) {
+			System.out.println("debug");
+		}
 		Java lang = type.language(Java.class);
 		for(Method constructor: type.descendants(Method.class, lang.CONSTRUCTOR)) {
 			createStrategyCloneOfConstructor(constructor);
@@ -69,12 +72,20 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		}
 		Java language = constructor.language(Java.class);
 	  Type container = constructor.nearestAncestor(Type.class);
+	  int levelOfConstructor = constructor.ancestors(Type.class).size();
 	  Method<?,?,?,?> clone = constructor.clone();
 	  DeclarationWithParametersHeader header = clone.header();
 	  boolean added = false;
 	  for(ComponentRelation relation: container.members(ComponentRelation.class)) {
 		  ClassBody body = relation.nearestAncestor(ClassBody.class);
-		  if((body != null) && container.subTypeOf(body.nearestAncestor(Type.class))) { // (relation.origin() == relation) &&
+		  int levelOfRelation = relation.ancestors(Type.class).size();
+		  if(levelOfConstructor < levelOfRelation) {
+		  	System.out.println("debug");
+		  }
+		  if((body != null) && 
+		  		container.subTypeOf(body.nearestAncestor(Type.class))
+//		  		levelOfConstructor == levelOfRelation
+      ) { // (relation.origin() == relation) &&
 			  if(body.nearestAncestor(Type.class) == container) {
 				  createStrategy(relation);
 			  }
@@ -197,8 +208,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			System.out.println("debug");
 		}
 		SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) subobjectConstructorCall(relation, superCall).farthestOrigin();
+		String result;
 		if(subobjectConstructorCall == null) {
-			return strategyName(relation);
+			result = strategyName(relation);
 		} else {
 			ComponentRelation actuallyConstructedSubobject = subobjectConstructorCall.getTarget().getElement();
 		  Method cons = subobjectConstructorCall.getElement();
@@ -217,8 +229,12 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		  if(defaultStrategyName.equals("radio_SpecialRadio_frequency_constructorFloatFloatFloat")) {
 			  System.out.println("debug");
 		  }
-		  return defaultStrategyName;
+		  result = defaultStrategyName;
 		}
+		if(result.equals("jlo_association_TransitiveAssociation_object_constructorT")) {
+			System.out.println("debug");
+		}
+		return result;
 	}
 
 	private SubobjectConstructorCall subobjectConstructorCall(ComponentRelation relation, MethodInvocation<?, ?> superCall)
@@ -274,6 +290,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			System.out.println("debug");
 		}
 		SuperConstructorDelegation superCall = constructor.descendants(SuperConstructorDelegation.class).get(0);
+		int levelOfConstructor = constructor.ancestors(Type.class).size();
 		Type type = constructor.nearestAncestor(Type.class);
 		List<ComponentRelation> members = type.members(ComponentRelation.class);
 		List<FormalParameter> formalParameters = constructor.formalParameters();
@@ -298,7 +315,14 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 				}
 			}
 			ClassBody body = relation.nearestAncestor(ClassBody.class);
-			if(body != null && type.subTypeOf(body.nearestAncestor(Type.class))) {
+			int levelOfRelation = relation.ancestors(Type.class).size();
+		  if(levelOfConstructor < levelOfRelation) {
+		  	System.out.println("debug");
+		  }
+			if(body != null && 
+					type.subTypeOf(body.nearestAncestor(Type.class))
+//					levelOfConstructor == levelOfRelation
+			) {
 				List<SubobjectConstructorCall> subCalls = constructorCallsOfRelation(relation, constructor);
 				if(!isLocallyDefined(relation,type)) {
 					if(relativeIndexInSuper == -1) {
