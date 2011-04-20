@@ -405,21 +405,22 @@ public class JavaTranslator extends AbstractTranslator {
 	
 	private void ensureConstructor(Type result) {
 		Java language = result.language(Java.class);
-		List<Method> methods =result.directlyDeclaredElements(Method.class);
-		boolean hasConstructor = false;
-		for(Method method: methods) {
-			if(method.isTrue(language.CONSTRUCTOR)) {
-				hasConstructor = true;
+		if(! result.isTrue(language.INTERFACE)) {
+			List<Method> methods =result.directlyDeclaredElements(Method.class);
+			boolean hasConstructor = false;
+			for(Method method: methods) {
+				if(method.isTrue(language.CONSTRUCTOR)) {
+					hasConstructor = true;
+				}
+			}
+			if(! hasConstructor) {
+				DeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(result.getName());
+				Method method = language.createNormalMethod(header, language.createTypeReference(result.getName()));
+				method.addModifier(new Constructor());
+				method.setImplementation(new RegularImplementation(new Block()));
+				result.add(method);
 			}
 		}
-		if(! hasConstructor) {
-			DeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(result.getName());
-			Method method = language.createNormalMethod(header, language.createTypeReference(result.getName()));
-			method.addModifier(new Constructor());
-			method.setImplementation(new RegularImplementation(new Block()));
-			result.add(method);
-		}
-		
 	}
 
 	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,Type original) throws ModelException {

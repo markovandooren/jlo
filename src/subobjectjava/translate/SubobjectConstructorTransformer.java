@@ -31,6 +31,7 @@ import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ModelException;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.oo.type.ClassBody;
+import chameleon.oo.type.DerivedType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.TypeParameter;
@@ -209,6 +210,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		}
 		SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) subobjectConstructorCall(relation, superCall).farthestOrigin();
 		String result;
+		ComponentRelation rel = relation;
+		while(rel.nearestAncestor(Type.class) instanceof DerivedType) {
+			rel = (ComponentRelation) rel.origin();
+		}
 		if(subobjectConstructorCall == null) {
 			result = strategyName(relation);
 		} else {
@@ -216,14 +221,16 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		  Method cons = subobjectConstructorCall.getElement();
 		  // Only substitute parameters if we are not in the context of the subobject type
 			Type originalOuter = (Type) superCall.farthestAncestor(Type.class).farthestOrigin();
-		  if(originalOuter.subTypeOf(subobjectConstructorCall.nearestAncestor(Type.class))) {
+		  Type containerOfSubobjectConstructorCall = subobjectConstructorCall.nearestAncestor(Type.class);
+		if(originalOuter.subTypeOf(containerOfSubobjectConstructorCall)) {
 			  Method originalCons = subobjectConstructorCall.getElement();
 			  cons = originalCons.clone();
-			  Element parent = originalCons.parent();//.origin();
-			  cons.setUniParent(parent);
+			  Element parent = originalCons.parent();
+//			  cons.setUniParent(parent);
+			  cons.setUniParent(rel.nearestAncestor(Type.class));
 			  substituteTypeParameters(cons);
-//			  cons.setUniParent(superCall.nearestAncestor(Type.class));
-			  cons.setUniParent(subobjectConstructorCall.nearestAncestor(Type.class));
+			  cons.setUniParent(rel.nearestAncestor(Type.class));
+//			  cons.setUniParent(subobjectConstructorCall.nearestAncestor(Type.class));
 		  }
 		  String defaultStrategyName = defaultStrategyName(actuallyConstructedSubobject, cons);
 		  if(defaultStrategyName.equals("radio_SpecialRadio_frequency_constructorFloatFloatFloat")) {
