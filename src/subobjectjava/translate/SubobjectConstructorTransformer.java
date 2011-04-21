@@ -215,7 +215,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			ComponentRelation actuallyConstructedSubobject = subobjectConstructorCall.getTarget().getElement();
 		  Method cons = subobjectConstructorCall.getElement();
 		  // Only substitute parameters if we are not in the context of the subobject type
-			Type originalOuter = (Type) superCall.farthestAncestor(Type.class).farthestOrigin();
+			Type originalOuter = (Type) superCall.nearestAncestor(Type.class).farthestOrigin();
 		  if(originalOuter.subTypeOf(subobjectConstructorCall.nearestAncestor(Type.class))) {
 			  Method originalCons = subobjectConstructorCall.getElement();
 			  cons = originalCons.clone();
