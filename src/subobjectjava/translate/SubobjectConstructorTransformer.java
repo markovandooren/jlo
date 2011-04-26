@@ -227,7 +227,6 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		  Method cons = subobjectConstructorCall.getElement();
 		  // Only substitute parameters if we are not in the context of the subobject type
 			Type originalOuter = (Type) superCall.nearestAncestor(Type.class).farthestOrigin();
-<<<<<<< HEAD
 		  if(originalOuter.subTypeOf(subobjectConstructorCall.nearestAncestor(Type.class))) {
 			  Method originalCons = subobjectConstructorCall.getElement();
 			  cons = originalCons.clone();
@@ -237,26 +236,6 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 //			  cons.setUniParent(superCall.nearestAncestor(Type.class));
 			  cons.setUniParent(subobjectConstructorCall.nearestAncestor(Type.class));
 		  }
-=======
-		  Type containerOfSubobjectConstructorCall = relation.nearestAncestor(Type.class);
-//		if(originalOuter.subTypeOf(containerOfSubobjectConstructorCall)) {
-//			  Method originalCons = subobjectConstructorCall.getElement();
-//			  cons = originalCons.clone();
-//			  Element parent = originalCons.parent();
-//			  cons.setUniParent(parent);
-////			  cons.setUniParent(rel.nearestAncestor(Type.class));
-//			  
-//			  try {
-//					substituteTypeParameters(cons);
-//				} catch (LookupException e) {
-//					substituteTypeParameters(cons);
-//					e.printStackTrace();
-//					throw e;
-//				}
-////			  cons.setUniParent(rel.nearestAncestor(Type.class));
-//			  cons.setUniParent(subobjectConstructorCall.nearestAncestor(Type.class));
-//		  }
->>>>>>> rio/rebinding_creates_subobjects
 		  String defaultStrategyName = defaultStrategyName(actuallyConstructedSubobject, cons);
 		  if(defaultStrategyName.equals("radio_SpecialRadio_frequency_constructorFloatFloatFloat")) {
 			  System.out.println("debug");
