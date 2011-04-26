@@ -1,6 +1,7 @@
 package subobjectjava.translate;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -112,21 +113,28 @@ private List<TypeReference> superClassReferences(ComponentRelation relation, Typ
 //	result.add(superReference);
 	result.add(nonLocal);
 	Set<ComponentRelation> superSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
+	Set<String> doneFQNs = new HashSet<String>();
 	for(ComponentRelation superSubobject: superSubobjects) {
 		Element origin = superSubobject.origin();
 		BasicJavaTypeReference tref;
+		String fqn;
 		if(origin != superSubobject) {
 			ComponentRelation tmp = superSubobject;
 			superSubobject = (ComponentRelation) origin; 
-   		    tref = language.createTypeReference(innerClassFQN(superSubobject));
-   		    copyTypeParametersFromAncestors(superSubobject.componentType(), tref);
-   		    tref.setUniParent(superSubobject);
-   		    substituteTypeParameters(tref);
-   		    tref.setUniParent(null);
+			fqn = innerClassFQN(superSubobject);
+			tref = language.createTypeReference(fqn);
+			copyTypeParametersFromAncestors(superSubobject.componentType(), tref);
+			tref.setUniParent(superSubobject);
+			substituteTypeParameters(tref);
+			tref.setUniParent(null);
 		} else {
-		  tref = language.createTypeReference(innerClassFQN(superSubobject));
+			fqn = innerClassFQN(superSubobject);
+		  tref = language.createTypeReference(fqn);
 		}
-		result.add(language.createNonLocalTypeReference(tref, language.defaultNamespace()));
+		if(! doneFQNs.contains(fqn)) {
+			result.add(language.createNonLocalTypeReference(tref, language.defaultNamespace()));
+			doneFQNs.add(fqn);
+		}
 	}
 	return result;
 }
