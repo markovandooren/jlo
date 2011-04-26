@@ -41,11 +41,14 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
 import chameleon.oo.type.inheritance.InheritanceRelation;
+import chameleon.util.CreationStackTrace;
 import chameleon.util.Pair;
 import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,SimpleNameSignature, ComponentRelation>, InheritanceRelation<ComponentRelation,Type>{
 
+	private CreationStackTrace trace = new CreationStackTrace();
+	
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
 		setComponentType(type);
@@ -63,6 +66,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		if(t != null) {
 			result.setComponentTypeDeclaration(t.clone());
 		}
+		result.setOrigin(this);
 		return result;
 	}
 

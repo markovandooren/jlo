@@ -100,6 +100,7 @@ public class AbstractTranslator {
 						return object.getDeclarator() instanceof InstantiatedTypeParameter;
 					} catch (LookupException e) {
 						e.printStackTrace();
+						object.getDeclarator();
 						throw e;
 					}
 				}

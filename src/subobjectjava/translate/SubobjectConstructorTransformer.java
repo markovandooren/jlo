@@ -31,6 +31,7 @@ import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ModelException;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.oo.type.ClassBody;
+import chameleon.oo.type.DerivedType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.TypeParameter;
@@ -195,11 +196,17 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	private String defaultStrategyName(ComponentRelation relation, Method<?, ?, ?, ?> constructor) throws LookupException {
 		String name = strategyName(relation);
-		List<Type> parameterTypes = constructor.formalParameterTypes();
-		for(Type t: parameterTypes) {
-			name += toUnderScore(t.getName());
+		List<Type> parameterTypes;
+		try {
+			parameterTypes = constructor.formalParameterTypes();
+			for(Type t: parameterTypes) {
+				name += toUnderScore(t.getName());
+			}
+			return name;
+		} catch (LookupException e) {
+			e.printStackTrace();
+			throw e;
 		}
-		return name;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -209,6 +216,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		}
 		SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) subobjectConstructorCall(relation, superCall).farthestOrigin();
 		String result;
+		ComponentRelation rel = relation;
+		while(rel.nearestAncestor(Type.class) instanceof DerivedType) {
+			rel = (ComponentRelation) rel.origin();
+		}
 		if(subobjectConstructorCall == null) {
 			result = strategyName(relation);
 		} else {
@@ -216,6 +227,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		  Method cons = subobjectConstructorCall.getElement();
 		  // Only substitute parameters if we are not in the context of the subobject type
 			Type originalOuter = (Type) superCall.nearestAncestor(Type.class).farthestOrigin();
+<<<<<<< HEAD
 		  if(originalOuter.subTypeOf(subobjectConstructorCall.nearestAncestor(Type.class))) {
 			  Method originalCons = subobjectConstructorCall.getElement();
 			  cons = originalCons.clone();
@@ -225,6 +237,26 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 //			  cons.setUniParent(superCall.nearestAncestor(Type.class));
 			  cons.setUniParent(subobjectConstructorCall.nearestAncestor(Type.class));
 		  }
+=======
+		  Type containerOfSubobjectConstructorCall = relation.nearestAncestor(Type.class);
+//		if(originalOuter.subTypeOf(containerOfSubobjectConstructorCall)) {
+//			  Method originalCons = subobjectConstructorCall.getElement();
+//			  cons = originalCons.clone();
+//			  Element parent = originalCons.parent();
+//			  cons.setUniParent(parent);
+////			  cons.setUniParent(rel.nearestAncestor(Type.class));
+//			  
+//			  try {
+//					substituteTypeParameters(cons);
+//				} catch (LookupException e) {
+//					substituteTypeParameters(cons);
+//					e.printStackTrace();
+//					throw e;
+//				}
+////			  cons.setUniParent(rel.nearestAncestor(Type.class));
+//			  cons.setUniParent(subobjectConstructorCall.nearestAncestor(Type.class));
+//		  }
+>>>>>>> rio/rebinding_creates_subobjects
 		  String defaultStrategyName = defaultStrategyName(actuallyConstructedSubobject, cons);
 		  if(defaultStrategyName.equals("radio_SpecialRadio_frequency_constructorFloatFloatFloat")) {
 			  System.out.println("debug");
