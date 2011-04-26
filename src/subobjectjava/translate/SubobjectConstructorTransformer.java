@@ -285,8 +285,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	private void replaceSubobjectConstructorCalls(Method<?,?,?,?> constructor, boolean clonedConstructor)
 	throws ModelException {
-		Java language = constructor.language(Java.class);
-		if(constructor.name().equals("SpecialRadio")) {
+		if(constructor.name().equals("frequency_implementation")) {
 			System.out.println("debug");
 		}
 		SuperConstructorDelegation superCall = constructor.descendants(SuperConstructorDelegation.class).get(0);
@@ -348,7 +347,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							ConstructorInvocation strategy = defaultConstructionStrategy(
 									constructor, superCall,
 									formalParameters, relation);
-							arguments[relativeIndexInSuper+1] = strategy; // FIX
+							arguments[relativeIndexInSuper+1] = strategy;
 						} else {
 							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
 							ConstructorInvocation strategy = defaultConstructionStrategy(
@@ -373,7 +372,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 						// default is null;
 						arguments[relativeIndexInSuper+1] = new NullLiteral();
 						} else {
-							arguments[relativeIndexInSuper] = new NullLiteral(); // FIX
+							arguments[relativeIndexInSuper] = new NullLiteral();
 							// default is to propagate the argument.
 							arguments[relativeIndexInSuper+1] = new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName());
 						}
