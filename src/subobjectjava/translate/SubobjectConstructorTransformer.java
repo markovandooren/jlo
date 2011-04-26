@@ -216,10 +216,6 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		}
 		SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) subobjectConstructorCall(relation, superCall).farthestOrigin();
 		String result;
-		ComponentRelation rel = relation;
-		while(rel.nearestAncestor(Type.class) instanceof DerivedType) {
-			rel = (ComponentRelation) rel.origin();
-		}
 		if(subobjectConstructorCall == null) {
 			result = strategyName(relation);
 		} else {

@@ -66,7 +66,6 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		if(t != null) {
 			result.setComponentTypeDeclaration(t.clone());
 		}
-		result.setOrigin(this);
 		return result;
 	}
 
