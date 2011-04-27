@@ -51,7 +51,7 @@ public class InnerClassCreator extends AbstractTranslator {
 	}
 
 	public Type emptyInnerClassFor(ComponentRelation relationBeingTranslated) throws LookupException {
-		if(relationBeingTranslated.componentType().getFullyQualifiedName().equals("radio.NestedRefinedMistunedRadio.frequency.value")) {
+		if(relationBeingTranslated.componentType().getFullyQualifiedName().equals("radio.NestedRefinedMistunedRadio.frequency")) {
 			System.out.println("debug");
 		}
 		incorporateImports(relationBeingTranslated);

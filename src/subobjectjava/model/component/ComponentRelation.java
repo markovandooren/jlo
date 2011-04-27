@@ -47,8 +47,6 @@ import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,SimpleNameSignature, ComponentRelation>, InheritanceRelation<ComponentRelation,Type>{
 
-	private CreationStackTrace trace = new CreationStackTrace();
-	
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
 		setComponentType(type);

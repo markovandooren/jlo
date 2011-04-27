@@ -79,9 +79,9 @@ public class AbstractTranslator {
 	}
 
 	protected String interfaceName(String name) {
-		if(! name.endsWith(IMPL)) {
-			throw new IllegalArgumentException();
-		}
+//		if(! name.contains(IMPL)) {
+//			throw new IllegalArgumentException();
+//		}
 		//return name.substring(0, name.length()-IMPL.length());
 		return name.replaceAll(IMPL,"");
 	}

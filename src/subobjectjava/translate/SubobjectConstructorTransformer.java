@@ -14,6 +14,7 @@ import org.rejuse.predicate.UnsafePredicate;
 
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.expression.SubobjectConstructorCall;
+import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.DeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameSignature;
@@ -31,7 +32,6 @@ import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ModelException;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.oo.type.ClassBody;
-import chameleon.oo.type.DerivedType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.TypeParameter;
@@ -101,12 +101,12 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			  		cons.setUniParent(relation.nearestAncestor(Type.class));
 			  	}
 			  }
-			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(constructorArgumentName(relation)), language.createTypeReference(strategyName(relation))));
+			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(constructorArgumentName(relation)), language.createTypeReference(interfaceName(strategyName(relation)))));
 			  if(cons != null) {
 			  	createSpecificStrategy(relation,cons);
-			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(defaultStrategyName(relation, cons))));
+			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(interfaceName(defaultStrategyName(relation, cons)))));
 			  } else {
-			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall))));
+			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(interfaceName(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall)))));
 			  }
 			  added = true;
 		  }
@@ -127,11 +127,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	}
 	
 	private void createStrategy(ComponentRelation relation) throws LookupException {
-//		Type result = null;
 		String name = strategyName(relation);
 		Type type = relation.nearestAncestor(Type.class);
 		if(strategyDoesNotExistFor(relation,strategyName(relation))) {
-			String componentTypeName = relation.componentType().getFullyQualifiedName();
+			String componentTypeName = interfaceName(relation.componentType().getFullyQualifiedName());
 			Java language = type.language(Java.class);
 			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(new SimpleNameSignature(name));
 			DeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
@@ -139,6 +138,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			TypeReference typeRef = language.createTypeReference("java.lang.Object");
 			header.addFormalParameter(new FormalParameter(new SimpleNameSignature("object"), typeRef));
 			Method constructor = language.createNormalMethod(header, language.createTypeReference(componentTypeName));
+			if(componentTypeName.contains(IMPL)) {
+				System.out.println("debug");
+			}
 			constructor.setImplementation(null);
 			constructor.addModifier(new Abstract());
 			strategy.add(constructor);
@@ -146,13 +148,12 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			strategy.addModifier(new Static());
 			for(Member<?,?,?> member: relation.directlyOverriddenMembers()) {
 				if(type.subTypeOf(member.nearestAncestor(Type.class))) {
-					strategy.addInheritanceRelation(new SubtypeRelation(language.createTypeReference(strategyName((ComponentRelation) member))));
+					strategy.addInheritanceRelation(new SubtypeRelation(language.createTypeReference(strategyNameFQN((ComponentRelation) member))));
 				}
 			}
-			type.add(strategy);
-//			result = strategy;
+//			type.add(strategy);
+			type.farthestAncestorOrSelf(Type.class).add(strategy);
 		}
-//		return result;
 	}
 
 	private boolean strategyDoesNotExistFor(ComponentRelation relation, String name) throws LookupException {
@@ -168,13 +169,12 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	private void createSpecificStrategy(ComponentRelation relation, Method<?,?,?,?> constructor) throws LookupException {
 		Type type = relation.nearestAncestor(Type.class);
-		String componentTypeName = relation.componentType().getFullyQualifiedName();
+		String componentTypeName = interfaceName(relation.componentType().getFullyQualifiedName());
 		String name = defaultStrategyName(relation, constructor);
 
 		if(strategyDoesNotExistFor(relation,name)) {
 			Java language = type.language(Java.class);
 			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(new SimpleNameSignature(name));
-			type.add(strategy);
 			DeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
 			Method factoryMethod = language.createNormalMethod(header, language.createTypeReference(componentTypeName));
 //			TypeReference typeRef = language.createTypeReference(relation.nearestAncestor(Type.class).getFullyQualifiedName());
@@ -191,6 +191,8 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			for(TypeParameter<?> parameter: constructor.nearestAncestor(Type.class).parameters(TypeParameter.class)) {
 				strategy.addParameter(TypeParameter.class, parameter.clone());
 			}
+//		type.add(strategy);
+			type.farthestAncestorOrSelf(Type.class).add(strategy);
 		}
 	}
 
@@ -211,9 +213,6 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	@SuppressWarnings("unchecked")
 	private String defaultStrategyNameWhenNoLocalSubobjectConstruction(ComponentRelation relation,	MethodInvocation<?,?> superCall) throws LookupException {
-		if(relation.componentType().getFullyQualifiedName().equals("jlo.graph.WiredGraph.object")) {
-			System.out.println("debug");
-		}
 		SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) subobjectConstructorCall(relation, superCall).farthestOrigin();
 		String result;
 		if(subobjectConstructorCall == null) {
@@ -286,6 +285,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	private String strategyName(ComponentRelation relation) throws LookupException {
 		String name = toUnderScore(relation.componentType().getFullyQualifiedName()) + STRATEGY;
 		return name;
+	}
+	
+	private String strategyNameFQN(ComponentRelation relation) throws LookupException {
+		return relation.farthestAncestor(Type.class).getFullyQualifiedName()+"."+ strategyName(relation); 
 	}
 	
 	public final String STRATEGY = "_constructor";
@@ -445,7 +448,26 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			ComponentRelation relation) throws LookupException {
 		Java language = constructor.language(Java.class);
 //		BasicJavaTypeReference strategyType = (BasicJavaTypeReference) formalParameters.get(indexInCurrent+1).getTypeReference().clone() x;
-		BasicJavaTypeReference strategyType = language.createTypeReference(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall));
+		String strategyName = defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall);
+		BasicJavaTypeReference strategyType = language.createTypeReference(strategyName);
+		if(strategyName.equals("jlo_interval_Interval_value_constructorTboolean")) {
+			System.out.println("debug");
+		}
+		Declaration superElement = relation.nearestAncestor(Type.class).inheritanceRelations().get(0).superElement();
+		copyTypeParametersFromAncestors(superElement, strategyType);
+		strategyType.setUniParent(superElement);
+		substituteTypeParameters(strategyType);
+		strategyType.setUniParent(null);
+		// Add type parameters.
+//		TypeReference componentTypeReference = relation.componentTypeReference().clone();
+//		if(componentTypeReference instanceof ComponentParameterTypeReference) {
+//			componentTypeReference = ((ComponentParameterTypeReference) componentTypeReference).componentTypeReference();
+//		}
+//		BasicJavaTypeReference jTref = (BasicJavaTypeReference) componentTypeReference;
+//		for(ActualTypeArgument arg: jTref.typeArguments()) {
+//			strategyType.addArgument(arg);
+//		}
+		
 		ConstructorInvocation strategy = new ConstructorInvocation(strategyType, null);
 		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
 		header.addFormalParameter(new FormalParameter("o",language.createTypeReference("java.lang.Object")));
@@ -459,7 +481,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			header.addFormalParameter(clone);
 		}
 		
-		BasicJavaTypeReference returnTypeReference = language.createTypeReference(relation.componentType().getFullyQualifiedName());
+		BasicJavaTypeReference returnTypeReference = language.createTypeReference(interfaceName(relation.componentType().getFullyQualifiedName()));
 		Method method = language.createNormalMethod(header, returnTypeReference);
 		method.addModifier(new Public());
 		Block methodBody = new Block();
