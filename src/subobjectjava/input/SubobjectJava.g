@@ -6,7 +6,7 @@ options {
   superClass = ChameleonParser;
 }
 
-import JavaP,JavaL;
+import JavaP,JLoL;
 @header {
 package subobjectjava.input;
 
@@ -284,7 +284,35 @@ memberDecl returns [TypeElement element]
     |   id=interfaceDeclaration {retval.element=id.element; gJavaP.addNonTopLevelObjectInheritance(id.element);}
     |   cd=classDeclaration {retval.element=cd.element; gJavaP.addNonTopLevelObjectInheritance(cd.element);}
     |   comp=componentDeclaration {retval.element=comp.element;}
+    |   exp=exportDeclaration {retval.element=exp.element;}
+    |   np=nameParameter {retval.element=np.element;}
+    |   con=connector {retval.element = con.element;}
+    |   cnct=connection {retval.element = cnct.element;}
     ;
+
+connector returns [TypeElement element]
+ 	: Connector componentParameter ';'	
+ 	;
+
+connection returns [TypeElement element]
+ 	: Connect Identifier To componentArgument ';'	
+ 	;
+
+nameParameter returns [TypeElement element]
+    	:	Name Identifier ('=' memberName)? ';'
+    	;
+    	
+memberName returns [Object element]
+ 	: Identifier
+ 	;    	
+
+exportDeclaration returns [TypeElement element]
+    	: Export map (',' map)*	';'
+    	;
+    	
+map returns [Object element]
+	: Identifier As Identifier
+	;    	
 
 componentDeclaration returns [ComponentRelation element]
     	:	cp='subobject' name=Identifier tp=type? body=classBody? cfg=configurationBlock?   ';'
