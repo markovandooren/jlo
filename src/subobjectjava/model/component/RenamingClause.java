@@ -1,7 +1,5 @@
 package subobjectjava.model.component;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +21,6 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 	
 	@Override
 	public List<Member> introducedMembers() throws LookupException {
-		//Type type = nearestAncestor(ComponentRelation.class).componentType();
-//		if(type.nearestAncestor(ComponentRelation.class) == nearestAncestor(ComponentRelation.class)) {
-//			System.out.println("debug");
-//		}
 		return Util.createNonNullList(introducedMember());
 	}
 	
@@ -35,13 +29,7 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 		Member member = (Member) oldDeclaration();
 		if(member != null) {
 			result = nearestAncestor(ComponentRelation.class).incorporatedIntoContainerType(member);
-//			result = member.clone();
-//			result.setOrigin(member);
 			result.setName(newSignature().name());
-			
-//			Stub redirector = new ComponentStub(nearestAncestor(ComponentRelation.class), result);
-//			redirector.setUniParent(nearestAncestor(Type.class));
-
 		}
 		return result;
 	}
@@ -54,12 +42,6 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 	@Override
 	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
 		List<D> result = new ArrayList<D>();
-//		if(selector.selects(introducedMember())) {
-//			D member = selector.declaration();
-//			if(! member.ancestors().contains(nearestAncestor(Type.class))) {
-//				result.add((D)oldDeclaration());
-//			} 
-//		}
 		return result;
 	}
 
@@ -69,11 +51,6 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 		if(selector.selects(introducedMember())) {
 			// Incorporating is done by the component type.
 			result.add((D)oldDeclaration());
-//			if(oldDeclaration != null) {
-//				result.add((D) nearestAncestor(ComponentRelation.class).incorporatedIntoComponentType(oldDeclaration));
-//			} else {
-//				throw new LookupException("Cannot find aliased declaration");
-//			}
 		}
 		return result;
 	}
