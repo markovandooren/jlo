@@ -525,6 +525,9 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	private void rebindOverriddenMethodsOf(Type result, Type original, Method<?,?,?,?> method) throws Error, ModelException {
+		if(method.name().equals("setFrequency")) {
+			System.out.println("debug");
+		}
 		Set<? extends Member> overridden = method.overriddenMembers();
 		Java language = method.language(Java.class);
 		if(! overridden.isEmpty()) {
@@ -884,7 +887,7 @@ public class JavaTranslator extends AbstractTranslator {
 				if((decl instanceof Method) && (decl.is(lang.CONSTRUCTOR) == Ternary.TRUE)) {
 					((Method)decl).setName(name);
 				}
-				if(decl instanceof ElementWithModifiers) {
+				if(decl instanceof Member || decl instanceof MemberVariableDeclarator) {
 					makePublic(decl);
 				}
 			}

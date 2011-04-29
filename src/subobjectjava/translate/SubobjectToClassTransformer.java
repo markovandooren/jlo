@@ -1,5 +1,6 @@
 package subobjectjava.translate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jnome.core.expression.invocation.JavaMethodInvocation;
@@ -11,6 +12,7 @@ import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ComponentType;
 import subobjectjava.model.component.ConfigurationBlock;
 import subobjectjava.model.component.ConfigurationClause;
+import subobjectjava.model.component.Export;
 import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.expression.AbstractTarget;
 import chameleon.core.declaration.Declaration;
@@ -63,21 +65,27 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	
 	private void addAliasDelegations(ComponentRelation relation, Type outer, Type original) throws LookupException {
 //			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
-			ConfigurationBlock block = relation.configurationBlock();
-			if(block != null) {
-				for(ConfigurationClause clause: block.clauses()) {
-					if(clause instanceof RenamingClause) {
-						RenamingClause ov = (RenamingClause)clause;
-						Declaration decl = ov.oldDeclaration();
-						if(decl instanceof Method) {
-							final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
-							Method alias = createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)ov.newSignature()).name());
-							outer.add(alias);
-							//outer.add(staticAlias(alias,method,original));
-						}
-					}
+		List<RenamingClause> clauses = new ArrayList<RenamingClause>();
+		ConfigurationBlock block = relation.configurationBlock();
+		if(block != null) {
+			for(ConfigurationClause clause: block.clauses()) {
+				if(clause instanceof RenamingClause) {
+					clauses.add((RenamingClause) clause);
 				}
 			}
+		}
+		for(Export exp: relation.componentType().directlyDeclaredElements(Export.class)) {
+			clauses.addAll(exp.clauses());
+		}
+		for(RenamingClause renamingClause: clauses) {
+			Declaration decl = renamingClause.oldDeclaration();
+			if(decl instanceof Method) {
+				final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
+				Method alias = createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)renamingClause.newSignature()).name());
+				outer.add(alias);
+				//outer.add(staticAlias(alias,method,original));
+			}
+		}
 	}
 	
 	private Method createAlias(ComponentRelation relation, Method<?,?,?,?> method, String newName) throws LookupException {
@@ -153,11 +161,8 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		// to use the target semantics of the Outer call. Otherwise we must encode its semantics in the translator.
 		replaceOuterAndRootTargets(clonedType);
 		for(TypeElement typeElement:clonedType.body().elements()) {
-			if(PROCESS_NESTED_CONSTRUCTORS || ! (typeElement instanceof ComponentRelation)) {
+			if((PROCESS_NESTED_CONSTRUCTORS || ! (typeElement instanceof ComponentRelation)) && (! (typeElement instanceof Export))) {
 				result.add(typeElement);
-			}
-			if(relation.signature().name().equals("value") && typeElement instanceof Method && (((Method)typeElement).name().equals("getValue"))) {
-				System.out.println("debug");
 			}
 		}
 	}

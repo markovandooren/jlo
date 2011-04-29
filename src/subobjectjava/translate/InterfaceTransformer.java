@@ -10,6 +10,7 @@ import org.rejuse.property.Property;
 
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.SimpleNameSignature;
+import chameleon.core.member.Member;
 import chameleon.core.method.Method;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.NamespacePart;
@@ -23,6 +24,7 @@ import chameleon.oo.type.TypeElement;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.generics.TypeParameterBlock;
 import chameleon.oo.type.inheritance.SubtypeRelation;
+import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import chameleon.support.modifier.Interface;
 
 public class InterfaceTransformer extends AbstractTranslator {
@@ -81,10 +83,8 @@ public class InterfaceTransformer extends AbstractTranslator {
 					 (decl instanceof VariableDeclarator && (! (decl.is(language.CLASS) == Ternary.TRUE)))) {
 					decl.disconnect();
 				}
-//				if(decl instanceof ElementWithModifiers) {
-					makePublic(decl);
-					removeFinal(decl);
-//				}
+				makePublic(decl);
+				removeFinal(decl);
 			}
 			type.signature().setName(interfaceName(name));
 			if(! (type.is(language.INTERFACE) == Ternary.TRUE)) {

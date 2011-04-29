@@ -1,61 +1,44 @@
 package subobjectjava.translate;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import jnome.core.expression.invocation.JavaMethodInvocation;
-import jnome.core.expression.invocation.SuperConstructorDelegation;
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
 
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
-import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.UnsafePredicate;
 import org.rejuse.property.Property;
 
-import subobjectjava.model.component.ComponentParameter;
-import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
-import subobjectjava.model.component.InstantiatedComponentParameter;
-import subobjectjava.model.type.RegularJLoType;
-
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameSignature;
-import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.method.Method;
-import chameleon.core.method.RegularImplementation;
 import chameleon.core.method.exception.ExceptionClause;
 import chameleon.core.modifier.ElementWithModifiers;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
-import chameleon.core.namespacepart.TypeImport;
-import chameleon.core.reference.SimpleReference;
 import chameleon.core.statement.Block;
 import chameleon.core.variable.FormalParameter;
 import chameleon.exception.ModelException;
 import chameleon.oo.language.ObjectOrientedLanguage;
-import chameleon.oo.type.BasicTypeReference;
-import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.ActualType;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
 import chameleon.oo.type.generics.TypeParameter;
-import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
-import chameleon.util.Util;
 
 public class AbstractTranslator {
 
@@ -69,12 +52,14 @@ public class AbstractTranslator {
 
 	protected void makePublic(ElementWithModifiers<?> element) throws ModelException {
 		Java language = element.language(Java.class);
-		Property access = element.property(language.SCOPE_MUTEX);
-		if(access != language.PUBLIC) {
-			for(Modifier mod: element.modifiers(language.SCOPE_MUTEX)) {
-				mod.disconnect();
+		if(element.hasProperty(language.SCOPE_MUTEX)) {
+			Property access = element.property(language.SCOPE_MUTEX);
+			if(access != language.PUBLIC) {
+				for(Modifier mod: element.modifiers(language.SCOPE_MUTEX)) {
+					mod.disconnect();
+				}
+				element.addModifier(new Public());
 			}
-			element.addModifier(new Public());
 		}
 	}
 

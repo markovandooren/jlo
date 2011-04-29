@@ -257,6 +257,9 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 			new TypePredicate(kind).filter(members);
 		  current.addAll((Collection<? extends X>) members);
 		}
+		List<Member> members = componentType().processedMembers();
+		new TypePredicate(kind).filter(members);
+	  current.addAll((Collection<? extends X>) members);
 	}
 
 	@Override
@@ -265,6 +268,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		if(configurationBlock != null) {
 		  current.addAll(selector.selection(configurationBlock.processedMembers()));
 		}
+	  current.addAll(selector.selection(componentType().processedMembers()));
 	}
 
 	public List<? extends Member> getIntroducedMembers() throws LookupException {
@@ -276,11 +280,11 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	@Override
 	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
-		List<D> result;
-		if((configurationBlock == null) || (selector.declaration() == this)) {
-		  result = new ArrayList<D>();
-		} else {
-			result = configurationBlock.membersDirectlyOverriddenBy(selector);
+		List<D> result = new ArrayList<D>();
+		if(selector.declaration() != this) {
+			if(configurationBlock != null) {
+				result = configurationBlock.membersDirectlyOverriddenBy(selector);
+			}
 			for(Export member: componentType().directlyDeclaredElements(Export.class)) {
 				result.addAll(member.membersDirectlyOverriddenBy(selector));
 			}
@@ -291,28 +295,24 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	@Override
 	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
-		List<D> result;
-		if(configurationBlock == null) {
-		  result = new ArrayList<D>();
-		} else {
+		List<D> result = new ArrayList<D>();
+		if(configurationBlock != null) {
 			result = configurationBlock.membersDirectlyAliasedBy(selector);
-			for(Export member: componentType().directlyDeclaredElements(Export.class)) {
-				result.addAll(member.membersDirectlyAliasedBy(selector));
-			}
+		} 
+		for(Export member: componentType().directlyDeclaredElements(Export.class)) {
+			result.addAll(member.membersDirectlyAliasedBy(selector));
 		}
 		return result;
 	}
 
 	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
-		List<D> result;
-		if(configurationBlock == null) {
-		  result = new ArrayList<D>();
-		} else {
+		List<D> result = new ArrayList<D>();
+		if(configurationBlock != null) {
 			result = configurationBlock.membersDirectlyAliasing(selector);
-			for(Export member: componentType().directlyDeclaredElements(Export.class)) {
-				result.addAll(member.membersDirectlyAliasing(selector));
-			}
+		}
+		for(Export member: componentType().directlyDeclaredElements(Export.class)) {
+			result.addAll(member.membersDirectlyAliasing(selector));
 		}
 		return result;
 	}

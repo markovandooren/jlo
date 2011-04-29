@@ -214,6 +214,7 @@ import subobjectjava.model.component.MultiActualComponentArgument;
 import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentNameActualArgument;
 import subobjectjava.model.component.ParameterReferenceActualArgument;
+import subobjectjava.model.component.Export;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -316,12 +317,16 @@ memberName returns [Object element]
  	: identifierRule
  	;    	
 
-exportDeclaration returns [TypeElement element]
-    	: Export map (',' map)*	';'
+exportDeclaration returns [Export element]
+    	: xp=Export {retval.element = new Export(); setKeyword(retval.element,xp);} m=map {retval.element.add(m.element);} (',' mm=map {retval.element.add(mm.element);})*	';'
     	;
     	
-map returns [Object element]
-	: identifierRule Identifier identifierRule
+map returns [RenamingClause element]
+	:  oldFQN=fqn {retval.element = new RenamingClause(null, oldFQN.element);} 
+	   (id=Identifier newSig=signature 
+	   {retval.element.setNewSignature(newSig.element);
+	    if($id.text.equals("as")) {setKeyword(retval.element, id);}
+	   })?
 	;    	
 
 componentDeclaration returns [ComponentRelation element]

@@ -25,6 +25,14 @@ public class ComponentType extends AnonymousType {
 		addInheritanceRelation(new ComponentSubtypeRelation());
 	}
 	
+	public List<Member> processedMembers() throws LookupException {
+		List<Member> result = new ArrayList<Member>();
+			for(Export exp: directlyDeclaredElements(Export.class)) {
+				List<Member> renamedMembers = exp.processedMembers();
+				result.addAll(renamedMembers);
+			}
+		return result;
+	}
 	@Override
 	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
 		List<InheritanceRelation> result = super.inheritanceRelations();
