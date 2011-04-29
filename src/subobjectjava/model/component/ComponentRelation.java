@@ -5,18 +5,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
-import jnome.core.language.Java;
-
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.TypePredicate;
 
 import chameleon.core.declaration.Declaration;
-import chameleon.core.declaration.DeclarationWithParametersSignature;
 import chameleon.core.declaration.Definition;
 import chameleon.core.declaration.Signature;
-import chameleon.core.declaration.SimpleNameDeclarationWithParametersSignature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationContainerSkipper;
@@ -30,7 +26,6 @@ import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
 import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.member.OverridesRelation;
-import chameleon.core.method.Method;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
@@ -41,8 +36,6 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
 import chameleon.oo.type.inheritance.InheritanceRelation;
-import chameleon.util.CreationStackTrace;
-import chameleon.util.Pair;
 import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSignature, ComponentRelation> implements DeclarationWithType<ComponentRelation,SimpleNameSignature, ComponentRelation>, Definition<ComponentRelation,SimpleNameSignature, ComponentRelation>, InheritanceRelation<ComponentRelation,Type>{
@@ -288,6 +281,9 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		  result = new ArrayList<D>();
 		} else {
 			result = configurationBlock.membersDirectlyOverriddenBy(selector);
+			for(Export member: componentType().directlyDeclaredElements(Export.class)) {
+				result.addAll(member.membersDirectlyOverriddenBy(selector));
+			}
 		}
 		return result;
 	}
@@ -300,6 +296,9 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		  result = new ArrayList<D>();
 		} else {
 			result = configurationBlock.membersDirectlyAliasedBy(selector);
+			for(Export member: componentType().directlyDeclaredElements(Export.class)) {
+				result.addAll(member.membersDirectlyAliasedBy(selector));
+			}
 		}
 		return result;
 	}
@@ -311,6 +310,9 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		  result = new ArrayList<D>();
 		} else {
 			result = configurationBlock.membersDirectlyAliasing(selector);
+			for(Export member: componentType().directlyDeclaredElements(Export.class)) {
+				result.addAll(member.membersDirectlyAliasing(selector));
+			}
 		}
 		return result;
 	}

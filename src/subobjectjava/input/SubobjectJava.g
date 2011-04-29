@@ -275,6 +275,16 @@ import java.util.ArrayList;
   }
 }
 
+identifierRule returns [String element]
+    : id=Identifier {retval.element = $id.text;} 
+      | ex=Export  {retval.element = $ex.text;} 
+      | co=Connector  {retval.element = $co.text;} 
+      | ctc=Connect  {retval.element = $ctc.text;} 
+      | n=Name  {retval.element = $n.text;} 
+      | o=Overrides  {retval.element = $o.text;} 
+    ;   
+
+
 memberDecl returns [TypeElement element]
 @after{setLocation(retval.element, (CommonToken)retval.start, (CommonToken)retval.stop);}
     :   gen=genericMethodOrConstructorDecl {retval.element = gen.element;}
@@ -295,15 +305,15 @@ connector returns [TypeElement element]
  	;
 
 connection returns [TypeElement element]
- 	: Connect Identifier To componentArgument ';'	
+ 	: Connect identifierRule Identifier componentArgument ';'	
  	;
 
 nameParameter returns [TypeElement element]
-    	:	Name Identifier ('=' memberName)? ';'
+    	:	Name identifierRule ('=' memberName)? ';'
     	;
     	
 memberName returns [Object element]
- 	: Identifier
+ 	: identifierRule
  	;    	
 
 exportDeclaration returns [TypeElement element]
@@ -311,11 +321,11 @@ exportDeclaration returns [TypeElement element]
     	;
     	
 map returns [Object element]
-	: Identifier As Identifier
+	: identifierRule Identifier identifierRule
 	;    	
 
 componentDeclaration returns [ComponentRelation element]
-    	:	cp='subobject' name=Identifier tp=type? body=classBody? cfg=configurationBlock?   ';'
+    	:	cp='subobject' name=identifierRule tp=type? body=classBody? cfg=configurationBlock?   ';'
     	     {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), $tp.element);
     	      if(cfg != null) {retval.element.setConfigurationBlock($cfg.element);}
     	      if(body != null) {retval.element.setBody($body.element);}
@@ -341,15 +351,15 @@ configurationClause returns [ConfigurationClause element]
 	;
 	
 signature returns [Signature element]
-        : sig=Identifier {retval.element = new SimpleNameSignature($sig.text);}
-        | sigg=Identifier {retval.element = new SimpleNameDeclarationWithParametersSignature($sigg.text);} 
+        : sig=identifierRule {retval.element = new SimpleNameSignature($sig.text);}
+        | sigg=identifierRule {retval.element = new SimpleNameDeclarationWithParametersSignature($sigg.text);} 
                 '(' (t=type {((SimpleNameDeclarationWithParametersSignature)retval.element).add(t.element);} 
                  (',' tt=type {((SimpleNameDeclarationWithParametersSignature)retval.element).add(tt.element);})*)?')'
         ;
         
 fqn returns [QualifiedName element] 
         :	sig=signature {retval.element=sig.element;}
-        |     id=Identifier '.' ff=fqn {
+        |     id=identifierRule '.' ff=fqn {
               Signature signature = new SimpleNameSignature($id.text);
               if(ff.element instanceof CompositeQualifiedName) {
                 ((CompositeQualifiedName)ff.element).prefix(signature); 
@@ -375,7 +385,7 @@ expression returns [Expression element]
          setLocation(retval.element,retval.start,exx.stop);
         }
         )?
-        | sb='subobject' '.' id=Identifier args=arguments {
+        | sb='subobject' '.' id=identifierRule args=arguments {
           retval.element = new SubobjectConstructorCall($id.text, args.element);
          setLocation(retval.element,sb,args.stop);
          setKeyword(retval.element,sb);
@@ -403,7 +413,7 @@ expression returns [Expression element]
 nonTargetPrimary returns [Expression element]
   	:
   	lit=literal {retval.element = lit.element;}
-  	| at='#' id=Identifier '(' ex=expression {retval.element = ex.element;} stop=')'
+  	| at='#' id=identifierRule '(' ex=expression {retval.element = ex.element;} stop=')'
            {retval.element = new ComponentParameterCall(ex.element, $id.text);
               setLocation(retval.element,at,stop);
               setKeyword(retval.element,at);
@@ -450,17 +460,17 @@ componentParameter returns [ComponentParameter element]
 	;
 
 singleComponentParameter returns [ComponentParameter element]
-	: id=Identifier tcontainer=type arrow='->' tcomp=type 
+	: id=identifierRule tcontainer=type arrow='->' tcomp=type 
 	  {retval.element = new SingleFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
-	   setLocation(retval.element,id,tcomp.stop);
+	   setLocation(retval.element,id.start,tcomp.stop);
 	   setKeyword(retval.element,arrow);
 	   }
 	;
 
 multiComponentParameter returns [ComponentParameter element]
-	:  id=Identifier '[' tcontainer=type arrow='->' tcomp=type ']'
+	:  id=identifierRule '[' tcontainer=type arrow='->' tcomp=type ']'
 	  {retval.element = new MultiFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
-	   setLocation(retval.element,id,tcomp.stop);
+	   setLocation(retval.element,id.start,tcomp.stop);
 	   setKeyword(retval.element,arrow);
 	   }
 	;
@@ -473,11 +483,11 @@ classOrInterfaceType returns [JavaTypeReference element]
 // We will process the different parts. The current type reference (return value) is kept in retval. Alongside that
 // we keep a version of the latest namespace or type reference. If at any point after processing the first identifier
 // target is null, we know that we have encountered a real type reference before, so anything after that becomes a type reference.
-	:	name=Identifier 
+	:	name=identifierRule 
 	          {
 	           retval.element = typeRef($name.text); 
 	           target =  new NamespaceOrTypeReference($name.text);
-	           stop=name; 
+	           stop=name.start; 
 	          } 
 	        (args=typeArguments 
 	          {
@@ -488,7 +498,7 @@ classOrInterfaceType returns [JavaTypeReference element]
 	           target = null;
 	           stop=args.stop;
 	          })?
-	          {setLocation(retval.element,name,stop);} 
+	          {setLocation(retval.element,name.start,stop);} 
 	          	          (
 	           cp=componentArguments
 	            {
@@ -496,11 +506,11 @@ classOrInterfaceType returns [JavaTypeReference element]
 	            ((ComponentParameterTypeReference)retval.element).addAllArguments(cp.element);
 	            target = null;
 	            stop = cp.stop;
-	            setLocation(retval.element,name,stop);
+	            setLocation(retval.element,name.start,stop);
 	            }
 	          )?
 
-	        ('.' namex=Identifier 
+	        ('.' namex=identifierRule 
 	          {
 	           if(target != null) {
 	             retval.element = createTypeReference(target,$namex.text);
@@ -511,7 +521,7 @@ classOrInterfaceType returns [JavaTypeReference element]
 	             throw new Error();
 	             //retval.element = createTypeReference(retval.element,$namex.text);
 	           }
-	           stop=namex;
+	           stop=namex.start;
 	          } 
 	        (argsx=typeArguments 
 	          {
@@ -521,7 +531,7 @@ classOrInterfaceType returns [JavaTypeReference element]
 	           // so we se the target to the current type reference.
 	           target = null;
 	           stop = argsx.stop;
-	          })? {setLocation(retval.element,name,stop);}
+	          })? {setLocation(retval.element,name.start,stop);}
 	          
 	          (
 	           cpx=componentArguments
@@ -530,7 +540,7 @@ classOrInterfaceType returns [JavaTypeReference element]
 	            ((ComponentParameterTypeReference)retval.element).addAllArguments(cpx.element);
 	            target = null;
 	            stop = cpx.stop;
-	            setLocation(retval.element,name,stop);
+	            setLocation(retval.element,name.start,stop);
 	            }
 	          )?
 	          
@@ -557,8 +567,8 @@ componentArgument returns [ActualComponentArgument element]
  	
 singleComponentArgument returns [SingleActualComponentArgument element]
 	:
-	 id=Identifier {retval.element = new ComponentNameActualArgument($id.text);}
-        | '@' idd=Identifier {retval.element = new ParameterReferenceActualArgument($idd.text);}
+	 id=identifierRule {retval.element = new ComponentNameActualArgument($id.text);}
+        | '@' idd=identifierRule {retval.element = new ParameterReferenceActualArgument($idd.text);}
 	;
 	
 multiComponentArgument returns [MultiActualComponentArgument element]

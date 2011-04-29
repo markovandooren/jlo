@@ -36,7 +36,6 @@ public abstract class ConfigurationClause<E extends ConfigurationClause> extends
 	 */
 	public abstract QualifiedName oldNameFor(Signature signature) throws LookupException;
 	
-//	public abstract <D extends Declaration> Pair<Set<D>,Set<D>> selected(DeclarationSelector<D> selector, Type type) throws LookupException;
 	public abstract <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException;
 
 	public abstract <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException;

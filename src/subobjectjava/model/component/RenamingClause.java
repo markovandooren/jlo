@@ -36,7 +36,7 @@ public class RenamingClause extends AbstractClause<RenamingClause> {
 
 	@Override
 	public RenamingClause clone() {
-		return new RenamingClause(newSignature().clone(), oldFqn().clone());
+		return new RenamingClause(newSignature().clone(), oldFQN().clone());
 	}
 
 	@Override

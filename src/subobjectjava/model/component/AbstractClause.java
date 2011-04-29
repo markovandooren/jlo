@@ -27,18 +27,10 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	public QualifiedName oldNameFor(Signature signature) throws LookupException {
 		QualifiedName result = null;
 		if(newSignature().sameAs(signature)) {
-			result = oldFqn();
+			result = oldFQN();
 		}
 		return result;
 	}
-	
-//  public <D extends Declaration> Pair<Set<D>,Set<D>> selected(DeclarationSelector<D> selector, Type type) throws LookupException {
-//  	List<D> list = selector.selection(process(type));
-//  	Set old = new HashSet();
-//  	old.add(oldDeclaration());
-//  	Pair<Set<D>,Set<D>> result = new Pair<Set<D>,Set<D>>(new HashSet<D>(list),old);
-//  	return result;
-//  }
 	
 	@Override
 	public VerificationResult verifySelf() {
@@ -46,7 +38,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 		if(newSignature() == null) {
 			result = result.and(new BasicProblem(this, "The renaming clause does not contain a new name."));
 		}
-		if(oldFqn() == null) {
+		if(oldFQN() == null) {
 			result = result.and(new BasicProblem(this, "The renaming clause does not contain an old name."));
 		}
 		return result;
@@ -55,7 +47,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	public List<? extends Element> children() {
 		List<Element> result = new ArrayList<Element>();
 		Util.addNonNull(newSignature(), result);
-		Util.addNonNull(oldFqn(), result);
+		Util.addNonNull(oldFQN(), result);
 		return result;
 	}
 
@@ -67,7 +59,12 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	 * Return the signature of this member.
 	 */
 	public Signature newSignature() {
-	  return _signature.getOtherEnd();
+	  Signature result = _signature.getOtherEnd();
+	  QualifiedName oldFQN = oldFQN();
+		if(result == null && oldFQN instanceof Signature) {
+	  	result = (Signature) oldFQN;
+	  }
+	  return result;
 	}
 
 	private SingleAssociation<AbstractClause, QualifiedName> _fqn = new SingleAssociation<AbstractClause, QualifiedName>(this);
@@ -78,7 +75,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	
 	public Declaration oldDeclaration() throws LookupException {
 		TargetDeclaration container = nearestAncestor(ComponentRelation.class).componentType();
-		List<Signature> signatures = oldFqn().signatures();
+		List<Signature> signatures = oldFQN().signatures();
 		Declaration result = null;
 		int size = signatures.size();
 		for(int i = 0; i< size; i++) {
@@ -100,7 +97,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	/**
 	 * Return the signature of this member.
 	 */
-	public QualifiedName<?> oldFqn() {
+	public QualifiedName<?> oldFQN() {
 	  return _fqn.getOtherEnd();
 	}
 
@@ -109,7 +106,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	}
 	
   public Declaration originalDeclaration() throws LookupException {
-		QualifiedName qn = oldFqn();
+		QualifiedName qn = oldFQN();
 		final QualifiedName poppedName = qn.popped();
 		int size = poppedName.length();
 		TargetDeclaration container = nearestAncestor(ComponentRelation.class).componentType();

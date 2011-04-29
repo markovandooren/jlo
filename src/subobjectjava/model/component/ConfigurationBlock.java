@@ -81,16 +81,16 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock>
 		return result;
 	}
 
-	public QualifiedName oldNameFor(Signature signature) throws LookupException {
-		QualifiedName result = null;
-		for(ConfigurationClause clause: clauses()) {
-			result = clause.oldNameFor(signature);
-			if(result != null) {
-				break;
-			}
-		}
-		return result;
-	}
+//	public QualifiedName oldNameFor(Signature signature) throws LookupException {
+//		QualifiedName result = null;
+//		for(ConfigurationClause clause: clauses()) {
+//			result = clause.oldNameFor(signature);
+//			if(result != null) {
+//				break;
+//			}
+//		}
+//		return result;
+//	}
 	
 //	public <D extends Declaration> Pair<Set<D>,Set<D>> selected(DeclarationSelector<D> selector, Type type) throws LookupException {
 //		Pair<Set<D>,Set<D>> result = new Pair<Set<D>,Set<D>>(new HashSet<D>(), new HashSet<D>());
