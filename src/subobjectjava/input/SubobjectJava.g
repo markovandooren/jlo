@@ -335,12 +335,13 @@ map returns [RenamingClause element]
 	;    	
 
 componentDeclaration returns [ComponentRelation element]
-    	:	cp='subobject' tp=type? name=identifierRule body=classBody? cfg=configurationBlock?   ';'
-    	     {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), $tp.element);
-    	      if(cfg != null) {retval.element.setConfigurationBlock($cfg.element);}
-    	      if(body != null) {retval.element.setBody($body.element);}
-    	      setKeyword(retval.element,cp);
-    	     }
+    	:	cp='subobject' tp=type? name=identifierRule 
+    	        {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), $tp.element);
+    	         setKeyword(retval.element,cp);
+    	        }
+    	        (body=classBody {retval.element.setBody($body.element);} | ';')  // cfg=configurationBlock? 
+//    	      if(cfg != null) {retval.element.setConfigurationBlock($cfg.element);}
+    	       
     	;
 configurationBlock returns [ConfigurationBlock element] 
 @after{setLocation(retval.element, (CommonToken)retval.start, (CommonToken)retval.stop);}
@@ -478,85 +479,12 @@ singleComponentParameter returns [ComponentParameter element]
 	;
 
 multiComponentParameter returns [ComponentParameter element]
-	:  id=identifierRule '[' tcontainer=type arrow='->' tcomp=type ']'
+	:  id=identifierRule tcontainer=type arrow='->' '[' tcomp=type ']'
 	  {retval.element = new MultiFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
 	   setLocation(retval.element,id.start,tcomp.stop);
 	   setKeyword(tcontainer.element,arrow);
 	   }
 	;
-
-
-classOrInterfaceType returns [JavaTypeReference element]
-@init{NamespaceOrTypeReference target = null;
-      Token stop = null;
-     }
-// We will process the different parts. The current type reference (return value) is kept in retval. Alongside that
-// we keep a version of the latest namespace or type reference. If at any point after processing the first identifier
-// target is null, we know that we have encountered a real type reference before, so anything after that becomes a type reference.
-	:	name=identifierRule 
-	          {
-	           retval.element = typeRef($name.text); 
-	           target =  new NamespaceOrTypeReference($name.text);
-	           stop=name.start; 
-	          } 
-	        (args=typeArguments 
-	          {
-	           // Add the type arguments
-	           ((BasicJavaTypeReference)retval.element).addAllArguments(args.element);
-	           // In this case, we know that the current element must be a type reference,
-	           // so we set the target to null, and only create type references afterwards.
-	           target = null;
-	           stop=args.stop;
-	          })?
-	          {setLocation(retval.element,name.start,stop);} 
-	          	          (
-	           cp=componentArguments
-	            {
-	            retval.element = new ComponentParameterTypeReference(retval.element);
-	            ((ComponentParameterTypeReference)retval.element).addAllArguments(cp.element);
-	            target = null;
-	            stop = cp.stop;
-	            setLocation(retval.element,name.start,stop);
-	            }
-	          )?
-
-	        ('.' namex=identifierRule 
-	          {
-	           if(target != null) {
-	             retval.element = createTypeReference(target,$namex.text);
-	             // We must clone the target here, or else it will be removed from the
-	             // type reference we just created.
-	             target = new NamespaceOrTypeReference(target.clone(),$namex.text);
-	           } else {
-	             throw new Error();
-	             //retval.element = createTypeReference(retval.element,$namex.text);
-	           }
-	           stop=namex.start;
-	          } 
-	        (argsx=typeArguments 
-	          {
-	           // Add the type arguments
-             ((BasicJavaTypeReference)retval.element).addAllArguments(argsx.element);
-	           // In this case, we know that the current element must be a type reference,
-	           // so we se the target to the current type reference.
-	           target = null;
-	           stop = argsx.stop;
-	          })? {setLocation(retval.element,name.start,stop);}
-	          
-	          (
-	           cpx=componentArguments
-	            {
-	            retval.element = new ComponentParameterTypeReference(retval.element);
-	            ((ComponentParameterTypeReference)retval.element).addAllArguments(cpx.element);
-	            target = null;
-	            stop = cpx.stop;
-	            setLocation(retval.element,name.start,stop);
-	            }
-	          )?
-	          
-	          )*
-	;
-
 
 componentArguments returns [List<ActualComponentArgument> element]
 @init{retval.element = new ArrayList<ActualComponentArgument>();}
