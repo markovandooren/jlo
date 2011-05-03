@@ -335,7 +335,7 @@ map returns [RenamingClause element]
 	;    	
 
 componentDeclaration returns [ComponentRelation element]
-    	:	cp='subobject' name=identifierRule tp=type? body=classBody? cfg=configurationBlock?   ';'
+    	:	cp='subobject' tp=type? name=identifierRule body=classBody? cfg=configurationBlock?   ';'
     	     {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), $tp.element);
     	      if(cfg != null) {retval.element.setConfigurationBlock($cfg.element);}
     	      if(body != null) {retval.element.setBody($body.element);}
