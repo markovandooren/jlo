@@ -310,7 +310,7 @@ connection returns [TypeElement element]
  	: ctkw=Connect name=identifierRule tokw=Identifier arg=componentArgument ';'
  	  {retval.element = new InstantiatedMemberSubobjectParameter(new SimpleNameSignature($name.text),arg.element);
  	   setKeyword(retval.element,ctkw);
- 	   if($tokw.text.equals("to")) {setKeyword(retval.element,tokw);}
+ 	   if($tokw.text.equals("to")) {setKeyword(arg.element,tokw);}
  	  }	
  	;
 

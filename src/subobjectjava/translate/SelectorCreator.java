@@ -2,6 +2,7 @@ package subobjectjava.translate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import jnome.core.expression.invocation.ConstructorInvocation;
 import jnome.core.expression.invocation.JavaMethodInvocation;
@@ -24,6 +25,7 @@ import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.expression.Expression;
 import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.member.Member;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularImplementation;
 import chameleon.core.statement.Block;
@@ -51,6 +53,16 @@ public class SelectorCreator extends AbstractTranslator {
 		}
 	}
 
+	private FormalComponentParameter<?> highestSubobjectParameter(FormalComponentParameter<?> par) throws LookupException {
+		FormalComponentParameter<?> result = par;
+		Set<? extends Member> overridden = result.overriddenMembers();
+		while(! overridden.isEmpty()) {
+			result = (FormalComponentParameter<?>) overridden.iterator().next();
+			overridden = result.overriddenMembers();
+		}
+		return result;
+	}
+	
 	public List<Method> selectorsForComponent(Type t) throws LookupException {
 		List<Method> result = new ArrayList<Method>();
 		List<ComponentParameter> parameters = t.parameters(ComponentParameter.class);
@@ -61,6 +73,7 @@ public class SelectorCreator extends AbstractTranslator {
 			AbstractInstantiatedComponentParameter<?> instantiatedPar = (AbstractInstantiatedComponentParameter) par;
 			FormalComponentParameter<?> formalParameter = instantiatedPar.formalParameter();
 			FormalComponentParameter<?> originalFormalParameter = (FormalComponentParameter<?>) formalParameter.origin();
+//			FormalComponentParameter<?> highestFormalParameter = highestSubobjectParameter(originalFormalParameter);
 			Type p = t;
 			if(t instanceof ComponentType) {
 				p = originalFormalParameter.nearestAncestor(Type.class);
@@ -164,13 +177,14 @@ public class SelectorCreator extends AbstractTranslator {
 	}
 
 	public String selectorName(ComponentParameter<?> par) throws LookupException {
-		Type type;
-		if(par instanceof InstantiatedMemberSubobjectParameter) {
-			type = (Type) ((InstantiatedMemberSubobjectParameter) par).formalParameter().origin().nearestAncestor(Type.class);
-		} else {
-			type = par.nearestAncestor(Type.class);
-		}
-		return "__select$"+ toUnderScore(type.getFullyQualifiedName())+"$"+par.signature().name();
+//		Type type;
+//		if(par instanceof InstantiatedMemberSubobjectParameter) {
+//			type = (Type) ((InstantiatedMemberSubobjectParameter) par).formalParameter().origin().nearestAncestor(Type.class);
+//		} else {
+//			type = par.nearestAncestor(Type.class);
+//		}
+//		return "__select$"+ toUnderScore(type.getFullyQualifiedName())+"$"+par.signature().name();
+		return "__select$" + par.signature().name();
 	}
 	
 	private Method selectorFor(FormalComponentParameter<?> par) throws LookupException {
