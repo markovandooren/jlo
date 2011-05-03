@@ -72,14 +72,6 @@ public class InnerClassCreator extends AbstractTranslator {
 		return result;
 	}
 
-//private TypeReference superClassReference(ComponentRelation relation) throws LookupException {
-//	TypeReference superReference = relation.componentTypeReference().clone();
-//	if(superReference instanceof ComponentParameterTypeReference) {
-//		superReference = ((ComponentParameterTypeReference) superReference).componentTypeReference();
-//	}
-//	return superReference;
-//}
-
 private List<TypeReference> superClassReferences(ComponentRelation relation, Type context) throws LookupException {
 	if(relation.componentType().getFullyQualifiedName().contains("frequency")) {
 		System.out.println("debug");
@@ -146,7 +138,7 @@ private String innerClassFQN(ComponentRelation relation) throws LookupException 
 private void processInnerClassMethod(ComponentRelation relationBeingTranslated, Type result) throws LookupException {
 	Type componentType = relationBeingTranslated.referencedComponentType();
 	List<Method> localMethods = componentType.directlyDeclaredMembers(Method.class);
-	for(Method<?,?,?,?> method: localMethods) {
+	for(Method<?,?,?> method: localMethods) {
 		if(method.is(method.language(ObjectOrientedLanguage.class).CONSTRUCTOR) == Ternary.TRUE) {
 			NormalMethod<?,?,?> clone = (NormalMethod) method.clone();
 			clone.setUniParent(method.parent());

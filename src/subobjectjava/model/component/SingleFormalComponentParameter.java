@@ -1,9 +1,21 @@
 package subobjectjava.model.component;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.rejuse.property.Property;
+import org.rejuse.property.PropertyMutex;
+
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.member.Member;
+import chameleon.core.modifier.Modifier;
+import chameleon.core.statement.CheckedExceptionList;
+import chameleon.exception.ChameleonProgrammerException;
+import chameleon.exception.ModelException;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
+import chameleon.util.Util;
 
 public class SingleFormalComponentParameter extends FormalComponentParameter<SingleFormalComponentParameter> {
 
@@ -19,6 +31,5 @@ public class SingleFormalComponentParameter extends FormalComponentParameter<Sin
 	public Type declarationType() throws LookupException {
 		return componentTypeReference().getElement();
 	}
-
 
 }

@@ -157,13 +157,13 @@ public class AbstractTranslator {
 		}
 	}
 
-	protected void substituteTypeParameters(Method<?, ?, ?, ?> methodInTypeWhoseParametersMustBeSubstituted, NormalMethod<?, ?, ?> methodWhereActualTypeParametersMustBeFilledIn) throws LookupException {
+	protected void substituteTypeParameters(Method<?, ?, ?> methodInTypeWhoseParametersMustBeSubstituted, NormalMethod<?, ?, ?> methodWhereActualTypeParametersMustBeFilledIn) throws LookupException {
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(methodInTypeWhoseParametersMustBeSubstituted);
 		substituteTypeParameters(methodWhereActualTypeParametersMustBeFilledIn);
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(null);
 	}
 
-	protected void useParametersInInvocation(Method<?, ?, ?, ?> method, MethodInvocation invocation) {
+	protected void useParametersInInvocation(Method<?, ?, ?> method, MethodInvocation invocation) {
 		for(FormalParameter param: method.formalParameters()) {
 			invocation.addArgument(new NamedTargetExpression(param.signature().name(), null));
 		}
@@ -194,14 +194,14 @@ public class AbstractTranslator {
 		return componentName+COMPONENT;
 	}
 	
-	protected MethodInvocation invocation(Method<?, ?, ?, ?> method, String origin) {
+	protected MethodInvocation invocation(Method<?, ?, ?> method, String origin) {
 		MethodInvocation invocation = new JavaMethodInvocation(origin, null);
 		// pass parameters.
 		useParametersInInvocation(method, invocation);
 		return invocation;
 	}
 
-	protected void addImplementation(Method<?, ?, ?, ?> method, Block body, MethodInvocation invocation) throws LookupException {
+	protected void addImplementation(Method<?, ?, ?> method, Block body, MethodInvocation invocation) throws LookupException {
 		if(method.returnType().equals(method.language(Java.class).voidType())) {
 			body.addStatement(new StatementExpression(invocation));
 		} else {
@@ -209,7 +209,7 @@ public class AbstractTranslator {
 		}
 	}
 
-	protected NormalMethod<?, ?, ?> innerMethod(Method<?, ?, ?, ?> method, String original) throws LookupException {
+	protected NormalMethod<?, ?, ?> innerMethod(Method<?, ?, ?> method, String original) throws LookupException {
 		NormalMethod<?, ?, ?> result;
 		TypeReference tref = method.returnTypeReference().clone();
 		result = method.language(Java.class).createNormalMethod(method.header().clone(), tref);

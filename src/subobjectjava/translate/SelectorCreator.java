@@ -8,13 +8,15 @@ import jnome.core.expression.invocation.JavaMethodInvocation;
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
 import jnome.core.type.JavaTypeReference;
+import subobjectjava.model.component.AbstractInstantiatedComponentParameter;
 import subobjectjava.model.component.ActualComponentArgument;
 import subobjectjava.model.component.ComponentNameActualArgument;
 import subobjectjava.model.component.ComponentParameter;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ComponentRelationSet;
+import subobjectjava.model.component.ComponentType;
 import subobjectjava.model.component.FormalComponentParameter;
-import subobjectjava.model.component.InstantiatedComponentParameter;
+import subobjectjava.model.component.InstantiatedMemberSubobjectParameter;
 import subobjectjava.model.component.MultiActualComponentArgument;
 import subobjectjava.model.component.MultiFormalComponentParameter;
 import subobjectjava.model.component.ParameterReferenceActualArgument;
@@ -41,16 +43,30 @@ import chameleon.support.variable.LocalVariableDeclarator;
 public class SelectorCreator extends AbstractTranslator {
 
 	public List<Method> selectorsFor(ComponentRelation rel) throws LookupException {
-		Type t = rel.referencedComponentType();
-		return selectorsForComponent(t);
+		if(rel.componentType().descendants(ComponentParameter.class).isEmpty()) {
+			Type t = rel.referencedComponentType();
+			return selectorsForComponent(t);
+		} else {
+			return selectorsForComponent(rel.componentType());
+		}
 	}
 
 	public List<Method> selectorsForComponent(Type t) throws LookupException {
 		List<Method> result = new ArrayList<Method>();
-		for(ComponentParameter par: t.parameters(ComponentParameter.class)) {
-			
-			Method realSelector= realSelectorFor((InstantiatedComponentParameter) par);
-			realSelector.setUniParent(t);
+		List<ComponentParameter> parameters = t.parameters(ComponentParameter.class);
+		parameters.addAll(t.members(ComponentParameter.class));
+		// HACK that must be removed (as in "always used" so no if statement) when functional
+		// style parameters are removed.
+		for(ComponentParameter<?> par: parameters) {
+			AbstractInstantiatedComponentParameter<?> instantiatedPar = (AbstractInstantiatedComponentParameter) par;
+			FormalComponentParameter<?> formalParameter = instantiatedPar.formalParameter();
+			FormalComponentParameter<?> originalFormalParameter = (FormalComponentParameter<?>) formalParameter.origin();
+			Type p = t;
+			if(t instanceof ComponentType) {
+				p = originalFormalParameter.nearestAncestor(Type.class);
+			}
+			Method realSelector= realSelectorFor(instantiatedPar);
+			realSelector.setUniParent(p);
 			substituteTypeParameters(realSelector);
 			realSelector.setUniParent(null);
 			result.add(realSelector);
@@ -58,8 +74,8 @@ public class SelectorCreator extends AbstractTranslator {
 		return result;
 	}
 	
-	private Method realSelectorFor(InstantiatedComponentParameter<?> par) throws LookupException {
-		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(selectorName(par));
+	private Method realSelectorFor(AbstractInstantiatedComponentParameter<?> par) throws LookupException {
+		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(selectorName((ComponentParameter<?>) par));
 		FormalComponentParameter formal = par.formalParameter();
 		Java language = par.language(Java.class);
 //		Method result = new NormalMethod(header,formal.componentTypeReference().clone());
@@ -133,18 +149,28 @@ public class SelectorCreator extends AbstractTranslator {
 	}
 	
 	public List<Method> selectorsFor(Type type) throws LookupException {
-		ParameterBlock<?,ComponentParameter> block = type.parameterBlock(ComponentParameter.class);
 		List<Method> result = new ArrayList<Method>();
+		List<ComponentParameter> parameters = new ArrayList<ComponentParameter>(); 
+		ParameterBlock<?,ComponentParameter> block = type.parameterBlock(ComponentParameter.class);
 		if(block != null) {
-		  for(ComponentParameter par: block.parameters()) {
-		  	result.add(selectorFor((FormalComponentParameter<?>) par));
-		  }
+		  parameters.addAll(block.parameters());
 		}
+		parameters.addAll(type.members(ComponentParameter.class));
+		for(ComponentParameter par: parameters) {
+	  	result.add(selectorFor((FormalComponentParameter<?>) par));
+	  }
+		
 		return result;
 	}
 
-	public String selectorName(ComponentParameter<?> par) {
-		return "__select$"+ toUnderScore(par.nearestAncestor(Type.class).getFullyQualifiedName())+"$"+par.signature().name();
+	public String selectorName(ComponentParameter<?> par) throws LookupException {
+		Type type;
+		if(par instanceof InstantiatedMemberSubobjectParameter) {
+			type = (Type) ((InstantiatedMemberSubobjectParameter) par).formalParameter().origin().nearestAncestor(Type.class);
+		} else {
+			type = par.nearestAncestor(Type.class);
+		}
+		return "__select$"+ toUnderScore(type.getFullyQualifiedName())+"$"+par.signature().name();
 	}
 	
 	private Method selectorFor(FormalComponentParameter<?> par) throws LookupException {

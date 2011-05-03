@@ -20,6 +20,7 @@ import org.rejuse.predicate.SafePredicate;
 import org.rejuse.predicate.TypePredicate;
 import org.rejuse.predicate.UnsafePredicate;
 
+import subobjectjava.model.component.ComponentParameter;
 import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ComponentType;
@@ -399,7 +400,14 @@ public class JavaTranslator extends AbstractTranslator {
 		expandReferences(result); //Y
 		removeNonLocalReferences(result); //Z
 		result.setUniParent(null);
+		removeSubobjectParameters(result);
 		return result;
+	}
+	
+	private void removeSubobjectParameters(Type type) {
+		for(ComponentParameter par: type.descendants(ComponentParameter.class)) {
+			par.disconnect();
+		}
 	}
 	
 	private void ensureConstructor(Type result) {
@@ -473,7 +481,7 @@ public class JavaTranslator extends AbstractTranslator {
 		if(relation.componentType().getFullyQualifiedName().equals("radio.Radio.frequency.value")) {
 			System.out.println("debug");
 		}
-		for(Member<?,?,?> member: members) {
+		for(Member<?,?> member: members) {
 			if(member.signature().name().endsWith("hashCode")) {
 				System.out.println("debug");
 			}
@@ -492,7 +500,7 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 		}
 	}
-	private void incorporateImports(Method<?,?,?,?> method) throws LookupException {
+	private void incorporateImports(Method<?,?,?> method) throws LookupException {
 		Java java = method.language(Java.class);
 		NamespacePart namespacePart = method.nearestAncestor(NamespacePart.class);
 		for(TypeReference tref: method.descendants(TypeReference.class)) {
@@ -508,7 +516,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
-  public void createSuperImplementation(Method<?,?,?,?> method, Method original) throws LookupException {
+  public void createSuperImplementation(Method<?,?,?> method, Method original) throws LookupException {
   	Block body = new Block();
   	method.setImplementation(new RegularImplementation(body));
   	MethodInvocation invocation = invocation(method, original.signature().name());
@@ -524,7 +532,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void rebindOverriddenMethodsOf(Type result, Type original, Method<?,?,?,?> method) throws Error, ModelException {
+	private void rebindOverriddenMethodsOf(Type result, Type original, Method<?,?,?> method) throws Error, ModelException {
 		if(method.name().equals("setFrequency")) {
 			System.out.println("debug");
 		}
@@ -543,7 +551,7 @@ public class JavaTranslator extends AbstractTranslator {
 						}
 					};
 					Method newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-					Method<?,?,?,?> stat = newDefinitionInResult.clone();
+					Method<?,?,?> stat = newDefinitionInResult.clone();
 					String name = staticMethodName(method, containerOfNewDefinition);
 					stat.setName(name);
 					containerOfNewDefinition.add(stat);
@@ -555,7 +563,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void rebind(Type container, Type original, Method<?,?,?,?> newDefinition, Method toBeRebound) throws ModelException {
+	private void rebind(Type container, Type original, Method<?,?,?> newDefinition, Method toBeRebound) throws ModelException {
 		try {
 			String newwFQN = newDefinition.nearestAncestor(Type.class).getFullyQualifiedName()+"."+newDefinition.name();
 			if(toBeRebound.name().equals("setFrequency")) {
@@ -600,7 +608,7 @@ public class JavaTranslator extends AbstractTranslator {
 			reboundMethod.setUniParent(null);
 			containerOfToBebound.add(reboundMethod);
 			
-			Method<?, ?, ?, ?> staticReboundMethod = staticMethod(containerOfToBebound, reboundMethod);
+			Method<?, ?, ?> staticReboundMethod = staticMethod(containerOfToBebound, reboundMethod);
 			String name = containerOfNewDefinition.getFullyQualifiedName().replace('.', '_');
 			for(SimpleNameMethodInvocation inv:staticReboundMethod.descendants(SimpleNameMethodInvocation.class)) {
 				if(! (inv instanceof ConstructorInvocation)) {
@@ -616,8 +624,8 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private Method<?, ?, ?, ?> staticMethod(Type containerOfToBebound, Method<?,?,?,?> reboundMethod) throws ModelException {
-		Method<?,?,?,?> staticReboundMethod = reboundMethod.clone();
+	private Method<?, ?, ?> staticMethod(Type containerOfToBebound, Method<?,?,?> reboundMethod) throws ModelException {
+		Method<?,?,?> staticReboundMethod = reboundMethod.clone();
 		staticReboundMethod.setOrigin(reboundMethod);
 		String newName = staticMethodName(reboundMethod,containerOfToBebound);
 //		staticReboundMethod.addModifier(new Final());
@@ -959,7 +967,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
-	private Method createOutward(Method<?,?,?,?> method, String newName, String className) throws LookupException {
+	private Method createOutward(Method<?,?,?> method, String newName, String className) throws LookupException {
 		NormalMethod<?,?,?> result;
 		Java java = method.language(Java.class);
 		if(//(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
@@ -1031,7 +1039,7 @@ public class JavaTranslator extends AbstractTranslator {
 				if(inv instanceof RegularMethodInvocation) {
 					RegularMethodInvocation call = (RegularMethodInvocation) inv;
 					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
-					Method<?,?,?,?> invoked = call.getElement();
+					Method<?,?,?> invoked = call.getElement();
 					List<ComponentRelation> trail = new ArrayList<ComponentRelation>();
 					trail.add(targetComponent);
 					Element el = invoked;
@@ -1060,7 +1068,7 @@ public class JavaTranslator extends AbstractTranslator {
 					for(ComponentRelation rel: trail) {
 						subobjectSelection = new JavaMethodInvocation(getterName(rel), subobjectSelection);
 					}
-					Method<?,?,?,?> farthestOrigin = (Method) invoked.farthestOrigin();
+					Method<?,?,?> farthestOrigin = (Method) invoked.farthestOrigin();
 					call.setTarget(subobjectSelection);
 					String name = staticMethodName(call.name(), farthestOrigin.nearestAncestor(Type.class));
 					call.setName(name);

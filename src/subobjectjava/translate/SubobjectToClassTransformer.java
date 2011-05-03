@@ -64,7 +64,6 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	}
 	
 	private void addAliasDelegations(ComponentRelation relation, Type outer, Type original) throws LookupException {
-//			TypeWithBody componentTypeDeclaration = relation.componentTypeDeclaration();
 		List<RenamingClause> clauses = new ArrayList<RenamingClause>();
 		ConfigurationBlock block = relation.configurationBlock();
 		if(block != null) {
@@ -80,15 +79,14 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		for(RenamingClause renamingClause: clauses) {
 			Declaration decl = renamingClause.oldDeclaration();
 			if(decl instanceof Method) {
-				final Method<?,?,?,?> method = (Method<?, ?, ?, ?>) decl;
+				final Method<?,?,?> method = (Method<?, ?, ?>) decl;
 				Method alias = createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)renamingClause.newSignature()).name());
 				outer.add(alias);
-				//outer.add(staticAlias(alias,method,original));
 			}
 		}
 	}
 	
-	private Method createAlias(ComponentRelation relation, Method<?,?,?,?> method, String newName) throws LookupException {
+	private Method createAlias(ComponentRelation relation, Method<?,?,?> method, String newName) throws LookupException {
 		NormalMethod<?,?,?> result;
 		result = innerMethod(method, newName);
 		Block body = new Block();
@@ -101,21 +99,6 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		return result;
 	}
 	
-//	private Method staticAlias(Method alias, Method<?,?,?,?> aliasedMethod, Type original) {
-//		Method<?,?,?,?> result = alias.clone();
-//		String name = staticMethodName(alias, original);
-//		if(name.equals("radio_Radio_frequency_setValue")) {
-//			System.out.println("debug");
-//		}
-//		result.setName(name);
-//		for(SimpleNameMethodInvocation invocation:result.descendants(SimpleNameMethodInvocation.class)) {
-//			if(invocation.getTarget() != null) {
-//				invocation.setName(staticMethodName(aliasedMethod, aliasedMethod.nearestAncestor(Type.class)));
-//			}
-//		}
-//		return result;
-//	}
-
 	/**
 	 * 
 	 * @param relationBeingTranslated A component relation from either the original class, or one of its nested components.

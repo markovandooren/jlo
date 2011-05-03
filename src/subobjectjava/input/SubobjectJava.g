@@ -215,6 +215,7 @@ import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentNameActualArgument;
 import subobjectjava.model.component.ParameterReferenceActualArgument;
 import subobjectjava.model.component.Export;
+import subobjectjava.model.component.InstantiatedMemberSubobjectParameter;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -302,11 +303,15 @@ memberDecl returns [TypeElement element]
     ;
 
 connector returns [TypeElement element]
- 	: Connector componentParameter ';'	
+ 	: ctkw=Connector cp=componentParameter {retval.element = cp.element; setKeyword(retval.element,ctkw);}';'	
  	;
 
 connection returns [TypeElement element]
- 	: Connect identifierRule Identifier componentArgument ';'	
+ 	: ctkw=Connect name=identifierRule tokw=Identifier arg=componentArgument ';'
+ 	  {retval.element = new InstantiatedMemberSubobjectParameter(new SimpleNameSignature($name.text),arg.element);
+ 	   setKeyword(retval.element,ctkw);
+ 	   if($tokw.text.equals("to")) {setKeyword(retval.element,tokw);}
+ 	  }	
  	;
 
 nameParameter returns [TypeElement element]
@@ -468,7 +473,7 @@ singleComponentParameter returns [ComponentParameter element]
 	: id=identifierRule tcontainer=type arrow='->' tcomp=type 
 	  {retval.element = new SingleFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
 	   setLocation(retval.element,id.start,tcomp.stop);
-	   setKeyword(retval.element,arrow);
+	   setKeyword(tcontainer.element,arrow);
 	   }
 	;
 
@@ -476,7 +481,7 @@ multiComponentParameter returns [ComponentParameter element]
 	:  id=identifierRule '[' tcontainer=type arrow='->' tcomp=type ']'
 	  {retval.element = new MultiFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
 	   setLocation(retval.element,id.start,tcomp.stop);
-	   setKeyword(retval.element,arrow);
+	   setKeyword(tcontainer.element,arrow);
 	   }
 	;
 
