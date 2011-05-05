@@ -295,7 +295,7 @@ memberDecl returns [TypeElement element]
     |   cs=constructorDeclaration {retval.element = cs.element;}
     |   id=interfaceDeclaration {retval.element=id.element; gJavaP.addNonTopLevelObjectInheritance(id.element);}
     |   cd=classDeclaration {retval.element=cd.element; gJavaP.addNonTopLevelObjectInheritance(cd.element);}
-    |   comp=componentDeclaration {retval.element=comp.element;}
+    |   comp=subobjectDeclaration {retval.element=comp.element;}
     |   exp=exportDeclaration {retval.element=exp.element;}
     |   np=nameParameter {retval.element=np.element;}
     |   con=connector {retval.element = con.element;}
@@ -303,13 +303,14 @@ memberDecl returns [TypeElement element]
     ;
 
 connector returns [TypeElement element]
- 	: ctkw=Connector cp=componentParameter {retval.element = cp.element; setKeyword(retval.element,ctkw);}';'	
+ 	: ctkw=Connector cp=subobjectParameter {retval.element = cp.element; setKeyword(retval.element,ctkw);}';'	
  	;
 
 connection returns [TypeElement element]
- 	: ctkw=Connect name=identifierRule tokw=Identifier arg=componentArgument ';'
+ 	: ctkw=Connect name=identifierRule tokw=Identifier arg=subobjectArgument ';'
  	  {retval.element = new InstantiatedMemberSubobjectParameter(new SimpleNameSignature($name.text),arg.element);
  	   setKeyword(retval.element,ctkw);
+	   setName(retval.element,name.start);
  	   if($tokw.text.equals("to")) {setKeyword(arg.element,tokw);}
  	  }	
  	;
@@ -334,10 +335,11 @@ map returns [RenamingClause element]
 	   })?
 	;    	
 
-componentDeclaration returns [ComponentRelation element]
+subobjectDeclaration returns [ComponentRelation element]
     	:	cp='subobject' tp=type? name=identifierRule 
     	        {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), $tp.element);
     	         setKeyword(retval.element,cp);
+    	         setName(retval.element,name.start);
     	        }
     	        (body=classBody {retval.element.setBody($body.element);} | ';')  // cfg=configurationBlock? 
 //    	      if(cfg != null) {retval.element.setConfigurationBlock($cfg.element);}
@@ -445,74 +447,47 @@ nonTargetPrimary returns [Expression element]
            }
   	;
 
-nameAndParams returns [RegularType element]
-  :
-    tt=createClassHereBecauseANTLRisAnnoying {retval.element=tt.element;} 
-     (params=typeParameters 
-       {for(FormalTypeParameter par: params.element){retval.element.addParameter(TypeParameter.class,par);}})?
-     (cparams=componentParameters 
-         {ParameterBlock block = new ParameterBlock(ComponentParameter.class);
-          retval.element.addParameterBlock(block);
-          for(ComponentParameter cpar: cparams.element) {
-            block.add(cpar);
-          }
-          }
-      )?
-
-  ;    
-
-componentParameters returns [List<ComponentParameter> element]
-  	: '(' par=componentParameter{retval.element = new ArrayList<ComponentParameter>(); retval.element.add(par.element);} (',' par=componentParameter{retval.element.add(par.element);})* ')'	
-  	;
-  	
-componentParameter returns [ComponentParameter element]
-	: single=singleComponentParameter {retval.element = single.element;}
-	 | multi=multiComponentParameter {retval.element = multi.element;}
+   
+subobjectParameter returns [ComponentParameter element]
+	: single=singleSubobjectParameter {retval.element = single.element;}
+	 | multi=multiSubobjectParameter {retval.element = multi.element;}
 	;
 
-singleComponentParameter returns [ComponentParameter element]
+singleSubobjectParameter returns [ComponentParameter element]
 	: id=identifierRule tcontainer=type arrow='->' tcomp=type 
 	  {retval.element = new SingleFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
 	   setLocation(retval.element,id.start,tcomp.stop);
 	   setKeyword(tcontainer.element,arrow);
+	   setName(retval.element,id.start);
 	   }
 	;
 
-multiComponentParameter returns [ComponentParameter element]
-	:  id=identifierRule tcontainer=type arrow='->' '[' tcomp=type ']'
+multiSubobjectParameter returns [ComponentParameter element]
+	:  id=identifierRule tcontainer=type arrow='->' '[' tcomp=type fin=']'
 	  {retval.element = new MultiFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
-	   setLocation(retval.element,id.start,tcomp.stop);
+	   setLocation(retval.element,id.start,fin);
 	   setKeyword(tcontainer.element,arrow);
+	   setName(retval.element,id.start);
 	   }
 	;
 
-componentArguments returns [List<ActualComponentArgument> element]
-@init{retval.element = new ArrayList<ActualComponentArgument>();}
-    :   
-          
-         '##' cp=componentArgument {
-                                   retval.element.add(cp.element);}
-             (',' cpx=componentArgument {retval.element.add(cpx.element);})*
-         '##'
-        
-    ;
-  	
-componentArgument returns [ActualComponentArgument element]
+subobjectArgument returns [ActualComponentArgument element]
  	:
- 	  s=singleComponentArgument {retval.element=s.element;} 
- 	 | ss=multiComponentArgument {retval.element=ss.element;}
+ 	  s=singleSubobjectArgument {retval.element=s.element;} 
+ 	 | ss=multiSubobjectArgument {retval.element=ss.element;}
  	;
  	
-singleComponentArgument returns [SingleActualComponentArgument element]
+singleSubobjectArgument returns [SingleActualComponentArgument element]
 	:
-	 id=identifierRule {retval.element = new ComponentNameActualArgument($id.text);}
+	 id=identifierRule {retval.element = new ComponentNameActualArgument($id.text);
+}
         | '@' idd=identifierRule {retval.element = new ParameterReferenceActualArgument($idd.text);}
 	;
 	
-multiComponentArgument returns [MultiActualComponentArgument element]
+multiSubobjectArgument returns [MultiActualComponentArgument element]
 @init{retval.element = new MultiActualComponentArgument();}
 	:
-	 '[' (single=singleComponentArgument {retval.element.add(single.element);} 
-	     (',' singlee=singleComponentArgument {retval.element.add(singlee.element);} )* )?
+	 '[' (single=singleSubobjectArgument {retval.element.add(single.element);} 
+	     (',' singlee=singleSubobjectArgument {retval.element.add(singlee.element);} )* )?
 	 ']' 
 	;	

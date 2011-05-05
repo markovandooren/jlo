@@ -277,6 +277,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return result;
 	}
 	
+	public List<? extends Member> exportedMembers() throws LookupException {
+		return componentType().processedMembers();
+	}
+	
 	@Override
 	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
