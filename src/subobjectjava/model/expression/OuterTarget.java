@@ -21,5 +21,4 @@ public class OuterTarget extends AbstractTarget<OuterTarget> {
 	  return new OuterTarget();
 	}
 
-
 }

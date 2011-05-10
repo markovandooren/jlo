@@ -11,6 +11,7 @@ import jnome.core.expression.invocation.JavaMethodInvocation;
 import jnome.core.expression.invocation.NonLocalJavaTypeReference;
 import jnome.core.language.Java;
 import jnome.core.modifier.Implements;
+import jnome.core.type.AnonymousInnerClass;
 import jnome.core.type.BasicJavaTypeReference;
 import jnome.core.type.JavaTypeReference;
 
@@ -528,7 +529,9 @@ public class JavaTranslator extends AbstractTranslator {
 	
 	private void rebindOverriddenMethods(Type result, Type original) throws ModelException {
 		for(final Method method: original.descendants(Method.class)) {
-			rebindOverriddenMethodsOf(result, original, method);
+			if(method.nearestAncestor(AnonymousInnerClass.class) == null) {
+			  rebindOverriddenMethodsOf(result, original, method);
+			}
 		}
 	}
 

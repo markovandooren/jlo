@@ -213,7 +213,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	@SuppressWarnings("unchecked")
 	private String defaultStrategyNameWhenNoLocalSubobjectConstruction(ComponentRelation relation,	MethodInvocation<?,?> superCall) throws LookupException {
-		SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) subobjectConstructorCall(relation, superCall).farthestOrigin();
+		SubobjectConstructorCall currentSubobjectConstructorCall = subobjectConstructorCall(relation, superCall);
+		if(currentSubobjectConstructorCall != null) {
+		SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) currentSubobjectConstructorCall.farthestOrigin();
 		String result;
 		if(subobjectConstructorCall == null) {
 			result = strategyName(relation);
@@ -241,6 +243,8 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			System.out.println("debug");
 		}
 		return result;
+		}
+		return "ERROR: No subobject constructor was found for subobject: "+relation.componentType().getFullyQualifiedName();
 	}
 
 	private SubobjectConstructorCall subobjectConstructorCall(ComponentRelation relation, MethodInvocation<?, ?> superCall)

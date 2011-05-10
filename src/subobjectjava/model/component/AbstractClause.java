@@ -38,8 +38,18 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 		if(newSignature() == null) {
 			result = result.and(new BasicProblem(this, "The renaming clause does not contain a new name."));
 		}
-		if(oldFQN() == null) {
+		QualifiedName fqn = oldFQN();
+		if(fqn == null) {
 			result = result.and(new BasicProblem(this, "The renaming clause does not contain an old name."));
+		}
+		try {
+			oldDeclaration();
+		} catch(LookupException exc) {
+			String id = "";
+			if(fqn != null) {
+				id = fqn.toString();
+			}
+			result = result.and(new BasicProblem(this, "The exported declaration "+id+"cannot be found."));
 		}
 		return result;
 	}
@@ -91,7 +101,11 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 				result = container.targetContext().lookUp(selector);
 			}
 		}
-		return result;
+		if(result != null) {
+		  return result;
+		} else {
+			throw new LookupException("The old declaration cannot be found.");
+		}
 	}
 
 	/**
