@@ -97,7 +97,6 @@ public class IncrementalJavaTranslator {
 	public CompilationUnit implementationCompilationUnit(CompilationUnit compilationUnit) throws LookupException {
 		CompilationUnit clone = compilationUnit.cloneTo(targetLanguage());
 		store(compilationUnit, clone,_implementationMap);
-		targetLanguage().flushCache();
     return clone;
 	}
 
