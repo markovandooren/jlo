@@ -14,20 +14,12 @@ public class RegularJLoType extends RegularJavaType {
 
 	public RegularJLoType(SimpleNameSignature sig) {
 		super(sig);
-		sig.parentLink().lock();
 	}
 
 	public RegularJLoType(String name) {
 		super(name);
-		signature().parentLink().lock();
 	}
 	
-	
-  @Override
-  public void disconnect() {
-	  
-  }
-
 	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
 		// first take the subtype relations
 		List<InheritanceRelation> result = super.inheritanceRelations();
