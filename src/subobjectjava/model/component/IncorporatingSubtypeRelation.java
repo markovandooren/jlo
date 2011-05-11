@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.oo.type.inheritance.SubtypeRelation;
@@ -25,7 +26,13 @@ public abstract class IncorporatingSubtypeRelation extends SubtypeRelation {
 			boolean add = true;
 			Iterator<M> iterCurrent = current.iterator();
 			while(add && iterCurrent.hasNext()) {
-				M alreadyInherited = (M) iterCurrent.next().origin();
+				M next = iterCurrent.next();
+				Element origin = next.origin();
+				M alreadyInherited = next;
+				//FIXME BAD DESIGN! 'origin()' seems overloaded need methods similar to nearestAncestor(Class) and nearestAncestorOrSelf.....???
+				if(origin instanceof Member) {
+					alreadyInherited = (M) origin;
+				}
 				// Remove the already inherited member if potentially inherited member m overrides or hides it.
 				if((alreadyInherited.sameAs(originOfM) || alreadyInherited.overrides(originOfM) || alreadyInherited.canImplement(originOfM) || alreadyInherited.hides(originOfM))) {
 					add = false;
