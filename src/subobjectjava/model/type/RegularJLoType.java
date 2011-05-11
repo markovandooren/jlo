@@ -15,13 +15,11 @@ public class RegularJLoType extends RegularJavaType {
 	public RegularJLoType(SimpleNameSignature sig) {
 		super(sig);
 		sig.parentLink().lock();
-		sigBackup = sig;
 	}
 
 	public RegularJLoType(String name) {
 		super(name);
 		signature().parentLink().lock();
-		sigBackup = signature();
 	}
 	
 	
@@ -44,8 +42,4 @@ public class RegularJLoType extends RegularJavaType {
 		return new RegularJLoType(signature().clone());
 	}
 
-	private SimpleNameSignature sigBackup;
-	
-	private CreationStackTrace _trace = new CreationStackTrace();
-	
 }

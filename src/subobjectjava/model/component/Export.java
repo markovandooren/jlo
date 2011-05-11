@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.rejuse.association.OrderedMultiAssociation;
 
+import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.core.member.MemberRelationSelector;
@@ -15,10 +16,10 @@ import chameleon.oo.type.TypeElementImpl;
 
 public class Export extends TypeElementImpl<Export> {
 
-	private OrderedMultiAssociation<Export, RenamingClause> _signature = new OrderedMultiAssociation<Export, RenamingClause>(this);
+	private OrderedMultiAssociation<Export, RenamingClause> _clauses = new OrderedMultiAssociation<Export, RenamingClause>(this);
 	
 	public void add(RenamingClause clause) {
-		setAsParent(_signature,clause);
+		setAsParent(_clauses,clause);
 	}
 	
 	public void addAll(Collection<? extends RenamingClause> elements) {
@@ -38,12 +39,19 @@ public class Export extends TypeElementImpl<Export> {
 	
 	public void remove(RenamingClause clause) {
 		if(clause != null) {
-			_signature.remove(clause.parentLink());
+			_clauses.remove(clause.parentLink());
 		}
 	}
 
+	@Override
+	public List<Element> children() {
+		List<Element> result = super.children();
+		result.addAll(_clauses.getOtherEnds());
+		return result;
+	}
+	
 	public List<RenamingClause> clauses() {
-		return _signature.getOtherEnds();
+		return _clauses.getOtherEnds();
 	}
 
 	/**

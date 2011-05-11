@@ -40,9 +40,9 @@ public class JLoBuilder extends PluginImpl implements Builder {
 		}
 		super.setLanguage(lang, pluginInterface);
 		Java target = new Java();
-//		target.setPlugin(Syntax.class, new JavaCodeWriter());
+		//		target.setPlugin(Syntax.class, new JavaCodeWriter());
 		target.setPlugin(Syntax.class, new JLoSyntax()); // DEBUG for viewing the intermediate steps, we attach the J.Lo syntax.
-	target.setPlugin(ObjectOrientedFactory.class, new JavaFactory());
+		target.setPlugin(ObjectOrientedFactory.class, new JavaFactory());
 		_translator = new IncrementalJavaTranslator((JLo) lang, target);
 	}
 
@@ -59,8 +59,7 @@ public class JLoBuilder extends PluginImpl implements Builder {
 		}
 	}
 	
-	public void build(CompilationUnit compilationUnit,
-			List<CompilationUnit> allProjectCompilationUnits) throws ModelException, IOException {
+	public void build(CompilationUnit compilationUnit, List<CompilationUnit> allProjectCompilationUnits) throws ModelException, IOException {
 		try {
 			String fileName = _writer.fileName(compilationUnit);
 			System.out.println("Building "+fileName);
