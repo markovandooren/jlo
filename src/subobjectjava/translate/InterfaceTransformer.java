@@ -84,7 +84,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 					decl.disconnect();
 				}
 				makePublic(decl);
-				removeFinal(decl);
+				removeNonInterfaceModifiers(decl);
 			}
 			type.signature().setName(interfaceName(name));
 			if(! (type.is(language.INTERFACE) == Ternary.TRUE)) {
@@ -93,6 +93,18 @@ public class InterfaceTransformer extends AbstractTranslator {
 		}
 	}
 
+	private void removeNonInterfaceModifiers(TypeElement<?> element) throws ModelException {
+		removeFinal(element);
+		removeSynchronized(element);
+	}
+
+	private void removeSynchronized(TypeElement<?> element) throws ModelException {
+		Property property = element.language(Java.class).SYNCHRONIZED;
+		for(Modifier modifier: element.modifiers(property)) {
+			element.removeModifier(modifier);
+		}
+	}
+	
 	private void removeFinal(TypeElement<?> element) throws ModelException {
 		Property property = element.language(ObjectOrientedLanguage.class).OVERRIDABLE.inverse();
 		for(Modifier modifier: element.modifiers(property)) {

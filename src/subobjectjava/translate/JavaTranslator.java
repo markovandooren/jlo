@@ -49,7 +49,6 @@ import chameleon.core.method.Implementation;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularImplementation;
 import chameleon.core.method.RegularMethod;
-import chameleon.core.modifier.ElementWithModifiers;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
@@ -63,6 +62,7 @@ import chameleon.core.reference.CrossReferenceWithTarget;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.reference.SpecificReference;
 import chameleon.core.statement.Block;
+import chameleon.core.tag.TagImpl;
 import chameleon.core.variable.FormalParameter;
 import chameleon.core.variable.VariableDeclaration;
 import chameleon.exception.ChameleonProgrammerException;
@@ -332,12 +332,15 @@ public class JavaTranslator extends AbstractTranslator {
 		
 		result.setOrigin(original);
 		replaceSuperCalls(result);
+		// Add explicit subobject constructor calls before rebinding the methods. Otherwise, this will generate
+		// explicit subobject constructor calls for generated subobjects, which must use the subobject constructor call
+		// of the super constructor that corresponds to the overridden subobject.
+		subobjectConstructorTransformer().addDefaultSubobjectConstructorCalls(result);
 		result.flushCache();
 		rebindOverriddenMethods(result,original);
 		result.flushCache();
 		replaceConstructorCalls(result);
 		result.flushCache();
-//		List<ComponentRelation> relations = original.directlyDeclaredMembers(ComponentRelation.class);
 		List<ComponentRelation> relations = result.directlyDeclaredMembers(ComponentRelation.class);
 		subobjectConstructorTransformer().replaceSubobjectConstructorCalls(result); // commented out the replaceSubobjectConstructorCalls below
 		for(ComponentRelation relation : relations) {
@@ -703,10 +706,6 @@ public class JavaTranslator extends AbstractTranslator {
 			result.setOrigin(originalRelation);
 			result.setBody(new ClassBody());
 			result.setConfigurationBlock(null);
-//			x;
-			// Must clear the body here, otherwise an overridden member gets into the class of the overriding member, and
-			// the overridden member then also 'overrides' the super method of the overriding member, and thus a second copy
-			// of the overriding member is generated to delegate to the subobject, but this causes a conflict.
 			result.setUniParent(originalRelation.parent());
 			substituteTypeParameters(result);
 			expandReferences(result);
@@ -752,21 +751,7 @@ public class JavaTranslator extends AbstractTranslator {
 	Signature innerName = current.signature().clone();
 	SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
 	tref.setUniParent(container);
-	Type result;
-//	try { 
-		result= tref.getElement();
-//	} catch(LookupException exc) {
-//		// We add the imports to the original. They are copied later on to 'container'.
-//		ComponentRelation relation = ((ComponentType)current).nearestAncestor(ComponentRelation.class);
-//		result = innerClassCreator().emptyInnerClassFor(relation);
-//		NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
-//		incorporateImports(relation, namespacePart);
-//		// Since we are adding inner classes that were not written in the current namespacepart, their type
-//		// may not have been imported yet. Therefore, we add an import of the referenced component type.
-//		namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relation.referencedComponentType().getFullyQualifiedName())));
-//		container.add(result);
-//		container.flushCache();
-//	}
+	Type result = tref.getElement();
 	return createOrGetSubobject(result, original, elements, baseOneIndex + 1);
 }
 	private Type createOrGetInnerTypeForComponent(Type container, Type original, ComponentRelation relationBeingTranslated, List<Element> elements, int baseOneIndex) throws LookupException {
@@ -778,42 +763,10 @@ public class JavaTranslator extends AbstractTranslator {
 					result = type;
 				}
 			}
-//			if(result == null) {
-//				// We add the imports to the original. They are copied later on to 'container'.
-//				result = innerClassCreator().emptyInnerClassFor(relationBeingTranslated);
-//				NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
-//				incorporateImports(relationBeingTranslated, namespacePart);
-//				// Since we are adding inner classes that were not written in the current namespacepart, their type
-//				// may not have been imported yet. Therefore, we add an import of the referenced component type.
-//				namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relationBeingTranslated.referencedComponentType().getFullyQualifiedName())));
-//				container.add(result);
-//				container.flushCache();
-//			}
 			return createOrGetInnerTypeAux(result, original, elements, baseOneIndex + 1);
 	}
 	
-	//createOrGetSubobjectForComponent
-	
 	private Type createOrGetSubobjectForComponent(Type container, Type original, ComponentRelation relationBeingTranslated, List<Element> elements, int baseOneIndex) throws LookupException {
-//		Signature innerName = null;
-//		innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, container)));
-//		SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
-//		tref.setUniParent(container);
-//		Type result;
-//		try { 
-//			result= tref.getElement();
-//		} catch(LookupException exc) {
-//			// We add the imports to the original. They are copied later on to 'container'.
-//			result = emptyInnerClassFor(relationBeingTranslated, container);
-//			NamespacePart namespacePart = container.farthestAncestor(NamespacePart.class);
-//			incorporateImports(relationBeingTranslated, namespacePart);
-//			// Since we are adding inner classes that were not written in the current namespacepart, their type
-//			// may not have been imported yet. Therefore, we add an import of the referenced component type.
-//			namespacePart.addImport(new TypeImport(container.language(Java.class).createTypeReference(relationBeingTranslated.referencedComponentType().getFullyQualifiedName())));
-//			container.add(result);
-//			container.flushCache();
-//		}
-//		return createOrGetInnerTypeAux(result, original, elements, baseOneIndex + 1);
 		ComponentRelation relation = createOrGetSubobject(container, relationBeingTranslated);
 		Type result = relation.componentType();
 		return createOrGetSubobject(result, original, elements, baseOneIndex + 1);
@@ -852,7 +805,6 @@ public class JavaTranslator extends AbstractTranslator {
 			if(element instanceof ComponentRelation) {
 				return createOrGetSubobjectForComponent(container,original, (ComponentRelation) element, elements,baseOneIndex);
 			} else {
-				//return createOrGetInnerTypeForType(container,original, (Type) element, elements,baseOneIndex);
 				return createOrGetSubobjectForType(container,original, (Type) element, elements,baseOneIndex);
 			}
 		} else {
