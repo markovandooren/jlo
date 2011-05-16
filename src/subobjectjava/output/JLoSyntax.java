@@ -6,7 +6,9 @@ import jnome.output.JavaCodeWriter;
 import subobjectjava.model.component.ActualComponentArgument;
 import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
+import subobjectjava.model.component.Export;
 import subobjectjava.model.component.MultiActualComponentArgument;
+import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.component.SingleActualComponentArgument;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.SubobjectConstructorCall;
@@ -34,6 +36,32 @@ public class JLoSyntax extends JavaCodeWriter {
 			result = super.toCode(element);
 		}
 		return result;
+	}
+	
+  public boolean isRenamingClause(Element element) {
+  	return element instanceof RenamingClause;
+  }
+  
+  public String toCodeRenamingClause(RenamingClause element) throws LookupException {
+  	return toCode(element.oldFQN()) +" as " + toCode(element.newSignature());
+  }
+	
+	public boolean isExport(Element element) {
+		return element instanceof Export;
+	}
+	
+	public String toCodeExport(Export element) throws LookupException {
+		StringBuffer result = new StringBuffer();
+		result.append("export ");
+		List<RenamingClause> clauses = element.clauses();
+		for(int i=0; i < clauses.size();i++) {
+			result.append(toCode(clauses.get(i)));
+			if(i<clauses.size()-1) {
+				result.append(",\n");
+			}
+		}
+		result.append(";");
+		return result.toString();
 	}
 	
 	public boolean isSubobject(Element element) {

@@ -62,7 +62,6 @@ import chameleon.core.reference.CrossReferenceWithTarget;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.reference.SpecificReference;
 import chameleon.core.statement.Block;
-import chameleon.core.tag.TagImpl;
 import chameleon.core.variable.FormalParameter;
 import chameleon.core.variable.VariableDeclaration;
 import chameleon.exception.ChameleonProgrammerException;
@@ -76,6 +75,7 @@ import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.inheritance.AbstractInheritanceRelation;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
+import chameleon.plugin.output.Syntax;
 import chameleon.support.expression.AssignmentExpression;
 import chameleon.support.expression.SuperTarget;
 import chameleon.support.expression.ThisLiteral;
@@ -135,7 +135,6 @@ public class JavaTranslator extends AbstractTranslator {
   		Type translated = translatedImplementation(originalTypes.next());
   		newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
   	}
-//  	newNamespacePart.clearImports();
   	for(Import imp: originalNamespacePart.imports()) {
   		newNamespacePart.addImport(imp.clone());
   	}
@@ -144,15 +143,35 @@ public class JavaTranslator extends AbstractTranslator {
   	implementationCompilationUnit.namespacePart(1).getNamespaceLink().lock();
   	CompilationUnit interfaceCompilationUnit = interfaceTransformer().interfaceCompilationUnit(source, implementationCompilationUnit);
   	for(NamespacePart part: implementationCompilationUnit.descendants(NamespacePart.class)) {
-  		part.removeDuplicateImports();
+  		removeDuplicateImports(part);
   	}
   	for(NamespacePart part: interfaceCompilationUnit.descendants(NamespacePart.class)) {
-  		part.removeDuplicateImports();
+  		removeDuplicateImports(part);
   	}
 	result.add(interfaceCompilationUnit);
   	return result;
   }
 
+  /**
+   * Remove duplicate imports by doing a String based comparison based on the textual
+   * representation as defined by the syntax of the language. This avoids the need to
+   * perform lookups, and thus the need to clone the entire Java API.
+   * @param nsp
+   * @throws ModelException
+   */
+  private void removeDuplicateImports(NamespacePart nsp) throws ModelException {
+  	Syntax syntax = nsp.language(Java.class).plugin(Syntax.class);
+  	List<Import> imports = nsp.imports();
+  	Set<String> importStrings = new HashSet<String>();
+  	for(Import imp: imports) {
+  		String code = syntax.toCode(imp);
+  		if(! importStrings.add(code)) {
+  			imp.disconnect();
+  		}
+  	}
+//  	nsp.removeDuplicateImports();
+  }
+  
 	private boolean isJLo(NamespaceElement element) {
 		String fullyQualifiedName = element.getNamespace().getFullyQualifiedName();
 		return (! fullyQualifiedName.startsWith("java.")) &&
@@ -238,6 +257,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
+	//JENS
 	private void transformComponentAccessors(CrossReferenceWithTarget cwt) {
 		Element target = cwt.getTarget();
 		if(target instanceof CrossReferenceWithTarget) {
@@ -358,24 +378,38 @@ public class JavaTranslator extends AbstractTranslator {
 
 			// Create the inner classes for the components
 			subobjectToClassTransformer().inner(result, relation);
-//			result.flushCache();
-//			addAliasDelegations(relation, result,original);
 			result.flushCache();
 		}
 		for(ComponentRelation relation: result.directlyDeclaredMembers(ComponentRelation.class)) {
-//			replaceSubobjectConstructorCalls(relation);
-
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,result);
 			if(fieldForComponent != null) {
 				result.add(fieldForComponent);
 			}
-
 			relation.disconnect();
 		}
 		
-		
+		//JENS
 		result.addAll(selectorCreator().selectorsFor(result));
 		
+		replaceConnectorAccess(result);
+		for(SubtypeRelation rel: result.nonMemberInheritanceRelations(SubtypeRelation.class)) {
+			processSuperComponentParameters(rel);
+		}
+		addStaticHooksForMethodsOverriddenInSuperSubobject(result,original);
+
+		// The result is still temporarily attached to the original model.
+		replaceThisLiterals(result); //M
+		replaceComponentAccess(result);//N
+		transformToImplRecursive(result);
+		expandReferences(result); //Y
+		removeNonLocalReferences(result); //Z
+		result.setUniParent(null);
+		removeSubobjectParameters(result);
+		return result;
+	}
+
+	//JENS
+	private void replaceConnectorAccess(Type result) throws LookupException {
 		List<ComponentParameterCall> calls = result.descendants(ComponentParameterCall.class);
 		for(ComponentParameterCall call: calls) {
 			FormalComponentParameter parameter = call.getElement();
@@ -384,28 +418,6 @@ public class JavaTranslator extends AbstractTranslator {
 			SingleAssociation pl = call.parentLink();
 			pl.getOtherRelation().replace(pl, expr.parentLink());
 		}
-		for(SubtypeRelation rel: result.nonMemberInheritanceRelations(SubtypeRelation.class)) {
-			processSuperComponentParameters(rel);
-		}
-//X		rebindOverriddenMethods(result,original);
-
-		addStaticHooksForMethodsOverriddenInSuperSubobject(result,original);
-
-//M		replaceThisLiterals(result);
-//N		replaceComponentAccess(result);
-//Y		expandReferences(result);
-//Z		removeNonLocalReferences(result);
-		
-		// The result is still temporarily attached to the original model.
-		replaceThisLiterals(result); //M
-		replaceComponentAccess(result);//N
-		transformToImplRecursive(result);
-//		replaceConstructorCalls(result);
-		expandReferences(result); //Y
-		removeNonLocalReferences(result); //Z
-		result.setUniParent(null);
-		removeSubobjectParameters(result);
-		return result;
 	}
 	
 	private void removeSubobjectParameters(Type type) {

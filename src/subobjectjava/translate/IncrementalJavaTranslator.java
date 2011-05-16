@@ -1,6 +1,6 @@
 package subobjectjava.translate;
 
-import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -8,18 +8,12 @@ import java.util.Map;
 import java.util.Set;
 
 import jnome.core.language.Java;
-
-import org.rejuse.association.SingleAssociation;
-
 import subobjectjava.model.language.JLo;
 import chameleon.core.compilationunit.CompilationUnit;
-import chameleon.core.element.Element;
 import chameleon.core.language.Language;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.exception.ModelException;
-import chameleon.oo.type.Type;
 
 public class IncrementalJavaTranslator {
 
@@ -73,7 +67,7 @@ public class IncrementalJavaTranslator {
    @*/
 	public List<CompilationUnit> build(CompilationUnit source) throws ModelException {
 		if(!_initialized) {
-			initTargetLanguage();
+			//initTargetLanguage();
 		}
 		List<CompilationUnit> result = translate(source,implementationCompilationUnit(source));
 		store(source, result.get(1),_interfaceMap);

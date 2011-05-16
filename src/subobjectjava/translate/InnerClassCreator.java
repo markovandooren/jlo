@@ -64,6 +64,7 @@ public class InnerClassCreator extends AbstractTranslator {
 		for(TypeReference superReference : superClassReferences(relationBeingTranslated,result)) {
 			result.addInheritanceRelation(new SubtypeRelation(superReference));
 		}
+		//JENS
 		List<Method> selectors = selectorCreator().selectorsFor(relationBeingTranslated);
 		for(Method selector:selectors) {
 			result.add(selector);
