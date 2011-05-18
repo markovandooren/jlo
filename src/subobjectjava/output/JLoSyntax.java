@@ -7,9 +7,12 @@ import subobjectjava.model.component.ActualComponentArgument;
 import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.Export;
+import subobjectjava.model.component.InstantiatedMemberSubobjectParameter;
 import subobjectjava.model.component.MultiActualComponentArgument;
+import subobjectjava.model.component.MultiFormalComponentParameter;
 import subobjectjava.model.component.RenamingClause;
 import subobjectjava.model.component.SingleActualComponentArgument;
+import subobjectjava.model.component.SingleFormalComponentParameter;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import chameleon.core.element.Element;
@@ -32,10 +35,40 @@ public class JLoSyntax extends JavaCodeWriter {
 			result = toCodeSubobjectConstructorCall((SubobjectConstructorCall) element);
 		} else if(isComponentParameterCall(element)) {
 			result = toCodeComponentParameterCall((ComponentParameterCall) element);
+		} else if(isSingleFormalComponentParameter(element)) {
+			result = toCodeSingleFormalComponentParameter((SingleFormalComponentParameter) element);
+		} else if(isMultiFormalComponentParameter(element)) {
+			result = toCodeMultiFormalComponentParameter((MultiFormalComponentParameter) element);
+		} else if(isInstantiatedMemberSubobjectParameter(element)) {
+			result = toCodeInstantiatedMemberSubobjectParameter((InstantiatedMemberSubobjectParameter) element);
 		} else {
 			result = super.toCode(element);
 		}
 		return result;
+	}
+	
+	public boolean isInstantiatedMemberSubobjectParameter(Element element) {
+		return element instanceof InstantiatedMemberSubobjectParameter;
+	}
+	
+	public String toCodeInstantiatedMemberSubobjectParameter(InstantiatedMemberSubobjectParameter element) throws LookupException {
+		return "connect " + element.signature() +" to " +toCode(element.argument());
+	}
+	
+	public boolean isSingleFormalComponentParameter(Element element) {
+		return element instanceof SingleFormalComponentParameter;
+	}
+	
+	public String toCodeSingleFormalComponentParameter(SingleFormalComponentParameter element) throws LookupException {
+		return "connector " +element.signature().name() +" "+ toCode(element.containerTypeReference()) + " -> " + toCode(element.componentTypeReference());
+	}
+	
+	public boolean isMultiFormalComponentParameter(Element element) {
+		return element instanceof SingleFormalComponentParameter;
+	}
+	
+	public String toCodeMultiFormalComponentParameter(MultiFormalComponentParameter element) throws LookupException {
+		return "connector " +element.signature().name() +" "+ toCode(element.containerTypeReference()) + " -> [" + toCode(element.componentTypeReference())+"]";
 	}
 	
   public boolean isRenamingClause(Element element) {

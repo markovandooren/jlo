@@ -221,9 +221,6 @@ public class JavaTranslator extends AbstractTranslator {
 				Type constructedType = invocation.getType();
 				if(isJLo(constructedType) //&& (! constructedType.isTrue(language.PRIVATE))
 						) {
-					if(constructedType.getName().equals("Float")) {
-						System.out.println("debug");
-					}
 					transformToImplReference((CrossReferenceWithName) invocation.getTypeReference());
 				}
 			} catch(LookupException exc) {
@@ -240,8 +237,6 @@ public class JavaTranslator extends AbstractTranslator {
 				try {
 					typeReference.getElement();
 				} catch(LookupException exc) {
-					System.out.println("debug");
-					typeReference.getElement();
 				}
 			  transformToImplReference(typeReference);
 			}
@@ -249,11 +244,9 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	private void replaceComponentAccess(Element<?> type) throws LookupException {
-		List<CrossReference> literals = type.descendants(CrossReference.class);
-		for(CrossReference literal: literals) {
-			if((literal instanceof CrossReferenceWithTarget)) {
-				transformComponentAccessors((CrossReferenceWithTarget) literal);
-			}
+		List<CrossReferenceWithTarget> literals = type.nearestDescendants(CrossReferenceWithTarget.class);
+		for(CrossReferenceWithTarget literal: literals) {
+			transformComponentAccessors(literal);
 		}
 	}
 
@@ -273,7 +266,6 @@ public class JavaTranslator extends AbstractTranslator {
 					rewrite = true;
 				}
 			}catch(LookupException exc) {
-//				rewrite = true;
 			}
 		}
 		if(rewrite) {
@@ -307,19 +299,9 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 		} catch(LookupException exc) {
 			change = true;
-			if(ref.name().equals("jlo")) {
-				System.out.println("debug");
-				try {
-					ref.getElement();
-				} catch (LookupException e) {
-				}
-			}
 		}
 		if(change) {
 			String name = ref.name();
-			if(name.equals("jlo")) {
-				System.out.println("debug");
-			}
 			if(! name.endsWith(IMPL)) {
 			  ref.setName(name+IMPL);
 			}
@@ -401,7 +383,9 @@ public class JavaTranslator extends AbstractTranslator {
 		replaceThisLiterals(result); //M
 		replaceComponentAccess(result);//N
 		transformToImplRecursive(result);
+		
 		expandReferences(result); //Y
+		
 		removeNonLocalReferences(result); //Z
 		result.setUniParent(null);
 		removeSubobjectParameters(result);
@@ -462,13 +446,7 @@ public class JavaTranslator extends AbstractTranslator {
 //		ChameleonProperty ov = lang.OVERRIDABLE;
 //		ChameleonProperty def = lang.DEFINED;
 //		incorporateImports(relation,result.nearestAncestor(NamespacePart.class));
-//		if(relation.componentType().getFullyQualifiedName().equals("radio.Radio.frequency")) {
-//			System.out.println("debug");
-//		}
 //		for(Member member: members) {
-//			if(member.signature().name().endsWith("hashCode")) {
-//				System.out.println("debug");
-//			}
 //			if(member instanceof Method && member.ancestors().contains(relation) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
 //				Method newMethod = staticMethod(container, (Method) member);
 //				newMethod.setUniParent(member.parent());
@@ -494,18 +472,11 @@ public class JavaTranslator extends AbstractTranslator {
 		ChameleonProperty ov = lang.OVERRIDABLE;
 		ChameleonProperty def = lang.DEFINED;
 		incorporateImports(relation,result.nearestAncestor(NamespacePart.class));
-		if(relation.componentType().getFullyQualifiedName().equals("radio.Radio.frequency.value")) {
-			System.out.println("debug");
-		}
 		for(Member<?,?> member: members) {
-			if(member.signature().name().endsWith("hashCode")) {
-				System.out.println("debug");
-			}
 			Element farthestOrigin = member.farthestOrigin();
 			ComponentRelation nearestSubobject = member.nearestAncestor(ComponentRelation.class);
 			ComponentRelation originOfNearestSubobject = (nearestSubobject == null ? null : (ComponentRelation) nearestSubobject.origin());
 			if(member instanceof Method && originsOfOverriddenSubobjects.contains(originOfNearestSubobject) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
-//				Method newMethod = staticMethod(container, (Method) member);
 				Method newMethod = staticMethod(originOfNearestSubobject.componentType(), (Method) member);
 				newMethod.setUniParent(member.parent());
 				incorporateImports(newMethod);
@@ -551,9 +522,7 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	private void rebindOverriddenMethodsOf(Type result, Type original, Method<?,?,?> method) throws Error, ModelException {
-		if(method.name().equals("setFrequency")) {
-			System.out.println("debug");
-		}
+		original.flushCache();
 		Set<? extends Member> overridden = method.overriddenMembers();
 		Java language = method.language(Java.class);
 		if(! overridden.isEmpty()) {
@@ -584,9 +553,6 @@ public class JavaTranslator extends AbstractTranslator {
 	private void rebind(Type container, Type original, Method<?,?,?> newDefinition, Method toBeRebound) throws ModelException {
 		try {
 			String newwFQN = newDefinition.nearestAncestor(Type.class).getFullyQualifiedName()+"."+newDefinition.name();
-			if(toBeRebound.name().equals("setFrequency")) {
-				System.out.println("debug");
-			}
 //		Type containerOfNewDefinition = containerOfDefinition(container,original, newDefinition);
     Type containerOfNewDefinition = typeOfDefinition(container,original, newDefinition);
 		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
@@ -607,14 +573,6 @@ public class JavaTranslator extends AbstractTranslator {
 			containerOfToBebound = createOrGetSubobject(containerToAdd, original, trailtoBeReboundInOriginal,1);
 		}
 		if((containerOfToBebound != null) && ! containerOfToBebound.sameAs(containerOfNewDefinition)) {
-			System.out.println("----------------------");
-			String newFQN = containerOfNewDefinition.getFullyQualifiedName()+"."+newDefinition.name();
-			if(newFQN.equals("jlo.graph.WeightedDigraph.hashCode")) {
-				System.out.println("debug");
-			}
-			System.out.println("Source: " + newFQN);
-			System.out.println("Target: "+containerOfToBebound.getFullyQualifiedName()+"."+toBeRebound.name());
-			System.out.println("----------------------");
 			String thisName = containerOfNewDefinition.getFullyQualifiedName();
 			Method reboundMethod = createOutward(toBeRebound, newDefinition.name(),thisName);
 			//FIXME this is tricky.
@@ -638,7 +596,7 @@ public class JavaTranslator extends AbstractTranslator {
 			containerOfToBebound.flushCache();
 		}
 		} catch(ModelException exc) {
-			System.out.println("debug");
+			throw exc;
 		}
 	}
 
@@ -977,10 +935,6 @@ public class JavaTranslator extends AbstractTranslator {
 //					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName(targetComponent), null);
 //					call.setTarget(subObjectSelection);
 //					String name = staticMethodName(call.name(), targetComponent.componentType());
-//					if(name.equals("radio_SpecialRadio_frequency_setValue")) {
-//						System.out.println("debug");
-//						targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
-//					}
 //					call.setName(name);
 //				}
 //			}

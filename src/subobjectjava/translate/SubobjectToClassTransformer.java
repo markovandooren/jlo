@@ -52,12 +52,18 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 
 	public void inner(Type javaType, ComponentRelation relation) throws ChameleonProgrammerException, ModelException {
 		Type innerClass = createInnerClassFor(relation,javaType);
+		javaType.flushCache();
 		Type componentType = relation.componentType();
 		for(ComponentRelation nestedRelation: componentType.directlyDeclaredElements(ComponentRelation.class)) {
 			// subst parameters
 			ComponentRelation clonedNestedRelation = nestedRelation.clone();
 			clonedNestedRelation.setUniParent(nestedRelation.parent());
-			substituteTypeParameters(clonedNestedRelation);
+			try {
+			  substituteTypeParameters(clonedNestedRelation);
+			} catch(LookupException exc) {
+			  substituteTypeParameters(clonedNestedRelation);
+				throw exc;
+			}
 			inner(innerClass, clonedNestedRelation);
 		}
 		addAliasDelegations(relation, innerClass.nearestAncestor(Type.class),relation.nearestAncestor(Type.class));

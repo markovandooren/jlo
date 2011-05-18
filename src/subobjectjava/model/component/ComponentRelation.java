@@ -36,10 +36,13 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
 import chameleon.oo.type.inheritance.InheritanceRelation;
+import chameleon.util.CreationStackTrace;
 import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSignature> implements DeclarationWithType<ComponentRelation,SimpleNameSignature>, Definition<ComponentRelation,SimpleNameSignature>, InheritanceRelation<ComponentRelation,Type>{
 
+	private CreationStackTrace _trace = new CreationStackTrace();
+	
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
 		setComponentType(type);
