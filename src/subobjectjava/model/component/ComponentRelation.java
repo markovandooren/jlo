@@ -26,6 +26,7 @@ import chameleon.core.member.Member;
 import chameleon.core.member.MemberImpl;
 import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.member.OverridesRelation;
+import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
@@ -41,8 +42,6 @@ import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSignature> implements DeclarationWithType<ComponentRelation,SimpleNameSignature>, Definition<ComponentRelation,SimpleNameSignature>, InheritanceRelation<ComponentRelation,Type>{
 
-	private CreationStackTrace _trace = new CreationStackTrace();
-	
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
 		setComponentType(type);
@@ -63,24 +62,75 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return result;
 	}
 
+	private static class FQNFormatter {
+		public String fqn(Type type) {
+			try {
+				try {
+					return type.getFullyQualifiedName();
+				} catch(Exception exc) {
+					return type.signature().name();
+				}
+			}catch(NullPointerException exc) {
+				return "";
+			}
+		}
+		
+		public String fqn(ComponentRelation relation) {
+			try {
+				try {
+					return fqn(relation.componentType());
+				} catch (LookupException e) {
+					return relation.signature().name();
+				}
+			} catch(NullPointerException exc) {
+				return "";
+			}
+		}
+	}
+	
 	@Override
 	public VerificationResult verifySelf() {
-		return Valid.create();
+		FQNFormatter formatter = new FQNFormatter();
+		VerificationResult result = Valid.create();
+		Set<? extends Member> overriddenMembers = null;
+		try {
+			overriddenMembers = overriddenMembers();
+		}
+		catch(LookupException exc) {
+			result = result.and(new BasicProblem(this, "Cannot determine the (possibly empty) set of subobjects that are refined by this subobject."));
+		}
+		Type reftype = null;
+		try {
+			reftype = referencedComponentType(); 
+		} catch(LookupException exc) {
+				result = result.and(new BasicProblem(this, "Cannot determine the subobject type."));
+		}
+		if(overriddenMembers != null) {
+			for(Member rel: overriddenMembers) {
+				ComponentRelation overridden = (ComponentRelation) rel;
+				if(reftype != null) {
+					Type overriddenRefType = null;
+					try {
+						overriddenRefType = overridden.referencedComponentType();
+					} catch(LookupException exc) {
+							result = result.and(new BasicProblem(this, "Cannot determine the type of refined subobject "+formatter.fqn(overridden)));
+					}
+					if(overriddenRefType != null) {
+						result = result.and(reftype.verifySubtypeOf(overriddenRefType,"the declared subobject type","the declared subobject type of refined subobject "+formatter.fqn(overridden))); 
+					}
+				}
+			}
+			if(overriddenMembers.isEmpty() && componentTypeReference() == null) {
+				result = result.and(new BasicProblem(this, "This subobject does not refine any subobjects and has no explicitly declared subobject type."));
+			}
+		}
+		return result;
 	}
 	
 	@Override
 	public LookupStrategy lexicalLookupStrategy(Element child) throws LookupException {
 		LookupStrategy result = parent().lexicalLookupStrategy(this);
 		result = new ComponentTypeLookupStrategy(result, nearestAncestor(Type.class));
-//    if(child.nearestAncestor(ClassBody.class).sameAs(body())) {
-//    	LookupStrategy componentStrategy = componentType().localStrategy();
-//    	final LookupStrategy lexical = result;
-//    	result = language().lookupFactory().createLexicalLookupStrategy(componentStrategy, this, new LookupStrategySelector(){
-//				public LookupStrategy strategy() throws LookupException {
-//					return lexical;
-//				}
-//			});
-//    }
 		return result;
 	}
 
