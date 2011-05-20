@@ -99,5 +99,10 @@ public class InstantiatedComponentParameter<E extends InstantiatedComponentParam
 		return formalParameter().declarationType();
 	}
 
+	@Override
+	public boolean complete() throws LookupException {
+		return true;
+	}
+
 
 }

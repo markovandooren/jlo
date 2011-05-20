@@ -367,6 +367,11 @@ public class JavaTranslator extends AbstractTranslator {
 			if(fieldForComponent != null) {
 				result.add(fieldForComponent);
 			}
+			// We must flush the cache because the type reference of the declared subobject type might be in the
+			// language cache.
+			// IDEA: should an actualtype argument flush the language cache after a disconnect? Or have a check in DEBUG mode
+			//       to see if it is used in the language cache? It could be used in other caches though.
+			relation.language().flushCache();
 			relation.disconnect();
 		}
 		

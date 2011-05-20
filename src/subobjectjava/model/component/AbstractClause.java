@@ -104,7 +104,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 		if(result != null) {
 		  return result;
 		} else {
-			throw new LookupException("The old declaration cannot be found.");
+			throw new LookupException("The old declaration of "+ newSignature().name()+" cannot be found.");
 		}
 	}
 

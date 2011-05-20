@@ -104,5 +104,8 @@ public abstract class FormalComponentParameter<E extends FormalComponentParamete
 		return declarationType().targetContext();
 	}
 	
-
+  @Override
+  public boolean complete() throws LookupException {
+  	return false;
+  }
 }

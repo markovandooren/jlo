@@ -257,8 +257,8 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return componentType();
 	}
 
-	public Ternary complete() {
-		return Ternary.TRUE;
+	public boolean complete() {
+		return true;
 	}
 
 	public Declaration declarator() {

@@ -56,21 +56,6 @@ public class InstantiatedMemberSubobjectParameter<E extends InstantiatedMemberSu
 	}
 
 	public FormalComponentParameter formalParameter() throws LookupException {
-//		Type enclosing = nearestAncestor(Type.class);
-//		if(enclosing == null) {
-//			throw new LookupException("The instantiated single member subobject parameter is not in a type.");
-//		} else {
-//			ComponentRelation result = null;
-//			Type original = (Type) enclosing.origin();
-//			ParameterBlock<?,?> block = original.parameterBlock(ComponentParameter.class);
-//			FormalComponentParameter p = null;
-//			for(Parameter param: block.parameters()) {
-//				if(param.signature().sameAs(signature())) {
-//					p = (FormalComponentParameter) param;
-//				}
-//			}
-//			return p;
-//		}
 		Set<? extends Member> overridden = overriddenMembers();
 		if(overridden.size() == 1) {
 			return (FormalComponentParameter) overridden.iterator().next();
@@ -119,9 +104,9 @@ public class InstantiatedMemberSubobjectParameter<E extends InstantiatedMemberSu
 			FormalComponentParameter par = (FormalComponentParameter) overridden.iterator().next();
 			return par.containerType();
 		} else if(overridden.size() > 1) {
-			throw new LookupException("More than 1 overridden connector found.");
+			throw new LookupException("More than 1 refined connector found.");
 		} else {
-			throw new LookupException("No overridden connector found.");
+			throw new LookupException("No refined connector found.");
 		}
 	}
 
@@ -131,10 +116,15 @@ public class InstantiatedMemberSubobjectParameter<E extends InstantiatedMemberSu
 		if(overridden.size() == 1) {
 			return (FormalComponentParameter) overridden.iterator().next();
 		} else if(overridden.size() > 1) {
-			throw new LookupException("More than 1 overridden connector found.");
+			throw new LookupException("More than 1 refined connector found.");
 		} else {
-			throw new LookupException("No overridden connector found.");
+			throw new LookupException("No refined connector found.");
 		}
+	}
+
+	@Override
+	public boolean complete() throws LookupException {
+		return true;
 	}
 
 

@@ -97,4 +97,9 @@ public class ComponentRelationSet extends NamespaceElementImpl<ComponentRelation
 		return formalParameter().declarationType();
 	}
 
+	@Override
+	public boolean complete() throws LookupException {
+		return true;
+	}
+
 }
