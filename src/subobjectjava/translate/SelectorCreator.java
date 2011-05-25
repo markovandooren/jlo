@@ -124,10 +124,10 @@ public class SelectorCreator extends AbstractTranslator {
 			BasicJavaTypeReference arrayList = language.createTypeReference("java.util.ArrayList");
 			JavaTypeReference componentType = language.reference(formal.componentTypeReference().getElement());
 			componentType.setUniParent(null);
-			BasicTypeArgument targ = language.createBasicTypeArgument(componentType);
-			arrayList.addArgument(targ);
 			
-//			LocalVariableDeclarator varDecl = new LocalVariableDeclarator(reference.clone());
+//			BasicTypeArgument targ = language.createBasicTypeArgument(componentType);
+//			arrayList.addArgument(targ);
+			
 			LocalVariableDeclarator varDecl = new LocalVariableDeclarator(arrayList.clone());
 
 			Expression init = new ConstructorInvocation(arrayList, null);
@@ -138,6 +138,9 @@ public class SelectorCreator extends AbstractTranslator {
 			// add all components
 			ComponentRelationSet componentRelations = ((MultiActualComponentArgument)arg).declaration();
 			for(DeclarationWithType rel: componentRelations.relations()) {
+				if(rel == null) {
+					System.out.println("debug");
+				}
 				Expression t = new NamedTargetExpression("result", null);
 				SimpleNameMethodInvocation inv = new JavaMethodInvocation("add", t);
 				Expression componentSelector;

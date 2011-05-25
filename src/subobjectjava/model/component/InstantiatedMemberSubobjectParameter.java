@@ -23,6 +23,7 @@ import chameleon.oo.type.DerivedType;
 import chameleon.oo.type.Parameter;
 import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.Type;
+import chameleon.util.Util;
 
 
 public class InstantiatedMemberSubobjectParameter<E extends InstantiatedMemberSubobjectParameter<E>> extends ComponentParameter<E> implements ComponentArgumentContainer<E>, AbstractInstantiatedComponentParameter<E> {
@@ -48,7 +49,7 @@ public class InstantiatedMemberSubobjectParameter<E extends InstantiatedMemberSu
 	}
 
 	public List<? extends Element> children() {
-		return new ArrayList<Element>();
+		return Util.createNonNullList(argument());
 	}
 
 	public DeclarationWithType declaration() throws LookupException {

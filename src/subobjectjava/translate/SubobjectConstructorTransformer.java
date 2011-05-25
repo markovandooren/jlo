@@ -41,6 +41,7 @@ import chameleon.support.expression.ClassCastExpression;
 import chameleon.support.expression.ConditionalExpression;
 import chameleon.support.expression.NullLiteral;
 import chameleon.support.expression.ThisLiteral;
+import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.operator.infix.InfixOperatorInvocation;
 import chameleon.support.modifier.Abstract;
 import chameleon.support.modifier.Public;
@@ -61,14 +62,14 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	
 	private void createStrategyCloneOfConstructor(Method<?,?,?> constructor) throws ModelException {
 		// create super call if it does not already exist.
-		List<SuperConstructorDelegation> superCalls = constructor.descendants(SuperConstructorDelegation.class);
-		MethodInvocation superCall;
-		if(superCalls.isEmpty()) {
-			superCall = new SuperConstructorDelegation();
-			((RegularImplementation)constructor.implementation()).getBody().addInFront(new StatementExpression(superCall));
-		} else {
-			superCall = superCalls.get(0);
-		}
+		MethodInvocation superCall = superDelegation(constructor);
+//		MethodInvocation superCall;
+//		if(superCalls.isEmpty()) {
+//			superCall = new SuperConstructorDelegation();
+//			((RegularImplementation)constructor.implementation()).getBody().addInFront(new StatementExpression(superCall));
+//		} else {
+//			superCall = superCalls.get(0);
+//		}
 		Java language = constructor.language(Java.class);
 	  Type container = constructor.nearestAncestor(Type.class);
 	  Method<?,?,?> clone = constructor.clone();
@@ -94,12 +95,18 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			  	}
 			  }
 			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(constructorArgumentName(relation)), language.createTypeReference(interfaceName(strategyName(relation)))));
+			  String interfaceName;
 			  if(cons != null) {
 			  	createSpecificStrategy(relation,cons);
-			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(interfaceName(defaultStrategyName(relation, cons)))));
+			  	interfaceName = interfaceName(defaultStrategyName(relation, cons));
 			  } else {
-			  	header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(interfaceName(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall)))));
+			  	interfaceName = interfaceName(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall));
 			  }
+			  if(interfaceName.equals("jlo_newgraph_WiredDigraphNode_object_constructorT")) {
+			  	interfaceName = interfaceName(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall));
+			  	System.out.println("debug");
+			  }
+			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(interfaceName)));
 			  added = true;
 		  }
 	  }
@@ -198,6 +205,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	@SuppressWarnings("unchecked")
 	private String defaultStrategyNameWhenNoLocalSubobjectConstruction(ComponentRelation relation,	MethodInvocation<?,?> superCall) throws LookupException {
+		Java lang = relation.language(Java.class);
 		SubobjectConstructorCall currentSubobjectConstructorCall = subobjectConstructorCall(relation, superCall);
 		if(currentSubobjectConstructorCall != null) {
 			SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) currentSubobjectConstructorCall.farthestOrigin();
@@ -207,14 +215,18 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			} else {
 				ComponentRelation actuallyConstructedSubobject = subobjectConstructorCall.getTarget().getElement();
 				Method cons = subobjectConstructorCall.getElement();
-				Type originalOuter = (Type) superCall.nearestAncestor(Type.class).farthestOrigin();
-				if(originalOuter.subTypeOf(subobjectConstructorCall.nearestAncestor(Type.class))) {
+				Type nearestAncestor = superCall.nearestAncestor(Type.class);
+				Type originalOuter = (Type) nearestAncestor.farthestOrigin();
+				Type erasedTypeOfOriginalSubobject = lang.erasure(subobjectConstructorCall.nearestAncestor(Type.class));
+				// do we need to do the actual substitution with subobjectConstructorCall.nearestAncestor(Type.class)
+				// instead of its erasure ????
+				if(originalOuter.subTypeOf(erasedTypeOfOriginalSubobject)) {
 					Method originalCons = subobjectConstructorCall.getElement();
 					cons = originalCons.clone();
 					Element parent = originalCons.parent();//.origin();
 					cons.setUniParent(parent);
 					substituteTypeParameters(cons);
-					cons.setUniParent(subobjectConstructorCall.nearestAncestor(Type.class));
+					cons.setUniParent(erasedTypeOfOriginalSubobject);
 				}
 				String defaultStrategyName = defaultStrategyName(actuallyConstructedSubobject, cons);
 				result = defaultStrategyName;
@@ -274,9 +286,30 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	
 	public final String STRATEGY = "_constructor";
 
+	private SuperConstructorDelegation superDelegation(Method<?,?,?> constructor) throws LookupException {
+		Method<?,?,?> consch = constructor;
+		SuperConstructorDelegation superCall = null;
+		while(superCall == null) {
+			List<SuperConstructorDelegation> superCalls = consch.descendants(SuperConstructorDelegation.class);
+			if(superCalls.isEmpty()) {
+				List<ThisConstructorDelegation> thisDelegations = consch.descendants(ThisConstructorDelegation.class);
+				if(thisDelegations.isEmpty()) {
+					superCall = new SuperConstructorDelegation();
+					Block body = ((RegularImplementation)consch.implementation()).getBody();
+					body.addInFront(new StatementExpression(superCall));
+				} else {
+					consch = thisDelegations.get(0).getElement();
+				}
+			} else {
+				superCall = superCalls.get(0);
+			}
+		}
+		return superCall;
+	}
+	
 	private void replaceSubobjectConstructorCalls(Method<?,?,?> constructor, boolean clonedConstructor)
 	throws ModelException {
-		SuperConstructorDelegation superCall = constructor.descendants(SuperConstructorDelegation.class).get(0);
+		SuperConstructorDelegation superCall = superDelegation(constructor);
 		int levelOfConstructor = constructor.ancestors(Type.class).size();
 		Type type = constructor.nearestAncestor(Type.class);
 		List<ComponentRelation> members = type.members(ComponentRelation.class);

@@ -26,6 +26,10 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.util.Util;
 
+/**
+ * @deprecated
+ * @author Marko van Dooren
+ */
 public class ComponentParameterTypeReference extends NamespaceElementImpl<ComponentParameterTypeReference> implements JavaTypeReference<ComponentParameterTypeReference>,ComponentArgumentContainer<ComponentParameterTypeReference> {
 
 	public ComponentParameterTypeReference(JavaTypeReference target) {
@@ -99,7 +103,7 @@ public class ComponentParameterTypeReference extends NamespaceElementImpl<Compon
 	}
 
 	public TypeReference intersectionDoubleDispatch(TypeReference other) {
-		IntersectionTypeReference<IntersectionTypeReference> intersectionTypeReference = language(Java.class).createIntersectionReference(clone(), other.clone());
+		IntersectionTypeReference intersectionTypeReference = language(Java.class).createIntersectionReference(clone(), other.clone());
 		return intersectionTypeReference;
 	}
 
@@ -167,6 +171,11 @@ public class ComponentParameterTypeReference extends NamespaceElementImpl<Compon
 	  } else {
 	  	throw new LookupException("The given argument does not belong to this component parameter type reference.");
 	  }
+	}
+
+	@Override
+	public String infoDisplayName() {
+		return "";
 	}
 
 }

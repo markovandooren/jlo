@@ -307,11 +307,12 @@ connector returns [TypeElement element]
  	;
 
 connection returns [TypeElement element]
- 	: ctkw=Connect name=identifierRule tokw=Identifier arg=subobjectArgument ';'
+ 	: ctkw=Connect name=identifierRule tokw=Identifier arg=subobjectArgument cl=';'
  	  {retval.element = new InstantiatedMemberSubobjectParameter(new SimpleNameSignature($name.text),arg.element);
  	   setKeyword(retval.element,ctkw);
 	   setName(retval.element,name.start);
  	   if($tokw.text.equals("to")) {setKeyword(arg.element,tokw);}
+ 	   setLocation(retval.element, ctkw,cl);
  	  }	
  	;
 
@@ -480,14 +481,16 @@ subobjectArgument returns [ActualComponentArgument element]
 singleSubobjectArgument returns [SingleActualComponentArgument element]
 	:
 	 id=identifierRule {retval.element = new ComponentNameActualArgument($id.text);
-}
-        | '@' idd=identifierRule {retval.element = new ParameterReferenceActualArgument($idd.text);}
+	                     setLocation(retval.element,id.start,id.stop);
+                           }
+        | at='@' idd=identifierRule {retval.element = new ParameterReferenceActualArgument($idd.text);
+        			     setLocation(retval.element,at,idd.stop);}
 	;
 	
 multiSubobjectArgument returns [MultiActualComponentArgument element]
 @init{retval.element = new MultiActualComponentArgument();}
 	:
-	 '[' (single=singleSubobjectArgument {retval.element.add(single.element);} 
+	 start='[' (single=singleSubobjectArgument {retval.element.add(single.element);} 
 	     (',' singlee=singleSubobjectArgument {retval.element.add(singlee.element);} )* )?
-	 ']' 
+	 stop=']' { setLocation(retval.element,start,stop);}
 	;	

@@ -62,35 +62,20 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return result;
 	}
 
-	private static class FQNFormatter {
-		public String fqn(Type type) {
+	public String infoDisplayName() {
+		try {
 			try {
-				try {
-					return type.getFullyQualifiedName();
-				} catch(Exception exc) {
-					return type.signature().name();
-				}
-			}catch(NullPointerException exc) {
-				return "";
+				return componentType().infoDisplayName();
+			} catch (LookupException e) {
+				return signature().name();
 			}
-		}
-		
-		public String fqn(ComponentRelation relation) {
-			try {
-				try {
-					return fqn(relation.componentType());
-				} catch (LookupException e) {
-					return relation.signature().name();
-				}
-			} catch(NullPointerException exc) {
-				return "";
-			}
+		} catch(NullPointerException exc) {
+			return "";
 		}
 	}
 	
 	@Override
 	public VerificationResult verifySelf() {
-		FQNFormatter formatter = new FQNFormatter();
 		VerificationResult result = Valid.create();
 		Set<? extends Member> overriddenMembers = null;
 		try {
@@ -113,10 +98,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 					try {
 						overriddenRefType = overridden.referencedComponentType();
 					} catch(LookupException exc) {
-							result = result.and(new BasicProblem(this, "Cannot determine the type of refined subobject "+formatter.fqn(overridden)));
+							result = result.and(new BasicProblem(this, "Cannot determine the type of refined subobject "+overridden.infoDisplayName()));
 					}
 					if(overriddenRefType != null) {
-						result = result.and(reftype.verifySubtypeOf(overriddenRefType,"the declared subobject type","the declared subobject type of refined subobject "+formatter.fqn(overridden))); 
+						result = result.and(reftype.verifySubtypeOf(overriddenRefType,"the declared subobject type","the declared subobject type of refined subobject "+overridden.infoDisplayName())); 
 					}
 				}
 			}
