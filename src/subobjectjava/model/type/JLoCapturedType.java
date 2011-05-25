@@ -13,7 +13,7 @@ import chameleon.oo.type.inheritance.InheritanceRelation;
 
 public class JLoCapturedType extends CapturedType {
 
-	public JLoCapturedType(Type baseType, List<ActualTypeArgument> typeParameters) {
+	public JLoCapturedType(Type baseType, List<ActualTypeArgument> typeParameters) throws LookupException {
 		super(baseType,typeParameters);
 	}
 

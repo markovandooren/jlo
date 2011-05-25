@@ -26,7 +26,7 @@ public class JLoDerivedType extends DerivedType {
 		super(substitution,baseType);
 	}
 
-	public JLoDerivedType(Type baseType, List<ActualTypeArgument> typeArguments) {
+	public JLoDerivedType(Type baseType, List<ActualTypeArgument> typeArguments) throws LookupException {
 		super(baseType, typeArguments);
 	}
 	

@@ -6,6 +6,7 @@ import jnome.core.language.Java;
 import subobjectjava.model.type.JLoCapturedType;
 import subobjectjava.model.type.JLoDerivedType;
 import chameleon.core.language.Language;
+import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.core.relation.StrictPartialOrder;
 import chameleon.oo.type.DerivedType;
@@ -38,7 +39,7 @@ public class JLo extends Java {
 		return new JLoDerivedType(kind, parameters, baseType);
 	}
 
-	public DerivedType createDerivedType(Type baseType, List<ActualTypeArgument> typeArguments) {
+	public DerivedType createDerivedType(Type baseType, List<ActualTypeArgument> typeArguments) throws LookupException {
 		return new JLoDerivedType(baseType,typeArguments);
 	}
 
