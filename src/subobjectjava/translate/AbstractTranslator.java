@@ -98,7 +98,8 @@ public class AbstractTranslator {
 				while(type instanceof ActualType) {
 					type = ((ActualType)type).aliasedType();
 				}
-				TypeReference namedTargetExpression = element.language(ObjectOrientedLanguage.class).createTypeReference(type.getFullyQualifiedName());
+//				TypeReference namedTargetExpression = element.language(ObjectOrientedLanguage.class).createTypeReference(type.getFullyQualifiedName());
+				TypeReference namedTargetExpression = element.language(ObjectOrientedLanguage.class).createTypeReference(type);
 				childLink.replace(parentLink, namedTargetExpression.parentLink());
 			}
 	}
@@ -176,9 +177,6 @@ public class AbstractTranslator {
 	
 	protected String staticMethodName(Method clone,Type containerOfToBebound) {
 		String result = staticMethodName(clone.name(), containerOfToBebound);
-		if(result.equals("jlo_graph_WeightedUniEdge_weight")) {
-			System.out.println("debug");
-		}
 		return result;
 	}
 	

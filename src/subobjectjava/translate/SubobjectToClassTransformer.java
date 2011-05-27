@@ -112,9 +112,6 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	 * @throws ModelException 
 	 */
 	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type javaType) throws ChameleonProgrammerException, ModelException {
-		if(relationBeingTranslated.componentType().getFullyQualifiedName().equals("radio.NestedRefinedMistunedRadio.frequency")) {
-			System.out.println("debug");
-		}
 		Type result = innerClassCreator().emptyInnerClassFor(relationBeingTranslated);
 		processComponentRelationBody(relationBeingTranslated, result);
 		javaType.add(result);

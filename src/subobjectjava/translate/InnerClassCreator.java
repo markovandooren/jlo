@@ -51,9 +51,6 @@ public class InnerClassCreator extends AbstractTranslator {
 	}
 
 	public Type emptyInnerClassFor(ComponentRelation relationBeingTranslated) throws LookupException {
-		if(relationBeingTranslated.componentType().getFullyQualifiedName().equals("radio.NestedRefinedMistunedRadio.frequency")) {
-			System.out.println("debug");
-		}
 		incorporateImports(relationBeingTranslated);
 		String className = innerClassName(relationBeingTranslated);
 		Type result = new RegularJLoType(className);
@@ -74,9 +71,6 @@ public class InnerClassCreator extends AbstractTranslator {
 	}
 
 private List<TypeReference> superClassReferences(ComponentRelation relation, Type context) throws LookupException {
-	if(relation.componentType().getFullyQualifiedName().contains("frequency")) {
-		System.out.println("debug");
-	}
 	Java language = relation.language(Java.class);
 	List<TypeReference> result = new ArrayList<TypeReference>();
 	TypeReference superReference = relation.componentTypeReference().clone();

@@ -105,10 +105,6 @@ public class SelectorCreator extends AbstractTranslator {
 		Expression expr;
 		if(arg instanceof ComponentNameActualArgument) {
 			ComponentNameActualArgument singarg = (ComponentNameActualArgument) arg;
-			if(singarg.declaration() == null) {
-				System.out.println("debug");
-				singarg.declaration();
-			}
 			expr = new JavaMethodInvocation(getterName(singarg.declaration()),new NamedTargetExpression("argument", null));
 			body.addStatement(new ReturnStatement(expr));
 		} else if(arg instanceof ParameterReferenceActualArgument) {
@@ -138,9 +134,6 @@ public class SelectorCreator extends AbstractTranslator {
 			// add all components
 			ComponentRelationSet componentRelations = ((MultiActualComponentArgument)arg).declaration();
 			for(DeclarationWithType rel: componentRelations.relations()) {
-				if(rel == null) {
-					System.out.println("debug");
-				}
 				Expression t = new NamedTargetExpression("result", null);
 				SimpleNameMethodInvocation inv = new JavaMethodInvocation("add", t);
 				Expression componentSelector;

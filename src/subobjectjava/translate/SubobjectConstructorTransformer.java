@@ -102,10 +102,6 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			  } else {
 			  	interfaceName = interfaceName(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall));
 			  }
-			  if(interfaceName.equals("jlo_newgraph_WiredDigraphNode_object_constructorT")) {
-			  	interfaceName = interfaceName(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall));
-			  	System.out.println("debug");
-			  }
 			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(interfaceName)));
 			  added = true;
 		  }
@@ -242,7 +238,13 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		SubobjectConstructorCall subobjectConstructorCall = null;
 		Set<ComponentRelation> allRelatedSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
 		allRelatedSubobjects.add(relation);
-		Method<?,?,?> constructor = superCall.getElement();
+		Method<?,?,?> constructor = null;
+		try {
+			constructor = superCall.getElement();
+		} catch(LookupException exc) {
+			superCall.getElement();
+			throw exc;
+		}
 		while(constructor != null && (subobjectConstructorCall == null)) { // && constructor.nearestAncestor(Type.class) != type) {
 		  for(SubobjectConstructorCall call: constructor.descendants(SubobjectConstructorCall.class)) {
 		  	ComponentRelation subobject = call.getTarget().getElement();
@@ -336,13 +338,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			}
 			ClassBody body = relation.nearestAncestor(ClassBody.class);
 			int levelOfRelation = relation.ancestors(Type.class).size();
-		  if(levelOfConstructor < levelOfRelation) {
-		  	System.out.println("debug");
-		  }
-			if(body != null && 
-					type.subTypeOf(body.nearestAncestor(Type.class))
-//					levelOfConstructor == levelOfRelation
-			) {
+			if(body != null && type.subTypeOf(body.nearestAncestor(Type.class))) {
 				List<SubobjectConstructorCall> subCalls = constructorCallsOfRelation(relation, constructor);
 				if(!isLocallyDefined(relation,type)) {
 					if(relativeIndexInSuper == -1) {
@@ -531,9 +527,6 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	}
 
 	private void addDefaultSubobjectConstructorCalls(ComponentRelation relation) throws LookupException {
-		if(relation.name().equals("observers")) {
-			System.out.println("debug");
-		}
 		Java lang = relation.language(Java.class);
 		Type subobjectType = relation.referencedComponentType();
 		List<Method> constructorsOfReferencedSubobjectType = subobjectType.directlyDeclaredMembers(Method.class, lang.CONSTRUCTOR);

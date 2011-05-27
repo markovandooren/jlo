@@ -320,6 +320,11 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
+	private void flushCache(Type type) {
+		type.flushCache();
+		type.language().flushCache();
+	}
+	
 	/**
 	 * Return a type that represents the translation of the given JLow class to a Java class.
 	 * @throws ModelException 
@@ -338,11 +343,11 @@ public class JavaTranslator extends AbstractTranslator {
 		// explicit subobject constructor calls for generated subobjects, which must use the subobject constructor call
 		// of the super constructor that corresponds to the overridden subobject.
 		subobjectConstructorTransformer().addDefaultSubobjectConstructorCalls(result);
-		result.flushCache();
+		flushCache(result);
 		rebindOverriddenMethods(result,original);
-		result.flushCache();
+		flushCache(result);
 		replaceConstructorCalls(result);
-		result.flushCache();
+		flushCache(result);
 		List<ComponentRelation> relations = result.directlyDeclaredMembers(ComponentRelation.class);
 		subobjectConstructorTransformer().replaceSubobjectConstructorCalls(result); // commented out the replaceSubobjectConstructorCalls below
 		for(ComponentRelation relation : relations) {
@@ -360,7 +365,7 @@ public class JavaTranslator extends AbstractTranslator {
 
 			// Create the inner classes for the components
 			subobjectToClassTransformer().inner(result, relation);
-			result.flushCache();
+			flushCache(result);
 		}
 		for(ComponentRelation relation: result.directlyDeclaredMembers(ComponentRelation.class)) {
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,result);
@@ -527,7 +532,7 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	private void rebindOverriddenMethodsOf(Type result, Type original, Method<?,?,?> method) throws Error, ModelException {
-		original.flushCache();
+		flushCache(original);
 		Set<? extends Member> overridden = method.overriddenMembers();
 		Java language = method.language(Java.class);
 		if(! overridden.isEmpty()) {
@@ -598,7 +603,7 @@ public class JavaTranslator extends AbstractTranslator {
 				}
 			}
 			containerOfToBebound.add(staticReboundMethod);
-			containerOfToBebound.flushCache();
+			flushCache(containerOfToBebound);
 		}
 		} catch(ModelException exc) {
 			throw exc;
