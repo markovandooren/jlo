@@ -278,7 +278,7 @@ public class JavaTranslator extends AbstractTranslator {
 
 	
 
-	private void transformToImplReference(CrossReference tref) {
+	private void transformToImplReference(CrossReference<?,?> tref) {
 		if(tref instanceof NonLocalTypeReference) {
 			transformToImplReference(((NonLocalTypeReference)tref).actualReference());
 		} else if(tref instanceof CrossReferenceWithName) {
@@ -305,6 +305,8 @@ public class JavaTranslator extends AbstractTranslator {
 			if(! name.endsWith(IMPL)) {
 			  ref.setName(name+IMPL);
 			}
+//			Import imp = new TypeImport((TypeReference) ref.clone());
+//			tref.nearestAncestor(NamespacePart.class).addImport(imp);
 		}
 		}
 	}
@@ -883,14 +885,21 @@ public class JavaTranslator extends AbstractTranslator {
 			if(tref.getTarget() == null) {
 				try {
 					// Filthy hack, should add meta information to such references, and use that instead.
-					if(! tref.signature().name().contains(SHADOW)) {
-						Type element = tref.getElement();
+					String name = tref.signature().name();
+					if(! name.contains(SHADOW)) {
+						Type element = null;
+						if(name.contains(IMPL)) {
+							TypeReference tr = new BasicJavaTypeReference(interfaceName(name));
+							tr.setUniParent(tref.parent());
+							element = tr.getElement();
+						} else {
+							element = tref.getElement();
+						}
 						if(! element.isTrue(language.PRIVATE)) {
 							String fullyQualifiedName = element.getFullyQualifiedName();
 							String predecessor = Util.getAllButLastPart(fullyQualifiedName);
 							if(predecessor != null) {
-								NamedTarget nt = new NamedTarget(predecessor);
-								tref.setTarget(nt);
+								tref.setTarget(new NamedTarget(predecessor));
 							}
 						}
 					}
