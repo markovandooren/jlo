@@ -214,6 +214,13 @@ public class JavaTranslator extends AbstractTranslator {
 		       (! fullyQualifiedName.equals("org.xml.sax.helpers"));
 	}
 
+	private void replaceStaticCallTargets(Element<?> element) {
+		List<MethodInvocation> invocations = element.descendants(MethodInvocation.class);
+		for(MethodInvocation invocation: invocations) {
+			transformToImplReference(invocation);
+		}
+	}
+	
 	private void replaceConstructorCalls(Element<?> type) throws LookupException {
 		List<ConstructorInvocation> invocations = type.descendants(ConstructorInvocation.class);
 		for(ConstructorInvocation invocation: invocations) {
@@ -243,7 +250,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void replaceComponentAccess(Element<?> type) throws LookupException {
+	private void replaceComponentAccess(Element<?> type) {
 		List<CrossReferenceWithTarget> literals = type.nearestDescendants(CrossReferenceWithTarget.class);
 		for(CrossReferenceWithTarget literal: literals) {
 			transformComponentAccessors(literal);
@@ -251,10 +258,13 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	//JENS
-	private void transformComponentAccessors(CrossReferenceWithTarget cwt) {
-		Element target = cwt.getTarget();
-		if(target instanceof CrossReferenceWithTarget) {
-			transformComponentAccessors((CrossReferenceWithTarget) target);
+	private void transformComponentAccessors(CrossReferenceWithTarget<?,?> cwt) {
+		Element<?> target = cwt.getTarget();
+//		if(target instanceof CrossReferenceWithTarget) {
+//			transformComponentAccessors((CrossReferenceWithTarget) target);
+//		}
+		for(Element element: cwt.children()) {
+			replaceComponentAccess(element);
 		}
 		boolean rewrite = false;
 		String name = null;
@@ -279,34 +289,44 @@ public class JavaTranslator extends AbstractTranslator {
 	
 
 	private void transformToImplReference(CrossReference<?,?> tref) {
+		if(tref instanceof SimpleNameMethodInvocation && ((SimpleNameMethodInvocation)tref).name().equals("massert")) {
+			System.out.println("debug");
+		}
 		if(tref instanceof NonLocalTypeReference) {
 			transformToImplReference(((NonLocalTypeReference)tref).actualReference());
 		} else if(tref instanceof CrossReferenceWithName) {
 		CrossReferenceWithName ref = (CrossReferenceWithName) tref;
 		if(ref instanceof CrossReferenceWithTarget) {
-			CrossReferenceWithName target = (CrossReferenceWithName) ((CrossReferenceWithTarget)ref).getTarget();
-			if(target != null) {
-				transformToImplReference(target);
+			
+			Element target = ((CrossReferenceWithTarget)ref).getTarget();
+			if(target instanceof CrossReference) {
+				transformToImplReference((CrossReference<?, ?>) target);
 			}
 		}
-		boolean change;
-		try {
-			Declaration referencedElement = ref.getElement();
-			if(referencedElement instanceof Type && isJLo((NamespaceElement) referencedElement)) {
+		if(! (ref instanceof MethodInvocation)) {
+			
+			boolean change;
+			try {
+				Declaration referencedElement = ref.getElement();
+				if(referencedElement instanceof Type && isJLo((NamespaceElement) referencedElement)) {
+					change = true;
+				} else {
+					change = false;
+				}
+			} catch(LookupException exc) {
 				change = true;
-			} else {
-				change = false;
 			}
-		} catch(LookupException exc) {
-			change = true;
-		}
-		if(change) {
-			String name = ref.name();
-			if(! name.endsWith(IMPL)) {
-			  ref.setName(name+IMPL);
+			if(change) {
+				String name = ref.name();
+				if(name.equals("last")) {
+					System.out.println("debug");
+				}
+				if(! name.endsWith(IMPL)) {
+					ref.setName(name+IMPL);
+				}
+				//			Import imp = new TypeImport((TypeReference) ref.clone());
+				//			tref.nearestAncestor(NamespacePart.class).addImport(imp);
 			}
-//			Import imp = new TypeImport((TypeReference) ref.clone());
-//			tref.nearestAncestor(NamespacePart.class).addImport(imp);
 		}
 		}
 	}
@@ -348,6 +368,10 @@ public class JavaTranslator extends AbstractTranslator {
 		flushCache(result);
 		rebindOverriddenMethods(result,original);
 		flushCache(result);
+		// must replace the static calls before the constructor because
+		// the super class of an anonymous inner class (C_implementation) is not available
+		// in the original model, where the lookup is done.
+		replaceStaticCallTargets(result);
 		replaceConstructorCalls(result);
 		flushCache(result);
 		List<ComponentRelation> relations = result.directlyDeclaredMembers(ComponentRelation.class);

@@ -109,6 +109,16 @@ public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstruc
 
   }
 
+//	@Override
+//	public void setName(String name) {
+//		getTarget().setName(name);
+//	}
+//
+//	@Override
+//	public String name() {
+//		return getTarget().name();
+//	}
+
 }
 
 
