@@ -2,7 +2,6 @@ package subobjectjava.model.component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.SimpleNameSignature;
@@ -10,9 +9,6 @@ import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.lookup.LookupStrategy;
-import chameleon.core.member.Member;
-import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.scope.Scope;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;

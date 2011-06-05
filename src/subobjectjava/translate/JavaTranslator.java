@@ -251,7 +251,7 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	//JENS
-	private void transformComponentAccessors(CrossReferenceWithTarget cwt) {
+	public void transformComponentAccessors(CrossReferenceWithTarget cwt) {
 		Element target = cwt.getTarget();
 		if(target instanceof CrossReferenceWithTarget) {
 			transformComponentAccessors((CrossReferenceWithTarget) target);
@@ -274,9 +274,7 @@ public class JavaTranslator extends AbstractTranslator {
 			SingleAssociation parentLink = cwt.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, inv.parentLink());
 		}
-	}
-
-	
+	}	
 
 	private void transformToImplReference(CrossReference tref) {
 		if(tref instanceof NonLocalTypeReference) {
