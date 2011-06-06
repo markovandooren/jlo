@@ -205,10 +205,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		SubobjectConstructorCall currentSubobjectConstructorCall = subobjectConstructorCall(relation, superCall);
 		if(currentSubobjectConstructorCall != null) {
 			SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) currentSubobjectConstructorCall.farthestOrigin();
-			String result;
-			if(subobjectConstructorCall == null) {
-				result = strategyName(relation);
-			} else {
+//			if(subobjectConstructorCall == null) {
+//				result = strategyName(relation);
+//			} else {
 				ComponentRelation actuallyConstructedSubobject = subobjectConstructorCall.getTarget().getElement();
 				Method cons = subobjectConstructorCall.getElement();
 				Type nearestAncestor = superCall.nearestAncestor(Type.class);
@@ -217,17 +216,15 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 				// do we need to do the actual substitution with subobjectConstructorCall.nearestAncestor(Type.class)
 				// instead of its erasure ????
 				if(originalOuter.subTypeOf(erasedTypeOfOriginalSubobject)) {
-					Method originalCons = subobjectConstructorCall.getElement();
+					Method originalCons = cons;
 					cons = originalCons.clone();
 					Element parent = originalCons.parent();//.origin();
 					cons.setUniParent(parent);
 					substituteTypeParameters(cons);
 					cons.setUniParent(erasedTypeOfOriginalSubobject);
 				}
-				String defaultStrategyName = defaultStrategyName(actuallyConstructedSubobject, cons);
-				result = defaultStrategyName;
-			}
-			return result;
+//			}
+			return defaultStrategyName(actuallyConstructedSubobject, cons);
 		} else {
 		  return "ERROR: No subobject constructor was found for subobject: "+relation.componentType().getFullyQualifiedName();
 		}
