@@ -80,7 +80,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 				}
 				if((decl.is(language.CONSTRUCTOR) == Ternary.TRUE) ||
 					 (decl.is(language.PRIVATE) == Ternary.TRUE && (! (decl instanceof Type))) ||
-					 (decl instanceof VariableDeclarator && (! (decl.is(language.CLASS) == Ternary.TRUE)))) {
+					 (decl instanceof VariableDeclarator )) { // && (! (decl.is(language.CLASS) == Ternary.TRUE))
 					decl.disconnect();
 				}
 				makePublic(decl);

@@ -63,6 +63,7 @@ import chameleon.core.reference.SimpleReference;
 import chameleon.core.reference.SpecificReference;
 import chameleon.core.statement.Block;
 import chameleon.core.variable.FormalParameter;
+import chameleon.core.variable.MemberVariable;
 import chameleon.core.variable.VariableDeclaration;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
@@ -214,10 +215,16 @@ public class JavaTranslator extends AbstractTranslator {
 		       (! fullyQualifiedName.equals("org.xml.sax.helpers"));
 	}
 
-	private void replaceStaticCallTargets(Element<?> element) {
+	private void replaceStaticCallTargets(Element<?> element) throws LookupException {
 		List<MethodInvocation> invocations = element.descendants(MethodInvocation.class);
 		for(MethodInvocation invocation: invocations) {
 			transformToImplReference(invocation);
+		}
+		List<NamedTargetExpression> tes = element.descendants(NamedTargetExpression.class);
+		for(NamedTargetExpression nte: tes) {
+			if(nte.getElement() instanceof MemberVariable) {
+				transformToImplReference(nte);
+			}
 		}
 	}
 	
