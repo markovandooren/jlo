@@ -189,7 +189,7 @@ public class AbstractTranslator {
 		return getterName(relation.signature().name());
 	}
 	
-	protected String getterName(String componentName) {
+	public String getterName(String componentName) {
 		return componentName+COMPONENT;
 	}
 	

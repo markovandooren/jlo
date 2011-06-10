@@ -252,9 +252,7 @@ public class JavaTranslator extends AbstractTranslator {
 			SingleAssociation parentLink = cwt.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, inv.parentLink());
 		}
-	}
-
-	
+	}	
 
 	private void transformToImplReference(CrossReference<?,?> tref) {
 		if(tref instanceof SimpleNameMethodInvocation && ((SimpleNameMethodInvocation)tref).name().equals("massert")) {

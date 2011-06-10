@@ -8,7 +8,6 @@ import java.util.List;
 import jnome.core.language.Java;
 import jnome.input.JavaFactory;
 import jnome.output.CompilationUnitWriter;
-import jnome.output.JavaCodeWriter;
 import subobjectjava.model.language.JLo;
 import subobjectjava.output.JLoSyntax;
 import subobjectjava.translate.IncrementalJavaTranslator;
@@ -19,6 +18,7 @@ import chameleon.exception.ModelException;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.Plugin;
 import chameleon.plugin.PluginImpl;
+import chameleon.plugin.build.BuildProgressHelper;
 import chameleon.plugin.build.Builder;
 import chameleon.plugin.output.Syntax;
 
@@ -63,7 +63,7 @@ public class JLoBuilder extends PluginImpl implements Builder {
 		try {
 			String fileName = _writer.fileName(compilationUnit);
 			System.out.println("Building "+fileName);
-			List<CompilationUnit> compilationUnits = _translator.build(compilationUnit);
+			Collection<CompilationUnit> compilationUnits = _translator.build(compilationUnit, allProjectCompilationUnits);
 			for(CompilationUnit translated : compilationUnits) {
 				_writer.write(translated);
 			}
@@ -88,5 +88,19 @@ public class JLoBuilder extends PluginImpl implements Builder {
 	@Override
 	public Plugin clone() {
 		return new JLoBuilder(writer().outputDir());
+	}
+
+	@Override
+	public void build(List<CompilationUnit> compilationUnits, List<CompilationUnit> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException,	IOException {
+		for (CompilationUnit cu : compilationUnits) {
+			buildProgressHelper.checkForCancellation();
+			build(cu, allProjectCompilationUnits);
+			buildProgressHelper.addWorked(1);
+		}
+	}
+
+	@Override
+	public int totalAmountOfWork(List<CompilationUnit> compilationUnits, List<CompilationUnit> allProjectCompilationUnits) {
+		return compilationUnits.size();
 	}
 }
