@@ -32,24 +32,29 @@ public class InterfaceTransformer extends AbstractTranslator {
 	public CompilationUnit interfaceCompilationUnit(CompilationUnit original, CompilationUnit implementation) throws ModelException {
 		original.flushCache();
 		implementation.flushCache();
-		CompilationUnit interfaceCompilationUnit = implementation.cloneTo(implementation.language());
-		NamespacePart interfaceNamespacePart = interfaceCompilationUnit.namespacePart(1);
-		Type interfaceType = interfaceNamespacePart.declarations(Type.class).get(0);
-		interfaceType.addModifier(new Interface());
-		transformToInterfaceDeep(interfaceType);
-		for(BasicJavaTypeReference tref: interfaceType.descendants(BasicJavaTypeReference.class)) {
-			String name = tref.signature().name();
-			if(name.endsWith(IMPL)) {
-			  tref.setSignature(new SimpleNameSignature(interfaceName(name)));
+
+		Type implementationType = original.namespacePart(1).declarations(Type.class).get(0);
+		CompilationUnit interfaceCompilationUnit = null;
+		if(splitClass(implementationType)) {
+			interfaceCompilationUnit = implementation.cloneTo(implementation.language());
+			NamespacePart interfaceNamespacePart = interfaceCompilationUnit.namespacePart(1);
+			Type interfaceType = interfaceNamespacePart.declarations(Type.class).get(0);
+			interfaceType.addModifier(new Interface());
+			transformToInterfaceDeep(interfaceType);
+			for(BasicJavaTypeReference tref: interfaceType.descendants(BasicJavaTypeReference.class)) {
+				String name = tref.signature().name();
+				if(name.endsWith(IMPL)) {
+					tref.setSignature(new SimpleNameSignature(interfaceName(name)));
+				}
 			}
-		}
-		for(SimpleReference tref: interfaceType.descendants(SimpleReference.class)) {
-			String name = tref.signature().name();
-			if(name.endsWith(IMPL)) {
-			  tref.setSignature(new SimpleNameSignature(interfaceName(name)));
+			for(SimpleReference tref: interfaceType.descendants(SimpleReference.class)) {
+				String name = tref.signature().name();
+				if(name.endsWith(IMPL)) {
+					tref.setSignature(new SimpleNameSignature(interfaceName(name)));
+				}
 			}
+			interfaceCompilationUnit.flushCache();
 		}
-		interfaceCompilationUnit.flushCache();
 		return interfaceCompilationUnit;
 	}
 	

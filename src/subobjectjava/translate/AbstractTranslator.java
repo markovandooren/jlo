@@ -24,6 +24,7 @@ import chameleon.core.method.Method;
 import chameleon.core.method.exception.ExceptionClause;
 import chameleon.core.modifier.ElementWithModifiers;
 import chameleon.core.modifier.Modifier;
+import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.statement.Block;
@@ -240,6 +241,53 @@ public class AbstractTranslator {
 			name = name + IMPL;
 		}
 		return name;
+	}
+
+	protected boolean splitClass(Type type) throws LookupException {
+		Java lang = type.language(Java.class);
+		return isJLo(type) && ! lang.isException(type);
+	}
+
+	protected boolean isJLo(NamespaceElement element) {
+		String fullyQualifiedName = element.getNamespace().getFullyQualifiedName();
+		return (! fullyQualifiedName.startsWith("java.")) &&
+		       (! fullyQualifiedName.startsWith("javax.")) &&
+		       (! fullyQualifiedName.equals("org.ietf.jgss")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA_2_3")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA_2_3.portable")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA.DynAnyPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA.ORBPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA.Portable")) &&
+		       (! fullyQualifiedName.equals("org.omg.CORBA.TypeCodePackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.CosNaming")) &&
+		       (! fullyQualifiedName.equals("org.omg.CosNaming.NamingContextExtPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.CosNaming.NamingContextPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.Dynamic")) &&
+		       (! fullyQualifiedName.equals("org.omg.DynamicAny")) &&
+		       (! fullyQualifiedName.equals("org.omg.DynamicAny.DynAnyFactoryPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.DynamicAny.DynAnyPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.IOP")) &&
+		       (! fullyQualifiedName.equals("org.omg.IOP.CodecFactoryPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.IOP.CodecPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.Messaging")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableInterceptor")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableInterceptor.ORBInitInfoPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.CurrentPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.PAOManagerPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.PAOPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.portable")) &&
+		       (! fullyQualifiedName.equals("org.omg.PortableServer.ServantLocatorPackage")) &&
+		       (! fullyQualifiedName.equals("org.omg.SendingContext")) &&
+		       (! fullyQualifiedName.equals("org.omg.stub.java.rmi")) &&
+		       (! fullyQualifiedName.equals("org.w3c.dom")) &&
+		       (! fullyQualifiedName.equals("org.w3c.dom.bootstrap")) &&
+		       (! fullyQualifiedName.equals("org.w3c.dom.events")) &&
+		       (! fullyQualifiedName.equals("org.w3c.dom.ls")) &&
+		       (! fullyQualifiedName.equals("org.xml.sax")) &&
+		       (! fullyQualifiedName.equals("org.xml.sax.ext")) &&
+		       (! fullyQualifiedName.equals("org.xml.sax.helpers"));
 	}
 
 }

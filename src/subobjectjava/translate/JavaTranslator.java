@@ -142,14 +142,18 @@ public class JavaTranslator extends AbstractTranslator {
   	implementationCompilationUnit.flushCache();
   	result.add(implementationCompilationUnit);
   	implementationCompilationUnit.namespacePart(1).getNamespaceLink().lock();
-  	CompilationUnit interfaceCompilationUnit = interfaceTransformer().interfaceCompilationUnit(source, implementationCompilationUnit);
-  	for(NamespacePart part: implementationCompilationUnit.descendants(NamespacePart.class)) {
+  	List<NamespacePart> parts = implementationCompilationUnit.descendants(NamespacePart.class);
+  	boolean iface = true;
+  	if(iface) {
+  		CompilationUnit interfaceCompilationUnit = interfaceTransformer().interfaceCompilationUnit(source, implementationCompilationUnit);
+  		if(interfaceCompilationUnit != null) {
+  			parts.addAll(interfaceCompilationUnit.descendants(NamespacePart.class));
+  			result.add(interfaceCompilationUnit);
+  		}
+  	}
+  	for(NamespacePart part: parts) {
   		removeDuplicateImports(part);
   	}
-  	for(NamespacePart part: interfaceCompilationUnit.descendants(NamespacePart.class)) {
-  		removeDuplicateImports(part);
-  	}
-	result.add(interfaceCompilationUnit);
   	return result;
   }
 
@@ -173,48 +177,6 @@ public class JavaTranslator extends AbstractTranslator {
 //  	nsp.removeDuplicateImports();
   }
   
-	private boolean isJLo(NamespaceElement element) {
-		String fullyQualifiedName = element.getNamespace().getFullyQualifiedName();
-		return (! fullyQualifiedName.startsWith("java.")) &&
-		       (! fullyQualifiedName.startsWith("javax.")) &&
-		       (! fullyQualifiedName.equals("org.ietf.jgss")) &&
-		       (! fullyQualifiedName.equals("org.omg.CORBA")) &&
-		       (! fullyQualifiedName.equals("org.omg.CORBA_2_3")) &&
-		       (! fullyQualifiedName.equals("org.omg.CORBA_2_3.portable")) &&
-		       (! fullyQualifiedName.equals("org.omg.CORBA.DynAnyPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.CORBA.ORBPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.CORBA.Portable")) &&
-		       (! fullyQualifiedName.equals("org.omg.CORBA.TypeCodePackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.CosNaming")) &&
-		       (! fullyQualifiedName.equals("org.omg.CosNaming.NamingContextExtPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.CosNaming.NamingContextPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.Dynamic")) &&
-		       (! fullyQualifiedName.equals("org.omg.DynamicAny")) &&
-		       (! fullyQualifiedName.equals("org.omg.DynamicAny.DynAnyFactoryPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.DynamicAny.DynAnyPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.IOP")) &&
-		       (! fullyQualifiedName.equals("org.omg.IOP.CodecFactoryPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.IOP.CodecPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.Messaging")) &&
-		       (! fullyQualifiedName.equals("org.omg.PortableInterceptor")) &&
-		       (! fullyQualifiedName.equals("org.omg.PortableInterceptor.ORBInitInfoPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.PortableServer")) &&
-		       (! fullyQualifiedName.equals("org.omg.PortableServer.CurrentPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.PortableServer.PAOManagerPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.PortableServer.PAOPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.PortableServer.portable")) &&
-		       (! fullyQualifiedName.equals("org.omg.PortableServer.ServantLocatorPackage")) &&
-		       (! fullyQualifiedName.equals("org.omg.SendingContext")) &&
-		       (! fullyQualifiedName.equals("org.omg.stub.java.rmi")) &&
-		       (! fullyQualifiedName.equals("org.w3c.dom")) &&
-		       (! fullyQualifiedName.equals("org.w3c.dom.bootstrap")) &&
-		       (! fullyQualifiedName.equals("org.w3c.dom.events")) &&
-		       (! fullyQualifiedName.equals("org.w3c.dom.ls")) &&
-		       (! fullyQualifiedName.equals("org.xml.sax")) &&
-		       (! fullyQualifiedName.equals("org.xml.sax.ext")) &&
-		       (! fullyQualifiedName.equals("org.xml.sax.helpers"));
-	}
-
 	private void replaceStaticCallTargets(Element<?> element) throws LookupException {
 		List<MethodInvocation> invocations = element.descendants(MethodInvocation.class);
 		for(MethodInvocation invocation: invocations) {
@@ -233,8 +195,7 @@ public class JavaTranslator extends AbstractTranslator {
 		for(ConstructorInvocation invocation: invocations) {
 			try {
 				Type constructedType = invocation.getType();
-				if(isJLo(constructedType) //&& (! constructedType.isTrue(language.PRIVATE))
-						) {
+				if(splitClass(constructedType)) {
 					transformToImplReference((CrossReferenceWithName) invocation.getTypeReference());
 				}
 			} catch(LookupException exc) {
@@ -425,7 +386,10 @@ public class JavaTranslator extends AbstractTranslator {
 		// The result is still temporarily attached to the original model.
 		replaceThisLiterals(result); //M
 		replaceComponentAccess(result);//N
-		transformToImplRecursive(result);
+		
+		if(splitClass(result)) {
+		  transformToImplRecursive(result);
+		}
 		
 		expandReferences(result); //Y
 		
@@ -434,7 +398,7 @@ public class JavaTranslator extends AbstractTranslator {
 		removeSubobjectParameters(result);
 		return result;
 	}
-
+	
 	//JENS
 	private void replaceConnectorAccess(Type result) throws LookupException {
 		List<ComponentParameterCall> calls = result.descendants(ComponentParameterCall.class);

@@ -70,7 +70,8 @@ public class IncrementalJavaTranslator {
 			//initTargetLanguage();
 		}
 		List<CompilationUnit> result = translate(source,implementationCompilationUnit(source));
-		store(source, result.get(1),_interfaceMap);
+		CompilationUnit ifaceCU = (result.size() > 1 ? result.get(1) : null); 
+		store(source, ifaceCU,_interfaceMap);
 		return result;
 	}
 
