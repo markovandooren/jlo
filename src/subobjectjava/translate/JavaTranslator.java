@@ -1,6 +1,7 @@
 package subobjectjava.translate;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -192,6 +193,7 @@ public class JavaTranslator extends AbstractTranslator {
 	
 	private void replaceConstructorCalls(Element<?> type) throws LookupException {
 		List<ConstructorInvocation> invocations = type.descendants(ConstructorInvocation.class);
+		Collections.reverse(invocations);
 		for(ConstructorInvocation invocation: invocations) {
 			try {
 				Type constructedType = invocation.getType();
@@ -255,9 +257,6 @@ public class JavaTranslator extends AbstractTranslator {
 	}	
 
 	private void transformToImplReference(CrossReference<?,?> tref) {
-		if(tref instanceof SimpleNameMethodInvocation && ((SimpleNameMethodInvocation)tref).name().equals("massert")) {
-			System.out.println("debug");
-		}
 		if(tref instanceof NonLocalTypeReference) {
 			transformToImplReference(((NonLocalTypeReference)tref).actualReference());
 		} else if(tref instanceof CrossReferenceWithName) {
@@ -284,9 +283,6 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 			if(change) {
 				String name = ref.name();
-				if(name.equals("last")) {
-					System.out.println("debug");
-				}
 				if(! name.endsWith(IMPL)) {
 					ref.setName(name+IMPL);
 				}
@@ -881,7 +877,8 @@ public class JavaTranslator extends AbstractTranslator {
 					String name = tref.signature().name();
 					if(! name.contains(SHADOW)) {
 						Type element = null;
-						if(name.contains(IMPL)) {
+						boolean implClass = name.contains(IMPL);
+						if(implClass) {
 							TypeReference tr = new BasicJavaTypeReference(interfaceName(name));
 							tr.setUniParent(tref.parent());
 							element = tr.getElement();
@@ -892,7 +889,11 @@ public class JavaTranslator extends AbstractTranslator {
 							String fullyQualifiedName = element.getFullyQualifiedName();
 							String predecessor = Util.getAllButLastPart(fullyQualifiedName);
 							if(predecessor != null) {
-								tref.setTarget(new NamedTarget(predecessor));
+								CrossReference target = new NamedTarget(predecessor);
+								tref.setTarget(target);
+								if(implClass) {
+									transformToImplReference(target);
+								}
 							}
 						}
 					}
