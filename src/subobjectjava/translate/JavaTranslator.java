@@ -138,8 +138,16 @@ public class JavaTranslator extends AbstractTranslator {
   		Type translated = translatedImplementation(originalTypes.next());
   		newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
   	}
-  	for(Import imp: originalNamespacePart.imports()) {
-  		newNamespacePart.addImport(imp.clone());
+  	for(Import<?> imp: originalNamespacePart.imports()) {
+//  		boolean add = true;
+//  		if(imp instanceof TypeImport) {
+//  			if(((TypeImport)imp).getTypeReference().getElement().isTrue(imp.language(Java.class).PRIMITIVE_TYPE)) {
+//  				add = false;
+//  			}
+//  		}
+//  		if(add) {
+  			newNamespacePart.addImport(imp.clone());
+//  		}
   	}
   	implementationCompilationUnit.flushCache();
   	result.add(implementationCompilationUnit);
@@ -273,8 +281,9 @@ public class JavaTranslator extends AbstractTranslator {
 			
 			boolean change;
 			try {
+				Java lang = tref.language(Java.class);
 				Declaration referencedElement = ref.getElement();
-				if(referencedElement instanceof Type && isJLo((NamespaceElement) referencedElement)) {
+				if(referencedElement instanceof Type && isJLo((NamespaceElement) referencedElement) && (! referencedElement.isTrue(lang.INTERFACE))) {
 					change = true;
 				} else {
 					change = false;
@@ -317,6 +326,8 @@ public class JavaTranslator extends AbstractTranslator {
 	private Type translatedImplementation(Type original) throws ChameleonProgrammerException, ModelException {
 		Type result = original.clone();
 //		result.setUniParent(original.parent());
+		Java lang = original.language(Java.class);
+		if(! original.isTrue(lang.INTERFACE)) {
 		StubDeclarationContainer stub = new StubDeclarationContainer();
 		stub.add(result);
 		stub.setUniParent(original.parent());
@@ -391,6 +402,7 @@ public class JavaTranslator extends AbstractTranslator {
 		removeNonLocalReferences(result); //Z
 		result.setUniParent(null);
 		removeSubobjectParameters(result);
+		}
 		return result;
 	}
 	
@@ -505,7 +517,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
-  public void createSuperImplementation(Method<?,?,?> method, Method original) throws LookupException {
+  private void createSuperImplementation(Method<?,?,?> method, Method original) throws LookupException {
   	Block body = new Block();
   	method.setImplementation(new RegularImplementation(body));
   	MethodInvocation invocation = invocation(method, original.signature().name());
@@ -955,7 +967,7 @@ public class JavaTranslator extends AbstractTranslator {
 //		}
 //	}
 	
-	public void replaceSuperCalls(Type type) throws LookupException {
+	private void replaceSuperCalls(Type type) throws LookupException {
 		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
 			@Override
 			public boolean eval(SuperTarget superTarget) throws LookupException {
