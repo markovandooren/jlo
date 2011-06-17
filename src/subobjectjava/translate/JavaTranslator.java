@@ -31,7 +31,6 @@ import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.language.JLo;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.Declaration;
-import chameleon.core.declaration.DeclarationWithParametersHeader;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameSignature;
@@ -48,8 +47,10 @@ import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.member.Member;
 import chameleon.core.method.Implementation;
 import chameleon.core.method.Method;
+import chameleon.core.method.MethodHeader;
 import chameleon.core.method.RegularImplementation;
 import chameleon.core.method.RegularMethod;
+import chameleon.core.method.SimpleNameMethodHeader;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
@@ -422,8 +423,8 @@ public class JavaTranslator extends AbstractTranslator {
 				}
 			}
 			if(! hasConstructor) {
-				DeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(result.getName());
-				Method method = language.createNormalMethod(header, language.createTypeReference(result.getName()));
+				MethodHeader header = new SimpleNameMethodHeader(result.getName(), language.createTypeReference(result.getName()));
+				Method method = language.createNormalMethod(header);
 				method.addModifier(new Constructor());
 				method.setImplementation(new RegularImplementation(new Block()));
 				result.add(method);
@@ -1026,7 +1027,7 @@ public class JavaTranslator extends AbstractTranslator {
 	private Method getterForComponent(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {
 			JavaTypeReference returnTypeReference = componentTypeReference(relation, outer);
-			RegularMethod result = relation.language(Java.class).createNormalMethod(new SimpleNameDeclarationWithParametersHeader(getterName(relation)), returnTypeReference);
+			RegularMethod result = relation.language(Java.class).createNormalMethod(new SimpleNameMethodHeader(getterName(relation), returnTypeReference));
 			result.addModifier(new Public());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
@@ -1040,7 +1041,7 @@ public class JavaTranslator extends AbstractTranslator {
 	private Method setterForComponent(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {
 			String name = relation.signature().name();
-			RegularMethod result = relation.language(Java.class).createNormalMethod(new SimpleNameDeclarationWithParametersHeader(setterName(relation)), relation.language(Java.class).createTypeReference("void"));
+			RegularMethod result = relation.language(Java.class).createNormalMethod(new SimpleNameMethodHeader(setterName(relation), relation.language(Java.class).createTypeReference("void")));
 			BasicJavaTypeReference tref = componentTypeReference(relation, outer);
 			result.header().addFormalParameter(new FormalParameter(name, tref));
 			result.addModifier(new Public());

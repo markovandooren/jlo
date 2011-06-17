@@ -14,13 +14,14 @@ import org.rejuse.property.Property;
 import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
-import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.expression.MethodInvocation;
 import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.method.Method;
+import chameleon.core.method.MethodHeader;
+import chameleon.core.method.SimpleNameMethodHeader;
 import chameleon.core.method.exception.ExceptionClause;
 import chameleon.core.modifier.ElementWithModifiers;
 import chameleon.core.modifier.Modifier;
@@ -210,9 +211,8 @@ public class AbstractTranslator {
 
 	protected NormalMethod<?, ?, ?> innerMethod(Method<?, ?, ?> method, String original) throws LookupException {
 		NormalMethod<?, ?, ?> result;
-		TypeReference tref = method.returnTypeReference().clone();
-		result = method.language(Java.class).createNormalMethod(method.header().clone(), tref);
-		((SimpleNameDeclarationWithParametersHeader)result.header()).setName(original);
+		result = method.language(Java.class).createNormalMethod((MethodHeader)method.header().clone());
+		((SimpleNameMethodHeader)result.header()).setName(original);
 		ExceptionClause exceptionClause = method.getExceptionClause();
 		ExceptionClause clone = (exceptionClause != null ? exceptionClause.clone(): null);
 		result.setExceptionClause(clone);

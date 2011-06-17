@@ -17,7 +17,6 @@ import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ComponentRelationSet;
 import subobjectjava.model.component.ComponentType;
 import subobjectjava.model.component.FormalComponentParameter;
-import subobjectjava.model.component.InstantiatedMemberSubobjectParameter;
 import subobjectjava.model.component.MultiActualComponentArgument;
 import subobjectjava.model.component.MultiFormalComponentParameter;
 import subobjectjava.model.component.ParameterReferenceActualArgument;
@@ -27,14 +26,15 @@ import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.core.method.Method;
+import chameleon.core.method.MethodHeader;
 import chameleon.core.method.RegularImplementation;
+import chameleon.core.method.SimpleNameMethodHeader;
 import chameleon.core.statement.Block;
 import chameleon.core.variable.FormalParameter;
 import chameleon.core.variable.VariableDeclaration;
 import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.Type;
-import chameleon.oo.type.generics.BasicTypeArgument;
 import chameleon.support.member.simplename.SimpleNameMethodInvocation;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
@@ -88,14 +88,14 @@ public class SelectorCreator extends AbstractTranslator {
 	}
 	
 	private Method realSelectorFor(AbstractInstantiatedComponentParameter<?> par) throws LookupException {
-		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(selectorName((ComponentParameter<?>) par));
 		FormalComponentParameter formal = par.formalParameter();
 		Java language = par.language(Java.class);
 //		Method result = new NormalMethod(header,formal.componentTypeReference().clone());
 		Type declarationType = formal.declarationType();
 		JavaTypeReference reference = language.reference(declarationType);
 		reference.setUniParent(null);
-		Method result = par.language(Java.class).createNormalMethod(header,reference);
+		MethodHeader header = new SimpleNameMethodHeader(selectorName((ComponentParameter<?>) par),reference);
+		Method result = par.language(Java.class).createNormalMethod(header);
 		result.addModifier(new Public());
 //		result.addModifier(new Abstract());
 		header.addFormalParameter(new FormalParameter("argument", formal.containerTypeReference().clone()));
@@ -184,11 +184,11 @@ public class SelectorCreator extends AbstractTranslator {
 	}
 	
 	private Method selectorFor(FormalComponentParameter<?> par) throws LookupException {
-		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(selectorName(par));
 		Java language = par.language(Java.class);
 		JavaTypeReference reference = language.reference(par.declarationType());
 		reference.setUniParent(null);
-		Method result = par.language(Java.class).createNormalMethod(header,reference);
+		MethodHeader header = new SimpleNameMethodHeader(selectorName(par),reference);
+		Method result = par.language(Java.class).createNormalMethod(header);
 		result.addModifier(new Public());
 		header.addFormalParameter(new FormalParameter("argument", par.containerTypeReference().clone()));
 		Block body = new Block();

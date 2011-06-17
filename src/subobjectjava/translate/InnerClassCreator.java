@@ -15,13 +15,13 @@ import org.rejuse.logic.ternary.Ternary;
 import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.type.RegularJLoType;
-import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.expression.MethodInvocation;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.method.Method;
 import chameleon.core.method.RegularImplementation;
+import chameleon.core.method.SimpleNameMethodHeader;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.reference.SimpleReference;
@@ -163,7 +163,7 @@ private void processInnerClassMethod(ComponentRelation relationBeingTranslated, 
 			useParametersInInvocation(clone, inv);
 			block.addStatement(new StatementExpression(inv));
 			clone.setReturnTypeReference(relationBeingTranslated.language(Java.class).createTypeReference(name));
-			((SimpleNameDeclarationWithParametersHeader)clone.header()).setName(name);
+			((SimpleNameMethodHeader)clone.header()).setName(name);
 			result.add(clone);
 		}
 	}

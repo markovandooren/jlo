@@ -26,7 +26,9 @@ import chameleon.core.expression.NamedTargetExpression;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.member.Member;
 import chameleon.core.method.Method;
+import chameleon.core.method.MethodHeader;
 import chameleon.core.method.RegularImplementation;
+import chameleon.core.method.SimpleNameMethodHeader;
 import chameleon.core.statement.Block;
 import chameleon.core.statement.Statement;
 import chameleon.core.variable.FormalParameter;
@@ -41,7 +43,6 @@ import chameleon.support.expression.ClassCastExpression;
 import chameleon.support.expression.ConditionalExpression;
 import chameleon.support.expression.NullLiteral;
 import chameleon.support.expression.ThisLiteral;
-import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.member.simplename.operator.infix.InfixOperatorInvocation;
 import chameleon.support.modifier.Abstract;
 import chameleon.support.modifier.Public;
@@ -128,10 +129,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			String componentTypeName = interfaceName(relation.componentType().getFullyQualifiedName());
 			Java language = type.language(Java.class);
 			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(new SimpleNameSignature(name));
-			DeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
+			MethodHeader header = new SimpleNameMethodHeader(CONSTRUCT, language.createTypeReference(componentTypeName));
 			TypeReference typeRef = language.createTypeReference("java.lang.Object");
 			header.addFormalParameter(new FormalParameter(new SimpleNameSignature("object"), typeRef));
-			Method constructor = language.createNormalMethod(header, language.createTypeReference(componentTypeName));
+			Method constructor = language.createNormalMethod(header);
 			constructor.setImplementation(null);
 			constructor.addModifier(new Abstract());
 			strategy.add(constructor);
@@ -165,8 +166,8 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		if(strategyDoesNotExistFor(relation,name)) {
 			Java language = type.language(Java.class);
 			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(new SimpleNameSignature(name));
-			DeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
-			Method factoryMethod = language.createNormalMethod(header, language.createTypeReference(componentTypeName));
+			MethodHeader header = new SimpleNameMethodHeader(CONSTRUCT, language.createTypeReference(componentTypeName));
+			Method factoryMethod = language.createNormalMethod(header);
 			TypeReference typeRef = language.createTypeReference("java.lang.Object");
 			header.addFormalParameter(new FormalParameter(new SimpleNameSignature("objectafrkuscggfjsdk"), typeRef));
 			for(FormalParameter param: constructor.formalParameters()) {
@@ -474,7 +475,8 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 //		}
 		
 		ConstructorInvocation strategy = new ConstructorInvocation(strategyType, null);
-		SimpleNameDeclarationWithParametersHeader header = new SimpleNameDeclarationWithParametersHeader(CONSTRUCT);
+		BasicJavaTypeReference returnTypeReference = language.createTypeReference(interfaceName(relation.componentType().getFullyQualifiedName()));
+		MethodHeader header = new SimpleNameMethodHeader(CONSTRUCT, returnTypeReference);
 		header.addFormalParameter(new FormalParameter("o",language.createTypeReference("java.lang.Object")));
 		SubobjectConstructorCall subobjectConstructorCall=subobjectConstructorCall(relation,superCall);
 		Method<?,?,?> subobjectConstructor = subobjectConstructorCall.getElement();
@@ -486,8 +488,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			header.addFormalParameter(clone);
 		}
 		
-		BasicJavaTypeReference returnTypeReference = language.createTypeReference(interfaceName(relation.componentType().getFullyQualifiedName()));
-		Method method = language.createNormalMethod(header, returnTypeReference);
+		Method method = language.createNormalMethod(header);
 		method.addModifier(new Public());
 		Block methodBody = new Block();
 		BasicJavaTypeReference castTypeReference = language.createTypeReference(toImplName(constructor.nearestAncestor(Type.class).getName()));
