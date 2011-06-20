@@ -54,9 +54,11 @@ public class BatchTranslator {
 
 	public void translate() throws ParseException, IOException, ChameleonProgrammerException, ModelException {
 		for(Type type: typeProvider().elements(sourceLanguage())) {
-			// The second argument is never used, but for now it must be present because otherwise the
-			// aspects compiler does not know which compilation units are present in the project.
-			_builder.build(type.nearestAncestor(CompilationUnit.class), new ArrayList<CompilationUnit>());
+			// The second argument is never used for the JLo translation, but for now it must be present because otherwise the
+			// aspect weaver does not know which compilation units are present in the project.
+			CompilationUnit compilationUnit = type.nearestAncestor(CompilationUnit.class);
+			compilationUnit.verify();
+			_builder.build(compilationUnit, new ArrayList<CompilationUnit>());
 		}
 	}
 	

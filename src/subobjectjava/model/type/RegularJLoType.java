@@ -6,9 +6,7 @@ import jnome.core.type.RegularJavaType;
 import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.lookup.LookupException;
-import chameleon.oo.type.RegularType;
 import chameleon.oo.type.inheritance.InheritanceRelation;
-import chameleon.util.CreationStackTrace;
 
 public class RegularJLoType extends RegularJavaType {
 

@@ -7,7 +7,6 @@ import java.util.Set;
 
 import org.rejuse.association.Association;
 import org.rejuse.association.SingleAssociation;
-import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.predicate.TypePredicate;
 
 import chameleon.core.declaration.Declaration;
@@ -37,7 +36,6 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
 import chameleon.oo.type.inheritance.InheritanceRelation;
-import chameleon.util.CreationStackTrace;
 import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSignature> implements DeclarationWithType<ComponentRelation,SimpleNameSignature>, Definition<ComponentRelation,SimpleNameSignature>, InheritanceRelation<ComponentRelation,Type>{
