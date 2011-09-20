@@ -21,6 +21,7 @@ import chameleon.exception.ModelException;
 import chameleon.input.ParseException;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.oo.type.Type;
+import chameleon.support.tool.ModelBuilder;
 import chameleon.test.provider.BasicDescendantProvider;
 import chameleon.test.provider.ElementProvider;
 
@@ -81,8 +82,7 @@ public class BatchTranslator {
     BasicConfigurator.configure();
     Logger.getRootLogger().setLevel(Level.FATAL);
     Config.setCaching(true);
-    ProviderProvider provider = new ProviderProvider(new SubobjectJavaModelFactory(),".jlo",true,true);
-    provider.processArguments(args);
+    ModelBuilder provider = new ModelBuilder(new SubobjectJavaModelFactory(),args,".jlo",true,true);
     File outputDir = provider.outputDir();
     long start = System.currentTimeMillis();
     new BatchTranslator((JLo) provider.language(), provider.namespaceProvider(),outputDir).translate();
