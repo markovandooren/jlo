@@ -6,10 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import jnome.core.language.Java;
+import jnome.input.JavaFactory;
+import jnome.output.JavaCodeWriter;
 import subobjectjava.model.language.JLo;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.lookup.LookupException;
 import chameleon.exception.ModelException;
+import chameleon.oo.plugin.ObjectOrientedFactory;
+import chameleon.plugin.build.BuildProgressHelper;
+import chameleon.plugin.output.Syntax;
 import chameleon.support.translate.IncrementalTranslator;
 
 public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> {
@@ -17,6 +22,17 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
 	public IncrementalJavaTranslator(JLo source, Java target) {
 		super(source, target);
 		_translator = new JavaTranslator();
+	}
+	
+	public IncrementalJavaTranslator(JLo source) {
+		this(source,createJava());
+	}
+	
+	private static Java createJava() {
+		Java java = new Java();
+		java.setPlugin(Syntax.class, new JavaCodeWriter());
+		java.setPlugin(ObjectOrientedFactory.class, new JavaFactory());
+		return java;
 	}
 
 	private JavaTranslator _translator;
@@ -33,12 +49,12 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
    @ post \result != null;
    @ post \fresh(\result);
    @*/
-	public Collection<CompilationUnit> build(CompilationUnit source, List<CompilationUnit> allProjectCompilationUnits) throws ModelException {
+	public Collection<CompilationUnit> build(CompilationUnit source, List<CompilationUnit> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException {
 		//initTargetLanguage();
-
 		List<CompilationUnit> result = translate(source,implementationCompilationUnit(source));
 		CompilationUnit ifaceCU = (result.size() > 1 ? result.get(1) : null); 
 		store(source, ifaceCU,_interfaceMap);
+		buildProgressHelper.addWorked(1);
 		return result;
 	}
 
