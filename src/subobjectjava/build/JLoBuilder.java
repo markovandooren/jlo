@@ -52,18 +52,15 @@ public class JLoBuilder extends PluginImpl implements Builder {
 
 	CompilationUnitWriter _writer;
 
-	public void build(Collection<CompilationUnit> compilationUnits,
-			List<CompilationUnit> allProjectCompilationUnits) throws ModelException, IOException {
-		for(CompilationUnit cu: compilationUnits) {
-			build(cu, allProjectCompilationUnits);
-		}
+	public void build(CompilationUnit compilationUnit, List<CompilationUnit> allProjectCompilationUnits) throws ModelException, IOException {
+		build(compilationUnit,allProjectCompilationUnits,null);
 	}
 	
-	public void build(CompilationUnit compilationUnit, List<CompilationUnit> allProjectCompilationUnits) throws ModelException, IOException {
+	public void build(CompilationUnit compilationUnit, List<CompilationUnit> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException, IOException {
 		try {
 			String fileName = _writer.fileName(compilationUnit);
 			System.out.println("Building "+fileName);
-			Collection<CompilationUnit> compilationUnits = _translator.build(compilationUnit, allProjectCompilationUnits);
+			Collection<CompilationUnit> compilationUnits = _translator.build(compilationUnit, allProjectCompilationUnits,buildProgressHelper);
 			for(CompilationUnit translated : compilationUnits) {
 				_writer.write(translated);
 			}
@@ -72,6 +69,7 @@ public class JLoBuilder extends PluginImpl implements Builder {
 			throw e;
 		} catch(RuntimeException e) {
 			e.printStackTrace();
+			throw e;
 		}
 	}
 
@@ -94,7 +92,7 @@ public class JLoBuilder extends PluginImpl implements Builder {
 	public void build(List<CompilationUnit> compilationUnits, List<CompilationUnit> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException,	IOException {
 		for (CompilationUnit cu : compilationUnits) {
 			buildProgressHelper.checkForCancellation();
-			build(cu, allProjectCompilationUnits);
+			build(cu, allProjectCompilationUnits,buildProgressHelper);
 			buildProgressHelper.addWorked(1);
 		}
 	}

@@ -54,7 +54,9 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
 		List<CompilationUnit> result = translate(source,implementationCompilationUnit(source));
 		CompilationUnit ifaceCU = (result.size() > 1 ? result.get(1) : null); 
 		store(source, ifaceCU,_interfaceMap);
-		buildProgressHelper.addWorked(1);
+		if(buildProgressHelper != null) {
+			buildProgressHelper.addWorked(1);
+		}
 		return result;
 	}
 
