@@ -67,6 +67,8 @@ import chameleon.core.reference.CrossReference;
 import chameleon.core.statement.Block;
 import chameleon.core.statement.Statement;
 
+import chameleon.oo.modifier.AnnotationModifier;
+
 import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
@@ -181,7 +183,6 @@ import jnome.core.modifier.Volatile;
 import jnome.core.modifier.Synchronized;
 import jnome.core.modifier.JavaConstructor;
 import jnome.core.modifier.Implements;
-import jnome.core.modifier.AnnotationModifier;
 import jnome.core.modifier.AnnotationType;
 
 import jnome.core.type.JavaTypeReference;
