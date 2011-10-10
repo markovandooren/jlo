@@ -101,11 +101,11 @@ connector returns [TypeElement element]
  	;
 
 connection returns [TypeElement element]
- 	: ctkw=Connect name=identifierRule tokw=Identifier arg=subobjectArgument cl=';'
+ 	: ctkw=Connect name=identifierRule tokw=identifierRule arg=subobjectArgument cl=';'
  	  {retval.element = new InstantiatedMemberSubobjectParameter(new SimpleNameSignature($name.text),arg.element);
  	   setKeyword(retval.element,ctkw);
 	   setName(retval.element,name.start);
- 	   if($tokw.text.equals("to")) {setKeyword(arg.element,tokw);}
+ 	   if($tokw.text.equals("to")) {setKeyword(arg.element,tokw.start);}
  	   setLocation(retval.element, ctkw,cl);
  	  }	
  	;
@@ -124,9 +124,9 @@ exportDeclaration returns [Export element]
     	
 map returns [RenamingClause element]
 	:  oldFQN=fqn {retval.element = new RenamingClause(null, oldFQN.element);} 
-	   (id=Identifier newSig=signature 
+	   (id=identifierRule newSig=signature 
 	   {retval.element.setNewSignature(newSig.element);
-	    if($id.text.equals("as")) {setKeyword(retval.element, id);}
+	    if($id.text.equals("as")) {setKeyword(retval.element, id.start);}
 	   })?
 	;    	
 
@@ -200,23 +200,6 @@ expression returns [Expression element]
            }
     ;
     
-//conditionalOrExpression returns [Expression element]
-//    :   ex=componentParameterCall {retval.element = ex.element;} ( '||' exx=componentParameterCall 
-//        {retval.element = new ConditionalOrExpression(retval.element, exx.element);
-//         setLocation(retval.element,retval.start,exx.stop);
-//        })*
-//    ;
-
-//componentParameterCall returns [Expression element]
-// 	: ex=conditionalAndExpression {retval.element = ex.element;} (at='#' id=Identifier 
-//            {retval.element = new ComponentParameterCall(ex.element, $id.text);
-//              setLocation(retval.element,ex.start,id);
-//              setKeyword(retval.element,at);
-//             })?
-//  	;
-
-// NEEDS_TARGET
-
 
 nonTargetPrimary returns [Expression element]
   	:
