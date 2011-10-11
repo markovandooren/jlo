@@ -7,18 +7,18 @@ import org.rejuse.logic.ternary.Ternary;
 
 import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.declaration.DeclarationContainer;
-import chameleon.core.declaration.DeclarationWithParametersSignature;
 import chameleon.core.declaration.Signature;
-import chameleon.core.expression.CrossReferenceTarget;
-import chameleon.core.expression.Expression;
-import chameleon.core.expression.InvocationTarget;
-import chameleon.core.expression.MethodInvocation;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.TwoPhaseDeclarationSelector;
-import chameleon.core.member.MoreSpecificTypesOrder;
 import chameleon.core.relation.WeakPartialOrder;
+import chameleon.oo.expression.CrossReferenceTarget;
+import chameleon.oo.expression.Expression;
+import chameleon.oo.expression.InvocationTarget;
+import chameleon.oo.expression.MethodInvocation;
 import chameleon.oo.language.ObjectOrientedLanguage;
+import chameleon.oo.member.DeclarationWithParametersSignature;
+import chameleon.oo.member.MoreSpecificTypesOrder;
 import chameleon.oo.type.Type;
 import chameleon.support.member.simplename.method.NormalMethod;
 

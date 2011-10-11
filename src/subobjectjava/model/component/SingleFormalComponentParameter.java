@@ -8,11 +8,11 @@ import org.rejuse.property.PropertyMutex;
 
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.member.Member;
 import chameleon.core.modifier.Modifier;
-import chameleon.core.statement.CheckedExceptionList;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
+import chameleon.oo.member.Member;
+import chameleon.oo.statement.CheckedExceptionList;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.util.Util;

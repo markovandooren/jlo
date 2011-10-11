@@ -13,11 +13,11 @@ import chameleon.core.element.Element;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
-import chameleon.core.member.Member;
-import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
+import chameleon.oo.member.Member;
+import chameleon.oo.member.MemberRelationSelector;
 import chameleon.util.Util;
 
 public abstract class AbstractClause<E extends AbstractClause> extends ConfigurationClause<E> {

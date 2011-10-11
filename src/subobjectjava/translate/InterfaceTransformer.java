@@ -10,20 +10,20 @@ import org.rejuse.property.Property;
 
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.SimpleNameSignature;
-import chameleon.core.member.Member;
-import chameleon.core.method.Method;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.reference.SimpleReference;
-import chameleon.core.variable.VariableDeclarator;
 import chameleon.exception.ModelException;
 import chameleon.oo.language.ObjectOrientedLanguage;
+import chameleon.oo.member.Member;
+import chameleon.oo.method.Method;
 import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeElement;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.generics.TypeParameterBlock;
 import chameleon.oo.type.inheritance.SubtypeRelation;
+import chameleon.oo.variable.VariableDeclarator;
 import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import chameleon.support.modifier.Interface;
 

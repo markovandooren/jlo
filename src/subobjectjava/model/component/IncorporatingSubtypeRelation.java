@@ -6,7 +6,7 @@ import java.util.List;
 
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.member.Member;
+import chameleon.oo.member.Member;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 
 public abstract class IncorporatingSubtypeRelation extends SubtypeRelation {

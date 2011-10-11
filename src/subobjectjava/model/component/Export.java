@@ -8,10 +8,10 @@ import org.rejuse.association.OrderedMultiAssociation;
 
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.member.Member;
-import chameleon.core.member.MemberRelationSelector;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
+import chameleon.oo.member.Member;
+import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.type.TypeElementImpl;
 
 public class Export extends TypeElementImpl<Export> {

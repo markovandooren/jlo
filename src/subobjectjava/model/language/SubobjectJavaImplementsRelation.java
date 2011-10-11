@@ -3,8 +3,8 @@ package subobjectjava.model.language;
 import jnome.core.language.JavaImplementsRelation;
 import subobjectjava.model.component.ComponentRelation;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.member.Member;
 import chameleon.core.relation.StrictPartialOrder;
+import chameleon.oo.member.Member;
 
 public class SubobjectJavaImplementsRelation extends StrictPartialOrder<Member> {
 

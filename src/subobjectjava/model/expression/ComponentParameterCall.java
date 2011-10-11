@@ -9,8 +9,6 @@ import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
-import chameleon.core.expression.Expression;
-import chameleon.core.expression.InvocationTarget;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.DeclaratorSelector;
 import chameleon.core.lookup.LookupException;
@@ -19,6 +17,8 @@ import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.UnresolvableCrossReference;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
+import chameleon.oo.expression.Expression;
+import chameleon.oo.expression.InvocationTarget;
 import chameleon.oo.type.Type;
 import chameleon.util.Util;
 

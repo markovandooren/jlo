@@ -7,8 +7,8 @@ import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.Stub;
-import chameleon.core.member.Member;
-import chameleon.core.member.MemberRelationSelector;
+import chameleon.oo.member.Member;
+import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.type.Type;
 import chameleon.util.Util;
 

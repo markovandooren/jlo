@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import chameleon.core.element.Element;
-import chameleon.core.expression.InvocationTarget;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.namespace.NamespaceElementImpl;
-import chameleon.core.statement.CheckedExceptionList;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
+import chameleon.oo.expression.InvocationTarget;
+import chameleon.oo.statement.CheckedExceptionList;
 import chameleon.oo.type.Type;
 
 public abstract class AbstractTarget<E extends AbstractTarget<E>> extends NamespaceElementImpl<E> implements InvocationTarget<E> {
