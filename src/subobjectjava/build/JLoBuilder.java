@@ -7,7 +7,7 @@ import java.util.List;
 
 import jnome.core.language.Java;
 import jnome.input.JavaFactory;
-import jnome.output.CompilationUnitWriter;
+import jnome.output.JavaCompilationUnitWriter;
 import subobjectjava.model.language.JLo;
 import subobjectjava.output.JLoSyntax;
 import subobjectjava.translate.IncrementalJavaTranslator;
@@ -30,7 +30,7 @@ public class JLoBuilder extends PluginImpl implements Builder {
 	}
 	
 	public JLoBuilder(File outputDir) {
-		_writer = new CompilationUnitWriter(outputDir, ".java");
+		_writer = new JavaCompilationUnitWriter(outputDir, ".java");
 	}	
 	
 	@Override
@@ -46,11 +46,11 @@ public class JLoBuilder extends PluginImpl implements Builder {
 		_translator = new IncrementalJavaTranslator((JLo) lang, target);
 	}
 
-  public CompilationUnitWriter writer() {
+  public JavaCompilationUnitWriter writer() {
   	return _writer;
   }
 
-	CompilationUnitWriter _writer;
+	JavaCompilationUnitWriter _writer;
 
 	public void build(CompilationUnit compilationUnit, List<CompilationUnit> allProjectCompilationUnits) throws ModelException, IOException {
 		build(compilationUnit,allProjectCompilationUnits,null);
