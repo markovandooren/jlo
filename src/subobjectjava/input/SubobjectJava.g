@@ -17,8 +17,8 @@ import chameleon.core.lookup.LookupStrategyFactory;
 
 import chameleon.core.compilationunit.CompilationUnit;
 
-import chameleon.core.declaration.SimpleNameDeclarationWithParametersSignature;
-import chameleon.core.declaration.SimpleNameDeclarationWithParametersHeader;
+import chameleon.oo.member.SimpleNameDeclarationWithParametersSignature;
+import chameleon.oo.member.SimpleNameDeclarationWithParametersHeader;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.QualifiedName;
@@ -27,28 +27,28 @@ import chameleon.core.declaration.TargetDeclaration;
 
 import chameleon.core.element.Element;
 
-import chameleon.core.expression.Expression;
-import chameleon.core.expression.MethodInvocation;
-import chameleon.core.expression.Literal;
-import chameleon.core.expression.Assignable;
-import chameleon.core.expression.NamedTarget;
-import chameleon.core.expression.NamedTargetExpression;
-import chameleon.core.expression.InvocationTarget;
-import chameleon.core.expression.TargetedExpression;
-import chameleon.core.expression.VariableReference;
+import chameleon.oo.expression.Expression;
+import chameleon.oo.expression.MethodInvocation;
+import chameleon.oo.expression.Literal;
+import chameleon.oo.expression.Assignable;
+import chameleon.oo.expression.NamedTarget;
+import chameleon.oo.expression.NamedTargetExpression;
+import chameleon.oo.expression.InvocationTarget;
+import chameleon.oo.expression.TargetedExpression;
+import chameleon.oo.expression.VariableReference;
 
 import chameleon.core.language.Language;
 
-import chameleon.core.member.Member;
+import chameleon.oo.member.Member;
 
-import chameleon.core.method.Method;
-import chameleon.core.method.MethodHeader;
-import chameleon.core.method.SimpleNameMethodHeader;
-import chameleon.core.method.Implementation;
-import chameleon.core.method.RegularImplementation;
+import chameleon.oo.method.Method;
+import chameleon.oo.method.MethodHeader;
+import chameleon.oo.method.SimpleNameMethodHeader;
+import chameleon.oo.method.Implementation;
+import chameleon.oo.method.RegularImplementation;
 
-import chameleon.core.method.exception.ExceptionClause;
-import chameleon.core.method.exception.TypeExceptionDeclaration;
+import chameleon.oo.method.exception.ExceptionClause;
+import chameleon.oo.method.exception.TypeExceptionDeclaration;
 
 import chameleon.core.modifier.Modifier;
 
@@ -64,8 +64,8 @@ import chameleon.core.namespacepart.DemandImport;
 
 import chameleon.core.reference.CrossReference;
 
-import chameleon.core.statement.Block;
-import chameleon.core.statement.Statement;
+import chameleon.oo.statement.Block;
+import chameleon.oo.statement.Statement;
 
 import chameleon.oo.modifier.AnnotationModifier;
 
@@ -87,10 +87,10 @@ import chameleon.oo.type.generics.ExtendsWildcard;
 import chameleon.oo.type.generics.SuperWildcard;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 
-import chameleon.core.variable.Variable;
-import chameleon.core.variable.FormalParameter;
-import chameleon.core.variable.VariableDeclaration;
-import chameleon.core.variable.VariableDeclarator;
+import chameleon.oo.variable.Variable;
+import chameleon.oo.variable.FormalParameter;
+import chameleon.oo.variable.VariableDeclaration;
+import chameleon.oo.variable.VariableDeclarator;
 
 import chameleon.input.InputProcessor;
 import chameleon.input.Position2D;
