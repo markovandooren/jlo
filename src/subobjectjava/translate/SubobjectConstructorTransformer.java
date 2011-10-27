@@ -1,8 +1,12 @@
 package subobjectjava.translate;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
+import jnome.core.expression.invocation.ConstructorDelegation;
 import jnome.core.expression.invocation.ConstructorInvocation;
 import jnome.core.expression.invocation.JavaMethodInvocation;
 import jnome.core.expression.invocation.SuperConstructorDelegation;
@@ -19,13 +23,13 @@ import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
+import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.oo.expression.Expression;
 import chameleon.oo.expression.MethodInvocation;
 import chameleon.oo.expression.NamedTargetExpression;
 import chameleon.oo.member.DeclarationWithParametersHeader;
 import chameleon.oo.member.Member;
-import chameleon.oo.member.SimpleNameDeclarationWithParametersHeader;
 import chameleon.oo.method.Method;
 import chameleon.oo.method.MethodHeader;
 import chameleon.oo.method.RegularImplementation;
@@ -54,23 +58,20 @@ import chameleon.support.statement.StatementExpression;
 public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	public void replaceSubobjectConstructorCalls(Type type) throws ModelException {
+		if(type.getName().equals("WiredSingleAssociationEnd")) {
+			System.out.println("debug");
+		}
 		Java lang = type.language(Java.class);
-		for(Method constructor: type.descendants(Method.class, lang.CONSTRUCTOR)) {
+		List<Method> constructors = type.descendants(Method.class, lang.CONSTRUCTOR);
+		Collections.sort(constructors, new DelegationComparator());
+		for(Method constructor: constructors) {
 			createStrategyCloneOfConstructor(constructor);
 			replaceSubobjectConstructorCalls(constructor, false);
 		}
 	}
 	
 	private void createStrategyCloneOfConstructor(Method<?,?,?> constructor) throws ModelException {
-		// create super call if it does not already exist.
 		MethodInvocation superCall = superDelegation(constructor);
-//		MethodInvocation superCall;
-//		if(superCalls.isEmpty()) {
-//			superCall = new SuperConstructorDelegation();
-//			((RegularImplementation)constructor.implementation()).getBody().addInFront(new StatementExpression(superCall));
-//		} else {
-//			superCall = superCalls.get(0);
-//		}
 		Java language = constructor.language(Java.class);
 	  Type container = constructor.nearestAncestor(Type.class);
 	  Method<?,?,?> clone = constructor.clone();
@@ -297,13 +298,13 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		while(superCall == null) {
 			List<SuperConstructorDelegation> superCalls = consch.descendants(SuperConstructorDelegation.class);
 			if(superCalls.isEmpty()) {
-				List<ThisConstructorDelegation> thisDelegations = consch.descendants(ThisConstructorDelegation.class);
-				if(thisDelegations.isEmpty()) {
+				ThisConstructorDelegation thisDelegation = thisDelegation(consch);
+				if(thisDelegation == null) {
 					superCall = new SuperConstructorDelegation();
 					Block body = ((RegularImplementation)consch.implementation()).getBody();
 					body.addInFront(new StatementExpression(superCall));
 				} else {
-					consch = thisDelegations.get(0).getElement();
+					consch = thisDelegation.getElement();
 				}
 			} else {
 				superCall = superCalls.get(0);
@@ -312,10 +313,67 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		return superCall;
 	}
 	
+//	public static List<Method> sortAccordingToDelegation(List<Method> methods) throws LookupException {
+//		List<Method> result = new ArrayList<Method>();
+//		while(! methods.isEmpty()) {
+//			List<Method> chain = constructorChain(methods.get(0));
+//			result.addAll(chain);
+//			methods.removeAll(chain);
+//		}
+//		return result;
+//	}
+
+	public static class DelegationComparator implements Comparator<Method> {
+
+		//INEFFICIENT
+	@Override
+	public int compare(Method first, Method second) {
+		try {
+			if(constructorChain(first).contains(second)) {
+				return -1;
+			} else if (constructorChain(second).contains(first)) {
+				return 1;
+			} else {
+				return 0;
+			}
+		} catch (LookupException e) {
+			throw new ChameleonProgrammerException();
+		}
+	}
+		
+	}
+	
+	public static List<Method> constructorChain(Method method) throws LookupException {
+		List<Method> result = new ArrayList<Method>();
+		result.add(method);
+		ThisConstructorDelegation thisDelegation = thisDelegation(method);
+		if(thisDelegation != null) {
+			Method next = thisDelegation.getElement();
+			result.addAll(constructorChain(next));
+		}
+		return result;
+	}
+	
+	public static ThisConstructorDelegation thisDelegation(Method<?,?,?> constructor) {
+		ThisConstructorDelegation result = null;
+		Block body = constructor.body();
+		if(body.nbStatements() > 0) {
+			Statement first = body.statement(1);
+			if(first instanceof StatementExpression) {
+				Expression expression = ((StatementExpression) first).getExpression();
+				if(expression instanceof ThisConstructorDelegation) {
+					result = (ThisConstructorDelegation) expression; 
+				}
+			}
+		}
+		return result;
+	}
+	
 	private void replaceSubobjectConstructorCalls(Method<?,?,?> constructor, boolean clonedConstructor)
 	throws ModelException {
 		SuperConstructorDelegation superCall = superDelegation(constructor);
-		int levelOfConstructor = constructor.ancestors(Type.class).size();
+		// The method invocation above will guarantee that there is an explicit constructor delegation.
+		ConstructorDelegation callToBeModified = (ConstructorDelegation) ((StatementExpression)constructor.body().statement(1)).getExpression();
 		Type type = constructor.nearestAncestor(Type.class);
 		List<ComponentRelation> members = type.members(ComponentRelation.class);
 		List<FormalParameter> formalParameters = constructor.formalParameters();
@@ -447,7 +505,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			indexInCurrent += 2;
 		}
 		for(Expression argument: arguments) {
-		  superCall.addArgument(argument);
+			callToBeModified.addArgument(argument);
 		}
 	}
 
