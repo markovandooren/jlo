@@ -212,9 +212,6 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			Type origin = (Type) out.farthestOrigin();
 			subobjectConstructorCallX.setUniParent(origin);
 			
-//			if(subobjectConstructorCall == null) {
-//				result = strategyName(relation);
-//			} else {
 				ComponentRelation actuallyConstructedSubobject = subobjectConstructorCall.getTarget().getElement();
 				Method cons = subobjectConstructorCall.getElement();
 				Type nearestAncestor = superCall.nearestAncestor(Type.class);
@@ -267,14 +264,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		  // If we haven't found the appropriate constructor yet, we continue searching in the super class hierarchy by following
 		  // the super constructor delegations.
 			if(subobjectConstructorCall == null) {
-				List<SuperConstructorDelegation> supers = constructor.descendants(SuperConstructorDelegation.class);
-				if(supers.isEmpty()) {
-					MethodInvocation defaultConstructorInvocation = new SuperConstructorDelegation();
-					defaultConstructorInvocation.setUniParent(constructor);
-					constructor = defaultConstructorInvocation.getElement();
-				} else {
-					constructor = supers.get(0).getElement();
-				}
+				constructor = superDelegation(constructor).getElement();
 			}
 		}
 		return subobjectConstructorCall;
@@ -296,9 +286,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		Method<?,?,?> consch = constructor;
 		SuperConstructorDelegation superCall = null;
 		while(superCall == null) {
-			List<SuperConstructorDelegation> superCalls = consch.descendants(SuperConstructorDelegation.class);
-			if(superCalls.isEmpty()) {
-				ThisConstructorDelegation thisDelegation = thisDelegation(consch);
+			superCall = delegation(consch,SuperConstructorDelegation.class);
+			if(superCall == null) {
+				ConstructorDelegation thisDelegation = delegation(consch,ThisConstructorDelegation.class);
 				if(thisDelegation == null) {
 					superCall = new SuperConstructorDelegation();
 					Block body = ((RegularImplementation)consch.implementation()).getBody();
@@ -306,23 +296,11 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 				} else {
 					consch = thisDelegation.getElement();
 				}
-			} else {
-				superCall = superCalls.get(0);
 			}
 		}
 		return superCall;
 	}
 	
-//	public static List<Method> sortAccordingToDelegation(List<Method> methods) throws LookupException {
-//		List<Method> result = new ArrayList<Method>();
-//		while(! methods.isEmpty()) {
-//			List<Method> chain = constructorChain(methods.get(0));
-//			result.addAll(chain);
-//			methods.removeAll(chain);
-//		}
-//		return result;
-//	}
-
 	public static class DelegationComparator implements Comparator<Method> {
 
 		//INEFFICIENT
@@ -346,7 +324,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	public static List<Method> constructorChain(Method method) throws LookupException {
 		List<Method> result = new ArrayList<Method>();
 		result.add(method);
-		ThisConstructorDelegation thisDelegation = thisDelegation(method);
+		ThisConstructorDelegation thisDelegation = delegation(method, ThisConstructorDelegation.class);
 		if(thisDelegation != null) {
 			Method next = thisDelegation.getElement();
 			result.addAll(constructorChain(next));
@@ -354,15 +332,15 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		return result;
 	}
 	
-	public static ThisConstructorDelegation thisDelegation(Method<?,?,?> constructor) {
-		ThisConstructorDelegation result = null;
+	protected static <C extends ConstructorDelegation> C delegation(Method<?,?,?> constructor, Class<C> kind) {
+		C result = null;
 		Block body = constructor.body();
 		if(body.nbStatements() > 0) {
 			Statement first = body.statement(1);
 			if(first instanceof StatementExpression) {
 				Expression expression = ((StatementExpression) first).getExpression();
-				if(expression instanceof ThisConstructorDelegation) {
-					result = (ThisConstructorDelegation) expression; 
+				if(kind.isInstance(expression)) {
+					result = (C) expression; 
 				}
 			}
 		}
@@ -383,11 +361,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		// We store the additional arguments for the super constructor call locally, and add them
 		// at the end. Otherwise I have to add a setter to OrderedMultiAssociation, and I am too tired
 		// now to do that correctly.
-//		List<Expression> arguments = new ArrayList<Expression>();
 		Expression[] arguments = new Expression[2*superSubobjects.size()];
-//		for(int i=0; i< 2*superSubobjects.size();i++) {
-//			arguments.add(null);
-//		}
 		int indexInCurrent = firstStrategyIndex;
 		for(ComponentRelation relation: members) {
 			int relativeIndexInSuper = -1;
