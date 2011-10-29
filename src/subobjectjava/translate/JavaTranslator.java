@@ -125,6 +125,7 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
   public List<CompilationUnit> translate(CompilationUnit source, CompilationUnit implementationCompilationUnit) throws LookupException, ModelException {
+  	BasicJavaTypeReference.TRACE = true;
   	List<CompilationUnit> result = new ArrayList<CompilationUnit>();
   	// Remove a possible old translation of the given compilation unit
   	// from the target model.

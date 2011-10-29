@@ -74,9 +74,9 @@ private List<TypeReference> superClassReferences(ComponentRelation relation, Typ
 	Java language = relation.language(Java.class);
 	List<TypeReference> result = new ArrayList<TypeReference>();
 	TypeReference superReference = relation.componentTypeReference().clone();
-	if(superReference instanceof ComponentParameterTypeReference) {
-		superReference = ((ComponentParameterTypeReference) superReference).componentTypeReference();
-	}
+//	if(superReference instanceof ComponentParameterTypeReference) {
+//		superReference = ((ComponentParameterTypeReference) superReference).componentTypeReference();
+//	}
 	superReference.setUniParent(relation);
 	substituteTypeParameters(superReference);
 	Type superType = superReference.getType();
@@ -85,7 +85,9 @@ private List<TypeReference> superClassReferences(ComponentRelation relation, Typ
 	for(ActualTypeArgument arg: typeArguments) {
 		TypeReference tref = arg.substitutionReference();
 		Type trefType = tref.getElement();
-		BasicJavaTypeReference expandedTrefTypeReference = language.createTypeReference(trefType.getFullyQualifiedName());
+//		BasicJavaTypeReference expandedTrefTypeReference = language.createTypeReference(trefType); //.getFullyQualifiedName()
+		BasicJavaTypeReference expandedTrefTypeReference = language.createExpandedTypeReference(trefType);
+		
 		// Creating the non-local reference will disconnect 'tref' from its parent, so we must store
 		// the association end to which it is connected.
 		Association parentLink = tref.parentLink().getOtherRelation();
