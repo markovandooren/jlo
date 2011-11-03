@@ -272,7 +272,6 @@ public class JavaTranslator extends AbstractTranslator {
 		} else if(tref instanceof CrossReferenceWithName) {
 			CrossReferenceWithName ref = (CrossReferenceWithName) tref;
 			if(ref instanceof CrossReferenceWithTarget) {
-
 				Element target = ((CrossReferenceWithTarget)ref).getTarget();
 				if(target instanceof CrossReference) {
 					transformToImplReference((CrossReference<?, ?>) target);
@@ -301,12 +300,11 @@ public class JavaTranslator extends AbstractTranslator {
 					if(referencedElement instanceof Type && ref instanceof CrossReferenceWithTarget) {
 						BasicJavaTypeReference newRef = lang.createTypeReference((Type)referencedElement);
 						CrossReferenceTarget cref = newRef.getTarget();
-						if(cref != null) {
+						if(((CrossReferenceWithTarget)ref).getTarget() == null) {
 							((CrossReferenceWithTarget)ref).setTarget(cref);
+							transformToImplReference((CrossReference<?, ?>) cref);
 						}
 					}
-//					Import imp = new TypeImport((TypeReference) ref.clone());
-//					tref.nearestAncestor(NamespacePart.class).addImport(imp);
 				}
 			}
 		}
