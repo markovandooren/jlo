@@ -11,10 +11,10 @@ import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.TwoPhaseDeclarationSelector;
+import chameleon.core.reference.CrossReferenceTarget;
+import chameleon.core.reference.SimpleReference;
 import chameleon.core.relation.WeakPartialOrder;
-import chameleon.oo.expression.CrossReferenceTarget;
 import chameleon.oo.expression.Expression;
-import chameleon.oo.expression.InvocationTarget;
 import chameleon.oo.expression.MethodInvocation;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.member.DeclarationWithParametersSignature;
@@ -24,32 +24,32 @@ import chameleon.support.member.simplename.method.NormalMethod;
 
 public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstructorCall, NormalMethod> {
 
-  public SubobjectConstructorCall(CrossReferenceTarget<ComponentRelation> subobjectTarget) {
+  public SubobjectConstructorCall(SimpleReference<ComponentRelation> subobjectTarget) {
   	super(subobjectTarget);
   }
 
-  public SubobjectConstructorCall(CrossReferenceTarget<ComponentRelation> subobjectTarget, List<Expression> arguments) {
+  public SubobjectConstructorCall(SimpleReference<ComponentRelation> subobjectTarget, List<Expression> arguments) {
   	super(subobjectTarget);
   	addAllArguments(arguments);
   }
 
   public SubobjectConstructorCall(String subobjectName) {
-  	super(new CrossReferenceTarget<ComponentRelation>(subobjectName, ComponentRelation.class));
+  	super(new SimpleReference<ComponentRelation>(subobjectName, ComponentRelation.class));
   }
 
   public SubobjectConstructorCall(String subobjectName, List<Expression> arguments) {
-  	super(new CrossReferenceTarget<ComponentRelation>(subobjectName, ComponentRelation.class));
+  	super(new SimpleReference<ComponentRelation>(subobjectName, ComponentRelation.class));
   	addAllArguments(arguments);
   }
   
   @Override
-  public CrossReferenceTarget<ComponentRelation> getTarget() {
-  	return (CrossReferenceTarget<ComponentRelation>) super.getTarget();
+  public SimpleReference<ComponentRelation> getTarget() {
+  	return (SimpleReference<ComponentRelation>) super.getTarget();
   }
 	
 	@Override
-	protected SubobjectConstructorCall cloneInvocation(InvocationTarget target) {
-		SubobjectConstructorCall result = new SubobjectConstructorCall((CrossReferenceTarget<ComponentRelation>)getTarget().clone(), new ArrayList<Expression>());
+	protected SubobjectConstructorCall cloneInvocation(CrossReferenceTarget target) {
+		SubobjectConstructorCall result = new SubobjectConstructorCall((SimpleReference<ComponentRelation>)getTarget().clone(), new ArrayList<Expression>());
 		result.setOrigin(this);
 		return result;
 	}

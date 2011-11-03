@@ -16,6 +16,7 @@ import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
@@ -176,6 +177,11 @@ public class ComponentParameterTypeReference extends NamespaceElementImpl<Compon
 	@Override
 	public String infoDisplayName() {
 		return "";
+	}
+
+	@Override
+	public LookupStrategy targetContext() throws LookupException {
+		return getElement().targetContext();
 	}
 
 }

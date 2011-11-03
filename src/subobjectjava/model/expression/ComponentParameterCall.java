@@ -14,17 +14,17 @@ import chameleon.core.lookup.DeclaratorSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.reference.CrossReference;
+import chameleon.core.reference.CrossReferenceTarget;
 import chameleon.core.reference.UnresolvableCrossReference;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.expression.Expression;
-import chameleon.oo.expression.InvocationTarget;
 import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
 public class ComponentParameterCall extends Expression<ComponentParameterCall> implements CrossReference<ComponentParameterCall,FormalComponentParameter> {
 
-	public ComponentParameterCall(InvocationTarget target, SimpleNameSignature signature) {
+	public ComponentParameterCall(CrossReferenceTarget target, SimpleNameSignature signature) {
 		setSignature(signature);
 		setTarget(target);
 	}
@@ -32,7 +32,7 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
 		this(null,signature);
 	}
 	
-	public ComponentParameterCall(InvocationTarget target, String name) {
+	public ComponentParameterCall(CrossReferenceTarget target, String name) {
 		this(target,new SimpleNameSignature(name));
 	}
 
@@ -128,14 +128,14 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
 	/**
 	 * TARGET
 	 */
-	private SingleAssociation<ComponentParameterCall,InvocationTarget> _target = new SingleAssociation<ComponentParameterCall,InvocationTarget>(this);
+	private SingleAssociation<ComponentParameterCall,CrossReferenceTarget> _target = new SingleAssociation<ComponentParameterCall,CrossReferenceTarget>(this);
 
 
-  public InvocationTarget target() {
+  public CrossReferenceTarget target() {
     return _target.getOtherEnd();
   }
 
-  public void setTarget(InvocationTarget target) {
+  public void setTarget(CrossReferenceTarget target) {
     if (target != null) {
       _target.connectTo(target.parentLink());
     }

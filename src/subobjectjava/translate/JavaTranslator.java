@@ -48,12 +48,12 @@ import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.CrossReferenceWithArguments;
 import chameleon.core.reference.CrossReferenceWithName;
 import chameleon.core.reference.CrossReferenceWithTarget;
+import chameleon.core.reference.CrossReferenceTarget;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.reference.SpecificReference;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.oo.expression.Expression;
-import chameleon.oo.expression.InvocationTarget;
 import chameleon.oo.expression.MethodInvocation;
 import chameleon.oo.expression.NamedTarget;
 import chameleon.oo.expression.NamedTargetExpression;
@@ -260,7 +260,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 		if(rewrite) {
 			String getterName = getterName(name);
-			MethodInvocation inv = new JavaMethodInvocation(getterName,(InvocationTarget) target);
+			MethodInvocation inv = new JavaMethodInvocation(getterName,(CrossReferenceTarget) target);
 			SingleAssociation parentLink = cwt.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, inv.parentLink());
 		}
@@ -270,37 +270,45 @@ public class JavaTranslator extends AbstractTranslator {
 		if(tref instanceof NonLocalTypeReference) {
 			transformToImplReference(((NonLocalTypeReference)tref).actualReference());
 		} else if(tref instanceof CrossReferenceWithName) {
-		CrossReferenceWithName ref = (CrossReferenceWithName) tref;
-		if(ref instanceof CrossReferenceWithTarget) {
-			
-			Element target = ((CrossReferenceWithTarget)ref).getTarget();
-			if(target instanceof CrossReference) {
-				transformToImplReference((CrossReference<?, ?>) target);
+			CrossReferenceWithName ref = (CrossReferenceWithName) tref;
+			if(ref instanceof CrossReferenceWithTarget) {
+
+				Element target = ((CrossReferenceWithTarget)ref).getTarget();
+				if(target instanceof CrossReference) {
+					transformToImplReference((CrossReference<?, ?>) target);
+				}
 			}
-		}
-		if(! (ref instanceof MethodInvocation)) {
-			
-			boolean change;
-			try {
+			if(! (ref instanceof MethodInvocation)) {
+
+				boolean change;
+				Declaration referencedElement = null;
 				Java lang = tref.language(Java.class);
-				Declaration referencedElement = ref.getElement();
-				if(referencedElement instanceof Type && isJLo((NamespaceElement) referencedElement) && (! referencedElement.isTrue(lang.INTERFACE))) {
+				try {
+					referencedElement = ref.getElement();
+					if(referencedElement instanceof Type && isJLo((NamespaceElement) referencedElement) && (! referencedElement.isTrue(lang.INTERFACE))) {
+						change = true;
+					} else {
+						change = false;
+					}
+				} catch(LookupException exc) {
 					change = true;
-				} else {
-					change = false;
 				}
-			} catch(LookupException exc) {
-				change = true;
-			}
-			if(change) {
-				String name = ref.name();
-				if(! name.endsWith(IMPL)) {
-					ref.setName(name+IMPL);
+				if(change) {
+					String name = ref.name();
+					if(! name.endsWith(IMPL)) {
+						ref.setName(name+IMPL);
+					}
+					if(referencedElement instanceof Type && ref instanceof CrossReferenceWithTarget) {
+						BasicJavaTypeReference newRef = lang.createTypeReference((Type)referencedElement);
+						CrossReferenceTarget cref = newRef.getTarget();
+						if(cref != null) {
+							((CrossReferenceWithTarget)ref).setTarget(cref);
+						}
+					}
+//					Import imp = new TypeImport((TypeReference) ref.clone());
+//					tref.nearestAncestor(NamespacePart.class).addImport(imp);
 				}
-				//			Import imp = new TypeImport((TypeReference) ref.clone());
-				//			tref.nearestAncestor(NamespacePart.class).addImport(imp);
 			}
-		}
 		}
 	}
 
