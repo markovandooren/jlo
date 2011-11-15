@@ -12,7 +12,6 @@ import jnome.core.type.BasicJavaTypeReference;
 import org.rejuse.association.Association;
 import org.rejuse.logic.ternary.Ternary;
 
-import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.type.RegularJLoType;
 import chameleon.core.declaration.TargetDeclaration;
@@ -21,6 +20,7 @@ import chameleon.core.lookup.LookupException;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.reference.SimpleReference;
+import chameleon.core.tag.TagImpl;
 import chameleon.oo.expression.MethodInvocation;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.method.Method;
@@ -69,68 +69,80 @@ public class InnerClassCreator extends AbstractTranslator {
 		processInnerClassMethod(relationBeingTranslated, result);
 		return result;
 	}
-
-private List<TypeReference> superClassReferences(ComponentRelation relation, Type context) throws LookupException {
-	Java language = relation.language(Java.class);
-	List<TypeReference> result = new ArrayList<TypeReference>();
-	TypeReference superReference = relation.componentTypeReference().clone();
-//	if(superReference instanceof ComponentParameterTypeReference) {
-//		superReference = ((ComponentParameterTypeReference) superReference).componentTypeReference();
+//	Type t = superReference.getElement();
+//	if(isJLo(t) && (! splitClass(t))) {
+//		transformToImplReference(superReference);
 //	}
-	superReference.setUniParent(relation);
-	substituteTypeParameters(superReference);
-	Type superType = superReference.getType();
-	BasicJavaTypeReference expandedSuperTypeReference = language.createTypeReference(superType.getFullyQualifiedName());
-	List<ActualTypeArgument> typeArguments = ((BasicJavaTypeReference)superReference).typeArguments();
-	for(ActualTypeArgument arg: typeArguments) {
-		TypeReference tref = arg.substitutionReference();
-		Type trefType = tref.getElement();
-//		BasicJavaTypeReference expandedTrefTypeReference = language.createTypeReference(trefType); //.getFullyQualifiedName()
-		BasicJavaTypeReference expandedTrefTypeReference = language.createExpandedTypeReference(trefType);
-		
-		// Creating the non-local reference will disconnect 'tref' from its parent, so we must store
-		// the association end to which it is connected.
-		Association parentLink = tref.parentLink().getOtherRelation();
-		expandedTrefTypeReference.parentLink().connectTo(parentLink);
-		expandedSuperTypeReference.addArgument(arg);
-//		TypeReference nonLocalTref = language.createNonLocalTypeReference(tref, tref.getElement());
-//		nonLocalTref.parentLink().connectTo(parentLink);
-	}
-	TypeReference nonLocal = language.createNonLocalTypeReference(expandedSuperTypeReference, language.defaultNamespace());
-	superReference.setUniParent(null);
 
-//	result.add(superReference);
-	result.add(nonLocal);
-	Set<ComponentRelation> superSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
-	Set<String> doneFQNs = new HashSet<String>();
-	for(ComponentRelation superSubobject: superSubobjects) {
-		Element origin = superSubobject.origin();
-		BasicJavaTypeReference tref;
-		String fqn;
-		if(origin != superSubobject) {
-			ComponentRelation tmp = superSubobject;
-			superSubobject = (ComponentRelation) origin; 
-			fqn = innerClassFQN(superSubobject);
-			tref = language.createTypeReference(fqn);
-			copyTypeParametersFromAncestors(superSubobject.componentType(), tref);
-			tref.setUniParent(superSubobject);
-			substituteTypeParameters(tref);
-			tref.setUniParent(null);
-		} else {
-			fqn = innerClassFQN(superSubobject);
-		  tref = language.createTypeReference(fqn);
+	private List<TypeReference> superClassReferences(ComponentRelation relation, Type context) throws LookupException {
+		if(relation.name().equals("successor")) {
+			System.out.println("debug");
 		}
-		if(! doneFQNs.contains(fqn)) {
-			result.add(language.createNonLocalTypeReference(tref, language.defaultNamespace()));
-			doneFQNs.add(fqn);
+		Java language = relation.language(Java.class);
+		List<TypeReference> result = new ArrayList<TypeReference>();
+		TypeReference superReference = relation.componentTypeReference().clone();
+		superReference.setUniParent(relation);
+		substituteTypeParameters(superReference);
+		Type parent = relation.nearestAncestor(Type.class);
+		Type type = superReference.getType();
+		String superTypeName = type.getFullyQualifiedName();
+		boolean toImpl = false;
+		if(isJLo(parent) && ! splitClass(parent)) {
+			toImpl = true;
 		}
-	}
-	return result;
-}
+		BasicJavaTypeReference expandedSuperTypeReference = language.createTypeReference(superTypeName);
+		List<ActualTypeArgument> typeArguments = ((BasicJavaTypeReference)superReference).typeArguments();
+		for(ActualTypeArgument arg: typeArguments) {
+			TypeReference tref = arg.substitutionReference();
+			Type trefType = tref.getElement();
+			BasicJavaTypeReference expandedTrefTypeReference = language.createExpandedTypeReference(trefType);
 
-private String innerClassFQN(ComponentRelation relation) throws LookupException {
-	return relation.componentType().getFullyQualifiedName();//innerClassName(relation.signature()); 
-}
+			// Creating the non-local reference will disconnect 'tref' from its parent, so we must store
+			// the association end to which it is connected.
+			Association parentLink = tref.parentLink().getOtherRelation();
+			expandedTrefTypeReference.parentLink().connectTo(parentLink);
+			expandedSuperTypeReference.addArgument(arg);
+			//		TypeReference nonLocalTref = language.createNonLocalTypeReference(tref, tref.getElement());
+			//		nonLocalTref.parentLink().connectTo(parentLink);
+		}
+		TypeReference nonLocal = language.createNonLocalTypeReference(expandedSuperTypeReference, language.defaultNamespace());
+		superReference.setUniParent(null);
+
+		//	result.add(superReference);
+		if(toImpl) {
+			nonLocal.setTag(new TagImpl(), IMPL);
+		}
+		result.add(nonLocal);
+		Set<ComponentRelation> superSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
+		Set<String> doneFQNs = new HashSet<String>();
+		for(ComponentRelation superSubobject: superSubobjects) {
+			Element origin = superSubobject.origin();
+			BasicJavaTypeReference tref;
+			String fqn;
+			if(origin != superSubobject) {
+				ComponentRelation tmp = superSubobject;
+				superSubobject = (ComponentRelation) origin; 
+				fqn = innerClassFQN(superSubobject);
+				tref = language.createTypeReference(fqn);
+				copyTypeParametersFromAncestors(superSubobject.componentType(), tref);
+				tref.setUniParent(superSubobject);
+				substituteTypeParameters(tref);
+				tref.setUniParent(null);
+			} else {
+				fqn = innerClassFQN(superSubobject);
+				tref = language.createTypeReference(fqn);
+			}
+			if(! doneFQNs.contains(fqn)) {
+				result.add(language.createNonLocalTypeReference(tref, language.defaultNamespace()));
+				doneFQNs.add(fqn);
+			}
+		}
+		return result;
+	}
+
+	private String innerClassFQN(ComponentRelation relation) throws LookupException {
+		return relation.componentType().getFullyQualifiedName();//innerClassName(relation.signature()); 
+	}
 
 private void processInnerClassMethod(ComponentRelation relationBeingTranslated, Type result) throws LookupException {
 	Type componentType = relationBeingTranslated.referencedComponentType();

@@ -39,18 +39,18 @@ import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.modifier.Modifier;
-import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.namespacepart.TypeImport;
 import chameleon.core.property.ChameleonProperty;
 import chameleon.core.reference.CrossReference;
+import chameleon.core.reference.CrossReferenceTarget;
 import chameleon.core.reference.CrossReferenceWithArguments;
 import chameleon.core.reference.CrossReferenceWithName;
 import chameleon.core.reference.CrossReferenceWithTarget;
-import chameleon.core.reference.CrossReferenceTarget;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.reference.SpecificReference;
+import chameleon.core.tag.TagImpl;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.oo.expression.Expression;
@@ -58,7 +58,6 @@ import chameleon.oo.expression.MethodInvocation;
 import chameleon.oo.expression.NamedTarget;
 import chameleon.oo.expression.NamedTargetExpression;
 import chameleon.oo.member.Member;
-import chameleon.oo.member.SimpleNameDeclarationWithParametersHeader;
 import chameleon.oo.method.Implementation;
 import chameleon.oo.method.Method;
 import chameleon.oo.method.MethodHeader;
@@ -67,7 +66,6 @@ import chameleon.oo.method.RegularMethod;
 import chameleon.oo.method.SimpleNameMethodHeader;
 import chameleon.oo.statement.Block;
 import chameleon.oo.type.ClassBody;
-import chameleon.oo.type.NonLocalTypeReference;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeElement;
@@ -266,49 +264,6 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}	
 
-	private void transformToImplReference(CrossReference<?,?> tref) {
-		if(tref instanceof NonLocalTypeReference) {
-			transformToImplReference(((NonLocalTypeReference)tref).actualReference());
-		} else if(tref instanceof CrossReferenceWithName) {
-			CrossReferenceWithName ref = (CrossReferenceWithName) tref;
-			if(ref instanceof CrossReferenceWithTarget) {
-				Element target = ((CrossReferenceWithTarget)ref).getTarget();
-				if(target instanceof CrossReference) {
-					transformToImplReference((CrossReference<?, ?>) target);
-				}
-			}
-			if(! (ref instanceof MethodInvocation)) {
-
-				boolean change;
-				Declaration referencedElement = null;
-				Java lang = tref.language(Java.class);
-				try {
-					referencedElement = ref.getElement();
-					if(referencedElement instanceof Type && isJLo((NamespaceElement) referencedElement) && (! referencedElement.isTrue(lang.INTERFACE))) {
-						change = true;
-					} else {
-						change = false;
-					}
-				} catch(LookupException exc) {
-					change = true;
-				}
-				if(change) {
-					String name = ref.name();
-					if(! name.endsWith(IMPL)) {
-						ref.setName(name+IMPL);
-					}
-					if(referencedElement instanceof Type && ref instanceof CrossReferenceWithTarget) {
-						BasicJavaTypeReference newRef = lang.createTypeReference((Type)referencedElement);
-						CrossReferenceTarget cref = newRef.getTarget();
-						if(((CrossReferenceWithTarget)ref).getTarget() == null) {
-							((CrossReferenceWithTarget)ref).setTarget(cref);
-							transformToImplReference((CrossReference<?, ?>) cref);
-						}
-					}
-				}
-			}
-		}
-	}
 
 	private void transformToInterfaceReference(SpecificReference ref) {
 		SpecificReference target = (SpecificReference) ref.getTarget();
@@ -457,28 +412,6 @@ public class JavaTranslator extends AbstractTranslator {
 			addStaticHooksForMethodsOverriddenInSuperSubobject(result,relation);
 		}
 	}
-	
-	@SuppressWarnings({ "unchecked", "rawtypes", "unused" })
-//	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws ModelException {
-//		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
-//		List<Member> members = relation.componentType().members();
-//		members.removeAll(relation.componentType().directlyDeclaredMembers());
-//		Java lang = relation.language(Java.class);
-//		ChameleonProperty ov = lang.OVERRIDABLE;
-//		ChameleonProperty def = lang.DEFINED;
-//		incorporateImports(relation,result.nearestAncestor(NamespacePart.class));
-//		for(Member member: members) {
-//			if(member instanceof Method && member.ancestors().contains(relation) && member.isTrue(ov) && member.isTrue(def) && (!lang.isOperator((Method) member))) {
-//				Method newMethod = staticMethod(container, (Method) member);
-//				newMethod.setUniParent(member.parent());
-//				incorporateImports(newMethod);
-//				substituteTypeParameters(newMethod);
-//				newMethod.setUniParent(null);
-//				createSuperImplementation(newMethod,(Method) member);
-//				container.add(newMethod);
-//			}
-//		}
-//	}
 	
 	private void addStaticHooksForMethodsOverriddenInSuperSubobject(Type result,ComponentRelation relation) throws ModelException {
 		Type container = containerOfDefinition(result, relation.farthestAncestor(Type.class), relation.componentType().signature());
@@ -825,16 +758,6 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 			for(SubtypeRelation relation: type.nonMemberInheritanceRelations(SubtypeRelation.class)) {
 				transformToImplReference(relation.superClassReference());
-//				BasicJavaTypeReference tref = (BasicJavaTypeReference) relation.superClassReference();
-//				try {
-//					Type referencedType = relation.superClassReference().getElement();
-//					if((! relation.isTrue(lang.IMPLEMENTS_RELATION)) && isJLo(referencedType)) {
-//						tref.setSignature(new SimpleNameSignature(tref.signature().name()+IMPL));
-//					}
-//				}
-//				catch(LookupException exc) {
-//					tref.setSignature(new SimpleNameSignature(tref.signature().name()+IMPL));
-//				}
 			}
 			implementOwnInterface(type);
 			for(TypeElement decl: type.directlyDeclaredElements()) {
@@ -884,7 +807,11 @@ public class JavaTranslator extends AbstractTranslator {
 	private void removeNonLocalReferences(Type type) throws LookupException {
 		for(NonLocalJavaTypeReference tref: type.descendants(NonLocalJavaTypeReference.class)) {
 			SingleAssociation<NonLocalJavaTypeReference, Element> parentLink = tref.parentLink();
-			parentLink.getOtherRelation().replace(parentLink, tref.actualReference().parentLink());
+			TypeReference actualReference = tref.actualReference();
+			if(tref.hasTag(IMPL)) {
+				actualReference.setTag(new TagImpl(), IMPL);
+			}
+			parentLink.getOtherRelation().replace(parentLink, actualReference.parentLink());
 		}
 	}
 

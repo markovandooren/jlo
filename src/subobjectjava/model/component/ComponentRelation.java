@@ -147,6 +147,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return _typeReference.getOtherEnd();
 	}
 	
+	public TypeReference superClassReference() {
+		return componentTypeReference();
+	}
+	
 	public Type referencedComponentType() throws LookupException {
 		return componentTypeReference().getElement();
 	}

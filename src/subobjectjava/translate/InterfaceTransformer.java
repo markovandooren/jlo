@@ -2,6 +2,7 @@ package subobjectjava.translate;
 
 import java.util.List;
 
+import jnome.core.expression.invocation.NonLocalJavaTypeReference;
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
 
@@ -15,16 +16,18 @@ import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.reference.SimpleReference;
 import chameleon.exception.ModelException;
 import chameleon.oo.language.ObjectOrientedLanguage;
-import chameleon.oo.member.Member;
 import chameleon.oo.method.Method;
+import chameleon.oo.type.BasicTypeReference;
+import chameleon.oo.type.NonLocalTypeReference;
 import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeElement;
+import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.type.generics.TypeParameterBlock;
+import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.oo.variable.VariableDeclarator;
-import chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import chameleon.support.modifier.Interface;
 
 public class InterfaceTransformer extends AbstractTranslator {
@@ -56,6 +59,19 @@ public class InterfaceTransformer extends AbstractTranslator {
 					}
 				}
 				interfaceCompilationUnit.flushCache();
+			} else {
+				for(Type type: implementation.descendants(Type.class)) {
+					List<InheritanceRelation> relations = type.inheritanceRelations();
+					for(InheritanceRelation relation: relations) {
+						TypeReference t = relation.superClassReference();
+						if(t.hasTag(IMPL)) {
+							if(t instanceof BasicTypeReference) {
+								BasicTypeReference b = (BasicTypeReference) t;
+								b.setName(b.name()+IMPL);
+							}
+						}
+					}
+				}
 			}
 		}
 		return interfaceCompilationUnit;

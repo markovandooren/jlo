@@ -1,6 +1,7 @@
 package subobjectjava.translate;
 
 import java.util.List;
+import java.util.Set;
 
 import jnome.core.expression.invocation.JavaMethodInvocation;
 import jnome.core.language.Java;
@@ -12,6 +13,7 @@ import org.rejuse.predicate.UnsafePredicate;
 import org.rejuse.property.Property;
 
 import subobjectjava.model.component.ComponentRelation;
+import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
@@ -22,6 +24,10 @@ import chameleon.core.modifier.Modifier;
 import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.reference.CrossReference;
+import chameleon.core.reference.CrossReferenceTarget;
+import chameleon.core.reference.CrossReferenceWithName;
+import chameleon.core.reference.CrossReferenceWithTarget;
 import chameleon.exception.ModelException;
 import chameleon.oo.expression.MethodInvocation;
 import chameleon.oo.expression.NamedTargetExpression;
@@ -31,6 +37,7 @@ import chameleon.oo.method.MethodHeader;
 import chameleon.oo.method.SimpleNameMethodHeader;
 import chameleon.oo.method.exception.ExceptionClause;
 import chameleon.oo.statement.Block;
+import chameleon.oo.type.NonLocalTypeReference;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.ActualType;
@@ -111,13 +118,61 @@ public class AbstractTranslator {
 	}
 
 	protected String innerClassName(ComponentRelation relation) throws LookupException {
-		return innerClassName(relation.signature()); 
+		Type t = relation.nearestAncestor(Type.class);
+		if(splitClass(t)) {
+			return innerClassName(relation.signature());
+		} else {
+			return relation.name();
+		}
+	}
+	
+	protected void transformToImplReference(CrossReference<?,?> tref) {
+		if(tref instanceof NonLocalTypeReference) {
+			transformToImplReference(((NonLocalTypeReference)tref).actualReference());
+		} else if(tref instanceof CrossReferenceWithName) {
+			CrossReferenceWithName ref = (CrossReferenceWithName) tref;
+			if(ref instanceof CrossReferenceWithTarget) {
+				Element target = ((CrossReferenceWithTarget)ref).getTarget();
+				if(target instanceof CrossReference) {
+					transformToImplReference((CrossReference<?, ?>) target);
+				}
+			}
+			if(! (ref instanceof MethodInvocation)) {
+
+				boolean change;
+				Declaration referencedElement = null;
+				Java lang = tref.language(Java.class);
+				try {
+					referencedElement = ref.getElement();
+					if(referencedElement instanceof Type && isJLo((NamespaceElement) referencedElement) && (! referencedElement.isTrue(lang.INTERFACE))) {
+						change = true;
+					} else {
+						change = false;
+					}
+				} catch(LookupException exc) {
+					change = true;
+				}
+				if(change) {
+					String name = ref.name();
+					if(! name.endsWith(IMPL)) {
+						ref.setName(name+IMPL);
+					}
+					if(referencedElement instanceof Type && ref instanceof CrossReferenceWithTarget) {
+						BasicJavaTypeReference newRef = lang.createTypeReference((Type)referencedElement);
+						CrossReferenceTarget cref = newRef.getTarget();
+						if(((CrossReferenceWithTarget)ref).getTarget() == null) {
+							((CrossReferenceWithTarget)ref).setTarget(cref);
+							transformToImplReference((CrossReference<?, ?>) cref);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	private String innerClassName(QualifiedName qn) {
 		StringBuffer result = new StringBuffer();
 		List<Signature> sigs = qn.signatures();
-//		sigs.add(0, outer.signature());
 		int size = sigs.size();
 		for(int i = 0; i < size; i++) {
 			result.append(((SimpleNameSignature)sigs.get(i)).name());
@@ -245,7 +300,20 @@ public class AbstractTranslator {
 
 	protected boolean splitClass(Type type) throws LookupException {
 		Java lang = type.language(Java.class);
-		return isJLo(type) && ! lang.isException(type);
+		return isJLo(type) && ! lang.isException(type)  && ! inheritsFromNonObjectJavaClass(type);
+	}
+	
+	protected boolean inheritsFromNonObjectJavaClass(Type type) throws LookupException {
+		Set<Type> types = type.getAllSuperTypes();
+		boolean result = false;
+		ObjectOrientedLanguage lang = type.language(ObjectOrientedLanguage.class);
+		Type object = lang.findType("java.lang.Object");
+		for(Type superType: types) {
+			if(superType != object && !isJLo(superType) && ! superType.isTrue(lang.INTERFACE)) {
+				result = true;
+			}
+		}
+		return result;
 	}
 
 	protected boolean isJLo(NamespaceElement element) {
