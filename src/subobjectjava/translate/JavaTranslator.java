@@ -234,13 +234,12 @@ public class JavaTranslator extends AbstractTranslator {
 			transformComponentAccessors(literal);
 		}
 	}
+	
+	private final static String SUBOBJECT_READ="SubobjectRead";
 
 	//JENS
 	private void transformComponentAccessors(CrossReferenceWithTarget<?,?> cwt) {
 		Element<?> target = cwt.getTarget();
-//		if(target instanceof CrossReferenceWithTarget) {
-//			transformComponentAccessors((CrossReferenceWithTarget) target);
-//		}
 		for(Element element: cwt.children()) {
 			replaceComponentAccess(element);
 		}
@@ -248,12 +247,16 @@ public class JavaTranslator extends AbstractTranslator {
 		String name = null;
 		if((! (cwt instanceof MethodInvocation)) && (! (cwt instanceof TypeReference)) && (cwt.nearestAncestor(InheritanceRelation.class) == null)) {
 			name = ((CrossReferenceWithName)cwt).name();
-			try {
-				Declaration decl = cwt.getElement();
-				if(decl instanceof ComponentRelation) {
-					rewrite = true;
+			if(cwt.hasTag(SUBOBJECT_READ)) {
+				rewrite = true;
+			} else {
+				try {
+					Declaration decl = cwt.getElement();
+					if(decl instanceof ComponentRelation) {
+						rewrite = true;
+					}
+				}catch(LookupException exc) {
 				}
-			}catch(LookupException exc) {
 			}
 		}
 		if(rewrite) {
@@ -261,6 +264,28 @@ public class JavaTranslator extends AbstractTranslator {
 			MethodInvocation inv = new JavaMethodInvocation(getterName,(CrossReferenceTarget) target);
 			SingleAssociation parentLink = cwt.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, inv.parentLink());
+		}
+	}	
+
+	private void markComponentAccess(Element<?> type) {
+		List<CrossReferenceWithTarget> literals = type.nearestDescendants(CrossReferenceWithTarget.class);
+		for(CrossReferenceWithTarget literal: literals) {
+			markComponentAccessors(literal);
+		}
+	}
+	
+	private void markComponentAccessors(CrossReferenceWithTarget<?,?> cwt) {
+		for(Element element: cwt.children()) {
+			markComponentAccess(element);
+		}
+		if((! (cwt instanceof MethodInvocation)) && (! (cwt instanceof TypeReference)) && (cwt.nearestAncestor(InheritanceRelation.class) == null)) {
+			try {
+				Declaration decl = cwt.getElement();
+				if(decl instanceof ComponentRelation) {
+					cwt.setTag(new TagImpl(), SUBOBJECT_READ);
+				}
+			}catch(LookupException exc) {
+			}
 		}
 	}	
 
@@ -293,6 +318,7 @@ public class JavaTranslator extends AbstractTranslator {
 		StubDeclarationContainer stub = new StubDeclarationContainer();
 		stub.add(result);
 		stub.setUniParent(original.parent());
+		markComponentAccess(result);
 		ensureConstructor(result);
 		
 		result.setOrigin(original);
