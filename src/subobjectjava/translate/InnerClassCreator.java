@@ -75,9 +75,6 @@ public class InnerClassCreator extends AbstractTranslator {
 //	}
 
 	private List<TypeReference> superClassReferences(ComponentRelation relation, Type context) throws LookupException {
-		if(relation.name().equals("successor")) {
-			System.out.println("debug");
-		}
 		Java language = relation.language(Java.class);
 		List<TypeReference> result = new ArrayList<TypeReference>();
 		TypeReference superReference = relation.componentTypeReference().clone();

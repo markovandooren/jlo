@@ -58,7 +58,7 @@ import chameleon.support.statement.StatementExpression;
 public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	public void replaceSubobjectConstructorCalls(Type type) throws ModelException {
-		if(type.getName().equals("WiredSingleAssociationEnd")) {
+		if(type.getName().equals("RefinedCounter")) {
 			System.out.println("debug");
 		}
 		Java lang = type.language(Java.class);

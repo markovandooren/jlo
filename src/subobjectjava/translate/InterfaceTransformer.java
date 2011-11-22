@@ -96,24 +96,32 @@ public class InterfaceTransformer extends AbstractTranslator {
 			inheritanceRelations.get(last).disconnect();
 			
 			for(TypeElement decl: type.directlyDeclaredElements()) {
-				if(decl instanceof Method) {
-					((Method) decl).setImplementation(null);
-					if(decl.is(language.CLASS) == Ternary.TRUE) {
-						decl.disconnect();
-					}
-				}
-				if((decl.is(language.CONSTRUCTOR) == Ternary.TRUE) ||
-					 (decl.is(language.PRIVATE) == Ternary.TRUE && (! (decl instanceof Type))) ||
-					 (decl instanceof VariableDeclarator )) { // && (! (decl.is(language.CLASS) == Ternary.TRUE))
-					decl.disconnect();
-				}
-				makePublic(decl);
-				removeNonInterfaceModifiers(decl);
+				transform(language, decl);
 			}
 			type.signature().setName(interfaceName(name));
 			if(! (type.is(language.INTERFACE) == Ternary.TRUE)) {
 				type.addModifier(new Interface());
 			} 
+		}
+	}
+
+	private void transform(Java language, TypeElement decl) throws ModelException {
+		if(decl instanceof Method) {
+			((Method) decl).setImplementation(null);
+			if(decl.is(language.CLASS) == Ternary.TRUE) {
+				decl.disconnect();
+			}
+		}
+		if(
+			 (decl.parent() != null) && (
+			 (decl.is(language.CONSTRUCTOR) == Ternary.TRUE) ||
+			 (decl.is(language.PRIVATE) == Ternary.TRUE && (! (decl instanceof Type))) ||
+			 (decl instanceof VariableDeclarator ))) { // && (! (decl.is(language.CLASS) == Ternary.TRUE))
+			decl.disconnect();
+		} 
+		if(decl.parent() != null) {
+			makePublic(decl);
+			removeNonInterfaceModifiers(decl);
 		}
 	}
 

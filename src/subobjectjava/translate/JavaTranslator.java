@@ -28,6 +28,7 @@ import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ComponentType;
 import subobjectjava.model.component.FormalComponentParameter;
 import subobjectjava.model.expression.ComponentParameterCall;
+import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.JLo;
 import chameleon.core.compilationunit.CompilationUnit;
 import chameleon.core.declaration.Declaration;
@@ -245,7 +246,8 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 		boolean rewrite = false;
 		String name = null;
-		if((! (cwt instanceof MethodInvocation)) && (! (cwt instanceof TypeReference)) && (cwt.nearestAncestor(InheritanceRelation.class) == null)) {
+		if(considerForComponentAccessorTransformation(cwt)
+			) {
 			name = ((CrossReferenceWithName)cwt).name();
 			if(cwt.hasTag(SUBOBJECT_READ)) {
 				rewrite = true;
@@ -265,6 +267,15 @@ public class JavaTranslator extends AbstractTranslator {
 			SingleAssociation parentLink = cwt.parentLink();
 			parentLink.getOtherRelation().replace(parentLink, inv.parentLink());
 		}
+	}
+
+	private boolean considerForComponentAccessorTransformation(CrossReferenceWithTarget<?, ?> cwt) {
+		return (! (cwt instanceof MethodInvocation)) && 
+			 (! (cwt instanceof TypeReference)) && 
+			 (cwt.nearestAncestor(InheritanceRelation.class) == null) &&
+			 ((cwt.nearestAncestor(SubobjectConstructorCall.class) == null) ||
+				(! cwt.nearestAncestor(SubobjectConstructorCall.class).crossReference().descendants().contains(cwt))
+			 );
 	}	
 
 	private void markComponentAccess(Element<?> type) {
@@ -278,10 +289,17 @@ public class JavaTranslator extends AbstractTranslator {
 		for(Element element: cwt.children()) {
 			markComponentAccess(element);
 		}
-		if((! (cwt instanceof MethodInvocation)) && (! (cwt instanceof TypeReference)) && (cwt.nearestAncestor(InheritanceRelation.class) == null)) {
+		if(considerForComponentAccessorTransformation(cwt)) {
 			try {
 				Declaration decl = cwt.getElement();
 				if(decl instanceof ComponentRelation) {
+					if(cwt.nearestAncestor(Type.class).signature().name().startsWith("RefinedCounter") && decl.signature().name().equals("value")) {
+						SubobjectConstructorCall nearestAncestor = cwt.nearestAncestor(SubobjectConstructorCall.class);
+//						SimpleReference<ComponentRelation> target = nearestAncestor.crossReference();
+//						List<Element> descendants = target.descendants();
+//						descendants.contains(cwt);
+						System.out.println("debug");
+					}
 					cwt.setTag(new TagImpl(), SUBOBJECT_READ);
 				}
 			}catch(LookupException exc) {
