@@ -57,11 +57,11 @@ import JavaP;
     return gJavaP.createTypeReference(target);
   }
 
-  public InvocationTarget cloneTarget(InvocationTarget target) {
+  public CrossReferenceTarget cloneTarget(CrossReferenceTarget target) {
     return gJavaP.cloneTarget(target);
   }
   
-  public RegularMethodInvocation invocation(String name, InvocationTarget target) {
+  public RegularMethodInvocation invocation(String name, CrossReferenceTarget target) {
     return gJavaP.invocation(name,target);
   }
 }
@@ -211,14 +211,14 @@ nonTargetPrimary returns [Expression element]
            }
         | okw='outer' supsuf=superSuffix 
            {retval.element = supsuf.element;
-            InvocationTarget tar = new OuterTarget();
+            CrossReferenceTarget tar = new OuterTarget();
             ((TargetedExpression)retval.element).setTarget(tar);
             setLocation(retval.element,okw,okw); // put locations on the SuperTarget.
             setKeyword(tar,okw);
            }
         | rkw='rooot' supsuf=superSuffix 
            {retval.element = supsuf.element;
-            InvocationTarget tar = new RootTarget();
+            CrossReferenceTarget tar = new RootTarget();
             ((TargetedExpression)retval.element).setTarget(tar);
             setLocation(retval.element,rkw,rkw); // put locations on the SuperTarget.
             setKeyword(tar,rkw);

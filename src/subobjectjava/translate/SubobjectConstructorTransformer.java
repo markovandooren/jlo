@@ -393,18 +393,15 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 					// LOCALLY DEFINED & THERE IS A SUPER SUBOBJECT
 					// create a strategy that will create the new subobject.
 					if(subCalls.isEmpty()) {
+						ConstructorInvocation strategy = new SubobjectFactoryFactory().defaultConstructionStrategy(
+								constructor, superCall,
+								formalParameters, relation);
 						if(! clonedConstructor) {
 							arguments[relativeIndexInSuper] = new NullLiteral();
 							// add default strategy
-							ConstructorInvocation strategy = defaultConstructionStrategy(
-									constructor, superCall,
-									formalParameters, relation);
 							arguments[relativeIndexInSuper+1] = strategy;
 						} else {
 							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
-							ConstructorInvocation strategy = defaultConstructionStrategy(
-									constructor, superCall,
-									formalParameters, relation);
 
 							Expression arg = new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName());
 							MethodInvocation conditionRight = new InfixOperatorInvocation("==", arg.clone());
@@ -420,7 +417,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 					} else {
 						if(! clonedConstructor) {
 						// add explicit strategy
-						arguments[relativeIndexInSuper] = new NullLiteral(); // FIX
+						//arguments[relativeIndexInSuper] = new NullLiteral(); // FIX
+						arguments[relativeIndexInSuper] = explicitConstructionStrategy(constructor, superCall,formalParameters, relation);
+						
 						// default is null;
 						arguments[relativeIndexInSuper+1] = new NullLiteral();
 						} else {
@@ -483,63 +482,129 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		}
 	}
 
-	private ConstructorInvocation defaultConstructionStrategy(
-			Method<?, ?, ?> constructor, 
-			SuperConstructorDelegation superCall,
-			List<FormalParameter> formalParameters, 
-			ComponentRelation relation) throws LookupException {
-		Java language = constructor.language(Java.class);
-		String strategyName = defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall);
-		BasicJavaTypeReference strategyType = language.createTypeReference(strategyName);
-		Declaration superElement = relation.nearestAncestor(Type.class).inheritanceRelations().get(0).superElement();
-		copyTypeParametersFromAncestors(superElement, strategyType);
-		strategyType.setUniParent(superElement);
-		substituteTypeParameters(strategyType);
-		strategyType.setUniParent(null);
-		// Add type parameters.
-//		TypeReference componentTypeReference = relation.componentTypeReference().clone();
-//		if(componentTypeReference instanceof ComponentParameterTypeReference) {
-//			componentTypeReference = ((ComponentParameterTypeReference) componentTypeReference).componentTypeReference();
-//		}
-//		BasicJavaTypeReference jTref = (BasicJavaTypeReference) componentTypeReference;
-//		for(ActualTypeArgument arg: jTref.typeArguments()) {
-//			strategyType.addArgument(arg);
-//		}
-		
-		ConstructorInvocation strategy = new ConstructorInvocation(strategyType, null);
-		BasicJavaTypeReference returnTypeReference = language.createTypeReference(interfaceName(relation.componentType().getFullyQualifiedName()));
-		MethodHeader header = new SimpleNameMethodHeader(CONSTRUCT, returnTypeReference);
-		header.addFormalParameter(new FormalParameter("o",language.createTypeReference("java.lang.Object")));
-		SubobjectConstructorCall subobjectConstructorCall=subobjectConstructorCall(relation,superCall);
-		Method<?,?,?> subobjectConstructor = subobjectConstructorCall.getElement();
-		for(FormalParameter param: subobjectConstructor.formalParameters()) {
-			FormalParameter clone = param.clone();
-			clone.setUniParent(param.parent());
-			substituteTypeParameters(clone);
-			clone.setUniParent(null);
-			header.addFormalParameter(clone);
+	public class SubobjectFactoryFactory {
+	
+		private ConstructorInvocation defaultConstructionStrategy(
+				Method<?, ?, ?> constructor, 
+				SuperConstructorDelegation superCall,
+				List<FormalParameter> formalParameters, 
+				ComponentRelation relation) throws LookupException {
+			Java language = constructor.language(Java.class);
+
+			Method method = createConstructMethod(relation, superCall);
+
+			// Add a method body		
+			Block methodBody = new Block();
+			method.setImplementation(new RegularImplementation(methodBody));
+			// -> public SubobjectType construct(Object o, ..., Type_i parameter_i, ...) {
+			//    }
+
+			// Cast the first parameter to the type of the outer class.
+			BasicJavaTypeReference castTypeReference = language.createTypeReference(toImplName(constructor.nearestAncestor(Type.class).getName()));
+			ClassCastExpression cast = new ClassCastExpression(castTypeReference, new NamedTargetExpression("o"));
+			// -> ((OuterType)o)
+
+			BasicJavaTypeReference subobjectTypeReference = language.createTypeReference(toImplName(relation.componentType().getName()));
+			ConstructorInvocation constructorInvocation = new ConstructorInvocation(subobjectTypeReference, cast);
+			// -> ((OuterType)o).new SubobjectType()
+
+			Method<?, ?, ?> subobjectConstructor = subobjectConstructor(relation,	superCall);
+			for(FormalParameter param: subobjectConstructor.formalParameters()) {
+				NamedTargetExpression constructorArgument = new NamedTargetExpression(param.getName());
+				constructorInvocation.addArgument(constructorArgument);
+			}
+			
+			// -> ((OuterType)o).new SubobjectType(..., parameter_i, ...)
+			methodBody.addStatement(new ReturnStatement(constructorInvocation));
+			// -> public SubobjectType construct(Object o, ..., Type_i parameter_i, ...) {
+			//      return ((OuterType)o).new SubobjectType(..., parameter_i, ...)
+			//    }
+
+			// Create the body of the anonymous constructor call that creates the strategy
+			ClassBody b = new ClassBody();
+			b.add(method);
+			// -> {
+			//      public SubobjectType construct(Object o, ..., Type_i parameter_i, ...) {
+			//        return ((OuterType)o).new SubobjectType(..., parameter_i, ...)
+			//      }
+			//    }
+
+			// Create a type reference for the strategy type
+			String strategyName = defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall);
+			BasicJavaTypeReference strategyType = language.createTypeReference(strategyName);
+			Declaration superElement = relation.nearestAncestor(Type.class).inheritanceRelations().get(0).superElement();
+			copyTypeParametersFromAncestors(superElement, strategyType);
+			strategyType.setUniParent(superElement);
+			substituteTypeParameters(strategyType);
+			strategyType.setUniParent(null);
+			// -> StrategyType
+
+			// Create the strategy constructor
+			ConstructorInvocation strategyConstructor = new ConstructorInvocation(strategyType, null);
+			strategyConstructor.setBody(b);
+			// -> new StrategyType() {
+			//      public SubobjectType construct(Object o, ..., Type_i parameter_i, ...) {
+			//        return ((OuterType)o).new SubobjectType(..., parameter_i, ...)
+			//      }
+			//    }
+			return strategyConstructor;
+		}
+
+		/**
+		 * Create the "construct" method of the subobject factory. The method will have a single formal parameter
+		 * with name 'o' and type 'Object'.
+		 * @param relation
+		 * @return
+		 * @throws LookupException
+		 */
+		protected Method createConstructMethod(ComponentRelation relation,SuperConstructorDelegation superCall) throws LookupException {
+			Java language = relation.language(Java.class);
+			BasicJavaTypeReference returnTypeReference = language.createTypeReference(interfaceName(relation.componentType().getFullyQualifiedName()));
+			// -> SubobjectType
+
+			// Create the header of the "construct" method which will create the actual subobject
+			MethodHeader header = new SimpleNameMethodHeader(CONSTRUCT, returnTypeReference);
+			// -> SubobjectType construct()
+
+			// Add the formal parameter for the outer object. Its type is simply Object, as it will be casted later on.
+			header.addFormalParameter(new FormalParameter("o",language.createTypeReference("java.lang.Object")));
+			// SubobjectType ->construct(Object o)
+
+			addParametersToConstructMethod(header,relation,superCall);
+			
+			// Create the constructor method using the previously constructed header
+			Method method = language.createNormalMethod(header);
+			method.addModifier(new Public());
+			// -> public SubobjectType construct(Object o, ..., Type_i parameter_i, ...)
+			return method;
 		}
 		
-		Method method = language.createNormalMethod(header);
-		method.addModifier(new Public());
-		Block methodBody = new Block();
-		BasicJavaTypeReference castTypeReference = language.createTypeReference(toImplName(constructor.nearestAncestor(Type.class).getName()));
-		ClassCastExpression cast = new ClassCastExpression(castTypeReference, new NamedTargetExpression("o"));
-		BasicJavaTypeReference subobjectTypeReference = language.createTypeReference(toImplName(relation.componentType().getName()));
-		
-		ConstructorInvocation constructorInvocation = new ConstructorInvocation(subobjectTypeReference, cast);
-		for(FormalParameter param: subobjectConstructor.formalParameters()) {
-			NamedTargetExpression constructorArgument = new NamedTargetExpression(param.getName());
-			constructorInvocation.addArgument(constructorArgument);
+		public void addParametersToConstructMethod(MethodHeader header, ComponentRelation relation, SuperConstructorDelegation superCall) throws LookupException {
+			// Copy the formal parameters of the subobject constructor that is invoked in the delegated constructor
+			// (either via a super(...) delegation or a this(...) delegation).
+			//
+			Method<?, ?, ?> subobjectConstructor = subobjectConstructor(relation,
+					superCall);
+			for(FormalParameter param: subobjectConstructor.formalParameters()) {
+				FormalParameter clone = param.clone();
+				clone.setUniParent(param.parent());
+				substituteTypeParameters(clone);
+				clone.setUniParent(null);
+				header.addFormalParameter(clone);
+			}
+			// -> SubobjectType construct(Object o, ..., Type_i parameter_i, ...)
 		}
-		methodBody.addStatement(new ReturnStatement(constructorInvocation));
-		method.setImplementation(new RegularImplementation(methodBody));
-		ClassBody b = new ClassBody();
-		strategy.setBody(b);
-		b.add(method);
-		return strategy;
+
+		protected Method<?, ?, ?> subobjectConstructor(ComponentRelation relation,
+				SuperConstructorDelegation superCall) throws LookupException {
+			SubobjectConstructorCall subobjectConstructorCall=subobjectConstructorCall(relation,superCall);
+			Method<?,?,?> subobjectConstructor = subobjectConstructorCall.getElement();
+			return subobjectConstructor;
+		}
+
 	}
 	
+
 	private List<SubobjectConstructorCall> constructorCallsOfRelation(
 			final ComponentRelation relation, Method<?, ?, ?> constructor)
 			throws LookupException {

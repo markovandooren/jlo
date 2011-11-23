@@ -33,7 +33,7 @@ import chameleon.oo.expression.Literal;
 import chameleon.oo.expression.Assignable;
 import chameleon.oo.expression.NamedTarget;
 import chameleon.oo.expression.NamedTargetExpression;
-import chameleon.oo.expression.InvocationTarget;
+import chameleon.core.reference.CrossReferenceTarget;
 import chameleon.oo.expression.TargetedExpression;
 import chameleon.oo.expression.VariableReference;
 
@@ -271,11 +271,11 @@ import java.util.ArrayList;
     return gJLoP.createTypeReference(target);
   }
 
-  public InvocationTarget cloneTarget(InvocationTarget target) {
+  public CrossReferenceTarget cloneTarget(CrossReferenceTarget target) {
     return gJLoP.cloneTarget(target);
   }
   
-  public RegularMethodInvocation invocation(String name, InvocationTarget target) {
+  public RegularMethodInvocation invocation(String name, CrossReferenceTarget target) {
     return gJLoP.invocation(name,target);
   }
 }
