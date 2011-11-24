@@ -393,9 +393,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 					// LOCALLY DEFINED & THERE IS A SUPER SUBOBJECT
 					// create a strategy that will create the new subobject.
 					if(subCalls.isEmpty()) {
-						ConstructorInvocation strategy = new SubobjectFactoryFactory().defaultConstructionStrategy(
-								constructor, superCall,
-								formalParameters, relation);
+						ConstructorInvocation strategy = new DefaultSubobjectFactoryFactory().strategy(null, constructor, superCall, formalParameters, relation);
 						if(! clonedConstructor) {
 							arguments[relativeIndexInSuper] = new NullLiteral();
 							// add default strategy
@@ -417,15 +415,16 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 					} else {
 						if(! clonedConstructor) {
 						// add explicit strategy
-						//arguments[relativeIndexInSuper] = new NullLiteral(); // FIX
-						arguments[relativeIndexInSuper] = explicitConstructionStrategy(constructor, superCall,formalParameters, relation);
+						arguments[relativeIndexInSuper] = new ExplicitSubobjectFactoryFactory().strategy(subCalls.get(0),constructor, superCall,formalParameters, relation);
 						
 						// default is null;
 						arguments[relativeIndexInSuper+1] = new NullLiteral();
+						subCalls.get(0).parent().disconnect();
+						
 						} else {
-							arguments[relativeIndexInSuper] = new NullLiteral();
+							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
 							// default is to propagate the argument.
-							arguments[relativeIndexInSuper+1] = new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName());
+							arguments[relativeIndexInSuper+1] = new NullLiteral();
 						}
 					}
 				} else {
@@ -481,14 +480,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			callToBeModified.addArgument(argument);
 		}
 	}
-
-	public class SubobjectFactoryFactory {
 	
-		private ConstructorInvocation defaultConstructionStrategy(
-				Method<?, ?, ?> constructor, 
-				SuperConstructorDelegation superCall,
-				List<FormalParameter> formalParameters, 
-				ComponentRelation relation) throws LookupException {
+	private abstract class SubobjectFactoryFactory {
+		public ConstructorInvocation strategy(SubobjectConstructorCall constructorCall, Method<?, ?, ?> constructor,	SuperConstructorDelegation superCall,
+				List<FormalParameter> formalParameters, ComponentRelation relation) throws LookupException {
 			Java language = constructor.language(Java.class);
 
 			Method method = createConstructMethod(relation, superCall);
@@ -508,11 +503,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			ConstructorInvocation constructorInvocation = new ConstructorInvocation(subobjectTypeReference, cast);
 			// -> ((OuterType)o).new SubobjectType()
 
-			Method<?, ?, ?> subobjectConstructor = subobjectConstructor(relation,	superCall);
-			for(FormalParameter param: subobjectConstructor.formalParameters()) {
-				NamedTargetExpression constructorArgument = new NamedTargetExpression(param.getName());
-				constructorInvocation.addArgument(constructorArgument);
-			}
+			addArguments(constructorCall, superCall, relation, constructorInvocation);
 			
 			// -> ((OuterType)o).new SubobjectType(..., parameter_i, ...)
 			methodBody.addStatement(new ReturnStatement(constructorInvocation));
@@ -530,7 +521,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			//    }
 
 			// Create a type reference for the strategy type
-			String strategyName = defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall);
+			String strategyName = strategyName(superCall, relation);
 			BasicJavaTypeReference strategyType = language.createTypeReference(strategyName);
 			Declaration superElement = relation.nearestAncestor(Type.class).inheritanceRelations().get(0).superElement();
 			copyTypeParametersFromAncestors(superElement, strategyType);
@@ -549,6 +540,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			//    }
 			return strategyConstructor;
 		}
+
+		protected abstract void addArguments(SubobjectConstructorCall constructorCall, SuperConstructorDelegation superCall, ComponentRelation relation, ConstructorInvocation constructorInvocation)
+				throws LookupException;
 
 		/**
 		 * Create the "construct" method of the subobject factory. The method will have a single formal parameter
@@ -579,6 +573,49 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			return method;
 		}
 		
+		protected Method<?, ?, ?> subobjectConstructor(ComponentRelation relation,
+				SuperConstructorDelegation superCall) throws LookupException {
+			SubobjectConstructorCall subobjectConstructorCall=subobjectConstructorCall(relation,superCall);
+			Method<?,?,?> subobjectConstructor = subobjectConstructorCall.getElement();
+			return subobjectConstructor;
+		}
+
+		
+		protected abstract String strategyName(SuperConstructorDelegation superCall, ComponentRelation relation) throws LookupException;
+//		protected abstract Method<?, ?, ?> subobjectConstructor(ComponentRelation relation, SuperConstructorDelegation superCall) throws LookupException;
+		protected abstract void addParametersToConstructMethod(MethodHeader header, ComponentRelation relation, SuperConstructorDelegation superCall) throws LookupException;
+	}
+	
+  private class ExplicitSubobjectFactoryFactory extends SubobjectFactoryFactory {
+
+	@Override
+	protected String strategyName(SuperConstructorDelegation superCall, ComponentRelation relation) throws LookupException {
+		return interfaceName(SubobjectConstructorTransformer.this.strategyName(relation));
+	}
+
+	@Override
+	protected void addParametersToConstructMethod(MethodHeader header, ComponentRelation relation, SuperConstructorDelegation superCall)
+			throws LookupException {
+		
+	}
+
+	@Override
+	protected void addArguments(SubobjectConstructorCall constructorCall, SuperConstructorDelegation superCall, ComponentRelation relation, ConstructorInvocation constructorInvocation)
+			throws LookupException {
+		for(Expression e : constructorCall.crossReference().getActualParameters()) {
+			constructorInvocation.addArgument(e);
+		}
+	}
+	
+}
+	
+	private class DefaultSubobjectFactoryFactory extends SubobjectFactoryFactory {
+	
+		protected String strategyName(SuperConstructorDelegation superCall, ComponentRelation relation) throws LookupException {
+			return defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall);
+		}
+
+		@Override
 		public void addParametersToConstructMethod(MethodHeader header, ComponentRelation relation, SuperConstructorDelegation superCall) throws LookupException {
 			// Copy the formal parameters of the subobject constructor that is invoked in the delegated constructor
 			// (either via a super(...) delegation or a this(...) delegation).
@@ -595,11 +632,14 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			// -> SubobjectType construct(Object o, ..., Type_i parameter_i, ...)
 		}
 
-		protected Method<?, ?, ?> subobjectConstructor(ComponentRelation relation,
-				SuperConstructorDelegation superCall) throws LookupException {
-			SubobjectConstructorCall subobjectConstructorCall=subobjectConstructorCall(relation,superCall);
-			Method<?,?,?> subobjectConstructor = subobjectConstructorCall.getElement();
-			return subobjectConstructor;
+		@Override
+		protected void addArguments(SubobjectConstructorCall constructorCall, SuperConstructorDelegation superCall, ComponentRelation relation, ConstructorInvocation constructorInvocation)
+				throws LookupException {
+			Method<?, ?, ?> subobjectConstructor = subobjectConstructor(relation,	superCall);
+			for(FormalParameter param: subobjectConstructor.formalParameters()) {
+				NamedTargetExpression constructorArgument = new NamedTargetExpression(param.getName());
+				constructorInvocation.addArgument(constructorArgument);
+			}
 		}
 
 	}
