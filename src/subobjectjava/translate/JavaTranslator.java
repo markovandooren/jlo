@@ -230,77 +230,84 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void replaceComponentAccess(Element<?> type) {
+	private void replaceSubobjectAccess(Element<?> type) {
 		List<CrossReferenceWithTarget> literals = type.nearestDescendants(CrossReferenceWithTarget.class);
 		for(CrossReferenceWithTarget literal: literals) {
-			transformComponentAccessors(literal);
+			replaceSubobjectAccessors(literal);
 		}
 	}
 	
 	private final static String SUBOBJECT_READ="SubobjectRead";
 
+	private final static String NO_SUBOBJECT_READ = "NoSubobjectRead";
+	
 	//JENS
-	private void transformComponentAccessors(CrossReferenceWithTarget<?,?> cwt) {
+	private void replaceSubobjectAccessors(CrossReferenceWithTarget<?,?> cwt) {
 		Element<?> target = cwt.getTarget();
 		for(Element element: cwt.children()) {
-			replaceComponentAccess(element);
+			replaceSubobjectAccess(element);
 		}
-		boolean rewrite = false;
-		String name = null;
-		if(considerForComponentAccessorTransformation(cwt)
-			) {
-			name = ((CrossReferenceWithName)cwt).name();
-			if(cwt.hasTag(SUBOBJECT_READ)) {
-				rewrite = true;
-			} else {
+		if(! cwt.hasTag(NO_SUBOBJECT_READ) && cwt instanceof CrossReferenceWithName) {
+			boolean rewrite = cwt.hasTag(SUBOBJECT_READ);
+			String name = ((CrossReferenceWithName)cwt).name();
+			if((! rewrite) && considerForComponentAccessorTransformation(cwt)) {
 				try {
 					Declaration decl = cwt.getElement();
-					if(decl instanceof ComponentRelation) {
+					if(decl instanceof ComponentRelation || isReadOfFieldCreatedForSubobject(decl,cwt)) {
 						rewrite = true;
 					}
 				}catch(LookupException exc) {
 				}
 			}
+			if(rewrite) {
+				if(name == null) {
+					System.out.println("debug");
+				}
+				String getterName = getterName(name);
+				MethodInvocation inv = new JavaMethodInvocation(getterName,(CrossReferenceTarget) target);
+				SingleAssociation parentLink = cwt.parentLink();
+				parentLink.getOtherRelation().replace(parentLink, inv.parentLink());
+			}
 		}
-		if(rewrite) {
-			String getterName = getterName(name);
-			MethodInvocation inv = new JavaMethodInvocation(getterName,(CrossReferenceTarget) target);
-			SingleAssociation parentLink = cwt.parentLink();
-			parentLink.getOtherRelation().replace(parentLink, inv.parentLink());
-		}
+	}
+
+	private boolean isReadOfFieldCreatedForSubobject(Declaration decl,CrossReference<?,?> cref) {
+		boolean fieldIsCreatedForSubobject = decl.origin().parent().hasTag(SUBOBJECT_READ);
+		AssignmentExpression assignment = cref.nearestAncestor(AssignmentExpression.class);
+		boolean isRead = (assignment == null) || 
+				             (assignment.getVariable() != cref &&
+				            	! assignment.getVariable().descendants().contains(cref)); 
+		return fieldIsCreatedForSubobject && isRead;
 	}
 
 	private boolean considerForComponentAccessorTransformation(CrossReferenceWithTarget<?, ?> cwt) {
-		return (! (cwt instanceof MethodInvocation)) && 
-			 (! (cwt instanceof TypeReference)) && 
-			 (cwt.nearestAncestor(InheritanceRelation.class) == null) &&
-			 ((cwt.nearestAncestor(SubobjectConstructorCall.class) == null) ||
-				(! cwt.nearestAncestor(SubobjectConstructorCall.class).crossReference().descendants().contains(cwt))
-			 );
+		boolean a = ! (cwt instanceof MethodInvocation);
+		boolean b = ! (cwt instanceof TypeReference);
+		InheritanceRelation nearestInheritanceRelation = cwt.nearestAncestor(InheritanceRelation.class);
+		ClassBody nearestClassBody = cwt.nearestAncestor(ClassBody.class);
+		boolean c = nearestInheritanceRelation != null || (nearestClassBody != null && nearestClassBody.nearestAncestor(InheritanceRelation.class) == nearestInheritanceRelation);
+		SubobjectConstructorCall nearestAncestor = cwt.nearestAncestor(SubobjectConstructorCall.class);
+		boolean d = nearestAncestor == null;
+		boolean e = nearestAncestor != null && ! nearestAncestor.crossReference().descendants().contains(cwt);
+		boolean f = d || e;
+		return a && b && c && f;
 	}	
 
-	private void markComponentAccess(Element<?> type) {
+	private void markSubobjectAccess(Element<?> type) {
 		List<CrossReferenceWithTarget> literals = type.nearestDescendants(CrossReferenceWithTarget.class);
 		for(CrossReferenceWithTarget literal: literals) {
-			markComponentAccessors(literal);
+			markSubobjectAccessors(literal);
 		}
 	}
 	
-	private void markComponentAccessors(CrossReferenceWithTarget<?,?> cwt) {
+	private void markSubobjectAccessors(CrossReferenceWithTarget<?,?> cwt) {
 		for(Element element: cwt.children()) {
-			markComponentAccess(element);
+			markSubobjectAccess(element);
 		}
 		if(considerForComponentAccessorTransformation(cwt)) {
 			try {
 				Declaration decl = cwt.getElement();
 				if(decl instanceof ComponentRelation) {
-					if(cwt.nearestAncestor(Type.class).signature().name().startsWith("RefinedCounter") && decl.signature().name().equals("value")) {
-						SubobjectConstructorCall nearestAncestor = cwt.nearestAncestor(SubobjectConstructorCall.class);
-//						SimpleReference<ComponentRelation> target = nearestAncestor.crossReference();
-//						List<Element> descendants = target.descendants();
-//						descendants.contains(cwt);
-						System.out.println("debug");
-					}
 					cwt.setTag(new TagImpl(), SUBOBJECT_READ);
 				}
 			}catch(LookupException exc) {
@@ -337,7 +344,7 @@ public class JavaTranslator extends AbstractTranslator {
 		StubDeclarationContainer stub = new StubDeclarationContainer();
 		stub.add(result);
 		stub.setUniParent(original.parent());
-		markComponentAccess(result);
+		markSubobjectAccess(result);
 		ensureConstructor(result);
 		
 		result.setOrigin(original);
@@ -359,13 +366,13 @@ public class JavaTranslator extends AbstractTranslator {
 		subobjectConstructorTransformer().replaceSubobjectConstructorCalls(result); // commented out the replaceSubobjectConstructorCalls below
 		for(ComponentRelation relation : relations) {
 			// Add a getter for subobject
-			Method getterForComponent = getterForComponent(relation,result);
+			Method getterForComponent = getterForSubobject(relation,result);
 			if(getterForComponent != null) {
 				result.add(getterForComponent);
 			}
 
 			// Add a setter for subobject
-			Method setterForComponent = setterForComponent(relation,result);
+			Method setterForComponent = setterForSubobject(relation,result);
 			if(setterForComponent != null) {
 				result.add(setterForComponent);
 			}
@@ -378,6 +385,7 @@ public class JavaTranslator extends AbstractTranslator {
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,result);
 			if(fieldForComponent != null) {
 				result.add(fieldForComponent);
+				fieldForComponent.setTag(new TagImpl(), SUBOBJECT_READ);
 			}
 			// We must flush the cache because the type reference of the declared subobject type might be in the
 			// language cache.
@@ -398,7 +406,7 @@ public class JavaTranslator extends AbstractTranslator {
 
 		// The result is still temporarily attached to the original model.
 		replaceThisLiterals(result); //M
-		replaceComponentAccess(result);//N
+		replaceSubobjectAccess(result);//N
 		
 		if(splitClass(result)) {
 		  transformToImplRecursive(result);
@@ -410,6 +418,7 @@ public class JavaTranslator extends AbstractTranslator {
 		result.setUniParent(null);
 		removeSubobjectParameters(result);
 		removeOverridesClauses(result);
+		removeSubobjectConstructorCalls(result);
 		}
 		return result;
 	}
@@ -417,6 +426,12 @@ public class JavaTranslator extends AbstractTranslator {
 	private void removeOverridesClauses(Type type) {
 		for(Overrides ov: type.descendants(Overrides.class)) {
 			ov.disconnect();
+		}
+	}
+	
+	private void removeSubobjectConstructorCalls(Type type) {
+		for(SubobjectConstructorCall subobectConstructorCall: type.descendants(SubobjectConstructorCall.class)) {
+			subobectConstructorCall.parent().disconnect();
 		}
 	}
 	
@@ -1022,21 +1037,23 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private Method getterForComponent(ComponentRelation relation, Type outer) throws LookupException {
+	private Method getterForSubobject(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {
 			JavaTypeReference returnTypeReference = componentTypeReference(relation, outer);
 			RegularMethod result = relation.language(Java.class).createNormalMethod(new SimpleNameMethodHeader(getterName(relation), returnTypeReference));
 			result.addModifier(new Public());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			body.addStatement(new ReturnStatement(new NamedTargetExpression(fieldName(relation), null)));
+			NamedTargetExpression fieldAccessor = new NamedTargetExpression(fieldName(relation), null);
+			fieldAccessor.setTag(new TagImpl(), NO_SUBOBJECT_READ);
+			body.addStatement(new ReturnStatement(fieldAccessor));
 			return result;
 		} else {
 			return null;
 		}
 	}
 	
-	private Method setterForComponent(ComponentRelation relation, Type outer) throws LookupException {
+	private Method setterForSubobject(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {
 			String name = relation.signature().name();
 			RegularMethod result = relation.language(Java.class).createNormalMethod(new SimpleNameMethodHeader(setterName(relation), relation.language(Java.class).createTypeReference("void")));
