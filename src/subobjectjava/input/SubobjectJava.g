@@ -59,7 +59,6 @@ import chameleon.core.namespace.NamespaceReference;
 
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.namespacepart.Import;
-import chameleon.core.namespacepart.TypeImport;
 import chameleon.core.namespacepart.DemandImport;
 
 import chameleon.core.reference.CrossReference;
@@ -68,6 +67,8 @@ import chameleon.oo.statement.Block;
 import chameleon.oo.statement.Statement;
 
 import chameleon.oo.modifier.AnnotationModifier;
+
+import chameleon.oo.namespacepart.TypeImport;
 
 import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.RegularType;
@@ -218,6 +219,7 @@ import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentNameActualArgument;
 import subobjectjava.model.component.ParameterReferenceActualArgument;
 import subobjectjava.model.component.Export;
+import subobjectjava.model.component.Overrides;
 import subobjectjava.model.component.InstantiatedMemberSubobjectParameter;
 
 import java.util.List;

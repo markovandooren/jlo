@@ -27,6 +27,7 @@ import subobjectjava.model.component.ComponentParameterTypeReference;
 import subobjectjava.model.component.ComponentRelation;
 import subobjectjava.model.component.ComponentType;
 import subobjectjava.model.component.FormalComponentParameter;
+import subobjectjava.model.component.Overrides;
 import subobjectjava.model.expression.ComponentParameterCall;
 import subobjectjava.model.expression.SubobjectConstructorCall;
 import subobjectjava.model.language.JLo;
@@ -42,7 +43,6 @@ import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
-import chameleon.core.namespacepart.TypeImport;
 import chameleon.core.property.ChameleonProperty;
 import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.CrossReferenceTarget;
@@ -65,6 +65,7 @@ import chameleon.oo.method.MethodHeader;
 import chameleon.oo.method.RegularImplementation;
 import chameleon.oo.method.RegularMethod;
 import chameleon.oo.method.SimpleNameMethodHeader;
+import chameleon.oo.namespacepart.TypeImport;
 import chameleon.oo.statement.Block;
 import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.RegularType;
@@ -408,8 +409,15 @@ public class JavaTranslator extends AbstractTranslator {
 		removeNonLocalReferences(result); //Z
 		result.setUniParent(null);
 		removeSubobjectParameters(result);
+		removeOverridesClauses(result);
 		}
 		return result;
+	}
+	
+	private void removeOverridesClauses(Type type) {
+		for(Overrides ov: type.descendants(Overrides.class)) {
+			ov.disconnect();
+		}
 	}
 	
 	//JENS

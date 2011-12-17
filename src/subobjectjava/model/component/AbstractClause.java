@@ -22,8 +22,6 @@ import chameleon.util.Util;
 
 public abstract class AbstractClause<E extends AbstractClause> extends ConfigurationClause<E> {
 
-	private SingleAssociation<AbstractClause, Signature> _signature = new SingleAssociation<AbstractClause, Signature>(this);
-
 	public QualifiedName oldNameFor(Signature signature) throws LookupException {
 		QualifiedName result = null;
 		if(newSignature().sameAs(signature)) {
@@ -64,6 +62,8 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	public void setNewSignature(Signature signature) {
 	  setAsParent(_signature, signature);
 	}
+
+	private SingleAssociation<AbstractClause, Signature> _signature = new SingleAssociation<AbstractClause, Signature>(this);
 
 	/**
 	 * Return the signature of this member.

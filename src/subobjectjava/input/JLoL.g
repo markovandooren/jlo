@@ -79,8 +79,8 @@ Connect
 	:	'connect'
 	;    	
 
-Name
-  	:	'name'
+Refines
+  	:	'refines'
   	;
 
 Overrides

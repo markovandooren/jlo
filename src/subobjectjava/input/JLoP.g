@@ -91,6 +91,7 @@ memberDecl returns [TypeElement element]
     |   cd=classDeclaration {retval.element=cd.element; gJavaP.addNonTopLevelObjectInheritance(cd.element);}
     |   comp=subobjectDeclaration {retval.element=comp.element;}
     |   exp=exportDeclaration {retval.element=exp.element;}
+    |   ov=overridesClause {retval.element=ov.element;}
     |   np=nameParameter {retval.element=np.element;}
     |   con=connector {retval.element = con.element;}
     |   cnct=connection {retval.element = cnct.element;}
@@ -121,7 +122,11 @@ memberName returns [Object element]
 exportDeclaration returns [Export element]
     	: xp=Export {retval.element = new Export(); setKeyword(retval.element,xp);} m=map {retval.element.add(m.element);} (',' mm=map {retval.element.add(mm.element);})*	';'
     	;
-    	
+
+overridesClause returns [Overrides element]
+     	: newSig=signature ov=Overrides oldFQN=fqn {retval.element = new Overrides(newSig.element,oldFQN.element); setKeyword(retval.element,ov);}
+     	;
+
 map returns [RenamingClause element]
 	:  oldFQN=fqn {retval.element = new RenamingClause(null, oldFQN.element);} 
 	   (id=identifierRule newSig=signature 
