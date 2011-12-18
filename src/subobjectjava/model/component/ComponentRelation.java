@@ -2,6 +2,7 @@ package subobjectjava.model.component;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -305,11 +306,34 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	@Override
 	public <X extends Member> void accumulateInheritedMembers(DeclarationSelector<X> selector, List<X> current) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
+		final List<X> potential = selector.selection(componentType().processedMembers());
 		if(configurationBlock != null) {
-		  current.addAll(selector.selection(configurationBlock.processedMembers()));
+		  potential.addAll(selector.selection(configurationBlock.processedMembers()));
 		}
-	  current.addAll(selector.selection(componentType().processedMembers()));
+		removeNonMostSpecificMembers(current, potential);
 	}
+
+	protected <M extends Member>
+  void removeNonMostSpecificMembers(List<M> current, final List<M> potential) throws LookupException {
+	final List<M> toAdd = new ArrayList<M>();
+	for(M m: potential) {
+		boolean add = true;
+		Iterator<M> iterCurrent = current.iterator();
+		while(add && iterCurrent.hasNext()) {
+			M alreadyInherited = iterCurrent.next();
+			// Remove the already inherited member if potentially inherited member m overrides or hides it.
+			if((alreadyInherited.sameAs(m) || alreadyInherited.overrides(m) || alreadyInherited.canImplement(m) || alreadyInherited.hides(m))) {
+				add = false;
+			} else if((!alreadyInherited.sameAs(m)) && (m.overrides(alreadyInherited) || m.canImplement(alreadyInherited) || m.hides(alreadyInherited))) {
+				iterCurrent.remove();
+			}
+		}
+		if(add == true) {
+			toAdd.add(m);
+		}
+	}
+	current.addAll(toAdd);
+}
 
 	public List<? extends Member> getIntroducedMembers() throws LookupException {
 		List<Member> result = new ArrayList<Member>();
