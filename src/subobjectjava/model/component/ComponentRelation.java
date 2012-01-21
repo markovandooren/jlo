@@ -281,7 +281,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
   	if(componentType == null) {
   		_componentType.connectTo(null);
   	} else {
-  		_componentType.connectTo((Association<? extends ComponentType, ? super ComponentRelation>) componentType.parentLink());
+  		_componentType.connectTo((Association) componentType.parentLink());
   	}
   }
 

@@ -30,6 +30,8 @@ import chameleon.util.Util;
 
 public abstract class ComponentParameter<E extends ComponentParameter<E>> extends Parameter<E> implements DeclarationWithType<E, SimpleNameSignature>, Member<E,SimpleNameSignature> {
 
+	public abstract E clone();
+	
 	public ComponentParameter(SimpleNameSignature sig) {
 		super(sig);
 	}
