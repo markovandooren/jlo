@@ -162,6 +162,11 @@ public class JavaTranslator extends AbstractTranslator {
   			result.add(interfaceCompilationUnit);
   		}
   	}
+  	for(Type type: implementationCompilationUnit.descendants(Type.class)) {
+  		if(type.hasTag(REMOVE)) {
+  			type.disconnect();
+  		}
+  	}
   	for(NamespacePart part: parts) {
   		removeDuplicateImports(part);
   	}
@@ -363,8 +368,12 @@ public class JavaTranslator extends AbstractTranslator {
 		replaceConstructorCalls(result);
 		flushCache(result);
 		List<ComponentRelation> relations = result.directlyDeclaredMembers(ComponentRelation.class);
+		List<ComponentRelation> originalRelations = original.directlyDeclaredMembers(ComponentRelation.class);
 		subobjectConstructorTransformer().replaceSubobjectConstructorCalls(result); // commented out the replaceSubobjectConstructorCalls below
-		for(ComponentRelation relation : relations) {
+		int size = relations.size();
+		for(int i=0; i< size; i++) {
+			ComponentRelation relation = relations.get(i);
+			ComponentRelation originalRelation = originalRelations.get(i);
 			// Add a getter for subobject
 			Method getterForComponent = getterForSubobject(relation,result);
 			if(getterForComponent != null) {
@@ -378,7 +387,7 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 
 			// Create the inner classes for the components
-			subobjectToClassTransformer().inner(result, relation);
+			subobjectToClassTransformer().inner(result, relation, originalRelation);
 			flushCache(result);
 		}
 		for(ComponentRelation relation: result.directlyDeclaredMembers(ComponentRelation.class)) {
@@ -809,9 +818,14 @@ public class JavaTranslator extends AbstractTranslator {
 			transformToImplRecursive(nested);
 		}
 	}
+	
+	public final static String REMOVE="REMOVE";
 
 	private void transformToImpl(Type type) throws ModelException {
 		JLo lang = type.language(JLo.class);
+		if(type.isTrue(lang.INTERFACE)) {
+			type.setTag(new TagImpl(), REMOVE);
+		}
 //		if(! type.isTrue(lang.PRIVATE)) {
 			// Change the name of the outer type.
 			// What a crappy code. I would probably be easier to not add IMPL
@@ -882,43 +896,6 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void expandReferences(Element<?> type) throws LookupException {
-		Java language = type.language(Java.class);
-		for(BasicJavaTypeReference tref: type.descendants(BasicJavaTypeReference.class)) {
-			if(tref.getTarget() == null) {
-				try {
-					// Filthy hack, should add meta information to such references, and use that instead.
-					String name = tref.signature().name();
-					if(! name.contains(SHADOW)) {
-						Type element = null;
-						boolean implClass = name.contains(IMPL);
-						if(implClass) {
-							TypeReference tr = new BasicJavaTypeReference(interfaceName(name));
-							tr.setUniParent(tref.parent());
-							element = tr.getElement();
-						} else {
-							element = tref.getElement();
-						}
-						if(! element.isTrue(language.PRIVATE)) {
-							String fullyQualifiedName = element.getFullyQualifiedName();
-							String predecessor = Util.getAllButLastPart(fullyQualifiedName);
-							if(predecessor != null) {
-								CrossReference target = new NamedTarget(predecessor);
-								tref.setTarget(target);
-								if(implClass) {
-									transformToImplReference(target);
-								}
-							}
-						}
-					}
-				} catch(LookupException exc) {
-					// This occurs because a generated element cannot be resolved in the original model. E.g.
-					// an inner class of another class than the one that has been generated.
-				}
-			}
-		}
-	}
-	
 	private Method createOutward(Method<?,?,?> method, String newName, String className) throws LookupException {
 		NormalMethod<?,?,?> result;
 		Java java = method.language(Java.class);

@@ -369,6 +369,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			for(int i = 0; i < size; i++) {
 				if(superSubobjects.get(i).signature().sameAs(relation.signature())) {
 					relativeIndexInSuper = 2*i;
+					break;
 				}
 			}
 			ClassBody body = relation.nearestAncestor(ClassBody.class);
@@ -379,15 +380,13 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 					if(relativeIndexInSuper == -1) {
 						throw new Error();
 					}
-					if(subCalls.isEmpty()) {
+					if(subCalls.isEmpty() && clonedConstructor) {
 						// Neither strategy is set.
-						if(! clonedConstructor) {
-							arguments[relativeIndexInSuper] = new NullLiteral();
-							arguments[relativeIndexInSuper+1] = new NullLiteral();
-						} else {
 							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
 							arguments[relativeIndexInSuper+1] = new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName());
-						}
+					} else {
+						arguments[relativeIndexInSuper] = new NullLiteral();
+						arguments[relativeIndexInSuper+1] = new NullLiteral();
 					}
 				} else if (! relation.overriddenMembers().isEmpty()) {
 					// LOCALLY DEFINED & THERE IS A SUPER SUBOBJECT

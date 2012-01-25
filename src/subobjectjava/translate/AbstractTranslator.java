@@ -30,6 +30,7 @@ import chameleon.core.reference.CrossReferenceWithName;
 import chameleon.core.reference.CrossReferenceWithTarget;
 import chameleon.exception.ModelException;
 import chameleon.oo.expression.MethodInvocation;
+import chameleon.oo.expression.NamedTarget;
 import chameleon.oo.expression.NamedTargetExpression;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.method.Method;
@@ -48,6 +49,7 @@ import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
+import chameleon.util.Util;
 
 public class AbstractTranslator {
 
@@ -72,6 +74,43 @@ public class AbstractTranslator {
 		}
 	}
 
+	protected void expandReferences(Element<?> type) throws LookupException {
+		Java language = type.language(Java.class);
+		for(BasicJavaTypeReference tref: type.descendants(BasicJavaTypeReference.class)) {
+			if(tref.getTarget() == null) {
+				try {
+					// Filthy hack, should add meta information to such references, and use that instead.
+					String name = tref.signature().name();
+					if(! name.contains(SHADOW)) {
+						Type element = null;
+						boolean implClass = name.contains(IMPL);
+						if(implClass) {
+							TypeReference tr = new BasicJavaTypeReference(interfaceName(name));
+							tr.setUniParent(tref.parent());
+							element = tr.getElement();
+						} else {
+							element = tref.getElement();
+						}
+						if(! element.isTrue(language.PRIVATE)) {
+							String fullyQualifiedName = element.getFullyQualifiedName();
+							String predecessor = Util.getAllButLastPart(fullyQualifiedName);
+							if(predecessor != null) {
+								CrossReference target = new NamedTarget(predecessor);
+								tref.setTarget(target);
+								if(implClass) {
+									transformToImplReference(target);
+								}
+							}
+						}
+					}
+				} catch(LookupException exc) {
+					// This occurs because a generated element cannot be resolved in the original model. E.g.
+					// an inner class of another class than the one that has been generated.
+				}
+			}
+		}
+	}
+	
 	protected String interfaceName(String name) {
 //		if(! name.contains(IMPL)) {
 //			throw new IllegalArgumentException();

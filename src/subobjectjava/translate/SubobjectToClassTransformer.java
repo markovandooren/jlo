@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jnome.core.expression.invocation.JavaMethodInvocation;
+import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
 
 import org.rejuse.association.SingleAssociation;
@@ -21,12 +22,14 @@ import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.oo.expression.Expression;
 import chameleon.oo.expression.MethodInvocation;
+import chameleon.oo.member.Member;
 import chameleon.oo.member.SimpleNameDeclarationWithParametersSignature;
 import chameleon.oo.method.Method;
 import chameleon.oo.method.RegularImplementation;
 import chameleon.oo.statement.Block;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeElement;
+import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.support.expression.ThisLiteral;
 import chameleon.support.member.simplename.method.NormalMethod;
@@ -50,11 +53,17 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		return _subobjectConstructorTransformer;
 	}
 
-	public void inner(Type javaType, ComponentRelation relation) throws ChameleonProgrammerException, ModelException {
-		Type innerClass = createInnerClassFor(relation,javaType);
+	public void inner(Type javaType, ComponentRelation relation, ComponentRelation originalRelation) throws ChameleonProgrammerException, ModelException {
+		Type innerClass = createInnerClassFor(relation,javaType, originalRelation);
 		javaType.flushCache();
 		Type componentType = relation.componentType();
-		for(ComponentRelation nestedRelation: componentType.directlyDeclaredElements(ComponentRelation.class)) {
+		Type originalComponentType = originalRelation.componentType();
+		List<ComponentRelation> relations = componentType.directlyDeclaredElements(ComponentRelation.class);
+		List<ComponentRelation> originalRelations = originalComponentType.directlyDeclaredElements(ComponentRelation.class);
+		int size = relations.size();
+		for(int i = 0; i < size; i++) {
+			ComponentRelation nestedRelation = relations.get(i);
+			ComponentRelation originalNestedRelation = relations.get(i);
 			// subst parameters
 			ComponentRelation clonedNestedRelation = nestedRelation.clone();
 			clonedNestedRelation.setUniParent(nestedRelation.parent());
@@ -64,7 +73,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 			  substituteTypeParameters(clonedNestedRelation);
 				throw exc;
 			}
-			inner(innerClass, clonedNestedRelation);
+			inner(innerClass, clonedNestedRelation, originalNestedRelation);
 		}
 		addAliasDelegations(relation, innerClass.nearestAncestor(Type.class),relation.nearestAncestor(Type.class));
 	}
@@ -111,9 +120,9 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	 * @param outerJavaType The outer class being generated.
 	 * @throws ModelException 
 	 */
-	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type javaType) throws ChameleonProgrammerException, ModelException {
+	private Type createInnerClassFor(ComponentRelation relationBeingTranslated, Type javaType, ComponentRelation original) throws ChameleonProgrammerException, ModelException {
 		Type result = innerClassCreator().emptyInnerClassFor(relationBeingTranslated);
-		processComponentRelationBody(relationBeingTranslated, result);
+		processComponentRelationBody(relationBeingTranslated, result, original);
 		javaType.add(result);
 		if(PROCESS_NESTED_CONSTRUCTORS) {
 			List<InheritanceRelation> inheritanceRelations = result.nonMemberInheritanceRelations();
@@ -138,7 +147,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		}
 	}
 
-	private void processComponentRelationBody(ComponentRelation relation, Type result)
+	private void processComponentRelationBody(ComponentRelation relation, Type result, ComponentRelation original)
 	throws LookupException {
 		ComponentType ctype = relation.componentTypeDeclaration();
 		ComponentType clonedType = ctype.clone();
@@ -151,8 +160,71 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 				result.add(typeElement);
 			}
 		}
+		processOverriddenSubobjects(relation,result,original);
 	}
 	
+	private void processOverriddenSubobjects(ComponentRelation unused, Type result, ComponentRelation original) throws LookupException {
+		List<ComponentRelation> todo = (List<ComponentRelation>)original.directlyOverriddenMembers();
+		List<Member> members = original.componentType().directlyDeclaredMembers();
+    while(! todo.isEmpty()) {
+    	ComponentRelation overridden = todo.get(0);
+    	todo.remove(0);
+  		ComponentType ctype = overridden.componentTypeDeclaration();
+  		ComponentType clonedType = ctype.clone();
+  		clonedType.setUniParent(overridden);
+  		// The outer and root targets are replaced now because they need to be in the subobjects themselves in order
+  		// to use the target semantics of the Outer call. Otherwise we must encode its semantics in the translator.
+  		replaceOuterAndRootTargets(clonedType);
+  		for(Member typeElement:clonedType.body().members()) {
+  			if((PROCESS_NESTED_CONSTRUCTORS || ! (typeElement instanceof ComponentRelation)) && (! (typeElement instanceof Export))) {
+  				if(! alreadyContains(members,typeElement)) {
+  					Member toAdd = typeElement.clone();
+  					toAdd.setUniParent(typeElement.parent());
+  					expandReferences(toAdd);
+  					rewriteAllThis(toAdd,unused, original);
+  					toAdd.setUniParent(null);
+  				  result.add(toAdd);
+  				  members.add(toAdd);
+  				}
+  			}
+  		}
+    }
+	}
+	
+	private void rewriteAllThis(Member<?,?> member, ComponentRelation relation, ComponentRelation original) throws LookupException {
+		for(ThisLiteral literal: member.descendants(ThisLiteral.class)) {
+			rewriteThis(literal,relation,original);
+		}
+	}
+	
+	private void rewriteThis(ThisLiteral literal, ComponentRelation relation, ComponentRelation original) throws LookupException {
+		TypeReference tref = literal.getTypeReference();
+		if(tref != null) {
+			Type t = tref.getType();
+//			Type type = original.nearestAncestor(Type.class);
+			Type literalAncestor = relation.nearestAncestor(Type.class);
+			Type lit = null;
+			while(literalAncestor != null && lit == null) {
+				if(literalAncestor.subTypeOf(t)) {
+					lit = literalAncestor;
+				} else {
+					literalAncestor = relation.nearestAncestor(Type.class);
+				}
+			}
+			Java language = relation.language(Java.class);
+			literal.setTypeReference(language.createTypeReference(lit.signature().name()));
+		}
+	}
+	
+  private boolean alreadyContains(List<Member> members, Member member) throws LookupException {
+  	for(Member m: members) {
+  		if(member.signature().sameAs(m.signature())) {
+  			return true;
+  		}
+  	}
+  	return false;
+  }
+
 	private static boolean PROCESS_NESTED_CONSTRUCTORS=true;
 
 	private void replaceOuterAndRootTargets(TypeElement<?> clone) {
