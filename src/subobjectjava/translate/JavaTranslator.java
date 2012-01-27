@@ -342,6 +342,10 @@ public class JavaTranslator extends AbstractTranslator {
 	 * @throws ModelException 
 	 */
 	private Type translatedImplementation(Type original) throws ChameleonProgrammerException, ModelException {
+		List<ComponentRelation> rs = original.directlyDeclaredMembers(ComponentRelation.class);
+		for(ComponentRelation r: rs) {
+			r.parentLink().lock();
+		}
 		Type result = original.clone();
 //		result.setUniParent(original.parent());
 		Java lang = original.language(Java.class);
@@ -373,7 +377,6 @@ public class JavaTranslator extends AbstractTranslator {
 		int size = relations.size();
 		for(int i=0; i< size; i++) {
 			ComponentRelation relation = relations.get(i);
-			ComponentRelation originalRelation = originalRelations.get(i);
 			// Add a getter for subobject
 			Method getterForComponent = getterForSubobject(relation,result);
 			if(getterForComponent != null) {
@@ -387,6 +390,14 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 
 			// Create the inner classes for the components
+			ComponentRelation originalRelation = null;
+			int s = originalRelations.size();
+			for(int j = 0; j<s;j++) {
+				ComponentRelation tmp = originalRelations.get(j);
+				if(tmp.name().equals(relation.name())) {
+					originalRelation = tmp;
+				}
+			}
 			subobjectToClassTransformer().inner(result, relation, originalRelation);
 			flushCache(result);
 		}

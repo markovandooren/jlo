@@ -57,13 +57,20 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		Type innerClass = createInnerClassFor(relation,javaType, originalRelation);
 		javaType.flushCache();
 		Type componentType = relation.componentType();
-		Type originalComponentType = originalRelation.componentType();
+		Type originalComponentType = null;
+		List<ComponentRelation> originalRelations = null;
+		if(originalRelation != null) {
+			originalComponentType = originalRelation.componentType();
+			originalRelations = originalComponentType.directlyDeclaredElements(ComponentRelation.class);
+		}
 		List<ComponentRelation> relations = componentType.directlyDeclaredElements(ComponentRelation.class);
-		List<ComponentRelation> originalRelations = originalComponentType.directlyDeclaredElements(ComponentRelation.class);
 		int size = relations.size();
 		for(int i = 0; i < size; i++) {
 			ComponentRelation nestedRelation = relations.get(i);
-			ComponentRelation originalNestedRelation = relations.get(i);
+			ComponentRelation originalNestedRelation = null;
+			if(originalRelations != null) {
+				originalNestedRelation = originalRelations.get(i);
+			}
 			// subst parameters
 			ComponentRelation clonedNestedRelation = nestedRelation.clone();
 			clonedNestedRelation.setUniParent(nestedRelation.parent());
@@ -164,31 +171,33 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	}
 	
 	private void processOverriddenSubobjects(ComponentRelation unused, Type result, ComponentRelation original) throws LookupException {
-		List<ComponentRelation> todo = (List<ComponentRelation>)original.directlyOverriddenMembers();
-		List<Member> members = original.componentType().directlyDeclaredMembers();
-    while(! todo.isEmpty()) {
-    	ComponentRelation overridden = todo.get(0);
-    	todo.remove(0);
-  		ComponentType ctype = overridden.componentTypeDeclaration();
-  		ComponentType clonedType = ctype.clone();
-  		clonedType.setUniParent(overridden);
-  		// The outer and root targets are replaced now because they need to be in the subobjects themselves in order
-  		// to use the target semantics of the Outer call. Otherwise we must encode its semantics in the translator.
-  		replaceOuterAndRootTargets(clonedType);
-  		for(Member typeElement:clonedType.body().members()) {
-  			if((PROCESS_NESTED_CONSTRUCTORS || ! (typeElement instanceof ComponentRelation)) && (! (typeElement instanceof Export))) {
-  				if(! alreadyContains(members,typeElement)) {
-  					Member toAdd = typeElement.clone();
-  					toAdd.setUniParent(typeElement.parent());
-  					expandReferences(toAdd);
-  					rewriteAllThis(toAdd,unused, original);
-  					toAdd.setUniParent(null);
-  				  result.add(toAdd);
-  				  members.add(toAdd);
-  				}
-  			}
-  		}
-    }
+		if(original != null) {
+			List<ComponentRelation> todo = (List<ComponentRelation>)original.directlyOverriddenMembers();
+			List<Member> members = original.componentType().directlyDeclaredMembers();
+			while(! todo.isEmpty()) {
+				ComponentRelation overridden = todo.get(0);
+				todo.remove(0);
+				ComponentType ctype = overridden.componentTypeDeclaration();
+				ComponentType clonedType = ctype.clone();
+				clonedType.setUniParent(overridden);
+				// The outer and root targets are replaced now because they need to be in the subobjects themselves in order
+				// to use the target semantics of the Outer call. Otherwise we must encode its semantics in the translator.
+				replaceOuterAndRootTargets(clonedType);
+				for(Member typeElement:clonedType.body().members()) {
+					if((PROCESS_NESTED_CONSTRUCTORS || ! (typeElement instanceof ComponentRelation)) && (! (typeElement instanceof Export))) {
+						if(! alreadyContains(members,typeElement)) {
+							Member toAdd = typeElement.clone();
+							toAdd.setUniParent(typeElement.parent());
+							expandReferences(toAdd);
+							rewriteAllThis(toAdd,unused, original);
+							toAdd.setUniParent(null);
+							result.add(toAdd);
+							members.add(toAdd);
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	private void rewriteAllThis(Member<?,?> member, ComponentRelation relation, ComponentRelation original) throws LookupException {
