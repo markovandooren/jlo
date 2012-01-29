@@ -3,19 +3,26 @@ package subobjectjava.input;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringBufferInputStream;
 import java.util.Collection;
 
 import jnome.core.language.Java;
 import jnome.input.JavaModelFactory;
+import jnome.input.parser.JavaParser;
 import jnome.output.JavaCodeWriter;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
+import org.antlr.runtime.RecognitionException;
 
 import subobjectjava.model.language.JLo;
+import chameleon.core.compilationunit.CompilationUnit;
+import chameleon.core.element.Element;
+import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
 import chameleon.oo.language.ObjectOrientedLanguage;
+import chameleon.oo.member.Member;
 import chameleon.plugin.Plugin;
 import chameleon.plugin.output.Syntax;
 import chameleon.support.input.ChameleonParser;
@@ -85,5 +92,21 @@ public class SubobjectJavaModelFactory extends JavaModelFactory {
 //	  addPrimitives(language().defaultNamespace());
 //	}
   
+	protected <P extends Element> Element parse(Element<?> element, String text) throws ParseException {
+		try {
+		  InputStream inputStream = new StringBufferInputStream(text);
+		  Element result = null;
+		  if(element instanceof Member) {
+	  		Parser parser = (Parser)getParser(inputStream, "document");
+	  		parser.setCompilationUnit(element.nearestAncestor(CompilationUnit.class));
+				result = parser.memberDecl().element;
+			}
+			return result;
+		} catch(RecognitionException exc) {
+			throw new ParseException(element.nearestAncestor(CompilationUnit.class));
+		} catch(IOException exc) {
+			throw new ChameleonProgrammerException("Parsing of a string caused an IOException",exc);
+		}
+	}
 
 }
