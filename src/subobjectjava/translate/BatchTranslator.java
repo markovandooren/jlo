@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import subobjectjava.build.JLoBuilder;
 import subobjectjava.input.JLoFactory;
-import subobjectjava.input.SubobjectJavaModelFactory;
+import subobjectjava.input.JLoModelFactory;
 import subobjectjava.model.language.JLo;
 import subobjectjava.model.type.RegularJLoType;
 import chameleon.core.Config;
@@ -82,7 +82,7 @@ public class BatchTranslator {
     BasicConfigurator.configure();
     Logger.getRootLogger().setLevel(Level.FATAL);
     Config.setCaching(true);
-    ModelBuilder provider = new ModelBuilder(new SubobjectJavaModelFactory(),args,".jlo",true,true);
+    ModelBuilder provider = new ModelBuilder(new JLoModelFactory(),args,".jlo",true,true);
     File outputDir = provider.outputDir();
     long start = System.currentTimeMillis();
     new BatchTranslator((JLo) provider.language(), provider.namespaceProvider(),outputDir).translate();
