@@ -41,6 +41,7 @@ import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.modifier.Modifier;
+import chameleon.core.namespacepart.DirectImport;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.property.ChameleonProperty;
@@ -65,7 +66,6 @@ import chameleon.oo.method.MethodHeader;
 import chameleon.oo.method.RegularImplementation;
 import chameleon.oo.method.RegularMethod;
 import chameleon.oo.method.SimpleNameMethodHeader;
-import chameleon.oo.namespacepart.TypeImport;
 import chameleon.oo.statement.Block;
 import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.RegularType;
@@ -152,7 +152,7 @@ public class JavaTranslator extends AbstractTranslator {
   	}
   	implementationCompilationUnit.flushCache();
   	result.add(implementationCompilationUnit);
-  	implementationCompilationUnit.namespacePart(1).getNamespaceLink().lock();
+  	//implementationCompilationUnit.namespacePart(1).getNamespaceLink().lock();
   	List<NamespacePart> parts = implementationCompilationUnit.descendants(NamespacePart.class);
   	boolean iface = true;
   	if(iface) {
@@ -343,9 +343,9 @@ public class JavaTranslator extends AbstractTranslator {
 	 */
 	private Type translatedImplementation(Type original) throws ChameleonProgrammerException, ModelException {
 		List<ComponentRelation> rs = original.directlyDeclaredMembers(ComponentRelation.class);
-		for(ComponentRelation r: rs) {
-			r.parentLink().lock();
-		}
+//		for(ComponentRelation r: rs) {
+//			r.parentLink().lock();
+//		}
 		Type result = original.clone();
 //		result.setUniParent(original.parent());
 		Java lang = original.language(Java.class);
@@ -536,7 +536,7 @@ public class JavaTranslator extends AbstractTranslator {
 			Type type = tref.getElement().baseType();
 			if(type instanceof RegularType && (! type.isTrue(java.PRIMITIVE_TYPE))) {
 				TypeReference importRef = java.createTypeReference(type.getFullyQualifiedName());
-				namespacePart.addImport(new TypeImport(importRef));
+				namespacePart.addImport(new DirectImport(importRef));
 			}
 			} catch(LookupException exc) {
 				tref.getElement();

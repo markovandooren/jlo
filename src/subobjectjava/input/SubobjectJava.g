@@ -243,6 +243,8 @@ import java.util.ArrayList;
 	   
   public void setCompilationUnit(CompilationUnit compilationUnit) {
     gJLoP.setCompilationUnit(compilationUnit);
+    gJavaP.setCompilationUnit(compilationUnit);
+    super.setCompilationUnit(compilationUnit);
   }
   
   public Namespace getDefaultNamespace() {

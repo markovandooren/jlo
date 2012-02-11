@@ -7,8 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.rejuse.association.Association;
+import org.rejuse.association.AssociationListener;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.predicate.TypePredicate;
+
+import subobjectjava.model.type.RegularJLoType;
 
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Definition;
@@ -37,14 +40,42 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
 import chameleon.oo.type.inheritance.InheritanceRelation;
+import chameleon.util.CreationStackTrace;
 import chameleon.util.Util;
 
 public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSignature> implements DeclarationWithType<ComponentRelation,SimpleNameSignature>, Definition<ComponentRelation,SimpleNameSignature>, InheritanceRelation<ComponentRelation,Type>{
 
+	private CreationStackTrace _trace;
+	
+	@Override
+	public void disconnect() {
+		super.disconnect();
+	}
+	
 	public ComponentRelation(SimpleNameSignature signature, TypeReference type) {
 		setSignature(signature);
 		setComponentType(type);
 		setBody(new ClassBody());
+		_trace = new CreationStackTrace();
+		parentLink().addListener(new AssociationListener() {
+
+			@Override
+			public void notifyElementAdded(Object element) {
+				ComponentRelation.this._trace = new CreationStackTrace();
+			}
+
+			@Override
+			public void notifyElementRemoved(Object element) {
+				ComponentRelation.this._trace = new CreationStackTrace();
+			}
+
+			@Override
+			public void notifyElementReplaced(Object oldElement, Object newElement) {
+				ComponentRelation.this._trace = new CreationStackTrace();
+			}
+
+		});
+
 	}
 	
 	@Override
