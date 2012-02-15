@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JLo Eclipse
+Bundle-SymbolicName: be.chameleon.eclipse.jlo;singleton:=true
+Bundle-Version: 1.0.6
+Bundle-ClassPath: bin/.,
+ .,
+ dist/local/jar/jlo-local.jar
+Bundle-Vendor: K.U.Leuven
+Export-Package: jlo.build,
+ jlo.eclipse,
+ jlo.input,
+ jlo.model.component,
+ jlo.model.expression,
+ jlo.model.language,
+ jlo.model.type,
+ jlo.output,
+ jlo.translate
+Require-Bundle: be.chameleon.eclipse.java;bundle-version="1.0.0",
+ be.chameleon.eclipse;bundle-version="1.0.6",
+ org.eclipse.swt;bundle-version="3.7.0",
+ org.eclipse.jface;bundle-version="3.7.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
