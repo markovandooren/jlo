@@ -1,0 +1,16 @@
+package javax.crypto;
+public class KeyGenerator extends java.lang.Object {
+   protected  KeyGenerator(javax.crypto.KeyGeneratorSpi a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+  public static final native javax.crypto.KeyGenerator getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException;
+  public static final native javax.crypto.KeyGenerator getInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+  public static final native javax.crypto.KeyGenerator getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException, java.security.NoSuchProviderException;
+  public final native void init(int a_r_g_u_m_e_n_t_0) ;
+  public final native void init(int a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1) ;
+  public final native void init(java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_0)  throws java.security.InvalidAlgorithmParameterException;
+  public final native void init(java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1)  throws java.security.InvalidAlgorithmParameterException;
+  public final native void init(java.security.SecureRandom a_r_g_u_m_e_n_t_0) ;
+  public final native java.lang.String getAlgorithm() ;
+  public final native java.security.Provider getProvider() ;
+  native void a() ;
+  public final native javax.crypto.SecretKey generateKey() ;
+}

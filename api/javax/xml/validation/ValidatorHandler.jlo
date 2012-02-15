@@ -1,0 +1,15 @@
+package javax.xml.validation;
+public abstract class ValidatorHandler extends java.lang.Object implements org.xml.sax.ContentHandler {
+   protected  ValidatorHandler(){}
+  public native void setProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws org.xml.sax.SAXNotRecognizedException, org.xml.sax.SAXNotSupportedException;
+  public native java.lang.Object getProperty(java.lang.String a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXNotRecognizedException, org.xml.sax.SAXNotSupportedException;
+  public abstract org.xml.sax.ContentHandler getContentHandler() ;
+  public native boolean getFeature(java.lang.String a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXNotRecognizedException, org.xml.sax.SAXNotSupportedException;
+  public abstract void setErrorHandler(org.xml.sax.ErrorHandler a_r_g_u_m_e_n_t_0) ;
+  public native void setFeature(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws org.xml.sax.SAXNotRecognizedException, org.xml.sax.SAXNotSupportedException;
+  public abstract void setContentHandler(org.xml.sax.ContentHandler a_r_g_u_m_e_n_t_0) ;
+  public abstract org.xml.sax.ErrorHandler getErrorHandler() ;
+  public abstract void setResourceResolver(org.w3c.dom.ls.LSResourceResolver a_r_g_u_m_e_n_t_0) ;
+  public abstract org.w3c.dom.ls.LSResourceResolver getResourceResolver() ;
+  public abstract javax.xml.validation.TypeInfoProvider getTypeInfoProvider() ;
+}

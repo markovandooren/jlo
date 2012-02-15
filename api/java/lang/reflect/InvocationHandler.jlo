@@ -1,0 +1,4 @@
+package java.lang.reflect;
+public abstract interface InvocationHandler {
+  public abstract java.lang.Object invoke(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.reflect.Method a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2)  throws java.lang.Throwable;
+}

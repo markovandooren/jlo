@@ -1,0 +1,33 @@
+package java.util.concurrent.atomic;
+public abstract class AtomicLongFieldUpdater<T extends java.lang.Object> extends java.lang.Object {
+   protected  AtomicLongFieldUpdater(){}
+  public abstract long get(T a_r_g_u_m_e_n_t_0) ;
+  public abstract void set(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public native long getAndAdd(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public abstract void lazySet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public native long getAndSet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean compareAndSet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2) ;
+  public abstract boolean weakCompareAndSet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2) ;
+  public native long getAndIncrement(T a_r_g_u_m_e_n_t_0) ;
+  public native long getAndDecrement(T a_r_g_u_m_e_n_t_0) ;
+  public native long incrementAndGet(T a_r_g_u_m_e_n_t_0) ;
+  public native long decrementAndGet(T a_r_g_u_m_e_n_t_0) ;
+  public native long addAndGet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public static native <U extends java.lang.Object>java.util.concurrent.atomic.AtomicLongFieldUpdater<U> newUpdater(java.lang.Class<U> a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  private static class LockedUpdater<T extends java.lang.Object> extends java.util.concurrent.atomic.AtomicLongFieldUpdater<T> {
+      LockedUpdater(java.lang.Class<T> a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public native long get(T a_r_g_u_m_e_n_t_0) ;
+    public native void set(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+    public native void lazySet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+    public native boolean compareAndSet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2) ;
+    public native boolean weakCompareAndSet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2) ;
+  }
+  private static class CASUpdater<T extends java.lang.Object> extends java.util.concurrent.atomic.AtomicLongFieldUpdater<T> {
+      CASUpdater(java.lang.Class<T> a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public native long get(T a_r_g_u_m_e_n_t_0) ;
+    public native void set(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+    public native void lazySet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+    public native boolean compareAndSet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2) ;
+    public native boolean weakCompareAndSet(T a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2) ;
+  }
+}

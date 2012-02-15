@@ -1,0 +1,6 @@
+package java.io;
+public class InterruptedIOException extends java.io.IOException {
+   public  InterruptedIOException(){}
+   public  InterruptedIOException(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public int bytesTransferred;
+}

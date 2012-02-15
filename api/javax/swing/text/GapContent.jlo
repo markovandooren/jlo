@@ -1,0 +1,81 @@
+package javax.swing.text;
+public class GapContent extends javax.swing.text.GapVector implements javax.swing.text.AbstractDocument.Content, java.io.Serializable {
+   public  GapContent(){}
+   public  GapContent(int a_r_g_u_m_e_n_t_0){}
+  public native int length() ;
+  public native void getChars(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Segment a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  final native int compare(javax.swing.text.GapContent.MarkData a_r_g_u_m_e_n_t_0, javax.swing.text.GapContent.MarkData a_r_g_u_m_e_n_t_1) ;
+  public native javax.swing.undo.UndoableEdit remove(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public native java.lang.String getString(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public native javax.swing.undo.UndoableEdit insertString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public native javax.swing.text.Position createPosition(int a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException;
+  protected native java.lang.Object allocateArray(int a_r_g_u_m_e_n_t_0) ;
+  protected native int getArrayLength() ;
+  protected native void shiftEnd(int a_r_g_u_m_e_n_t_0) ;
+  native int getNewArraySize(int a_r_g_u_m_e_n_t_0) ;
+  protected native void shiftGap(int a_r_g_u_m_e_n_t_0) ;
+  protected native void resetMarksAtZero() ;
+  protected native void shiftGapStartDown(int a_r_g_u_m_e_n_t_0) ;
+  protected native void shiftGapEndUp(int a_r_g_u_m_e_n_t_0) ;
+  final native int findMarkAdjustIndex(int a_r_g_u_m_e_n_t_0) ;
+  final native int findSortIndex(javax.swing.text.GapContent.MarkData a_r_g_u_m_e_n_t_0) ;
+  final native void removeUnusedMarks() ;
+  protected native java.util.Vector getPositionsInRange(java.util.Vector a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native void updateUndoPositions(java.util.Vector a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  static final int GROWTH_SIZE;
+  class RemoveUndo extends javax.swing.undo.AbstractUndoableEdit {
+     protected  RemoveUndo(javax.swing.text.GapContent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+    public native void redo()  throws javax.swing.undo.CannotRedoException;
+    public native void undo()  throws javax.swing.undo.CannotUndoException;
+    protected int offset;
+    protected int length;
+    protected java.lang.String string;
+    protected java.util.Vector posRefs;
+    final javax.swing.text.GapContent this$0;
+  }
+  class InsertUndo extends javax.swing.undo.AbstractUndoableEdit {
+     protected  InsertUndo(javax.swing.text.GapContent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    public native void redo()  throws javax.swing.undo.CannotRedoException;
+    public native void undo()  throws javax.swing.undo.CannotUndoException;
+    protected int offset;
+    protected int length;
+    protected java.lang.String string;
+    protected java.util.Vector posRefs;
+    final javax.swing.text.GapContent this$0;
+  }
+  final class UndoPosRef extends java.lang.Object {
+      UndoPosRef(javax.swing.text.GapContent a_r_g_u_m_e_n_t_0, javax.swing.text.GapContent.MarkData a_r_g_u_m_e_n_t_1){}
+    protected native void resetLocation(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    protected int undoLocation;
+    protected javax.swing.text.GapContent.MarkData rec;
+    final javax.swing.text.GapContent this$0;
+  }
+  static class MarkVector extends javax.swing.text.GapVector {
+      MarkVector(){}
+      MarkVector(int a_r_g_u_m_e_n_t_0){}
+    public native int size() ;
+    public native void addElement(javax.swing.text.GapContent.MarkData a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.GapContent.MarkData elementAt(int a_r_g_u_m_e_n_t_0) ;
+    public native void insertElementAt(javax.swing.text.GapContent.MarkData a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    protected native java.lang.Object allocateArray(int a_r_g_u_m_e_n_t_0) ;
+    protected native int getArrayLength() ;
+    protected native void replaceRange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2) ;
+    javax.swing.text.GapContent.MarkData[] oneMark;
+  }
+  final class StickyPosition extends java.lang.Object implements javax.swing.text.Position {
+      StickyPosition(javax.swing.text.GapContent a_r_g_u_m_e_n_t_0){}
+    public native java.lang.String toString() ;
+    public final native int getOffset() ;
+    native void setMark(javax.swing.text.GapContent.MarkData a_r_g_u_m_e_n_t_0) ;
+    javax.swing.text.GapContent.MarkData mark;
+    final javax.swing.text.GapContent this$0;
+  }
+  final class MarkData extends java.lang.ref.WeakReference {
+      MarkData(javax.swing.text.GapContent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+      MarkData(javax.swing.text.GapContent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.GapContent.StickyPosition a_r_g_u_m_e_n_t_2, java.lang.ref.ReferenceQueue a_r_g_u_m_e_n_t_3){}
+    public final native int getOffset() ;
+    native javax.swing.text.GapContent.StickyPosition getPosition() ;
+    int index;
+    final javax.swing.text.GapContent this$0;
+  }
+}

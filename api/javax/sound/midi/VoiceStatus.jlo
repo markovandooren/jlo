@@ -1,0 +1,10 @@
+package javax.sound.midi;
+public class VoiceStatus extends java.lang.Object {
+   public  VoiceStatus(){}
+  public boolean active;
+  public int channel;
+  public int bank;
+  public int program;
+  public int note;
+  public int volume;
+}

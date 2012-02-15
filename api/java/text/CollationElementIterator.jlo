@@ -1,0 +1,20 @@
+package java.text;
+public final class CollationElementIterator extends java.lang.Object {
+    CollationElementIterator(java.lang.String a_r_g_u_m_e_n_t_0, java.text.RuleBasedCollator a_r_g_u_m_e_n_t_1){}
+    CollationElementIterator(java.text.CharacterIterator a_r_g_u_m_e_n_t_0, java.text.RuleBasedCollator a_r_g_u_m_e_n_t_1){}
+  public native int next() ;
+  public native int previous() ;
+  public native void reset() ;
+  public native int getOffset() ;
+  public native void setOffset(int a_r_g_u_m_e_n_t_0) ;
+  public native void setText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setText(java.text.CharacterIterator a_r_g_u_m_e_n_t_0) ;
+  public static final native int primaryOrder(int a_r_g_u_m_e_n_t_0) ;
+  public static final native short secondaryOrder(int a_r_g_u_m_e_n_t_0) ;
+  public static final native short tertiaryOrder(int a_r_g_u_m_e_n_t_0) ;
+  final native int strengthOrder(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMaxExpansion(int a_r_g_u_m_e_n_t_0) ;
+  static final native boolean isIgnorable(int a_r_g_u_m_e_n_t_0) ;
+  public static final int NULLORDER;
+  static final int UNMAPPEDCHARVALUE;
+}

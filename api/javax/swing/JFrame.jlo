@@ -1,0 +1,47 @@
+package javax.swing;
+public class JFrame extends java.awt.Frame implements javax.swing.WindowConstants, javax.accessibility.Accessible, javax.swing.RootPaneContainer, javax.swing.TransferHandler.HasGetTransferHandler {
+   public  JFrame() throws java.awt.HeadlessException{}
+   public  JFrame(java.awt.GraphicsConfiguration a_r_g_u_m_e_n_t_0){}
+   public  JFrame(java.lang.String a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+   public  JFrame(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.GraphicsConfiguration a_r_g_u_m_e_n_t_1){}
+  public native void remove(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void update(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Graphics getGraphics() ;
+  public native void setTransferHandler(javax.swing.TransferHandler a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.TransferHandler getTransferHandler() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void repaint(long a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native javax.swing.JRootPane getRootPane() ;
+  protected native java.lang.String paramString() ;
+  protected native void addImpl(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setLayout(java.awt.LayoutManager a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.JRootPane createRootPane() ;
+  protected native boolean isRootPaneCheckingEnabled() ;
+  protected native void setRootPaneCheckingEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JMenuBar getJMenuBar() ;
+  public native void setJMenuBar(javax.swing.JMenuBar a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Container getContentPane() ;
+  public native void setContentPane(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JLayeredPane getLayeredPane() ;
+  public native void setLayeredPane(javax.swing.JLayeredPane a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getGlassPane() ;
+  public native void setGlassPane(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  protected native void setRootPane(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  public native void setDefaultCloseOperation(int a_r_g_u_m_e_n_t_0) ;
+  public native int getDefaultCloseOperation() ;
+  public static native boolean isDefaultLookAndFeelDecorated() ;
+  public native void setIconImage(java.awt.Image a_r_g_u_m_e_n_t_0) ;
+  protected native void processWindowEvent(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void frameInit() ;
+  public static native void setDefaultLookAndFeelDecorated(boolean a_r_g_u_m_e_n_t_0) ;
+  public static final int EXIT_ON_CLOSE;
+  protected javax.swing.JRootPane rootPane;
+  protected boolean rootPaneCheckingEnabled;
+  protected javax.accessibility.AccessibleContext accessibleContext;
+  protected class AccessibleJFrame extends java.awt.Frame.AccessibleAWTFrame {
+     protected  AccessibleJFrame(javax.swing.JFrame a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native java.lang.String getAccessibleName() ;
+    final javax.swing.JFrame this$0;
+  }
+}

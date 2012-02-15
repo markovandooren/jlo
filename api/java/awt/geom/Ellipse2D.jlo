@@ -1,0 +1,41 @@
+package java.awt.geom;
+public abstract class Ellipse2D extends java.awt.geom.RectangularShape {
+   protected  Ellipse2D(){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native boolean intersects(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native java.awt.geom.PathIterator getPathIterator(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public static class Double extends java.awt.geom.Ellipse2D implements java.io.Serializable {
+     public  Double(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3){}
+     public  Double(){}
+    public native boolean isEmpty() ;
+    public native double getY() ;
+    public native double getX() ;
+    public native double getWidth() ;
+    public native double getHeight() ;
+    public native java.awt.geom.Rectangle2D getBounds2D() ;
+    public native void setFrame(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+    public double x;
+    public double y;
+    public double width;
+    public double height;
+  }
+  public static class Float extends java.awt.geom.Ellipse2D implements java.io.Serializable {
+     public  Float(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3){}
+     public  Float(){}
+    public native boolean isEmpty() ;
+    public native double getY() ;
+    public native double getX() ;
+    public native double getWidth() ;
+    public native double getHeight() ;
+    public native java.awt.geom.Rectangle2D getBounds2D() ;
+    public native void setFrame(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3) ;
+    public native void setFrame(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+    public float x;
+    public float y;
+    public float width;
+    public float height;
+  }
+}

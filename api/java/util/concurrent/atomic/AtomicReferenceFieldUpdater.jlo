@@ -1,0 +1,21 @@
+package java.util.concurrent.atomic;
+public abstract class AtomicReferenceFieldUpdater<T extends java.lang.Object, V extends java.lang.Object> extends java.lang.Object {
+   protected  AtomicReferenceFieldUpdater(){}
+  public abstract V get(T a_r_g_u_m_e_n_t_0) ;
+  public abstract void set(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public abstract void lazySet(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public native V getAndSet(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean compareAndSet(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2) ;
+  public abstract boolean weakCompareAndSet(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2) ;
+  public static native <U extends java.lang.Object, W extends java.lang.Object>java.util.concurrent.atomic.AtomicReferenceFieldUpdater<U,W> newUpdater(java.lang.Class<U> a_r_g_u_m_e_n_t_0, java.lang.Class<W> a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) ;
+  private static final class AtomicReferenceFieldUpdaterImpl<T extends java.lang.Object, V extends java.lang.Object> extends java.util.concurrent.atomic.AtomicReferenceFieldUpdater<T,V> {
+      AtomicReferenceFieldUpdaterImpl(java.lang.Class<T> a_r_g_u_m_e_n_t_0, java.lang.Class<V> a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+    public native V get(T a_r_g_u_m_e_n_t_0) ;
+    public native void set(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+    public native void lazySet(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+    public native boolean compareAndSet(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2) ;
+    public native boolean weakCompareAndSet(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2) ;
+    native void targetCheck(T a_r_g_u_m_e_n_t_0) ;
+    native void updateCheck(T a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  }
+}

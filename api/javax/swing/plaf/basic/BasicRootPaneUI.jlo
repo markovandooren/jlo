@@ -1,0 +1,31 @@
+package javax.swing.plaf.basic;
+public class BasicRootPaneUI extends javax.swing.plaf.RootPaneUI implements java.beans.PropertyChangeListener {
+   public  BasicRootPaneUI(){}
+  native javax.swing.InputMap getInputMap(int a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  static native void loadActionMap(javax.swing.plaf.basic.LazyActionMap a_r_g_u_m_e_n_t_0) ;
+  protected native void installKeyboardActions(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallKeyboardActions(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  protected native void installDefaults(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  protected native void installListeners(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallListeners(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallDefaults(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  protected native void installComponents(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallComponents(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  native javax.swing.ComponentInputMap createInputMap(int a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  native void updateDefaultButtonBindings(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  private static class RootPaneInputMap extends javax.swing.plaf.ComponentInputMapUIResource {
+     public  RootPaneInputMap(javax.swing.JComponent a_r_g_u_m_e_n_t_0){}
+  }
+  static class Actions extends sun.swing.UIAction {
+      Actions(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native boolean isEnabled(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    public static final java.lang.String PRESS;
+    public static final java.lang.String RELEASE;
+    public static final java.lang.String POST_POPUP;
+  }
+}

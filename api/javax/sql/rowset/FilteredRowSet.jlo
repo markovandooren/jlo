@@ -1,0 +1,5 @@
+package javax.sql.rowset;
+public abstract interface FilteredRowSet extends javax.sql.rowset.WebRowSet {
+  public abstract void setFilter(javax.sql.rowset.Predicate a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract javax.sql.rowset.Predicate getFilter() ;
+}

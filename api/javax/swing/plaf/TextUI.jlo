@@ -1,0 +1,14 @@
+package javax.swing.plaf;
+public abstract class TextUI extends javax.swing.plaf.ComponentUI {
+   public  TextUI(){}
+  public native java.lang.String getToolTipText(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1) ;
+  public abstract int viewToModel(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_2) ;
+  public abstract int viewToModel(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1) ;
+  public abstract java.awt.Rectangle modelToView(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public abstract java.awt.Rectangle modelToView(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public abstract int getNextVisualPositionFrom(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+  public abstract javax.swing.text.EditorKit getEditorKit(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0) ;
+  public abstract void damageRange(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public abstract void damageRange(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_3, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_4) ;
+  public abstract javax.swing.text.View getRootView(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0) ;
+}

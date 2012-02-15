@@ -1,0 +1,10 @@
+package javax.swing;
+public class ViewportLayout extends java.lang.Object implements java.awt.LayoutManager, java.io.Serializable {
+   public  ViewportLayout(){}
+  public native void removeLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void addLayoutComponent(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public native void layoutContainer(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension preferredLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension minimumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  static javax.swing.ViewportLayout SHARED_INSTANCE;
+}

@@ -1,0 +1,23 @@
+package java.util.concurrent.atomic;
+public class AtomicLong extends java.lang.Number implements java.io.Serializable {
+   public  AtomicLong(long a_r_g_u_m_e_n_t_0){}
+   public  AtomicLong(){}
+  public final native long get() ;
+  public native java.lang.String toString() ;
+  public final native void set(long a_r_g_u_m_e_n_t_0) ;
+  public native int intValue() ;
+  public native long longValue() ;
+  public native float floatValue() ;
+  public native double doubleValue() ;
+  public final native long getAndAdd(long a_r_g_u_m_e_n_t_0) ;
+  public final native void lazySet(long a_r_g_u_m_e_n_t_0) ;
+  public final native long getAndSet(long a_r_g_u_m_e_n_t_0) ;
+  public final native boolean compareAndSet(long a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public final native boolean weakCompareAndSet(long a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public final native long getAndIncrement() ;
+  public final native long getAndDecrement() ;
+  public final native long incrementAndGet() ;
+  public final native long decrementAndGet() ;
+  public final native long addAndGet(long a_r_g_u_m_e_n_t_0) ;
+  static final boolean VM_SUPPORTS_LONG_CAS;
+}

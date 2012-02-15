@@ -1,0 +1,5 @@
+package java.util.prefs;
+public abstract interface NodeChangeListener extends java.util.EventListener {
+  public abstract void childAdded(java.util.prefs.NodeChangeEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void childRemoved(java.util.prefs.NodeChangeEvent a_r_g_u_m_e_n_t_0) ;
+}

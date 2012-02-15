@@ -1,0 +1,15 @@
+package java.security;
+public final class UnresolvedPermission extends java.security.Permission implements java.io.Serializable {
+   public  UnresolvedPermission(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.security.cert.Certificate[] a_r_g_u_m_e_n_t_3){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native boolean implies(java.security.Permission a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getActions() ;
+  public native java.security.PermissionCollection newPermissionCollection() ;
+  native java.security.Permission resolve(java.security.Permission a_r_g_u_m_e_n_t_0, java.security.cert.Certificate[] a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String getUnresolvedType() ;
+  public native java.lang.String getUnresolvedName() ;
+  public native java.lang.String getUnresolvedActions() ;
+  public native java.security.cert.Certificate[] getUnresolvedCerts() ;
+}

@@ -1,0 +1,8 @@
+package java.util.regex;
+public class PatternSyntaxException extends java.lang.IllegalArgumentException {
+   public  PatternSyntaxException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native java.lang.String getMessage() ;
+  public native int getIndex() ;
+  public native java.lang.String getDescription() ;
+  public native java.lang.String getPattern() ;
+}

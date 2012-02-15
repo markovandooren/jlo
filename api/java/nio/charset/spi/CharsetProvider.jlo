@@ -1,0 +1,6 @@
+package java.nio.charset.spi;
+public abstract class CharsetProvider extends java.lang.Object {
+   protected  CharsetProvider(){}
+  public abstract java.nio.charset.Charset charsetForName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.util.Iterator<java.nio.charset.Charset> charsets() ;
+}

@@ -1,0 +1,76 @@
+package java.util.concurrent;
+public class Executors extends java.lang.Object {
+  public static native java.util.concurrent.ScheduledExecutorService newSingleThreadScheduledExecutor(java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.concurrent.ScheduledExecutorService newSingleThreadScheduledExecutor() ;
+  public static native java.util.concurrent.ExecutorService newFixedThreadPool(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.concurrent.ExecutorService newFixedThreadPool(int a_r_g_u_m_e_n_t_0, java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_1) ;
+  public static native java.util.concurrent.ExecutorService newSingleThreadExecutor(java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.concurrent.ExecutorService newSingleThreadExecutor() ;
+  public static native java.util.concurrent.ExecutorService newCachedThreadPool(java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.concurrent.ExecutorService newCachedThreadPool() ;
+  public static native java.util.concurrent.ScheduledExecutorService newScheduledThreadPool(int a_r_g_u_m_e_n_t_0, java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_1) ;
+  public static native java.util.concurrent.ScheduledExecutorService newScheduledThreadPool(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.concurrent.ExecutorService unconfigurableExecutorService(java.util.concurrent.ExecutorService a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.concurrent.ScheduledExecutorService unconfigurableScheduledExecutorService(java.util.concurrent.ScheduledExecutorService a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.concurrent.ThreadFactory defaultThreadFactory() ;
+  public static native java.util.concurrent.ThreadFactory privilegedThreadFactory() ;
+  public static native java.util.concurrent.Callable<java.lang.Object> callable(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.concurrent.Callable<java.lang.Object> callable(java.security.PrivilegedAction<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.concurrent.Callable<java.lang.Object> callable(java.security.PrivilegedExceptionAction<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public static native <T extends java.lang.Object>java.util.concurrent.Callable<T> callable(java.lang.Runnable a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1) ;
+  public static native <T extends java.lang.Object>java.util.concurrent.Callable<T> privilegedCallable(java.util.concurrent.Callable<T> a_r_g_u_m_e_n_t_0) ;
+  public static native <T extends java.lang.Object>java.util.concurrent.Callable<T> privilegedCallableUsingCurrentClassLoader(java.util.concurrent.Callable<T> a_r_g_u_m_e_n_t_0) ;
+  static class DelegatedScheduledExecutorService extends java.util.concurrent.Executors.DelegatedExecutorService implements java.util.concurrent.ScheduledExecutorService {
+      DelegatedScheduledExecutorService(java.util.concurrent.ScheduledExecutorService a_r_g_u_m_e_n_t_0){}
+    public native java.util.concurrent.ScheduledFuture<? extends java.lang.Object> schedule(java.lang.Runnable a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2) ;
+    public native <V extends java.lang.Object>java.util.concurrent.ScheduledFuture<V> schedule(java.util.concurrent.Callable<V> a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2) ;
+    public native java.util.concurrent.ScheduledFuture<? extends java.lang.Object> scheduleAtFixedRate(java.lang.Runnable a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_3) ;
+    public native java.util.concurrent.ScheduledFuture<? extends java.lang.Object> scheduleWithFixedDelay(java.lang.Runnable a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_3) ;
+  }
+  static class FinalizableDelegatedExecutorService extends java.util.concurrent.Executors.DelegatedExecutorService {
+      FinalizableDelegatedExecutorService(java.util.concurrent.ExecutorService a_r_g_u_m_e_n_t_0){}
+    protected native void finalize() ;
+  }
+  static class DelegatedExecutorService extends java.util.concurrent.AbstractExecutorService {
+      DelegatedExecutorService(java.util.concurrent.ExecutorService a_r_g_u_m_e_n_t_0){}
+    public native void shutdown() ;
+    public native boolean awaitTermination(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1)  throws java.lang.InterruptedException;
+    public native void execute(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+    public native java.util.concurrent.Future<? extends java.lang.Object> submit(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+    public native <T extends java.lang.Object>java.util.concurrent.Future<T> submit(java.util.concurrent.Callable<T> a_r_g_u_m_e_n_t_0) ;
+    public native <T extends java.lang.Object>java.util.concurrent.Future<T> submit(java.lang.Runnable a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1) ;
+    public native <T extends java.lang.Object>T invokeAny(java.util.Collection<? extends java.util.concurrent.Callable<T>> a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2)  throws java.lang.InterruptedException, java.util.concurrent.ExecutionException, java.util.concurrent.TimeoutException;
+    public native <T extends java.lang.Object>T invokeAny(java.util.Collection<? extends java.util.concurrent.Callable<T>> a_r_g_u_m_e_n_t_0)  throws java.lang.InterruptedException, java.util.concurrent.ExecutionException;
+    public native <T extends java.lang.Object>java.util.List<java.util.concurrent.Future<T>> invokeAll(java.util.Collection<? extends java.util.concurrent.Callable<T>> a_r_g_u_m_e_n_t_0)  throws java.lang.InterruptedException;
+    public native <T extends java.lang.Object>java.util.List<java.util.concurrent.Future<T>> invokeAll(java.util.Collection<? extends java.util.concurrent.Callable<T>> a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2)  throws java.lang.InterruptedException;
+    public native java.util.List<java.lang.Runnable> shutdownNow() ;
+    public native boolean isShutdown() ;
+    public native boolean isTerminated() ;
+  }
+  static class PrivilegedThreadFactory extends java.util.concurrent.Executors.DefaultThreadFactory {
+      PrivilegedThreadFactory(){}
+    public native java.lang.Thread newThread(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  }
+  static class DefaultThreadFactory extends java.lang.Object implements java.util.concurrent.ThreadFactory {
+      DefaultThreadFactory(){}
+    public native java.lang.Thread newThread(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+    static final java.util.concurrent.atomic.AtomicInteger poolNumber;
+    final java.lang.ThreadGroup group;
+    final java.util.concurrent.atomic.AtomicInteger threadNumber;
+    final java.lang.String namePrefix;
+  }
+  static final class PrivilegedCallableUsingCurrentClassLoader<T extends java.lang.Object> extends java.lang.Object implements java.util.concurrent.Callable<T> {
+      PrivilegedCallableUsingCurrentClassLoader(java.util.concurrent.Callable<T> a_r_g_u_m_e_n_t_0){}
+    public native T call()  throws java.lang.Exception;
+  }
+  static final class PrivilegedCallable<T extends java.lang.Object> extends java.lang.Object implements java.util.concurrent.Callable<T> {
+      PrivilegedCallable(java.util.concurrent.Callable<T> a_r_g_u_m_e_n_t_0){}
+    public native T call()  throws java.lang.Exception;
+  }
+  static final class RunnableAdapter<T extends java.lang.Object> extends java.lang.Object implements java.util.concurrent.Callable<T> {
+      RunnableAdapter(java.lang.Runnable a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1){}
+    public native T call() ;
+    final java.lang.Runnable task;
+    final T result;
+  }
+}

@@ -1,0 +1,282 @@
+package javax.swing.text.html;
+public class HTMLDocument extends javax.swing.text.DefaultStyledDocument {
+   public  HTMLDocument(){}
+   public  HTMLDocument(javax.swing.text.html.StyleSheet a_r_g_u_m_e_n_t_0){}
+   public  HTMLDocument(javax.swing.text.AbstractDocument.Content a_r_g_u_m_e_n_t_0, javax.swing.text.html.StyleSheet a_r_g_u_m_e_n_t_1){}
+  public native javax.swing.text.html.HTMLDocument.Iterator getIterator(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+  protected native void insert(int a_r_g_u_m_e_n_t_0, javax.swing.text.DefaultStyledDocument.ElementSpec[] a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  native javax.swing.text.html.Map getMap(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected native void create(javax.swing.text.DefaultStyledDocument.ElementSpec[] a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.Element getElement(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.Element getElement(javax.swing.text.Element a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  protected native void fireChangedUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void fireUndoableEditUpdate(javax.swing.event.UndoableEditEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void insertUpdate(javax.swing.text.AbstractDocument.DefaultDocumentEvent a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1) ;
+  protected native javax.swing.text.Element createLeafElement(javax.swing.text.Element a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  protected native javax.swing.text.Element createBranchElement(javax.swing.text.Element a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1) ;
+  public native javax.swing.text.html.StyleSheet getStyleSheet() ;
+  public native void setBase(java.net.URL a_r_g_u_m_e_n_t_0) ;
+  public native java.net.URL getBase() ;
+  public native void setPreservesUnknownTags(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.html.HTMLEditorKit.Parser getParser() ;
+  public native void setParser(javax.swing.text.html.HTMLEditorKit.Parser a_r_g_u_m_e_n_t_0) ;
+  public native void setTokenThreshold(int a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.html.HTMLEditorKit.ParserCallback getReader(int a_r_g_u_m_e_n_t_0) ;
+  native javax.swing.text.html.HTMLEditorKit.ParserCallback getReader(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+  public native javax.swing.text.html.HTMLEditorKit.ParserCallback getReader(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_3) ;
+  native boolean hasBaseTag() ;
+  public native void setParagraphAttributes(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+  protected native javax.swing.text.AbstractDocument.AbstractElement createDefaultRoot() ;
+  public native int getTokenThreshold() ;
+  public native boolean getPreservesUnknownTags() ;
+  public native void processHTMLFrameHyperlinkEvent(javax.swing.text.html.HTMLFrameHyperlinkEvent a_r_g_u_m_e_n_t_0) ;
+  static native boolean matchNameAttribute(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_1) ;
+  native boolean isFrameDocument() ;
+  native void setFrameDocumentState(boolean a_r_g_u_m_e_n_t_0) ;
+  native void addMap(javax.swing.text.html.Map a_r_g_u_m_e_n_t_0) ;
+  native void removeMap(javax.swing.text.html.Map a_r_g_u_m_e_n_t_0) ;
+  native java.util.Enumeration getMaps() ;
+  native void setDefaultStyleSheetType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  native java.lang.String getDefaultStyleSheetType() ;
+  public native void setInnerHTML(javax.swing.text.Element a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  public native void setOuterHTML(javax.swing.text.Element a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  public native void insertAfterStart(javax.swing.text.Element a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  public native void insertBeforeEnd(javax.swing.text.Element a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  public native void insertBeforeStart(javax.swing.text.Element a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  public native void insertAfterEnd(javax.swing.text.Element a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  native void obtainLock() ;
+  native void releaseLock() ;
+  native java.lang.String getBaseTarget() ;
+  static final java.lang.String TokenThreshold;
+  public static final java.lang.String AdditionalComments;
+  static final java.lang.String StyleType;
+  java.net.URL base;
+  boolean hasBaseTag;
+  static java.lang.String MAP_PROPERTY;
+  private static class FixedLengthDocument extends javax.swing.text.PlainDocument {
+     public  FixedLengthDocument(int a_r_g_u_m_e_n_t_0){}
+    public native void insertString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  }
+  public class BlockElement extends javax.swing.text.AbstractDocument.BranchElement {
+     public  BlockElement(javax.swing.text.html.HTMLDocument a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2){}
+    public native java.lang.String getName() ;
+    public native javax.swing.text.AttributeSet getResolveParent() ;
+    final javax.swing.text.html.HTMLDocument this$0;
+  }
+  public class RunElement extends javax.swing.text.AbstractDocument.LeafElement {
+     public  RunElement(javax.swing.text.html.HTMLDocument a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+    public native java.lang.String getName() ;
+    public native javax.swing.text.AttributeSet getResolveParent() ;
+    final javax.swing.text.html.HTMLDocument this$0;
+  }
+  static class TaggedAttributeSet extends javax.swing.text.SimpleAttributeSet {
+      TaggedAttributeSet(){}
+  }
+  public class HTMLReader extends javax.swing.text.html.HTMLEditorKit.ParserCallback {
+     public  HTMLReader(javax.swing.text.html.HTMLDocument a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_4){}
+      HTMLReader(javax.swing.text.html.HTMLDocument a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6, boolean a_r_g_u_m_e_n_t_7){}
+     public  HTMLReader(javax.swing.text.html.HTMLDocument a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    public native void flush()  throws javax.swing.text.BadLocationException;
+    native void flushBuffer(boolean a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException;
+    public native void handleStartTag(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+    public native void handleComment(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void handleEndTag(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void handleText(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void handleEndOfLineString(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native void handleSimpleTag(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+    protected native void registerTag(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.html.HTMLDocument.HTMLReader.TagAction a_r_g_u_m_e_n_t_1) ;
+    protected native void pushCharacterStyle() ;
+    protected native void popCharacterStyle() ;
+    protected native void textAreaContent(char[] a_r_g_u_m_e_n_t_0) ;
+    protected native void preContent(char[] a_r_g_u_m_e_n_t_0) ;
+    protected native void blockOpen(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+    protected native void blockClose(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+    protected native void addContent(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+    protected native void addContent(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+    protected native void addSpecialElement(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+    native void addCSSRules(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    native void linkCSSStyleSheet(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    int threshold;
+    int offset;
+    boolean inParagraph;
+    boolean impliedP;
+    boolean inPre;
+    boolean inTextArea;
+    javax.swing.text.html.TextAreaDocument textAreaDocument;
+    boolean inTitle;
+    boolean lastWasNewline;
+    boolean emptyAnchor;
+    boolean midInsert;
+    boolean inBody;
+    javax.swing.text.html.HTML.Tag insertTag;
+    boolean insertInsertTag;
+    boolean foundInsertTag;
+    int insertTagDepthDelta;
+    int popDepth;
+    int pushDepth;
+    javax.swing.text.html.Map lastMap;
+    boolean inStyle;
+    java.lang.String defaultStyle;
+    java.util.Vector styles;
+    boolean inHead;
+    boolean isStyleCSS;
+    boolean emptyDocument;
+    javax.swing.text.AttributeSet styleAttributes;
+    javax.swing.text.html.Option option;
+    protected java.util.Vector<javax.swing.text.DefaultStyledDocument.ElementSpec> parseBuffer;
+    protected javax.swing.text.MutableAttributeSet charAttr;
+    java.util.Stack charAttrStack;
+    java.util.Hashtable tagMap;
+    int inBlock;
+    final javax.swing.text.html.HTMLDocument this$0;
+    public class FormAction extends javax.swing.text.html.HTMLDocument.HTMLReader.SpecialAction {
+       public  FormAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      native void setModel(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      java.lang.Object selectModel;
+      int optionCount;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class ObjectAction extends javax.swing.text.html.HTMLDocument.HTMLReader.SpecialAction {
+        ObjectAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      native void addParameter(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class BaseAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+        BaseAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class TitleAction extends javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction {
+        TitleAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      native boolean isEmpty(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class AnchorAction extends javax.swing.text.html.HTMLDocument.HTMLReader.CharacterAction {
+        AnchorAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class ConvertAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+        ConvertAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    public class CharacterAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+       public  CharacterAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    public class PreAction extends javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction {
+       public  PreAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class StyleAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+        StyleAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      native boolean isEmpty(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class AreaAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+        AreaAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class MapAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+        MapAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class LinkAction extends javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction {
+        LinkAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class HeadAction extends javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction {
+        HeadAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      native boolean isEmpty(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    class MetaAction extends javax.swing.text.html.HTMLDocument.HTMLReader.HiddenAction {
+        MetaAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      native boolean isEmpty(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    public class HiddenAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+       public  HiddenAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      native boolean isEmpty(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    public class IsindexAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+       public  IsindexAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    public class SpecialAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+       public  SpecialAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    public class ParagraphAction extends javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction {
+       public  ParagraphAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    private class FormTagAction extends javax.swing.text.html.HTMLDocument.HTMLReader.BlockAction {
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    public class BlockAction extends javax.swing.text.html.HTMLDocument.HTMLReader.TagAction {
+       public  BlockAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+    public class TagAction extends java.lang.Object {
+       public  TagAction(javax.swing.text.html.HTMLDocument.HTMLReader a_r_g_u_m_e_n_t_0){}
+      public native void start(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+      public native void end(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.text.html.HTMLDocument.HTMLReader this$1;
+    }
+  }
+  static class LeafIterator extends javax.swing.text.html.HTMLDocument.Iterator {
+      LeafIterator(javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_0, javax.swing.text.Document a_r_g_u_m_e_n_t_1){}
+    public native void next() ;
+    public native javax.swing.text.AttributeSet getAttributes() ;
+    public native boolean isValid() ;
+    public native javax.swing.text.html.HTML.Tag getTag() ;
+    public native int getEndOffset() ;
+    public native int getStartOffset() ;
+    native void nextLeaf(javax.swing.text.ElementIterator a_r_g_u_m_e_n_t_0) ;
+    native void setEndOffset() ;
+  }
+  public static abstract class Iterator extends java.lang.Object {
+     public  Iterator(){}
+    public abstract void next() ;
+    public abstract javax.swing.text.AttributeSet getAttributes() ;
+    public abstract boolean isValid() ;
+    public abstract javax.swing.text.html.HTML.Tag getTag() ;
+    public abstract int getEndOffset() ;
+    public abstract int getStartOffset() ;
+  }
+}

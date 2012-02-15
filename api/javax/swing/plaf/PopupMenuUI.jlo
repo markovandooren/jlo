@@ -1,0 +1,6 @@
+package javax.swing.plaf;
+public abstract class PopupMenuUI extends javax.swing.plaf.ComponentUI {
+   public  PopupMenuUI(){}
+  public native boolean isPopupTrigger(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Popup getPopup(javax.swing.JPopupMenu a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+}

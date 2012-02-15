@@ -1,0 +1,7 @@
+package javax.imageio.metadata;
+public class IIOInvalidTreeException extends javax.imageio.IIOException {
+   public  IIOInvalidTreeException(java.lang.String a_r_g_u_m_e_n_t_0, org.w3c.dom.Node a_r_g_u_m_e_n_t_1){}
+   public  IIOInvalidTreeException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1, org.w3c.dom.Node a_r_g_u_m_e_n_t_2){}
+  public native org.w3c.dom.Node getOffendingNode() ;
+  protected org.w3c.dom.Node offendingNode;
+}

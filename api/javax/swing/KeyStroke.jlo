@@ -1,0 +1,10 @@
+package javax.swing;
+public class KeyStroke extends java.awt.AWTKeyStroke {
+  public static native javax.swing.KeyStroke getKeyStroke(char a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.KeyStroke getKeyStroke(java.lang.Character a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.KeyStroke getKeyStroke(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public static native javax.swing.KeyStroke getKeyStroke(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.KeyStroke getKeyStroke(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.KeyStroke getKeyStroke(char a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.KeyStroke getKeyStrokeForEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+}

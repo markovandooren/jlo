@@ -1,0 +1,6 @@
+package java.lang.annotation;
+public class AnnotationTypeMismatchException extends java.lang.RuntimeException {
+   public  AnnotationTypeMismatchException(java.lang.reflect.Method a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public native java.lang.reflect.Method element() ;
+  public native java.lang.String foundType() ;
+}

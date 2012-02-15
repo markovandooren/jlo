@@ -1,0 +1,12 @@
+package javax.naming.directory;
+public abstract interface Attributes extends java.lang.Cloneable, java.io.Serializable {
+  public abstract javax.naming.directory.Attribute get(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.naming.directory.Attribute put(javax.naming.directory.Attribute a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.naming.directory.Attribute put(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.Object clone() ;
+  public abstract int size() ;
+  public abstract javax.naming.directory.Attribute remove(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.naming.NamingEnumeration<? extends javax.naming.directory.Attribute> getAll() ;
+  public abstract boolean isCaseIgnored() ;
+  public abstract javax.naming.NamingEnumeration<java.lang.String> getIDs() ;
+}

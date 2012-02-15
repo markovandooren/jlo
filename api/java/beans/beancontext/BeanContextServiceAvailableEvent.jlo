@@ -1,0 +1,8 @@
+package java.beans.beancontext;
+public class BeanContextServiceAvailableEvent extends java.beans.beancontext.BeanContextEvent {
+   public  BeanContextServiceAvailableEvent(java.beans.beancontext.BeanContextServices a_r_g_u_m_e_n_t_0, java.lang.Class a_r_g_u_m_e_n_t_1){}
+  public native java.beans.beancontext.BeanContextServices getSourceAsBeanContextServices() ;
+  public native java.lang.Class getServiceClass() ;
+  public native java.util.Iterator getCurrentServiceSelectors() ;
+  protected java.lang.Class serviceClass;
+}

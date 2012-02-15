@@ -1,0 +1,28 @@
+package java.awt;
+public class DefaultKeyboardFocusManager extends java.awt.KeyboardFocusManager {
+   public  DefaultKeyboardFocusManager(){}
+  public native void processKeyEvent(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.event.KeyEvent a_r_g_u_m_e_n_t_1) ;
+  public native boolean postProcessKeyEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+  public native boolean dispatchEvent(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  protected synchronized native void enqueueKeyEvents(long a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  protected synchronized native void dequeueKeyEvents(long a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  protected synchronized native void discardKeyEvents(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  static native boolean sendMessage(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.AWTEvent a_r_g_u_m_e_n_t_1) ;
+  public native void focusNextComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void focusPreviousComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native boolean dispatchKeyEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+  public native void upFocusCycle(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void downFocusCycle(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  native void clearMarkers() ;
+  native void dumpMarkers() ;
+  private static class DefaultKeyboardFocusManagerSentEvent extends java.awt.SentEvent {
+     public  DefaultKeyboardFocusManagerSentEvent(java.awt.AWTEvent a_r_g_u_m_e_n_t_0, sun.awt.AppContext a_r_g_u_m_e_n_t_1){}
+    public final native void dispatch() ;
+  }
+  private static class TypeAheadMarker extends java.lang.Object {
+      TypeAheadMarker(long a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1){}
+    public native java.lang.String toString() ;
+    long after;
+    java.awt.Component untilFocused;
+  }
+}

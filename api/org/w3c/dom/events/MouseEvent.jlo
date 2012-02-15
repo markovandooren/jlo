@@ -1,0 +1,14 @@
+package org.w3c.dom.events;
+public abstract interface MouseEvent extends org.w3c.dom.events.UIEvent {
+  public abstract short getButton() ;
+  public abstract int getScreenX() ;
+  public abstract int getScreenY() ;
+  public abstract int getClientX() ;
+  public abstract int getClientY() ;
+  public abstract boolean getCtrlKey() ;
+  public abstract boolean getShiftKey() ;
+  public abstract boolean getAltKey() ;
+  public abstract boolean getMetaKey() ;
+  public abstract org.w3c.dom.events.EventTarget getRelatedTarget() ;
+  public abstract void initMouseEvent(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, org.w3c.dom.views.AbstractView a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8, boolean a_r_g_u_m_e_n_t_9, boolean a_r_g_u_m_e_n_t_10, boolean a_r_g_u_m_e_n_t_11, boolean a_r_g_u_m_e_n_t_12, short a_r_g_u_m_e_n_t_13, org.w3c.dom.events.EventTarget a_r_g_u_m_e_n_t_14) ;
+}

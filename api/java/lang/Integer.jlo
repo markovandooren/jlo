@@ -1,0 +1,54 @@
+package java.lang;
+public final class Integer extends java.lang.Number implements java.lang.Comparable<java.lang.Integer> {
+   public  Integer(int a_r_g_u_m_e_n_t_0){}
+   public  Integer(java.lang.String a_r_g_u_m_e_n_t_0) throws java.lang.NumberFormatException{}
+  public native int hashCode() ;
+  public static native int reverseBytes(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int compareTo(java.lang.Integer a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String toString(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public static native java.lang.String toString(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String toHexString(int a_r_g_u_m_e_n_t_0) ;
+  static native void getChars(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, char[] a_r_g_u_m_e_n_t_2) ;
+  public static native java.lang.Integer valueOf(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.Integer valueOf(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NumberFormatException;
+  public static native java.lang.Integer valueOf(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.lang.NumberFormatException;
+  public static native java.lang.Integer decode(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NumberFormatException;
+  static native void getAndRemoveCacheProperties() ;
+  public static native int reverse(int a_r_g_u_m_e_n_t_0) ;
+  public native byte byteValue() ;
+  public native short shortValue() ;
+  public native int intValue() ;
+  public native long longValue() ;
+  public native float floatValue() ;
+  public native double doubleValue() ;
+  public static native int parseInt(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.lang.NumberFormatException;
+  public static native int parseInt(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NumberFormatException;
+  public static native java.lang.String toOctalString(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String toBinaryString(int a_r_g_u_m_e_n_t_0) ;
+  static native int stringSize(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.Integer getInteger(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Integer a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.Integer getInteger(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.Integer getInteger(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native int highestOneBit(int a_r_g_u_m_e_n_t_0) ;
+  public static native int lowestOneBit(int a_r_g_u_m_e_n_t_0) ;
+  public static native int numberOfLeadingZeros(int a_r_g_u_m_e_n_t_0) ;
+  public static native int numberOfTrailingZeros(int a_r_g_u_m_e_n_t_0) ;
+  public static native int bitCount(int a_r_g_u_m_e_n_t_0) ;
+  public static native int rotateLeft(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native int rotateRight(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native int signum(int a_r_g_u_m_e_n_t_0) ;
+  public static final int MIN_VALUE;
+  public static final int MAX_VALUE;
+  public static final java.lang.Class<java.lang.Integer> TYPE;
+  static final char[] digits;
+  static final char[] DigitTens;
+  static final char[] DigitOnes;
+  static final int[] sizeTable;
+  public static final int SIZE;
+  private static class IntegerCache extends java.lang.Object {
+    static final int high;
+    static final java.lang.Integer[] cache;
+  }
+}

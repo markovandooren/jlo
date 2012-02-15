@@ -1,0 +1,8 @@
+package java.lang.management;
+public abstract interface OperatingSystemMXBean {
+  public abstract java.lang.String getName() ;
+  public abstract java.lang.String getVersion() ;
+  public abstract java.lang.String getArch() ;
+  public abstract int getAvailableProcessors() ;
+  public abstract double getSystemLoadAverage() ;
+}

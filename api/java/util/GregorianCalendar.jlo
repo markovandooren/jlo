@@ -1,0 +1,42 @@
+package java.util;
+public class GregorianCalendar extends java.util.Calendar {
+   public  GregorianCalendar(){}
+   public  GregorianCalendar(java.util.TimeZone a_r_g_u_m_e_n_t_0){}
+   public  GregorianCalendar(java.util.Locale a_r_g_u_m_e_n_t_0){}
+   public  GregorianCalendar(java.util.TimeZone a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1){}
+   public  GregorianCalendar(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  GregorianCalendar(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+   public  GregorianCalendar(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5){}
+    GregorianCalendar(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6){}
+  public native void add(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.util.TimeZone getTimeZone() ;
+  public native void setTimeZone(java.util.TimeZone a_r_g_u_m_e_n_t_0) ;
+  public native boolean isLeapYear(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMinimum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMaximum(int a_r_g_u_m_e_n_t_0) ;
+  protected native void computeTime() ;
+  protected native void computeFields() ;
+  public native void roll(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native void roll(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int getGreatestMinimum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getLeastMaximum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getActualMinimum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getActualMaximum(int a_r_g_u_m_e_n_t_0) ;
+  public native void setGregorianChange(java.util.Date a_r_g_u_m_e_n_t_0) ;
+  public final native java.util.Date getGregorianChange() ;
+  public static final int BC;
+  static final int BCE;
+  public static final int AD;
+  static final int CE;
+  static final int[] MONTH_LENGTH;
+  static final int[] LEAP_MONTH_LENGTH;
+  static final int[] MIN_VALUES;
+  static final int[] LEAST_MAX_VALUES;
+  static final int[] MAX_VALUES;
+  static final long serialVersionUID;
+  static final long DEFAULT_GREGORIAN_CUTOVER;
+  static final boolean $assertionsDisabled;
+}

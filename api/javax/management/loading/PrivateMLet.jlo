@@ -1,0 +1,6 @@
+package javax.management.loading;
+public class PrivateMLet extends javax.management.loading.MLet implements javax.management.loading.PrivateClassLoader {
+   public  PrivateMLet(java.net.URL[] a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+   public  PrivateMLet(java.net.URL[] a_r_g_u_m_e_n_t_0, java.lang.ClassLoader a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+   public  PrivateMLet(java.net.URL[] a_r_g_u_m_e_n_t_0, java.lang.ClassLoader a_r_g_u_m_e_n_t_1, java.net.URLStreamHandlerFactory a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3){}
+}

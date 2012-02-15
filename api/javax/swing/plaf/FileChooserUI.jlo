@@ -1,0 +1,10 @@
+package javax.swing.plaf;
+public abstract class FileChooserUI extends javax.swing.plaf.ComponentUI {
+   public  FileChooserUI(){}
+  public abstract void rescanCurrentDirectory(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+  public abstract void ensureFileIsVisible(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0, java.io.File a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.String getDialogTitle(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getApproveButtonText(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.swing.filechooser.FileFilter getAcceptAllFileFilter(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.swing.filechooser.FileView getFileView(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+}

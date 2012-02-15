@@ -1,0 +1,15 @@
+package java.awt.event;
+public class MouseWheelEvent extends java.awt.event.MouseEvent {
+   public  MouseWheelEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, boolean a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8, int a_r_g_u_m_e_n_t_9, int a_r_g_u_m_e_n_t_10){}
+   public  MouseWheelEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8, boolean a_r_g_u_m_e_n_t_9, int a_r_g_u_m_e_n_t_10, int a_r_g_u_m_e_n_t_11, int a_r_g_u_m_e_n_t_12){}
+  public native java.lang.String paramString() ;
+  public native int getScrollType() ;
+  public native int getScrollAmount() ;
+  public native int getWheelRotation() ;
+  public native int getUnitsToScroll() ;
+  public static final int WHEEL_UNIT_SCROLL;
+  public static final int WHEEL_BLOCK_SCROLL;
+  int scrollType;
+  int scrollAmount;
+  int wheelRotation;
+}

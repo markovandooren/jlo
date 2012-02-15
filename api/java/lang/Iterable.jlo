@@ -1,0 +1,4 @@
+package java.lang;
+public abstract interface Iterable<T extends java.lang.Object> {
+  public abstract java.util.Iterator<T> iterator() ;
+}

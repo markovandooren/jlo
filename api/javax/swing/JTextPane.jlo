@@ -1,0 +1,26 @@
+package javax.swing;
+public class JTextPane extends javax.swing.JEditorPane {
+   public  JTextPane(javax.swing.text.StyledDocument a_r_g_u_m_e_n_t_0){}
+   public  JTextPane(){}
+  public native java.lang.String getUIClassID() ;
+  protected native java.lang.String paramString() ;
+  public native javax.swing.text.Style getStyle(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setDocument(javax.swing.text.Document a_r_g_u_m_e_n_t_0) ;
+  public native void replaceSelection(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.MutableAttributeSet getInputAttributes() ;
+  public native void removeStyle(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.Style addStyle(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.text.Style a_r_g_u_m_e_n_t_1) ;
+  public native void setParagraphAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native void setLogicalStyle(javax.swing.text.Style a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.Style getLogicalStyle() ;
+  public native void setCharacterAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  protected native javax.swing.text.EditorKit createDefaultEditorKit() ;
+  public final native void setEditorKit(javax.swing.text.EditorKit a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.StyledDocument getStyledDocument() ;
+  protected final native javax.swing.text.StyledEditorKit getStyledEditorKit() ;
+  public native void setStyledDocument(javax.swing.text.StyledDocument a_r_g_u_m_e_n_t_0) ;
+  public native void insertComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void insertIcon(javax.swing.Icon a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.AttributeSet getCharacterAttributes() ;
+  public native javax.swing.text.AttributeSet getParagraphAttributes() ;
+}

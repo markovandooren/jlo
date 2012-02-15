@@ -1,0 +1,9 @@
+package javax.net.ssl;
+public abstract interface SSLSessionContext {
+  public abstract javax.net.ssl.SSLSession getSession(byte[] a_r_g_u_m_e_n_t_0) ;
+  public abstract java.util.Enumeration<byte[]> getIds() ;
+  public abstract void setSessionTimeout(int a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract int getSessionTimeout() ;
+  public abstract void setSessionCacheSize(int a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract int getSessionCacheSize() ;
+}

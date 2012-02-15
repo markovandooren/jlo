@@ -1,0 +1,29 @@
+package javax.sound.midi;
+public abstract interface MidiChannel {
+  public abstract int getController(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void controlChange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract int getProgram() ;
+  public abstract void noteOn(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void noteOff(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void noteOff(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void setPolyPressure(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract int getPolyPressure(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void setChannelPressure(int a_r_g_u_m_e_n_t_0) ;
+  public abstract int getChannelPressure() ;
+  public abstract void programChange(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void programChange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void setPitchBend(int a_r_g_u_m_e_n_t_0) ;
+  public abstract int getPitchBend() ;
+  public abstract void resetAllControllers() ;
+  public abstract void allNotesOff() ;
+  public abstract void allSoundOff() ;
+  public abstract boolean localControl(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract void setMono(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getMono() ;
+  public abstract void setOmni(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getOmni() ;
+  public abstract void setMute(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getMute() ;
+  public abstract void setSolo(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getSolo() ;
+}

@@ -1,0 +1,17 @@
+package java.security.cert;
+public class CertificateFactory extends java.lang.Object {
+   protected  CertificateFactory(java.security.cert.CertificateFactorySpi a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+  public static final native java.security.cert.CertificateFactory getInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateException;
+  public static final native java.security.cert.CertificateFactory getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.cert.CertificateException, java.security.NoSuchProviderException;
+  public static final native java.security.cert.CertificateFactory getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1)  throws java.security.cert.CertificateException;
+  public final native java.lang.String getType() ;
+  public final native java.security.cert.CertPath generateCertPath(java.util.List<? extends java.security.cert.Certificate> a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateException;
+  public final native java.security.cert.CertPath generateCertPath(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateException;
+  public final native java.security.cert.CertPath generateCertPath(java.io.InputStream a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.cert.CertificateException;
+  public final native java.security.Provider getProvider() ;
+  public final native java.security.cert.Certificate generateCertificate(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateException;
+  public final native java.security.cert.CRL generateCRL(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CRLException;
+  public final native java.util.Iterator<java.lang.String> getCertPathEncodings() ;
+  public final native java.util.Collection<? extends java.security.cert.Certificate> generateCertificates(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateException;
+  public final native java.util.Collection<? extends java.security.cert.CRL> generateCRLs(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CRLException;
+}

@@ -1,0 +1,12 @@
+package javax.accessibility;
+public abstract interface AccessibleEditableText extends javax.accessibility.AccessibleText {
+  public abstract void delete(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void setTextContents(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void insertTextAtIndex(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.String getTextRange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void cut(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void paste(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void replaceText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) ;
+  public abstract void selectText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void setAttributes(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2) ;
+}

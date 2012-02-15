@@ -1,0 +1,6 @@
+package java.lang.annotation;
+public class IncompleteAnnotationException extends java.lang.RuntimeException {
+   public  IncompleteAnnotationException(java.lang.Class<? extends java.lang.annotation.Annotation> a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public native java.lang.Class<? extends java.lang.annotation.Annotation> annotationType() ;
+  public native java.lang.String elementName() ;
+}

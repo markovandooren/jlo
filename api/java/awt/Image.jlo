@@ -1,0 +1,22 @@
+package java.awt;
+public abstract class Image extends java.lang.Object {
+   public  Image(){}
+  public abstract java.lang.Object getProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.image.ImageObserver a_r_g_u_m_e_n_t_1) ;
+  public native void flush() ;
+  public abstract java.awt.image.ImageProducer getSource() ;
+  public abstract java.awt.Graphics getGraphics() ;
+  public abstract int getWidth(java.awt.image.ImageObserver a_r_g_u_m_e_n_t_0) ;
+  public abstract int getHeight(java.awt.image.ImageObserver a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Image getScaledInstance(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.ImageCapabilities getCapabilities(java.awt.GraphicsConfiguration a_r_g_u_m_e_n_t_0) ;
+  public native void setAccelerationPriority(float a_r_g_u_m_e_n_t_0) ;
+  public native float getAccelerationPriority() ;
+  protected float accelerationPriority;
+  public static final java.lang.Object UndefinedProperty;
+  public static final int SCALE_DEFAULT;
+  public static final int SCALE_FAST;
+  public static final int SCALE_SMOOTH;
+  public static final int SCALE_REPLICATE;
+  public static final int SCALE_AREA_AVERAGING;
+  sun.awt.image.SurfaceManager surfaceManager;
+}

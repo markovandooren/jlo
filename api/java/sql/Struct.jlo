@@ -1,0 +1,6 @@
+package java.sql;
+public abstract interface Struct {
+  public abstract java.lang.Object[] getAttributes()  throws java.sql.SQLException;
+  public abstract java.lang.Object[] getAttributes(java.util.Map<java.lang.String,java.lang.Class<? extends java.lang.Object>> a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract java.lang.String getSQLTypeName()  throws java.sql.SQLException;
+}

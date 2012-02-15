@@ -1,0 +1,61 @@
+package java.awt;
+public class Scrollbar extends java.awt.Component implements java.awt.Adjustable, javax.accessibility.Accessible {
+   public  Scrollbar() throws java.awt.HeadlessException{}
+   public  Scrollbar(int a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+   public  Scrollbar(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) throws java.awt.HeadlessException{}
+  public native int getValue() ;
+  public native void setValue(int a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native void addNotify() ;
+  protected native java.lang.String paramString() ;
+  native boolean eventEnabled(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void processEvent(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  native java.lang.String constructComponentName() ;
+  public native boolean getValueIsAdjusting() ;
+  public native int getOrientation() ;
+  public native void setMinimum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMinimum() ;
+  public native void setMaximum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMaximum() ;
+  public native void setUnitIncrement(int a_r_g_u_m_e_n_t_0) ;
+  public native int getUnitIncrement() ;
+  public native void setBlockIncrement(int a_r_g_u_m_e_n_t_0) ;
+  public native int getBlockIncrement() ;
+  public native void setVisibleAmount(int a_r_g_u_m_e_n_t_0) ;
+  public native int getVisibleAmount() ;
+  public synchronized native void addAdjustmentListener(java.awt.event.AdjustmentListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeAdjustmentListener(java.awt.event.AdjustmentListener a_r_g_u_m_e_n_t_0) ;
+  public native void setValueIsAdjusting(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setOrientation(int a_r_g_u_m_e_n_t_0) ;
+  public native void setValues(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public synchronized native java.awt.event.AdjustmentListener[] getAdjustmentListeners() ;
+  public native int getVisible() ;
+  public synchronized native void setLineIncrement(int a_r_g_u_m_e_n_t_0) ;
+  public native int getLineIncrement() ;
+  public synchronized native void setPageIncrement(int a_r_g_u_m_e_n_t_0) ;
+  public native int getPageIncrement() ;
+  protected native void processAdjustmentEvent(java.awt.event.AdjustmentEvent a_r_g_u_m_e_n_t_0) ;
+  public static final int HORIZONTAL;
+  public static final int VERTICAL;
+  int value;
+  int maximum;
+  int minimum;
+  int visibleAmount;
+  int orientation;
+  int lineIncrement;
+  int pageIncrement;
+  transient boolean isAdjusting;
+  transient java.awt.event.AdjustmentListener adjustmentListener;
+  protected class AccessibleAWTScrollBar extends java.awt.Component.AccessibleAWTComponent implements javax.accessibility.AccessibleValue {
+     protected  AccessibleAWTScrollBar(java.awt.Scrollbar a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native javax.accessibility.AccessibleValue getAccessibleValue() ;
+    public native java.lang.Number getCurrentAccessibleValue() ;
+    public native boolean setCurrentAccessibleValue(java.lang.Number a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Number getMinimumAccessibleValue() ;
+    public native java.lang.Number getMaximumAccessibleValue() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final java.awt.Scrollbar this$0;
+  }
+}

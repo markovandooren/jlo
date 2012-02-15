@@ -1,0 +1,43 @@
+package java.util.jar;
+public abstract class Pack200 extends java.lang.Object {
+  public static synchronized native java.util.jar.Pack200.Packer newPacker() ;
+  public static native java.util.jar.Pack200.Unpacker newUnpacker() ;
+  public static abstract interface Unpacker {
+    public abstract java.util.SortedMap<java.lang.String,java.lang.String> properties() ;
+    public abstract void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+    public abstract void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+    public abstract void unpack(java.io.InputStream a_r_g_u_m_e_n_t_0, java.util.jar.JarOutputStream a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract void unpack(java.io.File a_r_g_u_m_e_n_t_0, java.util.jar.JarOutputStream a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public static final java.lang.String KEEP;
+    public static final java.lang.String TRUE;
+    public static final java.lang.String FALSE;
+    public static final java.lang.String DEFLATE_HINT;
+    public static final java.lang.String PROGRESS;
+  }
+  public static abstract interface Packer {
+    public abstract java.util.SortedMap<java.lang.String,java.lang.String> properties() ;
+    public abstract void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+    public abstract void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+    public abstract void pack(java.util.jar.JarFile a_r_g_u_m_e_n_t_0, java.io.OutputStream a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract void pack(java.util.jar.JarInputStream a_r_g_u_m_e_n_t_0, java.io.OutputStream a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public static final java.lang.String SEGMENT_LIMIT;
+    public static final java.lang.String KEEP_FILE_ORDER;
+    public static final java.lang.String EFFORT;
+    public static final java.lang.String DEFLATE_HINT;
+    public static final java.lang.String MODIFICATION_TIME;
+    public static final java.lang.String PASS_FILE_PFX;
+    public static final java.lang.String UNKNOWN_ATTRIBUTE;
+    public static final java.lang.String CLASS_ATTRIBUTE_PFX;
+    public static final java.lang.String FIELD_ATTRIBUTE_PFX;
+    public static final java.lang.String METHOD_ATTRIBUTE_PFX;
+    public static final java.lang.String CODE_ATTRIBUTE_PFX;
+    public static final java.lang.String PROGRESS;
+    public static final java.lang.String KEEP;
+    public static final java.lang.String PASS;
+    public static final java.lang.String STRIP;
+    public static final java.lang.String ERROR;
+    public static final java.lang.String TRUE;
+    public static final java.lang.String FALSE;
+    public static final java.lang.String LATEST;
+  }
+}

@@ -1,0 +1,55 @@
+package javax.swing;
+public class ProgressMonitor extends java.lang.Object implements javax.accessibility.Accessible {
+   public  ProgressMonitor(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+  public native void close() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void setMinimum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMinimum() ;
+  public native void setMaximum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMaximum() ;
+  public native void setProgress(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isCanceled() ;
+  public native void setMillisToDecideToPopup(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMillisToDecideToPopup() ;
+  public native void setMillisToPopup(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMillisToPopup() ;
+  public native void setNote(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getNote() ;
+  protected javax.accessibility.AccessibleContext accessibleContext;
+  protected class AccessibleProgressMonitor extends javax.accessibility.AccessibleContext implements javax.accessibility.AccessibleText, javax.swing.event.ChangeListener, java.beans.PropertyChangeListener {
+     protected  AccessibleProgressMonitor(javax.swing.ProgressMonitor a_r_g_u_m_e_n_t_0){}
+    public native int getAccessibleChildrenCount() ;
+    public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleComponent getAccessibleComponent() ;
+    public native java.util.Locale getLocale()  throws java.awt.IllegalComponentStateException;
+    public native int getAccessibleIndexInParent() ;
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native javax.accessibility.Accessible getAccessibleParent() ;
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String getAccessibleName() ;
+    public native javax.accessibility.AccessibleValue getAccessibleValue() ;
+    public native javax.accessibility.AccessibleText getAccessibleText() ;
+    public native int getIndexAtPoint(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Rectangle getCharacterBounds(int a_r_g_u_m_e_n_t_0) ;
+    public native int getCharCount() ;
+    public native int getCaretPosition() ;
+    public native java.lang.String getAtIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getAfterIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getBeforeIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native javax.swing.text.AttributeSet getCharacterAttribute(int a_r_g_u_m_e_n_t_0) ;
+    public native int getSelectionStart() ;
+    public native int getSelectionEnd() ;
+    public native java.lang.String getSelectedText() ;
+    public native java.lang.String getAccessibleDescription() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final javax.swing.ProgressMonitor this$0;
+  }
+  private class ProgressOptionPane extends javax.swing.JOptionPane {
+      ProgressOptionPane(javax.swing.ProgressMonitor a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1){}
+    public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+    public native javax.swing.JDialog createDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+    public native int getMaxCharactersPerLineCount() ;
+    final javax.swing.ProgressMonitor this$0;
+  }
+}

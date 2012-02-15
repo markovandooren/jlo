@@ -1,0 +1,33 @@
+package java.security.cert;
+public class PKIXParameters extends java.lang.Object implements java.security.cert.CertPathParameters {
+   public  PKIXParameters(java.security.KeyStore a_r_g_u_m_e_n_t_0) throws java.security.KeyStoreException, java.security.InvalidAlgorithmParameterException{}
+   public  PKIXParameters(java.util.Set<java.security.cert.TrustAnchor> a_r_g_u_m_e_n_t_0) throws java.security.InvalidAlgorithmParameterException{}
+  public native java.lang.Object clone() ;
+  public native java.lang.String toString() ;
+  public native java.util.Date getDate() ;
+  public native void setDate(java.util.Date a_r_g_u_m_e_n_t_0) ;
+  public native void setTargetCertConstraints(java.security.cert.CertSelector a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Set<java.security.cert.TrustAnchor> getTrustAnchors() ;
+  public native void setTrustAnchors(java.util.Set<java.security.cert.TrustAnchor> a_r_g_u_m_e_n_t_0)  throws java.security.InvalidAlgorithmParameterException;
+  public native java.util.Set<java.lang.String> getInitialPolicies() ;
+  public native void setInitialPolicies(java.util.Set<java.lang.String> a_r_g_u_m_e_n_t_0) ;
+  public native void setCertStores(java.util.List<java.security.cert.CertStore> a_r_g_u_m_e_n_t_0) ;
+  public native void addCertStore(java.security.cert.CertStore a_r_g_u_m_e_n_t_0) ;
+  public native java.util.List<java.security.cert.CertStore> getCertStores() ;
+  public native void setRevocationEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isRevocationEnabled() ;
+  public native void setExplicitPolicyRequired(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isExplicitPolicyRequired() ;
+  public native void setPolicyMappingInhibited(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isPolicyMappingInhibited() ;
+  public native void setAnyPolicyInhibited(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isAnyPolicyInhibited() ;
+  public native void setPolicyQualifiersRejected(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean getPolicyQualifiersRejected() ;
+  public native void setCertPathCheckers(java.util.List<java.security.cert.PKIXCertPathChecker> a_r_g_u_m_e_n_t_0) ;
+  public native java.util.List<java.security.cert.PKIXCertPathChecker> getCertPathCheckers() ;
+  public native void addCertPathChecker(java.security.cert.PKIXCertPathChecker a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getSigProvider() ;
+  public native void setSigProvider(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.security.cert.CertSelector getTargetCertConstraints() ;
+}

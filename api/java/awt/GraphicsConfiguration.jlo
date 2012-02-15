@@ -1,0 +1,22 @@
+package java.awt;
+public abstract class GraphicsConfiguration extends java.lang.Object {
+   protected  GraphicsConfiguration(){}
+  public abstract java.awt.Rectangle getBounds() ;
+  public abstract java.awt.GraphicsDevice getDevice() ;
+  public abstract java.awt.image.ColorModel getColorModel(int a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.image.ColorModel getColorModel() ;
+  public abstract java.awt.geom.AffineTransform getDefaultTransform() ;
+  public native java.awt.image.VolatileImage createCompatibleVolatileImage(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.ImageCapabilities a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws java.awt.AWTException;
+  public native java.awt.image.VolatileImage createCompatibleVolatileImage(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.ImageCapabilities a_r_g_u_m_e_n_t_2)  throws java.awt.AWTException;
+  public native java.awt.image.VolatileImage createCompatibleVolatileImage(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.image.VolatileImage createCompatibleVolatileImage(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public abstract java.awt.image.BufferedImage createCompatibleImage(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.image.BufferedImage createCompatibleImage(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public abstract java.awt.geom.AffineTransform getNormalizingTransform() ;
+  public native java.awt.BufferCapabilities getBufferCapabilities() ;
+  public native java.awt.ImageCapabilities getImageCapabilities() ;
+  static final boolean $assertionsDisabled;
+  private static class DefaultBufferCapabilities extends java.awt.BufferCapabilities {
+     public  DefaultBufferCapabilities(java.awt.ImageCapabilities a_r_g_u_m_e_n_t_0){}
+  }
+}

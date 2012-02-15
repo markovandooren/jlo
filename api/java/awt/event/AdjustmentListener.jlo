@@ -1,0 +1,4 @@
+package java.awt.event;
+public abstract interface AdjustmentListener extends java.util.EventListener {
+  public abstract void adjustmentValueChanged(java.awt.event.AdjustmentEvent a_r_g_u_m_e_n_t_0) ;
+}

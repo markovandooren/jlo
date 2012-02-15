@@ -1,0 +1,5 @@
+package java.lang;
+public abstract class VirtualMachineError extends java.lang.Error {
+   public  VirtualMachineError(){}
+   public  VirtualMachineError(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

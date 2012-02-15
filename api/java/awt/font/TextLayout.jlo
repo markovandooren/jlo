@@ -1,0 +1,60 @@
+package java.awt.font;
+public final class TextLayout extends java.lang.Object implements java.lang.Cloneable {
+   public  TextLayout(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Font a_r_g_u_m_e_n_t_1, java.awt.font.FontRenderContext a_r_g_u_m_e_n_t_2){}
+   public  TextLayout(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Map<? extends java.text.AttributedCharacterIterator.Attribute,? extends java.lang.Object> a_r_g_u_m_e_n_t_1, java.awt.font.FontRenderContext a_r_g_u_m_e_n_t_2){}
+   public  TextLayout(java.text.AttributedCharacterIterator a_r_g_u_m_e_n_t_0, java.awt.font.FontRenderContext a_r_g_u_m_e_n_t_1){}
+    TextLayout(java.awt.font.TextLine a_r_g_u_m_e_n_t_0, byte a_r_g_u_m_e_n_t_1, float[] a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3){}
+  public native int hashCode() ;
+  protected native java.lang.Object clone() ;
+  public native boolean equals(java.awt.font.TextLayout a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.awt.geom.Rectangle2D getBounds() ;
+  public native byte getBaseline() ;
+  public native boolean isLeftToRight() ;
+  public native float getLeading() ;
+  public native float getAscent() ;
+  public native float getDescent() ;
+  public native float getAdvance() ;
+  public native java.awt.font.TextLayout getJustifiedLayout(float a_r_g_u_m_e_n_t_0) ;
+  public native void draw(java.awt.Graphics2D a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Shape getVisualHighlightShape(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Shape getVisualHighlightShape(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_1, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_2) ;
+  public native float[] getBaselineOffsets() ;
+  public native java.awt.Rectangle getPixelBounds(java.awt.font.FontRenderContext a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Shape getOutline(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  protected native void handleJustify(float a_r_g_u_m_e_n_t_0) ;
+  public native float getVisibleAdvance() ;
+  public native boolean isVertical() ;
+  public native int getCharacterCount() ;
+  public native float[] getCaretInfo(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0) ;
+  public native float[] getCaretInfo(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.font.TextHitInfo getNextRightHit(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.font.TextHitInfo getNextRightHit(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.font.TextHitInfo getNextRightHit(int a_r_g_u_m_e_n_t_0, java.awt.font.TextLayout.CaretPolicy a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.font.TextHitInfo getNextLeftHit(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.font.TextHitInfo getNextLeftHit(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.font.TextHitInfo getNextLeftHit(int a_r_g_u_m_e_n_t_0, java.awt.font.TextLayout.CaretPolicy a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.font.TextHitInfo getVisualOtherHit(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Shape getCaretShape(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Shape getCaretShape(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_1) ;
+  public native byte getCharacterLevel(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Shape[] getCaretShapes(int a_r_g_u_m_e_n_t_0, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_1, java.awt.font.TextLayout.CaretPolicy a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Shape[] getCaretShapes(int a_r_g_u_m_e_n_t_0, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Shape[] getCaretShapes(int a_r_g_u_m_e_n_t_0) ;
+  public native int[] getLogicalRangesForVisualSelection(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Shape getLogicalHighlightShape(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Shape getLogicalHighlightShape(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Shape getBlackBoxBounds(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.font.TextHitInfo hitTestChar(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.font.TextHitInfo hitTestChar(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_2) ;
+  native java.awt.font.TextLine getTextLineForTesting() ;
+  static native byte getBaselineFromGraphic(java.awt.font.GraphicAttribute a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.font.LayoutPath getLayoutPath() ;
+  public native void hitToPoint(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0, java.awt.geom.Point2D a_r_g_u_m_e_n_t_1) ;
+  public static final java.awt.font.TextLayout.CaretPolicy DEFAULT_CARET_POLICY;
+  public static class CaretPolicy extends java.lang.Object {
+     public  CaretPolicy(){}
+    public native java.awt.font.TextHitInfo getStrongCaret(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_1, java.awt.font.TextLayout a_r_g_u_m_e_n_t_2) ;
+  }
+}

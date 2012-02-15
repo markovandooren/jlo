@@ -1,0 +1,5 @@
+package java.rmi;
+public class RMISecurityException extends java.lang.SecurityException {
+   public  RMISecurityException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  RMISecurityException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+}

@@ -1,0 +1,18 @@
+package javax.swing;
+public class DefaultComboBoxModel extends javax.swing.AbstractListModel implements javax.swing.MutableComboBoxModel, java.io.Serializable {
+   public  DefaultComboBoxModel(java.lang.Object[] a_r_g_u_m_e_n_t_0){}
+   public  DefaultComboBoxModel(java.util.Vector<? extends java.lang.Object> a_r_g_u_m_e_n_t_0){}
+   public  DefaultComboBoxModel(){}
+  public native void addElement(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int getSize() ;
+  public native void removeElementAt(int a_r_g_u_m_e_n_t_0) ;
+  public native void insertElementAt(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void removeElement(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void removeAllElements() ;
+  public native java.lang.Object getElementAt(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getSelectedItem() ;
+  public native void setSelectedItem(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int getIndexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  java.util.Vector objects;
+  java.lang.Object selectedObject;
+}

@@ -1,0 +1,57 @@
+package java.net;
+public class InetAddress extends java.lang.Object implements java.io.Serializable {
+    InetAddress(){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native byte[] getAddress() ;
+  public native java.lang.String toString() ;
+  native java.lang.String getHostName(boolean a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getHostName() ;
+  public native java.lang.String getHostAddress() ;
+  public static native java.net.InetAddress getByName(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.net.UnknownHostException;
+  public native boolean isMulticastAddress() ;
+  public native boolean isAnyLocalAddress() ;
+  public native boolean isLoopbackAddress() ;
+  public native boolean isLinkLocalAddress() ;
+  public native boolean isSiteLocalAddress() ;
+  public native boolean isMCGlobal() ;
+  public native boolean isMCNodeLocal() ;
+  public native boolean isMCLinkLocal() ;
+  public native boolean isMCSiteLocal() ;
+  public native boolean isMCOrgLocal() ;
+  public native boolean isReachable(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native boolean isReachable(java.net.NetworkInterface a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native java.lang.String getCanonicalHostName() ;
+  public static native java.net.InetAddress getByAddress(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1)  throws java.net.UnknownHostException;
+  public static native java.net.InetAddress getByAddress(byte[] a_r_g_u_m_e_n_t_0)  throws java.net.UnknownHostException;
+  public static native java.net.InetAddress[] getAllByName(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.net.UnknownHostException;
+  static native java.net.InetAddress[] getAllByName0(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.net.UnknownHostException;
+  public static native java.net.InetAddress getLocalHost()  throws java.net.UnknownHostException;
+  static native java.net.InetAddress anyLocalAddress() ;
+  static native java.lang.Object loadImpl(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static final int IPv4;
+  static final int IPv6;
+  static transient boolean preferIPv6Address;
+  java.lang.String hostName;
+  int address;
+  int family;
+  static java.net.InetAddress[] unknown_array;
+  static java.net.InetAddressImpl impl;
+  static final boolean $assertionsDisabled;
+  static final class Cache extends java.lang.Object {
+     public  Cache(java.net.InetAddress.Cache.Type a_r_g_u_m_e_n_t_0){}
+    public native java.net.InetAddress.CacheEntry get(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native java.net.InetAddress.Cache put(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    static final class Type extends java.lang.Enum<java.net.InetAddress.Cache.Type> {
+      public static native java.net.InetAddress.Cache.Type valueOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+      public static native java.net.InetAddress.Cache.Type[] values() ;
+      public static final java.net.InetAddress.Cache.Type Positive;
+      public static final java.net.InetAddress.Cache.Type Negative;
+    }
+  }
+  static final class CacheEntry extends java.lang.Object {
+      CacheEntry(java.lang.Object a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1){}
+    java.lang.Object address;
+    long expiration;
+  }
+}

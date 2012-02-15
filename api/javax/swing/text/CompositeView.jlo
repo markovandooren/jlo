@@ -1,0 +1,31 @@
+package javax.swing.text;
+public abstract class CompositeView extends javax.swing.text.View {
+   public  CompositeView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+  public native void replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.View[] a_r_g_u_m_e_n_t_2) ;
+  public native void setParent(javax.swing.text.View a_r_g_u_m_e_n_t_0) ;
+  public native int viewToModel(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_3) ;
+  public native java.awt.Shape modelToView(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_3, java.awt.Shape a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+  public native java.awt.Shape modelToView(int a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  protected native short getTopInset() ;
+  protected native short getBottomInset() ;
+  protected native short getLeftInset() ;
+  protected native short getRightInset() ;
+  protected native void loadChildren(javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_0) ;
+  protected native int getViewIndexAtPosition(int a_r_g_u_m_e_n_t_0) ;
+  public native int getViewCount() ;
+  public native javax.swing.text.View getView(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Shape getChildAllocation(int a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+  public native int getViewIndex(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1) ;
+  public native int getNextVisualPositionFrom(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+  protected native int getNextNorthSouthVisualPositionFrom(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+  protected native boolean flipEastAndWestAtEnds(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1) ;
+  protected native void setParagraphInsets(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.Rectangle getInsideAllocation(java.awt.Shape a_r_g_u_m_e_n_t_0) ;
+  protected abstract boolean isBefore(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+  protected abstract boolean isAfter(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+  protected abstract javax.swing.text.View getViewAtPoint(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+  protected abstract void childAllocation(int a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+  protected native javax.swing.text.View getViewAtPosition(int a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+  protected native void setInsets(short a_r_g_u_m_e_n_t_0, short a_r_g_u_m_e_n_t_1, short a_r_g_u_m_e_n_t_2, short a_r_g_u_m_e_n_t_3) ;
+  protected native int getNextEastWestVisualPositionFrom(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+}

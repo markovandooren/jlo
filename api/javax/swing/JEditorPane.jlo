@@ -1,0 +1,141 @@
+package javax.swing;
+public class JEditorPane extends javax.swing.text.JTextComponent {
+   public  JEditorPane(){}
+   public  JEditorPane(java.net.URL a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   public  JEditorPane(java.lang.String a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   public  JEditorPane(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public native void read(java.io.InputStream a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  native void read(java.io.InputStream a_r_g_u_m_e_n_t_0, javax.swing.text.Document a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public final native java.lang.String getContentType() ;
+  public native void setText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public final native void setContentType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getUIClassID() ;
+  public native java.awt.Dimension getPreferredSize() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  protected native java.lang.String paramString() ;
+  public native java.lang.String getText() ;
+  protected native java.io.InputStream getStream(java.net.URL a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void replaceSelection(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native boolean getScrollableTracksViewportWidth() ;
+  public native boolean getScrollableTracksViewportHeight() ;
+  public native javax.swing.text.EditorKit getEditorKit() ;
+  public native void setPage(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void setPage(java.net.URL a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native java.net.URL getPage() ;
+  public synchronized native void addHyperlinkListener(javax.swing.event.HyperlinkListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeHyperlinkListener(javax.swing.event.HyperlinkListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native javax.swing.event.HyperlinkListener[] getHyperlinkListeners() ;
+  public native void fireHyperlinkUpdate(javax.swing.event.HyperlinkEvent a_r_g_u_m_e_n_t_0) ;
+  public native void scrollToReference(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.text.EditorKit createDefaultEditorKit() ;
+  public native void setEditorKit(javax.swing.text.EditorKit a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.EditorKit getEditorKitForContentType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setEditorKitForContentType(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.text.EditorKit a_r_g_u_m_e_n_t_1) ;
+  native boolean saveComposedText2(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  native void restoreComposedText2(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.text.EditorKit createEditorKitForContentType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native void registerEditorKitForContentType(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.ClassLoader a_r_g_u_m_e_n_t_2) ;
+  public static native void registerEditorKitForContentType(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String getEditorKitClassNameForContentType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  javax.swing.JEditorPane.PageStream loading;
+  static final java.lang.String PostDataProperty;
+  public static final java.lang.String W3C_LENGTH_UNITS;
+  public static final java.lang.String HONOR_DISPLAY_PROPERTIES;
+  static final java.util.Map<java.lang.String,java.lang.String> defaultEditorKitMap;
+  static class HeaderParser extends java.lang.Object {
+     public  HeaderParser(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native java.lang.String findValue(int a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String findValue(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String findValue(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String findKey(int a_r_g_u_m_e_n_t_0) ;
+    public native int findInt(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    java.lang.String raw;
+    java.lang.String[][] tab;
+  }
+  static class PlainEditorKit extends javax.swing.text.DefaultEditorKit implements javax.swing.text.ViewFactory {
+      PlainEditorKit(){}
+    public native javax.swing.text.View create(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.ViewFactory getViewFactory() ;
+    native javax.swing.text.View createI18N(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+    static class PlainParagraph extends javax.swing.text.ParagraphView {
+        PlainParagraph(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+      protected native void setPropertiesFromAttributes() ;
+      public native int getFlowSpan(int a_r_g_u_m_e_n_t_0) ;
+      protected native javax.swing.SizeRequirements calculateMinorAxisRequirements(int a_r_g_u_m_e_n_t_0, javax.swing.SizeRequirements a_r_g_u_m_e_n_t_1) ;
+      static class LogicalView extends javax.swing.text.CompositeView {
+          LogicalView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+        public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+        protected native void loadChildren(javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_0) ;
+        protected native int getViewIndexAtPosition(int a_r_g_u_m_e_n_t_0) ;
+        public native float getPreferredSpan(int a_r_g_u_m_e_n_t_0) ;
+        protected native boolean updateChildren(javax.swing.event.DocumentEvent.ElementChange a_r_g_u_m_e_n_t_0, javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+        protected native void forwardUpdateToView(javax.swing.text.View a_r_g_u_m_e_n_t_0, javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_3) ;
+        protected native boolean isBefore(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+        protected native boolean isAfter(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+        protected native javax.swing.text.View getViewAtPoint(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+        protected native void childAllocation(int a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+      }
+    }
+  }
+  protected class JEditorPaneAccessibleHypertextSupport extends javax.swing.JEditorPane.AccessibleJEditorPane implements javax.accessibility.AccessibleHypertext {
+     public  JEditorPaneAccessibleHypertextSupport(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0){}
+    public native int getLinkCount() ;
+    public native javax.accessibility.AccessibleHyperlink getLink(int a_r_g_u_m_e_n_t_0) ;
+    public native int getLinkIndex(int a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String getLinkText(int a_r_g_u_m_e_n_t_0) ;
+    javax.swing.JEditorPane.JEditorPaneAccessibleHypertextSupport.LinkVector hyperlinks;
+    boolean linksValid;
+    final javax.swing.JEditorPane this$0;
+    private class LinkVector extends java.util.Vector {
+      public native int baseElementIndex(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.JEditorPane.JEditorPaneAccessibleHypertextSupport this$1;
+    }
+    public class HTMLLink extends javax.accessibility.AccessibleHyperlink {
+       public  HTMLLink(javax.swing.JEditorPane.JEditorPaneAccessibleHypertextSupport a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1){}
+      public native boolean isValid() ;
+      public native int getEndIndex() ;
+      public native int getAccessibleActionCount() ;
+      public native java.lang.String getAccessibleActionDescription(int a_r_g_u_m_e_n_t_0) ;
+      public native boolean doAccessibleAction(int a_r_g_u_m_e_n_t_0) ;
+      public native java.lang.Object getAccessibleActionObject(int a_r_g_u_m_e_n_t_0) ;
+      public native java.lang.Object getAccessibleActionAnchor(int a_r_g_u_m_e_n_t_0) ;
+      public native int getStartIndex() ;
+      javax.swing.text.Element element;
+      final javax.swing.JEditorPane.JEditorPaneAccessibleHypertextSupport this$1;
+    }
+  }
+  protected class AccessibleJEditorPaneHTML extends javax.swing.JEditorPane.AccessibleJEditorPane {
+     protected  AccessibleJEditorPaneHTML(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.Accessible getAccessibleAt(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+    public native int getAccessibleChildrenCount() ;
+    public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleText getAccessibleText() ;
+    final javax.swing.JEditorPane this$0;
+  }
+  protected class AccessibleJEditorPane extends javax.swing.text.JTextComponent.AccessibleJTextComponent {
+     protected  AccessibleJEditorPane(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native java.lang.String getAccessibleDescription() ;
+    final javax.swing.JEditorPane this$0;
+  }
+  static class PageStream extends java.io.FilterInputStream {
+     public  PageStream(java.io.InputStream a_r_g_u_m_e_n_t_0){}
+    public native void reset()  throws java.io.IOException;
+    public native int read()  throws java.io.IOException;
+    public native long skip(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native int available()  throws java.io.IOException;
+    public synchronized native void cancel() ;
+    protected synchronized native void checkCanceled()  throws java.io.IOException;
+    boolean canceled;
+  }
+  class PageLoader extends java.lang.Thread {
+      PageLoader(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0, javax.swing.text.Document a_r_g_u_m_e_n_t_1, java.io.InputStream a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.net.URL a_r_g_u_m_e_n_t_4, java.net.URL a_r_g_u_m_e_n_t_5){}
+    public native void run() ;
+    boolean pageLoaded;
+    java.io.InputStream in;
+    java.net.URL old;
+    java.net.URL page;
+    javax.swing.text.Document doc;
+    final javax.swing.JEditorPane this$0;
+  }
+}

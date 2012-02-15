@@ -1,0 +1,50 @@
+package javax.swing.text;
+public abstract class FlowView extends javax.swing.text.BoxView {
+   public  FlowView(javax.swing.text.Element a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native void setParent(javax.swing.text.View a_r_g_u_m_e_n_t_0) ;
+  protected native void layout(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void insertUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+  public native void removeUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+  public native void changedUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+  protected native void loadChildren(javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_0) ;
+  protected native int getViewIndexAtPosition(int a_r_g_u_m_e_n_t_0) ;
+  public native int getFlowSpan(int a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.SizeRequirements calculateMinorAxisRequirements(int a_r_g_u_m_e_n_t_0, javax.swing.SizeRequirements a_r_g_u_m_e_n_t_1) ;
+  public native int getFlowStart(int a_r_g_u_m_e_n_t_0) ;
+  protected abstract javax.swing.text.View createRow() ;
+  public native int getFlowAxis() ;
+  protected int layoutSpan;
+  protected javax.swing.text.View layoutPool;
+  protected javax.swing.text.FlowView.FlowStrategy strategy;
+  static class LogicalView extends javax.swing.text.CompositeView {
+      LogicalView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+    public native javax.swing.text.AttributeSet getAttributes() ;
+    public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+    protected native void loadChildren(javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_0) ;
+    protected native int getViewIndexAtPosition(int a_r_g_u_m_e_n_t_0) ;
+    public native float getPreferredSpan(int a_r_g_u_m_e_n_t_0) ;
+    public native float getMinimumSpan(int a_r_g_u_m_e_n_t_0) ;
+    protected native void forwardUpdateToView(javax.swing.text.View a_r_g_u_m_e_n_t_0, javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_3) ;
+    protected native boolean isBefore(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+    protected native boolean isAfter(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+    protected native javax.swing.text.View getViewAtPoint(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+    protected native void childAllocation(int a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+  }
+  public static class FlowStrategy extends java.lang.Object {
+     public  FlowStrategy(){}
+    public native void layout(javax.swing.text.FlowView a_r_g_u_m_e_n_t_0) ;
+    public native void insertUpdate(javax.swing.text.FlowView a_r_g_u_m_e_n_t_0, javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+    public native void removeUpdate(javax.swing.text.FlowView a_r_g_u_m_e_n_t_0, javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+    public native void changedUpdate(javax.swing.text.FlowView a_r_g_u_m_e_n_t_0, javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+    protected native void adjustRow(javax.swing.text.FlowView a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    native void addDamage(javax.swing.text.FlowView a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    native void unsetDamage() ;
+    protected native javax.swing.text.View getLogicalView(javax.swing.text.FlowView a_r_g_u_m_e_n_t_0) ;
+    protected native int layoutRow(javax.swing.text.FlowView a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+    native void reparentViews(javax.swing.text.View a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    protected native javax.swing.text.View createView(javax.swing.text.FlowView a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    javax.swing.text.Position damageStart;
+    java.util.Vector<javax.swing.text.View> viewBuffer;
+    static final boolean $assertionsDisabled;
+  }
+}

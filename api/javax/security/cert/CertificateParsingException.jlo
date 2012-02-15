@@ -1,0 +1,5 @@
+package javax.security.cert;
+public class CertificateParsingException extends javax.security.cert.CertificateException {
+   public  CertificateParsingException(){}
+   public  CertificateParsingException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

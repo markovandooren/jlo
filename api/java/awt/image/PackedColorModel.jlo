@@ -1,0 +1,14 @@
+package java.awt.image;
+public abstract class PackedColorModel extends java.awt.image.ColorModel {
+   public  PackedColorModel(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8){}
+   public  PackedColorModel(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6){}
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public final native int getMask(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.image.SampleModel createCompatibleSampleModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.image.WritableRaster getAlphaRaster(java.awt.image.WritableRaster a_r_g_u_m_e_n_t_0) ;
+  public native boolean isCompatibleSampleModel(java.awt.image.SampleModel a_r_g_u_m_e_n_t_0) ;
+  public final native int[] getMasks() ;
+  int[] maskArray;
+  int[] maskOffsets;
+  float[] scaleFactors;
+}

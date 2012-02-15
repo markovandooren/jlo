@@ -1,0 +1,26 @@
+package java.awt.image;
+public class WritableRaster extends java.awt.image.Raster {
+   protected  WritableRaster(java.awt.image.SampleModel a_r_g_u_m_e_n_t_0, java.awt.image.DataBuffer a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2, java.awt.Point a_r_g_u_m_e_n_t_3, java.awt.image.WritableRaster a_r_g_u_m_e_n_t_4){}
+   protected  WritableRaster(java.awt.image.SampleModel a_r_g_u_m_e_n_t_0, java.awt.image.DataBuffer a_r_g_u_m_e_n_t_1, java.awt.Point a_r_g_u_m_e_n_t_2){}
+   protected  WritableRaster(java.awt.image.SampleModel a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1){}
+  public native void setRect(java.awt.image.Raster a_r_g_u_m_e_n_t_0) ;
+  public native void setRect(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.image.Raster a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.image.WritableRaster createWritableChild(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int[] a_r_g_u_m_e_n_t_6) ;
+  public native void setDataElements(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.image.Raster a_r_g_u_m_e_n_t_2) ;
+  public native void setDataElements(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native void setDataElements(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.lang.Object a_r_g_u_m_e_n_t_4) ;
+  public native void setPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int[] a_r_g_u_m_e_n_t_4) ;
+  public native void setPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, double[] a_r_g_u_m_e_n_t_4) ;
+  public native void setPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, float[] a_r_g_u_m_e_n_t_4) ;
+  public native java.awt.image.WritableRaster getWritableParent() ;
+  public native java.awt.image.WritableRaster createWritableTranslatedChild(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setPixel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2) ;
+  public native void setPixel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, float[] a_r_g_u_m_e_n_t_2) ;
+  public native void setPixel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, double[] a_r_g_u_m_e_n_t_2) ;
+  public native void setSample(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native void setSample(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3) ;
+  public native void setSample(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native void setSamples(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int[] a_r_g_u_m_e_n_t_5) ;
+  public native void setSamples(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, float[] a_r_g_u_m_e_n_t_5) ;
+  public native void setSamples(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, double[] a_r_g_u_m_e_n_t_5) ;
+}

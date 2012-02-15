@@ -1,0 +1,5 @@
+package java.rmi.dgc;
+public abstract interface DGC extends java.rmi.Remote {
+  public abstract void clean(java.rmi.server.ObjID[] a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.rmi.dgc.VMID a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3)  throws java.rmi.RemoteException;
+  public abstract java.rmi.dgc.Lease dirty(java.rmi.server.ObjID[] a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.rmi.dgc.Lease a_r_g_u_m_e_n_t_2)  throws java.rmi.RemoteException;
+}

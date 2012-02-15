@@ -1,0 +1,29 @@
+package java.lang.reflect;
+public final class Method extends java.lang.reflect.AccessibleObject implements java.lang.reflect.GenericDeclaration, java.lang.reflect.Member {
+    Method(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Class[] a_r_g_u_m_e_n_t_2, java.lang.Class a_r_g_u_m_e_n_t_3, java.lang.Class[] a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, java.lang.String a_r_g_u_m_e_n_t_7, byte[] a_r_g_u_m_e_n_t_8, byte[] a_r_g_u_m_e_n_t_9, byte[] a_r_g_u_m_e_n_t_10){}
+  public transient native java.lang.Object invoke(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object... a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalAccessException, java.lang.IllegalArgumentException, java.lang.reflect.InvocationTargetException;
+  public native int hashCode() ;
+  public native int getModifiers() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getName() ;
+  public native boolean isSynthetic() ;
+  public native java.lang.reflect.TypeVariable<java.lang.reflect.Method>[] getTypeParameters() ;
+  public native java.lang.Class<? extends java.lang.Object> getDeclaringClass() ;
+  public native <T extends java.lang.annotation.Annotation>T getAnnotation(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.annotation.Annotation[] getDeclaredAnnotations() ;
+  public native java.lang.Class<? extends java.lang.Object> getReturnType() ;
+  public native java.lang.Class<? extends java.lang.Object>[] getParameterTypes() ;
+  native java.lang.reflect.Method copy() ;
+  public native java.lang.String toGenericString() ;
+  public native java.lang.reflect.Type getGenericReturnType() ;
+  public native java.lang.reflect.Type[] getGenericParameterTypes() ;
+  public native java.lang.Class<? extends java.lang.Object>[] getExceptionTypes() ;
+  public native java.lang.reflect.Type[] getGenericExceptionTypes() ;
+  public native boolean isBridge() ;
+  public native boolean isVarArgs() ;
+  native sun.reflect.MethodAccessor getMethodAccessor() ;
+  native void setMethodAccessor(sun.reflect.MethodAccessor a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getDefaultValue() ;
+  public native java.lang.annotation.Annotation[][] getParameterAnnotations() ;
+}

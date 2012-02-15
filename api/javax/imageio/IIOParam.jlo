@@ -1,0 +1,32 @@
+package javax.imageio;
+public abstract class IIOParam extends java.lang.Object {
+   protected  IIOParam(){}
+  public native void setSourceRegion(java.awt.Rectangle a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Rectangle getSourceRegion() ;
+  public native void setSourceSubsampling(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native int getSourceXSubsampling() ;
+  public native int getSourceYSubsampling() ;
+  public native int getSubsamplingXOffset() ;
+  public native int getSubsamplingYOffset() ;
+  public native void setSourceBands(int[] a_r_g_u_m_e_n_t_0) ;
+  public native int[] getSourceBands() ;
+  public native void setDestinationType(javax.imageio.ImageTypeSpecifier a_r_g_u_m_e_n_t_0) ;
+  public native javax.imageio.ImageTypeSpecifier getDestinationType() ;
+  public native void setDestinationOffset(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Point getDestinationOffset() ;
+  public native void setController(javax.imageio.IIOParamController a_r_g_u_m_e_n_t_0) ;
+  public native javax.imageio.IIOParamController getController() ;
+  public native javax.imageio.IIOParamController getDefaultController() ;
+  public native boolean hasController() ;
+  public native boolean activateController() ;
+  protected java.awt.Rectangle sourceRegion;
+  protected int sourceXSubsampling;
+  protected int sourceYSubsampling;
+  protected int subsamplingXOffset;
+  protected int subsamplingYOffset;
+  protected int[] sourceBands;
+  protected javax.imageio.ImageTypeSpecifier destinationType;
+  protected java.awt.Point destinationOffset;
+  protected javax.imageio.IIOParamController defaultController;
+  protected javax.imageio.IIOParamController controller;
+}

@@ -1,0 +1,11 @@
+package java.lang.management;
+public class MemoryNotificationInfo extends java.lang.Object {
+   public  MemoryNotificationInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.management.MemoryUsage a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2){}
+    MemoryNotificationInfo(javax.management.openmbean.CompositeData a_r_g_u_m_e_n_t_0){}
+  public static native java.lang.management.MemoryNotificationInfo from(javax.management.openmbean.CompositeData a_r_g_u_m_e_n_t_0) ;
+  public native long getCount() ;
+  public native java.lang.management.MemoryUsage getUsage() ;
+  public native java.lang.String getPoolName() ;
+  public static final java.lang.String MEMORY_THRESHOLD_EXCEEDED;
+  public static final java.lang.String MEMORY_COLLECTION_THRESHOLD_EXCEEDED;
+}

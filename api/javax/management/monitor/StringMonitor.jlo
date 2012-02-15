@@ -1,0 +1,27 @@
+package javax.management.monitor;
+public class StringMonitor extends javax.management.monitor.Monitor implements javax.management.monitor.StringMonitorMBean {
+   public  StringMonitor(){}
+  public synchronized native void start() ;
+  public synchronized native void stop() ;
+  native java.lang.String makeDebugTag() ;
+  public synchronized native java.lang.String getDerivedGauge(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.String getDerivedGauge() ;
+  public synchronized native long getDerivedGaugeTimeStamp(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public synchronized native long getDerivedGaugeTimeStamp() ;
+  public native javax.management.MBeanNotificationInfo[] getNotificationInfo() ;
+  native javax.management.monitor.Monitor.ObservedObject createObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  synchronized native boolean isComparableTypeValid(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  synchronized native void onErrorNotification(javax.management.monitor.MonitorNotification a_r_g_u_m_e_n_t_0) ;
+  synchronized native javax.management.monitor.MonitorNotification buildAlarmNotification(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  public synchronized native java.lang.String getStringToCompare() ;
+  public synchronized native void setStringToCompare(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public synchronized native boolean getNotifyMatch() ;
+  public synchronized native void setNotifyMatch(boolean a_r_g_u_m_e_n_t_0) ;
+  public synchronized native boolean getNotifyDiffer() ;
+  public synchronized native void setNotifyDiffer(boolean a_r_g_u_m_e_n_t_0) ;
+  static class StringMonitorObservedObject extends javax.management.monitor.Monitor.ObservedObject {
+     public  StringMonitorObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0){}
+    public final synchronized native int getStatus() ;
+    public final synchronized native void setStatus(int a_r_g_u_m_e_n_t_0) ;
+  }
+}

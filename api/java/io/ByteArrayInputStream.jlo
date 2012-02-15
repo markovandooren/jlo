@@ -1,0 +1,17 @@
+package java.io;
+public class ByteArrayInputStream extends java.io.InputStream {
+   public  ByteArrayInputStream(byte[] a_r_g_u_m_e_n_t_0){}
+   public  ByteArrayInputStream(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native void close()  throws java.io.IOException;
+  public native void mark(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void reset() ;
+  public synchronized native int read() ;
+  public synchronized native int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public synchronized native long skip(long a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int available() ;
+  public native boolean markSupported() ;
+  protected byte[] buf;
+  protected int pos;
+  protected int mark;
+  protected int count;
+}

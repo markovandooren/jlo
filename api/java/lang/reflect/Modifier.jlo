@@ -1,0 +1,35 @@
+package java.lang.reflect;
+public class Modifier extends java.lang.Object {
+   public  Modifier(){}
+  public static native boolean isInterface(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String toString(int a_r_g_u_m_e_n_t_0) ;
+  static native boolean isSynthetic(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isAbstract(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isProtected(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isFinal(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isStatic(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isPublic(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isPrivate(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isSynchronized(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isVolatile(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isTransient(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isNative(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isStrict(int a_r_g_u_m_e_n_t_0) ;
+  public static final int PUBLIC;
+  public static final int PRIVATE;
+  public static final int PROTECTED;
+  public static final int STATIC;
+  public static final int FINAL;
+  public static final int SYNCHRONIZED;
+  public static final int VOLATILE;
+  public static final int TRANSIENT;
+  public static final int NATIVE;
+  public static final int INTERFACE;
+  public static final int ABSTRACT;
+  public static final int STRICT;
+  static final int BRIDGE;
+  static final int VARARGS;
+  static final int SYNTHETIC;
+  static final int ANNOTATION;
+  static final int ENUM;
+}

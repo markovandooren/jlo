@@ -1,0 +1,18 @@
+package java.util;
+public abstract class AbstractCollection<E extends java.lang.Object> extends java.lang.Object implements java.util.Collection<E> {
+   protected  AbstractCollection(){}
+  public native boolean add(E a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native java.lang.String toString() ;
+  public native boolean isEmpty() ;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean addAll(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0) ;
+  public abstract int size() ;
+  public native <T extends java.lang.Object>T[] toArray(T[] a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object[] toArray() ;
+  public abstract java.util.Iterator<E> iterator() ;
+  public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native boolean removeAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native boolean retainAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+}

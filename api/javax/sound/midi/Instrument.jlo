@@ -1,0 +1,5 @@
+package javax.sound.midi;
+public abstract class Instrument extends javax.sound.midi.SoundbankResource {
+   protected  Instrument(javax.sound.midi.Soundbank a_r_g_u_m_e_n_t_0, javax.sound.midi.Patch a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_3){}
+  public native javax.sound.midi.Patch getPatch() ;
+}

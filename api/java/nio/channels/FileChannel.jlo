@@ -1,0 +1,30 @@
+package java.nio.channels;
+public abstract class FileChannel extends java.nio.channels.spi.AbstractInterruptibleChannel implements java.nio.channels.ByteChannel, java.nio.channels.GatheringByteChannel, java.nio.channels.ScatteringByteChannel {
+   protected  FileChannel(){}
+  public abstract java.nio.channels.FileLock lock(long a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public final native java.nio.channels.FileLock lock()  throws java.io.IOException;
+  public abstract long size()  throws java.io.IOException;
+  public abstract long position()  throws java.io.IOException;
+  public abstract java.nio.channels.FileChannel position(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract int write(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public abstract int write(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract long write(java.nio.ByteBuffer[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public final native long write(java.nio.ByteBuffer[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract java.nio.MappedByteBuffer map(java.nio.channels.FileChannel.MapMode a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public final native long read(java.nio.ByteBuffer[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract long read(java.nio.ByteBuffer[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public abstract int read(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract int read(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public final native java.nio.channels.FileLock tryLock()  throws java.io.IOException;
+  public abstract java.nio.channels.FileLock tryLock(long a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public abstract java.nio.channels.FileChannel truncate(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract void force(boolean a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract long transferTo(long a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.nio.channels.WritableByteChannel a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public abstract long transferFrom(java.nio.channels.ReadableByteChannel a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public static class MapMode extends java.lang.Object {
+    public native java.lang.String toString() ;
+    public static final java.nio.channels.FileChannel.MapMode READ_ONLY;
+    public static final java.nio.channels.FileChannel.MapMode READ_WRITE;
+    public static final java.nio.channels.FileChannel.MapMode PRIVATE;
+  }
+}

@@ -1,0 +1,8 @@
+package java.net;
+public class URLEncoder extends java.lang.Object {
+  public static native java.lang.String encode(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String encode(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.io.UnsupportedEncodingException;
+  static java.util.BitSet dontNeedEncoding;
+  static final int caseDiff;
+  static java.lang.String dfltEncName;
+}

@@ -1,0 +1,38 @@
+package java.awt;
+public final class AlphaComposite extends java.lang.Object implements java.awt.Composite {
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.AlphaComposite getInstance(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.AlphaComposite getInstance(int a_r_g_u_m_e_n_t_0) ;
+  public native float getAlpha() ;
+  public native java.awt.CompositeContext createContext(java.awt.image.ColorModel a_r_g_u_m_e_n_t_0, java.awt.image.ColorModel a_r_g_u_m_e_n_t_1, java.awt.RenderingHints a_r_g_u_m_e_n_t_2) ;
+  public native int getRule() ;
+  public native java.awt.AlphaComposite derive(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.AlphaComposite derive(float a_r_g_u_m_e_n_t_0) ;
+  public static final int CLEAR;
+  public static final int SRC;
+  public static final int DST;
+  public static final int SRC_OVER;
+  public static final int DST_OVER;
+  public static final int SRC_IN;
+  public static final int DST_IN;
+  public static final int SRC_OUT;
+  public static final int DST_OUT;
+  public static final int SRC_ATOP;
+  public static final int DST_ATOP;
+  public static final int XOR;
+  public static final java.awt.AlphaComposite Clear;
+  public static final java.awt.AlphaComposite Src;
+  public static final java.awt.AlphaComposite Dst;
+  public static final java.awt.AlphaComposite SrcOver;
+  public static final java.awt.AlphaComposite DstOver;
+  public static final java.awt.AlphaComposite SrcIn;
+  public static final java.awt.AlphaComposite DstIn;
+  public static final java.awt.AlphaComposite SrcOut;
+  public static final java.awt.AlphaComposite DstOut;
+  public static final java.awt.AlphaComposite SrcAtop;
+  public static final java.awt.AlphaComposite DstAtop;
+  public static final java.awt.AlphaComposite Xor;
+  float extraAlpha;
+  int rule;
+}

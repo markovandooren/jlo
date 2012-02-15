@@ -1,0 +1,10 @@
+package javax.swing.event;
+public abstract interface InternalFrameListener extends java.util.EventListener {
+  public abstract void internalFrameOpened(javax.swing.event.InternalFrameEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void internalFrameClosing(javax.swing.event.InternalFrameEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void internalFrameClosed(javax.swing.event.InternalFrameEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void internalFrameIconified(javax.swing.event.InternalFrameEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void internalFrameDeiconified(javax.swing.event.InternalFrameEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void internalFrameActivated(javax.swing.event.InternalFrameEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void internalFrameDeactivated(javax.swing.event.InternalFrameEvent a_r_g_u_m_e_n_t_0) ;
+}

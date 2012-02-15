@@ -1,0 +1,10 @@
+package javax.swing;
+public abstract interface RootPaneContainer {
+  public abstract javax.swing.JRootPane getRootPane() ;
+  public abstract java.awt.Container getContentPane() ;
+  public abstract void setContentPane(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.swing.JLayeredPane getLayeredPane() ;
+  public abstract void setLayeredPane(javax.swing.JLayeredPane a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Component getGlassPane() ;
+  public abstract void setGlassPane(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+}

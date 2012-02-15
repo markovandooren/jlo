@@ -1,0 +1,28 @@
+package java.util.concurrent;
+public class Exchanger<V extends java.lang.Object> extends java.lang.Object {
+   public  Exchanger(){}
+  public native V exchange(V a_r_g_u_m_e_n_t_0)  throws java.lang.InterruptedException;
+  public native V exchange(V a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2)  throws java.lang.InterruptedException, java.util.concurrent.TimeoutException;
+  private static final class Slot extends java.util.concurrent.atomic.AtomicReference<java.lang.Object> {
+    long q0;
+    long q1;
+    long q2;
+    long q3;
+    long q4;
+    long q5;
+    long q6;
+    long q7;
+    long q8;
+    long q9;
+    long qa;
+    long qb;
+    long qc;
+    long qd;
+    long qe;
+  }
+  private static final class Node extends java.util.concurrent.atomic.AtomicReference<java.lang.Object> {
+     public  Node(java.lang.Object a_r_g_u_m_e_n_t_0){}
+    public final java.lang.Object item;
+    public volatile java.lang.Thread waiter;
+  }
+}

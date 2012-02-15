@@ -1,0 +1,9 @@
+package javax.xml.transform;
+public class TransformerConfigurationException extends javax.xml.transform.TransformerException {
+   public  TransformerConfigurationException(){}
+   public  TransformerConfigurationException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  TransformerConfigurationException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
+   public  TransformerConfigurationException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
+   public  TransformerConfigurationException(java.lang.String a_r_g_u_m_e_n_t_0, javax.xml.transform.SourceLocator a_r_g_u_m_e_n_t_1){}
+   public  TransformerConfigurationException(java.lang.String a_r_g_u_m_e_n_t_0, javax.xml.transform.SourceLocator a_r_g_u_m_e_n_t_1, java.lang.Throwable a_r_g_u_m_e_n_t_2){}
+}

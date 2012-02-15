@@ -1,0 +1,18 @@
+package javax.crypto;
+public class KeyAgreement extends java.lang.Object {
+   protected  KeyAgreement(javax.crypto.KeyAgreementSpi a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+  public static final native javax.crypto.KeyAgreement getInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+  public static final native javax.crypto.KeyAgreement getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException, java.security.NoSuchProviderException;
+  public static final native javax.crypto.KeyAgreement getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException;
+  public final native void init(java.security.Key a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException;
+  public final native void init(java.security.Key a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+  public final native void init(java.security.Key a_r_g_u_m_e_n_t_0, java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  public final native void init(java.security.Key a_r_g_u_m_e_n_t_0, java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_1, java.security.SecureRandom a_r_g_u_m_e_n_t_2)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  public final native java.lang.String getAlgorithm() ;
+  public final native java.security.Provider getProvider() ;
+  native void a() ;
+  public final native java.security.Key doPhase(java.security.Key a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException, java.lang.IllegalStateException;
+  public final native byte[] generateSecret()  throws java.lang.IllegalStateException;
+  public final native int generateSecret(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalStateException, javax.crypto.ShortBufferException;
+  public final native javax.crypto.SecretKey generateSecret(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalStateException, java.security.NoSuchAlgorithmException, java.security.InvalidKeyException;
+}

@@ -1,0 +1,5 @@
+package javax.management.relation;
+public class InvalidRelationServiceException extends javax.management.relation.RelationException {
+   public  InvalidRelationServiceException(){}
+   public  InvalidRelationServiceException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

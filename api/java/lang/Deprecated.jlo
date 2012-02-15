@@ -1,0 +1,3 @@
+package java.lang;
+public abstract interface Deprecated extends java.lang.annotation.Annotation {
+}

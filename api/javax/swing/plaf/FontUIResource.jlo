@@ -1,0 +1,5 @@
+package javax.swing.plaf;
+public class FontUIResource extends java.awt.Font implements javax.swing.plaf.UIResource {
+   public  FontUIResource(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  FontUIResource(java.awt.Font a_r_g_u_m_e_n_t_0){}
+}

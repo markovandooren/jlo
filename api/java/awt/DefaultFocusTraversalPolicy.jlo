@@ -1,0 +1,5 @@
+package java.awt;
+public class DefaultFocusTraversalPolicy extends java.awt.ContainerOrderFocusTraversalPolicy {
+   public  DefaultFocusTraversalPolicy(){}
+  protected native boolean accept(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+}

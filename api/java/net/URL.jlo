@@ -1,0 +1,39 @@
+package java.net;
+public final class URL extends java.lang.Object implements java.io.Serializable {
+   public  URL(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3) throws java.net.MalformedURLException{}
+   public  URL(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) throws java.net.MalformedURLException{}
+   public  URL(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.net.URLStreamHandler a_r_g_u_m_e_n_t_4) throws java.net.MalformedURLException{}
+   public  URL(java.lang.String a_r_g_u_m_e_n_t_0) throws java.net.MalformedURLException{}
+   public  URL(java.net.URL a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) throws java.net.MalformedURLException{}
+   public  URL(java.net.URL a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.net.URLStreamHandler a_r_g_u_m_e_n_t_2) throws java.net.MalformedURLException{}
+  public synchronized native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  protected native void set(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.lang.String a_r_g_u_m_e_n_t_4, java.lang.String a_r_g_u_m_e_n_t_5, java.lang.String a_r_g_u_m_e_n_t_6, java.lang.String a_r_g_u_m_e_n_t_7) ;
+  protected native void set(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.lang.String a_r_g_u_m_e_n_t_4) ;
+  public final native java.io.InputStream openStream()  throws java.io.IOException;
+  public native java.lang.String getPath() ;
+  public native java.net.URI toURI()  throws java.net.URISyntaxException;
+  public native java.lang.String getAuthority() ;
+  public native java.lang.String getQuery() ;
+  public native java.lang.String getUserInfo() ;
+  public native int getPort() ;
+  public native int getDefaultPort() ;
+  public native java.lang.String getProtocol() ;
+  public native java.lang.String getHost() ;
+  public native java.lang.String getFile() ;
+  public native java.lang.String getRef() ;
+  public native boolean sameFile(java.net.URL a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toExternalForm() ;
+  public native java.net.URLConnection openConnection(java.net.Proxy a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native java.net.URLConnection openConnection()  throws java.io.IOException;
+  public final native java.lang.Object getContent(java.lang.Class[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public final native java.lang.Object getContent()  throws java.io.IOException;
+  public static native void setURLStreamHandlerFactory(java.net.URLStreamHandlerFactory a_r_g_u_m_e_n_t_0) ;
+  static native java.net.URLStreamHandler getURLStreamHandler(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+  transient java.net.InetAddress hostAddress;
+  transient java.net.URLStreamHandler handler;
+  static java.net.URLStreamHandlerFactory factory;
+  static java.util.Hashtable handlers;
+}

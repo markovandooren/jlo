@@ -1,0 +1,18 @@
+package java.lang.instrument;
+public abstract interface Instrumentation {
+  public abstract void addTransformer(java.lang.instrument.ClassFileTransformer a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public abstract void addTransformer(java.lang.instrument.ClassFileTransformer a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean removeTransformer(java.lang.instrument.ClassFileTransformer a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isRetransformClassesSupported() ;
+  public abstract transient void retransformClasses(java.lang.Class<? extends java.lang.Object>... a_r_g_u_m_e_n_t_0)  throws java.lang.instrument.UnmodifiableClassException;
+  public abstract boolean isRedefineClassesSupported() ;
+  public abstract transient void redefineClasses(java.lang.instrument.ClassDefinition... a_r_g_u_m_e_n_t_0)  throws java.lang.ClassNotFoundException, java.lang.instrument.UnmodifiableClassException;
+  public abstract boolean isModifiableClass(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Class[] getAllLoadedClasses() ;
+  public abstract java.lang.Class[] getInitiatedClasses(java.lang.ClassLoader a_r_g_u_m_e_n_t_0) ;
+  public abstract long getObjectSize(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract void appendToBootstrapClassLoaderSearch(java.util.jar.JarFile a_r_g_u_m_e_n_t_0) ;
+  public abstract void appendToSystemClassLoaderSearch(java.util.jar.JarFile a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isNativeMethodPrefixSupported() ;
+  public abstract void setNativeMethodPrefix(java.lang.instrument.ClassFileTransformer a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+}

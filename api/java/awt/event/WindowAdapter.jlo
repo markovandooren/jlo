@@ -1,0 +1,14 @@
+package java.awt.event;
+public abstract class WindowAdapter extends java.lang.Object implements java.awt.event.WindowListener, java.awt.event.WindowStateListener, java.awt.event.WindowFocusListener {
+   public  WindowAdapter(){}
+  public native void windowOpened(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  public native void windowClosing(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  public native void windowClosed(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  public native void windowIconified(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  public native void windowDeiconified(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  public native void windowActivated(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  public native void windowDeactivated(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  public native void windowStateChanged(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  public native void windowGainedFocus(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+  public native void windowLostFocus(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+}

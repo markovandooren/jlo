@@ -1,0 +1,14 @@
+package java.sql;
+public class BatchUpdateException extends java.sql.SQLException {
+   public  BatchUpdateException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int[] a_r_g_u_m_e_n_t_3){}
+   public  BatchUpdateException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2){}
+   public  BatchUpdateException(java.lang.String a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1){}
+   public  BatchUpdateException(int[] a_r_g_u_m_e_n_t_0){}
+   public  BatchUpdateException(){}
+   public  BatchUpdateException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
+   public  BatchUpdateException(int[] a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
+   public  BatchUpdateException(java.lang.String a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, java.lang.Throwable a_r_g_u_m_e_n_t_2){}
+   public  BatchUpdateException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, java.lang.Throwable a_r_g_u_m_e_n_t_3){}
+   public  BatchUpdateException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int[] a_r_g_u_m_e_n_t_3, java.lang.Throwable a_r_g_u_m_e_n_t_4){}
+  public native int[] getUpdateCounts() ;
+}

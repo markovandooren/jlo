@@ -1,0 +1,13 @@
+package javax.net.ssl;
+public abstract class SSLContextSpi extends java.lang.Object {
+   public  SSLContextSpi(){}
+  protected abstract void engineInit(javax.net.ssl.KeyManager[] a_r_g_u_m_e_n_t_0, javax.net.ssl.TrustManager[] a_r_g_u_m_e_n_t_1, java.security.SecureRandom a_r_g_u_m_e_n_t_2)  throws java.security.KeyManagementException;
+  protected abstract javax.net.ssl.SSLSocketFactory engineGetSocketFactory() ;
+  protected abstract javax.net.ssl.SSLServerSocketFactory engineGetServerSocketFactory() ;
+  protected abstract javax.net.ssl.SSLEngine engineCreateSSLEngine(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected abstract javax.net.ssl.SSLEngine engineCreateSSLEngine() ;
+  protected abstract javax.net.ssl.SSLSessionContext engineGetServerSessionContext() ;
+  protected abstract javax.net.ssl.SSLSessionContext engineGetClientSessionContext() ;
+  protected native javax.net.ssl.SSLParameters engineGetDefaultSSLParameters() ;
+  protected native javax.net.ssl.SSLParameters engineGetSupportedSSLParameters() ;
+}

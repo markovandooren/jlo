@@ -1,0 +1,15 @@
+package org.xml.sax;
+public abstract interface Attributes {
+  public abstract int getLength() ;
+  public abstract java.lang.String getValue(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getValue(int a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getValue(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.String getType(int a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getType(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.String getType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract int getIndex(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract int getIndex(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.String getLocalName(int a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getURI(int a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getQName(int a_r_g_u_m_e_n_t_0) ;
+}

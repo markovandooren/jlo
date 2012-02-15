@@ -1,0 +1,32 @@
+package javax.swing.plaf.basic;
+public class BasicButtonUI extends javax.swing.plaf.ButtonUI {
+   public  BasicButtonUI(){}
+  protected native void paintIcon(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Dimension getPreferredSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMaximumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMinimumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native int getBaseline(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Component.BaselineResizeBehavior getBaselineResizeBehavior(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native void paintFocus(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.AbstractButton a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2, java.awt.Rectangle a_r_g_u_m_e_n_t_3, java.awt.Rectangle a_r_g_u_m_e_n_t_4) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native void installKeyboardActions(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallKeyboardActions(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.String getPropertyPrefix() ;
+  protected native void installDefaults(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0) ;
+  protected native void installListeners(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallListeners(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallDefaults(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.plaf.basic.BasicButtonListener createButtonListener(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0) ;
+  public native int getDefaultTextIconGap(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0) ;
+  protected native void paintText(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3) ;
+  protected native void paintText(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.AbstractButton a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3) ;
+  protected native void paintButtonPressed(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.AbstractButton a_r_g_u_m_e_n_t_1) ;
+  protected native void clearTextShiftOffset() ;
+  protected native void setTextShiftOffset() ;
+  protected native int getTextShiftOffset() ;
+  protected int defaultTextIconGap;
+  protected int defaultTextShiftOffset;
+}

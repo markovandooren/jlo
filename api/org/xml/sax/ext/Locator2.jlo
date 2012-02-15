@@ -1,0 +1,5 @@
+package org.xml.sax.ext;
+public abstract interface Locator2 extends org.xml.sax.Locator {
+  public abstract java.lang.String getEncoding() ;
+  public abstract java.lang.String getXMLVersion() ;
+}

@@ -1,0 +1,23 @@
+package javax.swing.text.html.parser;
+public final class AttributeList extends java.lang.Object implements javax.swing.text.html.parser.DTDConstants, java.io.Serializable {
+    AttributeList(){}
+   public  AttributeList(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  AttributeList(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.util.Vector<? extends java.lang.Object> a_r_g_u_m_e_n_t_4, javax.swing.text.html.parser.AttributeList a_r_g_u_m_e_n_t_5){}
+  public native java.lang.String toString() ;
+  public native java.lang.String getName() ;
+  public native java.lang.String getValue() ;
+  public native int getType() ;
+  public native javax.swing.text.html.parser.AttributeList getNext() ;
+  public native java.util.Enumeration<? extends java.lang.Object> getValues() ;
+  public native int getModifier() ;
+  static native void defineAttributeType(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native int name2type(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String type2name(int a_r_g_u_m_e_n_t_0) ;
+  public java.lang.String name;
+  public int type;
+  public java.util.Vector<? extends java.lang.Object> values;
+  public int modifier;
+  public java.lang.String value;
+  public javax.swing.text.html.parser.AttributeList next;
+  static java.util.Hashtable attributeTypes;
+}

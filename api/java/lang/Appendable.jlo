@@ -1,0 +1,6 @@
+package java.lang;
+public abstract interface Appendable {
+  public abstract java.lang.Appendable append(java.lang.CharSequence a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract java.lang.Appendable append(java.lang.CharSequence a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public abstract java.lang.Appendable append(char a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+}

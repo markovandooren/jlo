@@ -1,0 +1,11 @@
+package javax.swing.text.html;
+public class Option extends java.lang.Object implements java.io.Serializable {
+   public  Option(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String toString() ;
+  public native java.lang.String getValue() ;
+  public native javax.swing.text.AttributeSet getAttributes() ;
+  public native boolean isSelected() ;
+  public native java.lang.String getLabel() ;
+  public native void setLabel(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected native void setSelection(boolean a_r_g_u_m_e_n_t_0) ;
+}

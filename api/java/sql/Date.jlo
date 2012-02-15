@@ -1,0 +1,15 @@
+package java.sql;
+public class Date extends java.util.Date {
+   public  Date(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  Date(long a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String toString() ;
+  public static native java.sql.Date valueOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setTime(long a_r_g_u_m_e_n_t_0) ;
+  public native int getHours() ;
+  public native int getMinutes() ;
+  public native int getSeconds() ;
+  public native void setHours(int a_r_g_u_m_e_n_t_0) ;
+  public native void setMinutes(int a_r_g_u_m_e_n_t_0) ;
+  public native void setSeconds(int a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+}

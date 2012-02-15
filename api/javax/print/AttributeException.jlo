@@ -1,0 +1,5 @@
+package javax.print;
+public abstract interface AttributeException {
+  public abstract java.lang.Class[] getUnsupportedAttributes() ;
+  public abstract javax.print.attribute.Attribute[] getUnsupportedValues() ;
+}

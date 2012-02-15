@@ -1,0 +1,5 @@
+package java.beans;
+public abstract interface AppletInitializer {
+  public abstract void initialize(java.applet.Applet a_r_g_u_m_e_n_t_0, java.beans.beancontext.BeanContext a_r_g_u_m_e_n_t_1) ;
+  public abstract void activate(java.applet.Applet a_r_g_u_m_e_n_t_0) ;
+}

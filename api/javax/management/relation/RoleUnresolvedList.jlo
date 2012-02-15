@@ -1,0 +1,17 @@
+package javax.management.relation;
+public class RoleUnresolvedList extends java.util.ArrayList<java.lang.Object> {
+   public  RoleUnresolvedList(){}
+   public  RoleUnresolvedList(int a_r_g_u_m_e_n_t_0){}
+   public  RoleUnresolvedList(java.util.List<javax.management.relation.RoleUnresolved> a_r_g_u_m_e_n_t_0) throws java.lang.IllegalArgumentException{}
+  public native boolean add(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void add(javax.management.relation.RoleUnresolved a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public native void add(int a_r_g_u_m_e_n_t_0, javax.management.relation.RoleUnresolved a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalArgumentException, java.lang.IndexOutOfBoundsException;
+  public native void add(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native boolean addAll(javax.management.relation.RoleUnresolvedList a_r_g_u_m_e_n_t_0)  throws java.lang.IndexOutOfBoundsException;
+  public native boolean addAll(int a_r_g_u_m_e_n_t_0, javax.management.relation.RoleUnresolvedList a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalArgumentException, java.lang.IndexOutOfBoundsException;
+  public native boolean addAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native boolean addAll(int a_r_g_u_m_e_n_t_0, java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_1) ;
+  public native void set(int a_r_g_u_m_e_n_t_0, javax.management.relation.RoleUnresolved a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalArgumentException, java.lang.IndexOutOfBoundsException;
+  public native java.lang.Object set(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native java.util.List<javax.management.relation.RoleUnresolved> asList() ;
+}

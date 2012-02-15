@@ -1,0 +1,14 @@
+package javax.print.attribute.standard;
+public class MediaTray extends javax.print.attribute.standard.Media implements javax.print.attribute.Attribute {
+   protected  MediaTray(int a_r_g_u_m_e_n_t_0){}
+  protected native java.lang.String[] getStringTable() ;
+  protected native javax.print.attribute.EnumSyntax[] getEnumValueTable() ;
+  public static final javax.print.attribute.standard.MediaTray TOP;
+  public static final javax.print.attribute.standard.MediaTray MIDDLE;
+  public static final javax.print.attribute.standard.MediaTray BOTTOM;
+  public static final javax.print.attribute.standard.MediaTray ENVELOPE;
+  public static final javax.print.attribute.standard.MediaTray MANUAL;
+  public static final javax.print.attribute.standard.MediaTray LARGE_CAPACITY;
+  public static final javax.print.attribute.standard.MediaTray MAIN;
+  public static final javax.print.attribute.standard.MediaTray SIDE;
+}

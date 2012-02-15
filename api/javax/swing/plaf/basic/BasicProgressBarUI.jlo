@@ -1,0 +1,56 @@
+package javax.swing.plaf.basic;
+public class BasicProgressBarUI extends javax.swing.plaf.ProgressBarUI {
+   public  BasicProgressBarUI(){}
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Dimension getPreferredSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMaximumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMinimumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native int getBaseline(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Component.BaselineResizeBehavior getBaselineResizeBehavior(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native void installDefaults() ;
+  protected native void installListeners() ;
+  protected native void uninstallListeners() ;
+  protected native void uninstallDefaults() ;
+  protected native java.awt.Color getSelectionBackground() ;
+  protected native java.awt.Color getSelectionForeground() ;
+  protected native void startAnimationTimer() ;
+  protected native void stopAnimationTimer() ;
+  protected native java.awt.Dimension getPreferredInnerHorizontal() ;
+  protected native java.awt.Dimension getPreferredInnerVertical() ;
+  protected native int getCellLength() ;
+  protected native void setCellLength(int a_r_g_u_m_e_n_t_0) ;
+  protected native int getCellSpacing() ;
+  protected native void setCellSpacing(int a_r_g_u_m_e_n_t_0) ;
+  protected native int getAmountFull(java.awt.Insets a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native java.awt.Rectangle getBox(java.awt.Rectangle a_r_g_u_m_e_n_t_0) ;
+  protected native int getBoxLength(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected native void paintIndeterminate(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  protected native void paintDeterminate(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  protected native void paintString(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, java.awt.Insets a_r_g_u_m_e_n_t_6) ;
+  protected native java.awt.Point getStringPlacement(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  protected native int getAnimationIndex() ;
+  protected final native int getFrameCount() ;
+  protected native void setAnimationIndex(int a_r_g_u_m_e_n_t_0) ;
+  protected native void incrementAnimationIndex() ;
+  protected javax.swing.JProgressBar progressBar;
+  protected javax.swing.event.ChangeListener changeListener;
+  protected java.awt.Rectangle boxRect;
+  private class Handler extends java.lang.Object implements javax.swing.event.ChangeListener, java.beans.PropertyChangeListener, java.awt.event.HierarchyListener {
+    public native void hierarchyChanged(java.awt.event.HierarchyEvent a_r_g_u_m_e_n_t_0) ;
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicProgressBarUI this$0;
+  }
+  public class ChangeHandler extends java.lang.Object implements javax.swing.event.ChangeListener {
+     public  ChangeHandler(javax.swing.plaf.basic.BasicProgressBarUI a_r_g_u_m_e_n_t_0){}
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicProgressBarUI this$0;
+  }
+  private class Animator extends java.lang.Object implements java.awt.event.ActionListener {
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicProgressBarUI this$0;
+  }
+}

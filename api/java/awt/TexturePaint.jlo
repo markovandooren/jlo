@@ -1,0 +1,13 @@
+package java.awt;
+public class TexturePaint extends java.lang.Object implements java.awt.Paint {
+   public  TexturePaint(java.awt.image.BufferedImage a_r_g_u_m_e_n_t_0, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_1){}
+  public native java.awt.image.BufferedImage getImage() ;
+  public native java.awt.PaintContext createContext(java.awt.image.ColorModel a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_2, java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_3, java.awt.RenderingHints a_r_g_u_m_e_n_t_4) ;
+  public native int getTransparency() ;
+  public native java.awt.geom.Rectangle2D getAnchorRect() ;
+  java.awt.image.BufferedImage bufImg;
+  double tx;
+  double ty;
+  double sx;
+  double sy;
+}

@@ -1,0 +1,25 @@
+package javax.security.auth.callback;
+public class ConfirmationCallback extends java.lang.Object implements javax.security.auth.callback.Callback, java.io.Serializable {
+   public  ConfirmationCallback(int a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  ConfirmationCallback(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  ConfirmationCallback(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  ConfirmationCallback(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native java.lang.String[] getOptions() ;
+  public native int getSelectedIndex() ;
+  public native void setSelectedIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMessageType() ;
+  public native int getOptionType() ;
+  public native java.lang.String getPrompt() ;
+  public native int getDefaultOption() ;
+  public static final int UNSPECIFIED_OPTION;
+  public static final int YES_NO_OPTION;
+  public static final int YES_NO_CANCEL_OPTION;
+  public static final int OK_CANCEL_OPTION;
+  public static final int YES;
+  public static final int NO;
+  public static final int CANCEL;
+  public static final int OK;
+  public static final int INFORMATION;
+  public static final int WARNING;
+  public static final int ERROR;
+}

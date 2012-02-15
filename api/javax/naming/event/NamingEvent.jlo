@@ -1,0 +1,18 @@
+package javax.naming.event;
+public class NamingEvent extends java.util.EventObject {
+   public  NamingEvent(javax.naming.event.EventContext a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.naming.Binding a_r_g_u_m_e_n_t_2, javax.naming.Binding a_r_g_u_m_e_n_t_3, java.lang.Object a_r_g_u_m_e_n_t_4){}
+  public native void dispatch(javax.naming.event.NamingListener a_r_g_u_m_e_n_t_0) ;
+  public native int getType() ;
+  public native javax.naming.event.EventContext getEventContext() ;
+  public native javax.naming.Binding getOldBinding() ;
+  public native javax.naming.Binding getNewBinding() ;
+  public native java.lang.Object getChangeInfo() ;
+  public static final int OBJECT_ADDED;
+  public static final int OBJECT_REMOVED;
+  public static final int OBJECT_RENAMED;
+  public static final int OBJECT_CHANGED;
+  protected java.lang.Object changeInfo;
+  protected int type;
+  protected javax.naming.Binding oldBinding;
+  protected javax.naming.Binding newBinding;
+}

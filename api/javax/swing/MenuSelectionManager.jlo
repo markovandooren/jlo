@@ -1,0 +1,18 @@
+package javax.swing;
+public class MenuSelectionManager extends java.lang.Object {
+   public  MenuSelectionManager(){}
+  public native void processKeyEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+  public native void processMouseEvent(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public native void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.ChangeListener[] getChangeListeners() ;
+  protected native void fireStateChanged() ;
+  public native void clearSelectedPath() ;
+  public native void setSelectedPath(javax.swing.MenuElement[] a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.MenuSelectionManager defaultManager() ;
+  public native javax.swing.MenuElement[] getSelectedPath() ;
+  public native java.awt.Component componentForPoint(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1) ;
+  public native boolean isComponentPartOfCurrentMenu(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  protected transient javax.swing.event.ChangeEvent changeEvent;
+  protected javax.swing.event.EventListenerList listenerList;
+}

@@ -1,0 +1,8 @@
+package java.awt.color;
+public class ICC_ProfileGray extends java.awt.color.ICC_Profile {
+    ICC_ProfileGray(long a_r_g_u_m_e_n_t_0){}
+    ICC_ProfileGray(sun.awt.color.ProfileDeferralInfo a_r_g_u_m_e_n_t_0){}
+  public native float[] getMediaWhitePoint() ;
+  public native float getGamma() ;
+  public native short[] getTRC() ;
+}

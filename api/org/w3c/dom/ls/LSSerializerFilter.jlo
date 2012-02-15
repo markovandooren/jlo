@@ -1,0 +1,4 @@
+package org.w3c.dom.ls;
+public abstract interface LSSerializerFilter {
+  public abstract int getWhatToShow() ;
+}

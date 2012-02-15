@@ -1,0 +1,21 @@
+package java.util.logging;
+public abstract class Handler extends java.lang.Object {
+   protected  Handler(){}
+  native void checkAccess()  throws java.lang.SecurityException;
+  public abstract void flush() ;
+  public abstract void close()  throws java.lang.SecurityException;
+  public native java.lang.String getEncoding() ;
+  public native boolean isLoggable(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
+  public native void setFilter(java.util.logging.Filter a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+  public native java.util.logging.Filter getFilter() ;
+  public synchronized native void setLevel(java.util.logging.Level a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+  public synchronized native java.util.logging.Level getLevel() ;
+  public abstract void publish(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
+  public native void setFormatter(java.util.logging.Formatter a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+  public native java.util.logging.Formatter getFormatter() ;
+  public native void setEncoding(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException, java.io.UnsupportedEncodingException;
+  public native void setErrorManager(java.util.logging.ErrorManager a_r_g_u_m_e_n_t_0) ;
+  public native java.util.logging.ErrorManager getErrorManager() ;
+  protected native void reportError(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Exception a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  boolean sealed;
+}

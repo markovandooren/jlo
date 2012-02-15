@@ -1,0 +1,98 @@
+package javax.imageio;
+public final class ImageIO extends java.lang.Object {
+  public static native boolean write(java.awt.image.RenderedImage a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.io.File a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public static native boolean write(java.awt.image.RenderedImage a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.io.OutputStream a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public static native boolean write(java.awt.image.RenderedImage a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.imageio.stream.ImageOutputStream a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public static native java.awt.image.BufferedImage read(java.io.File a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public static native java.awt.image.BufferedImage read(javax.imageio.stream.ImageInputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public static native java.awt.image.BufferedImage read(java.net.URL a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public static native java.awt.image.BufferedImage read(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public static native void scanForPlugins() ;
+  public static native void setUseCache(boolean a_r_g_u_m_e_n_t_0) ;
+  public static native boolean getUseCache() ;
+  public static native void setCacheDirectory(java.io.File a_r_g_u_m_e_n_t_0) ;
+  public static native java.io.File getCacheDirectory() ;
+  public static native javax.imageio.stream.ImageInputStream createImageInputStream(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public static native javax.imageio.stream.ImageOutputStream createImageOutputStream(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public static native java.lang.String[] getReaderFormatNames() ;
+  public static native java.lang.String[] getReaderMIMETypes() ;
+  public static native java.lang.String[] getReaderFileSuffixes() ;
+  public static native java.util.Iterator<javax.imageio.ImageReader> getImageReaders(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.Iterator<javax.imageio.ImageReader> getImageReadersByFormatName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.Iterator<javax.imageio.ImageReader> getImageReadersBySuffix(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.Iterator<javax.imageio.ImageReader> getImageReadersByMIMEType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String[] getWriterFormatNames() ;
+  public static native java.lang.String[] getWriterMIMETypes() ;
+  public static native java.lang.String[] getWriterFileSuffixes() ;
+  public static native java.util.Iterator<javax.imageio.ImageWriter> getImageWritersByFormatName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.Iterator<javax.imageio.ImageWriter> getImageWritersBySuffix(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.Iterator<javax.imageio.ImageWriter> getImageWritersByMIMEType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native javax.imageio.ImageWriter getImageWriter(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0) ;
+  public static native javax.imageio.ImageReader getImageReader(javax.imageio.ImageWriter a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.Iterator<javax.imageio.ImageWriter> getImageWriters(javax.imageio.ImageTypeSpecifier a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native java.util.Iterator<javax.imageio.ImageTranscoder> getImageTranscoders(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0, javax.imageio.ImageWriter a_r_g_u_m_e_n_t_1) ;
+  static class TranscoderFilter extends java.lang.Object implements javax.imageio.spi.ServiceRegistry.Filter {
+     public  TranscoderFilter(javax.imageio.spi.ImageReaderSpi a_r_g_u_m_e_n_t_0, javax.imageio.spi.ImageWriterSpi a_r_g_u_m_e_n_t_1){}
+    public native boolean filter(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    java.lang.String readerSpiName;
+    java.lang.String writerSpiName;
+  }
+  static class ImageTranscoderIterator extends java.lang.Object implements java.util.Iterator<javax.imageio.ImageTranscoder> {
+     public  ImageTranscoderIterator(java.util.Iterator a_r_g_u_m_e_n_t_0){}
+    public native boolean hasNext() ;
+    public native javax.imageio.ImageTranscoder next() ;
+    public native void remove() ;
+    public java.util.Iterator iter;
+  }
+  static class ImageWriterIterator extends java.lang.Object implements java.util.Iterator<javax.imageio.ImageWriter> {
+     public  ImageWriterIterator(java.util.Iterator a_r_g_u_m_e_n_t_0){}
+    public native boolean hasNext() ;
+    public native javax.imageio.ImageWriter next() ;
+    public native void remove() ;
+    public java.util.Iterator iter;
+  }
+  static class ContainsFilter extends java.lang.Object implements javax.imageio.spi.ServiceRegistry.Filter {
+     public  ContainsFilter(java.lang.reflect.Method a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public native boolean filter(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    java.lang.reflect.Method method;
+    java.lang.String name;
+  }
+  static class CanEncodeImageAndFormatFilter extends java.lang.Object implements javax.imageio.spi.ServiceRegistry.Filter {
+     public  CanEncodeImageAndFormatFilter(javax.imageio.ImageTypeSpecifier a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public native boolean filter(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    javax.imageio.ImageTypeSpecifier type;
+    java.lang.String formatName;
+  }
+  static class CanDecodeInputFilter extends java.lang.Object implements javax.imageio.spi.ServiceRegistry.Filter {
+     public  CanDecodeInputFilter(java.lang.Object a_r_g_u_m_e_n_t_0){}
+    public native boolean filter(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    java.lang.Object input;
+  }
+  static class ImageReaderIterator extends java.lang.Object implements java.util.Iterator<javax.imageio.ImageReader> {
+     public  ImageReaderIterator(java.util.Iterator a_r_g_u_m_e_n_t_0){}
+    public native boolean hasNext() ;
+    public native javax.imageio.ImageReader next() ;
+    public native void remove() ;
+    public java.util.Iterator iter;
+  }
+  private static abstract class SpiInfo extends java.lang.Enum<javax.imageio.ImageIO.SpiInfo> {
+    public static native javax.imageio.ImageIO.SpiInfo valueOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public static native javax.imageio.ImageIO.SpiInfo[] values() ;
+    abstract java.lang.String[] info(javax.imageio.spi.ImageReaderWriterSpi a_r_g_u_m_e_n_t_0) ;
+    public static final javax.imageio.ImageIO.SpiInfo FORMAT_NAMES;
+    public static final javax.imageio.ImageIO.SpiInfo MIME_TYPES;
+    public static final javax.imageio.ImageIO.SpiInfo FILE_SUFFIXES;
+  }
+  static class CacheInfo extends java.lang.Object {
+     public  CacheInfo(){}
+    public native void setUseCache(boolean a_r_g_u_m_e_n_t_0) ;
+    public native boolean getUseCache() ;
+    public native void setCacheDirectory(java.io.File a_r_g_u_m_e_n_t_0) ;
+    public native java.io.File getCacheDirectory() ;
+    public native java.lang.Boolean getHasPermission() ;
+    public native void setHasPermission(java.lang.Boolean a_r_g_u_m_e_n_t_0) ;
+    boolean useCache;
+    java.io.File cacheDirectory;
+    java.lang.Boolean hasPermission;
+  }
+}

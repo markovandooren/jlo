@@ -1,0 +1,11 @@
+package org.w3c.dom.ls;
+public abstract interface LSSerializer {
+  public abstract boolean write(org.w3c.dom.Node a_r_g_u_m_e_n_t_0, org.w3c.dom.ls.LSOutput a_r_g_u_m_e_n_t_1)  throws org.w3c.dom.ls.LSException;
+  public abstract void setFilter(org.w3c.dom.ls.LSSerializerFilter a_r_g_u_m_e_n_t_0) ;
+  public abstract org.w3c.dom.ls.LSSerializerFilter getFilter() ;
+  public abstract org.w3c.dom.DOMConfiguration getDomConfig() ;
+  public abstract java.lang.String getNewLine() ;
+  public abstract void setNewLine(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean writeToURI(org.w3c.dom.Node a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws org.w3c.dom.ls.LSException;
+  public abstract java.lang.String writeToString(org.w3c.dom.Node a_r_g_u_m_e_n_t_0)  throws org.w3c.dom.DOMException, org.w3c.dom.ls.LSException;
+}

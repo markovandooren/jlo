@@ -1,0 +1,42 @@
+package javax.swing.plaf.metal;
+public class MetalTabbedPaneUI extends javax.swing.plaf.basic.BasicTabbedPaneUI {
+   public  MetalTabbedPaneUI(){}
+  public native void update(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native void installDefaults() ;
+  protected native java.awt.LayoutManager createLayoutManager() ;
+  protected native int getBaselineOffset() ;
+  protected native int getTabLabelShiftX(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  protected native int getTabLabelShiftY(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  protected native void paintFocusIndicator(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Rectangle[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.Rectangle a_r_g_u_m_e_n_t_4, java.awt.Rectangle a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6) ;
+  protected native void paintTabBorder(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, boolean a_r_g_u_m_e_n_t_7) ;
+  protected native void paintTabBackground(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, boolean a_r_g_u_m_e_n_t_7) ;
+  protected native void paintContentBorderTopEdge(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+  protected native void paintContentBorderLeftEdge(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+  protected native void paintContentBorderBottomEdge(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+  protected native void paintContentBorderRightEdge(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+  protected native int getTabRunOverlay(int a_r_g_u_m_e_n_t_0) ;
+  protected native boolean shouldPadTabRun(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected native boolean shouldRotateTabRuns(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected native int calculateMaxTabHeight(int a_r_g_u_m_e_n_t_0) ;
+  protected native void paintTopTabBorder(int a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, boolean a_r_g_u_m_e_n_t_8) ;
+  protected native boolean shouldFillGap(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  protected native java.awt.Color getColorForGap(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native void paintLeftTabBorder(int a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, boolean a_r_g_u_m_e_n_t_8) ;
+  protected native void paintBottomTabBorder(int a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, boolean a_r_g_u_m_e_n_t_8) ;
+  protected native void paintRightTabBorder(int a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, boolean a_r_g_u_m_e_n_t_8) ;
+  protected native void paintHighlightBelowTab() ;
+  native int getRolloverTabIndex() ;
+  protected int minTabWidth;
+  protected java.awt.Color tabAreaBackground;
+  protected java.awt.Color selectColor;
+  protected java.awt.Color selectHighlight;
+  public class TabbedPaneLayout extends javax.swing.plaf.basic.BasicTabbedPaneUI.TabbedPaneLayout {
+     public  TabbedPaneLayout(javax.swing.plaf.metal.MetalTabbedPaneUI a_r_g_u_m_e_n_t_0){}
+    protected native void padSelectedTab(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    protected native void rotateTabRuns(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    protected native void normalizeTabRuns(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    final javax.swing.plaf.metal.MetalTabbedPaneUI this$0;
+  }
+}

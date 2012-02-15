@@ -1,0 +1,38 @@
+package java.lang;
+public final class Double extends java.lang.Number implements java.lang.Comparable<java.lang.Double> {
+   public  Double(java.lang.String a_r_g_u_m_e_n_t_0) throws java.lang.NumberFormatException{}
+   public  Double(double a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public static native long doubleToRawLongBits(double a_r_g_u_m_e_n_t_0) ;
+  public static native long doubleToLongBits(double a_r_g_u_m_e_n_t_0) ;
+  public static native double longBitsToDouble(long a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int compareTo(java.lang.Double a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String toString(double a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public static native java.lang.String toHexString(double a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.Double valueOf(double a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.Double valueOf(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NumberFormatException;
+  public static native int compare(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native boolean isNaN() ;
+  public static native boolean isNaN(double a_r_g_u_m_e_n_t_0) ;
+  public native boolean isInfinite() ;
+  public static native boolean isInfinite(double a_r_g_u_m_e_n_t_0) ;
+  public native byte byteValue() ;
+  public native short shortValue() ;
+  public native int intValue() ;
+  public native long longValue() ;
+  public native float floatValue() ;
+  public native double doubleValue() ;
+  public static native double parseDouble(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NumberFormatException;
+  public static final double POSITIVE_INFINITY;
+  public static final double NEGATIVE_INFINITY;
+  public static final double NaN;
+  public static final double MAX_VALUE;
+  public static final double MIN_NORMAL;
+  public static final double MIN_VALUE;
+  public static final int MAX_EXPONENT;
+  public static final int MIN_EXPONENT;
+  public static final int SIZE;
+  public static final java.lang.Class<java.lang.Double> TYPE;
+}

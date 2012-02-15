@@ -1,0 +1,16 @@
+package java.io;
+public abstract class Reader extends java.lang.Object implements java.lang.Readable, java.io.Closeable {
+   protected  Reader(){}
+   protected  Reader(java.lang.Object a_r_g_u_m_e_n_t_0){}
+  public abstract void close()  throws java.io.IOException;
+  public native void mark(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void reset()  throws java.io.IOException;
+  public abstract int read(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native int read()  throws java.io.IOException;
+  public native int read(char[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native int read(java.nio.CharBuffer a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native long skip(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native boolean markSupported() ;
+  public native boolean ready()  throws java.io.IOException;
+  protected java.lang.Object lock;
+}

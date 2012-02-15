@@ -1,0 +1,14 @@
+package javax.print;
+public abstract class ServiceUIFactory extends java.lang.Object {
+   public  ServiceUIFactory(){}
+  public abstract java.lang.Object getUI(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.String[] getUIClassNamesForRole(int a_r_g_u_m_e_n_t_0) ;
+  public static final java.lang.String JCOMPONENT_UI;
+  public static final java.lang.String PANEL_UI;
+  public static final java.lang.String DIALOG_UI;
+  public static final java.lang.String JDIALOG_UI;
+  public static final int ABOUT_UIROLE;
+  public static final int ADMIN_UIROLE;
+  public static final int MAIN_UIROLE;
+  public static final int RESERVED_UIROLE;
+}

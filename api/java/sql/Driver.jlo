@@ -1,0 +1,9 @@
+package java.sql;
+public abstract interface Driver {
+  public abstract java.sql.Connection connect(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Properties a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract int getMajorVersion() ;
+  public abstract int getMinorVersion() ;
+  public abstract boolean acceptsURL(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract java.sql.DriverPropertyInfo[] getPropertyInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Properties a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract boolean jdbcCompliant() ;
+}

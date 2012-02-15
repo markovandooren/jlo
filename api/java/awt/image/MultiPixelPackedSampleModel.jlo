@@ -1,0 +1,31 @@
+package java.awt.image;
+public class MultiPixelPackedSampleModel extends java.awt.image.SampleModel {
+   public  MultiPixelPackedSampleModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  MultiPixelPackedSampleModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int getOffset(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int getNumDataElements() ;
+  public native int getTransferType() ;
+  public native java.lang.Object getDataElements(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, java.awt.image.DataBuffer a_r_g_u_m_e_n_t_3) ;
+  public native int[] getPixel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, java.awt.image.DataBuffer a_r_g_u_m_e_n_t_3) ;
+  public native int getSample(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.image.DataBuffer a_r_g_u_m_e_n_t_3) ;
+  public native int getSampleSize(int a_r_g_u_m_e_n_t_0) ;
+  public native int[] getSampleSize() ;
+  public native java.awt.image.DataBuffer createDataBuffer() ;
+  public native java.awt.image.SampleModel createCompatibleSampleModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.image.SampleModel createSubsetSampleModel(int[] a_r_g_u_m_e_n_t_0) ;
+  public native void setDataElements(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, java.awt.image.DataBuffer a_r_g_u_m_e_n_t_3) ;
+  public native void setPixel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, java.awt.image.DataBuffer a_r_g_u_m_e_n_t_3) ;
+  public native void setSample(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.image.DataBuffer a_r_g_u_m_e_n_t_4) ;
+  public native int getScanlineStride() ;
+  public native int getBitOffset(int a_r_g_u_m_e_n_t_0) ;
+  public native int getPixelBitStride() ;
+  public native int getDataBitOffset() ;
+  int pixelBitStride;
+  int bitMask;
+  int pixelsPerDataElement;
+  int dataElementSize;
+  int dataBitOffset;
+  int scanlineStride;
+}

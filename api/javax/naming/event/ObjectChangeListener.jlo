@@ -1,0 +1,4 @@
+package javax.naming.event;
+public abstract interface ObjectChangeListener extends javax.naming.event.NamingListener {
+  public abstract void objectChanged(javax.naming.event.NamingEvent a_r_g_u_m_e_n_t_0) ;
+}

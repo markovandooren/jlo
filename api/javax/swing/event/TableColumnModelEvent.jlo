@@ -1,0 +1,8 @@
+package javax.swing.event;
+public class TableColumnModelEvent extends java.util.EventObject {
+   public  TableColumnModelEvent(javax.swing.table.TableColumnModel a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native int getFromIndex() ;
+  public native int getToIndex() ;
+  protected int fromIndex;
+  protected int toIndex;
+}

@@ -1,0 +1,90 @@
+package java.awt.geom;
+public class AffineTransform extends java.lang.Object implements java.lang.Cloneable, java.io.Serializable {
+   public  AffineTransform(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3, float a_r_g_u_m_e_n_t_4, float a_r_g_u_m_e_n_t_5){}
+   public  AffineTransform(double[] a_r_g_u_m_e_n_t_0){}
+   public  AffineTransform(float[] a_r_g_u_m_e_n_t_0){}
+   public  AffineTransform(){}
+   public  AffineTransform(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0){}
+   public  AffineTransform(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5){}
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native void transform(float[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, double[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native java.awt.geom.Point2D transform(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.geom.Point2D a_r_g_u_m_e_n_t_1) ;
+  public native void transform(java.awt.geom.Point2D[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.geom.Point2D[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native void transform(float[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, float[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native void transform(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, double[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native void transform(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, float[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native int getType() ;
+  public native void rotate(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void rotate(double a_r_g_u_m_e_n_t_0) ;
+  public native void rotate(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2) ;
+  public native void rotate(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native void scale(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void translate(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.geom.AffineTransform getTranslateInstance(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void preConcatenate(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public native void getMatrix(double[] a_r_g_u_m_e_n_t_0) ;
+  public native double getTranslateY() ;
+  public native void deltaTransform(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, double[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native java.awt.geom.Point2D deltaTransform(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.geom.Point2D a_r_g_u_m_e_n_t_1) ;
+  public native void setTransform(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5) ;
+  public native void setTransform(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.geom.AffineTransform getRotateInstance(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2) ;
+  public static native java.awt.geom.AffineTransform getRotateInstance(double a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.geom.AffineTransform getRotateInstance(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.geom.AffineTransform getRotateInstance(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public static native java.awt.geom.AffineTransform getQuadrantRotateInstance(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.geom.AffineTransform getQuadrantRotateInstance(int a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2) ;
+  public static native java.awt.geom.AffineTransform getScaleInstance(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.geom.AffineTransform getShearInstance(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native double getDeterminant() ;
+  native void updateState() ;
+  public native double getScaleX() ;
+  public native double getScaleY() ;
+  public native double getShearX() ;
+  public native double getShearY() ;
+  public native double getTranslateX() ;
+  public native void quadrantRotate(int a_r_g_u_m_e_n_t_0) ;
+  public native void quadrantRotate(int a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2) ;
+  public native void shear(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void setToIdentity() ;
+  public native void setToTranslation(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void setToRotation(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2) ;
+  public native void setToRotation(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native void setToRotation(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void setToRotation(double a_r_g_u_m_e_n_t_0) ;
+  public native void setToQuadrantRotation(int a_r_g_u_m_e_n_t_0) ;
+  public native void setToQuadrantRotation(int a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2) ;
+  public native void setToScale(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void setToShear(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void concatenate(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.geom.AffineTransform createInverse()  throws java.awt.geom.NoninvertibleTransformException;
+  public native void invert()  throws java.awt.geom.NoninvertibleTransformException;
+  public native void inverseTransform(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, double[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4)  throws java.awt.geom.NoninvertibleTransformException;
+  public native java.awt.geom.Point2D inverseTransform(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.geom.Point2D a_r_g_u_m_e_n_t_1)  throws java.awt.geom.NoninvertibleTransformException;
+  public native java.awt.Shape createTransformedShape(java.awt.Shape a_r_g_u_m_e_n_t_0) ;
+  public native boolean isIdentity() ;
+  public static final int TYPE_IDENTITY;
+  public static final int TYPE_TRANSLATION;
+  public static final int TYPE_UNIFORM_SCALE;
+  public static final int TYPE_GENERAL_SCALE;
+  public static final int TYPE_MASK_SCALE;
+  public static final int TYPE_FLIP;
+  public static final int TYPE_QUADRANT_ROTATION;
+  public static final int TYPE_GENERAL_ROTATION;
+  public static final int TYPE_MASK_ROTATION;
+  public static final int TYPE_GENERAL_TRANSFORM;
+  static final int APPLY_IDENTITY;
+  static final int APPLY_TRANSLATE;
+  static final int APPLY_SCALE;
+  static final int APPLY_SHEAR;
+  double m00;
+  double m10;
+  double m01;
+  double m11;
+  double m02;
+  double m12;
+  transient int state;
+}

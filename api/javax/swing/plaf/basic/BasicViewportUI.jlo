@@ -1,0 +1,9 @@
+package javax.swing.plaf.basic;
+public class BasicViewportUI extends javax.swing.plaf.ViewportUI {
+   public  BasicViewportUI(){}
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native void installDefaults(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallDefaults(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+}

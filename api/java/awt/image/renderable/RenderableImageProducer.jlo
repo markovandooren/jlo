@@ -1,0 +1,14 @@
+package java.awt.image.renderable;
+public class RenderableImageProducer extends java.lang.Object implements java.awt.image.ImageProducer, java.lang.Runnable {
+   public  RenderableImageProducer(java.awt.image.renderable.RenderableImage a_r_g_u_m_e_n_t_0, java.awt.image.renderable.RenderContext a_r_g_u_m_e_n_t_1){}
+  public native void run() ;
+  public native void requestTopDownLeftRightResend(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void addConsumer(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+  public synchronized native boolean isConsumer(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeConsumer(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void startProduction(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setRenderContext(java.awt.image.renderable.RenderContext a_r_g_u_m_e_n_t_0) ;
+  java.awt.image.renderable.RenderableImage rdblImage;
+  java.awt.image.renderable.RenderContext rc;
+  java.util.Vector ics;
+}

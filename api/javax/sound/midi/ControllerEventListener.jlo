@@ -1,0 +1,4 @@
+package javax.sound.midi;
+public abstract interface ControllerEventListener extends java.util.EventListener {
+  public abstract void controlChange(javax.sound.midi.ShortMessage a_r_g_u_m_e_n_t_0) ;
+}

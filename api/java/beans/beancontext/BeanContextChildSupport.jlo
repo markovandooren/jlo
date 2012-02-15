@@ -1,0 +1,26 @@
+package java.beans.beancontext;
+public class BeanContextChildSupport extends java.lang.Object implements java.beans.beancontext.BeanContextChild, java.beans.beancontext.BeanContextServicesListener, java.io.Serializable {
+   public  BeanContextChildSupport(java.beans.beancontext.BeanContextChild a_r_g_u_m_e_n_t_0){}
+   public  BeanContextChildSupport(){}
+  public native void firePropertyChange(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native void addPropertyChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_1) ;
+  public native void removePropertyChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_1) ;
+  public native void fireVetoableChange(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2)  throws java.beans.PropertyVetoException;
+  public native void addVetoableChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.VetoableChangeListener a_r_g_u_m_e_n_t_1) ;
+  public native void removeVetoableChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.VetoableChangeListener a_r_g_u_m_e_n_t_1) ;
+  public synchronized native void setBeanContext(java.beans.beancontext.BeanContext a_r_g_u_m_e_n_t_0)  throws java.beans.PropertyVetoException;
+  public synchronized native java.beans.beancontext.BeanContext getBeanContext() ;
+  public native void serviceRevoked(java.beans.beancontext.BeanContextServiceRevokedEvent a_r_g_u_m_e_n_t_0) ;
+  public native void serviceAvailable(java.beans.beancontext.BeanContextServiceAvailableEvent a_r_g_u_m_e_n_t_0) ;
+  public native java.beans.beancontext.BeanContextChild getBeanContextChildPeer() ;
+  public native boolean isDelegated() ;
+  public native boolean validatePendingSetBeanContext(java.beans.beancontext.BeanContext a_r_g_u_m_e_n_t_0) ;
+  protected native void releaseBeanContextResources() ;
+  protected native void initializeBeanContextResources() ;
+  static final long serialVersionUID;
+  public java.beans.beancontext.BeanContextChild beanContextChildPeer;
+  protected java.beans.PropertyChangeSupport pcSupport;
+  protected java.beans.VetoableChangeSupport vcSupport;
+  protected transient java.beans.beancontext.BeanContext beanContext;
+  protected transient boolean rejectedSetBCOnce;
+}

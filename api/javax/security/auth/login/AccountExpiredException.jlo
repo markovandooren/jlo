@@ -1,0 +1,5 @@
+package javax.security.auth.login;
+public class AccountExpiredException extends javax.security.auth.login.AccountException {
+   public  AccountExpiredException(){}
+   public  AccountExpiredException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

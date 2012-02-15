@@ -1,0 +1,12 @@
+package java.util.jar;
+public class JarEntry extends java.util.zip.ZipEntry {
+   public  JarEntry(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  JarEntry(java.util.zip.ZipEntry a_r_g_u_m_e_n_t_0){}
+   public  JarEntry(java.util.jar.JarEntry a_r_g_u_m_e_n_t_0){}
+  public native java.security.cert.Certificate[] getCertificates() ;
+  public native java.security.CodeSigner[] getCodeSigners() ;
+  public native java.util.jar.Attributes getAttributes()  throws java.io.IOException;
+  java.util.jar.Attributes attr;
+  java.security.cert.Certificate[] certs;
+  java.security.CodeSigner[] signers;
+}

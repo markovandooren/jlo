@@ -1,0 +1,118 @@
+package javax.swing.text;
+public class StyleContext extends java.lang.Object implements java.io.Serializable, javax.swing.text.AbstractDocument.AttributeContext {
+   public  StyleContext(){}
+  public native java.lang.String toString() ;
+  public synchronized native javax.swing.text.AttributeSet addAttribute(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.FontMetrics getFontMetrics(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Color getForeground(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Font getFont(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Font getFont(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Color getBackground(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public native void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.ChangeListener[] getChangeListeners() ;
+  public static final native javax.swing.text.StyleContext getDefaultStyleContext() ;
+  public synchronized native javax.swing.text.AttributeSet addAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1) ;
+  public synchronized native javax.swing.text.AttributeSet removeAttribute(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public synchronized native javax.swing.text.AttributeSet removeAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, java.util.Enumeration<? extends java.lang.Object> a_r_g_u_m_e_n_t_1) ;
+  public synchronized native javax.swing.text.AttributeSet removeAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1) ;
+  public native javax.swing.text.AttributeSet getEmptySet() ;
+  public native void reclaim(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void writeAttributeSet(java.io.ObjectOutputStream a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public static native void readAttributeSet(java.io.ObjectInputStream a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1)  throws java.lang.ClassNotFoundException, java.io.IOException;
+  public native void writeAttributes(java.io.ObjectOutputStream a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public native javax.swing.text.Style getStyle(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void removeStyle(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.text.StyleContext.SmallAttributeSet createSmallAttributeSet(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.text.MutableAttributeSet createLargeAttributeSet(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.Style addStyle(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.text.Style a_r_g_u_m_e_n_t_1) ;
+  public native java.util.Enumeration<? extends java.lang.Object> getStyleNames() ;
+  protected native int getCompressionThreshold() ;
+  synchronized native void removeUnusedSets() ;
+  native javax.swing.text.AttributeSet getImmutableUniqueSet() ;
+  native javax.swing.text.MutableAttributeSet getMutableAttributeSet(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public native void readAttributes(java.io.ObjectInputStream a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1)  throws java.lang.ClassNotFoundException, java.io.IOException;
+  public static native void registerStaticAttributeKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.Object getStaticAttribute(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.Object getStaticAttributeKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static final java.lang.String DEFAULT_STYLE;
+  static final int THRESHOLD;
+  public class NamedStyle extends java.lang.Object implements javax.swing.text.Style, java.io.Serializable {
+     public  NamedStyle(javax.swing.text.StyleContext a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.swing.text.Style a_r_g_u_m_e_n_t_2){}
+     public  NamedStyle(javax.swing.text.StyleContext a_r_g_u_m_e_n_t_0, javax.swing.text.Style a_r_g_u_m_e_n_t_1){}
+     public  NamedStyle(javax.swing.text.StyleContext a_r_g_u_m_e_n_t_0){}
+    public native java.lang.String toString() ;
+    public native java.lang.String getName() ;
+    public native void setName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native boolean isDefined(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native boolean isEqual(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Object getAttribute(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void addAttribute(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+    public native void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+    public native void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.event.ChangeListener[] getChangeListeners() ;
+    protected native void fireStateChanged() ;
+    public native int getAttributeCount() ;
+    public native javax.swing.text.AttributeSet copyAttributes() ;
+    public native java.util.Enumeration<? extends java.lang.Object> getAttributeNames() ;
+    public native boolean containsAttribute(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public native boolean containsAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.AttributeSet getResolveParent() ;
+    public native void addAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native void removeAttribute(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void removeAttributes(java.util.Enumeration<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+    public native void removeAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native void setResolveParent(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    protected javax.swing.event.EventListenerList listenerList;
+    protected transient javax.swing.event.ChangeEvent changeEvent;
+    final javax.swing.text.StyleContext this$0;
+  }
+  static class FontKey extends java.lang.Object {
+     public  FontKey(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void setValue(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  }
+  class KeyBuilder extends java.lang.Object {
+      KeyBuilder(javax.swing.text.StyleContext a_r_g_u_m_e_n_t_0){}
+    public native void initialize(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native void addAttribute(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public native void addAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native void removeAttribute(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void removeAttributes(java.util.Enumeration a_r_g_u_m_e_n_t_0) ;
+    public native void removeAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    native int getCount() ;
+    public native java.lang.Object[] createTable() ;
+    final javax.swing.text.StyleContext this$0;
+  }
+  class KeyEnumeration extends java.lang.Object implements java.util.Enumeration<java.lang.Object> {
+      KeyEnumeration(javax.swing.text.StyleContext a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1){}
+    public native boolean hasMoreElements() ;
+    public native java.lang.Object nextElement() ;
+    java.lang.Object[] attr;
+    int i;
+    final javax.swing.text.StyleContext this$0;
+  }
+  public class SmallAttributeSet extends java.lang.Object implements javax.swing.text.AttributeSet {
+     public  SmallAttributeSet(javax.swing.text.StyleContext a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1){}
+     public  SmallAttributeSet(javax.swing.text.StyleContext a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1){}
+    public native int hashCode() ;
+    public native java.lang.Object clone() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String toString() ;
+    public native boolean isDefined(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native boolean isEqual(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Object getAttribute(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int getAttributeCount() ;
+    public native javax.swing.text.AttributeSet copyAttributes() ;
+    public native java.util.Enumeration<? extends java.lang.Object> getAttributeNames() ;
+    public native boolean containsAttribute(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public native boolean containsAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.AttributeSet getResolveParent() ;
+    native java.lang.Object getLocalAttribute(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    java.lang.Object[] attributes;
+    javax.swing.text.AttributeSet resolveParent;
+    final javax.swing.text.StyleContext this$0;
+  }
+}

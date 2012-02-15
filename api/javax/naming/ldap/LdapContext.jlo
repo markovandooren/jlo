@@ -1,0 +1,11 @@
+package javax.naming.ldap;
+public abstract interface LdapContext extends javax.naming.directory.DirContext {
+  public abstract javax.naming.ldap.LdapContext newInstance(javax.naming.ldap.Control[] a_r_g_u_m_e_n_t_0)  throws javax.naming.NamingException;
+  public abstract javax.naming.ldap.ExtendedResponse extendedOperation(javax.naming.ldap.ExtendedRequest a_r_g_u_m_e_n_t_0)  throws javax.naming.NamingException;
+  public abstract void reconnect(javax.naming.ldap.Control[] a_r_g_u_m_e_n_t_0)  throws javax.naming.NamingException;
+  public abstract javax.naming.ldap.Control[] getConnectControls()  throws javax.naming.NamingException;
+  public abstract void setRequestControls(javax.naming.ldap.Control[] a_r_g_u_m_e_n_t_0)  throws javax.naming.NamingException;
+  public abstract javax.naming.ldap.Control[] getRequestControls()  throws javax.naming.NamingException;
+  public abstract javax.naming.ldap.Control[] getResponseControls()  throws javax.naming.NamingException;
+  public static final java.lang.String CONTROL_FACTORIES;
+}

@@ -1,0 +1,27 @@
+package java.beans;
+public class FeatureDescriptor extends java.lang.Object {
+   public  FeatureDescriptor(){}
+    FeatureDescriptor(java.beans.FeatureDescriptor a_r_g_u_m_e_n_t_0){}
+    FeatureDescriptor(java.beans.FeatureDescriptor a_r_g_u_m_e_n_t_0, java.beans.FeatureDescriptor a_r_g_u_m_e_n_t_1){}
+  static native java.lang.Object getObject(java.lang.ref.Reference a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getName() ;
+  public native java.lang.Object getValue(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setValue(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native boolean isHidden() ;
+  public native java.lang.String getDisplayName() ;
+  static native java.lang.ref.Reference createReference(java.lang.Object a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  static native java.lang.ref.Reference createReference(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void setDisplayName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native boolean isExpert() ;
+  public native void setExpert(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setHidden(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isPreferred() ;
+  public native void setPreferred(boolean a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getShortDescription() ;
+  public native void setShortDescription(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Enumeration<java.lang.String> attributeNames() ;
+  native void setClass0(java.lang.Class a_r_g_u_m_e_n_t_0) ;
+  native java.lang.Class getClass0() ;
+  static native java.lang.String capitalize(java.lang.String a_r_g_u_m_e_n_t_0) ;
+}

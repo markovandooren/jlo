@@ -1,0 +1,26 @@
+package javax.net.ssl;
+public class SSLEngineResult extends java.lang.Object {
+   public  SSLEngineResult(javax.net.ssl.SSLEngineResult.Status a_r_g_u_m_e_n_t_0, javax.net.ssl.SSLEngineResult.HandshakeStatus a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+  public native java.lang.String toString() ;
+  public final native javax.net.ssl.SSLEngineResult.Status getStatus() ;
+  public final native javax.net.ssl.SSLEngineResult.HandshakeStatus getHandshakeStatus() ;
+  public final native int bytesConsumed() ;
+  public final native int bytesProduced() ;
+  public static final class HandshakeStatus extends java.lang.Enum<javax.net.ssl.SSLEngineResult.HandshakeStatus> {
+    public static native javax.net.ssl.SSLEngineResult.HandshakeStatus valueOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public static native javax.net.ssl.SSLEngineResult.HandshakeStatus[] values() ;
+    public static final javax.net.ssl.SSLEngineResult.HandshakeStatus NOT_HANDSHAKING;
+    public static final javax.net.ssl.SSLEngineResult.HandshakeStatus FINISHED;
+    public static final javax.net.ssl.SSLEngineResult.HandshakeStatus NEED_TASK;
+    public static final javax.net.ssl.SSLEngineResult.HandshakeStatus NEED_WRAP;
+    public static final javax.net.ssl.SSLEngineResult.HandshakeStatus NEED_UNWRAP;
+  }
+  public static final class Status extends java.lang.Enum<javax.net.ssl.SSLEngineResult.Status> {
+    public static native javax.net.ssl.SSLEngineResult.Status valueOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public static native javax.net.ssl.SSLEngineResult.Status[] values() ;
+    public static final javax.net.ssl.SSLEngineResult.Status BUFFER_UNDERFLOW;
+    public static final javax.net.ssl.SSLEngineResult.Status BUFFER_OVERFLOW;
+    public static final javax.net.ssl.SSLEngineResult.Status OK;
+    public static final javax.net.ssl.SSLEngineResult.Status CLOSED;
+  }
+}

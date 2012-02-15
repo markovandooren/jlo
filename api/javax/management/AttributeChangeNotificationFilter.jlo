@@ -1,0 +1,9 @@
+package javax.management;
+public class AttributeChangeNotificationFilter extends java.lang.Object implements javax.management.NotificationFilter {
+   public  AttributeChangeNotificationFilter(){}
+  public synchronized native boolean isNotificationEnabled(javax.management.Notification a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void enableAttribute(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public synchronized native void disableAttribute(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void disableAllAttributes() ;
+  public synchronized native java.util.Vector<java.lang.String> getEnabledAttributes() ;
+}

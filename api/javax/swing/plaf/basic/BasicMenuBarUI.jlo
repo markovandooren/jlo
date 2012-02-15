@@ -1,0 +1,32 @@
+package javax.swing.plaf.basic;
+public class BasicMenuBarUI extends javax.swing.plaf.MenuBarUI {
+   public  BasicMenuBarUI(){}
+  public native java.awt.Dimension getMaximumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMinimumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  native javax.swing.InputMap getInputMap(int a_r_g_u_m_e_n_t_0) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.event.ChangeListener createChangeListener() ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  static native void loadActionMap(javax.swing.plaf.basic.LazyActionMap a_r_g_u_m_e_n_t_0) ;
+  protected native void installKeyboardActions() ;
+  protected native void uninstallKeyboardActions() ;
+  protected native void installDefaults() ;
+  protected native void installListeners() ;
+  protected native void uninstallListeners() ;
+  protected native void uninstallDefaults() ;
+  protected native java.awt.event.ContainerListener createContainerListener() ;
+  protected javax.swing.JMenuBar menuBar;
+  protected java.awt.event.ContainerListener containerListener;
+  protected javax.swing.event.ChangeListener changeListener;
+  private static class Actions extends sun.swing.UIAction {
+      Actions(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  private class Handler extends java.lang.Object implements javax.swing.event.ChangeListener, java.awt.event.ContainerListener {
+    public native void componentAdded(java.awt.event.ContainerEvent a_r_g_u_m_e_n_t_0) ;
+    public native void componentRemoved(java.awt.event.ContainerEvent a_r_g_u_m_e_n_t_0) ;
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicMenuBarUI this$0;
+  }
+}

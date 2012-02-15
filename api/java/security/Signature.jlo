@@ -1,0 +1,65 @@
+package java.security;
+public abstract class Signature extends java.security.SignatureSpi {
+   protected  Signature(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native java.lang.Object clone()  throws java.lang.CloneNotSupportedException;
+  public native java.lang.String toString() ;
+  public static native java.security.Signature getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException, java.security.NoSuchProviderException;
+  public static native java.security.Signature getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException;
+  public static native java.security.Signature getInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+  public final native boolean verify(byte[] a_r_g_u_m_e_n_t_0)  throws java.security.SignatureException;
+  public final native boolean verify(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.security.SignatureException;
+  public final native void update(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.security.SignatureException;
+  public final native void update(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0)  throws java.security.SignatureException;
+  public final native void update(byte a_r_g_u_m_e_n_t_0)  throws java.security.SignatureException;
+  public final native void update(byte[] a_r_g_u_m_e_n_t_0)  throws java.security.SignatureException;
+  public final native java.lang.String getAlgorithm() ;
+  public final native java.security.Provider getProvider() ;
+  public final native java.security.AlgorithmParameters getParameters() ;
+  public final native int sign(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.security.SignatureException;
+  public final native byte[] sign()  throws java.security.SignatureException;
+  public final native void initVerify(java.security.PublicKey a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+  public final native void initVerify(java.security.cert.Certificate a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+  public final native void initSign(java.security.PrivateKey a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException;
+  public final native void initSign(java.security.PrivateKey a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+  native void chooseFirstProvider() ;
+  public final native void setParameter(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.security.InvalidParameterException;
+  public final native void setParameter(java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_0)  throws java.security.InvalidAlgorithmParameterException;
+  public final native java.lang.Object getParameter(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.InvalidParameterException;
+  java.security.Provider provider;
+  protected static final int UNINITIALIZED;
+  protected static final int SIGN;
+  protected static final int VERIFY;
+  protected int state;
+  private static class CipherAdapter extends java.security.SignatureSpi {
+      CipherAdapter(javax.crypto.Cipher a_r_g_u_m_e_n_t_0){}
+    protected native void engineInitVerify(java.security.PublicKey a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+    protected native void engineInitSign(java.security.PrivateKey a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+    protected native void engineInitSign(java.security.PrivateKey a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException;
+    protected native byte[] engineSign()  throws java.security.SignatureException;
+    protected native boolean engineVerify(byte[] a_r_g_u_m_e_n_t_0)  throws java.security.SignatureException;
+    protected native void engineUpdate(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.security.SignatureException;
+    protected native void engineUpdate(byte a_r_g_u_m_e_n_t_0)  throws java.security.SignatureException;
+    protected native void engineSetParameter(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.security.InvalidParameterException;
+    protected native java.lang.Object engineGetParameter(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.InvalidParameterException;
+  }
+  private static class Delegate extends java.security.Signature {
+      Delegate(java.security.SignatureSpi a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+      Delegate(java.security.Provider.Service a_r_g_u_m_e_n_t_0, java.util.Iterator a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+    public native java.lang.Object clone()  throws java.lang.CloneNotSupportedException;
+    native void chooseFirstProvider() ;
+    protected native void engineInitVerify(java.security.PublicKey a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+    protected native void engineInitSign(java.security.PrivateKey a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+    protected native void engineInitSign(java.security.PrivateKey a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException;
+    protected native byte[] engineSign()  throws java.security.SignatureException;
+    protected native int engineSign(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.security.SignatureException;
+    protected native boolean engineVerify(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.security.SignatureException;
+    protected native boolean engineVerify(byte[] a_r_g_u_m_e_n_t_0)  throws java.security.SignatureException;
+    protected native void engineUpdate(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0) ;
+    protected native void engineUpdate(byte a_r_g_u_m_e_n_t_0)  throws java.security.SignatureException;
+    protected native void engineUpdate(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.security.SignatureException;
+    protected native void engineSetParameter(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.security.InvalidParameterException;
+    protected native void engineSetParameter(java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_0)  throws java.security.InvalidAlgorithmParameterException;
+    protected native java.security.AlgorithmParameters engineGetParameters() ;
+    protected native java.lang.Object engineGetParameter(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.InvalidParameterException;
+  }
+}

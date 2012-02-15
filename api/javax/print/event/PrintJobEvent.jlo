@@ -1,0 +1,12 @@
+package javax.print.event;
+public class PrintJobEvent extends javax.print.event.PrintEvent {
+   public  PrintJobEvent(javax.print.DocPrintJob a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native javax.print.DocPrintJob getPrintJob() ;
+  public native int getPrintEventType() ;
+  public static final int JOB_CANCELED;
+  public static final int JOB_COMPLETE;
+  public static final int JOB_FAILED;
+  public static final int REQUIRES_ATTENTION;
+  public static final int NO_MORE_EVENTS;
+  public static final int DATA_TRANSFER_COMPLETE;
+}

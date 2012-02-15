@@ -1,0 +1,11 @@
+package javax.swing.text.html.parser;
+public class DocumentParser extends javax.swing.text.html.parser.Parser {
+   public  DocumentParser(javax.swing.text.html.parser.DTD a_r_g_u_m_e_n_t_0){}
+  public native void parse(java.io.Reader a_r_g_u_m_e_n_t_0, javax.swing.text.html.HTMLEditorKit.ParserCallback a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  protected native void handleStartTag(javax.swing.text.html.parser.TagElement a_r_g_u_m_e_n_t_0) ;
+  protected native void handleComment(char[] a_r_g_u_m_e_n_t_0) ;
+  protected native void handleEmptyTag(javax.swing.text.html.parser.TagElement a_r_g_u_m_e_n_t_0)  throws javax.swing.text.ChangedCharSetException;
+  protected native void handleEndTag(javax.swing.text.html.parser.TagElement a_r_g_u_m_e_n_t_0) ;
+  protected native void handleText(char[] a_r_g_u_m_e_n_t_0) ;
+  protected native void handleError(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+}

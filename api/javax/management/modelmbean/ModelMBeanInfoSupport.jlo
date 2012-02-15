@@ -1,0 +1,19 @@
+package javax.management.modelmbean;
+public class ModelMBeanInfoSupport extends javax.management.MBeanInfo implements javax.management.modelmbean.ModelMBeanInfo {
+   public  ModelMBeanInfoSupport(javax.management.modelmbean.ModelMBeanInfo a_r_g_u_m_e_n_t_0){}
+   public  ModelMBeanInfoSupport(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.modelmbean.ModelMBeanAttributeInfo[] a_r_g_u_m_e_n_t_2, javax.management.modelmbean.ModelMBeanConstructorInfo[] a_r_g_u_m_e_n_t_3, javax.management.modelmbean.ModelMBeanOperationInfo[] a_r_g_u_m_e_n_t_4, javax.management.modelmbean.ModelMBeanNotificationInfo[] a_r_g_u_m_e_n_t_5){}
+   public  ModelMBeanInfoSupport(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.modelmbean.ModelMBeanAttributeInfo[] a_r_g_u_m_e_n_t_2, javax.management.modelmbean.ModelMBeanConstructorInfo[] a_r_g_u_m_e_n_t_3, javax.management.modelmbean.ModelMBeanOperationInfo[] a_r_g_u_m_e_n_t_4, javax.management.modelmbean.ModelMBeanNotificationInfo[] a_r_g_u_m_e_n_t_5, javax.management.Descriptor a_r_g_u_m_e_n_t_6){}
+  public native java.lang.Object clone() ;
+  public native javax.management.modelmbean.ModelMBeanConstructorInfo getConstructor(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public native javax.management.Descriptor getDescriptor(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public native javax.management.Descriptor getDescriptor() ;
+  public native javax.management.Descriptor getDescriptor(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public native javax.management.modelmbean.ModelMBeanAttributeInfo getAttribute(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public native void setDescriptor(javax.management.Descriptor a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public native javax.management.Descriptor[] getDescriptors(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public native void setDescriptors(javax.management.Descriptor[] a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public native javax.management.Descriptor getMBeanDescriptor()  throws javax.management.MBeanException;
+  public native void setMBeanDescriptor(javax.management.Descriptor a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public native javax.management.modelmbean.ModelMBeanOperationInfo getOperation(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public native javax.management.modelmbean.ModelMBeanNotificationInfo getNotification(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+}

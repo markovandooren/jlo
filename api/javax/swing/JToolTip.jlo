@@ -1,0 +1,22 @@
+package javax.swing;
+public class JToolTip extends javax.swing.JComponent implements javax.accessibility.Accessible {
+   public  JToolTip(){}
+  public native javax.swing.JComponent getComponent() ;
+  public native void updateUI() ;
+  public native java.lang.String getUIClassID() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  native boolean alwaysOnTop() ;
+  protected native java.lang.String paramString() ;
+  public native void setComponent(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.plaf.ToolTipUI getUI() ;
+  public native java.lang.String getTipText() ;
+  public native void setTipText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  java.lang.String tipText;
+  javax.swing.JComponent component;
+  protected class AccessibleJToolTip extends javax.swing.JComponent.AccessibleJComponent {
+     protected  AccessibleJToolTip(javax.swing.JToolTip a_r_g_u_m_e_n_t_0){}
+    public native java.lang.String getAccessibleDescription() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final javax.swing.JToolTip this$0;
+  }
+}

@@ -1,0 +1,127 @@
+package java.awt;
+public class List extends java.awt.Component implements java.awt.ItemSelectable, javax.accessibility.Accessible {
+   public  List(int a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+   public  List() throws java.awt.HeadlessException{}
+   public  List(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) throws java.awt.HeadlessException{}
+  public native void add(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void add(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native void clear() ;
+  public synchronized native void remove(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void remove(int a_r_g_u_m_e_n_t_0) ;
+  public native void removeAll() ;
+  public native boolean isSelected(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getPreferredSize() ;
+  public native java.awt.Dimension getPreferredSize(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMinimumSize() ;
+  public native java.awt.Dimension getMinimumSize(int a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native void addNotify() ;
+  public native void removeNotify() ;
+  protected native java.lang.String paramString() ;
+  public native java.awt.Dimension preferredSize() ;
+  public native java.awt.Dimension preferredSize(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension minimumSize(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension minimumSize() ;
+  native boolean eventEnabled(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void processEvent(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  native java.lang.String constructComponentName() ;
+  public synchronized native void addActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.awt.event.ActionListener[] getActionListeners() ;
+  public synchronized native void addItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.awt.event.ItemListener[] getItemListeners() ;
+  public native java.lang.Object[] getSelectedObjects() ;
+  public native java.lang.String getItem(int a_r_g_u_m_e_n_t_0) ;
+  public native void select(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int getSelectedIndex() ;
+  public synchronized native java.lang.String getSelectedItem() ;
+  public synchronized native void addItem(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void addItem(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native int getItemCount() ;
+  public synchronized native void makeVisible(int a_r_g_u_m_e_n_t_0) ;
+  protected native void processActionEvent(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void processItemEvent(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+  public native int countItems() ;
+  final native java.lang.String getItemImpl(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int[] getSelectedIndexes() ;
+  public native void delItem(int a_r_g_u_m_e_n_t_0) ;
+  public native int getRows() ;
+  public synchronized native java.lang.String[] getItems() ;
+  public synchronized native void replaceItem(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.String[] getSelectedItems() ;
+  public synchronized native void deselect(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isIndexSelected(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isMultipleMode() ;
+  public native boolean allowsMultipleSelections() ;
+  public native void setMultipleMode(boolean a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setMultipleSelections(boolean a_r_g_u_m_e_n_t_0) ;
+  public native int getVisibleIndex() ;
+  public synchronized native void delItems(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  java.util.Vector items;
+  int rows;
+  boolean multipleMode;
+  int[] selected;
+  int visibleIndex;
+  transient java.awt.event.ActionListener actionListener;
+  transient java.awt.event.ItemListener itemListener;
+  static final int DEFAULT_VISIBLE_ROWS;
+  protected class AccessibleAWTList extends java.awt.Component.AccessibleAWTComponent implements javax.accessibility.AccessibleSelection, java.awt.event.ItemListener, java.awt.event.ActionListener {
+     public  AccessibleAWTList(java.awt.List a_r_g_u_m_e_n_t_0){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.Accessible getAccessibleAt(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+    public native int getAccessibleChildrenCount() ;
+    public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native javax.accessibility.AccessibleSelection getAccessibleSelection() ;
+    public native javax.accessibility.Accessible getAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native boolean isAccessibleChildSelected(int a_r_g_u_m_e_n_t_0) ;
+    public native void itemStateChanged(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    public native int getAccessibleSelectionCount() ;
+    public native void addAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native void removeAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native void clearAccessibleSelection() ;
+    public native void selectAllAccessibleSelection() ;
+    final java.awt.List this$0;
+    protected class AccessibleAWTListChild extends java.awt.Component.AccessibleAWTComponent implements javax.accessibility.Accessible {
+       public  AccessibleAWTListChild(java.awt.List.AccessibleAWTList a_r_g_u_m_e_n_t_0, java.awt.List a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+      public native boolean contains(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+      public native java.awt.Point getLocation() ;
+      public native java.awt.Dimension getSize() ;
+      public native void setSize(java.awt.Dimension a_r_g_u_m_e_n_t_0) ;
+      public native java.awt.Rectangle getBounds() ;
+      public native java.awt.Cursor getCursor() ;
+      public native boolean isEnabled() ;
+      public native void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+      public native void requestFocus() ;
+      public native java.awt.FontMetrics getFontMetrics(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+      public native void setVisible(boolean a_r_g_u_m_e_n_t_0) ;
+      public native void setForeground(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+      public native void setBackground(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+      public native void setFont(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+      public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+      public native java.awt.Color getForeground() ;
+      public native java.awt.Font getFont() ;
+      public native boolean isVisible() ;
+      public native java.awt.Color getBackground() ;
+      public native void setBounds(java.awt.Rectangle a_r_g_u_m_e_n_t_0) ;
+      public native void setLocation(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+      public native boolean isShowing() ;
+      public native javax.accessibility.Accessible getAccessibleAt(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+      public native int getAccessibleChildrenCount() ;
+      public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+      public native java.util.Locale getLocale() ;
+      public native java.awt.Point getLocationOnScreen() ;
+      public native void setCursor(java.awt.Cursor a_r_g_u_m_e_n_t_0) ;
+      public native void addFocusListener(java.awt.event.FocusListener a_r_g_u_m_e_n_t_0) ;
+      public native void removeFocusListener(java.awt.event.FocusListener a_r_g_u_m_e_n_t_0) ;
+      public native boolean isFocusTraversable() ;
+      public native int getAccessibleIndexInParent() ;
+      public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+      public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+      final java.awt.List.AccessibleAWTList this$1;
+    }
+  }
+}

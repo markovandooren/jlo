@@ -1,0 +1,8 @@
+package java.security.spec;
+public class RSAKeyGenParameterSpec extends java.lang.Object implements java.security.spec.AlgorithmParameterSpec {
+   public  RSAKeyGenParameterSpec(int a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1){}
+  public native java.math.BigInteger getPublicExponent() ;
+  public native int getKeysize() ;
+  public static final java.math.BigInteger F0;
+  public static final java.math.BigInteger F4;
+}

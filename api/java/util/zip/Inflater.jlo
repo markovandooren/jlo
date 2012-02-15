@@ -1,0 +1,23 @@
+package java.util.zip;
+public class Inflater extends java.lang.Object {
+   public  Inflater(boolean a_r_g_u_m_e_n_t_0){}
+   public  Inflater(){}
+  protected native void finalize() ;
+  public synchronized native void reset() ;
+  public synchronized native boolean finished() ;
+  public synchronized native void end() ;
+  public synchronized native void setInput(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setInput(byte[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native long getBytesWritten() ;
+  public native int inflate(byte[] a_r_g_u_m_e_n_t_0)  throws java.util.zip.DataFormatException;
+  public synchronized native int inflate(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.util.zip.DataFormatException;
+  public synchronized native boolean needsDictionary() ;
+  public synchronized native boolean needsInput() ;
+  public synchronized native void setDictionary(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setDictionary(byte[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int getRemaining() ;
+  public synchronized native int getAdler() ;
+  public native int getTotalIn() ;
+  public synchronized native long getBytesRead() ;
+  public native int getTotalOut() ;
+}

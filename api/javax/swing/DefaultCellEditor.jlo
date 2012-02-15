@@ -1,0 +1,33 @@
+package javax.swing;
+public class DefaultCellEditor extends javax.swing.AbstractCellEditor implements javax.swing.table.TableCellEditor, javax.swing.tree.TreeCellEditor {
+   public  DefaultCellEditor(javax.swing.JTextField a_r_g_u_m_e_n_t_0){}
+   public  DefaultCellEditor(javax.swing.JCheckBox a_r_g_u_m_e_n_t_0){}
+   public  DefaultCellEditor(javax.swing.JComboBox a_r_g_u_m_e_n_t_0){}
+  public native java.awt.Component getComponent() ;
+  public native boolean isCellEditable(java.util.EventObject a_r_g_u_m_e_n_t_0) ;
+  public native boolean shouldSelectCell(java.util.EventObject a_r_g_u_m_e_n_t_0) ;
+  public native boolean stopCellEditing() ;
+  public native void cancelCellEditing() ;
+  public native java.lang.Object getCellEditorValue() ;
+  public native java.awt.Component getTableCellEditorComponent(javax.swing.JTable a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native java.awt.Component getTreeCellEditorComponent(javax.swing.JTree a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public native void setClickCountToStart(int a_r_g_u_m_e_n_t_0) ;
+  public native int getClickCountToStart() ;
+  protected javax.swing.JComponent editorComponent;
+  protected javax.swing.DefaultCellEditor.EditorDelegate delegate;
+  protected int clickCountToStart;
+  protected class EditorDelegate extends java.lang.Object implements java.awt.event.ActionListener, java.awt.event.ItemListener, java.io.Serializable {
+     protected  EditorDelegate(javax.swing.DefaultCellEditor a_r_g_u_m_e_n_t_0){}
+    public native void setValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    public native void itemStateChanged(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+    public native boolean isCellEditable(java.util.EventObject a_r_g_u_m_e_n_t_0) ;
+    public native boolean shouldSelectCell(java.util.EventObject a_r_g_u_m_e_n_t_0) ;
+    public native boolean stopCellEditing() ;
+    public native void cancelCellEditing() ;
+    public native java.lang.Object getCellEditorValue() ;
+    public native boolean startCellEditing(java.util.EventObject a_r_g_u_m_e_n_t_0) ;
+    protected java.lang.Object value;
+    final javax.swing.DefaultCellEditor this$0;
+  }
+}

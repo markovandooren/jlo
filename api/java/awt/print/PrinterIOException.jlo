@@ -1,0 +1,7 @@
+package java.awt.print;
+public class PrinterIOException extends java.awt.print.PrinterException {
+   public  PrinterIOException(java.io.IOException a_r_g_u_m_e_n_t_0){}
+  public native java.lang.Throwable getCause() ;
+  public native java.io.IOException getIOException() ;
+  static final long serialVersionUID;
+}

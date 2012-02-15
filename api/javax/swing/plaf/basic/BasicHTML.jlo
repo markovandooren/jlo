@@ -1,0 +1,49 @@
+package javax.swing.plaf.basic;
+public class BasicHTML extends java.lang.Object {
+   public  BasicHTML(){}
+  static native javax.swing.plaf.basic.BasicHTML.BasicEditorKit getFactory() ;
+  static native int getBaseline(javax.swing.text.View a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  static native int getBaseline(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public static native void updateRenderer(javax.swing.JComponent a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.text.View createHTMLView(javax.swing.JComponent a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native int getHTMLBaseline(javax.swing.text.View a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public static native boolean isHTMLString(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static final java.lang.String propertyKey;
+  public static final java.lang.String documentBaseKey;
+  static class Renderer extends javax.swing.text.View {
+      Renderer(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_1, javax.swing.text.View a_r_g_u_m_e_n_t_2){}
+    public native void setSize(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+    public native void setParent(javax.swing.text.View a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.AttributeSet getAttributes() ;
+    public native javax.swing.text.Element getElement() ;
+    public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+    public native java.awt.Container getContainer() ;
+    public native int viewToModel(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_3) ;
+    public native java.awt.Shape modelToView(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_3, java.awt.Shape a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+    public native java.awt.Shape modelToView(int a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+    public native javax.swing.text.Document getDocument() ;
+    public native int getEndOffset() ;
+    public native int getStartOffset() ;
+    public native void preferenceChanged(javax.swing.text.View a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+    public native float getPreferredSpan(int a_r_g_u_m_e_n_t_0) ;
+    public native float getMinimumSpan(int a_r_g_u_m_e_n_t_0) ;
+    public native float getMaximumSpan(int a_r_g_u_m_e_n_t_0) ;
+    public native int getViewCount() ;
+    public native javax.swing.text.View getView(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.ViewFactory getViewFactory() ;
+    public native float getAlignment(int a_r_g_u_m_e_n_t_0) ;
+  }
+  static class BasicDocument extends javax.swing.text.html.HTMLDocument {
+      BasicDocument(javax.swing.text.html.StyleSheet a_r_g_u_m_e_n_t_0, java.awt.Font a_r_g_u_m_e_n_t_1, java.awt.Color a_r_g_u_m_e_n_t_2){}
+  }
+  static class BasicHTMLViewFactory extends javax.swing.text.html.HTMLEditorKit.HTMLFactory {
+      BasicHTMLViewFactory(){}
+    public native javax.swing.text.View create(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+  }
+  static class BasicEditorKit extends javax.swing.text.html.HTMLEditorKit {
+      BasicEditorKit(){}
+    public native javax.swing.text.ViewFactory getViewFactory() ;
+    public native javax.swing.text.Document createDefaultDocument(java.awt.Font a_r_g_u_m_e_n_t_0, java.awt.Color a_r_g_u_m_e_n_t_1) ;
+    public native javax.swing.text.html.StyleSheet getStyleSheet() ;
+  }
+}

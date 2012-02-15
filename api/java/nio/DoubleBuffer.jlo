@@ -1,0 +1,33 @@
+package java.nio;
+public abstract class DoubleBuffer extends java.nio.Buffer implements java.lang.Comparable<java.nio.DoubleBuffer> {
+    DoubleBuffer(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+    DoubleBuffer(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, double[] a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5){}
+  public abstract double get() ;
+  public native java.nio.DoubleBuffer get(double[] a_r_g_u_m_e_n_t_0) ;
+  public native java.nio.DoubleBuffer get(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public abstract double get(int a_r_g_u_m_e_n_t_0) ;
+  public native java.nio.DoubleBuffer put(java.nio.DoubleBuffer a_r_g_u_m_e_n_t_0) ;
+  public abstract java.nio.DoubleBuffer put(double a_r_g_u_m_e_n_t_0) ;
+  public abstract java.nio.DoubleBuffer put(int a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native java.nio.DoubleBuffer put(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public final native java.nio.DoubleBuffer put(double[] a_r_g_u_m_e_n_t_0) ;
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int compareTo(java.nio.DoubleBuffer a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public abstract boolean isDirect() ;
+  public final native boolean hasArray() ;
+  public final native double[] array() ;
+  public final native int arrayOffset() ;
+  public static native java.nio.DoubleBuffer wrap(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public static native java.nio.DoubleBuffer wrap(double[] a_r_g_u_m_e_n_t_0) ;
+  public static native java.nio.DoubleBuffer allocate(int a_r_g_u_m_e_n_t_0) ;
+  public abstract java.nio.DoubleBuffer duplicate() ;
+  public abstract java.nio.DoubleBuffer slice() ;
+  public abstract java.nio.DoubleBuffer asReadOnlyBuffer() ;
+  public abstract java.nio.DoubleBuffer compact() ;
+  public abstract java.nio.ByteOrder order() ;
+  final double[] hb;
+  final int offset;
+  boolean isReadOnly;
+}

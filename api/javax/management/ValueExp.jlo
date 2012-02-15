@@ -1,0 +1,5 @@
+package javax.management;
+public abstract interface ValueExp extends java.io.Serializable {
+  public abstract javax.management.ValueExp apply(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws javax.management.BadStringOperationException, javax.management.BadBinaryOpValueExpException, javax.management.BadAttributeValueExpException, javax.management.InvalidApplicationException;
+  public abstract void setMBeanServer(javax.management.MBeanServer a_r_g_u_m_e_n_t_0) ;
+}

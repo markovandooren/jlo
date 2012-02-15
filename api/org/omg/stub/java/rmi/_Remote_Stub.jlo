@@ -1,0 +1,5 @@
+package org.omg.stub.java.rmi;
+public final class _Remote_Stub extends javax.rmi.CORBA.Stub implements java.rmi.Remote {
+   public  _Remote_Stub(){}
+  public native java.lang.String[] _ids() ;
+}

@@ -1,0 +1,7 @@
+package java.util.logging;
+public abstract interface LoggingMXBean {
+  public abstract java.util.List<java.lang.String> getLoggerNames() ;
+  public abstract java.lang.String getLoggerLevel(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void setLoggerLevel(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.String getParentLoggerName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+}

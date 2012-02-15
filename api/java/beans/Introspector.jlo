@@ -1,0 +1,18 @@
+package java.beans;
+public class Introspector extends java.lang.Object {
+  static native java.lang.Object instantiate(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.lang.InstantiationException, java.lang.IllegalAccessException, java.lang.ClassNotFoundException;
+  public static native java.beans.BeanInfo getBeanInfo(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0)  throws java.beans.IntrospectionException;
+  public static native java.beans.BeanInfo getBeanInfo(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.beans.IntrospectionException;
+  public static native java.beans.BeanInfo getBeanInfo(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1)  throws java.beans.IntrospectionException;
+  static native java.lang.reflect.Method findMethod(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.Class[] a_r_g_u_m_e_n_t_3) ;
+  static native java.lang.reflect.Method findMethod(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  static native boolean isSubclass(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.Class a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String decapitalize(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static synchronized native java.lang.String[] getBeanInfoSearchPath() ;
+  public static synchronized native void setBeanInfoSearchPath(java.lang.String[] a_r_g_u_m_e_n_t_0) ;
+  public static native void flushCaches() ;
+  public static native void flushFromCaches(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public static final int USE_ALL_BEANINFO;
+  public static final int IGNORE_IMMEDIATE_BEANINFO;
+  public static final int IGNORE_ALL_BEANINFO;
+}

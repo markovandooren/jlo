@@ -1,0 +1,29 @@
+package java.awt.geom;
+public abstract class RectangularShape extends java.lang.Object implements java.awt.Shape, java.lang.Cloneable {
+   protected  RectangularShape(){}
+  public native java.lang.Object clone() ;
+  public abstract boolean isEmpty() ;
+  public native boolean contains(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0) ;
+  public native boolean intersects(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public abstract double getY() ;
+  public abstract double getX() ;
+  public native java.awt.Rectangle getBounds() ;
+  public abstract double getWidth() ;
+  public abstract double getHeight() ;
+  public native java.awt.geom.PathIterator getPathIterator(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void setFrame(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public abstract void setFrame(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native void setFrame(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.geom.Dimension2D a_r_g_u_m_e_n_t_1) ;
+  public native double getMinX() ;
+  public native double getMinY() ;
+  public native double getMaxX() ;
+  public native double getMaxY() ;
+  public native void setFrameFromDiagonal(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native void setFrameFromDiagonal(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.geom.Point2D a_r_g_u_m_e_n_t_1) ;
+  public native double getCenterX() ;
+  public native double getCenterY() ;
+  public native java.awt.geom.Rectangle2D getFrame() ;
+  public native void setFrameFromCenter(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.geom.Point2D a_r_g_u_m_e_n_t_1) ;
+  public native void setFrameFromCenter(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+}

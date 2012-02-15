@@ -1,0 +1,65 @@
+package javax.swing;
+public class UIManager extends java.lang.Object implements java.io.Serializable {
+   public  UIManager(){}
+  public static native java.lang.Object get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.Object get(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.Object put(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public static native boolean getBoolean(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static native boolean getBoolean(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native int getInt(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native int getInt(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String getString(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  static native java.lang.String getString(java.lang.Object a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String getString(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public static native void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public static native java.beans.PropertyChangeListener[] getPropertyChangeListeners() ;
+  public static native javax.swing.border.Border getBorder(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.border.Border getBorder(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.Insets getInsets(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.Insets getInsets(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.UIDefaults getDefaults() ;
+  public static native java.awt.Font getFont(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.Font getFont(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.Color getColor(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.Color getColor(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.Icon getIcon(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.Icon getIcon(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI getUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.LookAndFeel getLookAndFeel() ;
+  public static native java.awt.Dimension getDimension(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.Dimension getDimension(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.UIDefaults getLookAndFeelDefaults() ;
+  public static native javax.swing.UIManager.LookAndFeelInfo[] getInstalledLookAndFeels() ;
+  public static native void setInstalledLookAndFeels(javax.swing.UIManager.LookAndFeelInfo[] a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+  public static native void installLookAndFeel(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native void installLookAndFeel(javax.swing.UIManager.LookAndFeelInfo a_r_g_u_m_e_n_t_0) ;
+  public static native void setLookAndFeel(javax.swing.LookAndFeel a_r_g_u_m_e_n_t_0)  throws javax.swing.UnsupportedLookAndFeelException;
+  public static native void setLookAndFeel(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.ClassNotFoundException, java.lang.InstantiationException, java.lang.IllegalAccessException, javax.swing.UnsupportedLookAndFeelException;
+  public static native java.lang.String getSystemLookAndFeelClassName() ;
+  public static native java.lang.String getCrossPlatformLookAndFeelClassName() ;
+  public static native void addAuxiliaryLookAndFeel(javax.swing.LookAndFeel a_r_g_u_m_e_n_t_0) ;
+  public static native boolean removeAuxiliaryLookAndFeel(javax.swing.LookAndFeel a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.LookAndFeel[] getAuxiliaryLookAndFeels() ;
+  public static class LookAndFeelInfo extends java.lang.Object {
+     public  LookAndFeelInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public native java.lang.String toString() ;
+    public native java.lang.String getName() ;
+    public native java.lang.String getClassName() ;
+  }
+  private static class LAFState extends java.lang.Object {
+    native javax.swing.UIDefaults getLookAndFeelDefaults() ;
+    native void setLookAndFeelDefaults(javax.swing.UIDefaults a_r_g_u_m_e_n_t_0) ;
+    public synchronized native javax.swing.event.SwingPropertyChangeSupport getPropertyChangeSupport(boolean a_r_g_u_m_e_n_t_0) ;
+    native javax.swing.UIDefaults getSystemDefaults() ;
+    native void setSystemDefaults(javax.swing.UIDefaults a_r_g_u_m_e_n_t_0) ;
+    java.util.Properties swingProps;
+    boolean initialized;
+    javax.swing.MultiUIDefaults multiUIDefaults;
+    javax.swing.LookAndFeel lookAndFeel;
+    javax.swing.LookAndFeel multiLookAndFeel;
+    java.util.Vector auxLookAndFeels;
+    javax.swing.event.SwingPropertyChangeSupport changeSupport;
+    javax.swing.UIManager.LookAndFeelInfo[] installedLAFs;
+  }
+}

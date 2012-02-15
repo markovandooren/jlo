@@ -1,0 +1,5 @@
+package javax.sound.midi;
+public abstract interface Receiver {
+  public abstract void close() ;
+  public abstract void send(javax.sound.midi.MidiMessage a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+}

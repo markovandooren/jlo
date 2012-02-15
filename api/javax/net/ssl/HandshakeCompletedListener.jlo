@@ -1,0 +1,4 @@
+package javax.net.ssl;
+public abstract interface HandshakeCompletedListener extends java.util.EventListener {
+  public abstract void handshakeCompleted(javax.net.ssl.HandshakeCompletedEvent a_r_g_u_m_e_n_t_0) ;
+}

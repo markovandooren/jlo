@@ -1,0 +1,36 @@
+package java.security;
+public abstract class Policy extends java.lang.Object {
+   public  Policy(){}
+  public static native java.security.Policy getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Policy.Parameters a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException;
+  public static native java.security.Policy getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Policy.Parameters a_r_g_u_m_e_n_t_1, java.security.Provider a_r_g_u_m_e_n_t_2)  throws java.security.NoSuchAlgorithmException;
+  public static native java.security.Policy getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Policy.Parameters a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2)  throws java.security.NoSuchProviderException, java.security.NoSuchAlgorithmException;
+  public native java.security.PermissionCollection getPermissions(java.security.CodeSource a_r_g_u_m_e_n_t_0) ;
+  public native java.security.PermissionCollection getPermissions(java.security.ProtectionDomain a_r_g_u_m_e_n_t_0) ;
+  public native boolean implies(java.security.ProtectionDomain a_r_g_u_m_e_n_t_0, java.security.Permission a_r_g_u_m_e_n_t_1) ;
+  static synchronized native java.security.Policy getPolicyNoCheck() ;
+  static native boolean isSet() ;
+  public native java.lang.String getType() ;
+  public native java.security.Provider getProvider() ;
+  public native java.security.Policy.Parameters getParameters() ;
+  public native void refresh() ;
+  public static native java.security.Policy getPolicy() ;
+  public static native void setPolicy(java.security.Policy a_r_g_u_m_e_n_t_0) ;
+  public static final java.security.PermissionCollection UNSUPPORTED_EMPTY_COLLECTION;
+  private static class UnsupportedEmptyCollection extends java.security.PermissionCollection {
+     public  UnsupportedEmptyCollection(){}
+    public native void add(java.security.Permission a_r_g_u_m_e_n_t_0) ;
+    public native boolean implies(java.security.Permission a_r_g_u_m_e_n_t_0) ;
+    public native java.util.Enumeration<java.security.Permission> elements() ;
+  }
+  public static abstract interface Parameters {
+  }
+  private static class PolicyDelegate extends java.security.Policy {
+    public native java.security.PermissionCollection getPermissions(java.security.ProtectionDomain a_r_g_u_m_e_n_t_0) ;
+    public native java.security.PermissionCollection getPermissions(java.security.CodeSource a_r_g_u_m_e_n_t_0) ;
+    public native boolean implies(java.security.ProtectionDomain a_r_g_u_m_e_n_t_0, java.security.Permission a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getType() ;
+    public native java.security.Provider getProvider() ;
+    public native java.security.Policy.Parameters getParameters() ;
+    public native void refresh() ;
+  }
+}

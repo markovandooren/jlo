@@ -1,0 +1,25 @@
+package java.security;
+public abstract class KeyPairGenerator extends java.security.KeyPairGeneratorSpi {
+   protected  KeyPairGenerator(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public static native java.security.KeyPairGenerator getInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+  public static native java.security.KeyPairGenerator getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException, java.security.NoSuchProviderException;
+  public static native java.security.KeyPairGenerator getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException;
+  public native void initialize(java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_0)  throws java.security.InvalidAlgorithmParameterException;
+  public native void initialize(java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1)  throws java.security.InvalidAlgorithmParameterException;
+  public native void initialize(int a_r_g_u_m_e_n_t_0) ;
+  public native void initialize(int a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String getAlgorithm() ;
+  public final native java.security.Provider getProvider() ;
+  native void disableFailover() ;
+  public final native java.security.KeyPair genKeyPair() ;
+  public native java.security.KeyPair generateKeyPair() ;
+  java.security.Provider provider;
+  private static final class Delegate extends java.security.KeyPairGenerator {
+      Delegate(java.security.KeyPairGeneratorSpi a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+      Delegate(sun.security.jca.GetInstance.Instance a_r_g_u_m_e_n_t_0, java.util.Iterator<java.security.Provider.Service> a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+    public native void initialize(int a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1) ;
+    public native void initialize(java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1)  throws java.security.InvalidAlgorithmParameterException;
+    native void disableFailover() ;
+    public native java.security.KeyPair generateKeyPair() ;
+  }
+}

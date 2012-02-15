@@ -1,0 +1,7 @@
+package javax.rmi.ssl;
+public class SslRMIClientSocketFactory extends java.lang.Object implements java.rmi.server.RMIClientSocketFactory, java.io.Serializable {
+   public  SslRMIClientSocketFactory(){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.net.Socket createSocket(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+}

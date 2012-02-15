@@ -1,0 +1,9 @@
+package java.awt;
+public abstract class GraphicsConfigTemplate extends java.lang.Object implements java.io.Serializable {
+   public  GraphicsConfigTemplate(){}
+  public abstract java.awt.GraphicsConfiguration getBestConfiguration(java.awt.GraphicsConfiguration[] a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isGraphicsConfigSupported(java.awt.GraphicsConfiguration a_r_g_u_m_e_n_t_0) ;
+  public static final int REQUIRED;
+  public static final int PREFERRED;
+  public static final int UNNECESSARY;
+}

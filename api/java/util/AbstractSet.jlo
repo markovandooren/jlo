@@ -1,0 +1,7 @@
+package java.util;
+public abstract class AbstractSet<E extends java.lang.Object> extends java.util.AbstractCollection<E> implements java.util.Set<E> {
+   protected  AbstractSet(){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean removeAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+}

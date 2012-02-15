@@ -1,0 +1,16 @@
+package java.lang;
+public final class ProcessBuilder extends java.lang.Object {
+   public  ProcessBuilder(java.util.List<java.lang.String> a_r_g_u_m_e_n_t_0){}
+   public transient  ProcessBuilder(java.lang.String[] a_r_g_u_m_e_n_t_0){}
+  public native java.lang.Process start()  throws java.io.IOException;
+  public native java.util.Map<java.lang.String,java.lang.String> environment() ;
+  native java.lang.ProcessBuilder environment(java.lang.String[] a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.ProcessBuilder directory(java.io.File a_r_g_u_m_e_n_t_0) ;
+  public native java.io.File directory() ;
+  public native java.lang.ProcessBuilder command(java.util.List<java.lang.String> a_r_g_u_m_e_n_t_0) ;
+  public native java.util.List<java.lang.String> command() ;
+  public transient native java.lang.ProcessBuilder command(java.lang.String... a_r_g_u_m_e_n_t_0) ;
+  public native boolean redirectErrorStream() ;
+  public native java.lang.ProcessBuilder redirectErrorStream(boolean a_r_g_u_m_e_n_t_0) ;
+  static final boolean $assertionsDisabled;
+}

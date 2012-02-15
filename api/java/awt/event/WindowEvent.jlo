@@ -1,0 +1,27 @@
+package java.awt.event;
+public class WindowEvent extends java.awt.event.ComponentEvent {
+   public  WindowEvent(java.awt.Window a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Window a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+   public  WindowEvent(java.awt.Window a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Window a_r_g_u_m_e_n_t_2){}
+   public  WindowEvent(java.awt.Window a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  WindowEvent(java.awt.Window a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native java.lang.String paramString() ;
+  public native java.awt.Window getWindow() ;
+  public native java.awt.Window getOppositeWindow() ;
+  public native int getOldState() ;
+  public native int getNewState() ;
+  public static final int WINDOW_FIRST;
+  public static final int WINDOW_OPENED;
+  public static final int WINDOW_CLOSING;
+  public static final int WINDOW_CLOSED;
+  public static final int WINDOW_ICONIFIED;
+  public static final int WINDOW_DEICONIFIED;
+  public static final int WINDOW_ACTIVATED;
+  public static final int WINDOW_DEACTIVATED;
+  public static final int WINDOW_GAINED_FOCUS;
+  public static final int WINDOW_LOST_FOCUS;
+  public static final int WINDOW_STATE_CHANGED;
+  public static final int WINDOW_LAST;
+  transient java.awt.Window opposite;
+  int oldState;
+  int newState;
+}

@@ -1,0 +1,22 @@
+package java.text;
+public class ChoiceFormat extends java.text.NumberFormat {
+   public  ChoiceFormat(double[] a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1){}
+   public  ChoiceFormat(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.StringBuffer format(long a_r_g_u_m_e_n_t_0, java.lang.StringBuffer a_r_g_u_m_e_n_t_1, java.text.FieldPosition a_r_g_u_m_e_n_t_2) ;
+  public native java.lang.StringBuffer format(double a_r_g_u_m_e_n_t_0, java.lang.StringBuffer a_r_g_u_m_e_n_t_1, java.text.FieldPosition a_r_g_u_m_e_n_t_2) ;
+  public static final native double nextDouble(double a_r_g_u_m_e_n_t_0) ;
+  public static native double nextDouble(double a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.Number parse(java.lang.String a_r_g_u_m_e_n_t_0, java.text.ParsePosition a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.Object[] getFormats() ;
+  public native void applyPattern(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toPattern() ;
+  public native void setChoices(double[] a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1) ;
+  public native double[] getLimits() ;
+  public static final native double previousDouble(double a_r_g_u_m_e_n_t_0) ;
+  static final long SIGN;
+  static final long EXPONENT;
+  static final long POSITIVEINFINITY;
+}

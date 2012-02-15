@@ -1,0 +1,5 @@
+package javax.transaction;
+public class TransactionRequiredException extends java.rmi.RemoteException {
+   public  TransactionRequiredException(){}
+   public  TransactionRequiredException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

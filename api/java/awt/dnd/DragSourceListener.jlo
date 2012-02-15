@@ -1,0 +1,8 @@
+package java.awt.dnd;
+public abstract interface DragSourceListener extends java.util.EventListener {
+  public abstract void dragEnter(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void dragOver(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void dropActionChanged(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void dragExit(java.awt.dnd.DragSourceEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void dragDropEnd(java.awt.dnd.DragSourceDropEvent a_r_g_u_m_e_n_t_0) ;
+}

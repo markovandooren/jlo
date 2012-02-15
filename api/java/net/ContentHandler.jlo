@@ -1,0 +1,6 @@
+package java.net;
+public abstract class ContentHandler extends java.lang.Object {
+   public  ContentHandler(){}
+  public abstract java.lang.Object getContent(java.net.URLConnection a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native java.lang.Object getContent(java.net.URLConnection a_r_g_u_m_e_n_t_0, java.lang.Class[] a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+}

@@ -1,0 +1,16 @@
+package javax.swing;
+public class SizeSequence extends java.lang.Object {
+   public  SizeSequence(){}
+   public  SizeSequence(int a_r_g_u_m_e_n_t_0){}
+   public  SizeSequence(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  SizeSequence(int[] a_r_g_u_m_e_n_t_0){}
+  public native int getSize(int a_r_g_u_m_e_n_t_0) ;
+  public native void setSize(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int getIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native int getPosition(int a_r_g_u_m_e_n_t_0) ;
+  native void setSizes(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setSizes(int[] a_r_g_u_m_e_n_t_0) ;
+  public native int[] getSizes() ;
+  public native void insertEntries(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void removeEntries(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+}

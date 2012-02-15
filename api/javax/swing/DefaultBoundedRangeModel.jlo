@@ -1,0 +1,24 @@
+package javax.swing;
+public class DefaultBoundedRangeModel extends java.lang.Object implements javax.swing.BoundedRangeModel, java.io.Serializable {
+   public  DefaultBoundedRangeModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  DefaultBoundedRangeModel(){}
+  public native java.lang.String toString() ;
+  public native int getValue() ;
+  public native void setValue(int a_r_g_u_m_e_n_t_0) ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.ChangeListener[] getChangeListeners() ;
+  protected native void fireStateChanged() ;
+  public native boolean getValueIsAdjusting() ;
+  public native void setMinimum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMinimum() ;
+  public native void setMaximum(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMaximum() ;
+  public native int getExtent() ;
+  public native void setValueIsAdjusting(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setExtent(int a_r_g_u_m_e_n_t_0) ;
+  public native void setRangeProperties(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+  protected transient javax.swing.event.ChangeEvent changeEvent;
+  protected javax.swing.event.EventListenerList listenerList;
+}

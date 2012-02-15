@@ -1,0 +1,34 @@
+package javax.swing.text;
+public class PlainView extends javax.swing.text.View implements javax.swing.text.TabExpander {
+   public  PlainView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+  public native void setSize(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+  protected native void drawLine(int a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native int viewToModel(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_3) ;
+  public native java.awt.Shape modelToView(int a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public native void insertUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+  public native void removeUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+  public native void changedUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+  public native float getPreferredSpan(int a_r_g_u_m_e_n_t_0) ;
+  public native float nextTabStop(float a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  native java.awt.Shape adjustPaintRegion(java.awt.Shape a_r_g_u_m_e_n_t_0) ;
+  protected native int getTabSize() ;
+  protected native int drawUnselectedText(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+  protected native int drawSelectedText(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+  protected final native javax.swing.text.Segment getLineBuffer() ;
+  protected native void updateMetrics() ;
+  protected native void updateDamage(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+  protected native void damageLineRange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, java.awt.Component a_r_g_u_m_e_n_t_3) ;
+  protected native java.awt.Rectangle lineToRect(java.awt.Shape a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected java.awt.FontMetrics metrics;
+  javax.swing.text.Element longLine;
+  java.awt.Font font;
+  javax.swing.text.Segment lineBuffer;
+  int tabSize;
+  int tabBase;
+  int sel0;
+  int sel1;
+  java.awt.Color unselected;
+  java.awt.Color selected;
+  int firstLineOffset;
+}

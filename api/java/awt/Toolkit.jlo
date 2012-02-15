@@ -1,0 +1,119 @@
+package java.awt;
+public abstract class Toolkit extends java.lang.Object {
+   public  Toolkit(){}
+  public static native java.lang.String getProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public abstract void sync() ;
+  public native void addPropertyChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_1) ;
+  public native void removePropertyChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_1) ;
+  public native java.beans.PropertyChangeListener[] getPropertyChangeListeners(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.beans.PropertyChangeListener[] getPropertyChangeListeners() ;
+  public abstract java.awt.FontMetrics getFontMetrics(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+  static native boolean enabledOnToolkit(long a_r_g_u_m_e_n_t_0) ;
+  protected static native java.awt.Container getNativeContainer(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  static native java.awt.EventQueue getEventQueue() ;
+  static native void loadLibraries() ;
+  public abstract java.awt.image.ColorModel getColorModel()  throws java.awt.HeadlessException;
+  public abstract java.awt.Image createImage(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public abstract java.awt.Image createImage(java.awt.image.ImageProducer a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Image createImage(java.net.URL a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Image createImage(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Image createImage(byte[] a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean prepareImage(java.awt.Image a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.image.ImageObserver a_r_g_u_m_e_n_t_3) ;
+  public abstract int checkImage(java.awt.Image a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.image.ImageObserver a_r_g_u_m_e_n_t_3) ;
+  public static synchronized native java.awt.Toolkit getDefaultToolkit() ;
+  protected native java.awt.peer.MouseInfoPeer getMouseInfoPeer() ;
+  native void notifyAWTEventListeners(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.peer.LightweightPeer createComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  protected native void loadSystemColors(int[] a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected native java.lang.Object lazilyLoadDesktopProperty(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native int getMenuShortcutKeyMask()  throws java.awt.HeadlessException;
+  public native boolean getLockingKeyState(int a_r_g_u_m_e_n_t_0)  throws java.lang.UnsupportedOperationException;
+  public native java.awt.Dimension getBestCursorSize(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.awt.HeadlessException;
+  public native int getMaximumCursorColors()  throws java.awt.HeadlessException;
+  public native java.awt.Cursor createCustomCursor(java.awt.Image a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2)  throws java.lang.IndexOutOfBoundsException, java.awt.HeadlessException;
+  protected abstract java.awt.peer.ScrollbarPeer createScrollbar(java.awt.Scrollbar a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.TextAreaPeer createTextArea(java.awt.TextArea a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.ButtonPeer createButton(java.awt.Button a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.ChoicePeer createChoice(java.awt.Choice a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.PanelPeer createPanel(java.awt.Panel a_r_g_u_m_e_n_t_0) ;
+  protected abstract java.awt.peer.CanvasPeer createCanvas(java.awt.Canvas a_r_g_u_m_e_n_t_0) ;
+  protected abstract java.awt.peer.ScrollPanePeer createScrollPane(java.awt.ScrollPane a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.TextFieldPeer createTextField(java.awt.TextField a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.LabelPeer createLabel(java.awt.Label a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.ListPeer createList(java.awt.List a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.CheckboxPeer createCheckbox(java.awt.Checkbox a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.FramePeer createFrame(java.awt.Frame a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.WindowPeer createWindow(java.awt.Window a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.DialogPeer createDialog(java.awt.Dialog a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.FileDialogPeer createFileDialog(java.awt.FileDialog a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.MenuBarPeer createMenuBar(java.awt.MenuBar a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.MenuPeer createMenu(java.awt.Menu a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.PopupMenuPeer createPopupMenu(java.awt.PopupMenu a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.MenuItemPeer createMenuItem(java.awt.MenuItem a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.CheckboxMenuItemPeer createCheckboxMenuItem(java.awt.CheckboxMenuItem a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.peer.FontPeer getFontPeer(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected native void initializeDesktopProperties() ;
+  public abstract int getScreenResolution()  throws java.awt.HeadlessException;
+  public native java.awt.Insets getScreenInsets(java.awt.GraphicsConfiguration a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  public abstract java.awt.dnd.peer.DragSourceContextPeer createDragSourceContextPeer(java.awt.dnd.DragGestureEvent a_r_g_u_m_e_n_t_0)  throws java.awt.dnd.InvalidDnDOperationException;
+  public native <T extends java.awt.dnd.DragGestureRecognizer>T createDragGestureRecognizer(java.lang.Class<T> a_r_g_u_m_e_n_t_0, java.awt.dnd.DragSource a_r_g_u_m_e_n_t_1, java.awt.Component a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.dnd.DragGestureListener a_r_g_u_m_e_n_t_4) ;
+  public abstract java.awt.Image getImage(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Image getImage(java.net.URL a_r_g_u_m_e_n_t_0) ;
+  public abstract void beep() ;
+  public abstract java.awt.datatransfer.Clipboard getSystemClipboard()  throws java.awt.HeadlessException;
+  public native java.awt.PrintJob getPrintJob(java.awt.Frame a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.awt.JobAttributes a_r_g_u_m_e_n_t_2, java.awt.PageAttributes a_r_g_u_m_e_n_t_3) ;
+  public abstract java.awt.PrintJob getPrintJob(java.awt.Frame a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.util.Properties a_r_g_u_m_e_n_t_2) ;
+  public abstract java.util.Map<java.awt.font.TextAttribute,? extends java.lang.Object> mapInputMethodHighlight(java.awt.im.InputMethodHighlight a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  public native boolean isFrameStateSupported(int a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  public abstract java.lang.String[] getFontList() ;
+  public abstract boolean isModalityTypeSupported(java.awt.Dialog.ModalityType a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isModalExclusionTypeSupported(java.awt.Dialog.ModalExclusionType a_r_g_u_m_e_n_t_0) ;
+  protected abstract java.awt.peer.DesktopPeer createDesktopPeer(java.awt.Desktop a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected abstract java.awt.EventQueue getSystemEventQueueImpl() ;
+  public abstract java.awt.Dimension getScreenSize()  throws java.awt.HeadlessException;
+  protected final native void setDesktopProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native void setDynamicLayout(boolean a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  protected native boolean isDynamicLayoutSet()  throws java.awt.HeadlessException;
+  public native boolean isDynamicLayoutActive()  throws java.awt.HeadlessException;
+  public native java.awt.datatransfer.Clipboard getSystemSelection()  throws java.awt.HeadlessException;
+  public native void setLockingKeyState(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.lang.UnsupportedOperationException;
+  public final native java.awt.EventQueue getSystemEventQueue() ;
+  public final synchronized native java.lang.Object getDesktopProperty(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native boolean isAlwaysOnTopSupported() ;
+  public native void addAWTEventListener(java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public native void removeAWTEventListener(java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_0) ;
+  synchronized native int countAWTEventListeners(long a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.event.AWTEventListener[] getAWTEventListeners(long a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.event.AWTEventListener[] getAWTEventListeners() ;
+  protected final java.util.Map<java.lang.String,java.lang.Object> desktopProperties;
+  protected final java.beans.PropertyChangeSupport desktopPropsSupport;
+  static final boolean $assertionsDisabled;
+  private static class DesktopPropertyChangeSupport extends java.beans.PropertyChangeSupport {
+     public  DesktopPropertyChangeSupport(java.lang.Object a_r_g_u_m_e_n_t_0){}
+    public native void firePropertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public synchronized native void addPropertyChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_1) ;
+    public synchronized native void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+    public synchronized native void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+    public synchronized native void removePropertyChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_1) ;
+    public synchronized native java.beans.PropertyChangeListener[] getPropertyChangeListeners(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public synchronized native java.beans.PropertyChangeListener[] getPropertyChangeListeners() ;
+  }
+  private class SelectiveAWTEventListener extends java.lang.Object implements java.awt.event.AWTEventListener {
+      SelectiveAWTEventListener(java.awt.Toolkit a_r_g_u_m_e_n_t_0, java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2){}
+    public native java.awt.event.AWTEventListener getListener() ;
+    public native void eventDispatched(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+    public native void orEventMasks(long a_r_g_u_m_e_n_t_0) ;
+    public native int[] getCalls() ;
+    public native long getEventMask() ;
+    java.awt.event.AWTEventListener listener;
+    int[] calls;
+    final java.awt.Toolkit this$0;
+  }
+  private static class ToolkitEventMulticaster extends java.awt.AWTEventMulticaster implements java.awt.event.AWTEventListener {
+      ToolkitEventMulticaster(java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_0, java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_1){}
+    static native java.awt.event.AWTEventListener add(java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_0, java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_1) ;
+    static native java.awt.event.AWTEventListener remove(java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_0, java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_1) ;
+    protected native java.util.EventListener remove(java.util.EventListener a_r_g_u_m_e_n_t_0) ;
+    public native void eventDispatched(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  }
+}

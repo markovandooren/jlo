@@ -1,0 +1,13 @@
+package java.security.cert;
+public class CertStore extends java.lang.Object {
+   protected  CertStore(java.security.cert.CertStoreSpi a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.security.cert.CertStoreParameters a_r_g_u_m_e_n_t_3){}
+  public static native java.security.cert.CertStore getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.cert.CertStoreParameters a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2)  throws java.security.InvalidAlgorithmParameterException, java.security.NoSuchAlgorithmException, java.security.NoSuchProviderException;
+  public static native java.security.cert.CertStore getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.cert.CertStoreParameters a_r_g_u_m_e_n_t_1)  throws java.security.InvalidAlgorithmParameterException, java.security.NoSuchAlgorithmException;
+  public static native java.security.cert.CertStore getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.cert.CertStoreParameters a_r_g_u_m_e_n_t_1, java.security.Provider a_r_g_u_m_e_n_t_2)  throws java.security.NoSuchAlgorithmException, java.security.InvalidAlgorithmParameterException;
+  public final native java.util.Collection<? extends java.security.cert.Certificate> getCertificates(java.security.cert.CertSelector a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertStoreException;
+  public final native java.lang.String getType() ;
+  public final native java.security.Provider getProvider() ;
+  public final native java.util.Collection<? extends java.security.cert.CRL> getCRLs(java.security.cert.CRLSelector a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertStoreException;
+  public static final native java.lang.String getDefaultType() ;
+  public final native java.security.cert.CertStoreParameters getCertStoreParameters() ;
+}

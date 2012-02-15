@@ -1,0 +1,4 @@
+package java.rmi.server;
+public abstract interface Unreferenced {
+  public abstract void unreferenced() ;
+}

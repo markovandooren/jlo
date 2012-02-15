@@ -1,0 +1,14 @@
+package javax.swing.border;
+public class EmptyBorder extends javax.swing.border.AbstractBorder implements java.io.Serializable {
+   public  EmptyBorder(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  EmptyBorder(java.awt.Insets a_r_g_u_m_e_n_t_0){}
+  public native void paintBorder(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public native java.awt.Insets getBorderInsets(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Insets getBorderInsets(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Insets a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Insets getBorderInsets() ;
+  public native boolean isBorderOpaque() ;
+  protected int left;
+  protected int right;
+  protected int top;
+  protected int bottom;
+}

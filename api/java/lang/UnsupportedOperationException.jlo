@@ -1,0 +1,8 @@
+package java.lang;
+public class UnsupportedOperationException extends java.lang.RuntimeException {
+   public  UnsupportedOperationException(){}
+   public  UnsupportedOperationException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  UnsupportedOperationException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
+   public  UnsupportedOperationException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
+  static final long serialVersionUID;
+}

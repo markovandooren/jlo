@@ -1,0 +1,70 @@
+package java.util;
+public class EnumMap<K extends java.lang.Enum<K>, V extends java.lang.Object> extends java.util.AbstractMap<K,V> implements java.io.Serializable, java.lang.Cloneable {
+   public  EnumMap(java.lang.Class<K> a_r_g_u_m_e_n_t_0){}
+   public  EnumMap(java.util.EnumMap<K,? extends V> a_r_g_u_m_e_n_t_0){}
+   public  EnumMap(java.util.Map<K,? extends V> a_r_g_u_m_e_n_t_0){}
+  public native V get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native V put(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public native java.util.EnumMap<K,V> clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native java.util.Collection<V> values() ;
+  public native int size() ;
+  public native java.util.Set<java.util.Map.Entry<K,V>> entrySet() ;
+  public native void putAll(java.util.Map<? extends K,? extends V> a_r_g_u_m_e_n_t_0) ;
+  public native V remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Set<K> keySet() ;
+  public native boolean containsValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  private class EntryIterator extends java.util.EnumMap.EnumMapIterator<java.util.Map.Entry<K,V>> implements java.util.Map.Entry<K,V> {
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String toString() ;
+    public native V getValue() ;
+    public native java.util.Map.Entry<K,V> next() ;
+    public native K getKey() ;
+    public native V setValue(V a_r_g_u_m_e_n_t_0) ;
+    final java.util.EnumMap this$0;
+  }
+  private class ValueIterator extends java.util.EnumMap.EnumMapIterator<V> {
+    public native V next() ;
+    final java.util.EnumMap this$0;
+  }
+  private class KeyIterator extends java.util.EnumMap.EnumMapIterator<K> {
+    public native K next() ;
+    final java.util.EnumMap this$0;
+  }
+  private abstract class EnumMapIterator<T extends java.lang.Object> extends java.lang.Object implements java.util.Iterator<T> {
+    public native boolean hasNext() ;
+    public native void remove() ;
+    int index;
+    int lastReturnedIndex;
+    final java.util.EnumMap this$0;
+  }
+  private class EntrySet extends java.util.AbstractSet<java.util.Map.Entry<K,V>> {
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.lang.Object[] toArray() ;
+    public native <T extends java.lang.Object>T[] toArray(T[] a_r_g_u_m_e_n_t_0) ;
+    public native java.util.Iterator<java.util.Map.Entry<K,V>> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.EnumMap this$0;
+  }
+  private class Values extends java.util.AbstractCollection<V> {
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<V> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.EnumMap this$0;
+  }
+  private class KeySet extends java.util.AbstractSet<K> {
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<K> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.EnumMap this$0;
+  }
+}

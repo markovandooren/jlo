@@ -1,0 +1,4 @@
+package javax.swing.text;
+public abstract interface TabExpander {
+  public abstract float nextTabStop(float a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+}

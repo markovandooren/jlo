@@ -1,0 +1,6 @@
+package java.io;
+public class FileReader extends java.io.InputStreamReader {
+   public  FileReader(java.lang.String a_r_g_u_m_e_n_t_0) throws java.io.FileNotFoundException{}
+   public  FileReader(java.io.File a_r_g_u_m_e_n_t_0) throws java.io.FileNotFoundException{}
+   public  FileReader(java.io.FileDescriptor a_r_g_u_m_e_n_t_0){}
+}

@@ -1,0 +1,18 @@
+package javax.sound.midi;
+public abstract interface Synthesizer extends javax.sound.midi.MidiDevice {
+  public abstract javax.sound.midi.MidiChannel[] getChannels() ;
+  public abstract javax.sound.midi.Soundbank getDefaultSoundbank() ;
+  public abstract int getMaxPolyphony() ;
+  public abstract long getLatency() ;
+  public abstract javax.sound.midi.VoiceStatus[] getVoiceStatus() ;
+  public abstract boolean isSoundbankSupported(javax.sound.midi.Soundbank a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean loadInstrument(javax.sound.midi.Instrument a_r_g_u_m_e_n_t_0) ;
+  public abstract void unloadInstrument(javax.sound.midi.Instrument a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean remapInstrument(javax.sound.midi.Instrument a_r_g_u_m_e_n_t_0, javax.sound.midi.Instrument a_r_g_u_m_e_n_t_1) ;
+  public abstract javax.sound.midi.Instrument[] getAvailableInstruments() ;
+  public abstract javax.sound.midi.Instrument[] getLoadedInstruments() ;
+  public abstract boolean loadAllInstruments(javax.sound.midi.Soundbank a_r_g_u_m_e_n_t_0) ;
+  public abstract void unloadAllInstruments(javax.sound.midi.Soundbank a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean loadInstruments(javax.sound.midi.Soundbank a_r_g_u_m_e_n_t_0, javax.sound.midi.Patch[] a_r_g_u_m_e_n_t_1) ;
+  public abstract void unloadInstruments(javax.sound.midi.Soundbank a_r_g_u_m_e_n_t_0, javax.sound.midi.Patch[] a_r_g_u_m_e_n_t_1) ;
+}

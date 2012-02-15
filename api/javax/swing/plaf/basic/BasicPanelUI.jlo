@@ -1,0 +1,11 @@
+package javax.swing.plaf.basic;
+public class BasicPanelUI extends javax.swing.plaf.PanelUI {
+   public  BasicPanelUI(){}
+  public native int getBaseline(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Component.BaselineResizeBehavior getBaselineResizeBehavior(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native void installDefaults(javax.swing.JPanel a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallDefaults(javax.swing.JPanel a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,33 @@
+package java.util;
+public class SimpleTimeZone extends java.util.TimeZone {
+   public  SimpleTimeZone(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  SimpleTimeZone(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8, int a_r_g_u_m_e_n_t_9, int a_r_g_u_m_e_n_t_10){}
+   public  SimpleTimeZone(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8, int a_r_g_u_m_e_n_t_9, int a_r_g_u_m_e_n_t_10, int a_r_g_u_m_e_n_t_11, int a_r_g_u_m_e_n_t_12){}
+   public  SimpleTimeZone(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8, int a_r_g_u_m_e_n_t_9){}
+  public synchronized native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native int getOffset(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public native int getOffset(long a_r_g_u_m_e_n_t_0) ;
+  native int getOffsets(long a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1) ;
+  public native int getRawOffset() ;
+  public native boolean hasSameRules(java.util.TimeZone a_r_g_u_m_e_n_t_0) ;
+  public native void setRawOffset(int a_r_g_u_m_e_n_t_0) ;
+  public native int getDSTSavings() ;
+  public native boolean useDaylightTime() ;
+  public native boolean inDaylightTime(java.util.Date a_r_g_u_m_e_n_t_0) ;
+  public native void setStartYear(int a_r_g_u_m_e_n_t_0) ;
+  public native void setStartRule(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native void setStartRule(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setStartRule(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+  public native void setEndRule(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+  public native void setEndRule(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native void setEndRule(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setDSTSavings(int a_r_g_u_m_e_n_t_0) ;
+  public static final int WALL_TIME;
+  public static final int STANDARD_TIME;
+  public static final int UTC_TIME;
+  static final long serialVersionUID;
+  static final int currentSerialVersion;
+}

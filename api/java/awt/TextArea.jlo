@@ -1,0 +1,42 @@
+package java.awt;
+public class TextArea extends java.awt.TextComponent {
+   public  TextArea() throws java.awt.HeadlessException{}
+   public  TextArea(java.lang.String a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+   public  TextArea(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws java.awt.HeadlessException{}
+   public  TextArea(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) throws java.awt.HeadlessException{}
+   public  TextArea(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) throws java.awt.HeadlessException{}
+  public native void append(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void insert(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Dimension getPreferredSize() ;
+  public native java.awt.Dimension getPreferredSize(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Dimension getMinimumSize() ;
+  public native java.awt.Dimension getMinimumSize(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void addNotify() ;
+  protected native java.lang.String paramString() ;
+  public native java.awt.Dimension preferredSize(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Dimension preferredSize() ;
+  public native java.awt.Dimension minimumSize() ;
+  public native java.awt.Dimension minimumSize(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  native java.lang.String constructComponentName() ;
+  public synchronized native void replaceText(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native int getColumns() ;
+  public native void setColumns(int a_r_g_u_m_e_n_t_0) ;
+  public native void setRows(int a_r_g_u_m_e_n_t_0) ;
+  public native void replaceRange(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native int getRows() ;
+  public synchronized native void insertText(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native void appendText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native int getScrollbarVisibility() ;
+  int rows;
+  int columns;
+  public static final int SCROLLBARS_BOTH;
+  public static final int SCROLLBARS_VERTICAL_ONLY;
+  public static final int SCROLLBARS_HORIZONTAL_ONLY;
+  public static final int SCROLLBARS_NONE;
+  protected class AccessibleAWTTextArea extends java.awt.TextComponent.AccessibleAWTTextComponent {
+     protected  AccessibleAWTTextArea(java.awt.TextArea a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    final java.awt.TextArea this$0;
+  }
+}

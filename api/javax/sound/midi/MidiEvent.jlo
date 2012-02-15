@@ -1,0 +1,7 @@
+package javax.sound.midi;
+public class MidiEvent extends java.lang.Object {
+   public  MidiEvent(javax.sound.midi.MidiMessage a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1){}
+  public native javax.sound.midi.MidiMessage getMessage() ;
+  public native void setTick(long a_r_g_u_m_e_n_t_0) ;
+  public native long getTick() ;
+}

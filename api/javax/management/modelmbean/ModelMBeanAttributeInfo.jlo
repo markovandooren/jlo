@@ -1,0 +1,12 @@
+package javax.management.modelmbean;
+public class ModelMBeanAttributeInfo extends javax.management.MBeanAttributeInfo implements javax.management.DescriptorAccess {
+   public  ModelMBeanAttributeInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.reflect.Method a_r_g_u_m_e_n_t_2, java.lang.reflect.Method a_r_g_u_m_e_n_t_3) throws javax.management.IntrospectionException{}
+   public  ModelMBeanAttributeInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.reflect.Method a_r_g_u_m_e_n_t_2, java.lang.reflect.Method a_r_g_u_m_e_n_t_3, javax.management.Descriptor a_r_g_u_m_e_n_t_4) throws javax.management.IntrospectionException{}
+   public  ModelMBeanAttributeInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5){}
+   public  ModelMBeanAttributeInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5, javax.management.Descriptor a_r_g_u_m_e_n_t_6){}
+   public  ModelMBeanAttributeInfo(javax.management.modelmbean.ModelMBeanAttributeInfo a_r_g_u_m_e_n_t_0){}
+  public native java.lang.Object clone() ;
+  public native java.lang.String toString() ;
+  public native javax.management.Descriptor getDescriptor() ;
+  public native void setDescriptor(javax.management.Descriptor a_r_g_u_m_e_n_t_0) ;
+}

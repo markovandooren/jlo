@@ -1,0 +1,5 @@
+package java.util;
+public abstract interface Comparator<T extends java.lang.Object> {
+  public abstract boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract int compare(T a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1) ;
+}

@@ -1,0 +1,5 @@
+package org.w3c.dom;
+public abstract interface NodeList {
+  public abstract int getLength() ;
+  public abstract org.w3c.dom.Node item(int a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,13 @@
+package java.applet;
+public abstract interface AppletContext {
+  public abstract java.awt.Image getImage(java.net.URL a_r_g_u_m_e_n_t_0) ;
+  public abstract java.io.InputStream getStream(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void showStatus(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.applet.AudioClip getAudioClip(java.net.URL a_r_g_u_m_e_n_t_0) ;
+  public abstract java.applet.Applet getApplet(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.util.Enumeration<java.applet.Applet> getApplets() ;
+  public abstract void showDocument(java.net.URL a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public abstract void showDocument(java.net.URL a_r_g_u_m_e_n_t_0) ;
+  public abstract void setStream(java.lang.String a_r_g_u_m_e_n_t_0, java.io.InputStream a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public abstract java.util.Iterator<java.lang.String> getStreamKeys() ;
+}

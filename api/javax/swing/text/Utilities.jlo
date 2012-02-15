@@ -1,0 +1,33 @@
+package javax.swing.text;
+public class Utilities extends java.lang.Object {
+   public  Utilities(){}
+  static native boolean isLeftToRight(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public static final native javax.swing.text.Element getParagraphElement(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  static native boolean isComposedTextElement(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+  static native boolean isComposedTextElement(javax.swing.text.Document a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  static native int getNextVisualPositionFrom(javax.swing.text.View a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2, java.awt.Shape a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_5)  throws javax.swing.text.BadLocationException;
+  public static final native int getPositionAbove(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public static final native int getPositionBelow(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  static native int getNextWordInParagraph(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3)  throws javax.swing.text.BadLocationException;
+  static native int getPrevWordInParagraph(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public static final native int getWordStart(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public static final native int getWordEnd(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public static final native int getPreviousWord(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public static final native int getNextWord(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public static final native int getRowStart(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public static final native int getRowEnd(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  static native boolean isComposedTextAttributeDefined(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  static final native int getTabbedTextWidth(javax.swing.text.View a_r_g_u_m_e_n_t_0, javax.swing.text.Segment a_r_g_u_m_e_n_t_1, java.awt.FontMetrics a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int[] a_r_g_u_m_e_n_t_6) ;
+  public static final native int getTabbedTextWidth(javax.swing.text.Segment a_r_g_u_m_e_n_t_0, java.awt.FontMetrics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  static native int drawComposedText(javax.swing.text.View a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1, java.awt.Graphics a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6)  throws javax.swing.text.BadLocationException;
+  static final native int drawTabbedText(javax.swing.text.View a_r_g_u_m_e_n_t_0, javax.swing.text.Segment a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.Graphics a_r_g_u_m_e_n_t_4, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int[] a_r_g_u_m_e_n_t_7) ;
+  static final native int drawTabbedText(javax.swing.text.View a_r_g_u_m_e_n_t_0, javax.swing.text.Segment a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.Graphics a_r_g_u_m_e_n_t_4, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+  public static final native int drawTabbedText(javax.swing.text.Segment a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.Graphics a_r_g_u_m_e_n_t_3, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  static final native int getTabbedTextOffset(javax.swing.text.View a_r_g_u_m_e_n_t_0, javax.swing.text.Segment a_r_g_u_m_e_n_t_1, java.awt.FontMetrics a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, boolean a_r_g_u_m_e_n_t_7, int[] a_r_g_u_m_e_n_t_8) ;
+  public static final native int getTabbedTextOffset(javax.swing.text.Segment a_r_g_u_m_e_n_t_0, java.awt.FontMetrics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6) ;
+  static final native int getTabbedTextOffset(javax.swing.text.View a_r_g_u_m_e_n_t_0, javax.swing.text.Segment a_r_g_u_m_e_n_t_1, java.awt.FontMetrics a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int[] a_r_g_u_m_e_n_t_7) ;
+  public static final native int getTabbedTextOffset(javax.swing.text.Segment a_r_g_u_m_e_n_t_0, java.awt.FontMetrics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  static native void paintComposedText(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1, javax.swing.text.GlyphView a_r_g_u_m_e_n_t_2) ;
+  static native javax.swing.JComponent getJComponent(javax.swing.text.View a_r_g_u_m_e_n_t_0) ;
+  public static final native int getBreakLocation(javax.swing.text.Segment a_r_g_u_m_e_n_t_0, java.awt.FontMetrics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.TabExpander a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+}

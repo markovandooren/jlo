@@ -1,0 +1,16 @@
+package javax.management.monitor;
+public abstract interface GaugeMonitorMBean extends javax.management.monitor.MonitorMBean {
+  public abstract java.lang.Number getDerivedGauge(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Number getDerivedGauge() ;
+  public abstract long getDerivedGaugeTimeStamp() ;
+  public abstract long getDerivedGaugeTimeStamp(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getDifferenceMode() ;
+  public abstract void setDifferenceMode(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Number getHighThreshold() ;
+  public abstract java.lang.Number getLowThreshold() ;
+  public abstract void setThresholds(java.lang.Number a_r_g_u_m_e_n_t_0, java.lang.Number a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalArgumentException;
+  public abstract boolean getNotifyHigh() ;
+  public abstract void setNotifyHigh(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getNotifyLow() ;
+  public abstract void setNotifyLow(boolean a_r_g_u_m_e_n_t_0) ;
+}

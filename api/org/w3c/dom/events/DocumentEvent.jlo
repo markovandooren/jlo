@@ -1,0 +1,4 @@
+package org.w3c.dom.events;
+public abstract interface DocumentEvent {
+  public abstract org.w3c.dom.events.Event createEvent(java.lang.String a_r_g_u_m_e_n_t_0)  throws org.w3c.dom.DOMException;
+}

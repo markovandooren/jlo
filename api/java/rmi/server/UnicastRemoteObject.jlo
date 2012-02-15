@@ -1,0 +1,11 @@
+package java.rmi.server;
+public class UnicastRemoteObject extends java.rmi.server.RemoteServer {
+   protected  UnicastRemoteObject() throws java.rmi.RemoteException{}
+   protected  UnicastRemoteObject(int a_r_g_u_m_e_n_t_0) throws java.rmi.RemoteException{}
+   protected  UnicastRemoteObject(int a_r_g_u_m_e_n_t_0, java.rmi.server.RMIClientSocketFactory a_r_g_u_m_e_n_t_1, java.rmi.server.RMIServerSocketFactory a_r_g_u_m_e_n_t_2) throws java.rmi.RemoteException{}
+  public native java.lang.Object clone()  throws java.lang.CloneNotSupportedException;
+  public static native java.rmi.server.RemoteStub exportObject(java.rmi.Remote a_r_g_u_m_e_n_t_0)  throws java.rmi.RemoteException;
+  public static native java.rmi.Remote exportObject(java.rmi.Remote a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.rmi.RemoteException;
+  public static native java.rmi.Remote exportObject(java.rmi.Remote a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.rmi.server.RMIClientSocketFactory a_r_g_u_m_e_n_t_2, java.rmi.server.RMIServerSocketFactory a_r_g_u_m_e_n_t_3)  throws java.rmi.RemoteException;
+  public static native boolean unexportObject(java.rmi.Remote a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.rmi.NoSuchObjectException;
+}

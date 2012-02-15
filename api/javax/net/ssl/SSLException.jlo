@@ -1,0 +1,6 @@
+package javax.net.ssl;
+public class SSLException extends java.io.IOException {
+   public  SSLException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  SSLException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
+   public  SSLException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
+}

@@ -1,0 +1,10 @@
+package javax.imageio.stream;
+public class IIOByteBuffer extends java.lang.Object {
+   public  IIOByteBuffer(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native int getLength() ;
+  public native void setLength(int a_r_g_u_m_e_n_t_0) ;
+  public native int getOffset() ;
+  public native void setOffset(int a_r_g_u_m_e_n_t_0) ;
+  public native byte[] getData() ;
+  public native void setData(byte[] a_r_g_u_m_e_n_t_0) ;
+}

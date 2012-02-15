@@ -1,0 +1,9 @@
+package javax.management.modelmbean;
+public abstract interface ModelMBeanNotificationBroadcaster extends javax.management.NotificationBroadcaster {
+  public abstract void sendNotification(javax.management.Notification a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract void sendNotification(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract void sendAttributeChangeNotification(javax.management.AttributeChangeNotification a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract void sendAttributeChangeNotification(javax.management.Attribute a_r_g_u_m_e_n_t_0, javax.management.Attribute a_r_g_u_m_e_n_t_1)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract void addAttributeChangeNotificationListener(javax.management.NotificationListener a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException, java.lang.IllegalArgumentException;
+  public abstract void removeAttributeChangeNotificationListener(javax.management.NotificationListener a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException, javax.management.ListenerNotFoundException;
+}

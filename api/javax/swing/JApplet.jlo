@@ -1,0 +1,34 @@
+package javax.swing;
+public class JApplet extends java.applet.Applet implements javax.accessibility.Accessible, javax.swing.RootPaneContainer, javax.swing.TransferHandler.HasGetTransferHandler {
+   public  JApplet() throws java.awt.HeadlessException{}
+  public native void remove(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void update(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Graphics getGraphics() ;
+  public native void setTransferHandler(javax.swing.TransferHandler a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.TransferHandler getTransferHandler() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void repaint(long a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native javax.swing.JRootPane getRootPane() ;
+  protected native java.lang.String paramString() ;
+  protected native void addImpl(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setLayout(java.awt.LayoutManager a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.JRootPane createRootPane() ;
+  protected native boolean isRootPaneCheckingEnabled() ;
+  protected native void setRootPaneCheckingEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JMenuBar getJMenuBar() ;
+  public native void setJMenuBar(javax.swing.JMenuBar a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Container getContentPane() ;
+  public native void setContentPane(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JLayeredPane getLayeredPane() ;
+  public native void setLayeredPane(javax.swing.JLayeredPane a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getGlassPane() ;
+  public native void setGlassPane(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  protected native void setRootPane(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  protected javax.swing.JRootPane rootPane;
+  protected boolean rootPaneCheckingEnabled;
+  protected javax.accessibility.AccessibleContext accessibleContext;
+  protected class AccessibleJApplet extends java.applet.Applet.AccessibleApplet {
+     protected  AccessibleJApplet(javax.swing.JApplet a_r_g_u_m_e_n_t_0){}
+    final javax.swing.JApplet this$0;
+  }
+}

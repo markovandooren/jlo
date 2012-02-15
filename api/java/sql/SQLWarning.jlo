@@ -1,0 +1,13 @@
+package java.sql;
+public class SQLWarning extends java.sql.SQLException {
+   public  SQLWarning(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  SQLWarning(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  SQLWarning(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  SQLWarning(){}
+   public  SQLWarning(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
+   public  SQLWarning(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
+   public  SQLWarning(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Throwable a_r_g_u_m_e_n_t_2){}
+   public  SQLWarning(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.Throwable a_r_g_u_m_e_n_t_3){}
+  public native java.sql.SQLWarning getNextWarning() ;
+  public native void setNextWarning(java.sql.SQLWarning a_r_g_u_m_e_n_t_0) ;
+}

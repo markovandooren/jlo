@@ -1,0 +1,26 @@
+package java.awt.image;
+public final class DataBufferFloat extends java.awt.image.DataBuffer {
+   public  DataBufferFloat(int a_r_g_u_m_e_n_t_0){}
+   public  DataBufferFloat(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DataBufferFloat(float[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DataBufferFloat(float[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  DataBufferFloat(float[][] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DataBufferFloat(float[][] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2){}
+  public native float[] getData() ;
+  public native float[] getData(int a_r_g_u_m_e_n_t_0) ;
+  public native int getElem(int a_r_g_u_m_e_n_t_0) ;
+  public native int getElem(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native float getElemFloat(int a_r_g_u_m_e_n_t_0) ;
+  public native float getElemFloat(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native double getElemDouble(int a_r_g_u_m_e_n_t_0) ;
+  public native double getElemDouble(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setElem(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setElem(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setElemFloat(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2) ;
+  public native void setElemFloat(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native void setElemDouble(int a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void setElemDouble(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2) ;
+  public native float[][] getBankData() ;
+  float[][] bankdata;
+  float[] data;
+}

@@ -1,0 +1,15 @@
+package java.security;
+public final class AccessControlContext extends java.lang.Object {
+    AccessControlContext(java.security.ProtectionDomain[] a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+   public  AccessControlContext(java.security.AccessControlContext a_r_g_u_m_e_n_t_0, java.security.DomainCombiner a_r_g_u_m_e_n_t_1){}
+    AccessControlContext(java.security.ProtectionDomain[] a_r_g_u_m_e_n_t_0, java.security.DomainCombiner a_r_g_u_m_e_n_t_1){}
+   public  AccessControlContext(java.security.ProtectionDomain[] a_r_g_u_m_e_n_t_0){}
+  native boolean isPrivileged() ;
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void checkPermission(java.security.Permission a_r_g_u_m_e_n_t_0)  throws java.security.AccessControlException;
+  static native sun.security.util.Debug getDebug() ;
+  native java.security.DomainCombiner getAssignedCombiner() ;
+  public native java.security.DomainCombiner getDomainCombiner() ;
+  native java.security.AccessControlContext optimize() ;
+}

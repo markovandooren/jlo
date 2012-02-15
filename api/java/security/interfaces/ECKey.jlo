@@ -1,0 +1,4 @@
+package java.security.interfaces;
+public abstract interface ECKey {
+  public abstract java.security.spec.ECParameterSpec getParams() ;
+}

@@ -1,0 +1,131 @@
+package java.util.concurrent;
+public class ConcurrentHashMap<K extends java.lang.Object, V extends java.lang.Object> extends java.util.AbstractMap<K,V> implements java.util.concurrent.ConcurrentMap<K,V>, java.io.Serializable {
+   public  ConcurrentHashMap(){}
+   public  ConcurrentHashMap(java.util.Map<? extends K,? extends V> a_r_g_u_m_e_n_t_0){}
+   public  ConcurrentHashMap(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  ConcurrentHashMap(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1){}
+   public  ConcurrentHashMap(int a_r_g_u_m_e_n_t_0){}
+  public native V get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native V put(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public native void clear() ;
+  public native boolean isEmpty() ;
+  public native V replace(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public native boolean replace(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2) ;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Collection<V> values() ;
+  public native int size() ;
+  public native java.util.Set<java.util.Map.Entry<K,V>> entrySet() ;
+  public native void putAll(java.util.Map<? extends K,? extends V> a_r_g_u_m_e_n_t_0) ;
+  public native V remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native java.util.Enumeration<V> elements() ;
+  public native java.util.Enumeration<K> keys() ;
+  public native java.util.Set<K> keySet() ;
+  public native boolean containsValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native V putIfAbsent(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  final native java.util.concurrent.ConcurrentHashMap.Segment<K,V> segmentFor(int a_r_g_u_m_e_n_t_0) ;
+  static final int DEFAULT_INITIAL_CAPACITY;
+  static final float DEFAULT_LOAD_FACTOR;
+  static final int DEFAULT_CONCURRENCY_LEVEL;
+  static final int MAXIMUM_CAPACITY;
+  static final int MAX_SEGMENTS;
+  static final int RETRIES_BEFORE_LOCK;
+  final int segmentMask;
+  final int segmentShift;
+  final java.util.concurrent.ConcurrentHashMap.Segment<K,V>[] segments;
+  transient java.util.Set<K> keySet;
+  transient java.util.Set<java.util.Map.Entry<K,V>> entrySet;
+  transient java.util.Collection<V> values;
+  final class EntrySet extends java.util.AbstractSet<java.util.Map.Entry<K,V>> {
+      EntrySet(java.util.concurrent.ConcurrentHashMap a_r_g_u_m_e_n_t_0){}
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<java.util.Map.Entry<K,V>> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.concurrent.ConcurrentHashMap this$0;
+  }
+  final class Values extends java.util.AbstractCollection<V> {
+      Values(java.util.concurrent.ConcurrentHashMap a_r_g_u_m_e_n_t_0){}
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<V> iterator() ;
+    final java.util.concurrent.ConcurrentHashMap this$0;
+  }
+  final class KeySet extends java.util.AbstractSet<K> {
+      KeySet(java.util.concurrent.ConcurrentHashMap a_r_g_u_m_e_n_t_0){}
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<K> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.concurrent.ConcurrentHashMap this$0;
+  }
+  final class EntryIterator extends java.util.concurrent.ConcurrentHashMap.HashIterator implements java.util.Iterator<java.util.Map.Entry<K,V>> {
+      EntryIterator(java.util.concurrent.ConcurrentHashMap a_r_g_u_m_e_n_t_0){}
+    public native java.util.Map.Entry<K,V> next() ;
+    final java.util.concurrent.ConcurrentHashMap this$0;
+  }
+  final class WriteThroughEntry extends java.util.AbstractMap.SimpleEntry<K,V> {
+      WriteThroughEntry(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1){}
+    public native V setValue(V a_r_g_u_m_e_n_t_0) ;
+    final java.util.concurrent.ConcurrentHashMap this$0;
+  }
+  final class ValueIterator extends java.util.concurrent.ConcurrentHashMap.HashIterator implements java.util.Iterator<V>, java.util.Enumeration<V> {
+      ValueIterator(java.util.concurrent.ConcurrentHashMap a_r_g_u_m_e_n_t_0){}
+    public native V next() ;
+    public native V nextElement() ;
+    final java.util.concurrent.ConcurrentHashMap this$0;
+  }
+  final class KeyIterator extends java.util.concurrent.ConcurrentHashMap.HashIterator implements java.util.Iterator<K>, java.util.Enumeration<K> {
+      KeyIterator(java.util.concurrent.ConcurrentHashMap a_r_g_u_m_e_n_t_0){}
+    public native K next() ;
+    public native K nextElement() ;
+    final java.util.concurrent.ConcurrentHashMap this$0;
+  }
+  abstract class HashIterator extends java.lang.Object {
+      HashIterator(java.util.concurrent.ConcurrentHashMap a_r_g_u_m_e_n_t_0){}
+    public native boolean hasNext() ;
+    public native void remove() ;
+    public native boolean hasMoreElements() ;
+    native java.util.concurrent.ConcurrentHashMap.HashEntry<K,V> nextEntry() ;
+    final native void advance() ;
+    int nextSegmentIndex;
+    int nextTableIndex;
+    java.util.concurrent.ConcurrentHashMap.HashEntry<K,V>[] currentTable;
+    java.util.concurrent.ConcurrentHashMap.HashEntry<K,V> nextEntry;
+    java.util.concurrent.ConcurrentHashMap.HashEntry<K,V> lastReturned;
+    final java.util.concurrent.ConcurrentHashMap this$0;
+  }
+  static final class Segment<K extends java.lang.Object, V extends java.lang.Object> extends java.util.concurrent.locks.ReentrantLock implements java.io.Serializable {
+      Segment(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1){}
+    native V get(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    native V put(K a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+    static final native <K extends java.lang.Object, V extends java.lang.Object>java.util.concurrent.ConcurrentHashMap.Segment<K,V>[] newArray(int a_r_g_u_m_e_n_t_0) ;
+    native void clear() ;
+    native boolean replace(K a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2, V a_r_g_u_m_e_n_t_3) ;
+    native V replace(K a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2) ;
+    native V remove(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+    native boolean containsValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    native boolean containsKey(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    native void rehash() ;
+    native void setTable(java.util.concurrent.ConcurrentHashMap.HashEntry<K,V>[] a_r_g_u_m_e_n_t_0) ;
+    native java.util.concurrent.ConcurrentHashMap.HashEntry<K,V> getFirst(int a_r_g_u_m_e_n_t_0) ;
+    native V readValueUnderLock(java.util.concurrent.ConcurrentHashMap.HashEntry<K,V> a_r_g_u_m_e_n_t_0) ;
+    transient volatile int count;
+    transient int modCount;
+    transient int threshold;
+    transient volatile java.util.concurrent.ConcurrentHashMap.HashEntry<K,V>[] table;
+    final float loadFactor;
+  }
+  static final class HashEntry<K extends java.lang.Object, V extends java.lang.Object> extends java.lang.Object {
+      HashEntry(K a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.util.concurrent.ConcurrentHashMap.HashEntry<K,V> a_r_g_u_m_e_n_t_2, V a_r_g_u_m_e_n_t_3){}
+    static final native <K extends java.lang.Object, V extends java.lang.Object>java.util.concurrent.ConcurrentHashMap.HashEntry<K,V>[] newArray(int a_r_g_u_m_e_n_t_0) ;
+    final K key;
+    final int hash;
+    volatile V value;
+    final java.util.concurrent.ConcurrentHashMap.HashEntry<K,V> next;
+  }
+}

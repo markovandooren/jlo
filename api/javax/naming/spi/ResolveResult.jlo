@@ -1,0 +1,14 @@
+package javax.naming.spi;
+public class ResolveResult extends java.lang.Object implements java.io.Serializable {
+   protected  ResolveResult(){}
+   public  ResolveResult(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  ResolveResult(java.lang.Object a_r_g_u_m_e_n_t_0, javax.naming.Name a_r_g_u_m_e_n_t_1){}
+  public native javax.naming.Name getRemainingName() ;
+  public native java.lang.Object getResolvedObj() ;
+  public native void setRemainingName(javax.naming.Name a_r_g_u_m_e_n_t_0) ;
+  public native void setResolvedObj(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void appendRemainingComponent(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void appendRemainingName(javax.naming.Name a_r_g_u_m_e_n_t_0) ;
+  protected java.lang.Object resolvedObj;
+  protected javax.naming.Name remainingName;
+}

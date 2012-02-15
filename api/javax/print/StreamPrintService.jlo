@@ -1,0 +1,8 @@
+package javax.print;
+public abstract class StreamPrintService extends java.lang.Object implements javax.print.PrintService {
+   protected  StreamPrintService(java.io.OutputStream a_r_g_u_m_e_n_t_0){}
+  public native java.io.OutputStream getOutputStream() ;
+  public native void dispose() ;
+  public native boolean isDisposed() ;
+  public abstract java.lang.String getOutputFormat() ;
+}

@@ -1,0 +1,24 @@
+package javax.swing.plaf.basic;
+public class BasicTextFieldUI extends javax.swing.plaf.basic.BasicTextUI {
+   public  BasicTextFieldUI(){}
+  public native javax.swing.text.View create(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+  public native int getBaseline(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Component.BaselineResizeBehavior getBaselineResizeBehavior(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.String getPropertyPrefix() ;
+  static class I18nFieldView extends javax.swing.text.ParagraphView {
+      I18nFieldView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+    public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+    static native boolean isLeftToRight(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+    public native int viewToModel(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_3) ;
+    public native java.awt.Shape modelToView(int a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+    public native java.awt.Shape modelToView(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_3, java.awt.Shape a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+    public native void insertUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+    public native void removeUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+    public native int getResizeWeight(int a_r_g_u_m_e_n_t_0) ;
+    protected native void setJustification(int a_r_g_u_m_e_n_t_0) ;
+    public native int getFlowSpan(int a_r_g_u_m_e_n_t_0) ;
+    native java.awt.Shape adjustAllocation(java.awt.Shape a_r_g_u_m_e_n_t_0) ;
+    native void updateVisibilityModel() ;
+  }
+}

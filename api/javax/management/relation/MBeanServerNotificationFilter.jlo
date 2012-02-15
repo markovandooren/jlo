@@ -1,0 +1,11 @@
+package javax.management.relation;
+public class MBeanServerNotificationFilter extends javax.management.NotificationFilterSupport {
+   public  MBeanServerNotificationFilter(){}
+  public synchronized native boolean isNotificationEnabled(javax.management.Notification a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public synchronized native void disableAllObjectNames() ;
+  public synchronized native void disableObjectName(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public synchronized native void enableAllObjectNames() ;
+  public synchronized native void enableObjectName(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public synchronized native java.util.Vector<javax.management.ObjectName> getEnabledObjectNames() ;
+  public synchronized native java.util.Vector<javax.management.ObjectName> getDisabledObjectNames() ;
+}

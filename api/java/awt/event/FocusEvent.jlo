@@ -1,0 +1,15 @@
+package java.awt.event;
+public class FocusEvent extends java.awt.event.ComponentEvent {
+   public  FocusEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, java.awt.Component a_r_g_u_m_e_n_t_3){}
+   public  FocusEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+   public  FocusEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native java.lang.String paramString() ;
+  public native boolean isTemporary() ;
+  public native java.awt.Component getOppositeComponent() ;
+  public static final int FOCUS_FIRST;
+  public static final int FOCUS_LAST;
+  public static final int FOCUS_GAINED;
+  public static final int FOCUS_LOST;
+  boolean temporary;
+  transient java.awt.Component opposite;
+}

@@ -1,0 +1,38 @@
+package java.util.concurrent;
+public class PriorityBlockingQueue<E extends java.lang.Object> extends java.util.AbstractQueue<E> implements java.util.concurrent.BlockingQueue<E>, java.io.Serializable {
+   public  PriorityBlockingQueue(){}
+   public  PriorityBlockingQueue(int a_r_g_u_m_e_n_t_0){}
+   public  PriorityBlockingQueue(int a_r_g_u_m_e_n_t_0, java.util.Comparator<? super E> a_r_g_u_m_e_n_t_1){}
+   public  PriorityBlockingQueue(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0){}
+  public native boolean add(E a_r_g_u_m_e_n_t_0) ;
+  public native void put(E a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native java.lang.String toString() ;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int size() ;
+  public native java.lang.Object[] toArray() ;
+  public native <T extends java.lang.Object>T[] toArray(T[] a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Iterator<E> iterator() ;
+  public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native E poll() ;
+  public native E poll(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1)  throws java.lang.InterruptedException;
+  public native E peek() ;
+  public native boolean offer(E a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2) ;
+  public native boolean offer(E a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Comparator<? super E> comparator() ;
+  public native E take()  throws java.lang.InterruptedException;
+  public native int remainingCapacity() ;
+  public native int drainTo(java.util.Collection<? super E> a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int drainTo(java.util.Collection<? super E> a_r_g_u_m_e_n_t_0) ;
+  static final boolean $assertionsDisabled;
+  private class Itr extends java.lang.Object implements java.util.Iterator<E> {
+      Itr(java.util.concurrent.PriorityBlockingQueue a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1){}
+    public native boolean hasNext() ;
+    public native E next() ;
+    public native void remove() ;
+    final java.lang.Object[] array;
+    int cursor;
+    int lastRet;
+    final java.util.concurrent.PriorityBlockingQueue this$0;
+  }
+}

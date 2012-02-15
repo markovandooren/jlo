@@ -1,0 +1,7 @@
+package java.util.concurrent;
+public abstract interface ConcurrentMap<K extends java.lang.Object, V extends java.lang.Object> extends java.util.Map<K,V> {
+  public abstract boolean replace(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2) ;
+  public abstract V replace(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public abstract V putIfAbsent(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+}

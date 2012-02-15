@@ -1,0 +1,13 @@
+package java.beans;
+public class XMLDecoder extends java.lang.Object {
+   public  XMLDecoder(java.io.InputStream a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1){}
+   public  XMLDecoder(java.io.InputStream a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.beans.ExceptionListener a_r_g_u_m_e_n_t_2){}
+   public  XMLDecoder(java.io.InputStream a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.beans.ExceptionListener a_r_g_u_m_e_n_t_2, java.lang.ClassLoader a_r_g_u_m_e_n_t_3){}
+   public  XMLDecoder(java.io.InputStream a_r_g_u_m_e_n_t_0){}
+  public native void close() ;
+  public native java.lang.Object readObject() ;
+  public native java.lang.Object getOwner() ;
+  public native java.beans.ExceptionListener getExceptionListener() ;
+  public native void setExceptionListener(java.beans.ExceptionListener a_r_g_u_m_e_n_t_0) ;
+  public native void setOwner(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+}

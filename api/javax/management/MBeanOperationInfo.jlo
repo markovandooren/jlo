@@ -1,0 +1,21 @@
+package javax.management;
+public class MBeanOperationInfo extends javax.management.MBeanFeatureInfo implements java.lang.Cloneable {
+   public  MBeanOperationInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.reflect.Method a_r_g_u_m_e_n_t_1){}
+   public  MBeanOperationInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.MBeanParameterInfo[] a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+   public  MBeanOperationInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.MBeanParameterInfo[] a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, javax.management.Descriptor a_r_g_u_m_e_n_t_5){}
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getReturnType() ;
+  public native javax.management.MBeanParameterInfo[] getSignature() ;
+  static native javax.management.MBeanParameterInfo[] parameters(java.lang.Class[] a_r_g_u_m_e_n_t_0, java.lang.annotation.Annotation[][] a_r_g_u_m_e_n_t_1) ;
+  public native int getImpact() ;
+  static final long serialVersionUID;
+  static final javax.management.MBeanOperationInfo[] NO_OPERATIONS;
+  public static final int INFO;
+  public static final int ACTION;
+  public static final int ACTION_INFO;
+  public static final int UNKNOWN;
+  static final boolean $assertionsDisabled;
+}

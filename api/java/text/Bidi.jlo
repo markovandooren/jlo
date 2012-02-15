@@ -1,0 +1,30 @@
+package java.text;
+public final class Bidi extends java.lang.Object {
+   public  Bidi(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  Bidi(java.text.AttributedCharacterIterator a_r_g_u_m_e_n_t_0){}
+   public  Bidi(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, byte[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5){}
+  public native int getLength() ;
+  public native java.lang.String toString() ;
+  public native boolean isLeftToRight() ;
+  public native int getRunStart(int a_r_g_u_m_e_n_t_0) ;
+  public native int getRunLimit(int a_r_g_u_m_e_n_t_0) ;
+  public native java.text.Bidi createLineBidi(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native boolean isMixed() ;
+  public native boolean isRightToLeft() ;
+  public native boolean baseIsLeftToRight() ;
+  public native int getBaseLevel() ;
+  public native int getLevelAt(int a_r_g_u_m_e_n_t_0) ;
+  public native int getRunCount() ;
+  public native int getRunLevel(int a_r_g_u_m_e_n_t_0) ;
+  public static native boolean requiresBidi(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public static native void reorderVisually(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  byte dir;
+  byte baselevel;
+  int length;
+  int[] runs;
+  int[] cws;
+  public static final int DIRECTION_LEFT_TO_RIGHT;
+  public static final int DIRECTION_RIGHT_TO_LEFT;
+  public static final int DIRECTION_DEFAULT_LEFT_TO_RIGHT;
+  public static final int DIRECTION_DEFAULT_RIGHT_TO_LEFT;
+}

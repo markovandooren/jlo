@@ -1,0 +1,75 @@
+package javax.swing.plaf.basic;
+public class BasicDesktopPaneUI extends javax.swing.plaf.DesktopPaneUI {
+   public  BasicDesktopPaneUI(){}
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Dimension getPreferredSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMaximumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMinimumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  native javax.swing.InputMap getInputMap(int a_r_g_u_m_e_n_t_0) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  static native void loadActionMap(javax.swing.plaf.basic.LazyActionMap a_r_g_u_m_e_n_t_0) ;
+  protected native void installKeyboardActions() ;
+  protected native void uninstallKeyboardActions() ;
+  protected native void installDefaults() ;
+  protected native void installListeners() ;
+  protected native void uninstallListeners() ;
+  protected native void uninstallDefaults() ;
+  protected native java.beans.PropertyChangeListener createPropertyChangeListener() ;
+  native javax.swing.InputMap createInputMap(int a_r_g_u_m_e_n_t_0) ;
+  protected native void installDesktopManager() ;
+  protected native void uninstallDesktopManager() ;
+  protected native void registerKeyboardActions() ;
+  protected native void unregisterKeyboardActions() ;
+  protected javax.swing.JDesktopPane desktop;
+  protected javax.swing.DesktopManager desktopManager;
+  protected javax.swing.KeyStroke minimizeKey;
+  protected javax.swing.KeyStroke maximizeKey;
+  protected javax.swing.KeyStroke closeKey;
+  protected javax.swing.KeyStroke navigateKey;
+  protected javax.swing.KeyStroke navigateKey2;
+  protected class NavigateAction extends javax.swing.AbstractAction {
+     protected  NavigateAction(javax.swing.plaf.basic.BasicDesktopPaneUI a_r_g_u_m_e_n_t_0){}
+    public native boolean isEnabled() ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicDesktopPaneUI this$0;
+  }
+  protected class MaximizeAction extends javax.swing.AbstractAction {
+     protected  MaximizeAction(javax.swing.plaf.basic.BasicDesktopPaneUI a_r_g_u_m_e_n_t_0){}
+    public native boolean isEnabled() ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicDesktopPaneUI this$0;
+  }
+  protected class MinimizeAction extends javax.swing.AbstractAction {
+     protected  MinimizeAction(javax.swing.plaf.basic.BasicDesktopPaneUI a_r_g_u_m_e_n_t_0){}
+    public native boolean isEnabled() ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicDesktopPaneUI this$0;
+  }
+  protected class CloseAction extends javax.swing.AbstractAction {
+     protected  CloseAction(javax.swing.plaf.basic.BasicDesktopPaneUI a_r_g_u_m_e_n_t_0){}
+    public native boolean isEnabled() ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicDesktopPaneUI this$0;
+  }
+  protected class OpenAction extends javax.swing.AbstractAction {
+     protected  OpenAction(javax.swing.plaf.basic.BasicDesktopPaneUI a_r_g_u_m_e_n_t_0){}
+    public native boolean isEnabled() ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicDesktopPaneUI this$0;
+  }
+  private static class Actions extends sun.swing.UIAction {
+      Actions(){}
+      Actions(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native boolean isEnabled(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  private class BasicDesktopManager extends javax.swing.DefaultDesktopManager implements javax.swing.plaf.UIResource {
+    final javax.swing.plaf.basic.BasicDesktopPaneUI this$0;
+  }
+  private class Handler extends java.lang.Object implements java.beans.PropertyChangeListener {
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicDesktopPaneUI this$0;
+  }
+}

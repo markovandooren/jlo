@@ -1,0 +1,56 @@
+package java.awt.geom;
+public abstract class RoundRectangle2D extends java.awt.geom.RectangularShape {
+   protected  RoundRectangle2D(){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native boolean intersects(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native java.awt.geom.PathIterator getPathIterator(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public native void setFrame(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public abstract double getArcWidth() ;
+  public abstract double getArcHeight() ;
+  public native void setRoundRect(java.awt.geom.RoundRectangle2D a_r_g_u_m_e_n_t_0) ;
+  public abstract void setRoundRect(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5) ;
+  public static class Double extends java.awt.geom.RoundRectangle2D implements java.io.Serializable {
+     public  Double(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5){}
+     public  Double(){}
+    public native boolean isEmpty() ;
+    public native double getY() ;
+    public native double getX() ;
+    public native double getWidth() ;
+    public native double getHeight() ;
+    public native java.awt.geom.Rectangle2D getBounds2D() ;
+    public native double getArcWidth() ;
+    public native double getArcHeight() ;
+    public native void setRoundRect(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5) ;
+    public native void setRoundRect(java.awt.geom.RoundRectangle2D a_r_g_u_m_e_n_t_0) ;
+    public double x;
+    public double y;
+    public double width;
+    public double height;
+    public double arcwidth;
+    public double archeight;
+  }
+  public static class Float extends java.awt.geom.RoundRectangle2D implements java.io.Serializable {
+     public  Float(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3, float a_r_g_u_m_e_n_t_4, float a_r_g_u_m_e_n_t_5){}
+     public  Float(){}
+    public native boolean isEmpty() ;
+    public native double getY() ;
+    public native double getX() ;
+    public native double getWidth() ;
+    public native double getHeight() ;
+    public native java.awt.geom.Rectangle2D getBounds2D() ;
+    public native double getArcWidth() ;
+    public native double getArcHeight() ;
+    public native void setRoundRect(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3, float a_r_g_u_m_e_n_t_4, float a_r_g_u_m_e_n_t_5) ;
+    public native void setRoundRect(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5) ;
+    public native void setRoundRect(java.awt.geom.RoundRectangle2D a_r_g_u_m_e_n_t_0) ;
+    public float x;
+    public float y;
+    public float width;
+    public float height;
+    public float arcwidth;
+    public float archeight;
+  }
+}

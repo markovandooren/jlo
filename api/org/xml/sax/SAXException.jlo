@@ -1,0 +1,12 @@
+package org.xml.sax;
+public class SAXException extends java.lang.Exception {
+   public  SAXException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  SAXException(java.lang.Exception a_r_g_u_m_e_n_t_0){}
+   public  SAXException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Exception a_r_g_u_m_e_n_t_1){}
+   public  SAXException(){}
+  public native java.lang.Throwable getCause() ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getMessage() ;
+  public native java.lang.Exception getException() ;
+  static final long serialVersionUID;
+}

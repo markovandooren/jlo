@@ -1,0 +1,105 @@
+package javax.swing.plaf.basic;
+public class BasicOptionPaneUI extends javax.swing.plaf.OptionPaneUI {
+   public  BasicOptionPaneUI(){}
+  protected native java.lang.Object getMessage() ;
+  public native java.awt.Dimension getPreferredSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  native javax.swing.InputMap getInputMap(int a_r_g_u_m_e_n_t_0) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.Icon getIcon() ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  static native void loadActionMap(javax.swing.plaf.basic.LazyActionMap a_r_g_u_m_e_n_t_0) ;
+  protected native void installKeyboardActions() ;
+  protected native void uninstallKeyboardActions() ;
+  protected native void installDefaults() ;
+  protected native void installListeners() ;
+  protected native void uninstallListeners() ;
+  protected native void uninstallDefaults() ;
+  protected native void installComponents() ;
+  protected native void uninstallComponents() ;
+  protected native java.beans.PropertyChangeListener createPropertyChangeListener() ;
+  protected native java.awt.LayoutManager createLayoutManager() ;
+  public native java.awt.Dimension getMinimumOptionPaneSize() ;
+  protected native java.awt.Container createMessageArea() ;
+  protected native void addMessageComponents(java.awt.Container a_r_g_u_m_e_n_t_0, java.awt.GridBagConstraints a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+  protected native void addIcon(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.Icon getIconForType(int a_r_g_u_m_e_n_t_0) ;
+  protected native int getMaxCharactersPerLineCount() ;
+  protected native void burstStringInto(java.awt.Container a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native java.awt.Container createSeparator() ;
+  protected native java.awt.Container createButtonArea() ;
+  protected native void addButtonComponents(java.awt.Container a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native java.awt.event.ActionListener createButtonActionListener(int a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.Object[] getButtons() ;
+  protected native boolean getSizeButtonsToSameWidth() ;
+  protected native int getInitialValueIndex() ;
+  protected native void resetInputValue() ;
+  public native void selectInitialValue(javax.swing.JOptionPane a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsCustomComponents(javax.swing.JOptionPane a_r_g_u_m_e_n_t_0) ;
+  public static final int MinimumWidth;
+  public static final int MinimumHeight;
+  protected javax.swing.JOptionPane optionPane;
+  protected java.awt.Dimension minimumSize;
+  protected javax.swing.JComponent inputComponent;
+  protected java.awt.Component initialFocusComponent;
+  protected boolean hasCustomComponents;
+  protected java.beans.PropertyChangeListener propertyChangeListener;
+  private static class ButtonFactory extends java.lang.Object {
+      ButtonFactory(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.Icon a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+    native javax.swing.JButton createButton() ;
+    private static class ConstrainedButton extends javax.swing.JButton {
+        ConstrainedButton(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+      public native java.awt.Dimension getPreferredSize() ;
+      public native java.awt.Dimension getMinimumSize() ;
+      int minimumWidth;
+    }
+  }
+  private static class Actions extends sun.swing.UIAction {
+      Actions(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  private static class MultiplexingTextField extends javax.swing.JTextField {
+      MultiplexingTextField(int a_r_g_u_m_e_n_t_0){}
+    protected native boolean processKeyBinding(javax.swing.KeyStroke a_r_g_u_m_e_n_t_0, java.awt.event.KeyEvent a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+    native void setKeyStrokes(javax.swing.KeyStroke[] a_r_g_u_m_e_n_t_0) ;
+  }
+  private class Handler extends java.lang.Object implements java.awt.event.ActionListener, java.awt.event.MouseListener, java.beans.PropertyChangeListener {
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mousePressed(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseReleased(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseClicked(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseExited(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseEntered(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicOptionPaneUI this$0;
+  }
+  public class ButtonActionListener extends java.lang.Object implements java.awt.event.ActionListener {
+     public  ButtonActionListener(javax.swing.plaf.basic.BasicOptionPaneUI a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    protected int buttonIndex;
+    final javax.swing.plaf.basic.BasicOptionPaneUI this$0;
+  }
+  public class PropertyChangeHandler extends java.lang.Object implements java.beans.PropertyChangeListener {
+     public  PropertyChangeHandler(javax.swing.plaf.basic.BasicOptionPaneUI a_r_g_u_m_e_n_t_0){}
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicOptionPaneUI this$0;
+  }
+  public static class ButtonAreaLayout extends java.lang.Object implements java.awt.LayoutManager {
+     public  ButtonAreaLayout(boolean a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+      ButtonAreaLayout(boolean a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3){}
+    public native void removeLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+    public native void addLayoutComponent(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+    public native void layoutContainer(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Dimension preferredLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Dimension minimumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native void setSyncAllWidths(boolean a_r_g_u_m_e_n_t_0) ;
+    public native boolean getSyncAllWidths() ;
+    public native void setPadding(int a_r_g_u_m_e_n_t_0) ;
+    public native int getPadding() ;
+    public native void setCentersChildren(boolean a_r_g_u_m_e_n_t_0) ;
+    public native boolean getCentersChildren() ;
+    protected boolean syncAllWidths;
+    protected int padding;
+    protected boolean centersChildren;
+  }
+}

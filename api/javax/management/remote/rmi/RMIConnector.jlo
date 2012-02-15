@@ -1,0 +1,69 @@
+package javax.management.remote.rmi;
+public class RMIConnector extends java.lang.Object implements javax.management.remote.JMXConnector, java.io.Serializable {
+   public  RMIConnector(javax.management.remote.JMXServiceURL a_r_g_u_m_e_n_t_0, java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_1){}
+   public  RMIConnector(javax.management.remote.rmi.RMIServer a_r_g_u_m_e_n_t_0, java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_1){}
+  public native javax.management.remote.JMXServiceURL getAddress() ;
+  public native java.lang.String toString() ;
+  public synchronized native void close()  throws java.io.IOException;
+  public synchronized native void connect(java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void connect()  throws java.io.IOException;
+  public synchronized native java.lang.String getConnectionId()  throws java.io.IOException;
+  public synchronized native javax.management.MBeanServerConnection getMBeanServerConnection(javax.security.auth.Subject a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public synchronized native javax.management.MBeanServerConnection getMBeanServerConnection()  throws java.io.IOException;
+  public native void addConnectionNotificationListener(javax.management.NotificationListener a_r_g_u_m_e_n_t_0, javax.management.NotificationFilter a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native void removeConnectionNotificationListener(javax.management.NotificationListener a_r_g_u_m_e_n_t_0)  throws javax.management.ListenerNotFoundException;
+  public native void removeConnectionNotificationListener(javax.management.NotificationListener a_r_g_u_m_e_n_t_0, javax.management.NotificationFilter a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2)  throws javax.management.ListenerNotFoundException;
+  static native javax.management.remote.rmi.RMIServer connectStub(javax.management.remote.rmi.RMIServer a_r_g_u_m_e_n_t_0, java.util.Map a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  static native org.omg.CORBA.ORB resolveOrb(java.util.Map a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  private static final class ObjectInputStreamWithLoader extends java.io.ObjectInputStream {
+      ObjectInputStreamWithLoader(java.io.InputStream a_r_g_u_m_e_n_t_0, java.lang.ClassLoader a_r_g_u_m_e_n_t_1) throws java.io.IOException{}
+    protected native java.lang.Class resolveClass(java.io.ObjectStreamClass a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.lang.ClassNotFoundException;
+  }
+  private class RMIClientCommunicatorAdmin extends com.sun.jmx.remote.internal.ClientCommunicatorAdmin {
+     public  RMIClientCommunicatorAdmin(javax.management.remote.rmi.RMIConnector a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1){}
+    protected native void doStart()  throws java.io.IOException;
+    protected native void doStop() ;
+    public native void gotIOException(java.io.IOException a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    protected native void checkConnection()  throws java.io.IOException;
+    public native void reconnectNotificationListeners(com.sun.jmx.remote.internal.ClientListenerInfo[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    final javax.management.remote.rmi.RMIConnector this$0;
+  }
+  private class RMINotifClient extends com.sun.jmx.remote.internal.ClientNotifForwarder {
+     public  RMINotifClient(javax.management.remote.rmi.RMIConnector a_r_g_u_m_e_n_t_0, java.lang.ClassLoader a_r_g_u_m_e_n_t_1, java.util.Map a_r_g_u_m_e_n_t_2){}
+    protected native javax.management.remote.NotificationResult fetchNotifs(long a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2)  throws java.io.IOException, java.lang.ClassNotFoundException;
+    protected native java.lang.Integer addListenerForMBeanRemovedNotif()  throws java.io.IOException, javax.management.InstanceNotFoundException;
+    protected native void removeListenerForMBeanRemovedNotif(java.lang.Integer a_r_g_u_m_e_n_t_0)  throws java.io.IOException, javax.management.InstanceNotFoundException, javax.management.ListenerNotFoundException;
+    protected native void lostNotifs(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+    final javax.management.remote.rmi.RMIConnector this$0;
+  }
+  private class RemoteMBeanServerConnection extends java.lang.Object implements javax.management.MBeanServerConnection {
+     public  RemoteMBeanServerConnection(javax.management.remote.rmi.RMIConnector a_r_g_u_m_e_n_t_0, javax.security.auth.Subject a_r_g_u_m_e_n_t_1){}
+     public  RemoteMBeanServerConnection(javax.management.remote.rmi.RMIConnector a_r_g_u_m_e_n_t_0){}
+    public native java.lang.Object invoke(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2, java.lang.String[] a_r_g_u_m_e_n_t_3)  throws javax.management.InstanceNotFoundException, javax.management.MBeanException, javax.management.ReflectionException, java.io.IOException;
+    public native java.lang.String getDefaultDomain()  throws java.io.IOException;
+    public native boolean isRegistered(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native javax.management.AttributeList getAttributes(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1)  throws javax.management.InstanceNotFoundException, javax.management.ReflectionException, java.io.IOException;
+    public native java.lang.Object getAttribute(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.management.MBeanException, javax.management.AttributeNotFoundException, javax.management.InstanceNotFoundException, javax.management.ReflectionException, java.io.IOException;
+    public native boolean isInstanceOf(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.management.InstanceNotFoundException, java.io.IOException;
+    public native javax.management.AttributeList setAttributes(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.AttributeList a_r_g_u_m_e_n_t_1)  throws javax.management.InstanceNotFoundException, javax.management.ReflectionException, java.io.IOException;
+    public native void setAttribute(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.Attribute a_r_g_u_m_e_n_t_1)  throws javax.management.InstanceNotFoundException, javax.management.AttributeNotFoundException, javax.management.InvalidAttributeValueException, javax.management.MBeanException, javax.management.ReflectionException, java.io.IOException;
+    public native javax.management.ObjectInstance createMBean(java.lang.String a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2, java.lang.String[] a_r_g_u_m_e_n_t_3)  throws javax.management.ReflectionException, javax.management.InstanceAlreadyExistsException, javax.management.MBeanRegistrationException, javax.management.MBeanException, javax.management.NotCompliantMBeanException, java.io.IOException;
+    public native javax.management.ObjectInstance createMBean(java.lang.String a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1)  throws javax.management.ReflectionException, javax.management.InstanceAlreadyExistsException, javax.management.MBeanRegistrationException, javax.management.MBeanException, javax.management.NotCompliantMBeanException, java.io.IOException;
+    public native javax.management.ObjectInstance createMBean(java.lang.String a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1, javax.management.ObjectName a_r_g_u_m_e_n_t_2)  throws javax.management.ReflectionException, javax.management.InstanceAlreadyExistsException, javax.management.MBeanRegistrationException, javax.management.MBeanException, javax.management.NotCompliantMBeanException, javax.management.InstanceNotFoundException, java.io.IOException;
+    public native javax.management.ObjectInstance createMBean(java.lang.String a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1, javax.management.ObjectName a_r_g_u_m_e_n_t_2, java.lang.Object[] a_r_g_u_m_e_n_t_3, java.lang.String[] a_r_g_u_m_e_n_t_4)  throws javax.management.ReflectionException, javax.management.InstanceAlreadyExistsException, javax.management.MBeanRegistrationException, javax.management.MBeanException, javax.management.NotCompliantMBeanException, javax.management.InstanceNotFoundException, java.io.IOException;
+    public native void unregisterMBean(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws javax.management.InstanceNotFoundException, javax.management.MBeanRegistrationException, java.io.IOException;
+    public native javax.management.ObjectInstance getObjectInstance(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws javax.management.InstanceNotFoundException, java.io.IOException;
+    public native java.util.Set queryMBeans(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.QueryExp a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native java.util.Set queryNames(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.QueryExp a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native java.lang.Integer getMBeanCount()  throws java.io.IOException;
+    public native java.lang.String[] getDomains()  throws java.io.IOException;
+    public native void addNotificationListener(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1, javax.management.NotificationFilter a_r_g_u_m_e_n_t_2, java.lang.Object a_r_g_u_m_e_n_t_3)  throws javax.management.InstanceNotFoundException, java.io.IOException;
+    public native void addNotificationListener(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.NotificationListener a_r_g_u_m_e_n_t_1, javax.management.NotificationFilter a_r_g_u_m_e_n_t_2, java.lang.Object a_r_g_u_m_e_n_t_3)  throws javax.management.InstanceNotFoundException, java.io.IOException;
+    public native void removeNotificationListener(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1)  throws javax.management.InstanceNotFoundException, javax.management.ListenerNotFoundException, java.io.IOException;
+    public native void removeNotificationListener(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1, javax.management.NotificationFilter a_r_g_u_m_e_n_t_2, java.lang.Object a_r_g_u_m_e_n_t_3)  throws javax.management.InstanceNotFoundException, javax.management.ListenerNotFoundException, java.io.IOException;
+    public native void removeNotificationListener(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.NotificationListener a_r_g_u_m_e_n_t_1, javax.management.NotificationFilter a_r_g_u_m_e_n_t_2, java.lang.Object a_r_g_u_m_e_n_t_3)  throws javax.management.InstanceNotFoundException, javax.management.ListenerNotFoundException, java.io.IOException;
+    public native void removeNotificationListener(javax.management.ObjectName a_r_g_u_m_e_n_t_0, javax.management.NotificationListener a_r_g_u_m_e_n_t_1)  throws javax.management.InstanceNotFoundException, javax.management.ListenerNotFoundException, java.io.IOException;
+    public native javax.management.MBeanInfo getMBeanInfo(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws javax.management.InstanceNotFoundException, javax.management.IntrospectionException, javax.management.ReflectionException, java.io.IOException;
+    final javax.management.remote.rmi.RMIConnector this$0;
+  }
+}

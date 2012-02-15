@@ -1,0 +1,24 @@
+package javax.print.attribute.standard;
+public final class PrinterStateReasons extends java.util.HashMap<javax.print.attribute.standard.PrinterStateReason,javax.print.attribute.standard.Severity> implements javax.print.attribute.PrintServiceAttribute {
+   public  PrinterStateReasons(int a_r_g_u_m_e_n_t_0){}
+   public  PrinterStateReasons(){}
+   public  PrinterStateReasons(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1){}
+   public  PrinterStateReasons(java.util.Map<javax.print.attribute.standard.PrinterStateReason,javax.print.attribute.standard.Severity> a_r_g_u_m_e_n_t_0){}
+  public native javax.print.attribute.standard.Severity put(javax.print.attribute.standard.PrinterStateReason a_r_g_u_m_e_n_t_0, javax.print.attribute.standard.Severity a_r_g_u_m_e_n_t_1) ;
+  public final native java.lang.String getName() ;
+  public final native java.lang.Class<? extends javax.print.attribute.Attribute> getCategory() ;
+  public native java.util.Set<javax.print.attribute.standard.PrinterStateReason> printerStateReasonSet(javax.print.attribute.standard.Severity a_r_g_u_m_e_n_t_0) ;
+  private class PrinterStateReasonSetIterator extends java.lang.Object implements java.util.Iterator {
+     public  PrinterStateReasonSetIterator(javax.print.attribute.standard.PrinterStateReasons a_r_g_u_m_e_n_t_0, javax.print.attribute.standard.Severity a_r_g_u_m_e_n_t_1, java.util.Iterator a_r_g_u_m_e_n_t_2){}
+    public native boolean hasNext() ;
+    public native java.lang.Object next() ;
+    public native void remove() ;
+    final javax.print.attribute.standard.PrinterStateReasons this$0;
+  }
+  private class PrinterStateReasonSet extends java.util.AbstractSet<javax.print.attribute.standard.PrinterStateReason> {
+     public  PrinterStateReasonSet(javax.print.attribute.standard.PrinterStateReasons a_r_g_u_m_e_n_t_0, javax.print.attribute.standard.Severity a_r_g_u_m_e_n_t_1, java.util.Set a_r_g_u_m_e_n_t_2){}
+    public native int size() ;
+    public native java.util.Iterator iterator() ;
+    final javax.print.attribute.standard.PrinterStateReasons this$0;
+  }
+}

@@ -1,0 +1,25 @@
+package java.awt.dnd;
+public abstract class DragGestureRecognizer extends java.lang.Object implements java.io.Serializable {
+   protected  DragGestureRecognizer(java.awt.dnd.DragSource a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   protected  DragGestureRecognizer(java.awt.dnd.DragSource a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1){}
+   protected  DragGestureRecognizer(java.awt.dnd.DragSource a_r_g_u_m_e_n_t_0){}
+   protected  DragGestureRecognizer(java.awt.dnd.DragSource a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.dnd.DragGestureListener a_r_g_u_m_e_n_t_3){}
+  public synchronized native java.awt.Component getComponent() ;
+  public synchronized native void setComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int getSourceActions() ;
+  public native java.awt.dnd.DragSource getDragSource() ;
+  public native java.awt.event.InputEvent getTriggerEvent() ;
+  protected abstract void registerListeners() ;
+  protected abstract void unregisterListeners() ;
+  public synchronized native void setSourceActions(int a_r_g_u_m_e_n_t_0) ;
+  public native void resetRecognizer() ;
+  public synchronized native void addDragGestureListener(java.awt.dnd.DragGestureListener a_r_g_u_m_e_n_t_0)  throws java.util.TooManyListenersException;
+  public synchronized native void removeDragGestureListener(java.awt.dnd.DragGestureListener a_r_g_u_m_e_n_t_0) ;
+  protected synchronized native void fireDragGestureRecognized(int a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1) ;
+  protected synchronized native void appendEvent(java.awt.event.InputEvent a_r_g_u_m_e_n_t_0) ;
+  protected java.awt.dnd.DragSource dragSource;
+  protected java.awt.Component component;
+  protected transient java.awt.dnd.DragGestureListener dragGestureListener;
+  protected int sourceActions;
+  protected java.util.ArrayList<java.awt.event.InputEvent> events;
+}

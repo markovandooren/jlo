@@ -1,0 +1,3 @@
+package javax.print.attribute;
+public abstract interface PrintServiceAttribute extends javax.print.attribute.Attribute {
+}

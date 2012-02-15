@@ -1,0 +1,5 @@
+package javax.management.monitor;
+public class MonitorSettingException extends javax.management.JMRuntimeException {
+   public  MonitorSettingException(){}
+   public  MonitorSettingException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

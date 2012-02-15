@@ -1,0 +1,4 @@
+package java.awt.datatransfer;
+public abstract interface ClipboardOwner {
+  public abstract void lostOwnership(java.awt.datatransfer.Clipboard a_r_g_u_m_e_n_t_0, java.awt.datatransfer.Transferable a_r_g_u_m_e_n_t_1) ;
+}

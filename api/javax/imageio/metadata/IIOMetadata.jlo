@@ -1,0 +1,36 @@
+package javax.imageio.metadata;
+public abstract class IIOMetadata extends java.lang.Object {
+   protected  IIOMetadata(boolean a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String[] a_r_g_u_m_e_n_t_3, java.lang.String[] a_r_g_u_m_e_n_t_4){}
+   protected  IIOMetadata(){}
+  public abstract void reset() ;
+  public abstract boolean isReadOnly() ;
+  public native javax.imageio.metadata.IIOMetadataFormat getMetadataFormat(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setController(javax.imageio.metadata.IIOMetadataController a_r_g_u_m_e_n_t_0) ;
+  public native javax.imageio.metadata.IIOMetadataController getController() ;
+  public native javax.imageio.metadata.IIOMetadataController getDefaultController() ;
+  public native boolean hasController() ;
+  public native boolean activateController() ;
+  public native boolean isStandardMetadataFormatSupported() ;
+  public native java.lang.String getNativeMetadataFormatName() ;
+  public native java.lang.String[] getExtraMetadataFormatNames() ;
+  public native java.lang.String[] getMetadataFormatNames() ;
+  public abstract org.w3c.dom.Node getAsTree(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void mergeTree(java.lang.String a_r_g_u_m_e_n_t_0, org.w3c.dom.Node a_r_g_u_m_e_n_t_1)  throws javax.imageio.metadata.IIOInvalidTreeException;
+  protected native javax.imageio.metadata.IIOMetadataNode getStandardChromaNode() ;
+  protected native javax.imageio.metadata.IIOMetadataNode getStandardCompressionNode() ;
+  protected native javax.imageio.metadata.IIOMetadataNode getStandardDataNode() ;
+  protected native javax.imageio.metadata.IIOMetadataNode getStandardDimensionNode() ;
+  protected native javax.imageio.metadata.IIOMetadataNode getStandardDocumentNode() ;
+  protected native javax.imageio.metadata.IIOMetadataNode getStandardTextNode() ;
+  protected native javax.imageio.metadata.IIOMetadataNode getStandardTileNode() ;
+  protected native javax.imageio.metadata.IIOMetadataNode getStandardTransparencyNode() ;
+  protected final native javax.imageio.metadata.IIOMetadataNode getStandardTree() ;
+  public native void setFromTree(java.lang.String a_r_g_u_m_e_n_t_0, org.w3c.dom.Node a_r_g_u_m_e_n_t_1)  throws javax.imageio.metadata.IIOInvalidTreeException;
+  protected boolean standardFormatSupported;
+  protected java.lang.String nativeMetadataFormatName;
+  protected java.lang.String nativeMetadataFormatClassName;
+  protected java.lang.String[] extraMetadataFormatNames;
+  protected java.lang.String[] extraMetadataFormatClassNames;
+  protected javax.imageio.metadata.IIOMetadataController defaultController;
+  protected javax.imageio.metadata.IIOMetadataController controller;
+}

@@ -1,0 +1,9 @@
+package java.lang.reflect;
+public class Proxy extends java.lang.Object implements java.io.Serializable {
+   protected  Proxy(java.lang.reflect.InvocationHandler a_r_g_u_m_e_n_t_0){}
+  public static native boolean isProxyClass(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public static transient native java.lang.Class<? extends java.lang.Object> getProxyClass(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object>... a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalArgumentException;
+  public static native java.lang.reflect.InvocationHandler getInvocationHandler(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public static native java.lang.Object newProxyInstance(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object>[] a_r_g_u_m_e_n_t_1, java.lang.reflect.InvocationHandler a_r_g_u_m_e_n_t_2)  throws java.lang.IllegalArgumentException;
+  protected java.lang.reflect.InvocationHandler h;
+}

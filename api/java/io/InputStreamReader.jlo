@@ -1,0 +1,12 @@
+package java.io;
+public class InputStreamReader extends java.io.Reader {
+   public  InputStreamReader(java.io.InputStream a_r_g_u_m_e_n_t_0){}
+   public  InputStreamReader(java.io.InputStream a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) throws java.io.UnsupportedEncodingException{}
+   public  InputStreamReader(java.io.InputStream a_r_g_u_m_e_n_t_0, java.nio.charset.Charset a_r_g_u_m_e_n_t_1){}
+   public  InputStreamReader(java.io.InputStream a_r_g_u_m_e_n_t_0, java.nio.charset.CharsetDecoder a_r_g_u_m_e_n_t_1){}
+  public native void close()  throws java.io.IOException;
+  public native int read()  throws java.io.IOException;
+  public native int read(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native java.lang.String getEncoding() ;
+  public native boolean ready()  throws java.io.IOException;
+}

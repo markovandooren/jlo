@@ -1,0 +1,48 @@
+package javax.swing.text;
+public class DefaultHighlighter extends javax.swing.text.LayeredHighlighter {
+   public  DefaultHighlighter(){}
+  public native void install(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0) ;
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+  public native void deinstall(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object addHighlight(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Highlighter.HighlightPainter a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public native void removeHighlight(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void changeHighlight(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public native void removeAllHighlights() ;
+  public native javax.swing.text.Highlighter.Highlight[] getHighlights() ;
+  public native void paintLayeredHighlights(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.Shape a_r_g_u_m_e_n_t_3, javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_4, javax.swing.text.View a_r_g_u_m_e_n_t_5) ;
+  public native void setDrawsLayeredHighlights(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean getDrawsLayeredHighlights() ;
+  public static final javax.swing.text.LayeredHighlighter.LayerPainter DefaultPainter;
+  class SafeDamager extends java.lang.Object implements java.lang.Runnable {
+      SafeDamager(javax.swing.text.DefaultHighlighter a_r_g_u_m_e_n_t_0){}
+    public synchronized native void run() ;
+    public synchronized native void damageRange(javax.swing.text.Position a_r_g_u_m_e_n_t_0, javax.swing.text.Position a_r_g_u_m_e_n_t_1) ;
+    final javax.swing.text.DefaultHighlighter this$0;
+  }
+  class LayeredHighlightInfo extends javax.swing.text.DefaultHighlighter.HighlightInfo {
+      LayeredHighlightInfo(javax.swing.text.DefaultHighlighter a_r_g_u_m_e_n_t_0){}
+    native void union(java.awt.Shape a_r_g_u_m_e_n_t_0) ;
+    native void paintLayeredHighlights(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.Shape a_r_g_u_m_e_n_t_3, javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_4, javax.swing.text.View a_r_g_u_m_e_n_t_5) ;
+    int x;
+    int y;
+    int width;
+    int height;
+    final javax.swing.text.DefaultHighlighter this$0;
+  }
+  class HighlightInfo extends java.lang.Object implements javax.swing.text.Highlighter.Highlight {
+      HighlightInfo(javax.swing.text.DefaultHighlighter a_r_g_u_m_e_n_t_0){}
+    public native int getEndOffset() ;
+    public native int getStartOffset() ;
+    public native javax.swing.text.Highlighter.HighlightPainter getPainter() ;
+    javax.swing.text.Position p0;
+    javax.swing.text.Position p1;
+    javax.swing.text.Highlighter.HighlightPainter painter;
+    final javax.swing.text.DefaultHighlighter this$0;
+  }
+  public static class DefaultHighlightPainter extends javax.swing.text.LayeredHighlighter.LayerPainter {
+     public  DefaultHighlightPainter(java.awt.Color a_r_g_u_m_e_n_t_0){}
+    public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.Shape a_r_g_u_m_e_n_t_3, javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_4) ;
+    public native java.awt.Color getColor() ;
+    public native java.awt.Shape paintLayer(java.awt.Graphics a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.Shape a_r_g_u_m_e_n_t_3, javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_4, javax.swing.text.View a_r_g_u_m_e_n_t_5) ;
+  }
+}

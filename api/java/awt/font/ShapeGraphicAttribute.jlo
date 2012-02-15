@@ -1,0 +1,15 @@
+package java.awt.font;
+public final class ShapeGraphicAttribute extends java.awt.font.GraphicAttribute {
+   public  ShapeGraphicAttribute(java.awt.Shape a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+  public native int hashCode() ;
+  public native boolean equals(java.awt.font.ShapeGraphicAttribute a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.geom.Rectangle2D getBounds() ;
+  public native float getAscent() ;
+  public native float getDescent() ;
+  public native float getAdvance() ;
+  public native void draw(java.awt.Graphics2D a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Shape getOutline(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public static final boolean STROKE;
+  public static final boolean FILL;
+}

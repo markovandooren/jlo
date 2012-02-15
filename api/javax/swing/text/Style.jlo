@@ -1,0 +1,6 @@
+package javax.swing.text;
+public abstract interface Style extends javax.swing.text.MutableAttributeSet {
+  public abstract java.lang.String getName() ;
+  public abstract void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+}

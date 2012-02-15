@@ -1,0 +1,15 @@
+package javax.management.openmbean;
+public class CompositeDataSupport extends java.lang.Object implements javax.management.openmbean.CompositeData, java.io.Serializable {
+   public  CompositeDataSupport(javax.management.openmbean.CompositeType a_r_g_u_m_e_n_t_0, java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_1) throws javax.management.openmbean.OpenDataException{}
+   public  CompositeDataSupport(javax.management.openmbean.CompositeType a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2) throws javax.management.openmbean.OpenDataException{}
+  public native java.lang.Object get(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.util.Collection<? extends java.lang.Object> values() ;
+  public native boolean containsValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsKey(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.management.openmbean.CompositeType getCompositeType() ;
+  public native java.lang.Object[] getAll(java.lang.String[] a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+}

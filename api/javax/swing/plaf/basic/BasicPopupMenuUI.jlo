@@ -1,0 +1,79 @@
+package javax.swing.plaf.basic;
+public class BasicPopupMenuUI extends javax.swing.plaf.PopupMenuUI {
+   public  BasicPopupMenuUI(){}
+  static native javax.swing.InputMap getInputMap(javax.swing.JPopupMenu a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  static native javax.swing.ActionMap getActionMap() ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native boolean isPopupTrigger(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  static native void loadActionMap(javax.swing.plaf.basic.LazyActionMap a_r_g_u_m_e_n_t_0) ;
+  protected native void installKeyboardActions() ;
+  protected native void uninstallKeyboardActions() ;
+  public native void installDefaults() ;
+  protected native void installListeners() ;
+  protected native void uninstallListeners() ;
+  protected native void uninstallDefaults() ;
+  static native javax.swing.JPopupMenu getLastPopup() ;
+  static native javax.swing.MenuElement findEnabledChild(javax.swing.MenuElement[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  static native javax.swing.MenuElement findEnabledChild(javax.swing.MenuElement[] a_r_g_u_m_e_n_t_0, javax.swing.MenuElement a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  static native javax.swing.MenuElement getFirstPopup() ;
+  static native java.util.List getPopups() ;
+  static final java.lang.Object MOUSE_GRABBER_KEY;
+  static final java.lang.Object MENU_KEYBOARD_HELPER_KEY;
+  protected javax.swing.JPopupMenu popupMenu;
+  static class MenuKeyboardHelper extends java.lang.Object implements javax.swing.event.ChangeListener, java.awt.event.KeyListener {
+      MenuKeyboardHelper(){}
+    public native void keyTyped(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+    public native void keyPressed(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+    public native void keyReleased(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+    native void uninstall() ;
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    native void removeItems() ;
+    native javax.swing.JPopupMenu getActivePopup(javax.swing.MenuElement[] a_r_g_u_m_e_n_t_0) ;
+    native void addUIInputMap(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.InputMap a_r_g_u_m_e_n_t_1) ;
+    native void addUIActionMap(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.ActionMap a_r_g_u_m_e_n_t_1) ;
+    native void removeUIInputMap(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.InputMap a_r_g_u_m_e_n_t_1) ;
+    native void removeUIActionMap(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.ActionMap a_r_g_u_m_e_n_t_1) ;
+  }
+  static class MouseGrabber extends java.lang.Object implements javax.swing.event.ChangeListener, java.awt.event.AWTEventListener, java.awt.event.ComponentListener, java.awt.event.WindowListener {
+     public  MouseGrabber(){}
+    public native void componentResized(java.awt.event.ComponentEvent a_r_g_u_m_e_n_t_0) ;
+    public native void componentMoved(java.awt.event.ComponentEvent a_r_g_u_m_e_n_t_0) ;
+    public native void componentShown(java.awt.event.ComponentEvent a_r_g_u_m_e_n_t_0) ;
+    public native void componentHidden(java.awt.event.ComponentEvent a_r_g_u_m_e_n_t_0) ;
+    native void uninstall() ;
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native void eventDispatched(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+    public native void windowOpened(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+    public native void windowClosing(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+    public native void windowClosed(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+    public native void windowIconified(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+    public native void windowDeiconified(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+    public native void windowActivated(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+    public native void windowDeactivated(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+    native void grabWindow(javax.swing.MenuElement[] a_r_g_u_m_e_n_t_0) ;
+    native void ungrabWindow() ;
+    native boolean isInPopup(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+    native void cancelPopupMenu() ;
+    java.awt.Window grabbedWindow;
+    javax.swing.MenuElement[] lastPathSelected;
+  }
+  private static class Actions extends sun.swing.UIAction {
+      Actions(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  private class BasicMenuKeyListener extends java.lang.Object implements javax.swing.event.MenuKeyListener {
+    public native void menuKeyPressed(javax.swing.event.MenuKeyEvent a_r_g_u_m_e_n_t_0) ;
+    public native void menuKeyReleased(javax.swing.event.MenuKeyEvent a_r_g_u_m_e_n_t_0) ;
+    public native void menuKeyTyped(javax.swing.event.MenuKeyEvent a_r_g_u_m_e_n_t_0) ;
+    javax.swing.MenuElement menuToOpen;
+    final javax.swing.plaf.basic.BasicPopupMenuUI this$0;
+  }
+  private class BasicPopupMenuListener extends java.lang.Object implements javax.swing.event.PopupMenuListener {
+    public native void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent a_r_g_u_m_e_n_t_0) ;
+    public native void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent a_r_g_u_m_e_n_t_0) ;
+    public native void popupMenuCanceled(javax.swing.event.PopupMenuEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicPopupMenuUI this$0;
+  }
+}

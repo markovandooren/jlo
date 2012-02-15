@@ -1,0 +1,10 @@
+package javax.swing.border;
+public class SoftBevelBorder extends javax.swing.border.BevelBorder {
+   public  SoftBevelBorder(int a_r_g_u_m_e_n_t_0){}
+   public  SoftBevelBorder(int a_r_g_u_m_e_n_t_0, java.awt.Color a_r_g_u_m_e_n_t_1, java.awt.Color a_r_g_u_m_e_n_t_2){}
+   public  SoftBevelBorder(int a_r_g_u_m_e_n_t_0, java.awt.Color a_r_g_u_m_e_n_t_1, java.awt.Color a_r_g_u_m_e_n_t_2, java.awt.Color a_r_g_u_m_e_n_t_3, java.awt.Color a_r_g_u_m_e_n_t_4){}
+  public native void paintBorder(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public native java.awt.Insets getBorderInsets(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Insets getBorderInsets(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Insets a_r_g_u_m_e_n_t_1) ;
+  public native boolean isBorderOpaque() ;
+}

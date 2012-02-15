@@ -1,0 +1,5 @@
+package java.util.zip;
+public class ZipException extends java.io.IOException {
+   public  ZipException(){}
+   public  ZipException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

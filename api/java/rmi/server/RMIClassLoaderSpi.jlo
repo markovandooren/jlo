@@ -1,0 +1,8 @@
+package java.rmi.server;
+public abstract class RMIClassLoaderSpi extends java.lang.Object {
+   public  RMIClassLoaderSpi(){}
+  public abstract java.lang.Class<? extends java.lang.Object> loadClass(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.ClassLoader a_r_g_u_m_e_n_t_2)  throws java.net.MalformedURLException, java.lang.ClassNotFoundException;
+  public abstract java.lang.ClassLoader getClassLoader(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.net.MalformedURLException;
+  public abstract java.lang.Class<? extends java.lang.Object> loadProxyClass(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1, java.lang.ClassLoader a_r_g_u_m_e_n_t_2)  throws java.net.MalformedURLException, java.lang.ClassNotFoundException;
+  public abstract java.lang.String getClassAnnotation(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,23 @@
+package javax.crypto;
+public abstract class CipherSpi extends java.lang.Object {
+   public  CipherSpi(){}
+  protected abstract void engineInit(int a_r_g_u_m_e_n_t_0, java.security.Key a_r_g_u_m_e_n_t_1, java.security.SecureRandom a_r_g_u_m_e_n_t_2)  throws java.security.InvalidKeyException;
+  protected abstract void engineInit(int a_r_g_u_m_e_n_t_0, java.security.Key a_r_g_u_m_e_n_t_1, java.security.AlgorithmParameters a_r_g_u_m_e_n_t_2, java.security.SecureRandom a_r_g_u_m_e_n_t_3)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  protected abstract void engineInit(int a_r_g_u_m_e_n_t_0, java.security.Key a_r_g_u_m_e_n_t_1, java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_2, java.security.SecureRandom a_r_g_u_m_e_n_t_3)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  protected abstract byte[] engineUpdate(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected abstract int engineUpdate(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, byte[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4)  throws javax.crypto.ShortBufferException;
+  protected native int engineUpdate(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0, java.nio.ByteBuffer a_r_g_u_m_e_n_t_1)  throws javax.crypto.ShortBufferException;
+  protected abstract java.security.AlgorithmParameters engineGetParameters() ;
+  static native int a(int a_r_g_u_m_e_n_t_0) ;
+  protected abstract int engineDoFinal(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, byte[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4)  throws javax.crypto.ShortBufferException, javax.crypto.IllegalBlockSizeException, javax.crypto.BadPaddingException;
+  protected abstract byte[] engineDoFinal(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws javax.crypto.IllegalBlockSizeException, javax.crypto.BadPaddingException;
+  protected native int engineDoFinal(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0, java.nio.ByteBuffer a_r_g_u_m_e_n_t_1)  throws javax.crypto.ShortBufferException, javax.crypto.IllegalBlockSizeException, javax.crypto.BadPaddingException;
+  protected abstract int engineGetBlockSize() ;
+  protected abstract byte[] engineGetIV() ;
+  protected native int engineGetKeySize(java.security.Key a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+  protected abstract int engineGetOutputSize(int a_r_g_u_m_e_n_t_0) ;
+  protected native java.security.Key engineUnwrap(byte[] a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.security.InvalidKeyException, java.security.NoSuchAlgorithmException;
+  protected native byte[] engineWrap(java.security.Key a_r_g_u_m_e_n_t_0)  throws javax.crypto.IllegalBlockSizeException, java.security.InvalidKeyException;
+  protected abstract void engineSetMode(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+  protected abstract void engineSetPadding(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.crypto.NoSuchPaddingException;
+}

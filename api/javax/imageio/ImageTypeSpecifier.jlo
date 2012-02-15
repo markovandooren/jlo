@@ -1,0 +1,74 @@
+package javax.imageio;
+public class ImageTypeSpecifier extends java.lang.Object {
+   public  ImageTypeSpecifier(java.awt.image.ColorModel a_r_g_u_m_e_n_t_0, java.awt.image.SampleModel a_r_g_u_m_e_n_t_1){}
+   public  ImageTypeSpecifier(java.awt.image.RenderedImage a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.image.ColorModel getColorModel() ;
+  public native int getNumComponents() ;
+  public native int getNumBands() ;
+  public native java.awt.image.SampleModel getSampleModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.image.SampleModel getSampleModel() ;
+  public static native javax.imageio.ImageTypeSpecifier createFromRenderedImage(java.awt.image.RenderedImage a_r_g_u_m_e_n_t_0) ;
+  public static native javax.imageio.ImageTypeSpecifier createPacked(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6) ;
+  static native java.awt.image.ColorModel createComponentCM(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+  public static native javax.imageio.ImageTypeSpecifier createInterleaved(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+  public static native javax.imageio.ImageTypeSpecifier createBanded(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5) ;
+  public static native javax.imageio.ImageTypeSpecifier createGrayscale(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+  public static native javax.imageio.ImageTypeSpecifier createGrayscale(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public static native javax.imageio.ImageTypeSpecifier createIndexed(byte[] a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, byte[] a_r_g_u_m_e_n_t_2, byte[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public static native javax.imageio.ImageTypeSpecifier createFromBufferedImageType(int a_r_g_u_m_e_n_t_0) ;
+  public native int getBufferedImageType() ;
+  public native int getBitsPerBand(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.image.BufferedImage createBufferedImage(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected java.awt.image.ColorModel colorModel;
+  protected java.awt.image.SampleModel sampleModel;
+  static class Indexed extends javax.imageio.ImageTypeSpecifier {
+     public  Indexed(byte[] a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, byte[] a_r_g_u_m_e_n_t_2, byte[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5){}
+    byte[] redLUT;
+    byte[] greenLUT;
+    byte[] blueLUT;
+    byte[] alphaLUT;
+    int bits;
+    int dataType;
+  }
+  static class Grayscale extends javax.imageio.ImageTypeSpecifier {
+     public  Grayscale(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4){}
+    int bits;
+    int dataType;
+    boolean isSigned;
+    boolean hasAlpha;
+    boolean isAlphaPremultiplied;
+  }
+  static class Banded extends javax.imageio.ImageTypeSpecifier {
+     public  Banded(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5){}
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    java.awt.color.ColorSpace colorSpace;
+    int[] bankIndices;
+    int[] bandOffsets;
+    int dataType;
+    boolean hasAlpha;
+    boolean isAlphaPremultiplied;
+  }
+  static class Interleaved extends javax.imageio.ImageTypeSpecifier {
+     public  Interleaved(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4){}
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    java.awt.color.ColorSpace colorSpace;
+    int[] bandOffsets;
+    int dataType;
+    boolean hasAlpha;
+    boolean isAlphaPremultiplied;
+  }
+  static class Packed extends javax.imageio.ImageTypeSpecifier {
+     public  Packed(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6){}
+    java.awt.color.ColorSpace colorSpace;
+    int redMask;
+    int greenMask;
+    int blueMask;
+    int alphaMask;
+    int transferType;
+    boolean isAlphaPremultiplied;
+  }
+}

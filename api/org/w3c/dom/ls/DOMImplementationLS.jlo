@@ -1,0 +1,9 @@
+package org.w3c.dom.ls;
+public abstract interface DOMImplementationLS {
+  public abstract org.w3c.dom.ls.LSParser createLSParser(short a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws org.w3c.dom.DOMException;
+  public abstract org.w3c.dom.ls.LSSerializer createLSSerializer() ;
+  public abstract org.w3c.dom.ls.LSInput createLSInput() ;
+  public abstract org.w3c.dom.ls.LSOutput createLSOutput() ;
+  public static final short MODE_SYNCHRONOUS;
+  public static final short MODE_ASYNCHRONOUS;
+}

@@ -1,0 +1,4 @@
+package javax.swing.event;
+public class MenuEvent extends java.util.EventObject {
+   public  MenuEvent(java.lang.Object a_r_g_u_m_e_n_t_0){}
+}

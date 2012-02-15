@@ -1,0 +1,4 @@
+package javax.xml.xpath;
+public abstract interface XPathFunctionResolver {
+  public abstract javax.xml.xpath.XPathFunction resolveFunction(javax.xml.namespace.QName a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+}

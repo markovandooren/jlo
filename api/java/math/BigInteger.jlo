@@ -1,0 +1,73 @@
+package java.math;
+public class BigInteger extends java.lang.Number implements java.lang.Comparable<java.math.BigInteger> {
+   public  BigInteger(int a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1){}
+   public  BigInteger(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    BigInteger(char[] a_r_g_u_m_e_n_t_0){}
+   public  BigInteger(int a_r_g_u_m_e_n_t_0, java.util.Random a_r_g_u_m_e_n_t_1){}
+   public  BigInteger(byte[] a_r_g_u_m_e_n_t_0){}
+   public  BigInteger(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.util.Random a_r_g_u_m_e_n_t_2){}
+    BigInteger(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  BigInteger(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native java.math.BigInteger add(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native int hashCode() ;
+  public native java.math.BigInteger abs() ;
+  public native java.math.BigInteger pow(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger min(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger max(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int compareTo(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public static native java.math.BigInteger valueOf(long a_r_g_u_m_e_n_t_0) ;
+  public native int intValue() ;
+  public native long longValue() ;
+  public native float floatValue() ;
+  public native double doubleValue() ;
+  public native int bitCount() ;
+  public native int signum() ;
+  public native byte[] toByteArray() ;
+  public native java.math.BigInteger and(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger or(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger xor(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger andNot(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native int bitLength() ;
+  public static native java.math.BigInteger probablePrime(int a_r_g_u_m_e_n_t_0, java.util.Random a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigInteger nextProbablePrime() ;
+  native boolean primeToCertainty(int a_r_g_u_m_e_n_t_0, java.util.Random a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigInteger subtract(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger multiply(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  native java.math.BigInteger multiply(long a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger divide(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger[] divideAndRemainder(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger remainder(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger gcd(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  static native int bitLengthForInt(int a_r_g_u_m_e_n_t_0) ;
+  static native void primitiveRightShift(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  static native void primitiveLeftShift(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.math.BigInteger negate() ;
+  public native java.math.BigInteger mod(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger modPow(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1) ;
+  static native int mulAdd(int[] a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  static native int addOne(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native java.math.BigInteger modInverse(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger shiftLeft(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger shiftRight(int a_r_g_u_m_e_n_t_0) ;
+  native int[] javaIncrement(int[] a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger not() ;
+  public native boolean testBit(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger setBit(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger clearBit(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger flipBit(int a_r_g_u_m_e_n_t_0) ;
+  public native int getLowestSetBit() ;
+  static native int bitCnt(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isProbablePrime(int a_r_g_u_m_e_n_t_0) ;
+  final native int compareMagnitude(java.math.BigInteger a_r_g_u_m_e_n_t_0) ;
+  final int signum;
+  final int[] mag;
+  static final long LONG_MASK;
+  public static final java.math.BigInteger ZERO;
+  public static final java.math.BigInteger ONE;
+  public static final java.math.BigInteger TEN;
+  static int[] bnExpModThreshTable;
+  static final boolean $assertionsDisabled;
+}

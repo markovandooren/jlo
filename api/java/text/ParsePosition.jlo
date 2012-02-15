@@ -1,0 +1,13 @@
+package java.text;
+public class ParsePosition extends java.lang.Object {
+   public  ParsePosition(int a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native int getIndex() ;
+  public native void setIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native void setErrorIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native int getErrorIndex() ;
+  int index;
+  int errorIndex;
+}

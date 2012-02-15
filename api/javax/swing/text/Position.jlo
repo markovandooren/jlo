@@ -1,0 +1,9 @@
+package javax.swing.text;
+public abstract interface Position {
+  public abstract int getOffset() ;
+  public static final class Bias extends java.lang.Object {
+    public native java.lang.String toString() ;
+    public static final javax.swing.text.Position.Bias Forward;
+    public static final javax.swing.text.Position.Bias Backward;
+  }
+}

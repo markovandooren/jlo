@@ -1,0 +1,4 @@
+package javax.net.ssl;
+public class SSLPeerUnverifiedException extends javax.net.ssl.SSLException {
+   public  SSLPeerUnverifiedException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

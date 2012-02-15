@@ -1,0 +1,11 @@
+package javax.print;
+public abstract class StreamPrintServiceFactory extends java.lang.Object {
+   public  StreamPrintServiceFactory(){}
+  public abstract javax.print.StreamPrintService getPrintService(java.io.OutputStream a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.print.DocFlavor[] getSupportedDocFlavors() ;
+  public static native javax.print.StreamPrintServiceFactory[] lookupStreamPrintServiceFactories(javax.print.DocFlavor a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.String getOutputFormat() ;
+  static class Services extends java.lang.Object {
+      Services(){}
+  }
+}

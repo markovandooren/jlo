@@ -1,0 +1,18 @@
+package java.awt.image;
+public final class DataBufferByte extends java.awt.image.DataBuffer {
+   public  DataBufferByte(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DataBufferByte(int a_r_g_u_m_e_n_t_0){}
+   public  DataBufferByte(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DataBufferByte(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  DataBufferByte(byte[][] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DataBufferByte(byte[][] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2){}
+  public native byte[] getData(int a_r_g_u_m_e_n_t_0) ;
+  public native byte[] getData() ;
+  public native int getElem(int a_r_g_u_m_e_n_t_0) ;
+  public native int getElem(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setElem(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setElem(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native byte[][] getBankData() ;
+  byte[] data;
+  byte[][] bankdata;
+}

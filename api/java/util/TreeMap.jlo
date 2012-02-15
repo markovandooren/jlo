@@ -1,0 +1,311 @@
+package java.util;
+public class TreeMap<K extends java.lang.Object, V extends java.lang.Object> extends java.util.AbstractMap<K,V> implements java.util.NavigableMap<K,V>, java.lang.Cloneable, java.io.Serializable {
+   public  TreeMap(java.util.Comparator<? super K> a_r_g_u_m_e_n_t_0){}
+   public  TreeMap(java.util.Map<? extends K,? extends V> a_r_g_u_m_e_n_t_0){}
+   public  TreeMap(java.util.SortedMap<K,? extends V> a_r_g_u_m_e_n_t_0){}
+   public  TreeMap(){}
+  public native V get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native V put(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.Object clone() ;
+  public native void clear() ;
+  final native int compare(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native java.util.Collection<V> values() ;
+  public native int size() ;
+  public native java.util.Set<java.util.Map.Entry<K,V>> entrySet() ;
+  public native void putAll(java.util.Map<? extends K,? extends V> a_r_g_u_m_e_n_t_0) ;
+  public native V remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Set<K> keySet() ;
+  public native boolean containsValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  static native <K extends java.lang.Object>K key(java.util.TreeMap.Entry<K,? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  static final native boolean valEquals(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  final native java.util.TreeMap.Entry<K,V> getEntry(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  static native <K extends java.lang.Object, V extends java.lang.Object>java.util.TreeMap.Entry<K,V> predecessor(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Comparator<? super K> comparator() ;
+  public native java.util.Map.Entry<K,V> lowerEntry(K a_r_g_u_m_e_n_t_0) ;
+  public native K lowerKey(K a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Map.Entry<K,V> floorEntry(K a_r_g_u_m_e_n_t_0) ;
+  public native K floorKey(K a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Map.Entry<K,V> ceilingEntry(K a_r_g_u_m_e_n_t_0) ;
+  public native K ceilingKey(K a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Map.Entry<K,V> higherEntry(K a_r_g_u_m_e_n_t_0) ;
+  public native K higherKey(K a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Map.Entry<K,V> firstEntry() ;
+  public native java.util.Map.Entry<K,V> lastEntry() ;
+  public native java.util.Map.Entry<K,V> pollFirstEntry() ;
+  public native java.util.Map.Entry<K,V> pollLastEntry() ;
+  public native java.util.NavigableMap<K,V> descendingMap() ;
+  public native java.util.NavigableSet<K> navigableKeySet() ;
+  public native java.util.NavigableSet<K> descendingKeySet() ;
+  public native java.util.SortedMap<K,V> subMap(K a_r_g_u_m_e_n_t_0, K a_r_g_u_m_e_n_t_1) ;
+  public native java.util.NavigableMap<K,V> subMap(K a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, K a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+  public native java.util.SortedMap<K,V> headMap(K a_r_g_u_m_e_n_t_0) ;
+  public native java.util.NavigableMap<K,V> headMap(K a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native java.util.SortedMap<K,V> tailMap(K a_r_g_u_m_e_n_t_0) ;
+  public native java.util.NavigableMap<K,V> tailMap(K a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native K firstKey() ;
+  public native K lastKey() ;
+  native void addAllForTreeSet(java.util.SortedSet<? extends K> a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  native void readTreeSet(int a_r_g_u_m_e_n_t_0, java.io.ObjectInputStream a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2)  throws java.io.IOException, java.lang.ClassNotFoundException;
+  final native java.util.TreeMap.Entry<K,V> getEntryUsingComparator(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  final native java.util.TreeMap.Entry<K,V> getCeilingEntry(K a_r_g_u_m_e_n_t_0) ;
+  final native java.util.TreeMap.Entry<K,V> getFloorEntry(K a_r_g_u_m_e_n_t_0) ;
+  final native java.util.TreeMap.Entry<K,V> getHigherEntry(K a_r_g_u_m_e_n_t_0) ;
+  final native java.util.TreeMap.Entry<K,V> getLowerEntry(K a_r_g_u_m_e_n_t_0) ;
+  native java.util.Iterator<K> keyIterator() ;
+  native java.util.Iterator<K> descendingKeyIterator() ;
+  static native <K extends java.lang.Object, V extends java.lang.Object>java.util.Map.Entry<K,V> exportEntry(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0) ;
+  static native <K extends java.lang.Object, V extends java.lang.Object>K keyOrNull(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0) ;
+  final native java.util.TreeMap.Entry<K,V> getFirstEntry() ;
+  final native java.util.TreeMap.Entry<K,V> getLastEntry() ;
+  static native <K extends java.lang.Object, V extends java.lang.Object>java.util.TreeMap.Entry<K,V> successor(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0) ;
+  static final class Entry<K extends java.lang.Object, V extends java.lang.Object> extends java.lang.Object implements java.util.Map.Entry<K,V> {
+      Entry(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_2){}
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String toString() ;
+    public native V getValue() ;
+    public native K getKey() ;
+    public native V setValue(V a_r_g_u_m_e_n_t_0) ;
+    K key;
+    V value;
+    java.util.TreeMap.Entry<K,V> left;
+    java.util.TreeMap.Entry<K,V> right;
+    java.util.TreeMap.Entry<K,V> parent;
+    boolean color;
+  }
+  private class SubMap extends java.util.AbstractMap<K,V> implements java.util.SortedMap<K,V>, java.io.Serializable {
+    public native java.util.Set<java.util.Map.Entry<K,V>> entrySet() ;
+    public native java.util.Comparator<? super K> comparator() ;
+    public native java.util.SortedMap<K,V> subMap(K a_r_g_u_m_e_n_t_0, K a_r_g_u_m_e_n_t_1) ;
+    public native java.util.SortedMap<K,V> headMap(K a_r_g_u_m_e_n_t_0) ;
+    public native java.util.SortedMap<K,V> tailMap(K a_r_g_u_m_e_n_t_0) ;
+    public native K firstKey() ;
+    public native K lastKey() ;
+    final java.util.TreeMap this$0;
+  }
+  static final class DescendingSubMap<K extends java.lang.Object, V extends java.lang.Object> extends java.util.TreeMap.NavigableSubMap<K,V> {
+      DescendingSubMap(java.util.TreeMap<K,V> a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, K a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, K a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6){}
+    public native java.util.Set<java.util.Map.Entry<K,V>> entrySet() ;
+    public native java.util.Comparator<? super K> comparator() ;
+    public native java.util.NavigableMap<K,V> descendingMap() ;
+    public native java.util.NavigableMap<K,V> subMap(K a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, K a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+    public native java.util.NavigableMap<K,V> headMap(K a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    public native java.util.NavigableMap<K,V> tailMap(K a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    native java.util.Iterator<K> keyIterator() ;
+    native java.util.Iterator<K> descendingKeyIterator() ;
+    native java.util.TreeMap.Entry<K,V> subLowest() ;
+    native java.util.TreeMap.Entry<K,V> subHighest() ;
+    native java.util.TreeMap.Entry<K,V> subCeiling(K a_r_g_u_m_e_n_t_0) ;
+    native java.util.TreeMap.Entry<K,V> subHigher(K a_r_g_u_m_e_n_t_0) ;
+    native java.util.TreeMap.Entry<K,V> subFloor(K a_r_g_u_m_e_n_t_0) ;
+    native java.util.TreeMap.Entry<K,V> subLower(K a_r_g_u_m_e_n_t_0) ;
+    final class DescendingEntrySetView extends java.util.TreeMap.NavigableSubMap.EntrySetView {
+        DescendingEntrySetView(java.util.TreeMap.DescendingSubMap a_r_g_u_m_e_n_t_0){}
+      public native java.util.Iterator<java.util.Map.Entry<K,V>> iterator() ;
+      final java.util.TreeMap.DescendingSubMap this$0;
+    }
+  }
+  static final class AscendingSubMap<K extends java.lang.Object, V extends java.lang.Object> extends java.util.TreeMap.NavigableSubMap<K,V> {
+      AscendingSubMap(java.util.TreeMap<K,V> a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, K a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, K a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6){}
+    public native java.util.Set<java.util.Map.Entry<K,V>> entrySet() ;
+    public native java.util.Comparator<? super K> comparator() ;
+    public native java.util.NavigableMap<K,V> descendingMap() ;
+    public native java.util.NavigableMap<K,V> subMap(K a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, K a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+    public native java.util.NavigableMap<K,V> headMap(K a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    public native java.util.NavigableMap<K,V> tailMap(K a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    native java.util.Iterator<K> keyIterator() ;
+    native java.util.Iterator<K> descendingKeyIterator() ;
+    native java.util.TreeMap.Entry<K,V> subLowest() ;
+    native java.util.TreeMap.Entry<K,V> subHighest() ;
+    native java.util.TreeMap.Entry<K,V> subCeiling(K a_r_g_u_m_e_n_t_0) ;
+    native java.util.TreeMap.Entry<K,V> subHigher(K a_r_g_u_m_e_n_t_0) ;
+    native java.util.TreeMap.Entry<K,V> subFloor(K a_r_g_u_m_e_n_t_0) ;
+    native java.util.TreeMap.Entry<K,V> subLower(K a_r_g_u_m_e_n_t_0) ;
+    final class AscendingEntrySetView extends java.util.TreeMap.NavigableSubMap.EntrySetView {
+        AscendingEntrySetView(java.util.TreeMap.AscendingSubMap a_r_g_u_m_e_n_t_0){}
+      public native java.util.Iterator<java.util.Map.Entry<K,V>> iterator() ;
+      final java.util.TreeMap.AscendingSubMap this$0;
+    }
+  }
+  static abstract class NavigableSubMap<K extends java.lang.Object, V extends java.lang.Object> extends java.util.AbstractMap<K,V> implements java.util.NavigableMap<K,V>, java.io.Serializable {
+      NavigableSubMap(java.util.TreeMap<K,V> a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, K a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, K a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6){}
+    public final native V get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public final native V put(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+    public native boolean isEmpty() ;
+    public native int size() ;
+    public final native V remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public final native java.util.Set<K> keySet() ;
+    public final native boolean containsKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final native boolean inRange(java.lang.Object a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    final native boolean inRange(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public final native java.util.Map.Entry<K,V> lowerEntry(K a_r_g_u_m_e_n_t_0) ;
+    public final native K lowerKey(K a_r_g_u_m_e_n_t_0) ;
+    public final native java.util.Map.Entry<K,V> floorEntry(K a_r_g_u_m_e_n_t_0) ;
+    public final native K floorKey(K a_r_g_u_m_e_n_t_0) ;
+    public final native java.util.Map.Entry<K,V> ceilingEntry(K a_r_g_u_m_e_n_t_0) ;
+    public final native K ceilingKey(K a_r_g_u_m_e_n_t_0) ;
+    public final native java.util.Map.Entry<K,V> higherEntry(K a_r_g_u_m_e_n_t_0) ;
+    public final native K higherKey(K a_r_g_u_m_e_n_t_0) ;
+    public final native java.util.Map.Entry<K,V> firstEntry() ;
+    public final native java.util.Map.Entry<K,V> lastEntry() ;
+    public final native java.util.Map.Entry<K,V> pollFirstEntry() ;
+    public final native java.util.Map.Entry<K,V> pollLastEntry() ;
+    public final native java.util.NavigableSet<K> navigableKeySet() ;
+    public native java.util.NavigableSet<K> descendingKeySet() ;
+    public final native java.util.SortedMap<K,V> subMap(K a_r_g_u_m_e_n_t_0, K a_r_g_u_m_e_n_t_1) ;
+    public final native java.util.SortedMap<K,V> headMap(K a_r_g_u_m_e_n_t_0) ;
+    public final native java.util.SortedMap<K,V> tailMap(K a_r_g_u_m_e_n_t_0) ;
+    public final native K firstKey() ;
+    public final native K lastKey() ;
+    abstract java.util.Iterator<K> keyIterator() ;
+    abstract java.util.Iterator<K> descendingKeyIterator() ;
+    abstract java.util.TreeMap.Entry<K,V> subLowest() ;
+    abstract java.util.TreeMap.Entry<K,V> subHighest() ;
+    abstract java.util.TreeMap.Entry<K,V> subCeiling(K a_r_g_u_m_e_n_t_0) ;
+    abstract java.util.TreeMap.Entry<K,V> subHigher(K a_r_g_u_m_e_n_t_0) ;
+    abstract java.util.TreeMap.Entry<K,V> subFloor(K a_r_g_u_m_e_n_t_0) ;
+    abstract java.util.TreeMap.Entry<K,V> subLower(K a_r_g_u_m_e_n_t_0) ;
+    final native java.util.TreeMap.Entry<K,V> absHighest() ;
+    final native java.util.TreeMap.Entry<K,V> absLowFence() ;
+    final native java.util.TreeMap.Entry<K,V> absLowest() ;
+    final native java.util.TreeMap.Entry<K,V> absHighFence() ;
+    final native java.util.TreeMap.Entry<K,V> absFloor(K a_r_g_u_m_e_n_t_0) ;
+    final native java.util.TreeMap.Entry<K,V> absLower(K a_r_g_u_m_e_n_t_0) ;
+    final native java.util.TreeMap.Entry<K,V> absCeiling(K a_r_g_u_m_e_n_t_0) ;
+    final native java.util.TreeMap.Entry<K,V> absHigher(K a_r_g_u_m_e_n_t_0) ;
+    final native boolean tooLow(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final native boolean tooHigh(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final native boolean inClosedRange(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.TreeMap<K,V> m;
+    final K lo;
+    final K hi;
+    final boolean fromStart;
+    final boolean toEnd;
+    final boolean loInclusive;
+    final boolean hiInclusive;
+    transient java.util.NavigableMap<K,V> descendingMapView;
+    transient java.util.TreeMap.NavigableSubMap.EntrySetView entrySetView;
+    transient java.util.TreeMap.KeySet<K> navigableKeySetView;
+    final class DescendingSubMapKeyIterator extends java.util.TreeMap.NavigableSubMap.SubMapIterator<K> {
+        DescendingSubMapKeyIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0, java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_1){}
+      public native K next() ;
+      public native void remove() ;
+      final java.util.TreeMap.NavigableSubMap this$0;
+    }
+    final class DescendingSubMapEntryIterator extends java.util.TreeMap.NavigableSubMap.SubMapIterator<java.util.Map.Entry<K,V>> {
+        DescendingSubMapEntryIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0, java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_1){}
+      public native java.util.Map.Entry<K,V> next() ;
+      public native void remove() ;
+      final java.util.TreeMap.NavigableSubMap this$0;
+    }
+    final class SubMapKeyIterator extends java.util.TreeMap.NavigableSubMap.SubMapIterator<K> {
+        SubMapKeyIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0, java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_1){}
+      public native K next() ;
+      public native void remove() ;
+      final java.util.TreeMap.NavigableSubMap this$0;
+    }
+    final class SubMapEntryIterator extends java.util.TreeMap.NavigableSubMap.SubMapIterator<java.util.Map.Entry<K,V>> {
+        SubMapEntryIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0, java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_1){}
+      public native java.util.Map.Entry<K,V> next() ;
+      public native void remove() ;
+      final java.util.TreeMap.NavigableSubMap this$0;
+    }
+    abstract class SubMapIterator<T extends java.lang.Object> extends java.lang.Object implements java.util.Iterator<T> {
+        SubMapIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0, java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_1){}
+      public final native boolean hasNext() ;
+      final native java.util.TreeMap.Entry<K,V> nextEntry() ;
+      final native java.util.TreeMap.Entry<K,V> prevEntry() ;
+      final native void removeDescending() ;
+      final native void removeAscending() ;
+      java.util.TreeMap.Entry<K,V> lastReturned;
+      java.util.TreeMap.Entry<K,V> next;
+      final K fenceKey;
+      int expectedModCount;
+      final java.util.TreeMap.NavigableSubMap this$0;
+    }
+    abstract class EntrySetView extends java.util.AbstractSet<java.util.Map.Entry<K,V>> {
+        EntrySetView(java.util.TreeMap.NavigableSubMap a_r_g_u_m_e_n_t_0){}
+      public native boolean isEmpty() ;
+      public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+      public native int size() ;
+      public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+      final java.util.TreeMap.NavigableSubMap this$0;
+    }
+  }
+  final class DescendingKeyIterator extends java.util.TreeMap.PrivateEntryIterator<K> {
+      DescendingKeyIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0){}
+    public native K next() ;
+    final java.util.TreeMap this$0;
+  }
+  final class KeyIterator extends java.util.TreeMap.PrivateEntryIterator<K> {
+      KeyIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0){}
+    public native K next() ;
+    final java.util.TreeMap this$0;
+  }
+  final class ValueIterator extends java.util.TreeMap.PrivateEntryIterator<V> {
+      ValueIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0){}
+    public native V next() ;
+    final java.util.TreeMap this$0;
+  }
+  final class EntryIterator extends java.util.TreeMap.PrivateEntryIterator<java.util.Map.Entry<K,V>> {
+      EntryIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0){}
+    public native java.util.Map.Entry<K,V> next() ;
+    final java.util.TreeMap this$0;
+  }
+  abstract class PrivateEntryIterator<T extends java.lang.Object> extends java.lang.Object implements java.util.Iterator<T> {
+      PrivateEntryIterator(java.util.TreeMap.Entry<K,V> a_r_g_u_m_e_n_t_0){}
+    public final native boolean hasNext() ;
+    public native void remove() ;
+    final native java.util.TreeMap.Entry<K,V> nextEntry() ;
+    final native java.util.TreeMap.Entry<K,V> prevEntry() ;
+    java.util.TreeMap.Entry<K,V> next;
+    java.util.TreeMap.Entry<K,V> lastReturned;
+    int expectedModCount;
+    final java.util.TreeMap this$0;
+  }
+  static final class KeySet<E extends java.lang.Object> extends java.util.AbstractSet<E> implements java.util.NavigableSet<E> {
+      KeySet(java.util.NavigableMap<E,java.lang.Object> a_r_g_u_m_e_n_t_0){}
+    public native void clear() ;
+    public native boolean isEmpty() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<E> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native E floor(E a_r_g_u_m_e_n_t_0) ;
+    public native E pollFirst() ;
+    public native E pollLast() ;
+    public native java.util.Iterator<E> descendingIterator() ;
+    public native E last() ;
+    public native E first() ;
+    public native E lower(E a_r_g_u_m_e_n_t_0) ;
+    public native E ceiling(E a_r_g_u_m_e_n_t_0) ;
+    public native E higher(E a_r_g_u_m_e_n_t_0) ;
+    public native java.util.NavigableSet<E> descendingSet() ;
+    public native java.util.SortedSet<E> subSet(E a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+    public native java.util.NavigableSet<E> subSet(E a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, E a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+    public native java.util.SortedSet<E> headSet(E a_r_g_u_m_e_n_t_0) ;
+    public native java.util.NavigableSet<E> headSet(E a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    public native java.util.NavigableSet<E> tailSet(E a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    public native java.util.SortedSet<E> tailSet(E a_r_g_u_m_e_n_t_0) ;
+    public native java.util.Comparator<? super E> comparator() ;
+  }
+  class EntrySet extends java.util.AbstractSet<java.util.Map.Entry<K,V>> {
+      EntrySet(java.util.TreeMap a_r_g_u_m_e_n_t_0){}
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<java.util.Map.Entry<K,V>> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.TreeMap this$0;
+  }
+  class Values extends java.util.AbstractCollection<V> {
+      Values(java.util.TreeMap a_r_g_u_m_e_n_t_0){}
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<V> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.TreeMap this$0;
+  }
+}

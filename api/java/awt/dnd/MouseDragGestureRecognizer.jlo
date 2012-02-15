@@ -1,0 +1,16 @@
+package java.awt.dnd;
+public abstract class MouseDragGestureRecognizer extends java.awt.dnd.DragGestureRecognizer implements java.awt.event.MouseListener, java.awt.event.MouseMotionListener {
+   protected  MouseDragGestureRecognizer(java.awt.dnd.DragSource a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.dnd.DragGestureListener a_r_g_u_m_e_n_t_3){}
+   protected  MouseDragGestureRecognizer(java.awt.dnd.DragSource a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   protected  MouseDragGestureRecognizer(java.awt.dnd.DragSource a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1){}
+   protected  MouseDragGestureRecognizer(java.awt.dnd.DragSource a_r_g_u_m_e_n_t_0){}
+  public native void mousePressed(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public native void mouseReleased(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public native void mouseClicked(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public native void mouseExited(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public native void mouseEntered(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public native void mouseMoved(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public native void mouseDragged(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void registerListeners() ;
+  protected native void unregisterListeners() ;
+}

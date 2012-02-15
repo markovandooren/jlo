@@ -1,0 +1,10 @@
+package org.ietf.jgss;
+public class ChannelBinding extends java.lang.Object {
+   public  ChannelBinding(java.net.InetAddress a_r_g_u_m_e_n_t_0, java.net.InetAddress a_r_g_u_m_e_n_t_1, byte[] a_r_g_u_m_e_n_t_2){}
+   public  ChannelBinding(byte[] a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.net.InetAddress getInitiatorAddress() ;
+  public native java.net.InetAddress getAcceptorAddress() ;
+  public native byte[] getApplicationData() ;
+}

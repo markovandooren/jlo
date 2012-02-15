@@ -1,0 +1,62 @@
+package java.net;
+public class Socket extends java.lang.Object {
+   public  Socket(){}
+   public  Socket(java.net.Proxy a_r_g_u_m_e_n_t_0){}
+   protected  Socket(java.net.SocketImpl a_r_g_u_m_e_n_t_0) throws java.net.SocketException{}
+   public  Socket(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws java.net.UnknownHostException, java.io.IOException{}
+   public  Socket(java.net.InetAddress a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws java.io.IOException{}
+   public  Socket(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.net.InetAddress a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) throws java.io.IOException{}
+   public  Socket(java.net.InetAddress a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.net.InetAddress a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) throws java.io.IOException{}
+   public  Socket(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) throws java.io.IOException{}
+   public  Socket(java.net.InetAddress a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) throws java.io.IOException{}
+  public native java.lang.String toString() ;
+  public synchronized native void close()  throws java.io.IOException;
+  public native java.nio.channels.SocketChannel getChannel() ;
+  public native int getPort() ;
+  public native java.io.InputStream getInputStream()  throws java.io.IOException;
+  public native void connect(java.net.SocketAddress a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public native void connect(java.net.SocketAddress a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native boolean isClosed() ;
+  native java.net.SocketImpl getImpl()  throws java.net.SocketException;
+  public native java.io.OutputStream getOutputStream()  throws java.io.IOException;
+  public native void bind(java.net.SocketAddress a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native boolean isBound() ;
+  native void setBound() ;
+  public native boolean isConnected() ;
+  native void createImpl(boolean a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native java.net.InetAddress getInetAddress() ;
+  public native java.net.SocketAddress getRemoteSocketAddress() ;
+  public native java.net.SocketAddress getLocalSocketAddress() ;
+  public native java.net.InetAddress getLocalAddress() ;
+  public native int getLocalPort() ;
+  public synchronized native void setSoTimeout(int a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public synchronized native int getSoTimeout()  throws java.net.SocketException;
+  public synchronized native void setSendBufferSize(int a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public synchronized native int getSendBufferSize()  throws java.net.SocketException;
+  public synchronized native void setReceiveBufferSize(int a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public synchronized native int getReceiveBufferSize()  throws java.net.SocketException;
+  public native void setReuseAddress(boolean a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native boolean getReuseAddress()  throws java.net.SocketException;
+  public native void setTrafficClass(int a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native int getTrafficClass()  throws java.net.SocketException;
+  native void setImpl() ;
+  final native void postAccept() ;
+  native void setCreated() ;
+  native void setConnected() ;
+  public native void setTcpNoDelay(boolean a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native boolean getTcpNoDelay()  throws java.net.SocketException;
+  public native void setSoLinger(boolean a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.net.SocketException;
+  public native int getSoLinger()  throws java.net.SocketException;
+  public native void sendUrgentData(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void setOOBInline(boolean a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native boolean getOOBInline()  throws java.net.SocketException;
+  public native void setKeepAlive(boolean a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native boolean getKeepAlive()  throws java.net.SocketException;
+  public native void shutdownInput()  throws java.io.IOException;
+  public native void shutdownOutput()  throws java.io.IOException;
+  public native boolean isInputShutdown() ;
+  public native boolean isOutputShutdown() ;
+  public static synchronized native void setSocketImplFactory(java.net.SocketImplFactory a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void setPerformancePreferences(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  java.net.SocketImpl impl;
+}

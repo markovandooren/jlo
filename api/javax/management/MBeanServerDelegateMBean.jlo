@@ -1,0 +1,10 @@
+package javax.management;
+public abstract interface MBeanServerDelegateMBean {
+  public abstract java.lang.String getSpecificationVersion() ;
+  public abstract java.lang.String getSpecificationVendor() ;
+  public abstract java.lang.String getImplementationVersion() ;
+  public abstract java.lang.String getImplementationVendor() ;
+  public abstract java.lang.String getMBeanServerId() ;
+  public abstract java.lang.String getSpecificationName() ;
+  public abstract java.lang.String getImplementationName() ;
+}

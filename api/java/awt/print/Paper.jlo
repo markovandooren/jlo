@@ -1,0 +1,13 @@
+package java.awt.print;
+public class Paper extends java.lang.Object implements java.lang.Cloneable {
+   public  Paper(){}
+  public native java.lang.Object clone() ;
+  public native void setSize(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native double getWidth() ;
+  public native double getHeight() ;
+  public native double getImageableX() ;
+  public native double getImageableY() ;
+  public native double getImageableWidth() ;
+  public native double getImageableHeight() ;
+  public native void setImageableArea(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+}

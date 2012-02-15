@@ -1,0 +1,106 @@
+package javax.swing.table;
+public class JTableHeader extends javax.swing.JComponent implements javax.swing.event.TableColumnModelListener, javax.accessibility.Accessible {
+   public  JTableHeader(){}
+   public  JTableHeader(javax.swing.table.TableColumnModel a_r_g_u_m_e_n_t_0){}
+  public native void setTable(javax.swing.JTable a_r_g_u_m_e_n_t_0) ;
+  public native void updateUI() ;
+  public native void setUI(javax.swing.plaf.TableHeaderUI a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getUIClassID() ;
+  public native java.lang.String getToolTipText(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  protected native java.lang.String paramString() ;
+  public native javax.swing.plaf.TableHeaderUI getUI() ;
+  public native javax.swing.JTable getTable() ;
+  public native javax.swing.table.TableColumn getDraggedColumn() ;
+  public native int columnAtPoint(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.table.TableColumnModel getColumnModel() ;
+  public native java.awt.Rectangle getHeaderRect(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean getResizingAllowed() ;
+  public native int getDraggedDistance() ;
+  public native javax.swing.table.TableCellRenderer getDefaultRenderer() ;
+  public native void setReorderingAllowed(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean getReorderingAllowed() ;
+  public native void setResizingAllowed(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.table.TableColumn getResizingColumn() ;
+  public native void setUpdateTableInRealTime(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean getUpdateTableInRealTime() ;
+  public native void setDefaultRenderer(javax.swing.table.TableCellRenderer a_r_g_u_m_e_n_t_0) ;
+  public native void setColumnModel(javax.swing.table.TableColumnModel a_r_g_u_m_e_n_t_0) ;
+  public native void columnAdded(javax.swing.event.TableColumnModelEvent a_r_g_u_m_e_n_t_0) ;
+  public native void columnRemoved(javax.swing.event.TableColumnModelEvent a_r_g_u_m_e_n_t_0) ;
+  public native void columnMoved(javax.swing.event.TableColumnModelEvent a_r_g_u_m_e_n_t_0) ;
+  public native void columnMarginChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+  public native void columnSelectionChanged(javax.swing.event.ListSelectionEvent a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.table.TableColumnModel createDefaultColumnModel() ;
+  protected native javax.swing.table.TableCellRenderer createDefaultRenderer() ;
+  protected native void initializeLocalVars() ;
+  public native void resizeAndRepaint() ;
+  public native void setDraggedColumn(javax.swing.table.TableColumn a_r_g_u_m_e_n_t_0) ;
+  public native void setDraggedDistance(int a_r_g_u_m_e_n_t_0) ;
+  public native void setResizingColumn(javax.swing.table.TableColumn a_r_g_u_m_e_n_t_0) ;
+  protected javax.swing.JTable table;
+  protected javax.swing.table.TableColumnModel columnModel;
+  protected boolean reorderingAllowed;
+  protected boolean resizingAllowed;
+  protected boolean updateTableInRealTime;
+  protected transient javax.swing.table.TableColumn resizingColumn;
+  protected transient javax.swing.table.TableColumn draggedColumn;
+  protected transient int draggedDistance;
+  protected class AccessibleJTableHeader extends javax.swing.JComponent.AccessibleJComponent {
+     protected  AccessibleJTableHeader(javax.swing.table.JTableHeader a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.Accessible getAccessibleAt(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+    public native int getAccessibleChildrenCount() ;
+    public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final javax.swing.table.JTableHeader this$0;
+    protected class AccessibleJTableHeaderEntry extends javax.accessibility.AccessibleContext implements javax.accessibility.Accessible, javax.accessibility.AccessibleComponent {
+       public  AccessibleJTableHeaderEntry(javax.swing.table.JTableHeader.AccessibleJTableHeader a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.table.JTableHeader a_r_g_u_m_e_n_t_2, javax.swing.JTable a_r_g_u_m_e_n_t_3){}
+      public native boolean contains(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+      public native java.awt.Point getLocation() ;
+      public native java.awt.Dimension getSize() ;
+      public native void setSize(java.awt.Dimension a_r_g_u_m_e_n_t_0) ;
+      public native java.awt.Rectangle getBounds() ;
+      public native java.awt.Cursor getCursor() ;
+      public native boolean isEnabled() ;
+      public native void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+      public native void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+      public native void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+      public native void requestFocus() ;
+      public native java.awt.FontMetrics getFontMetrics(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+      public native void setVisible(boolean a_r_g_u_m_e_n_t_0) ;
+      public native void setForeground(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+      public native void setBackground(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+      public native void setFont(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+      public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+      public native java.awt.Color getForeground() ;
+      public native java.awt.Font getFont() ;
+      public native boolean isVisible() ;
+      public native java.awt.Color getBackground() ;
+      public native void setBounds(java.awt.Rectangle a_r_g_u_m_e_n_t_0) ;
+      public native void setLocation(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+      public native boolean isShowing() ;
+      public native javax.accessibility.Accessible getAccessibleAt(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+      public native int getAccessibleChildrenCount() ;
+      public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+      public native javax.accessibility.AccessibleComponent getAccessibleComponent() ;
+      public native java.util.Locale getLocale() ;
+      public native java.awt.Point getLocationOnScreen() ;
+      public native void setCursor(java.awt.Cursor a_r_g_u_m_e_n_t_0) ;
+      public native void addFocusListener(java.awt.event.FocusListener a_r_g_u_m_e_n_t_0) ;
+      public native void removeFocusListener(java.awt.event.FocusListener a_r_g_u_m_e_n_t_0) ;
+      public native boolean isFocusTraversable() ;
+      public native int getAccessibleIndexInParent() ;
+      public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+      public native javax.accessibility.AccessibleSelection getAccessibleSelection() ;
+      public native java.lang.String getAccessibleName() ;
+      public native javax.accessibility.AccessibleAction getAccessibleAction() ;
+      public native javax.accessibility.AccessibleValue getAccessibleValue() ;
+      public native javax.accessibility.AccessibleText getAccessibleText() ;
+      public native java.lang.String getAccessibleDescription() ;
+      public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+      public native void setAccessibleName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+      public native void setAccessibleDescription(java.lang.String a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.table.JTableHeader.AccessibleJTableHeader this$1;
+    }
+  }
+}

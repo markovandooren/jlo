@@ -1,0 +1,5 @@
+package java.net;
+public final class NetPermission extends java.security.BasicPermission {
+   public  NetPermission(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  NetPermission(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+}

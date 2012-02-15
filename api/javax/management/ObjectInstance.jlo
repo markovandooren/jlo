@@ -1,0 +1,10 @@
+package javax.management;
+public class ObjectInstance extends java.lang.Object implements java.io.Serializable {
+   public  ObjectInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) throws javax.management.MalformedObjectNameException{}
+   public  ObjectInstance(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getClassName() ;
+  public native javax.management.ObjectName getObjectName() ;
+}

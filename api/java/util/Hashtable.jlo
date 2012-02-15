@@ -1,0 +1,92 @@
+package java.util;
+public class Hashtable<K extends java.lang.Object, V extends java.lang.Object> extends java.util.Dictionary<K,V> implements java.util.Map<K,V>, java.lang.Cloneable, java.io.Serializable {
+   public  Hashtable(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1){}
+   public  Hashtable(int a_r_g_u_m_e_n_t_0){}
+   public  Hashtable(){}
+   public  Hashtable(java.util.Map<? extends K,? extends V> a_r_g_u_m_e_n_t_0){}
+  public synchronized native V get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native V put(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public synchronized native int hashCode() ;
+  public synchronized native java.lang.Object clone() ;
+  public synchronized native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void clear() ;
+  public synchronized native java.lang.String toString() ;
+  public synchronized native boolean isEmpty() ;
+  public synchronized native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Collection<V> values() ;
+  public synchronized native int size() ;
+  public native java.util.Set<java.util.Map.Entry<K,V>> entrySet() ;
+  public synchronized native void putAll(java.util.Map<? extends K,? extends V> a_r_g_u_m_e_n_t_0) ;
+  public synchronized native V remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.util.Enumeration<V> elements() ;
+  public synchronized native java.util.Enumeration<K> keys() ;
+  public native java.util.Set<K> keySet() ;
+  public native boolean containsValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native boolean containsKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  protected native void rehash() ;
+  private static class EmptyIterator extends java.lang.Object implements java.util.Iterator<java.lang.Object> {
+      EmptyIterator(){}
+    public native boolean hasNext() ;
+    public native java.lang.Object next() ;
+    public native void remove() ;
+  }
+  private static class EmptyEnumerator extends java.lang.Object implements java.util.Enumeration<java.lang.Object> {
+      EmptyEnumerator(){}
+    public native boolean hasMoreElements() ;
+    public native java.lang.Object nextElement() ;
+  }
+  private class Enumerator<T extends java.lang.Object> extends java.lang.Object implements java.util.Enumeration<T>, java.util.Iterator<T> {
+      Enumerator(java.util.Hashtable a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+    public native boolean hasNext() ;
+    public native T next() ;
+    public native void remove() ;
+    public native boolean hasMoreElements() ;
+    public native T nextElement() ;
+    java.util.Hashtable.Entry[] table;
+    int index;
+    java.util.Hashtable.Entry<K,V> entry;
+    java.util.Hashtable.Entry<K,V> lastReturned;
+    int type;
+    boolean iterator;
+    protected int expectedModCount;
+    final java.util.Hashtable this$0;
+  }
+  private static class Entry<K extends java.lang.Object, V extends java.lang.Object> extends java.lang.Object implements java.util.Map.Entry<K,V> {
+     protected  Entry(int a_r_g_u_m_e_n_t_0, K a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2, java.util.Hashtable.Entry<K,V> a_r_g_u_m_e_n_t_3){}
+    public native int hashCode() ;
+    protected native java.lang.Object clone() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String toString() ;
+    public native V getValue() ;
+    public native K getKey() ;
+    public native V setValue(V a_r_g_u_m_e_n_t_0) ;
+    int hash;
+    K key;
+    V value;
+    java.util.Hashtable.Entry<K,V> next;
+  }
+  private class ValueCollection extends java.util.AbstractCollection<V> {
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<V> iterator() ;
+    final java.util.Hashtable this$0;
+  }
+  private class EntrySet extends java.util.AbstractSet<java.util.Map.Entry<K,V>> {
+    public native boolean add(java.util.Map.Entry<K,V> a_r_g_u_m_e_n_t_0) ;
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<java.util.Map.Entry<K,V>> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.Hashtable this$0;
+  }
+  private class KeySet extends java.util.AbstractSet<K> {
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<K> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.Hashtable this$0;
+  }
+}

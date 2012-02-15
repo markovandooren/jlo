@@ -1,0 +1,17 @@
+package java.awt;
+public class BufferCapabilities extends java.lang.Object implements java.lang.Cloneable {
+   public  BufferCapabilities(java.awt.ImageCapabilities a_r_g_u_m_e_n_t_0, java.awt.ImageCapabilities a_r_g_u_m_e_n_t_1, java.awt.BufferCapabilities.FlipContents a_r_g_u_m_e_n_t_2){}
+  public native java.lang.Object clone() ;
+  public native boolean isPageFlipping() ;
+  public native java.awt.ImageCapabilities getFrontBufferCapabilities() ;
+  public native java.awt.ImageCapabilities getBackBufferCapabilities() ;
+  public native java.awt.BufferCapabilities.FlipContents getFlipContents() ;
+  public native boolean isFullScreenRequired() ;
+  public native boolean isMultiBufferAvailable() ;
+  public static final class FlipContents extends java.awt.AttributeValue {
+    public static final java.awt.BufferCapabilities.FlipContents UNDEFINED;
+    public static final java.awt.BufferCapabilities.FlipContents BACKGROUND;
+    public static final java.awt.BufferCapabilities.FlipContents PRIOR;
+    public static final java.awt.BufferCapabilities.FlipContents COPIED;
+  }
+}

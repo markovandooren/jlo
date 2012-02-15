@@ -1,0 +1,19 @@
+package javax.management.modelmbean;
+public abstract interface ModelMBeanInfo {
+  public abstract java.lang.Object clone() ;
+  public abstract javax.management.MBeanConstructorInfo[] getConstructors() ;
+  public abstract javax.management.Descriptor getDescriptor(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract java.lang.String getClassName() ;
+  public abstract javax.management.MBeanAttributeInfo[] getAttributes() ;
+  public abstract javax.management.modelmbean.ModelMBeanAttributeInfo getAttribute(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract javax.management.MBeanOperationInfo[] getOperations() ;
+  public abstract java.lang.String getDescription() ;
+  public abstract javax.management.MBeanNotificationInfo[] getNotifications() ;
+  public abstract void setDescriptor(javax.management.Descriptor a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract javax.management.Descriptor[] getDescriptors(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract void setDescriptors(javax.management.Descriptor[] a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract javax.management.Descriptor getMBeanDescriptor()  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract void setMBeanDescriptor(javax.management.Descriptor a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract javax.management.modelmbean.ModelMBeanOperationInfo getOperation(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+  public abstract javax.management.modelmbean.ModelMBeanNotificationInfo getNotification(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
+}

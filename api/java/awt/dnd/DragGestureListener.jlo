@@ -1,0 +1,4 @@
+package java.awt.dnd;
+public abstract interface DragGestureListener extends java.util.EventListener {
+  public abstract void dragGestureRecognized(java.awt.dnd.DragGestureEvent a_r_g_u_m_e_n_t_0) ;
+}

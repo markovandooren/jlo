@@ -1,0 +1,19 @@
+package javax.management.openmbean;
+public abstract interface TabularData {
+  public abstract javax.management.openmbean.CompositeData get(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public abstract void put(javax.management.openmbean.CompositeData a_r_g_u_m_e_n_t_0) ;
+  public abstract int hashCode() ;
+  public abstract boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract void clear() ;
+  public abstract java.lang.String toString() ;
+  public abstract boolean isEmpty() ;
+  public abstract java.util.Collection<? extends java.lang.Object> values() ;
+  public abstract int size() ;
+  public abstract void putAll(javax.management.openmbean.CompositeData[] a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.management.openmbean.CompositeData remove(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public abstract java.util.Set<? extends java.lang.Object> keySet() ;
+  public abstract boolean containsValue(javax.management.openmbean.CompositeData a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean containsKey(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.management.openmbean.TabularType getTabularType() ;
+  public abstract java.lang.Object[] calculateIndex(javax.management.openmbean.CompositeData a_r_g_u_m_e_n_t_0) ;
+}

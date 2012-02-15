@@ -1,0 +1,16 @@
+package javax.management.monitor;
+public abstract interface MonitorMBean {
+  public abstract void start() ;
+  public abstract void stop() ;
+  public abstract boolean isActive() ;
+  public abstract javax.management.ObjectName getObservedObject() ;
+  public abstract java.lang.String getObservedAttribute() ;
+  public abstract void addObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract void removeObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean containsObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.management.ObjectName[] getObservedObjects() ;
+  public abstract void setObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract void setObservedAttribute(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract long getGranularityPeriod() ;
+  public abstract void setGranularityPeriod(long a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+}

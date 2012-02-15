@@ -1,0 +1,41 @@
+package javax.swing;
+public class JLayeredPane extends javax.swing.JComponent implements javax.accessibility.Accessible {
+   public  JLayeredPane(){}
+  public native void remove(int a_r_g_u_m_e_n_t_0) ;
+  public native void removeAll() ;
+  public native int getPosition(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native boolean isOptimizedDrawingEnabled() ;
+  protected native java.lang.String paramString() ;
+  protected native void addImpl(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native int getLayer(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public static native int getLayer(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native void putLayer(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void moveToFront(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void moveToBack(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void setLayer(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setLayer(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.JLayeredPane getLayeredPaneAbove(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native int getIndexOf(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void setPosition(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int highestLayer() ;
+  public native int lowestLayer() ;
+  public native int getComponentCountInLayer(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component[] getComponentsInLayer(int a_r_g_u_m_e_n_t_0) ;
+  protected native java.util.Hashtable<java.awt.Component,java.lang.Integer> getComponentToLayer() ;
+  protected native java.lang.Integer getObjectForLayer(int a_r_g_u_m_e_n_t_0) ;
+  protected native int insertIndexForLayer(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static final java.lang.Integer DEFAULT_LAYER;
+  public static final java.lang.Integer PALETTE_LAYER;
+  public static final java.lang.Integer MODAL_LAYER;
+  public static final java.lang.Integer POPUP_LAYER;
+  public static final java.lang.Integer DRAG_LAYER;
+  public static final java.lang.Integer FRAME_CONTENT_LAYER;
+  public static final java.lang.String LAYER_PROPERTY;
+  protected class AccessibleJLayeredPane extends javax.swing.JComponent.AccessibleJComponent {
+     protected  AccessibleJLayeredPane(javax.swing.JLayeredPane a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final javax.swing.JLayeredPane this$0;
+  }
+}

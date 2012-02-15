@@ -1,0 +1,29 @@
+package javax.sound.sampled;
+public class AudioInputStream extends java.io.InputStream {
+   public  AudioInputStream(java.io.InputStream a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2){}
+   public  AudioInputStream(javax.sound.sampled.TargetDataLine a_r_g_u_m_e_n_t_0){}
+  public native void close()  throws java.io.IOException;
+  public native void mark(int a_r_g_u_m_e_n_t_0) ;
+  public native void reset()  throws java.io.IOException;
+  public native int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native int read()  throws java.io.IOException;
+  public native int read(byte[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native long skip(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native int available()  throws java.io.IOException;
+  public native boolean markSupported() ;
+  public native javax.sound.sampled.AudioFormat getFormat() ;
+  public native long getFrameLength() ;
+  protected javax.sound.sampled.AudioFormat format;
+  protected long frameLength;
+  protected int frameSize;
+  protected long framePos;
+  private class TargetDataLineInputStream extends java.io.InputStream {
+      TargetDataLineInputStream(javax.sound.sampled.AudioInputStream a_r_g_u_m_e_n_t_0, javax.sound.sampled.TargetDataLine a_r_g_u_m_e_n_t_1){}
+    public native void close()  throws java.io.IOException;
+    public native int read()  throws java.io.IOException;
+    public native int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    public native int available()  throws java.io.IOException;
+    javax.sound.sampled.TargetDataLine line;
+    final javax.sound.sampled.AudioInputStream this$0;
+  }
+}

@@ -1,0 +1,20 @@
+package javax.swing.event;
+public abstract interface DocumentEvent {
+  public abstract int getLength() ;
+  public abstract javax.swing.event.DocumentEvent.EventType getType() ;
+  public abstract int getOffset() ;
+  public abstract javax.swing.text.Document getDocument() ;
+  public abstract javax.swing.event.DocumentEvent.ElementChange getChange(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+  public static abstract interface ElementChange {
+    public abstract int getIndex() ;
+    public abstract javax.swing.text.Element getElement() ;
+    public abstract javax.swing.text.Element[] getChildrenRemoved() ;
+    public abstract javax.swing.text.Element[] getChildrenAdded() ;
+  }
+  public static final class EventType extends java.lang.Object {
+    public native java.lang.String toString() ;
+    public static final javax.swing.event.DocumentEvent.EventType INSERT;
+    public static final javax.swing.event.DocumentEvent.EventType REMOVE;
+    public static final javax.swing.event.DocumentEvent.EventType CHANGE;
+  }
+}

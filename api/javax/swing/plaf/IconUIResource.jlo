@@ -1,0 +1,7 @@
+package javax.swing.plaf;
+public class IconUIResource extends java.lang.Object implements javax.swing.Icon, javax.swing.plaf.UIResource, java.io.Serializable {
+   public  IconUIResource(javax.swing.Icon a_r_g_u_m_e_n_t_0){}
+  public native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native int getIconWidth() ;
+  public native int getIconHeight() ;
+}

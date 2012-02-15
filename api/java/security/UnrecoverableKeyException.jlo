@@ -1,0 +1,5 @@
+package java.security;
+public class UnrecoverableKeyException extends java.security.UnrecoverableEntryException {
+   public  UnrecoverableKeyException(){}
+   public  UnrecoverableKeyException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

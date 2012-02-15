@@ -1,0 +1,16 @@
+package java.awt.im;
+public class InputContext extends java.lang.Object {
+   protected  InputContext(){}
+  public static native java.awt.im.InputContext getInstance() ;
+  public native void removeNotify(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void dispose() ;
+  public native void dispatchEvent(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Locale getLocale() ;
+  public native void endComposition() ;
+  public native boolean selectInputMethod(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public native void setCharacterSubsets(java.lang.Character.Subset[] a_r_g_u_m_e_n_t_0) ;
+  public native void setCompositionEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isCompositionEnabled() ;
+  public native void reconvert() ;
+  public native java.lang.Object getInputMethodControlObject() ;
+}

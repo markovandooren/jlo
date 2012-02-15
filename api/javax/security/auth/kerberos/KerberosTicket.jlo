@@ -1,0 +1,29 @@
+package javax.security.auth.kerberos;
+public class KerberosTicket extends java.lang.Object implements javax.security.auth.Destroyable, javax.security.auth.Refreshable, java.io.Serializable {
+   public  KerberosTicket(byte[] a_r_g_u_m_e_n_t_0, javax.security.auth.kerberos.KerberosPrincipal a_r_g_u_m_e_n_t_1, javax.security.auth.kerberos.KerberosPrincipal a_r_g_u_m_e_n_t_2, byte[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, boolean[] a_r_g_u_m_e_n_t_5, java.util.Date a_r_g_u_m_e_n_t_6, java.util.Date a_r_g_u_m_e_n_t_7, java.util.Date a_r_g_u_m_e_n_t_8, java.util.Date a_r_g_u_m_e_n_t_9, java.net.InetAddress[] a_r_g_u_m_e_n_t_10){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native void destroy()  throws javax.security.auth.DestroyFailedException;
+  public native boolean isDestroyed() ;
+  public final native boolean isProxy() ;
+  public final native byte[] getEncoded() ;
+  public native void refresh()  throws javax.security.auth.RefreshFailedException;
+  public final native boolean[] getFlags() ;
+  public final native javax.security.auth.kerberos.KerberosPrincipal getClient() ;
+  public final native javax.security.auth.kerberos.KerberosPrincipal getServer() ;
+  public final native javax.crypto.SecretKey getSessionKey() ;
+  public final native int getSessionKeyType() ;
+  public final native boolean isForwardable() ;
+  public final native boolean isForwarded() ;
+  public final native boolean isProxiable() ;
+  public final native boolean isPostdated() ;
+  public final native boolean isRenewable() ;
+  public final native boolean isInitial() ;
+  public final native java.util.Date getAuthTime() ;
+  public final native java.util.Date getStartTime() ;
+  public final native java.util.Date getEndTime() ;
+  public final native java.util.Date getRenewTill() ;
+  public final native java.net.InetAddress[] getClientAddresses() ;
+  public native boolean isCurrent() ;
+}

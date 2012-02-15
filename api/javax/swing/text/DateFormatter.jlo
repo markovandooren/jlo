@@ -1,0 +1,9 @@
+package javax.swing.text;
+public class DateFormatter extends javax.swing.text.InternationalFormatter {
+   public  DateFormatter(){}
+   public  DateFormatter(java.text.DateFormat a_r_g_u_m_e_n_t_0){}
+  public native void setFormat(java.text.DateFormat a_r_g_u_m_e_n_t_0) ;
+  native boolean getSupportsIncrement() ;
+  native java.lang.Object getAdjustField(int a_r_g_u_m_e_n_t_0, java.util.Map a_r_g_u_m_e_n_t_1) ;
+  native java.lang.Object adjustValue(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Map a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws javax.swing.text.BadLocationException, java.text.ParseException;
+}

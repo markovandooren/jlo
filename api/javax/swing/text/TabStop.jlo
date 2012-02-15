@@ -1,0 +1,22 @@
+package javax.swing.text;
+public class TabStop extends java.lang.Object implements java.io.Serializable {
+   public  TabStop(float a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  TabStop(float a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native float getPosition() ;
+  public native int getAlignment() ;
+  public native int getLeader() ;
+  public static final int ALIGN_LEFT;
+  public static final int ALIGN_RIGHT;
+  public static final int ALIGN_CENTER;
+  public static final int ALIGN_DECIMAL;
+  public static final int ALIGN_BAR;
+  public static final int LEAD_NONE;
+  public static final int LEAD_DOTS;
+  public static final int LEAD_HYPHENS;
+  public static final int LEAD_UNDERLINE;
+  public static final int LEAD_THICKLINE;
+  public static final int LEAD_EQUALS;
+}

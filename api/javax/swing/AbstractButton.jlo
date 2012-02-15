@@ -1,0 +1,181 @@
+package javax.swing;
+public abstract class AbstractButton extends javax.swing.JComponent implements java.awt.ItemSelectable, javax.swing.SwingConstants {
+   public  AbstractButton(){}
+  protected native void init(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.Icon a_r_g_u_m_e_n_t_1) ;
+  public native void setText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native boolean isSelected() ;
+  public native void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void updateUI() ;
+  public native void setUI(javax.swing.plaf.ButtonUI a_r_g_u_m_e_n_t_0) ;
+  protected native void paintBorder(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+  native void clientPropertyChanged(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  native void setUIProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native void removeNotify() ;
+  protected native java.lang.String paramString() ;
+  protected native void addImpl(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setLayout(java.awt.LayoutManager a_r_g_u_m_e_n_t_0) ;
+  public native boolean imageUpdate(java.awt.Image a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public native void setHideActionText(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean getHideActionText() ;
+  public native java.lang.String getText() ;
+  public native void setSelected(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void doClick() ;
+  public native void doClick(int a_r_g_u_m_e_n_t_0) ;
+  public native void setMargin(java.awt.Insets a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Insets getMargin() ;
+  public native javax.swing.Icon getIcon() ;
+  public native void setIcon(javax.swing.Icon a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Icon getPressedIcon() ;
+  public native void setPressedIcon(javax.swing.Icon a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Icon getSelectedIcon() ;
+  public native void setSelectedIcon(javax.swing.Icon a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Icon getRolloverIcon() ;
+  public native void setRolloverIcon(javax.swing.Icon a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Icon getRolloverSelectedIcon() ;
+  public native void setRolloverSelectedIcon(javax.swing.Icon a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Icon getDisabledIcon() ;
+  public native void setDisabledIcon(javax.swing.Icon a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Icon getDisabledSelectedIcon() ;
+  public native void setDisabledSelectedIcon(javax.swing.Icon a_r_g_u_m_e_n_t_0) ;
+  public native int getVerticalAlignment() ;
+  public native void setVerticalAlignment(int a_r_g_u_m_e_n_t_0) ;
+  public native int getHorizontalAlignment() ;
+  public native void setHorizontalAlignment(int a_r_g_u_m_e_n_t_0) ;
+  public native int getVerticalTextPosition() ;
+  public native void setVerticalTextPosition(int a_r_g_u_m_e_n_t_0) ;
+  public native int getHorizontalTextPosition() ;
+  public native void setHorizontalTextPosition(int a_r_g_u_m_e_n_t_0) ;
+  public native int getIconTextGap() ;
+  public native void setIconTextGap(int a_r_g_u_m_e_n_t_0) ;
+  protected native int checkHorizontalKey(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  protected native int checkVerticalKey(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native void setActionCommand(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getActionCommand() ;
+  public native void setAction(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Action getAction() ;
+  protected native void configurePropertiesFromAction(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  native boolean shouldUpdateSelectedStateFromAction() ;
+  protected native void actionPropertyChanged(javax.swing.Action a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  native void setIconFromAction(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  native void smallIconChanged(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  native void largeIconChanged(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  protected native java.beans.PropertyChangeListener createActionPropertyChangeListener(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  native java.beans.PropertyChangeListener createActionPropertyChangeListener0(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  public native boolean isBorderPainted() ;
+  public native void setBorderPainted(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isFocusPainted() ;
+  public native void setFocusPainted(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isContentAreaFilled() ;
+  public native void setContentAreaFilled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isRolloverEnabled() ;
+  public native void setRolloverEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native int getMnemonic() ;
+  public native void setMnemonic(char a_r_g_u_m_e_n_t_0) ;
+  public native void setMnemonic(int a_r_g_u_m_e_n_t_0) ;
+  public native void setDisplayedMnemonicIndex(int a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public native int getDisplayedMnemonicIndex() ;
+  public native void setMultiClickThreshhold(long a_r_g_u_m_e_n_t_0) ;
+  public native long getMultiClickThreshhold() ;
+  public native javax.swing.ButtonModel getModel() ;
+  public native void setModel(javax.swing.ButtonModel a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.plaf.ButtonUI getUI() ;
+  public native void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.ChangeListener[] getChangeListeners() ;
+  protected native void fireStateChanged() ;
+  public native void addActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.event.ActionListener[] getActionListeners() ;
+  protected native javax.swing.event.ChangeListener createChangeListener() ;
+  protected native void fireActionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void fireItemStateChanged(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.event.ActionListener createActionListener() ;
+  protected native java.awt.event.ItemListener createItemListener() ;
+  public native java.lang.String getLabel() ;
+  public native void setLabel(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void addItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.event.ItemListener[] getItemListeners() ;
+  public native java.lang.Object[] getSelectedObjects() ;
+  public static final java.lang.String MODEL_CHANGED_PROPERTY;
+  public static final java.lang.String TEXT_CHANGED_PROPERTY;
+  public static final java.lang.String MNEMONIC_CHANGED_PROPERTY;
+  public static final java.lang.String MARGIN_CHANGED_PROPERTY;
+  public static final java.lang.String VERTICAL_ALIGNMENT_CHANGED_PROPERTY;
+  public static final java.lang.String HORIZONTAL_ALIGNMENT_CHANGED_PROPERTY;
+  public static final java.lang.String VERTICAL_TEXT_POSITION_CHANGED_PROPERTY;
+  public static final java.lang.String HORIZONTAL_TEXT_POSITION_CHANGED_PROPERTY;
+  public static final java.lang.String BORDER_PAINTED_CHANGED_PROPERTY;
+  public static final java.lang.String FOCUS_PAINTED_CHANGED_PROPERTY;
+  public static final java.lang.String ROLLOVER_ENABLED_CHANGED_PROPERTY;
+  public static final java.lang.String CONTENT_AREA_FILLED_CHANGED_PROPERTY;
+  public static final java.lang.String ICON_CHANGED_PROPERTY;
+  public static final java.lang.String PRESSED_ICON_CHANGED_PROPERTY;
+  public static final java.lang.String SELECTED_ICON_CHANGED_PROPERTY;
+  public static final java.lang.String ROLLOVER_ICON_CHANGED_PROPERTY;
+  public static final java.lang.String ROLLOVER_SELECTED_ICON_CHANGED_PROPERTY;
+  public static final java.lang.String DISABLED_ICON_CHANGED_PROPERTY;
+  public static final java.lang.String DISABLED_SELECTED_ICON_CHANGED_PROPERTY;
+  protected javax.swing.ButtonModel model;
+  boolean defaultCapable;
+  protected javax.swing.event.ChangeListener changeListener;
+  protected java.awt.event.ActionListener actionListener;
+  protected java.awt.event.ItemListener itemListener;
+  protected transient javax.swing.event.ChangeEvent changeEvent;
+  protected abstract class AccessibleAbstractButton extends javax.swing.JComponent.AccessibleJComponent implements javax.accessibility.AccessibleAction, javax.accessibility.AccessibleValue, javax.accessibility.AccessibleText, javax.accessibility.AccessibleExtendedComponent {
+     protected  AccessibleAbstractButton(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0){}
+    public native java.lang.String getToolTipText() ;
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native java.lang.String getAccessibleName() ;
+    public native javax.accessibility.AccessibleIcon[] getAccessibleIcon() ;
+    public native javax.accessibility.AccessibleRelationSet getAccessibleRelationSet() ;
+    public native javax.accessibility.AccessibleAction getAccessibleAction() ;
+    public native javax.accessibility.AccessibleValue getAccessibleValue() ;
+    public native int getAccessibleActionCount() ;
+    public native java.lang.String getAccessibleActionDescription(int a_r_g_u_m_e_n_t_0) ;
+    public native boolean doAccessibleAction(int a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Number getCurrentAccessibleValue() ;
+    public native boolean setCurrentAccessibleValue(java.lang.Number a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Number getMinimumAccessibleValue() ;
+    public native java.lang.Number getMaximumAccessibleValue() ;
+    public native javax.accessibility.AccessibleText getAccessibleText() ;
+    public native int getIndexAtPoint(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Rectangle getCharacterBounds(int a_r_g_u_m_e_n_t_0) ;
+    public native int getCharCount() ;
+    public native int getCaretPosition() ;
+    public native java.lang.String getAtIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getAfterIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getBeforeIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native javax.swing.text.AttributeSet getCharacterAttribute(int a_r_g_u_m_e_n_t_0) ;
+    public native int getSelectionStart() ;
+    public native int getSelectionEnd() ;
+    public native java.lang.String getSelectedText() ;
+    native javax.accessibility.AccessibleExtendedComponent getAccessibleExtendedComponent() ;
+    public native java.lang.String getTitledBorderText() ;
+    public native javax.accessibility.AccessibleKeyBinding getAccessibleKeyBinding() ;
+    final javax.swing.AbstractButton this$0;
+    class ButtonKeyBinding extends java.lang.Object implements javax.accessibility.AccessibleKeyBinding {
+        ButtonKeyBinding(javax.swing.AbstractButton.AccessibleAbstractButton a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+      public native java.lang.Object getAccessibleKeyBinding(int a_r_g_u_m_e_n_t_0) ;
+      public native int getAccessibleKeyBindingCount() ;
+      int mnemonic;
+      final javax.swing.AbstractButton.AccessibleAbstractButton this$1;
+    }
+  }
+  class Handler extends java.lang.Object implements java.awt.event.ActionListener, javax.swing.event.ChangeListener, java.awt.event.ItemListener, java.io.Serializable {
+      Handler(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native void itemStateChanged(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.AbstractButton this$0;
+  }
+  protected class ButtonChangeListener extends java.lang.Object implements javax.swing.event.ChangeListener, java.io.Serializable {
+      ButtonChangeListener(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0){}
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.AbstractButton this$0;
+  }
+  private static class ButtonActionPropertyChangeListener extends javax.swing.ActionPropertyChangeListener<javax.swing.AbstractButton> {
+      ButtonActionPropertyChangeListener(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0, javax.swing.Action a_r_g_u_m_e_n_t_1){}
+    protected native void actionPropertyChanged(javax.swing.AbstractButton a_r_g_u_m_e_n_t_0, javax.swing.Action a_r_g_u_m_e_n_t_1, java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_2) ;
+  }
+}

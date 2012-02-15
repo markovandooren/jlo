@@ -1,0 +1,25 @@
+package java.awt.dnd;
+public class DragSourceContext extends java.lang.Object implements java.awt.dnd.DragSourceListener, java.awt.dnd.DragSourceMotionListener, java.io.Serializable {
+   public  DragSourceContext(java.awt.dnd.peer.DragSourceContextPeer a_r_g_u_m_e_n_t_0, java.awt.dnd.DragGestureEvent a_r_g_u_m_e_n_t_1, java.awt.Cursor a_r_g_u_m_e_n_t_2, java.awt.Image a_r_g_u_m_e_n_t_3, java.awt.Point a_r_g_u_m_e_n_t_4, java.awt.datatransfer.Transferable a_r_g_u_m_e_n_t_5, java.awt.dnd.DragSourceListener a_r_g_u_m_e_n_t_6){}
+  public native java.awt.Component getComponent() ;
+  public native java.awt.Cursor getCursor() ;
+  public synchronized native void setCursor(java.awt.Cursor a_r_g_u_m_e_n_t_0) ;
+  public native int getSourceActions() ;
+  public native java.awt.datatransfer.Transferable getTransferable() ;
+  public native void dragEnter(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dragOver(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dropActionChanged(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dragExit(java.awt.dnd.DragSourceEvent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.dnd.DragGestureEvent getTrigger() ;
+  public native java.awt.dnd.DragSource getDragSource() ;
+  public synchronized native void addDragSourceListener(java.awt.dnd.DragSourceListener a_r_g_u_m_e_n_t_0)  throws java.util.TooManyListenersException;
+  public synchronized native void removeDragSourceListener(java.awt.dnd.DragSourceListener a_r_g_u_m_e_n_t_0) ;
+  public native void dragDropEnd(java.awt.dnd.DragSourceDropEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dragMouseMoved(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public native void transferablesFlavorsChanged() ;
+  protected synchronized native void updateCurrentCursor(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected static final int DEFAULT;
+  protected static final int ENTER;
+  protected static final int OVER;
+  protected static final int CHANGED;
+}

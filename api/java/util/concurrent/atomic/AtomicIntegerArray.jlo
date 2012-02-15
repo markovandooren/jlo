@@ -1,0 +1,19 @@
+package java.util.concurrent.atomic;
+public class AtomicIntegerArray extends java.lang.Object implements java.io.Serializable {
+   public  AtomicIntegerArray(int a_r_g_u_m_e_n_t_0){}
+   public  AtomicIntegerArray(int[] a_r_g_u_m_e_n_t_0){}
+  public final native int get(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public final native int length() ;
+  public final native void set(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public final native int getAndAdd(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public final native void lazySet(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public final native int getAndSet(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public final native boolean compareAndSet(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public final native boolean weakCompareAndSet(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public final native int getAndIncrement(int a_r_g_u_m_e_n_t_0) ;
+  public final native int getAndDecrement(int a_r_g_u_m_e_n_t_0) ;
+  public final native int incrementAndGet(int a_r_g_u_m_e_n_t_0) ;
+  public final native int decrementAndGet(int a_r_g_u_m_e_n_t_0) ;
+  public final native int addAndGet(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+}

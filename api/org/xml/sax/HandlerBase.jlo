@@ -1,0 +1,18 @@
+package org.xml.sax;
+public class HandlerBase extends java.lang.Object implements org.xml.sax.EntityResolver, org.xml.sax.DTDHandler, org.xml.sax.DocumentHandler, org.xml.sax.ErrorHandler {
+   public  HandlerBase(){}
+  public native void fatalError(org.xml.sax.SAXParseException a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
+  public native void error(org.xml.sax.SAXParseException a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
+  public native void warning(org.xml.sax.SAXParseException a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
+  public native void setDocumentLocator(org.xml.sax.Locator a_r_g_u_m_e_n_t_0) ;
+  public native void startDocument()  throws org.xml.sax.SAXException;
+  public native void endDocument()  throws org.xml.sax.SAXException;
+  public native void startElement(java.lang.String a_r_g_u_m_e_n_t_0, org.xml.sax.AttributeList a_r_g_u_m_e_n_t_1)  throws org.xml.sax.SAXException;
+  public native void endElement(java.lang.String a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
+  public native void characters(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws org.xml.sax.SAXException;
+  public native void ignorableWhitespace(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws org.xml.sax.SAXException;
+  public native void processingInstruction(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws org.xml.sax.SAXException;
+  public native org.xml.sax.InputSource resolveEntity(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws org.xml.sax.SAXException;
+  public native void notationDecl(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) ;
+  public native void unparsedEntityDecl(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3) ;
+}

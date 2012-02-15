@@ -1,0 +1,6 @@
+package javax.naming.ldap;
+public abstract interface ExtendedRequest extends java.io.Serializable {
+  public abstract java.lang.String getID() ;
+  public abstract byte[] getEncodedValue() ;
+  public abstract javax.naming.ldap.ExtendedResponse createExtendedResponse(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws javax.naming.NamingException;
+}

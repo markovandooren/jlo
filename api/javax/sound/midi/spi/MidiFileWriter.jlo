@@ -1,0 +1,10 @@
+package javax.sound.midi.spi;
+public abstract class MidiFileWriter extends java.lang.Object {
+   public  MidiFileWriter(){}
+  public abstract int write(javax.sound.midi.Sequence a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.io.OutputStream a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public abstract int write(javax.sound.midi.Sequence a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.io.File a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native boolean isFileTypeSupported(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isFileTypeSupported(int a_r_g_u_m_e_n_t_0, javax.sound.midi.Sequence a_r_g_u_m_e_n_t_1) ;
+  public abstract int[] getMidiFileTypes() ;
+  public abstract int[] getMidiFileTypes(javax.sound.midi.Sequence a_r_g_u_m_e_n_t_0) ;
+}

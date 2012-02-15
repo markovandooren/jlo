@@ -1,0 +1,40 @@
+package java.awt.dnd;
+public class DropTarget extends java.lang.Object implements java.awt.dnd.DropTargetListener, java.io.Serializable {
+   public  DropTarget(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.dnd.DropTargetListener a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, java.awt.datatransfer.FlavorMap a_r_g_u_m_e_n_t_4) throws java.awt.HeadlessException{}
+   public  DropTarget(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.dnd.DropTargetListener a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) throws java.awt.HeadlessException{}
+   public  DropTarget() throws java.awt.HeadlessException{}
+   public  DropTarget(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.dnd.DropTargetListener a_r_g_u_m_e_n_t_1) throws java.awt.HeadlessException{}
+   public  DropTarget(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.dnd.DropTargetListener a_r_g_u_m_e_n_t_2) throws java.awt.HeadlessException{}
+  public synchronized native java.awt.Component getComponent() ;
+  public native void addNotify(java.awt.peer.ComponentPeer a_r_g_u_m_e_n_t_0) ;
+  public native void removeNotify(java.awt.peer.ComponentPeer a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native boolean isActive() ;
+  public synchronized native void setActive(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setDefaultActions(int a_r_g_u_m_e_n_t_0) ;
+  native void doSetDefaultActions(int a_r_g_u_m_e_n_t_0) ;
+  public native int getDefaultActions() ;
+  public synchronized native void addDropTargetListener(java.awt.dnd.DropTargetListener a_r_g_u_m_e_n_t_0)  throws java.util.TooManyListenersException;
+  public synchronized native void removeDropTargetListener(java.awt.dnd.DropTargetListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void dragEnter(java.awt.dnd.DropTargetDragEvent a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void dragOver(java.awt.dnd.DropTargetDragEvent a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void dropActionChanged(java.awt.dnd.DropTargetDragEvent a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void dragExit(java.awt.dnd.DropTargetEvent a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void drop(java.awt.dnd.DropTargetDropEvent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.datatransfer.FlavorMap getFlavorMap() ;
+  public native void setFlavorMap(java.awt.datatransfer.FlavorMap a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.dnd.DropTargetContext getDropTargetContext() ;
+  protected native java.awt.dnd.DropTargetContext createDropTargetContext() ;
+  protected native java.awt.dnd.DropTarget.DropTargetAutoScroller createDropTargetAutoScroller(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1) ;
+  protected native void initializeAutoscrolling(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  protected native void updateAutoscroll(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  protected native void clearAutoscroll() ;
+  int actions;
+  boolean active;
+  protected static class DropTargetAutoScroller extends java.lang.Object implements java.awt.event.ActionListener {
+     protected  DropTargetAutoScroller(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1){}
+    protected native void stop() ;
+    public synchronized native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    protected synchronized native void updateLocation(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  }
+}

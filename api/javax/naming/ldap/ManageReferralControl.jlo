@@ -1,0 +1,6 @@
+package javax.naming.ldap;
+public final class ManageReferralControl extends javax.naming.ldap.BasicControl {
+   public  ManageReferralControl(){}
+   public  ManageReferralControl(boolean a_r_g_u_m_e_n_t_0){}
+  public static final java.lang.String OID;
+}

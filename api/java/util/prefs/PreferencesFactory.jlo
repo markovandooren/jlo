@@ -1,0 +1,5 @@
+package java.util.prefs;
+public abstract interface PreferencesFactory {
+  public abstract java.util.prefs.Preferences userRoot() ;
+  public abstract java.util.prefs.Preferences systemRoot() ;
+}

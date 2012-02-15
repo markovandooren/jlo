@@ -1,0 +1,8 @@
+package javax.print;
+public abstract interface URIException {
+  public abstract int getReason() ;
+  public abstract java.net.URI getUnsupportedURI() ;
+  public static final int URIInaccessible;
+  public static final int URISchemeNotSupported;
+  public static final int URIOtherProblem;
+}

@@ -1,0 +1,5 @@
+package java.rmi.server;
+public class SkeletonNotFoundException extends java.rmi.RemoteException {
+   public  SkeletonNotFoundException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  SkeletonNotFoundException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Exception a_r_g_u_m_e_n_t_1){}
+}

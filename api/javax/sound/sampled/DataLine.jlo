@@ -1,0 +1,27 @@
+package javax.sound.sampled;
+public abstract interface DataLine extends javax.sound.sampled.Line {
+  public abstract void start() ;
+  public abstract void stop() ;
+  public abstract void flush() ;
+  public abstract int available() ;
+  public abstract javax.sound.sampled.AudioFormat getFormat() ;
+  public abstract void drain() ;
+  public abstract boolean isRunning() ;
+  public abstract float getLevel() ;
+  public abstract boolean isActive() ;
+  public abstract int getBufferSize() ;
+  public abstract int getFramePosition() ;
+  public abstract long getLongFramePosition() ;
+  public abstract long getMicrosecondPosition() ;
+  public static class Info extends javax.sound.sampled.Line.Info {
+     public  Info(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioFormat[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+     public  Info(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+     public  Info(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_1){}
+    public native java.lang.String toString() ;
+    public native boolean matches(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0) ;
+    public native javax.sound.sampled.AudioFormat[] getFormats() ;
+    public native boolean isFormatSupported(javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_0) ;
+    public native int getMinBufferSize() ;
+    public native int getMaxBufferSize() ;
+  }
+}

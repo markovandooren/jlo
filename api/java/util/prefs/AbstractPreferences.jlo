@@ -1,0 +1,66 @@
+package java.util.prefs;
+public abstract class AbstractPreferences extends java.util.prefs.Preferences {
+   protected  AbstractPreferences(java.util.prefs.AbstractPreferences a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public native java.lang.String name() ;
+  public native java.util.prefs.Preferences parent() ;
+  public native java.lang.String get(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native void put(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native boolean getBoolean(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native void putBoolean(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native int getInt(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void putInt(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native long getLong(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public native void putLong(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public native float getFloat(java.lang.String a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native void putFloat(java.lang.String a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native double getDouble(java.lang.String a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void putDouble(java.lang.String a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void clear()  throws java.util.prefs.BackingStoreException;
+  public native java.lang.String toString() ;
+  public native void remove(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String[] keys()  throws java.util.prefs.BackingStoreException;
+  public native void flush()  throws java.util.prefs.BackingStoreException;
+  public native void sync()  throws java.util.prefs.BackingStoreException;
+  protected native java.util.prefs.AbstractPreferences getChild(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.util.prefs.BackingStoreException;
+  public native java.lang.String absolutePath() ;
+  native java.util.prefs.PreferenceChangeListener[] prefListeners() ;
+  native java.util.prefs.NodeChangeListener[] nodeListeners() ;
+  public native void putByteArray(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1) ;
+  public native byte[] getByteArray(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String[] childrenNames()  throws java.util.prefs.BackingStoreException;
+  protected final native java.util.prefs.AbstractPreferences[] cachedChildren() ;
+  public native java.util.prefs.Preferences node(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native boolean nodeExists(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.util.prefs.BackingStoreException;
+  public native void removeNode()  throws java.util.prefs.BackingStoreException;
+  public native boolean isUserNode() ;
+  public native void addPreferenceChangeListener(java.util.prefs.PreferenceChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removePreferenceChangeListener(java.util.prefs.PreferenceChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void addNodeChangeListener(java.util.prefs.NodeChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeNodeChangeListener(java.util.prefs.NodeChangeListener a_r_g_u_m_e_n_t_0) ;
+  protected abstract void putSpi(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  protected abstract java.lang.String getSpi(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected abstract void removeSpi(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected abstract void removeNodeSpi()  throws java.util.prefs.BackingStoreException;
+  protected abstract java.lang.String[] keysSpi()  throws java.util.prefs.BackingStoreException;
+  protected abstract java.lang.String[] childrenNamesSpi()  throws java.util.prefs.BackingStoreException;
+  protected abstract java.util.prefs.AbstractPreferences childSpi(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected abstract void syncSpi()  throws java.util.prefs.BackingStoreException;
+  protected abstract void flushSpi()  throws java.util.prefs.BackingStoreException;
+  protected native boolean isRemoved() ;
+  public native void exportNode(java.io.OutputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.util.prefs.BackingStoreException;
+  public native void exportSubtree(java.io.OutputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.util.prefs.BackingStoreException;
+  final java.util.prefs.AbstractPreferences parent;
+  protected boolean newNode;
+  protected final java.lang.Object lock;
+  private static class EventDispatchThread extends java.lang.Thread {
+    public native void run() ;
+  }
+  private class NodeRemovedEvent extends java.util.prefs.NodeChangeEvent {
+      NodeRemovedEvent(java.util.prefs.AbstractPreferences a_r_g_u_m_e_n_t_0, java.util.prefs.Preferences a_r_g_u_m_e_n_t_1, java.util.prefs.Preferences a_r_g_u_m_e_n_t_2){}
+    final java.util.prefs.AbstractPreferences this$0;
+  }
+  private class NodeAddedEvent extends java.util.prefs.NodeChangeEvent {
+      NodeAddedEvent(java.util.prefs.AbstractPreferences a_r_g_u_m_e_n_t_0, java.util.prefs.Preferences a_r_g_u_m_e_n_t_1, java.util.prefs.Preferences a_r_g_u_m_e_n_t_2){}
+    final java.util.prefs.AbstractPreferences this$0;
+  }
+}

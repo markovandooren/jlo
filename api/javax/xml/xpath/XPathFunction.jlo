@@ -1,0 +1,4 @@
+package javax.xml.xpath;
+public abstract interface XPathFunction {
+  public abstract java.lang.Object evaluate(java.util.List a_r_g_u_m_e_n_t_0)  throws javax.xml.xpath.XPathFunctionException;
+}

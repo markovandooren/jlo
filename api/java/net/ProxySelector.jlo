@@ -1,0 +1,8 @@
+package java.net;
+public abstract class ProxySelector extends java.lang.Object {
+   public  ProxySelector(){}
+  public static native java.net.ProxySelector getDefault() ;
+  public static native void setDefault(java.net.ProxySelector a_r_g_u_m_e_n_t_0) ;
+  public abstract java.util.List<java.net.Proxy> select(java.net.URI a_r_g_u_m_e_n_t_0) ;
+  public abstract void connectFailed(java.net.URI a_r_g_u_m_e_n_t_0, java.net.SocketAddress a_r_g_u_m_e_n_t_1, java.io.IOException a_r_g_u_m_e_n_t_2) ;
+}

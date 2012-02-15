@@ -1,0 +1,57 @@
+package java.security;
+public abstract class Provider extends java.util.Properties {
+   protected  Provider(java.lang.String a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+  public native java.lang.Object get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.Object put(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String getProperty(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void clear() ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getName() ;
+  public native java.util.Collection<java.lang.Object> values() ;
+  public synchronized native java.util.Set<java.util.Map.Entry<java.lang.Object,java.lang.Object>> entrySet() ;
+  public synchronized native void putAll(java.util.Map<? extends java.lang.Object,? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.Object remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void load(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native java.util.Enumeration<java.lang.Object> elements() ;
+  public native java.util.Enumeration<java.lang.Object> keys() ;
+  public native java.util.Set<java.lang.Object> keySet() ;
+  public synchronized native java.security.Provider.Service getService(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.util.Set<java.security.Provider.Service> getServices() ;
+  public native double getVersion() ;
+  public native java.lang.String getInfo() ;
+  protected synchronized native void putService(java.security.Provider.Service a_r_g_u_m_e_n_t_0) ;
+  protected synchronized native void removeService(java.security.Provider.Service a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+  public static class Service extends java.lang.Object {
+     public  Service(java.security.Provider a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.util.List<java.lang.String> a_r_g_u_m_e_n_t_4, java.util.Map<java.lang.String,java.lang.String> a_r_g_u_m_e_n_t_5){}
+    public native java.lang.String toString() ;
+    public native java.lang.Object newInstance(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+    public final native java.lang.String getType() ;
+    public final native java.lang.String getClassName() ;
+    public final native java.lang.String getAlgorithm() ;
+    public final native java.lang.String getAttribute(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public final native java.security.Provider getProvider() ;
+    native void addAttribute(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+    public native boolean supportsParameter(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  }
+  private static class EngineDescription extends java.lang.Object {
+      EngineDescription(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+    native java.lang.Class getConstructorParameterClass()  throws java.lang.ClassNotFoundException;
+    final java.lang.String name;
+    final boolean supportsParameter;
+    final java.lang.String constructorParameterClassName;
+  }
+  private static class UString extends java.lang.Object {
+      UString(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String toString() ;
+    final java.lang.String string;
+    final java.lang.String lowerString;
+  }
+  private static class ServiceKey extends java.lang.Object {
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    native boolean matches(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  }
+}

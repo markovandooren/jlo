@@ -1,0 +1,9 @@
+package javax.print;
+public final class SimpleDoc extends java.lang.Object implements javax.print.Doc {
+   public  SimpleDoc(java.lang.Object a_r_g_u_m_e_n_t_0, javax.print.DocFlavor a_r_g_u_m_e_n_t_1, javax.print.attribute.DocAttributeSet a_r_g_u_m_e_n_t_2){}
+  public native javax.print.attribute.DocAttributeSet getAttributes() ;
+  public native java.io.Reader getReaderForText()  throws java.io.IOException;
+  public native javax.print.DocFlavor getDocFlavor() ;
+  public native java.lang.Object getPrintData()  throws java.io.IOException;
+  public native java.io.InputStream getStreamForBytes()  throws java.io.IOException;
+}

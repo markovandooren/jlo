@@ -1,0 +1,4 @@
+package javax.swing.plaf;
+public abstract class MenuItemUI extends javax.swing.plaf.ButtonUI {
+   public  MenuItemUI(){}
+}

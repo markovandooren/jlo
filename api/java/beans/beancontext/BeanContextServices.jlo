@@ -1,0 +1,12 @@
+package java.beans.beancontext;
+public abstract interface BeanContextServices extends java.beans.beancontext.BeanContext, java.beans.beancontext.BeanContextServicesListener {
+  public abstract java.lang.Object getService(java.beans.beancontext.BeanContextChild a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Class a_r_g_u_m_e_n_t_2, java.lang.Object a_r_g_u_m_e_n_t_3, java.beans.beancontext.BeanContextServiceRevokedListener a_r_g_u_m_e_n_t_4)  throws java.util.TooManyListenersException;
+  public abstract boolean addService(java.lang.Class a_r_g_u_m_e_n_t_0, java.beans.beancontext.BeanContextServiceProvider a_r_g_u_m_e_n_t_1) ;
+  public abstract java.util.Iterator getCurrentServiceSelectors(java.lang.Class a_r_g_u_m_e_n_t_0) ;
+  public abstract void revokeService(java.lang.Class a_r_g_u_m_e_n_t_0, java.beans.beancontext.BeanContextServiceProvider a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public abstract boolean hasService(java.lang.Class a_r_g_u_m_e_n_t_0) ;
+  public abstract void releaseService(java.beans.beancontext.BeanContextChild a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public abstract java.util.Iterator getCurrentServiceClasses() ;
+  public abstract void addBeanContextServicesListener(java.beans.beancontext.BeanContextServicesListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeBeanContextServicesListener(java.beans.beancontext.BeanContextServicesListener a_r_g_u_m_e_n_t_0) ;
+}

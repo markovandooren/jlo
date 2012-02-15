@@ -1,0 +1,12 @@
+package javax.sound.sampled;
+public abstract class EnumControl extends javax.sound.sampled.Control {
+   protected  EnumControl(javax.sound.sampled.EnumControl.Type a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2){}
+  public native java.lang.String toString() ;
+  public native java.lang.Object getValue() ;
+  public native void setValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object[] getValues() ;
+  public static class Type extends javax.sound.sampled.Control.Type {
+     protected  Type(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public static final javax.sound.sampled.EnumControl.Type REVERB;
+  }
+}

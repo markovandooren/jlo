@@ -1,0 +1,5 @@
+package java.beans;
+public class IndexedPropertyChangeEvent extends java.beans.PropertyChangeEvent {
+   public  IndexedPropertyChangeEvent(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, java.lang.Object a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+  public native int getIndex() ;
+}

@@ -1,0 +1,4 @@
+package java.rmi;
+public class RMISecurityManager extends java.lang.SecurityManager {
+   public  RMISecurityManager(){}
+}

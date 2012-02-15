@@ -1,0 +1,75 @@
+package java.util.concurrent;
+public class ThreadPoolExecutor extends java.util.concurrent.AbstractExecutorService {
+   public  ThreadPoolExecutor(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_3, java.util.concurrent.BlockingQueue<java.lang.Runnable> a_r_g_u_m_e_n_t_4){}
+   public  ThreadPoolExecutor(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_3, java.util.concurrent.BlockingQueue<java.lang.Runnable> a_r_g_u_m_e_n_t_4, java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_5){}
+   public  ThreadPoolExecutor(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_3, java.util.concurrent.BlockingQueue<java.lang.Runnable> a_r_g_u_m_e_n_t_4, java.util.concurrent.RejectedExecutionHandler a_r_g_u_m_e_n_t_5){}
+   public  ThreadPoolExecutor(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_3, java.util.concurrent.BlockingQueue<java.lang.Runnable> a_r_g_u_m_e_n_t_4, java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_5, java.util.concurrent.RejectedExecutionHandler a_r_g_u_m_e_n_t_6){}
+  public native void shutdown() ;
+  protected native void finalize() ;
+  public native boolean remove(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  public native boolean awaitTermination(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1)  throws java.lang.InterruptedException;
+  public native void execute(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  public native java.util.concurrent.BlockingQueue<java.lang.Runnable> getQueue() ;
+  public native java.util.List<java.lang.Runnable> shutdownNow() ;
+  public native boolean isShutdown() ;
+  public native boolean isTerminated() ;
+  native void reject(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  public native int getPoolSize() ;
+  public native int getCorePoolSize() ;
+  public native boolean prestartCoreThread() ;
+  public native void purge() ;
+  public native void allowCoreThreadTimeOut(boolean a_r_g_u_m_e_n_t_0) ;
+  native java.lang.Runnable getTask() ;
+  native void interruptIdleWorkers() ;
+  native void workerDone(java.util.concurrent.ThreadPoolExecutor.Worker a_r_g_u_m_e_n_t_0) ;
+  public native boolean isTerminating() ;
+  public native void setThreadFactory(java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_0) ;
+  public native java.util.concurrent.ThreadFactory getThreadFactory() ;
+  public native void setRejectedExecutionHandler(java.util.concurrent.RejectedExecutionHandler a_r_g_u_m_e_n_t_0) ;
+  public native java.util.concurrent.RejectedExecutionHandler getRejectedExecutionHandler() ;
+  public native void setCorePoolSize(int a_r_g_u_m_e_n_t_0) ;
+  public native int prestartAllCoreThreads() ;
+  public native boolean allowsCoreThreadTimeOut() ;
+  public native void setMaximumPoolSize(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMaximumPoolSize() ;
+  public native void setKeepAliveTime(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1) ;
+  public native long getKeepAliveTime(java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_0) ;
+  public native int getActiveCount() ;
+  public native int getLargestPoolSize() ;
+  public native long getTaskCount() ;
+  public native long getCompletedTaskCount() ;
+  protected native void beforeExecute(java.lang.Thread a_r_g_u_m_e_n_t_0, java.lang.Runnable a_r_g_u_m_e_n_t_1) ;
+  protected native void afterExecute(java.lang.Runnable a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1) ;
+  protected native void terminated() ;
+  volatile int runState;
+  static final int RUNNING;
+  static final int SHUTDOWN;
+  static final int STOP;
+  static final int TERMINATED;
+  public static class DiscardOldestPolicy extends java.lang.Object implements java.util.concurrent.RejectedExecutionHandler {
+     public  DiscardOldestPolicy(){}
+    public native void rejectedExecution(java.lang.Runnable a_r_g_u_m_e_n_t_0, java.util.concurrent.ThreadPoolExecutor a_r_g_u_m_e_n_t_1) ;
+  }
+  public static class DiscardPolicy extends java.lang.Object implements java.util.concurrent.RejectedExecutionHandler {
+     public  DiscardPolicy(){}
+    public native void rejectedExecution(java.lang.Runnable a_r_g_u_m_e_n_t_0, java.util.concurrent.ThreadPoolExecutor a_r_g_u_m_e_n_t_1) ;
+  }
+  public static class AbortPolicy extends java.lang.Object implements java.util.concurrent.RejectedExecutionHandler {
+     public  AbortPolicy(){}
+    public native void rejectedExecution(java.lang.Runnable a_r_g_u_m_e_n_t_0, java.util.concurrent.ThreadPoolExecutor a_r_g_u_m_e_n_t_1) ;
+  }
+  public static class CallerRunsPolicy extends java.lang.Object implements java.util.concurrent.RejectedExecutionHandler {
+     public  CallerRunsPolicy(){}
+    public native void rejectedExecution(java.lang.Runnable a_r_g_u_m_e_n_t_0, java.util.concurrent.ThreadPoolExecutor a_r_g_u_m_e_n_t_1) ;
+  }
+  private final class Worker extends java.lang.Object implements java.lang.Runnable {
+      Worker(java.util.concurrent.ThreadPoolExecutor a_r_g_u_m_e_n_t_0, java.lang.Runnable a_r_g_u_m_e_n_t_1){}
+    public native void run() ;
+    native boolean isActive() ;
+    native void interruptIfIdle() ;
+    native void interruptNow() ;
+    volatile long completedTasks;
+    java.lang.Thread thread;
+    final java.util.concurrent.ThreadPoolExecutor this$0;
+  }
+}

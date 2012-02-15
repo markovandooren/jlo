@@ -1,0 +1,6 @@
+package java.util.logging;
+public class SimpleFormatter extends java.util.logging.Formatter {
+   public  SimpleFormatter(){}
+  public synchronized native java.lang.String format(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
+  java.util.Date dat;
+}

@@ -1,0 +1,25 @@
+package javax.swing.text.html;
+public class FormView extends javax.swing.text.ComponentView implements java.awt.event.ActionListener {
+   public  FormView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+  public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.Component createComponent() ;
+  public native float getMaximumSpan(int a_r_g_u_m_e_n_t_0) ;
+  protected native void submitData(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected native void imageSubmit(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  native void getFormData(java.lang.StringBuffer a_r_g_u_m_e_n_t_0) ;
+  native boolean isLastTextOrPasswordField() ;
+  native void resetForm() ;
+  public static final java.lang.String SUBMIT;
+  public static final java.lang.String RESET;
+  static final java.lang.String PostDataProperty;
+  private class BrowseFileAction extends java.lang.Object implements java.awt.event.ActionListener {
+      BrowseFileAction(javax.swing.text.html.FormView a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1, javax.swing.text.Document a_r_g_u_m_e_n_t_2){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.html.FormView this$0;
+  }
+  protected class MouseEventListener extends java.awt.event.MouseAdapter {
+     protected  MouseEventListener(javax.swing.text.html.FormView a_r_g_u_m_e_n_t_0){}
+    public native void mouseReleased(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.html.FormView this$0;
+  }
+}

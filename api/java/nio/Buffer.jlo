@@ -1,0 +1,30 @@
+package java.nio;
+public abstract class Buffer extends java.lang.Object {
+    Buffer(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+  public final native int limit() ;
+  public final native java.nio.Buffer limit(int a_r_g_u_m_e_n_t_0) ;
+  final native int checkIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  final native int checkIndex(int a_r_g_u_m_e_n_t_0) ;
+  public final native java.nio.Buffer clear() ;
+  static native void checkBounds(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public final native int remaining() ;
+  public abstract boolean isDirect() ;
+  public abstract boolean hasArray() ;
+  public abstract java.lang.Object array() ;
+  public final native java.nio.Buffer position(int a_r_g_u_m_e_n_t_0) ;
+  public final native int position() ;
+  public abstract int arrayOffset() ;
+  public final native int capacity() ;
+  public final native java.nio.Buffer mark() ;
+  public final native java.nio.Buffer reset() ;
+  public final native java.nio.Buffer flip() ;
+  public final native java.nio.Buffer rewind() ;
+  public final native boolean hasRemaining() ;
+  public abstract boolean isReadOnly() ;
+  final native int nextGetIndex(int a_r_g_u_m_e_n_t_0) ;
+  final native int nextGetIndex() ;
+  final native int nextPutIndex(int a_r_g_u_m_e_n_t_0) ;
+  final native int nextPutIndex() ;
+  final native int markValue() ;
+  long address;
+}

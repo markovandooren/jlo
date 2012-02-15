@@ -1,0 +1,8 @@
+package org.w3c.dom.bootstrap;
+public final class DOMImplementationRegistry extends java.lang.Object {
+  public static native org.w3c.dom.bootstrap.DOMImplementationRegistry newInstance()  throws java.lang.ClassNotFoundException, java.lang.InstantiationException, java.lang.IllegalAccessException, java.lang.ClassCastException;
+  public native void addSource(org.w3c.dom.DOMImplementationSource a_r_g_u_m_e_n_t_0) ;
+  public native org.w3c.dom.DOMImplementation getDOMImplementation(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native org.w3c.dom.DOMImplementationList getDOMImplementationList(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static final java.lang.String PROPERTY;
+}

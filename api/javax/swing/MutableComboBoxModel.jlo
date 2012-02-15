@@ -1,0 +1,7 @@
+package javax.swing;
+public abstract interface MutableComboBoxModel extends javax.swing.ComboBoxModel {
+  public abstract void addElement(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeElementAt(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void insertElementAt(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void removeElement(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+}

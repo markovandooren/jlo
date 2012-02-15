@@ -1,0 +1,139 @@
+package javax.swing.plaf.basic;
+public class BasicComboPopup extends javax.swing.JPopupMenu implements javax.swing.plaf.basic.ComboPopup {
+   public  BasicComboPopup(javax.swing.JComboBox a_r_g_u_m_e_n_t_0){}
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void show() ;
+  public native void hide() ;
+  public native boolean isFocusTraversable() ;
+  protected native java.awt.event.ItemListener createItemListener() ;
+  protected native javax.swing.JList createList() ;
+  protected native void installKeyboardActions() ;
+  protected native void uninstallKeyboardActions() ;
+  protected native java.beans.PropertyChangeListener createPropertyChangeListener() ;
+  protected native java.awt.event.KeyListener createKeyListener() ;
+  protected native javax.swing.event.ListDataListener createListDataListener() ;
+  protected native void togglePopup() ;
+  public native javax.swing.JList getList() ;
+  public native void uninstallingUI() ;
+  public native java.awt.event.MouseListener getMouseListener() ;
+  public native java.awt.event.MouseMotionListener getMouseMotionListener() ;
+  public native java.awt.event.KeyListener getKeyListener() ;
+  protected native void firePopupMenuWillBecomeVisible() ;
+  protected native void firePopupMenuWillBecomeInvisible() ;
+  protected native void firePopupMenuCanceled() ;
+  protected native void uninstallComboBoxModelListeners(javax.swing.ComboBoxModel a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.event.MouseListener createMouseListener() ;
+  protected native java.awt.event.MouseMotionListener createMouseMotionListener() ;
+  protected native javax.swing.event.ListSelectionListener createListSelectionListener() ;
+  protected native java.awt.event.MouseListener createListMouseListener() ;
+  protected native java.awt.event.MouseMotionListener createListMouseMotionListener() ;
+  protected native void configureList() ;
+  protected native void installListListeners() ;
+  native void uninstallListListeners() ;
+  protected native javax.swing.JScrollPane createScroller() ;
+  protected native void configureScroller() ;
+  protected native void configurePopup() ;
+  protected native void installComboBoxListeners() ;
+  protected native void installComboBoxModelListeners(javax.swing.ComboBoxModel a_r_g_u_m_e_n_t_0) ;
+  protected native void startAutoScrolling(int a_r_g_u_m_e_n_t_0) ;
+  protected native void stopAutoScrolling() ;
+  protected native void autoScrollUp() ;
+  protected native void autoScrollDown() ;
+  protected native void delegateFocus(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.event.MouseEvent convertMouseEvent(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  protected native int getPopupHeightForRowCount(int a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.Rectangle computePopupBounds(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  protected native void updateListBoxSelectionForEvent(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  static final javax.swing.ListModel EmptyListModel;
+  protected javax.swing.JComboBox comboBox;
+  protected javax.swing.JList list;
+  protected javax.swing.JScrollPane scroller;
+  protected boolean valueIsAdjusting;
+  protected java.awt.event.MouseMotionListener mouseMotionListener;
+  protected java.awt.event.MouseListener mouseListener;
+  protected java.awt.event.KeyListener keyListener;
+  protected javax.swing.event.ListSelectionListener listSelectionListener;
+  protected java.awt.event.MouseListener listMouseListener;
+  protected java.awt.event.MouseMotionListener listMouseMotionListener;
+  protected java.beans.PropertyChangeListener propertyChangeListener;
+  protected javax.swing.event.ListDataListener listDataListener;
+  protected java.awt.event.ItemListener itemListener;
+  protected javax.swing.Timer autoscrollTimer;
+  protected boolean hasEntered;
+  protected boolean isAutoScrolling;
+  protected int scrollDirection;
+  protected static final int SCROLL_UP;
+  protected static final int SCROLL_DOWN;
+  private class Handler extends java.lang.Object implements java.awt.event.ItemListener, java.awt.event.MouseListener, java.awt.event.MouseMotionListener, java.beans.PropertyChangeListener, java.io.Serializable {
+    public native void mousePressed(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseReleased(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseClicked(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseExited(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseEntered(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseMoved(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseDragged(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native void itemStateChanged(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  private class AutoScrollActionHandler extends java.lang.Object implements java.awt.event.ActionListener {
+      AutoScrollActionHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  protected class PropertyChangeHandler extends java.lang.Object implements java.beans.PropertyChangeListener {
+     protected  PropertyChangeHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0){}
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  protected class ItemHandler extends java.lang.Object implements java.awt.event.ItemListener {
+     protected  ItemHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0){}
+    public native void itemStateChanged(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  protected class ListMouseMotionHandler extends java.awt.event.MouseMotionAdapter {
+     protected  ListMouseMotionHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0){}
+    public native void mouseMoved(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  protected class ListMouseHandler extends java.awt.event.MouseAdapter {
+     protected  ListMouseHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0){}
+    public native void mousePressed(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseReleased(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  public class ListDataHandler extends java.lang.Object implements javax.swing.event.ListDataListener {
+     public  ListDataHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0){}
+    public native void contentsChanged(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
+    public native void intervalAdded(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
+    public native void intervalRemoved(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  protected class ListSelectionHandler extends java.lang.Object implements javax.swing.event.ListSelectionListener {
+     protected  ListSelectionHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0){}
+    public native void valueChanged(javax.swing.event.ListSelectionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  public class InvocationKeyHandler extends java.awt.event.KeyAdapter {
+     public  InvocationKeyHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0){}
+    public native void keyReleased(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  protected class InvocationMouseMotionHandler extends java.awt.event.MouseMotionAdapter {
+     protected  InvocationMouseMotionHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0){}
+    public native void mouseDragged(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  protected class InvocationMouseHandler extends java.awt.event.MouseAdapter {
+     protected  InvocationMouseHandler(javax.swing.plaf.basic.BasicComboPopup a_r_g_u_m_e_n_t_0){}
+    public native void mousePressed(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseReleased(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicComboPopup this$0;
+  }
+  private static class EmptyListModelClass extends java.lang.Object implements javax.swing.ListModel, java.io.Serializable {
+    public native int getSize() ;
+    public native void addListDataListener(javax.swing.event.ListDataListener a_r_g_u_m_e_n_t_0) ;
+    public native void removeListDataListener(javax.swing.event.ListDataListener a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Object getElementAt(int a_r_g_u_m_e_n_t_0) ;
+  }
+}

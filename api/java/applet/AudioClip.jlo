@@ -1,0 +1,6 @@
+package java.applet;
+public abstract interface AudioClip {
+  public abstract void stop() ;
+  public abstract void loop() ;
+  public abstract void play() ;
+}

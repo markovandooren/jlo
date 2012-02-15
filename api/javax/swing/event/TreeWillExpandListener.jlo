@@ -1,0 +1,5 @@
+package javax.swing.event;
+public abstract interface TreeWillExpandListener extends java.util.EventListener {
+  public abstract void treeWillExpand(javax.swing.event.TreeExpansionEvent a_r_g_u_m_e_n_t_0)  throws javax.swing.tree.ExpandVetoException;
+  public abstract void treeWillCollapse(javax.swing.event.TreeExpansionEvent a_r_g_u_m_e_n_t_0)  throws javax.swing.tree.ExpandVetoException;
+}

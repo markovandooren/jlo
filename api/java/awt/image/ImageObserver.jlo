@@ -1,0 +1,12 @@
+package java.awt.image;
+public abstract interface ImageObserver {
+  public abstract boolean imageUpdate(java.awt.Image a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public static final int WIDTH;
+  public static final int HEIGHT;
+  public static final int PROPERTIES;
+  public static final int SOMEBITS;
+  public static final int FRAMEBITS;
+  public static final int ALLBITS;
+  public static final int ERROR;
+  public static final int ABORT;
+}

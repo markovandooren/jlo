@@ -1,0 +1,5 @@
+package org.w3c.dom;
+public abstract interface DOMImplementationSource {
+  public abstract org.w3c.dom.DOMImplementation getDOMImplementation(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract org.w3c.dom.DOMImplementationList getDOMImplementationList(java.lang.String a_r_g_u_m_e_n_t_0) ;
+}

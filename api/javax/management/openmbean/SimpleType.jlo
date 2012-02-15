@@ -1,0 +1,23 @@
+package javax.management.openmbean;
+public final class SimpleType<T extends java.lang.Object> extends javax.management.openmbean.OpenType<T> {
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.Object readResolve()  throws java.io.ObjectStreamException;
+  public native boolean isValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+  public static final javax.management.openmbean.SimpleType<java.lang.Void> VOID;
+  public static final javax.management.openmbean.SimpleType<java.lang.Boolean> BOOLEAN;
+  public static final javax.management.openmbean.SimpleType<java.lang.Character> CHARACTER;
+  public static final javax.management.openmbean.SimpleType<java.lang.Byte> BYTE;
+  public static final javax.management.openmbean.SimpleType<java.lang.Short> SHORT;
+  public static final javax.management.openmbean.SimpleType<java.lang.Integer> INTEGER;
+  public static final javax.management.openmbean.SimpleType<java.lang.Long> LONG;
+  public static final javax.management.openmbean.SimpleType<java.lang.Float> FLOAT;
+  public static final javax.management.openmbean.SimpleType<java.lang.Double> DOUBLE;
+  public static final javax.management.openmbean.SimpleType<java.lang.String> STRING;
+  public static final javax.management.openmbean.SimpleType<java.math.BigDecimal> BIGDECIMAL;
+  public static final javax.management.openmbean.SimpleType<java.math.BigInteger> BIGINTEGER;
+  public static final javax.management.openmbean.SimpleType<java.util.Date> DATE;
+  public static final javax.management.openmbean.SimpleType<javax.management.ObjectName> OBJECTNAME;
+}

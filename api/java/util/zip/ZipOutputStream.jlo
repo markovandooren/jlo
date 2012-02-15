@@ -1,0 +1,21 @@
+package java.util.zip;
+public class ZipOutputStream extends java.util.zip.DeflaterOutputStream {
+   public  ZipOutputStream(java.io.OutputStream a_r_g_u_m_e_n_t_0){}
+  public synchronized native void write(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native void close()  throws java.io.IOException;
+  public native void setMethod(int a_r_g_u_m_e_n_t_0) ;
+  public native void setComment(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static native int getUTF8Length(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void closeEntry()  throws java.io.IOException;
+  public native void finish()  throws java.io.IOException;
+  public native void setLevel(int a_r_g_u_m_e_n_t_0) ;
+  public native void putNextEntry(java.util.zip.ZipEntry a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public static final int STORED;
+  public static final int DEFLATED;
+  private static class XEntry extends java.lang.Object {
+     public  XEntry(java.util.zip.ZipEntry a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1){}
+    public final java.util.zip.ZipEntry entry;
+    public final long offset;
+    public final int flag;
+  }
+}

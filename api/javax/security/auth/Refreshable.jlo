@@ -1,0 +1,5 @@
+package javax.security.auth;
+public abstract interface Refreshable {
+  public abstract void refresh()  throws javax.security.auth.RefreshFailedException;
+  public abstract boolean isCurrent() ;
+}

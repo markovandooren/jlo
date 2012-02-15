@@ -1,0 +1,12 @@
+package java.awt.event;
+public class ComponentEvent extends java.awt.AWTEvent {
+   public  ComponentEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native java.awt.Component getComponent() ;
+  public native java.lang.String paramString() ;
+  public static final int COMPONENT_FIRST;
+  public static final int COMPONENT_LAST;
+  public static final int COMPONENT_MOVED;
+  public static final int COMPONENT_RESIZED;
+  public static final int COMPONENT_SHOWN;
+  public static final int COMPONENT_HIDDEN;
+}

@@ -1,0 +1,13 @@
+package java.awt.font;
+public final class TextMeasurer extends java.lang.Object implements java.lang.Cloneable {
+   public  TextMeasurer(java.text.AttributedCharacterIterator a_r_g_u_m_e_n_t_0, java.awt.font.FontRenderContext a_r_g_u_m_e_n_t_1){}
+  protected native java.lang.Object clone() ;
+  native char[] getChars() ;
+  public native java.awt.font.TextLayout getLayout(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void insertChar(java.text.AttributedCharacterIterator a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void deleteChar(java.text.AttributedCharacterIterator a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int getLineBreakIndex(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native float getAdvanceBetween(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  int layoutCount;
+  int layoutCharCount;
+}

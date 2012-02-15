@@ -1,0 +1,21 @@
+package java.awt.image.renderable;
+public class RenderContext extends java.lang.Object implements java.lang.Cloneable {
+   public  RenderContext(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, java.awt.RenderingHints a_r_g_u_m_e_n_t_2){}
+   public  RenderContext(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0){}
+   public  RenderContext(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0, java.awt.RenderingHints a_r_g_u_m_e_n_t_1){}
+   public  RenderContext(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1){}
+  public native java.lang.Object clone() ;
+  public native java.awt.geom.AffineTransform getTransform() ;
+  public native void setTransform(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.RenderingHints getRenderingHints() ;
+  public native void setRenderingHints(java.awt.RenderingHints a_r_g_u_m_e_n_t_0) ;
+  public native void preConcatenateTransform(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public native void preConcetenateTransform(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public native void concatenateTransform(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public native void concetenateTransform(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public native void setAreaOfInterest(java.awt.Shape a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Shape getAreaOfInterest() ;
+  java.awt.RenderingHints hints;
+  java.awt.geom.AffineTransform usr2dev;
+  java.awt.Shape aoi;
+}

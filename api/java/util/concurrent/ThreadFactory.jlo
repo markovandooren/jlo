@@ -1,0 +1,4 @@
+package java.util.concurrent;
+public abstract interface ThreadFactory {
+  public abstract java.lang.Thread newThread(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,4 @@
+package javax.swing.plaf;
+public abstract class ButtonUI extends javax.swing.plaf.ComponentUI {
+   public  ButtonUI(){}
+}

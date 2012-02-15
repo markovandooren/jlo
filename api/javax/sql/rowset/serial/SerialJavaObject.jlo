@@ -1,0 +1,8 @@
+package javax.sql.rowset.serial;
+public class SerialJavaObject extends java.lang.Object implements java.io.Serializable, java.lang.Cloneable {
+   public  SerialJavaObject(java.lang.Object a_r_g_u_m_e_n_t_0) throws javax.sql.rowset.serial.SerialException{}
+  public native java.lang.Object getObject()  throws javax.sql.rowset.serial.SerialException;
+  public native java.lang.reflect.Field[] getFields()  throws javax.sql.rowset.serial.SerialException;
+  static final long serialVersionUID;
+  java.util.Vector chain;
+}

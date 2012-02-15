@@ -1,0 +1,11 @@
+package java.security.spec;
+public class RSAMultiPrimePrivateCrtKeySpec extends java.security.spec.RSAPrivateKeySpec {
+   public  RSAMultiPrimePrivateCrtKeySpec(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1, java.math.BigInteger a_r_g_u_m_e_n_t_2, java.math.BigInteger a_r_g_u_m_e_n_t_3, java.math.BigInteger a_r_g_u_m_e_n_t_4, java.math.BigInteger a_r_g_u_m_e_n_t_5, java.math.BigInteger a_r_g_u_m_e_n_t_6, java.math.BigInteger a_r_g_u_m_e_n_t_7, java.security.spec.RSAOtherPrimeInfo[] a_r_g_u_m_e_n_t_8){}
+  public native java.math.BigInteger getPublicExponent() ;
+  public native java.math.BigInteger getPrimeP() ;
+  public native java.math.BigInteger getPrimeQ() ;
+  public native java.math.BigInteger getPrimeExponentP() ;
+  public native java.math.BigInteger getPrimeExponentQ() ;
+  public native java.math.BigInteger getCrtCoefficient() ;
+  public native java.security.spec.RSAOtherPrimeInfo[] getOtherPrimeInfo() ;
+}

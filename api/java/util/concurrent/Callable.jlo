@@ -1,0 +1,4 @@
+package java.util.concurrent;
+public abstract interface Callable<V extends java.lang.Object> {
+  public abstract V call()  throws java.lang.Exception;
+}

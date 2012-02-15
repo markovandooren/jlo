@@ -1,0 +1,6 @@
+package javax.swing;
+public abstract interface Icon {
+  public abstract void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public abstract int getIconWidth() ;
+  public abstract int getIconHeight() ;
+}

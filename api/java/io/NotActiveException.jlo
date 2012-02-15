@@ -1,0 +1,5 @@
+package java.io;
+public class NotActiveException extends java.io.ObjectStreamException {
+   public  NotActiveException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  NotActiveException(){}
+}

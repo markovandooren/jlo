@@ -1,0 +1,17 @@
+package java.awt;
+public class PopupMenu extends java.awt.Menu {
+   public  PopupMenu() throws java.awt.HeadlessException{}
+   public  PopupMenu(java.lang.String a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+  public native java.awt.MenuContainer getParent() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void addNotify() ;
+  native java.lang.String constructComponentName() ;
+  public native void show(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  static int nameCounter;
+  transient boolean isTrayIconPopup;
+  protected class AccessibleAWTPopupMenu extends java.awt.Menu.AccessibleAWTMenu {
+     protected  AccessibleAWTPopupMenu(java.awt.PopupMenu a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final java.awt.PopupMenu this$0;
+  }
+}

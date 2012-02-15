@@ -1,0 +1,5 @@
+package java.security.cert;
+public class CertificateExpiredException extends java.security.cert.CertificateException {
+   public  CertificateExpiredException(){}
+   public  CertificateExpiredException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

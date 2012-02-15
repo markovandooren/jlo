@@ -1,0 +1,9 @@
+package java.net;
+public class URISyntaxException extends java.lang.Exception {
+   public  URISyntaxException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  URISyntaxException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public native java.lang.String getMessage() ;
+  public native int getIndex() ;
+  public native java.lang.String getReason() ;
+  public native java.lang.String getInput() ;
+}

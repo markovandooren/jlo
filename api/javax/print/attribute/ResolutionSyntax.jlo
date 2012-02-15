@@ -1,0 +1,16 @@
+package javax.print.attribute;
+public abstract class ResolutionSyntax extends java.lang.Object implements java.io.Serializable, java.lang.Cloneable {
+   public  ResolutionSyntax(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String toString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native int[] getResolution(int a_r_g_u_m_e_n_t_0) ;
+  public native int getCrossFeedResolution(int a_r_g_u_m_e_n_t_0) ;
+  public native int getFeedResolution(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean lessThanOrEquals(javax.print.attribute.ResolutionSyntax a_r_g_u_m_e_n_t_0) ;
+  protected native int getCrossFeedResolutionDphi() ;
+  protected native int getFeedResolutionDphi() ;
+  public static final int DPI;
+  public static final int DPCM;
+}

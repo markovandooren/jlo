@@ -1,0 +1,18 @@
+package javax.swing.tree;
+public class TreePath extends java.lang.Object implements java.io.Serializable {
+   public  TreePath(java.lang.Object[] a_r_g_u_m_e_n_t_0){}
+   public  TreePath(java.lang.Object a_r_g_u_m_e_n_t_0){}
+   protected  TreePath(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1){}
+   protected  TreePath(java.lang.Object[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   protected  TreePath(){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.Object[] getPath() ;
+  public native java.lang.Object getLastPathComponent() ;
+  public native int getPathCount() ;
+  public native java.lang.Object getPathComponent(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isDescendant(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.tree.TreePath pathByAddingChild(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.tree.TreePath getParentPath() ;
+}

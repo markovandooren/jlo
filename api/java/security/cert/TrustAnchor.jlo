@@ -1,0 +1,12 @@
+package java.security.cert;
+public class TrustAnchor extends java.lang.Object {
+   public  TrustAnchor(java.security.cert.X509Certificate a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1){}
+   public  TrustAnchor(javax.security.auth.x500.X500Principal a_r_g_u_m_e_n_t_0, java.security.PublicKey a_r_g_u_m_e_n_t_1, byte[] a_r_g_u_m_e_n_t_2){}
+   public  TrustAnchor(java.lang.String a_r_g_u_m_e_n_t_0, java.security.PublicKey a_r_g_u_m_e_n_t_1, byte[] a_r_g_u_m_e_n_t_2){}
+  public native java.lang.String toString() ;
+  public final native java.security.cert.X509Certificate getTrustedCert() ;
+  public final native javax.security.auth.x500.X500Principal getCA() ;
+  public final native java.lang.String getCAName() ;
+  public final native java.security.PublicKey getCAPublicKey() ;
+  public final native byte[] getNameConstraints() ;
+}

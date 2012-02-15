@@ -1,0 +1,14 @@
+package javax.imageio.spi;
+public abstract class ImageReaderSpi extends javax.imageio.spi.ImageReaderWriterSpi {
+   protected  ImageReaderSpi(){}
+   public  ImageReaderSpi(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String[] a_r_g_u_m_e_n_t_2, java.lang.String[] a_r_g_u_m_e_n_t_3, java.lang.String[] a_r_g_u_m_e_n_t_4, java.lang.String a_r_g_u_m_e_n_t_5, java.lang.Class[] a_r_g_u_m_e_n_t_6, java.lang.String[] a_r_g_u_m_e_n_t_7, boolean a_r_g_u_m_e_n_t_8, java.lang.String a_r_g_u_m_e_n_t_9, java.lang.String a_r_g_u_m_e_n_t_10, java.lang.String[] a_r_g_u_m_e_n_t_11, java.lang.String[] a_r_g_u_m_e_n_t_12, boolean a_r_g_u_m_e_n_t_13, java.lang.String a_r_g_u_m_e_n_t_14, java.lang.String a_r_g_u_m_e_n_t_15, java.lang.String[] a_r_g_u_m_e_n_t_16, java.lang.String[] a_r_g_u_m_e_n_t_17){}
+  public native java.lang.Class[] getInputTypes() ;
+  public abstract boolean canDecodeInput(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native javax.imageio.ImageReader createReaderInstance()  throws java.io.IOException;
+  public abstract javax.imageio.ImageReader createReaderInstance(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native boolean isOwnReader(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String[] getImageWriterSpiNames() ;
+  public static final java.lang.Class[] STANDARD_INPUT_TYPE;
+  protected java.lang.Class[] inputTypes;
+  protected java.lang.String[] writerSpiNames;
+}

@@ -1,0 +1,31 @@
+package javax.swing;
+public class DefaultDesktopManager extends java.lang.Object implements javax.swing.DesktopManager, java.io.Serializable {
+   public  DefaultDesktopManager(){}
+  native javax.swing.JDesktopPane getDesktopPane(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void iconifyFrame(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  public native void endDraggingFrame(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void beginDraggingFrame(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void dragFrame(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void openFrame(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  public native void closeFrame(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  public native void maximizeFrame(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  public native void minimizeFrame(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  public native void deiconifyFrame(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  public native void activateFrame(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  public native void deactivateFrame(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  public native void beginResizingFrame(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void resizeFrame(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native void endResizingFrame(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void setBoundsForFrame(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  protected native void removeIconFor(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.Rectangle getBoundsForIconOf(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  protected native void setPreviousBounds(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+  protected native java.awt.Rectangle getPreviousBounds(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  protected native void setWasIcon(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0, java.lang.Boolean a_r_g_u_m_e_n_t_1) ;
+  protected native boolean wasIcon(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  static final java.lang.String HAS_BEEN_ICONIFIED_PROPERTY;
+  static final int DEFAULT_DRAG_MODE;
+  static final int OUTLINE_DRAG_MODE;
+  static final int FASTER_DRAG_MODE;
+  int dragMode;
+}

@@ -1,0 +1,7 @@
+package javax.net.ssl;
+public abstract class SSLServerSocketFactory extends javax.net.ServerSocketFactory {
+   protected  SSLServerSocketFactory(){}
+  public static synchronized native javax.net.ServerSocketFactory getDefault() ;
+  public abstract java.lang.String[] getSupportedCipherSuites() ;
+  public abstract java.lang.String[] getDefaultCipherSuites() ;
+}

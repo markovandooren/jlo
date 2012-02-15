@@ -1,0 +1,4 @@
+package javax.naming.event;
+public abstract interface NamingListener extends java.util.EventListener {
+  public abstract void namingExceptionThrown(javax.naming.event.NamingExceptionEvent a_r_g_u_m_e_n_t_0) ;
+}

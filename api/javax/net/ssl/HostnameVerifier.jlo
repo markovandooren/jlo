@@ -1,0 +1,4 @@
+package javax.net.ssl;
+public abstract interface HostnameVerifier {
+  public abstract boolean verify(java.lang.String a_r_g_u_m_e_n_t_0, javax.net.ssl.SSLSession a_r_g_u_m_e_n_t_1) ;
+}

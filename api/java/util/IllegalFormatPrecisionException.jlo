@@ -1,0 +1,6 @@
+package java.util;
+public class IllegalFormatPrecisionException extends java.util.IllegalFormatException {
+   public  IllegalFormatPrecisionException(int a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String getMessage() ;
+  public native int getPrecision() ;
+}

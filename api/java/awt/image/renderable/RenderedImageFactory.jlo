@@ -1,0 +1,4 @@
+package java.awt.image.renderable;
+public abstract interface RenderedImageFactory {
+  public abstract java.awt.image.RenderedImage create(java.awt.image.renderable.ParameterBlock a_r_g_u_m_e_n_t_0, java.awt.RenderingHints a_r_g_u_m_e_n_t_1) ;
+}

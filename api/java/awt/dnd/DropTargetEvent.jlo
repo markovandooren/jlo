@@ -1,0 +1,6 @@
+package java.awt.dnd;
+public class DropTargetEvent extends java.util.EventObject {
+   public  DropTargetEvent(java.awt.dnd.DropTargetContext a_r_g_u_m_e_n_t_0){}
+  public native java.awt.dnd.DropTargetContext getDropTargetContext() ;
+  protected java.awt.dnd.DropTargetContext context;
+}

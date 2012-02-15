@@ -1,0 +1,4 @@
+package java.io;
+public abstract interface Closeable {
+  public abstract void close()  throws java.io.IOException;
+}

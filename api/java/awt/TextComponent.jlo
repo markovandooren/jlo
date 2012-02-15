@@ -1,0 +1,60 @@
+package java.awt;
+public class TextComponent extends java.awt.Component implements javax.accessibility.Accessible {
+    TextComponent(java.lang.String a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+  public synchronized native void setText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setBackground(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native void addNotify() ;
+  public native void removeNotify() ;
+  protected native java.lang.String paramString() ;
+  public native java.awt.Color getBackground() ;
+  native boolean eventEnabled(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void processEvent(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  public native void enableInputMethods(boolean a_r_g_u_m_e_n_t_0) ;
+  native boolean areInputMethodsEnabled() ;
+  public native java.awt.im.InputMethodRequests getInputMethodRequests() ;
+  public synchronized native java.lang.String getText() ;
+  native int getIndexAtPoint(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  native java.awt.Rectangle getCharacterBounds(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int getCaretPosition() ;
+  public synchronized native int getSelectionStart() ;
+  public synchronized native int getSelectionEnd() ;
+  public synchronized native java.lang.String getSelectedText() ;
+  public synchronized native void select(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native void selectAll() ;
+  public synchronized native void setCaretPosition(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isEditable() ;
+  public synchronized native void setEditable(boolean a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setSelectionStart(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setSelectionEnd(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void addTextListener(java.awt.event.TextListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeTextListener(java.awt.event.TextListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.awt.event.TextListener[] getTextListeners() ;
+  protected native void processTextEvent(java.awt.event.TextEvent a_r_g_u_m_e_n_t_0) ;
+  java.lang.String text;
+  boolean editable;
+  int selectionStart;
+  int selectionEnd;
+  boolean backgroundSetByClientCode;
+  protected transient java.awt.event.TextListener textListener;
+  protected class AccessibleAWTTextComponent extends java.awt.Component.AccessibleAWTComponent implements javax.accessibility.AccessibleText, java.awt.event.TextListener {
+     public  AccessibleAWTTextComponent(java.awt.TextComponent a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native javax.accessibility.AccessibleText getAccessibleText() ;
+    public native int getIndexAtPoint(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Rectangle getCharacterBounds(int a_r_g_u_m_e_n_t_0) ;
+    public native int getCharCount() ;
+    public native int getCaretPosition() ;
+    public native java.lang.String getAtIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getAfterIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getBeforeIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native javax.swing.text.AttributeSet getCharacterAttribute(int a_r_g_u_m_e_n_t_0) ;
+    public native int getSelectionStart() ;
+    public native int getSelectionEnd() ;
+    public native java.lang.String getSelectedText() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    public native void textValueChanged(java.awt.event.TextEvent a_r_g_u_m_e_n_t_0) ;
+    final java.awt.TextComponent this$0;
+  }
+}

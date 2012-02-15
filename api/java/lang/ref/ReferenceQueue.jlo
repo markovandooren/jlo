@@ -1,0 +1,15 @@
+package java.lang.ref;
+public class ReferenceQueue<T extends java.lang.Object> extends java.lang.Object {
+   public  ReferenceQueue(){}
+  public native java.lang.ref.Reference<? extends T> remove(long a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException, java.lang.InterruptedException;
+  public native java.lang.ref.Reference<? extends T> remove()  throws java.lang.InterruptedException;
+  native boolean enqueue(java.lang.ref.Reference<? extends T> a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.ref.Reference<? extends T> poll() ;
+  static java.lang.ref.ReferenceQueue NULL;
+  static java.lang.ref.ReferenceQueue ENQUEUED;
+  private static class Lock extends java.lang.Object {
+  }
+  private static class Null extends java.lang.ref.ReferenceQueue {
+    native boolean enqueue(java.lang.ref.Reference a_r_g_u_m_e_n_t_0) ;
+  }
+}

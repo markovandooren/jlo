@@ -1,0 +1,13 @@
+package javax.sql.rowset;
+public abstract interface Joinable {
+  public abstract void setMatchColumn(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract void setMatchColumn(int[] a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract void setMatchColumn(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract void setMatchColumn(java.lang.String[] a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract int[] getMatchColumnIndexes()  throws java.sql.SQLException;
+  public abstract java.lang.String[] getMatchColumnNames()  throws java.sql.SQLException;
+  public abstract void unsetMatchColumn(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract void unsetMatchColumn(int[] a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract void unsetMatchColumn(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract void unsetMatchColumn(java.lang.String[] a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+}

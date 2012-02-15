@@ -1,0 +1,38 @@
+package javax.management.monitor;
+public class GaugeMonitor extends javax.management.monitor.Monitor implements javax.management.monitor.GaugeMonitorMBean {
+   public  GaugeMonitor(){}
+  public synchronized native void start() ;
+  public synchronized native void stop() ;
+  native java.lang.String makeDebugTag() ;
+  public synchronized native java.lang.Number getDerivedGauge(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.Number getDerivedGauge() ;
+  public synchronized native long getDerivedGaugeTimeStamp(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public synchronized native long getDerivedGaugeTimeStamp() ;
+  public synchronized native boolean getDifferenceMode() ;
+  public synchronized native void setDifferenceMode(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.management.MBeanNotificationInfo[] getNotificationInfo() ;
+  native javax.management.monitor.Monitor.ObservedObject createObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  synchronized native boolean isComparableTypeValid(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  synchronized native java.lang.Comparable<? extends java.lang.Object> getDerivedGaugeFromComparable(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  synchronized native void onErrorNotification(javax.management.monitor.MonitorNotification a_r_g_u_m_e_n_t_0) ;
+  synchronized native javax.management.monitor.MonitorNotification buildAlarmNotification(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  synchronized native boolean isThresholdTypeValid(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  public synchronized native java.lang.Number getHighThreshold() ;
+  public synchronized native java.lang.Number getLowThreshold() ;
+  public synchronized native void setThresholds(java.lang.Number a_r_g_u_m_e_n_t_0, java.lang.Number a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalArgumentException;
+  public synchronized native boolean getNotifyHigh() ;
+  public synchronized native void setNotifyHigh(boolean a_r_g_u_m_e_n_t_0) ;
+  public synchronized native boolean getNotifyLow() ;
+  public synchronized native void setNotifyLow(boolean a_r_g_u_m_e_n_t_0) ;
+  static class GaugeMonitorObservedObject extends javax.management.monitor.Monitor.ObservedObject {
+     public  GaugeMonitorObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0){}
+    public final synchronized native javax.management.monitor.Monitor.NumericalType getType() ;
+    public final synchronized native void setType(javax.management.monitor.Monitor.NumericalType a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native int getStatus() ;
+    public final synchronized native void setDerivedGaugeValid(boolean a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native boolean getDerivedGaugeValid() ;
+    public final synchronized native void setStatus(int a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native void setPreviousScanGauge(java.lang.Number a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native java.lang.Number getPreviousScanGauge() ;
+  }
+}

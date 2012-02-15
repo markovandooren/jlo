@@ -1,0 +1,18 @@
+package javax.xml.transform;
+public abstract class TransformerFactory extends java.lang.Object {
+   protected  TransformerFactory(){}
+  public static native javax.xml.transform.TransformerFactory newInstance()  throws javax.xml.transform.TransformerFactoryConfigurationError;
+  public static native javax.xml.transform.TransformerFactory newInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.ClassLoader a_r_g_u_m_e_n_t_1)  throws javax.xml.transform.TransformerFactoryConfigurationError;
+  public abstract java.lang.Object getAttribute(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getFeature(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void setAttribute(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public abstract void setFeature(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws javax.xml.transform.TransformerConfigurationException;
+  public abstract javax.xml.transform.Transformer newTransformer()  throws javax.xml.transform.TransformerConfigurationException;
+  public abstract javax.xml.transform.Transformer newTransformer(javax.xml.transform.Source a_r_g_u_m_e_n_t_0)  throws javax.xml.transform.TransformerConfigurationException;
+  public abstract javax.xml.transform.Templates newTemplates(javax.xml.transform.Source a_r_g_u_m_e_n_t_0)  throws javax.xml.transform.TransformerConfigurationException;
+  public abstract javax.xml.transform.Source getAssociatedStylesheet(javax.xml.transform.Source a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3)  throws javax.xml.transform.TransformerConfigurationException;
+  public abstract void setURIResolver(javax.xml.transform.URIResolver a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.xml.transform.URIResolver getURIResolver() ;
+  public abstract void setErrorListener(javax.xml.transform.ErrorListener a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.xml.transform.ErrorListener getErrorListener() ;
+}

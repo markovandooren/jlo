@@ -1,0 +1,6 @@
+package java.security;
+public class AccessControlException extends java.lang.SecurityException {
+   public  AccessControlException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  AccessControlException(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Permission a_r_g_u_m_e_n_t_1){}
+  public native java.security.Permission getPermission() ;
+}

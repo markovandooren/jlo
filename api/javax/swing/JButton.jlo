@@ -1,0 +1,21 @@
+package javax.swing;
+public class JButton extends javax.swing.AbstractButton implements javax.accessibility.Accessible {
+   public  JButton(){}
+   public  JButton(javax.swing.Icon a_r_g_u_m_e_n_t_0){}
+   public  JButton(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  JButton(javax.swing.Action a_r_g_u_m_e_n_t_0){}
+   public  JButton(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.Icon a_r_g_u_m_e_n_t_1){}
+  public native void updateUI() ;
+  public native java.lang.String getUIClassID() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void removeNotify() ;
+  protected native java.lang.String paramString() ;
+  public native boolean isDefaultButton() ;
+  public native boolean isDefaultCapable() ;
+  public native void setDefaultCapable(boolean a_r_g_u_m_e_n_t_0) ;
+  protected class AccessibleJButton extends javax.swing.AbstractButton.AccessibleAbstractButton {
+     protected  AccessibleJButton(javax.swing.JButton a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final javax.swing.JButton this$0;
+  }
+}

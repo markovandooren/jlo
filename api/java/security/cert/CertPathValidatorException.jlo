@@ -1,0 +1,10 @@
+package java.security.cert;
+public class CertPathValidatorException extends java.security.GeneralSecurityException {
+   public  CertPathValidatorException(){}
+   public  CertPathValidatorException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  CertPathValidatorException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
+   public  CertPathValidatorException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
+   public  CertPathValidatorException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1, java.security.cert.CertPath a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+  public native int getIndex() ;
+  public native java.security.cert.CertPath getCertPath() ;
+}

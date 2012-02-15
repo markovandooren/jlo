@@ -1,0 +1,20 @@
+package javax.management.monitor;
+public abstract interface CounterMonitorMBean extends javax.management.monitor.MonitorMBean {
+  public abstract java.lang.Number getOffset() ;
+  public abstract void setOffset(java.lang.Number a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract void setThreshold(java.lang.Number a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract java.lang.Number getDerivedGauge(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Number getDerivedGauge() ;
+  public abstract long getDerivedGaugeTimeStamp() ;
+  public abstract long getDerivedGaugeTimeStamp(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Number getThreshold() ;
+  public abstract java.lang.Number getThreshold(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Number getInitThreshold() ;
+  public abstract void setInitThreshold(java.lang.Number a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract java.lang.Number getModulus() ;
+  public abstract void setModulus(java.lang.Number a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract boolean getNotify() ;
+  public abstract void setNotify(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getDifferenceMode() ;
+  public abstract void setDifferenceMode(boolean a_r_g_u_m_e_n_t_0) ;
+}

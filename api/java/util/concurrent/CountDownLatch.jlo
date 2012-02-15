@@ -1,0 +1,15 @@
+package java.util.concurrent;
+public class CountDownLatch extends java.lang.Object {
+   public  CountDownLatch(int a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String toString() ;
+  public native void await()  throws java.lang.InterruptedException;
+  public native boolean await(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1)  throws java.lang.InterruptedException;
+  public native void countDown() ;
+  public native long getCount() ;
+  private static final class Sync extends java.util.concurrent.locks.AbstractQueuedSynchronizer {
+      Sync(int a_r_g_u_m_e_n_t_0){}
+    public native int tryAcquireShared(int a_r_g_u_m_e_n_t_0) ;
+    public native boolean tryReleaseShared(int a_r_g_u_m_e_n_t_0) ;
+    native int getCount() ;
+  }
+}

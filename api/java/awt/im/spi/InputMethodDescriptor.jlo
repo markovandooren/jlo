@@ -1,0 +1,8 @@
+package java.awt.im.spi;
+public abstract interface InputMethodDescriptor {
+  public abstract java.util.Locale[] getAvailableLocales()  throws java.awt.AWTException;
+  public abstract boolean hasDynamicLocaleList() ;
+  public abstract java.lang.String getInputMethodDisplayName(java.util.Locale a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public abstract java.awt.Image getInputMethodIcon(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.im.spi.InputMethod createInputMethod()  throws java.lang.Exception;
+}

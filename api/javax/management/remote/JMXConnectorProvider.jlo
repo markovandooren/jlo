@@ -1,0 +1,4 @@
+package javax.management.remote;
+public abstract interface JMXConnectorProvider {
+  public abstract javax.management.remote.JMXConnector newJMXConnector(javax.management.remote.JMXServiceURL a_r_g_u_m_e_n_t_0, java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+}

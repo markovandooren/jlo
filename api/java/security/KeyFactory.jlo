@@ -1,0 +1,13 @@
+package java.security;
+public class KeyFactory extends java.lang.Object {
+   protected  KeyFactory(java.security.KeyFactorySpi a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+  public static native java.security.KeyFactory getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException, java.security.NoSuchProviderException;
+  public static native java.security.KeyFactory getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException;
+  public static native java.security.KeyFactory getInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+  public final native java.lang.String getAlgorithm() ;
+  public final native java.security.Provider getProvider() ;
+  public final native java.security.PublicKey generatePublic(java.security.spec.KeySpec a_r_g_u_m_e_n_t_0)  throws java.security.spec.InvalidKeySpecException;
+  public final native java.security.PrivateKey generatePrivate(java.security.spec.KeySpec a_r_g_u_m_e_n_t_0)  throws java.security.spec.InvalidKeySpecException;
+  public final native <T extends java.security.spec.KeySpec>T getKeySpec(java.security.Key a_r_g_u_m_e_n_t_0, java.lang.Class<T> a_r_g_u_m_e_n_t_1)  throws java.security.spec.InvalidKeySpecException;
+  public final native java.security.Key translateKey(java.security.Key a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+}

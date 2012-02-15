@@ -1,0 +1,8 @@
+package javax.management.remote.rmi;
+public final class RMIServerImpl_Stub extends java.rmi.server.RemoteStub implements javax.management.remote.rmi.RMIServer {
+   public  RMIServerImpl_Stub(java.rmi.server.RemoteRef a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String getVersion()  throws java.rmi.RemoteException;
+  public native javax.management.remote.rmi.RMIConnection newClient(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  static java.lang.Class class$javax$management$remote$rmi$RMIServer;
+  static java.lang.Class class$java$lang$Object;
+}

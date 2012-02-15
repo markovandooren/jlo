@@ -1,0 +1,20 @@
+package org.ietf.jgss;
+public abstract class GSSManager extends java.lang.Object {
+   public  GSSManager(){}
+  public static native org.ietf.jgss.GSSManager getInstance() ;
+  public abstract org.ietf.jgss.GSSContext createContext(byte[] a_r_g_u_m_e_n_t_0)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.GSSContext createContext(org.ietf.jgss.GSSCredential a_r_g_u_m_e_n_t_0)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.GSSContext createContext(org.ietf.jgss.GSSName a_r_g_u_m_e_n_t_0, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_1, org.ietf.jgss.GSSCredential a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.Oid[] getMechs() ;
+  public abstract org.ietf.jgss.Oid[] getNamesForMech(org.ietf.jgss.Oid a_r_g_u_m_e_n_t_0)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.Oid[] getMechsForName(org.ietf.jgss.Oid a_r_g_u_m_e_n_t_0) ;
+  public abstract org.ietf.jgss.GSSName createName(byte[] a_r_g_u_m_e_n_t_0, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_1, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_2)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.GSSName createName(java.lang.String a_r_g_u_m_e_n_t_0, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_1)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.GSSName createName(byte[] a_r_g_u_m_e_n_t_0, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_1)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.GSSName createName(java.lang.String a_r_g_u_m_e_n_t_0, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_1, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_2)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.GSSCredential createCredential(org.ietf.jgss.GSSName a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, org.ietf.jgss.Oid[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.GSSCredential createCredential(org.ietf.jgss.GSSName a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws org.ietf.jgss.GSSException;
+  public abstract org.ietf.jgss.GSSCredential createCredential(int a_r_g_u_m_e_n_t_0)  throws org.ietf.jgss.GSSException;
+  public abstract void addProviderAtFront(java.security.Provider a_r_g_u_m_e_n_t_0, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_1)  throws org.ietf.jgss.GSSException;
+  public abstract void addProviderAtEnd(java.security.Provider a_r_g_u_m_e_n_t_0, org.ietf.jgss.Oid a_r_g_u_m_e_n_t_1)  throws org.ietf.jgss.GSSException;
+}

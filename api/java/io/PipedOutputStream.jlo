@@ -1,0 +1,10 @@
+package java.io;
+public class PipedOutputStream extends java.io.OutputStream {
+   public  PipedOutputStream(java.io.PipedInputStream a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   public  PipedOutputStream(){}
+  public native void write(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void write(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public synchronized native void flush()  throws java.io.IOException;
+  public native void close()  throws java.io.IOException;
+  public synchronized native void connect(java.io.PipedInputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+}

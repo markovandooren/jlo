@@ -1,0 +1,22 @@
+package java.net;
+public class MulticastSocket extends java.net.DatagramSocket {
+   public  MulticastSocket() throws java.io.IOException{}
+   public  MulticastSocket(int a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   public  MulticastSocket(java.net.SocketAddress a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+  public native void send(java.net.DatagramPacket a_r_g_u_m_e_n_t_0, byte a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public native int getTimeToLive()  throws java.io.IOException;
+  public synchronized native void bind(java.net.SocketAddress a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native void setTTL(byte a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native byte getTTL()  throws java.io.IOException;
+  public native void setTimeToLive(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void joinGroup(java.net.SocketAddress a_r_g_u_m_e_n_t_0, java.net.NetworkInterface a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public native void joinGroup(java.net.InetAddress a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void leaveGroup(java.net.InetAddress a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void leaveGroup(java.net.SocketAddress a_r_g_u_m_e_n_t_0, java.net.NetworkInterface a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public native void setInterface(java.net.InetAddress a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native java.net.InetAddress getInterface()  throws java.net.SocketException;
+  public native void setNetworkInterface(java.net.NetworkInterface a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native java.net.NetworkInterface getNetworkInterface()  throws java.net.SocketException;
+  public native void setLoopbackMode(boolean a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native boolean getLoopbackMode()  throws java.net.SocketException;
+}

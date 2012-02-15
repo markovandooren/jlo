@@ -1,0 +1,21 @@
+package java.nio.channels;
+public abstract class SelectionKey extends java.lang.Object {
+   protected  SelectionKey(){}
+  public abstract java.nio.channels.SelectableChannel channel() ;
+  public abstract boolean isValid() ;
+  public abstract void cancel() ;
+  public abstract java.nio.channels.Selector selector() ;
+  public abstract int interestOps() ;
+  public abstract java.nio.channels.SelectionKey interestOps(int a_r_g_u_m_e_n_t_0) ;
+  public final native java.lang.Object attach(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public final native java.lang.Object attachment() ;
+  public abstract int readyOps() ;
+  public final native boolean isReadable() ;
+  public final native boolean isWritable() ;
+  public final native boolean isConnectable() ;
+  public final native boolean isAcceptable() ;
+  public static final int OP_READ;
+  public static final int OP_WRITE;
+  public static final int OP_CONNECT;
+  public static final int OP_ACCEPT;
+}

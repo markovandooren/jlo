@@ -1,0 +1,7 @@
+package javax.swing.plaf.metal;
+public class MetalProgressBarUI extends javax.swing.plaf.basic.BasicProgressBarUI {
+   public  MetalProgressBarUI(){}
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void paintIndeterminate(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native void paintDeterminate(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+}

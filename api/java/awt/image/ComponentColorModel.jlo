@@ -1,0 +1,32 @@
+package java.awt.image;
+public class ComponentColorModel extends java.awt.image.ColorModel {
+   public  ComponentColorModel(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5){}
+   public  ComponentColorModel(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int[] getComponents(java.lang.Object a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native int[] getComponents(int a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native int getRed(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int getRed(int a_r_g_u_m_e_n_t_0) ;
+  public native int getGreen(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int getGreen(int a_r_g_u_m_e_n_t_0) ;
+  public native int getBlue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int getBlue(int a_r_g_u_m_e_n_t_0) ;
+  public native int getAlpha(int a_r_g_u_m_e_n_t_0) ;
+  public native int getAlpha(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int getRGB(int a_r_g_u_m_e_n_t_0) ;
+  public native int getRGB(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.image.WritableRaster createCompatibleWritableRaster(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.Object getDataElements(float[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native java.lang.Object getDataElements(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native java.lang.Object getDataElements(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.image.SampleModel createCompatibleSampleModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.image.WritableRaster getAlphaRaster(java.awt.image.WritableRaster a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.image.ColorModel coerceData(java.awt.image.WritableRaster a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native boolean isCompatibleRaster(java.awt.image.Raster a_r_g_u_m_e_n_t_0) ;
+  public native int[] getUnnormalizedComponents(float[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native float[] getNormalizedComponents(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, float[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native float[] getNormalizedComponents(java.lang.Object a_r_g_u_m_e_n_t_0, float[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native int getDataElement(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int getDataElement(float[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native boolean isCompatibleSampleModel(java.awt.image.SampleModel a_r_g_u_m_e_n_t_0) ;
+}

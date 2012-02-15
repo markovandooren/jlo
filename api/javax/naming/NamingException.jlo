@@ -1,0 +1,24 @@
+package javax.naming;
+public class NamingException extends java.lang.Exception {
+   public  NamingException(){}
+   public  NamingException(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native java.lang.Throwable getCause() ;
+  public native java.lang.Throwable initCause(java.lang.Throwable a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString(boolean a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native javax.naming.Name getResolvedName() ;
+  public native javax.naming.Name getRemainingName() ;
+  public native java.lang.Object getResolvedObj() ;
+  public native java.lang.String getExplanation() ;
+  public native void setResolvedName(javax.naming.Name a_r_g_u_m_e_n_t_0) ;
+  public native void setRemainingName(javax.naming.Name a_r_g_u_m_e_n_t_0) ;
+  public native void setResolvedObj(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void appendRemainingComponent(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void appendRemainingName(javax.naming.Name a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Throwable getRootCause() ;
+  public native void setRootCause(java.lang.Throwable a_r_g_u_m_e_n_t_0) ;
+  protected javax.naming.Name resolvedName;
+  protected java.lang.Object resolvedObj;
+  protected javax.naming.Name remainingName;
+  protected java.lang.Throwable rootException;
+}

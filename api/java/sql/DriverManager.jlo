@@ -1,0 +1,19 @@
+package java.sql;
+public class DriverManager extends java.lang.Object {
+  public static native void println(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static native void initialize() ;
+  public static native java.sql.Connection getConnection(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public static native java.sql.Connection getConnection(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2)  throws java.sql.SQLException;
+  public static native java.sql.Connection getConnection(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Properties a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public static native java.io.PrintWriter getLogWriter() ;
+  public static native void setLogWriter(java.io.PrintWriter a_r_g_u_m_e_n_t_0) ;
+  public static native void setLoginTimeout(int a_r_g_u_m_e_n_t_0) ;
+  public static native int getLoginTimeout() ;
+  public static native void setLogStream(java.io.PrintStream a_r_g_u_m_e_n_t_0) ;
+  public static native java.sql.Driver getDriver(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public static synchronized native void registerDriver(java.sql.Driver a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public static synchronized native void deregisterDriver(java.sql.Driver a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public static native java.util.Enumeration<java.sql.Driver> getDrivers() ;
+  public static native java.io.PrintStream getLogStream() ;
+  static final java.sql.SQLPermission SET_LOG_PERMISSION;
+}

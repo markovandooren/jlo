@@ -1,0 +1,29 @@
+package java.lang;
+public final class Byte extends java.lang.Number implements java.lang.Comparable<java.lang.Byte> {
+   public  Byte(java.lang.String a_r_g_u_m_e_n_t_0) throws java.lang.NumberFormatException{}
+   public  Byte(byte a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int compareTo(java.lang.Byte a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String toString(byte a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public static native java.lang.Byte valueOf(byte a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.Byte valueOf(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.lang.NumberFormatException;
+  public static native java.lang.Byte valueOf(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NumberFormatException;
+  public static native java.lang.Byte decode(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NumberFormatException;
+  public native byte byteValue() ;
+  public native short shortValue() ;
+  public native int intValue() ;
+  public native long longValue() ;
+  public native float floatValue() ;
+  public native double doubleValue() ;
+  public static native byte parseByte(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.lang.NumberFormatException;
+  public static native byte parseByte(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NumberFormatException;
+  public static final byte MIN_VALUE;
+  public static final byte MAX_VALUE;
+  public static final java.lang.Class<java.lang.Byte> TYPE;
+  public static final int SIZE;
+  private static class ByteCache extends java.lang.Object {
+    static final java.lang.Byte[] cache;
+  }
+}

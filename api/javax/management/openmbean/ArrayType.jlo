@@ -1,0 +1,21 @@
+package javax.management.openmbean;
+public class ArrayType<T extends java.lang.Object> extends javax.management.openmbean.OpenType<T> {
+   public  ArrayType(javax.management.openmbean.SimpleType<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) throws javax.management.openmbean.OpenDataException{}
+    ArrayType(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.management.openmbean.OpenType a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5){}
+   public  ArrayType(int a_r_g_u_m_e_n_t_0, javax.management.openmbean.OpenType<? extends java.lang.Object> a_r_g_u_m_e_n_t_1) throws javax.management.openmbean.OpenDataException{}
+  public native int hashCode() ;
+  native boolean isAssignableFrom(javax.management.openmbean.OpenType a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public static native <E extends java.lang.Object>javax.management.openmbean.ArrayType<E[]> getArrayType(javax.management.openmbean.OpenType<E> a_r_g_u_m_e_n_t_0)  throws javax.management.openmbean.OpenDataException;
+  static native boolean isPrimitiveContentType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static native java.lang.String getPrimitiveTypeKey(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static native java.lang.String getPrimitiveTypeName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static native javax.management.openmbean.SimpleType<? extends java.lang.Object> getPrimitiveOpenType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native int getDimension() ;
+  public native javax.management.openmbean.OpenType<? extends java.lang.Object> getElementOpenType() ;
+  public native boolean isPrimitiveArray() ;
+  public native boolean isValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native <T extends java.lang.Object>javax.management.openmbean.ArrayType<T> getPrimitiveArrayType(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+}

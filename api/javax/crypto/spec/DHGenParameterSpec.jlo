@@ -1,0 +1,6 @@
+package javax.crypto.spec;
+public class DHGenParameterSpec extends java.lang.Object implements java.security.spec.AlgorithmParameterSpec {
+   public  DHGenParameterSpec(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native int getExponentSize() ;
+  public native int getPrimeSize() ;
+}

@@ -1,0 +1,42 @@
+package javax.management;
+public class Query extends java.lang.Object {
+   public  Query(){}
+  public static native javax.management.StringValueExp value(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.ValueExp value(java.lang.Number a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.ValueExp value(int a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.ValueExp value(long a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.ValueExp value(float a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.ValueExp value(double a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.ValueExp value(boolean a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.QueryExp lt(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp in(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp[] a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp eq(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp match(javax.management.AttributeValueExp a_r_g_u_m_e_n_t_0, javax.management.StringValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp and(javax.management.QueryExp a_r_g_u_m_e_n_t_0, javax.management.QueryExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp or(javax.management.QueryExp a_r_g_u_m_e_n_t_0, javax.management.QueryExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.AttributeValueExp attr(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.AttributeValueExp attr(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.QueryExp not(javax.management.QueryExp a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.QueryExp isInstanceOf(javax.management.StringValueExp a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.ValueExp plus(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.ValueExp div(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp gt(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp geq(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp leq(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp between(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1, javax.management.ValueExp a_r_g_u_m_e_n_t_2) ;
+  public static native javax.management.AttributeValueExp classattr() ;
+  public static native javax.management.ValueExp times(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.ValueExp minus(javax.management.ValueExp a_r_g_u_m_e_n_t_0, javax.management.ValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp initialSubString(javax.management.AttributeValueExp a_r_g_u_m_e_n_t_0, javax.management.StringValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp anySubString(javax.management.AttributeValueExp a_r_g_u_m_e_n_t_0, javax.management.StringValueExp a_r_g_u_m_e_n_t_1) ;
+  public static native javax.management.QueryExp finalSubString(javax.management.AttributeValueExp a_r_g_u_m_e_n_t_0, javax.management.StringValueExp a_r_g_u_m_e_n_t_1) ;
+  public static final int GT;
+  public static final int LT;
+  public static final int GE;
+  public static final int LE;
+  public static final int EQ;
+  public static final int PLUS;
+  public static final int MINUS;
+  public static final int TIMES;
+  public static final int DIV;
+}

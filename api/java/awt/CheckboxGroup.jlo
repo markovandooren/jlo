@@ -1,0 +1,10 @@
+package java.awt;
+public class CheckboxGroup extends java.lang.Object implements java.io.Serializable {
+   public  CheckboxGroup(){}
+  public native java.lang.String toString() ;
+  public native void setSelectedCheckbox(java.awt.Checkbox a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Checkbox getSelectedCheckbox() ;
+  public native java.awt.Checkbox getCurrent() ;
+  public synchronized native void setCurrent(java.awt.Checkbox a_r_g_u_m_e_n_t_0) ;
+  java.awt.Checkbox selectedCheckbox;
+}

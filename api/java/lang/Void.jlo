@@ -1,0 +1,4 @@
+package java.lang;
+public final class Void extends java.lang.Object {
+  public static final java.lang.Class<java.lang.Void> TYPE;
+}

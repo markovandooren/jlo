@@ -1,0 +1,17 @@
+package javax.sql.rowset.serial;
+public class SerialBlob extends java.lang.Object implements java.sql.Blob, java.io.Serializable, java.lang.Cloneable {
+   public  SerialBlob(byte[] a_r_g_u_m_e_n_t_0) throws javax.sql.rowset.serial.SerialException, java.sql.SQLException{}
+   public  SerialBlob(java.sql.Blob a_r_g_u_m_e_n_t_0) throws javax.sql.rowset.serial.SerialException, java.sql.SQLException{}
+  public native long length()  throws javax.sql.rowset.serial.SerialException;
+  public native byte[] getBytes(long a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.sql.rowset.serial.SerialException;
+  public native long position(java.sql.Blob a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  public native long position(byte[] a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  public native void truncate(long a_r_g_u_m_e_n_t_0)  throws javax.sql.rowset.serial.SerialException;
+  public native void free()  throws java.sql.SQLException;
+  public native java.io.InputStream getBinaryStream()  throws javax.sql.rowset.serial.SerialException;
+  public native java.io.InputStream getBinaryStream(long a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native int setBytes(long a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1)  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  public native int setBytes(long a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  public native java.io.OutputStream setBinaryStream(long a_r_g_u_m_e_n_t_0)  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  static final long serialVersionUID;
+}

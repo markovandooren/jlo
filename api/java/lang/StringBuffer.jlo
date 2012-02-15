@@ -1,0 +1,58 @@
+package java.lang;
+public final class StringBuffer extends java.lang.AbstractStringBuilder implements java.io.Serializable, java.lang.CharSequence {
+   public  StringBuffer(){}
+   public  StringBuffer(int a_r_g_u_m_e_n_t_0){}
+   public  StringBuffer(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  StringBuffer(java.lang.CharSequence a_r_g_u_m_e_n_t_0){}
+  public synchronized native int indexOf(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int indexOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.String toString() ;
+  public synchronized native java.lang.StringBuffer append(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public synchronized native java.lang.StringBuffer append(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer append(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer append(java.lang.StringBuffer a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.StringBuffer append(java.lang.CharSequence a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer append(java.lang.CharSequence a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public synchronized native java.lang.StringBuffer append(char[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer append(boolean a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer append(char a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer append(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer append(long a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer append(float a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer append(double a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int length() ;
+  public synchronized native char charAt(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int codePointAt(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int codePointBefore(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int codePointCount(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native int offsetByCodePoints(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native void getChars(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, char[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native int lastIndexOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int lastIndexOf(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.String substring(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.String substring(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.CharSequence subSequence(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.StringBuffer replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) ;
+  public synchronized native void trimToSize() ;
+  public synchronized native void ensureCapacity(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int capacity() ;
+  public synchronized native void setLength(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setCharAt(int a_r_g_u_m_e_n_t_0, char a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.StringBuffer appendCodePoint(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer delete(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.StringBuffer deleteCharAt(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, char[] a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, java.lang.CharSequence a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, java.lang.CharSequence a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, char a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.lang.StringBuffer insert(int a_r_g_u_m_e_n_t_0, char[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public synchronized native java.lang.StringBuffer reverse() ;
+  static final long serialVersionUID;
+}

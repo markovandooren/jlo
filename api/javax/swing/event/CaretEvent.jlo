@@ -1,0 +1,6 @@
+package javax.swing.event;
+public abstract class CaretEvent extends java.util.EventObject {
+   public  CaretEvent(java.lang.Object a_r_g_u_m_e_n_t_0){}
+  public abstract int getMark() ;
+  public abstract int getDot() ;
+}

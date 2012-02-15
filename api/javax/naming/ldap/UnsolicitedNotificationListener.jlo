@@ -1,0 +1,4 @@
+package javax.naming.ldap;
+public abstract interface UnsolicitedNotificationListener extends javax.naming.event.NamingListener {
+  public abstract void notificationReceived(javax.naming.ldap.UnsolicitedNotificationEvent a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,13 @@
+package javax.management.remote;
+public abstract interface JMXConnector extends java.io.Closeable {
+  public abstract void close()  throws java.io.IOException;
+  public abstract void connect(java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract void connect()  throws java.io.IOException;
+  public abstract java.lang.String getConnectionId()  throws java.io.IOException;
+  public abstract javax.management.MBeanServerConnection getMBeanServerConnection(javax.security.auth.Subject a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract javax.management.MBeanServerConnection getMBeanServerConnection()  throws java.io.IOException;
+  public abstract void addConnectionNotificationListener(javax.management.NotificationListener a_r_g_u_m_e_n_t_0, javax.management.NotificationFilter a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public abstract void removeConnectionNotificationListener(javax.management.NotificationListener a_r_g_u_m_e_n_t_0)  throws javax.management.ListenerNotFoundException;
+  public abstract void removeConnectionNotificationListener(javax.management.NotificationListener a_r_g_u_m_e_n_t_0, javax.management.NotificationFilter a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2)  throws javax.management.ListenerNotFoundException;
+  public static final java.lang.String CREDENTIALS;
+}

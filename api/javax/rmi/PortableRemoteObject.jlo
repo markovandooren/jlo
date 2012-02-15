@@ -1,0 +1,9 @@
+package javax.rmi;
+public class PortableRemoteObject extends java.lang.Object {
+   protected  PortableRemoteObject() throws java.rmi.RemoteException{}
+  public static native void connect(java.rmi.Remote a_r_g_u_m_e_n_t_0, java.rmi.Remote a_r_g_u_m_e_n_t_1)  throws java.rmi.RemoteException;
+  public static native void exportObject(java.rmi.Remote a_r_g_u_m_e_n_t_0)  throws java.rmi.RemoteException;
+  public static native void unexportObject(java.rmi.Remote a_r_g_u_m_e_n_t_0)  throws java.rmi.NoSuchObjectException;
+  public static native java.rmi.Remote toStub(java.rmi.Remote a_r_g_u_m_e_n_t_0)  throws java.rmi.NoSuchObjectException;
+  public static native java.lang.Object narrow(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Class a_r_g_u_m_e_n_t_1)  throws java.lang.ClassCastException;
+}

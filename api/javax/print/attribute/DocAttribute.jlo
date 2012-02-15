@@ -1,0 +1,3 @@
+package javax.print.attribute;
+public abstract interface DocAttribute extends javax.print.attribute.Attribute {
+}

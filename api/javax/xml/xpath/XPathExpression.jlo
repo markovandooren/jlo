@@ -1,0 +1,7 @@
+package javax.xml.xpath;
+public abstract interface XPathExpression {
+  public abstract java.lang.Object evaluate(java.lang.Object a_r_g_u_m_e_n_t_0, javax.xml.namespace.QName a_r_g_u_m_e_n_t_1)  throws javax.xml.xpath.XPathExpressionException;
+  public abstract java.lang.String evaluate(java.lang.Object a_r_g_u_m_e_n_t_0)  throws javax.xml.xpath.XPathExpressionException;
+  public abstract java.lang.Object evaluate(org.xml.sax.InputSource a_r_g_u_m_e_n_t_0, javax.xml.namespace.QName a_r_g_u_m_e_n_t_1)  throws javax.xml.xpath.XPathExpressionException;
+  public abstract java.lang.String evaluate(org.xml.sax.InputSource a_r_g_u_m_e_n_t_0)  throws javax.xml.xpath.XPathExpressionException;
+}

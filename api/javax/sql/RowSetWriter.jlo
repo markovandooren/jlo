@@ -1,0 +1,4 @@
+package javax.sql;
+public abstract interface RowSetWriter {
+  public abstract boolean writeData(javax.sql.RowSetInternal a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+}

@@ -1,0 +1,11 @@
+package java.nio.channels.spi;
+public abstract class SelectorProvider extends java.lang.Object {
+   protected  SelectorProvider(){}
+  public native java.nio.channels.Channel inheritedChannel()  throws java.io.IOException;
+  public static native java.nio.channels.spi.SelectorProvider provider() ;
+  public abstract java.nio.channels.DatagramChannel openDatagramChannel()  throws java.io.IOException;
+  public abstract java.nio.channels.Pipe openPipe()  throws java.io.IOException;
+  public abstract java.nio.channels.spi.AbstractSelector openSelector()  throws java.io.IOException;
+  public abstract java.nio.channels.ServerSocketChannel openServerSocketChannel()  throws java.io.IOException;
+  public abstract java.nio.channels.SocketChannel openSocketChannel()  throws java.io.IOException;
+}

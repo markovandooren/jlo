@@ -1,0 +1,367 @@
+package java.util.regex;
+public final class Pattern extends java.lang.Object implements java.io.Serializable {
+  public native java.lang.String toString() ;
+  public static native boolean matches(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.CharSequence a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String[] split(java.lang.CharSequence a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String[] split(java.lang.CharSequence a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.regex.Pattern compile(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.regex.Pattern compile(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.util.regex.Matcher matcher(java.lang.CharSequence a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String quote(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String pattern() ;
+  public native int flags() ;
+  public static final int UNIX_LINES;
+  public static final int CASE_INSENSITIVE;
+  public static final int COMMENTS;
+  public static final int MULTILINE;
+  public static final int LITERAL;
+  public static final int DOTALL;
+  public static final int UNICODE_CASE;
+  public static final int CANON_EQ;
+  transient java.util.regex.Pattern.Node root;
+  transient java.util.regex.Pattern.Node matchRoot;
+  transient int[] buffer;
+  transient java.util.regex.Pattern.GroupHead[] groupNodes;
+  transient int capturingGroupCount;
+  transient int localCount;
+  static final int MAX_REPS;
+  static final int GREEDY;
+  static final int LAZY;
+  static final int POSSESSIVE;
+  static final int INDEPENDENT;
+  static java.util.regex.Pattern.Node lookbehindEnd;
+  static java.util.regex.Pattern.Node accept;
+  static java.util.regex.Pattern.Node lastAccept;
+  static final boolean $assertionsDisabled;
+  private static class CharPropertyNames extends java.lang.Object {
+    static native java.util.regex.Pattern.CharProperty charPropertyFor(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    private static abstract class CloneableProperty extends java.util.regex.Pattern.CharProperty implements java.lang.Cloneable {
+      public native java.util.regex.Pattern.CharPropertyNames.CloneableProperty clone() ;
+    }
+    private static abstract class CharPropertyFactory extends java.lang.Object {
+      abstract java.util.regex.Pattern.CharProperty make() ;
+    }
+  }
+  static final class BnMS extends java.util.regex.Pattern.BnM {
+      BnMS(int[] a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_3){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    int lengthInChars;
+  }
+  static class BnM extends java.util.regex.Pattern.Node {
+      BnM(int[] a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_3){}
+    static native java.util.regex.Pattern.Node optimize(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0) ;
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    int[] buffer;
+    int[] lastOcc;
+    int[] optoSft;
+  }
+  static final class Bound extends java.util.regex.Pattern.Node {
+      Bound(int a_r_g_u_m_e_n_t_0){}
+    native int check(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    static int LEFT;
+    static int RIGHT;
+    static int BOTH;
+    static int NONE;
+    int type;
+  }
+  static final class NotBehindS extends java.util.regex.Pattern.NotBehind {
+      NotBehindS(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static class NotBehind extends java.util.regex.Pattern.Node {
+      NotBehind(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    java.util.regex.Pattern.Node cond;
+    int rmax;
+    int rmin;
+  }
+  static final class BehindS extends java.util.regex.Pattern.Behind {
+      BehindS(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static class Behind extends java.util.regex.Pattern.Node {
+      Behind(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    java.util.regex.Pattern.Node cond;
+    int rmax;
+    int rmin;
+  }
+  static final class Neg extends java.util.regex.Pattern.Node {
+      Neg(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    java.util.regex.Pattern.Node cond;
+  }
+  static final class Pos extends java.util.regex.Pattern.Node {
+      Pos(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    java.util.regex.Pattern.Node cond;
+  }
+  static final class Conditional extends java.util.regex.Pattern.Node {
+      Conditional(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0, java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_1, java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_2){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    java.util.regex.Pattern.Node cond;
+    java.util.regex.Pattern.Node yes;
+    java.util.regex.Pattern.Node not;
+  }
+  static final class First extends java.util.regex.Pattern.Node {
+      First(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    java.util.regex.Pattern.Node atom;
+  }
+  static class CIBackRef extends java.util.regex.Pattern.Node {
+      CIBackRef(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    int groupIndex;
+    boolean doUnicodeCase;
+  }
+  static class BackRef extends java.util.regex.Pattern.Node {
+      BackRef(int a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    int groupIndex;
+  }
+  static final class LazyLoop extends java.util.regex.Pattern.Loop {
+      LazyLoop(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    native boolean matchInit(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static class Loop extends java.util.regex.Pattern.Node {
+      Loop(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    native boolean matchInit(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    java.util.regex.Pattern.Node body;
+    int countIndex;
+    int beginIndex;
+    int cmin;
+    int cmax;
+  }
+  static final class Prolog extends java.util.regex.Pattern.Node {
+      Prolog(java.util.regex.Pattern.Loop a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    java.util.regex.Pattern.Loop loop;
+  }
+  static final class GroupTail extends java.util.regex.Pattern.Node {
+      GroupTail(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    int localIndex;
+    int groupIndex;
+  }
+  static final class GroupRef extends java.util.regex.Pattern.Node {
+      GroupRef(java.util.regex.Pattern.GroupHead a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    java.util.regex.Pattern.GroupHead head;
+  }
+  static final class GroupHead extends java.util.regex.Pattern.Node {
+      GroupHead(int a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean matchRef(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    int localIndex;
+  }
+  static final class Branch extends java.util.regex.Pattern.Node {
+      Branch(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0, java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_1, java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_2){}
+    native void add(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0) ;
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    java.util.regex.Pattern.Node[] atoms;
+    int size;
+    java.util.regex.Pattern.Node conn;
+  }
+  static final class BranchConn extends java.util.regex.Pattern.Node {
+      BranchConn(){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+  }
+  static final class GroupCurly extends java.util.regex.Pattern.Node {
+      GroupCurly(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    native boolean match0(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.CharSequence a_r_g_u_m_e_n_t_3) ;
+    native boolean match1(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.CharSequence a_r_g_u_m_e_n_t_3) ;
+    native boolean match2(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.CharSequence a_r_g_u_m_e_n_t_3) ;
+    java.util.regex.Pattern.Node atom;
+    int type;
+    int cmin;
+    int cmax;
+    int localIndex;
+    int groupIndex;
+    boolean capture;
+  }
+  static final class Curly extends java.util.regex.Pattern.Node {
+      Curly(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    native boolean match0(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.CharSequence a_r_g_u_m_e_n_t_3) ;
+    native boolean match1(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.CharSequence a_r_g_u_m_e_n_t_3) ;
+    native boolean match2(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.CharSequence a_r_g_u_m_e_n_t_3) ;
+    java.util.regex.Pattern.Node atom;
+    int type;
+    int cmin;
+    int cmax;
+  }
+  static final class Ques extends java.util.regex.Pattern.Node {
+      Ques(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    java.util.regex.Pattern.Node atom;
+    int type;
+  }
+  static final class UnixDot extends java.util.regex.Pattern.CharProperty {
+      UnixDot(){}
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+  }
+  static final class Dot extends java.util.regex.Pattern.CharProperty {
+      Dot(){}
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+  }
+  static final class All extends java.util.regex.Pattern.CharProperty {
+      All(){}
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+  }
+  static final class SliceUS extends java.util.regex.Pattern.SliceIS {
+      SliceUS(int[] a_r_g_u_m_e_n_t_0){}
+    native int toLower(int a_r_g_u_m_e_n_t_0) ;
+  }
+  static class SliceIS extends java.util.regex.Pattern.SliceNode {
+      SliceIS(int[] a_r_g_u_m_e_n_t_0){}
+    native int toLower(int a_r_g_u_m_e_n_t_0) ;
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static final class SliceS extends java.util.regex.Pattern.SliceNode {
+      SliceS(int[] a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static final class SliceU extends java.util.regex.Pattern.SliceNode {
+      SliceU(int[] a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static class SliceI extends java.util.regex.Pattern.SliceNode {
+      SliceI(int[] a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static final class Slice extends java.util.regex.Pattern.SliceNode {
+      Slice(int[] a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static class SliceNode extends java.util.regex.Pattern.Node {
+      SliceNode(int[] a_r_g_u_m_e_n_t_0){}
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    int[] buffer;
+  }
+  static final class Ctype extends java.util.regex.Pattern.BmpCharProperty {
+      Ctype(int a_r_g_u_m_e_n_t_0){}
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+    final int ctype;
+  }
+  static final class Category extends java.util.regex.Pattern.CharProperty {
+      Category(int a_r_g_u_m_e_n_t_0){}
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+    final int typeMask;
+  }
+  static final class SingleU extends java.util.regex.Pattern.CharProperty {
+      SingleU(int a_r_g_u_m_e_n_t_0){}
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+    final int lower;
+  }
+  static final class SingleI extends java.util.regex.Pattern.BmpCharProperty {
+      SingleI(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+    final int lower;
+    final int upper;
+  }
+  static final class Single extends java.util.regex.Pattern.BmpCharProperty {
+      Single(int a_r_g_u_m_e_n_t_0){}
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+    final int c;
+  }
+  static final class SingleS extends java.util.regex.Pattern.CharProperty {
+      SingleS(int a_r_g_u_m_e_n_t_0){}
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+    final int c;
+  }
+  private static abstract class BmpCharProperty extends java.util.regex.Pattern.CharProperty {
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  private static abstract class CharProperty extends java.util.regex.Pattern.Node {
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native java.util.regex.Pattern.CharProperty maybeComplement(boolean a_r_g_u_m_e_n_t_0) ;
+    native java.util.regex.Pattern.CharProperty complement() ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    abstract boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+  }
+  static final class UnixDollar extends java.util.regex.Pattern.Node {
+      UnixDollar(boolean a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    boolean multiline;
+  }
+  static final class Dollar extends java.util.regex.Pattern.Node {
+      Dollar(boolean a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    boolean multiline;
+  }
+  static final class LastMatch extends java.util.regex.Pattern.Node {
+      LastMatch(){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static final class UnixCaret extends java.util.regex.Pattern.Node {
+      UnixCaret(){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static final class Caret extends java.util.regex.Pattern.Node {
+      Caret(){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static final class End extends java.util.regex.Pattern.Node {
+      End(){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static final class Begin extends java.util.regex.Pattern.Node {
+      Begin(){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static final class StartS extends java.util.regex.Pattern.Start {
+      StartS(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static class Start extends java.util.regex.Pattern.Node {
+      Start(java.util.regex.Pattern.Node a_r_g_u_m_e_n_t_0){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    int minLength;
+  }
+  static class LastNode extends java.util.regex.Pattern.Node {
+      LastNode(){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+  }
+  static class Node extends java.lang.Object {
+      Node(){}
+    native boolean match(java.util.regex.Matcher a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.CharSequence a_r_g_u_m_e_n_t_2) ;
+    native boolean study(java.util.regex.Pattern.TreeInfo a_r_g_u_m_e_n_t_0) ;
+    java.util.regex.Pattern.Node next;
+  }
+  private static final class BitClass extends java.util.regex.Pattern.BmpCharProperty {
+      BitClass(){}
+    native java.util.regex.Pattern.BitClass add(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    native boolean isSatisfiedBy(int a_r_g_u_m_e_n_t_0) ;
+    final boolean[] bits;
+    static final boolean $assertionsDisabled;
+  }
+  static final class TreeInfo extends java.lang.Object {
+      TreeInfo(){}
+    native void reset() ;
+    int minLength;
+    int maxLength;
+    boolean maxValid;
+    boolean deterministic;
+  }
+}

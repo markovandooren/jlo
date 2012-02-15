@@ -1,0 +1,5 @@
+package java.security;
+public class UnrecoverableEntryException extends java.security.GeneralSecurityException {
+   public  UnrecoverableEntryException(){}
+   public  UnrecoverableEntryException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

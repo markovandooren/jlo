@@ -1,0 +1,10 @@
+package org.xml.sax.ext;
+public abstract interface LexicalHandler {
+  public abstract void comment(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws org.xml.sax.SAXException;
+  public abstract void startCDATA()  throws org.xml.sax.SAXException;
+  public abstract void endCDATA()  throws org.xml.sax.SAXException;
+  public abstract void startDTD(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2)  throws org.xml.sax.SAXException;
+  public abstract void endDTD()  throws org.xml.sax.SAXException;
+  public abstract void startEntity(java.lang.String a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
+  public abstract void endEntity(java.lang.String a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
+}

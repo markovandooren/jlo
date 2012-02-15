@@ -1,0 +1,13 @@
+package java.awt;
+public abstract interface Shape {
+  public abstract boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public abstract boolean contains(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean contains(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean intersects(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public abstract boolean intersects(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Rectangle getBounds() ;
+  public abstract java.awt.geom.Rectangle2D getBounds2D() ;
+  public abstract java.awt.geom.PathIterator getPathIterator(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.geom.PathIterator getPathIterator(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+}

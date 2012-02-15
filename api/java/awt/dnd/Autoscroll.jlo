@@ -1,0 +1,5 @@
+package java.awt.dnd;
+public abstract interface Autoscroll {
+  public abstract java.awt.Insets getAutoscrollInsets() ;
+  public abstract void autoscroll(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+}

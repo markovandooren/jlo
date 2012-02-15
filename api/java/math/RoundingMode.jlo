@@ -1,0 +1,15 @@
+package java.math;
+public final class RoundingMode extends java.lang.Enum<java.math.RoundingMode> {
+  public static native java.math.RoundingMode valueOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.math.RoundingMode valueOf(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.math.RoundingMode[] values() ;
+  public static final java.math.RoundingMode UP;
+  public static final java.math.RoundingMode DOWN;
+  public static final java.math.RoundingMode CEILING;
+  public static final java.math.RoundingMode FLOOR;
+  public static final java.math.RoundingMode HALF_UP;
+  public static final java.math.RoundingMode HALF_DOWN;
+  public static final java.math.RoundingMode HALF_EVEN;
+  public static final java.math.RoundingMode UNNECESSARY;
+  final int oldMode;
+}

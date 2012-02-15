@@ -1,0 +1,8 @@
+package java.io;
+public class FileWriter extends java.io.OutputStreamWriter {
+   public  FileWriter(java.lang.String a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   public  FileWriter(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) throws java.io.IOException{}
+   public  FileWriter(java.io.File a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   public  FileWriter(java.io.File a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) throws java.io.IOException{}
+   public  FileWriter(java.io.FileDescriptor a_r_g_u_m_e_n_t_0){}
+}

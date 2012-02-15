@@ -1,0 +1,5 @@
+package java.io;
+public class UnsupportedEncodingException extends java.io.IOException {
+   public  UnsupportedEncodingException(){}
+   public  UnsupportedEncodingException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

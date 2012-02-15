@@ -1,0 +1,10 @@
+package java.io;
+public abstract interface ObjectInput extends java.io.DataInput {
+  public abstract void close()  throws java.io.IOException;
+  public abstract java.lang.Object readObject()  throws java.lang.ClassNotFoundException, java.io.IOException;
+  public abstract int read()  throws java.io.IOException;
+  public abstract int read(byte[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public abstract long skip(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract int available()  throws java.io.IOException;
+}

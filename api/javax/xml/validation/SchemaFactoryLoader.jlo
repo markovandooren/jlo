@@ -1,0 +1,5 @@
+package javax.xml.validation;
+public abstract class SchemaFactoryLoader extends java.lang.Object {
+   protected  SchemaFactoryLoader(){}
+  public abstract javax.xml.validation.SchemaFactory newFactory(java.lang.String a_r_g_u_m_e_n_t_0) ;
+}

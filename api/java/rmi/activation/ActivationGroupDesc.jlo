@@ -1,0 +1,19 @@
+package java.rmi.activation;
+public final class ActivationGroupDesc extends java.lang.Object implements java.io.Serializable {
+   public  ActivationGroupDesc(java.util.Properties a_r_g_u_m_e_n_t_0, java.rmi.activation.ActivationGroupDesc.CommandEnvironment a_r_g_u_m_e_n_t_1){}
+   public  ActivationGroupDesc(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.rmi.MarshalledObject<? extends java.lang.Object> a_r_g_u_m_e_n_t_2, java.util.Properties a_r_g_u_m_e_n_t_3, java.rmi.activation.ActivationGroupDesc.CommandEnvironment a_r_g_u_m_e_n_t_4){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getLocation() ;
+  public native java.lang.String getClassName() ;
+  public native java.rmi.MarshalledObject<? extends java.lang.Object> getData() ;
+  public native java.util.Properties getPropertyOverrides() ;
+  public native java.rmi.activation.ActivationGroupDesc.CommandEnvironment getCommandEnvironment() ;
+  public static class CommandEnvironment extends java.lang.Object implements java.io.Serializable {
+     public  CommandEnvironment(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1){}
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String getCommandPath() ;
+    public native java.lang.String[] getCommandOptions() ;
+  }
+}

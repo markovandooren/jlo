@@ -1,0 +1,8 @@
+package javax.xml.validation;
+public abstract class TypeInfoProvider extends java.lang.Object {
+   protected  TypeInfoProvider(){}
+  public abstract boolean isSpecified(int a_r_g_u_m_e_n_t_0) ;
+  public abstract org.w3c.dom.TypeInfo getElementTypeInfo() ;
+  public abstract org.w3c.dom.TypeInfo getAttributeTypeInfo(int a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isIdAttribute(int a_r_g_u_m_e_n_t_0) ;
+}

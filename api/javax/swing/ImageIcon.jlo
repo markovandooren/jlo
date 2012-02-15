@@ -1,0 +1,48 @@
+package javax.swing;
+public class ImageIcon extends java.lang.Object implements javax.swing.Icon, java.io.Serializable, javax.accessibility.Accessible {
+   public  ImageIcon(){}
+   public  ImageIcon(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  ImageIcon(java.net.URL a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  ImageIcon(java.net.URL a_r_g_u_m_e_n_t_0){}
+   public  ImageIcon(java.awt.Image a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  ImageIcon(java.awt.Image a_r_g_u_m_e_n_t_0){}
+   public  ImageIcon(byte[] a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  ImageIcon(byte[] a_r_g_u_m_e_n_t_0){}
+   public  ImageIcon(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public native java.lang.String toString() ;
+  public synchronized native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native int getIconWidth() ;
+  public native int getIconHeight() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native java.awt.Image getImage() ;
+  public native java.lang.String getDescription() ;
+  public native void setImage(java.awt.Image a_r_g_u_m_e_n_t_0) ;
+  protected native void loadImage(java.awt.Image a_r_g_u_m_e_n_t_0) ;
+  public native int getImageLoadStatus() ;
+  public native void setDescription(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setImageObserver(java.awt.image.ImageObserver a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.image.ImageObserver getImageObserver() ;
+  transient java.awt.Image image;
+  transient int loadStatus;
+  java.awt.image.ImageObserver imageObserver;
+  java.lang.String description;
+  protected static final java.awt.Component component;
+  protected static final java.awt.MediaTracker tracker;
+  int width;
+  int height;
+  protected class AccessibleImageIcon extends javax.accessibility.AccessibleContext implements javax.accessibility.AccessibleIcon, java.io.Serializable {
+     protected  AccessibleImageIcon(javax.swing.ImageIcon a_r_g_u_m_e_n_t_0){}
+    public native int getAccessibleChildrenCount() ;
+    public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+    public native java.util.Locale getLocale()  throws java.awt.IllegalComponentStateException;
+    public native int getAccessibleIndexInParent() ;
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native javax.accessibility.Accessible getAccessibleParent() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    public native java.lang.String getAccessibleIconDescription() ;
+    public native void setAccessibleIconDescription(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native int getAccessibleIconWidth() ;
+    public native int getAccessibleIconHeight() ;
+    final javax.swing.ImageIcon this$0;
+  }
+}

@@ -1,0 +1,55 @@
+package javax.swing;
+public class SpringLayout extends java.lang.Object implements java.awt.LayoutManager2 {
+   public  SpringLayout(){}
+  public native void removeLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void addLayoutComponent(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public native void addLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native void layoutContainer(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native void invalidateLayout(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension preferredLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension minimumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension maximumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native float getLayoutAlignmentX(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native float getLayoutAlignmentY(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.SpringLayout.Constraints getConstraints(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  native boolean isCyclic(javax.swing.Spring a_r_g_u_m_e_n_t_0) ;
+  public native void putConstraint(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.awt.Component a_r_g_u_m_e_n_t_4) ;
+  public native void putConstraint(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1, javax.swing.Spring a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.awt.Component a_r_g_u_m_e_n_t_4) ;
+  public native javax.swing.Spring getConstraint(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public static final java.lang.String NORTH;
+  public static final java.lang.String SOUTH;
+  public static final java.lang.String EAST;
+  public static final java.lang.String WEST;
+  public static final java.lang.String HORIZONTAL_CENTER;
+  public static final java.lang.String VERTICAL_CENTER;
+  public static final java.lang.String BASELINE;
+  public static final java.lang.String WIDTH;
+  public static final java.lang.String HEIGHT;
+  private static class SpringProxy extends javax.swing.Spring {
+     public  SpringProxy(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1, javax.swing.SpringLayout a_r_g_u_m_e_n_t_2){}
+    public native java.lang.String toString() ;
+    public native int getValue() ;
+    public native void setValue(int a_r_g_u_m_e_n_t_0) ;
+    native boolean isCyclic(javax.swing.SpringLayout a_r_g_u_m_e_n_t_0) ;
+    public native int getMinimumValue() ;
+    public native int getPreferredValue() ;
+    public native int getMaximumValue() ;
+  }
+  public static class Constraints extends java.lang.Object {
+     public  Constraints(){}
+     public  Constraints(javax.swing.Spring a_r_g_u_m_e_n_t_0, javax.swing.Spring a_r_g_u_m_e_n_t_1){}
+     public  Constraints(javax.swing.Spring a_r_g_u_m_e_n_t_0, javax.swing.Spring a_r_g_u_m_e_n_t_1, javax.swing.Spring a_r_g_u_m_e_n_t_2, javax.swing.Spring a_r_g_u_m_e_n_t_3){}
+     public  Constraints(java.awt.Component a_r_g_u_m_e_n_t_0){}
+    native void reset() ;
+    public native javax.swing.Spring getY() ;
+    public native javax.swing.Spring getX() ;
+    public native javax.swing.Spring getWidth() ;
+    public native javax.swing.Spring getHeight() ;
+    public native void setWidth(javax.swing.Spring a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.Spring getConstraint(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native void setX(javax.swing.Spring a_r_g_u_m_e_n_t_0) ;
+    public native void setY(javax.swing.Spring a_r_g_u_m_e_n_t_0) ;
+    public native void setHeight(javax.swing.Spring a_r_g_u_m_e_n_t_0) ;
+    public native void setConstraint(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.Spring a_r_g_u_m_e_n_t_1) ;
+  }
+}

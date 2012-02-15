@@ -1,0 +1,16 @@
+package java.awt.datatransfer;
+public class Clipboard extends java.lang.Object {
+   public  Clipboard(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String getName() ;
+  public native java.lang.Object getData(java.awt.datatransfer.DataFlavor a_r_g_u_m_e_n_t_0)  throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException;
+  public synchronized native java.awt.datatransfer.Transferable getContents(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setContents(java.awt.datatransfer.Transferable a_r_g_u_m_e_n_t_0, java.awt.datatransfer.ClipboardOwner a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.datatransfer.DataFlavor[] getAvailableDataFlavors() ;
+  public native boolean isDataFlavorAvailable(java.awt.datatransfer.DataFlavor a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void addFlavorListener(java.awt.datatransfer.FlavorListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeFlavorListener(java.awt.datatransfer.FlavorListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.awt.datatransfer.FlavorListener[] getFlavorListeners() ;
+  java.lang.String name;
+  protected java.awt.datatransfer.ClipboardOwner owner;
+  protected java.awt.datatransfer.Transferable contents;
+}

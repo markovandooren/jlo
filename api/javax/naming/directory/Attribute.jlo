@@ -1,0 +1,20 @@
+package javax.naming.directory;
+public abstract interface Attribute extends java.lang.Cloneable, java.io.Serializable {
+  public abstract void add(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean add(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Object get()  throws javax.naming.NamingException;
+  public abstract java.lang.Object get(int a_r_g_u_m_e_n_t_0)  throws javax.naming.NamingException;
+  public abstract java.lang.Object clone() ;
+  public abstract void clear() ;
+  public abstract boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract int size() ;
+  public abstract java.lang.Object set(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.Object remove(int a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getID() ;
+  public abstract javax.naming.NamingEnumeration<? extends java.lang.Object> getAll()  throws javax.naming.NamingException;
+  public abstract javax.naming.directory.DirContext getAttributeSyntaxDefinition()  throws javax.naming.NamingException;
+  public abstract javax.naming.directory.DirContext getAttributeDefinition()  throws javax.naming.NamingException;
+  public abstract boolean isOrdered() ;
+  public static final long serialVersionUID;
+}

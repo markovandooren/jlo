@@ -1,0 +1,4 @@
+package java.awt;
+public abstract interface Paint extends java.awt.Transparency {
+  public abstract java.awt.PaintContext createContext(java.awt.image.ColorModel a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_2, java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_3, java.awt.RenderingHints a_r_g_u_m_e_n_t_4) ;
+}

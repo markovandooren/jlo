@@ -1,0 +1,31 @@
+package javax.swing.plaf.basic;
+public class BasicLabelUI extends javax.swing.plaf.LabelUI implements java.beans.PropertyChangeListener {
+   public  BasicLabelUI(){}
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Dimension getPreferredSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMaximumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMinimumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native int getBaseline(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Component.BaselineResizeBehavior getBaselineResizeBehavior(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  static native void loadActionMap(javax.swing.plaf.basic.LazyActionMap a_r_g_u_m_e_n_t_0) ;
+  protected native void installKeyboardActions(javax.swing.JLabel a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallKeyboardActions(javax.swing.JLabel a_r_g_u_m_e_n_t_0) ;
+  protected native void installDefaults(javax.swing.JLabel a_r_g_u_m_e_n_t_0) ;
+  protected native void installListeners(javax.swing.JLabel a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallListeners(javax.swing.JLabel a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallDefaults(javax.swing.JLabel a_r_g_u_m_e_n_t_0) ;
+  protected native void installComponents(javax.swing.JLabel a_r_g_u_m_e_n_t_0) ;
+  protected native void uninstallComponents(javax.swing.JLabel a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.String layoutCL(javax.swing.JLabel a_r_g_u_m_e_n_t_0, java.awt.FontMetrics a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, javax.swing.Icon a_r_g_u_m_e_n_t_3, java.awt.Rectangle a_r_g_u_m_e_n_t_4, java.awt.Rectangle a_r_g_u_m_e_n_t_5, java.awt.Rectangle a_r_g_u_m_e_n_t_6) ;
+  protected native void paintEnabledText(javax.swing.JLabel a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  protected native void paintDisabledText(javax.swing.JLabel a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  protected static javax.swing.plaf.basic.BasicLabelUI labelUI;
+  private static class Actions extends sun.swing.UIAction {
+      Actions(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+}

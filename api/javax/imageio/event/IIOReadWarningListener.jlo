@@ -1,0 +1,4 @@
+package javax.imageio.event;
+public abstract interface IIOReadWarningListener extends java.util.EventListener {
+  public abstract void warningOccurred(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+}

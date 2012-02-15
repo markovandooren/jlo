@@ -1,0 +1,59 @@
+package javax.swing.tree;
+public class DefaultTreeCellEditor extends java.lang.Object implements java.awt.event.ActionListener, javax.swing.tree.TreeCellEditor, javax.swing.event.TreeSelectionListener {
+   public  DefaultTreeCellEditor(javax.swing.JTree a_r_g_u_m_e_n_t_0, javax.swing.tree.DefaultTreeCellRenderer a_r_g_u_m_e_n_t_1, javax.swing.tree.TreeCellEditor a_r_g_u_m_e_n_t_2){}
+   public  DefaultTreeCellEditor(javax.swing.JTree a_r_g_u_m_e_n_t_0, javax.swing.tree.DefaultTreeCellRenderer a_r_g_u_m_e_n_t_1){}
+  public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  public native void setFont(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Font getFont() ;
+  public native boolean isCellEditable(java.util.EventObject a_r_g_u_m_e_n_t_0) ;
+  public native boolean shouldSelectCell(java.util.EventObject a_r_g_u_m_e_n_t_0) ;
+  public native boolean stopCellEditing() ;
+  public native void cancelCellEditing() ;
+  public native void addCellEditorListener(javax.swing.event.CellEditorListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeCellEditorListener(javax.swing.event.CellEditorListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.CellEditorListener[] getCellEditorListeners() ;
+  public native java.lang.Object getCellEditorValue() ;
+  public native void valueChanged(javax.swing.event.TreeSelectionEvent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getTreeCellEditorComponent(javax.swing.JTree a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public native void setBorderSelectionColor(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Color getBorderSelectionColor() ;
+  protected native void setTree(javax.swing.JTree a_r_g_u_m_e_n_t_0) ;
+  protected native boolean shouldStartEditingTimer(java.util.EventObject a_r_g_u_m_e_n_t_0) ;
+  protected native void startEditingTimer() ;
+  protected native boolean canEditImmediately(java.util.EventObject a_r_g_u_m_e_n_t_0) ;
+  protected native boolean inHitRegion(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected native void determineOffset(javax.swing.JTree a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  protected native void prepareForEditing() ;
+  protected native java.awt.Container createContainer() ;
+  protected native javax.swing.tree.TreeCellEditor createTreeCellEditor() ;
+  protected javax.swing.tree.TreeCellEditor realEditor;
+  protected javax.swing.tree.DefaultTreeCellRenderer renderer;
+  protected java.awt.Container editingContainer;
+  protected transient java.awt.Component editingComponent;
+  protected boolean canEdit;
+  protected transient int offset;
+  protected transient javax.swing.JTree tree;
+  protected transient javax.swing.tree.TreePath lastPath;
+  protected transient javax.swing.Timer timer;
+  protected transient int lastRow;
+  protected java.awt.Color borderSelectionColor;
+  protected transient javax.swing.Icon editingIcon;
+  protected java.awt.Font font;
+  public class EditorContainer extends java.awt.Container {
+     public  EditorContainer(javax.swing.tree.DefaultTreeCellEditor a_r_g_u_m_e_n_t_0){}
+    public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Dimension getPreferredSize() ;
+    public native void doLayout() ;
+    public native void EditorContainer() ;
+    final javax.swing.tree.DefaultTreeCellEditor this$0;
+  }
+  public class DefaultTextField extends javax.swing.JTextField {
+     public  DefaultTextField(javax.swing.tree.DefaultTreeCellEditor a_r_g_u_m_e_n_t_0, javax.swing.border.Border a_r_g_u_m_e_n_t_1){}
+    public native java.awt.Dimension getPreferredSize() ;
+    public native void setBorder(javax.swing.border.Border a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.border.Border getBorder() ;
+    public native java.awt.Font getFont() ;
+    protected javax.swing.border.Border border;
+    final javax.swing.tree.DefaultTreeCellEditor this$0;
+  }
+}

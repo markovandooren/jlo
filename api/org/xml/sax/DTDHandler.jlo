@@ -1,0 +1,5 @@
+package org.xml.sax;
+public abstract interface DTDHandler {
+  public abstract void notationDecl(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2)  throws org.xml.sax.SAXException;
+  public abstract void unparsedEntityDecl(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3)  throws org.xml.sax.SAXException;
+}

@@ -1,0 +1,8 @@
+package java.awt.geom;
+public final class GeneralPath extends java.awt.geom.Path2D.Float {
+   public  GeneralPath(){}
+   public  GeneralPath(int a_r_g_u_m_e_n_t_0){}
+   public  GeneralPath(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  GeneralPath(java.awt.Shape a_r_g_u_m_e_n_t_0){}
+    GeneralPath(int a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, float[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+}

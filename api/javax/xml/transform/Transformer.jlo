@@ -1,0 +1,17 @@
+package javax.xml.transform;
+public abstract class Transformer extends java.lang.Object {
+   protected  Transformer(){}
+  public abstract void transform(javax.xml.transform.Source a_r_g_u_m_e_n_t_0, javax.xml.transform.Result a_r_g_u_m_e_n_t_1)  throws javax.xml.transform.TransformerException;
+  public native void reset() ;
+  public abstract void setParameter(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.Object getParameter(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void clearParameters() ;
+  public abstract void setURIResolver(javax.xml.transform.URIResolver a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.xml.transform.URIResolver getURIResolver() ;
+  public abstract void setErrorListener(javax.xml.transform.ErrorListener a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract javax.xml.transform.ErrorListener getErrorListener() ;
+  public abstract java.util.Properties getOutputProperties() ;
+  public abstract void setOutputProperties(java.util.Properties a_r_g_u_m_e_n_t_0) ;
+  public abstract void setOutputProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalArgumentException;
+  public abstract java.lang.String getOutputProperty(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+}

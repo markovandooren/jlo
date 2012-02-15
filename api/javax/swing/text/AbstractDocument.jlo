@@ -1,0 +1,203 @@
+package javax.swing.text;
+public abstract class AbstractDocument extends java.lang.Object implements javax.swing.text.Document, java.io.Serializable {
+   protected  AbstractDocument(javax.swing.text.AbstractDocument.Content a_r_g_u_m_e_n_t_0){}
+   protected  AbstractDocument(javax.swing.text.AbstractDocument.Content a_r_g_u_m_e_n_t_0, javax.swing.text.AbstractDocument.AttributeContext a_r_g_u_m_e_n_t_1){}
+  public final native java.lang.Object getProperty(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int getLength() ;
+  public native void replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_3)  throws javax.swing.text.BadLocationException;
+  public native void remove(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  protected final native javax.swing.text.AbstractDocument.Content getContent() ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  native boolean isLeftToRight(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String getText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public native void getText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Segment a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public native java.util.Dictionary<java.lang.Object,java.lang.Object> getDocumentProperties() ;
+  public native void setDocumentProperties(java.util.Dictionary<java.lang.Object,java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  protected native void fireInsertUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void fireChangedUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void fireRemoveUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void fireUndoableEditUpdate(javax.swing.event.UndoableEditEvent a_r_g_u_m_e_n_t_0) ;
+  public native int getAsynchronousLoadPriority() ;
+  public native void setAsynchronousLoadPriority(int a_r_g_u_m_e_n_t_0) ;
+  public native void setDocumentFilter(javax.swing.text.DocumentFilter a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.DocumentFilter getDocumentFilter() ;
+  public native void render(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  public native void addDocumentListener(javax.swing.event.DocumentListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeDocumentListener(javax.swing.event.DocumentListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.DocumentListener[] getDocumentListeners() ;
+  public native void addUndoableEditListener(javax.swing.event.UndoableEditListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeUndoableEditListener(javax.swing.event.UndoableEditListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.UndoableEditListener[] getUndoableEditListeners() ;
+  public final native void putProperty(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  native void handleRemove(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public native void insertString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  native void handleInsertString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public synchronized native javax.swing.text.Position createPosition(int a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException;
+  public final native javax.swing.text.Position getStartPosition() ;
+  public final native javax.swing.text.Position getEndPosition() ;
+  public native javax.swing.text.Element[] getRootElements() ;
+  public abstract javax.swing.text.Element getDefaultRootElement() ;
+  public native javax.swing.text.Element getBidiRootElement() ;
+  public abstract javax.swing.text.Element getParagraphElement(int a_r_g_u_m_e_n_t_0) ;
+  protected final native javax.swing.text.AbstractDocument.AttributeContext getAttributeContext() ;
+  protected native void insertUpdate(javax.swing.text.AbstractDocument.DefaultDocumentEvent a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1) ;
+  protected native void removeUpdate(javax.swing.text.AbstractDocument.DefaultDocumentEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void postRemoveUpdate(javax.swing.text.AbstractDocument.DefaultDocumentEvent a_r_g_u_m_e_n_t_0) ;
+  native void updateBidi(javax.swing.text.AbstractDocument.DefaultDocumentEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dump(java.io.PrintStream a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.text.Element createLeafElement(javax.swing.text.Element a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  protected native javax.swing.text.Element createBranchElement(javax.swing.text.Element a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1) ;
+  protected final synchronized native java.lang.Thread getCurrentWriter() ;
+  protected final synchronized native void writeLock() ;
+  protected final synchronized native void writeUnlock() ;
+  public final synchronized native void readLock() ;
+  public final synchronized native void readUnlock() ;
+  protected javax.swing.event.EventListenerList listenerList;
+  protected static final java.lang.String BAD_LOCATION;
+  public static final java.lang.String ParagraphElementName;
+  public static final java.lang.String ContentElementName;
+  public static final java.lang.String SectionElementName;
+  public static final java.lang.String BidiElementName;
+  public static final java.lang.String ElementNameAttribute;
+  static final java.lang.String I18NProperty;
+  static final java.lang.Object MultiByteProperty;
+  static final java.lang.String AsyncLoadPriority;
+  private class DefaultFilterBypass extends javax.swing.text.DocumentFilter.FilterBypass {
+    public native void replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_3)  throws javax.swing.text.BadLocationException;
+    public native void remove(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+    public native javax.swing.text.Document getDocument() ;
+    public native void insertString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+    final javax.swing.text.AbstractDocument this$0;
+  }
+  public static class ElementEdit extends javax.swing.undo.AbstractUndoableEdit implements javax.swing.event.DocumentEvent.ElementChange {
+     public  ElementEdit(javax.swing.text.Element a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Element[] a_r_g_u_m_e_n_t_2, javax.swing.text.Element[] a_r_g_u_m_e_n_t_3){}
+    public native int getIndex() ;
+    public native javax.swing.text.Element getElement() ;
+    public native void redo()  throws javax.swing.undo.CannotRedoException;
+    public native void undo()  throws javax.swing.undo.CannotUndoException;
+    public native javax.swing.text.Element[] getChildrenRemoved() ;
+    public native javax.swing.text.Element[] getChildrenAdded() ;
+  }
+  class UndoRedoDocumentEvent extends java.lang.Object implements javax.swing.event.DocumentEvent {
+     public  UndoRedoDocumentEvent(javax.swing.text.AbstractDocument a_r_g_u_m_e_n_t_0, javax.swing.text.AbstractDocument.DefaultDocumentEvent a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+    public native int getLength() ;
+    public native javax.swing.event.DocumentEvent.EventType getType() ;
+    public native int getOffset() ;
+    public native javax.swing.text.AbstractDocument.DefaultDocumentEvent getSource() ;
+    public native javax.swing.text.Document getDocument() ;
+    public native javax.swing.event.DocumentEvent.ElementChange getChange(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.AbstractDocument this$0;
+  }
+  public class DefaultDocumentEvent extends javax.swing.undo.CompoundEdit implements javax.swing.event.DocumentEvent {
+     public  DefaultDocumentEvent(javax.swing.text.AbstractDocument a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.event.DocumentEvent.EventType a_r_g_u_m_e_n_t_3){}
+    public native int getLength() ;
+    public native java.lang.String toString() ;
+    public native javax.swing.event.DocumentEvent.EventType getType() ;
+    public native int getOffset() ;
+    public native javax.swing.text.Document getDocument() ;
+    public native boolean addEdit(javax.swing.undo.UndoableEdit a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.event.DocumentEvent.ElementChange getChange(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+    public native void redo()  throws javax.swing.undo.CannotRedoException;
+    public native void undo()  throws javax.swing.undo.CannotUndoException;
+    public native boolean isSignificant() ;
+    public native java.lang.String getPresentationName() ;
+    public native java.lang.String getUndoPresentationName() ;
+    public native java.lang.String getRedoPresentationName() ;
+    final javax.swing.text.AbstractDocument this$0;
+  }
+  class BidiElement extends javax.swing.text.AbstractDocument.LeafElement {
+      BidiElement(javax.swing.text.AbstractDocument a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+    public native java.lang.String getName() ;
+    native boolean isLeftToRight() ;
+    native int getLevel() ;
+    final javax.swing.text.AbstractDocument this$0;
+  }
+  class BidiRootElement extends javax.swing.text.AbstractDocument.BranchElement {
+      BidiRootElement(javax.swing.text.AbstractDocument a_r_g_u_m_e_n_t_0){}
+    public native java.lang.String getName() ;
+    final javax.swing.text.AbstractDocument this$0;
+  }
+  public class LeafElement extends javax.swing.text.AbstractDocument.AbstractElement {
+     public  LeafElement(javax.swing.text.AbstractDocument a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+    public native java.lang.String toString() ;
+    public native java.lang.String getName() ;
+    public native javax.swing.text.Element getElement(int a_r_g_u_m_e_n_t_0) ;
+    public native java.util.Enumeration children() ;
+    public native int getElementIndex(int a_r_g_u_m_e_n_t_0) ;
+    public native int getEndOffset() ;
+    public native int getStartOffset() ;
+    public native int getElementCount() ;
+    public native boolean isLeaf() ;
+    public native boolean getAllowsChildren() ;
+    final javax.swing.text.AbstractDocument this$0;
+  }
+  public class BranchElement extends javax.swing.text.AbstractDocument.AbstractElement {
+     public  BranchElement(javax.swing.text.AbstractDocument a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2){}
+    public native java.lang.String toString() ;
+    public native java.lang.String getName() ;
+    public native void replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Element[] a_r_g_u_m_e_n_t_2) ;
+    public native javax.swing.text.Element getElement(int a_r_g_u_m_e_n_t_0) ;
+    public native java.util.Enumeration children() ;
+    public native int getElementIndex(int a_r_g_u_m_e_n_t_0) ;
+    public native int getEndOffset() ;
+    public native int getStartOffset() ;
+    public native int getElementCount() ;
+    public native boolean isLeaf() ;
+    public native javax.swing.text.Element positionToElement(int a_r_g_u_m_e_n_t_0) ;
+    public native boolean getAllowsChildren() ;
+    final javax.swing.text.AbstractDocument this$0;
+  }
+  public abstract class AbstractElement extends java.lang.Object implements javax.swing.text.Element, javax.swing.text.MutableAttributeSet, java.io.Serializable, javax.swing.tree.TreeNode {
+     public  AbstractElement(javax.swing.text.AbstractDocument a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2){}
+    public native java.lang.String getName() ;
+    public native javax.swing.tree.TreeNode getParent() ;
+    public native boolean isDefined(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.AttributeSet getAttributes() ;
+    public native int getIndex(javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_0) ;
+    public native boolean isEqual(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Object getAttribute(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void addAttribute(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public abstract javax.swing.text.Element getElement(int a_r_g_u_m_e_n_t_0) ;
+    public abstract java.util.Enumeration children() ;
+    public native javax.swing.text.Document getDocument() ;
+    public native int getAttributeCount() ;
+    public native javax.swing.text.AttributeSet copyAttributes() ;
+    public native java.util.Enumeration<? extends java.lang.Object> getAttributeNames() ;
+    public native boolean containsAttribute(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public native boolean containsAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.AttributeSet getResolveParent() ;
+    public native void dump(java.io.PrintStream a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public abstract int getElementIndex(int a_r_g_u_m_e_n_t_0) ;
+    public abstract int getEndOffset() ;
+    public abstract int getStartOffset() ;
+    public abstract int getElementCount() ;
+    public native void addAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native void removeAttribute(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void removeAttributes(java.util.Enumeration<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+    public native void removeAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.Element getParentElement() ;
+    public abstract boolean isLeaf() ;
+    public abstract boolean getAllowsChildren() ;
+    public native void setResolveParent(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.tree.TreeNode getChildAt(int a_r_g_u_m_e_n_t_0) ;
+    public native int getChildCount() ;
+    final javax.swing.text.AbstractDocument this$0;
+  }
+  public static abstract interface AttributeContext {
+    public abstract javax.swing.text.AttributeSet addAttribute(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+    public abstract javax.swing.text.AttributeSet addAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1) ;
+    public abstract javax.swing.text.AttributeSet removeAttribute(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public abstract javax.swing.text.AttributeSet removeAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, java.util.Enumeration<? extends java.lang.Object> a_r_g_u_m_e_n_t_1) ;
+    public abstract javax.swing.text.AttributeSet removeAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1) ;
+    public abstract javax.swing.text.AttributeSet getEmptySet() ;
+    public abstract void reclaim(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  }
+  public static abstract interface Content {
+    public abstract int length() ;
+    public abstract void getChars(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Segment a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+    public abstract javax.swing.undo.UndoableEdit remove(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+    public abstract java.lang.String getString(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+    public abstract javax.swing.undo.UndoableEdit insertString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+    public abstract javax.swing.text.Position createPosition(int a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException;
+  }
+}

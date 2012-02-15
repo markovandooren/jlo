@@ -1,0 +1,4 @@
+package javax.swing.undo;
+public class CannotUndoException extends java.lang.RuntimeException {
+   public  CannotUndoException(){}
+}

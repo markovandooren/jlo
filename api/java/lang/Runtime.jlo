@@ -1,0 +1,29 @@
+package java.lang;
+public class Runtime extends java.lang.Object {
+  public native void exit(int a_r_g_u_m_e_n_t_0) ;
+  public static native void runFinalizersOnExit(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void loadLibrary(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  synchronized native void loadLibrary0(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native void load(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void gc() ;
+  public native void runFinalization() ;
+  public static native java.lang.Runtime getRuntime() ;
+  synchronized native void load0(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native long freeMemory() ;
+  public native long maxMemory() ;
+  public native void addShutdownHook(java.lang.Thread a_r_g_u_m_e_n_t_0) ;
+  public native boolean removeShutdownHook(java.lang.Thread a_r_g_u_m_e_n_t_0) ;
+  public native void halt(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Process exec(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public native java.lang.Process exec(java.lang.String[] a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public native java.lang.Process exec(java.lang.String[] a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1, java.io.File a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native java.lang.Process exec(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1, java.io.File a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native java.lang.Process exec(java.lang.String[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native java.lang.Process exec(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native int availableProcessors() ;
+  public native long totalMemory() ;
+  public native void traceInstructions(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void traceMethodCalls(boolean a_r_g_u_m_e_n_t_0) ;
+  public native java.io.InputStream getLocalizedInputStream(java.io.InputStream a_r_g_u_m_e_n_t_0) ;
+  public native java.io.OutputStream getLocalizedOutputStream(java.io.OutputStream a_r_g_u_m_e_n_t_0) ;
+}

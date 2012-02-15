@@ -1,0 +1,8 @@
+package java.security.spec;
+public class ECParameterSpec extends java.lang.Object implements java.security.spec.AlgorithmParameterSpec {
+   public  ECParameterSpec(java.security.spec.EllipticCurve a_r_g_u_m_e_n_t_0, java.security.spec.ECPoint a_r_g_u_m_e_n_t_1, java.math.BigInteger a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+  public native java.math.BigInteger getOrder() ;
+  public native java.security.spec.EllipticCurve getCurve() ;
+  public native java.security.spec.ECPoint getGenerator() ;
+  public native int getCofactor() ;
+}

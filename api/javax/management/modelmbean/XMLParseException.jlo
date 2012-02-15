@@ -1,0 +1,6 @@
+package javax.management.modelmbean;
+public class XMLParseException extends java.lang.Exception {
+   public  XMLParseException(){}
+   public  XMLParseException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  XMLParseException(java.lang.Exception a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+}

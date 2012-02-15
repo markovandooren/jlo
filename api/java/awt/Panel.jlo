@@ -1,0 +1,13 @@
+package java.awt;
+public class Panel extends java.awt.Container implements javax.accessibility.Accessible {
+   public  Panel(){}
+   public  Panel(java.awt.LayoutManager a_r_g_u_m_e_n_t_0){}
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void addNotify() ;
+  native java.lang.String constructComponentName() ;
+  protected class AccessibleAWTPanel extends java.awt.Container.AccessibleAWTContainer {
+     protected  AccessibleAWTPanel(java.awt.Panel a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final java.awt.Panel this$0;
+  }
+}

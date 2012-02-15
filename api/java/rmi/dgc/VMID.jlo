@@ -1,0 +1,8 @@
+package java.rmi.dgc;
+public final class VMID extends java.lang.Object implements java.io.Serializable {
+   public  VMID(){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public static native boolean isUnique() ;
+}

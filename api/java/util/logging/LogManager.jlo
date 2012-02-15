@@ -1,0 +1,42 @@
+package java.util.logging;
+public class LogManager extends java.lang.Object {
+   protected  LogManager(){}
+  public native java.lang.String getProperty(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void checkAccess()  throws java.lang.SecurityException;
+  public native void reset()  throws java.lang.SecurityException;
+  native boolean getBooleanProperty(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public synchronized native java.util.logging.Logger getLogger(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+  public native void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+  public static native java.util.logging.LogManager getLogManager() ;
+  native java.util.logging.Logger demandLogger(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public synchronized native boolean addLogger(java.util.logging.Logger a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.util.Enumeration<java.lang.String> getLoggerNames() ;
+  public native void readConfiguration(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.lang.SecurityException;
+  public native void readConfiguration()  throws java.io.IOException, java.lang.SecurityException;
+  native java.lang.String getStringProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  native int getIntProperty(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  native java.util.logging.Level getLevelProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.util.logging.Level a_r_g_u_m_e_n_t_1) ;
+  native java.util.logging.Filter getFilterProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.util.logging.Filter a_r_g_u_m_e_n_t_1) ;
+  native java.util.logging.Formatter getFormatterProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.util.logging.Formatter a_r_g_u_m_e_n_t_1) ;
+  public static synchronized native java.util.logging.LoggingMXBean getLoggingMXBean() ;
+  public static final java.lang.String LOGGING_MXBEAN_NAME;
+  private class RootLogger extends java.util.logging.Logger {
+    public native void log(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
+    public native void addHandler(java.util.logging.Handler a_r_g_u_m_e_n_t_0) ;
+    public native void removeHandler(java.util.logging.Handler a_r_g_u_m_e_n_t_0) ;
+    public native java.util.logging.Handler[] getHandlers() ;
+    final java.util.logging.LogManager this$0;
+  }
+  private static class LogNode extends java.lang.Object {
+      LogNode(java.util.logging.LogManager.LogNode a_r_g_u_m_e_n_t_0){}
+    native void walkAndSetParent(java.util.logging.Logger a_r_g_u_m_e_n_t_0) ;
+    java.util.HashMap<java.lang.Object,java.lang.Object> children;
+    java.util.logging.Logger logger;
+    java.util.logging.LogManager.LogNode parent;
+  }
+  private class Cleaner extends java.lang.Thread {
+    public native void run() ;
+    final java.util.logging.LogManager this$0;
+  }
+}

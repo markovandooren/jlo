@@ -1,0 +1,13 @@
+package javax.management.monitor;
+public abstract interface StringMonitorMBean extends javax.management.monitor.MonitorMBean {
+  public abstract java.lang.String getDerivedGauge() ;
+  public abstract java.lang.String getDerivedGauge(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract long getDerivedGaugeTimeStamp() ;
+  public abstract long getDerivedGaugeTimeStamp(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getStringToCompare() ;
+  public abstract void setStringToCompare(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract boolean getNotifyMatch() ;
+  public abstract void setNotifyMatch(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getNotifyDiffer() ;
+  public abstract void setNotifyDiffer(boolean a_r_g_u_m_e_n_t_0) ;
+}

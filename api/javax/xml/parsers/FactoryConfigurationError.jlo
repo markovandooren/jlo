@@ -1,0 +1,9 @@
+package javax.xml.parsers;
+public class FactoryConfigurationError extends java.lang.Error {
+   public  FactoryConfigurationError(){}
+   public  FactoryConfigurationError(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  FactoryConfigurationError(java.lang.Exception a_r_g_u_m_e_n_t_0){}
+   public  FactoryConfigurationError(java.lang.Exception a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public native java.lang.String getMessage() ;
+  public native java.lang.Exception getException() ;
+}

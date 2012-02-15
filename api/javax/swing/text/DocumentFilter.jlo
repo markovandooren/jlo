@@ -1,0 +1,14 @@
+package javax.swing.text;
+public class DocumentFilter extends java.lang.Object {
+   public  DocumentFilter(){}
+  public native void replace(javax.swing.text.DocumentFilter.FilterBypass a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+  public native void remove(javax.swing.text.DocumentFilter.FilterBypass a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public native void insertString(javax.swing.text.DocumentFilter.FilterBypass a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_3)  throws javax.swing.text.BadLocationException;
+  public static abstract class FilterBypass extends java.lang.Object {
+     public  FilterBypass(){}
+    public abstract void replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_3)  throws javax.swing.text.BadLocationException;
+    public abstract void remove(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+    public abstract javax.swing.text.Document getDocument() ;
+    public abstract void insertString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  }
+}

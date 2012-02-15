@@ -1,0 +1,17 @@
+package javax.swing.text;
+public class ElementIterator extends java.lang.Object implements java.lang.Cloneable {
+   public  ElementIterator(javax.swing.text.Document a_r_g_u_m_e_n_t_0){}
+   public  ElementIterator(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+  public synchronized native java.lang.Object clone() ;
+  public native javax.swing.text.Element next() ;
+  public native javax.swing.text.Element previous() ;
+  public native javax.swing.text.Element current() ;
+  public native javax.swing.text.Element first() ;
+  public native int depth() ;
+  private class StackItem extends java.lang.Object implements java.lang.Cloneable {
+    protected native java.lang.Object clone()  throws java.lang.CloneNotSupportedException;
+    javax.swing.text.Element item;
+    int childIndex;
+    final javax.swing.text.ElementIterator this$0;
+  }
+}

@@ -1,0 +1,6 @@
+package java.security.cert;
+public abstract class CertStoreSpi extends java.lang.Object {
+   public  CertStoreSpi(java.security.cert.CertStoreParameters a_r_g_u_m_e_n_t_0) throws java.security.InvalidAlgorithmParameterException{}
+  public abstract java.util.Collection<? extends java.security.cert.Certificate> engineGetCertificates(java.security.cert.CertSelector a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertStoreException;
+  public abstract java.util.Collection<? extends java.security.cert.CRL> engineGetCRLs(java.security.cert.CRLSelector a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertStoreException;
+}

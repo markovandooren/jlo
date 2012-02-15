@@ -1,0 +1,23 @@
+package java.text;
+public abstract interface AttributedCharacterIterator extends java.text.CharacterIterator {
+  public abstract java.util.Map<java.text.AttributedCharacterIterator.Attribute,java.lang.Object> getAttributes() ;
+  public abstract java.lang.Object getAttribute(java.text.AttributedCharacterIterator.Attribute a_r_g_u_m_e_n_t_0) ;
+  public abstract int getRunStart(java.util.Set<? extends java.text.AttributedCharacterIterator.Attribute> a_r_g_u_m_e_n_t_0) ;
+  public abstract int getRunStart(java.text.AttributedCharacterIterator.Attribute a_r_g_u_m_e_n_t_0) ;
+  public abstract int getRunStart() ;
+  public abstract int getRunLimit(java.text.AttributedCharacterIterator.Attribute a_r_g_u_m_e_n_t_0) ;
+  public abstract int getRunLimit() ;
+  public abstract int getRunLimit(java.util.Set<? extends java.text.AttributedCharacterIterator.Attribute> a_r_g_u_m_e_n_t_0) ;
+  public abstract java.util.Set<java.text.AttributedCharacterIterator.Attribute> getAllAttributeKeys() ;
+  public static class Attribute extends java.lang.Object implements java.io.Serializable {
+     protected  Attribute(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public final native int hashCode() ;
+    public final native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String toString() ;
+    protected native java.lang.String getName() ;
+    protected native java.lang.Object readResolve()  throws java.io.InvalidObjectException;
+    public static final java.text.AttributedCharacterIterator.Attribute LANGUAGE;
+    public static final java.text.AttributedCharacterIterator.Attribute READING;
+    public static final java.text.AttributedCharacterIterator.Attribute INPUT_METHOD_SEGMENT;
+  }
+}

@@ -1,0 +1,5 @@
+package java.lang;
+public class NegativeArraySizeException extends java.lang.RuntimeException {
+   public  NegativeArraySizeException(){}
+   public  NegativeArraySizeException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

@@ -1,0 +1,5 @@
+package java.lang;
+public class IllegalThreadStateException extends java.lang.IllegalArgumentException {
+   public  IllegalThreadStateException(){}
+   public  IllegalThreadStateException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

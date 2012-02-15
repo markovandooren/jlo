@@ -1,0 +1,10 @@
+package javax.swing.plaf;
+public abstract class SplitPaneUI extends javax.swing.plaf.ComponentUI {
+   public  SplitPaneUI(){}
+  public abstract void resetToPreferredSizes(javax.swing.JSplitPane a_r_g_u_m_e_n_t_0) ;
+  public abstract void setDividerLocation(javax.swing.JSplitPane a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract int getDividerLocation(javax.swing.JSplitPane a_r_g_u_m_e_n_t_0) ;
+  public abstract int getMinimumDividerLocation(javax.swing.JSplitPane a_r_g_u_m_e_n_t_0) ;
+  public abstract int getMaximumDividerLocation(javax.swing.JSplitPane a_r_g_u_m_e_n_t_0) ;
+  public abstract void finishedPaintingChildren(javax.swing.JSplitPane a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1) ;
+}

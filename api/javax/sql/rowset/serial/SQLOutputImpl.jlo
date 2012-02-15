@@ -1,0 +1,31 @@
+package javax.sql.rowset.serial;
+public class SQLOutputImpl extends java.lang.Object implements java.sql.SQLOutput {
+   public  SQLOutputImpl(java.util.Vector<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_1) throws java.sql.SQLException{}
+  public native void writeObject(java.sql.SQLData a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeInt(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeBytes(byte[] a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeLong(long a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeByte(byte a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeShort(short a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeFloat(float a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeString(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeBoolean(boolean a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeDouble(double a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeArray(java.sql.Array a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeBigDecimal(java.math.BigDecimal a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeDate(java.sql.Date a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeTime(java.sql.Time a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeTimestamp(java.sql.Timestamp a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeCharacterStream(java.io.Reader a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeAsciiStream(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeBinaryStream(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeRef(java.sql.Ref a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeBlob(java.sql.Blob a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeClob(java.sql.Clob a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeStruct(java.sql.Struct a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeURL(java.net.URL a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeNString(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeNClob(java.sql.NClob a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeRowId(java.sql.RowId a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void writeSQLXML(java.sql.SQLXML a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+}

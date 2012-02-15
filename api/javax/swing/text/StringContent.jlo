@@ -1,0 +1,59 @@
+package javax.swing.text;
+public final class StringContent extends java.lang.Object implements javax.swing.text.AbstractDocument.Content, java.io.Serializable {
+   public  StringContent(){}
+   public  StringContent(int a_r_g_u_m_e_n_t_0){}
+  public native int length() ;
+  public native void getChars(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Segment a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  native void replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, char[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native javax.swing.undo.UndoableEdit remove(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  native void resize(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getString(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public native javax.swing.undo.UndoableEdit insertString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public native javax.swing.text.Position createPosition(int a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException;
+  protected native java.util.Vector getPositionsInRange(java.util.Vector a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native void updateUndoPositions(java.util.Vector a_r_g_u_m_e_n_t_0) ;
+  synchronized native void updateMarksForInsert(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  synchronized native void updateMarksForRemove(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  transient java.util.Vector marks;
+  class RemoveUndo extends javax.swing.undo.AbstractUndoableEdit {
+     protected  RemoveUndo(javax.swing.text.StringContent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+    public native void redo()  throws javax.swing.undo.CannotRedoException;
+    public native void undo()  throws javax.swing.undo.CannotUndoException;
+    protected int offset;
+    protected int length;
+    protected java.lang.String string;
+    protected java.util.Vector posRefs;
+    final javax.swing.text.StringContent this$0;
+  }
+  class InsertUndo extends javax.swing.undo.AbstractUndoableEdit {
+     protected  InsertUndo(javax.swing.text.StringContent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    public native void redo()  throws javax.swing.undo.CannotRedoException;
+    public native void undo()  throws javax.swing.undo.CannotUndoException;
+    protected int offset;
+    protected int length;
+    protected java.lang.String string;
+    protected java.util.Vector posRefs;
+    final javax.swing.text.StringContent this$0;
+  }
+  final class UndoPosRef extends java.lang.Object {
+      UndoPosRef(javax.swing.text.StringContent a_r_g_u_m_e_n_t_0, javax.swing.text.StringContent.PosRec a_r_g_u_m_e_n_t_1){}
+    protected native void resetLocation() ;
+    protected int undoLocation;
+    protected javax.swing.text.StringContent.PosRec rec;
+    final javax.swing.text.StringContent this$0;
+  }
+  final class StickyPosition extends java.lang.Object implements javax.swing.text.Position {
+      StickyPosition(javax.swing.text.StringContent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    protected native void finalize()  throws java.lang.Throwable;
+    public native java.lang.String toString() ;
+    public native int getOffset() ;
+    javax.swing.text.StringContent.PosRec rec;
+    final javax.swing.text.StringContent this$0;
+  }
+  final class PosRec extends java.lang.Object {
+      PosRec(javax.swing.text.StringContent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    int offset;
+    boolean unused;
+    final javax.swing.text.StringContent this$0;
+  }
+}

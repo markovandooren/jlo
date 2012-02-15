@@ -1,0 +1,7 @@
+package javax.swing.colorchooser;
+public abstract interface ColorSelectionModel {
+  public abstract void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Color getSelectedColor() ;
+  public abstract void setSelectedColor(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+}

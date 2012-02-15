@@ -1,0 +1,7 @@
+package java.awt;
+public class ImageCapabilities extends java.lang.Object implements java.lang.Cloneable {
+   public  ImageCapabilities(boolean a_r_g_u_m_e_n_t_0){}
+  public native java.lang.Object clone() ;
+  public native boolean isAccelerated() ;
+  public native boolean isTrueVolatile() ;
+}

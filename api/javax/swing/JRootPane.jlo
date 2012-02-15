@@ -1,0 +1,84 @@
+package javax.swing;
+public class JRootPane extends javax.swing.JComponent implements javax.accessibility.Accessible {
+   public  JRootPane(){}
+  public native void updateUI() ;
+  public native void setUI(javax.swing.plaf.RootPaneUI a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getUIClassID() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void addNotify() ;
+  public native void removeNotify() ;
+  public native boolean isValidateRoot() ;
+  public native boolean isOptimizedDrawingEnabled() ;
+  public native void setDoubleBuffered(boolean a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.String paramString() ;
+  final native void disableTrueDoubleBuffering() ;
+  protected native void addImpl(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native javax.swing.plaf.RootPaneUI getUI() ;
+  public native javax.swing.JButton getDefaultButton() ;
+  public native void setDefaultButton(javax.swing.JButton a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JMenuBar getMenuBar() ;
+  public native javax.swing.JMenuBar getJMenuBar() ;
+  public native void setMenuBar(javax.swing.JMenuBar a_r_g_u_m_e_n_t_0) ;
+  public native void setJMenuBar(javax.swing.JMenuBar a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Container getContentPane() ;
+  public native void setContentPane(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JLayeredPane getLayeredPane() ;
+  public native void setLayeredPane(javax.swing.JLayeredPane a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getGlassPane() ;
+  public native void setGlassPane(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void setWindowDecorationStyle(int a_r_g_u_m_e_n_t_0) ;
+  public native int getWindowDecorationStyle() ;
+  protected native javax.swing.JLayeredPane createLayeredPane() ;
+  protected native java.awt.Container createContentPane() ;
+  protected native java.awt.Component createGlassPane() ;
+  protected native java.awt.LayoutManager createRootLayout() ;
+  final native void setUseTrueDoubleBuffering(boolean a_r_g_u_m_e_n_t_0) ;
+  final native boolean getUseTrueDoubleBuffering() ;
+  public static final int NONE;
+  public static final int FRAME;
+  public static final int PLAIN_DIALOG;
+  public static final int INFORMATION_DIALOG;
+  public static final int ERROR_DIALOG;
+  public static final int COLOR_CHOOSER_DIALOG;
+  public static final int FILE_CHOOSER_DIALOG;
+  public static final int QUESTION_DIALOG;
+  public static final int WARNING_DIALOG;
+  protected javax.swing.JMenuBar menuBar;
+  protected java.awt.Container contentPane;
+  protected javax.swing.JLayeredPane layeredPane;
+  protected java.awt.Component glassPane;
+  protected javax.swing.JButton defaultButton;
+  protected javax.swing.JRootPane.DefaultAction defaultPressAction;
+  protected javax.swing.JRootPane.DefaultAction defaultReleaseAction;
+  boolean useTrueDoubleBuffering;
+  protected class AccessibleJRootPane extends javax.swing.JComponent.AccessibleJComponent {
+     protected  AccessibleJRootPane(javax.swing.JRootPane a_r_g_u_m_e_n_t_0){}
+    public native int getAccessibleChildrenCount() ;
+    public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final javax.swing.JRootPane this$0;
+  }
+  protected class RootLayout extends java.lang.Object implements java.awt.LayoutManager2, java.io.Serializable {
+     protected  RootLayout(javax.swing.JRootPane a_r_g_u_m_e_n_t_0){}
+    public native void removeLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+    public native void addLayoutComponent(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+    public native void addLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public native void layoutContainer(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native void invalidateLayout(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Dimension preferredLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Dimension minimumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Dimension maximumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native float getLayoutAlignmentX(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native float getLayoutAlignmentY(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.JRootPane this$0;
+  }
+  static class DefaultAction extends javax.swing.AbstractAction {
+      DefaultAction(javax.swing.JRootPane a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+    public native boolean isEnabled() ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    public native void setOwner(javax.swing.JButton a_r_g_u_m_e_n_t_0) ;
+    javax.swing.JButton owner;
+    javax.swing.JRootPane root;
+    boolean press;
+  }
+}

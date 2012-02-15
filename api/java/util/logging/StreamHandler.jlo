@@ -1,0 +1,11 @@
+package java.util.logging;
+public class StreamHandler extends java.util.logging.Handler {
+   public  StreamHandler(){}
+   public  StreamHandler(java.io.OutputStream a_r_g_u_m_e_n_t_0, java.util.logging.Formatter a_r_g_u_m_e_n_t_1){}
+  public synchronized native void flush() ;
+  public synchronized native void close()  throws java.lang.SecurityException;
+  public native boolean isLoggable(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void publish(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
+  public native void setEncoding(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException, java.io.UnsupportedEncodingException;
+  protected synchronized native void setOutputStream(java.io.OutputStream a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+}

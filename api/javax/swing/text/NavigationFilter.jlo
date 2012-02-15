@@ -1,0 +1,13 @@
+package javax.swing.text;
+public class NavigationFilter extends java.lang.Object {
+   public  NavigationFilter(){}
+  public native int getNextVisualPositionFrom(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+  public native void setDot(javax.swing.text.NavigationFilter.FilterBypass a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2) ;
+  public native void moveDot(javax.swing.text.NavigationFilter.FilterBypass a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2) ;
+  public static abstract class FilterBypass extends java.lang.Object {
+     public  FilterBypass(){}
+    public abstract javax.swing.text.Caret getCaret() ;
+    public abstract void setDot(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1) ;
+    public abstract void moveDot(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1) ;
+  }
+}

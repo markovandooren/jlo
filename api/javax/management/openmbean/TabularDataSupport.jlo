@@ -1,0 +1,30 @@
+package javax.management.openmbean;
+public class TabularDataSupport extends java.lang.Object implements javax.management.openmbean.TabularData, java.util.Map<java.lang.Object,java.lang.Object>, java.lang.Cloneable, java.io.Serializable {
+   public  TabularDataSupport(javax.management.openmbean.TabularType a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2){}
+   public  TabularDataSupport(javax.management.openmbean.TabularType a_r_g_u_m_e_n_t_0){}
+  public native javax.management.openmbean.CompositeData get(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void put(javax.management.openmbean.CompositeData a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object put(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native java.lang.String toString() ;
+  public native boolean isEmpty() ;
+  public native java.util.Collection<java.lang.Object> values() ;
+  public native int size() ;
+  public native java.util.Set<java.util.Map.Entry<java.lang.Object,java.lang.Object>> entrySet() ;
+  public native void putAll(javax.management.openmbean.CompositeData[] a_r_g_u_m_e_n_t_0) ;
+  public native void putAll(java.util.Map<? extends java.lang.Object,? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native javax.management.openmbean.CompositeData remove(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Set<java.lang.Object> keySet() ;
+  public native boolean containsValue(javax.management.openmbean.CompositeData a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsKey(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public native javax.management.openmbean.TabularType getTabularType() ;
+  public native java.lang.Object[] calculateIndex(javax.management.openmbean.CompositeData a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+}

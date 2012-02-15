@@ -1,0 +1,14 @@
+package javax.crypto;
+public class EncryptedPrivateKeyInfo extends java.lang.Object {
+   public  EncryptedPrivateKeyInfo(byte[] a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   public  EncryptedPrivateKeyInfo(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1) throws java.security.NoSuchAlgorithmException{}
+   public  EncryptedPrivateKeyInfo(java.security.AlgorithmParameters a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1) throws java.security.NoSuchAlgorithmException{}
+  public native byte[] getEncoded()  throws java.io.IOException;
+  public native java.security.spec.PKCS8EncodedKeySpec getKeySpec(java.security.Key a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException, java.security.InvalidKeyException;
+  public native java.security.spec.PKCS8EncodedKeySpec getKeySpec(java.security.Key a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException, java.security.InvalidKeyException;
+  public native java.security.spec.PKCS8EncodedKeySpec getKeySpec(javax.crypto.Cipher a_r_g_u_m_e_n_t_0)  throws java.security.spec.InvalidKeySpecException;
+  public native java.security.spec.PKCS8EncodedKeySpec getKeySpec(java.security.Key a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchProviderException, java.security.NoSuchAlgorithmException, java.security.InvalidKeyException;
+  public native java.lang.String getAlgName() ;
+  public native java.security.AlgorithmParameters getAlgParameters() ;
+  public native byte[] getEncryptedData() ;
+}

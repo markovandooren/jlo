@@ -1,0 +1,23 @@
+package javax.swing;
+public abstract class AbstractAction extends java.lang.Object implements javax.swing.Action, java.lang.Cloneable, java.io.Serializable {
+   public  AbstractAction(){}
+   public  AbstractAction(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.Icon a_r_g_u_m_e_n_t_1){}
+   public  AbstractAction(java.lang.String a_r_g_u_m_e_n_t_0){}
+  protected native java.lang.Object clone()  throws java.lang.CloneNotSupportedException;
+  public native java.lang.Object getValue(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void putValue(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  static native boolean shouldReconfigure(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+  static native void setEnabledFromAction(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.Action a_r_g_u_m_e_n_t_1) ;
+  static native void setToolTipTextFromAction(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.Action a_r_g_u_m_e_n_t_1) ;
+  static native boolean hasSelectedKey(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  static native boolean isSelected(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  public native boolean isEnabled() ;
+  public native void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object[] getKeys() ;
+  protected native void firePropertyChange(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public synchronized native void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.beans.PropertyChangeListener[] getPropertyChangeListeners() ;
+  protected boolean enabled;
+  protected javax.swing.event.SwingPropertyChangeSupport changeSupport;
+}

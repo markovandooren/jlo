@@ -1,0 +1,36 @@
+package java.util.concurrent;
+public class LinkedBlockingQueue<E extends java.lang.Object> extends java.util.AbstractQueue<E> implements java.util.concurrent.BlockingQueue<E>, java.io.Serializable {
+   public  LinkedBlockingQueue(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0){}
+   public  LinkedBlockingQueue(int a_r_g_u_m_e_n_t_0){}
+   public  LinkedBlockingQueue(){}
+  public native void put(E a_r_g_u_m_e_n_t_0)  throws java.lang.InterruptedException;
+  public native void clear() ;
+  public native java.lang.String toString() ;
+  public native int size() ;
+  public native <T extends java.lang.Object>T[] toArray(T[] a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object[] toArray() ;
+  public native java.util.Iterator<E> iterator() ;
+  public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native E poll(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1)  throws java.lang.InterruptedException;
+  public native E poll() ;
+  public native E peek() ;
+  public native boolean offer(E a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2)  throws java.lang.InterruptedException;
+  public native boolean offer(E a_r_g_u_m_e_n_t_0) ;
+  public native E take()  throws java.lang.InterruptedException;
+  public native int remainingCapacity() ;
+  public native int drainTo(java.util.Collection<? super E> a_r_g_u_m_e_n_t_0) ;
+  public native int drainTo(java.util.Collection<? super E> a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  static final boolean $assertionsDisabled;
+  private class Itr extends java.lang.Object implements java.util.Iterator<E> {
+      Itr(java.util.concurrent.LinkedBlockingQueue a_r_g_u_m_e_n_t_0){}
+    public native boolean hasNext() ;
+    public native E next() ;
+    public native void remove() ;
+    final java.util.concurrent.LinkedBlockingQueue this$0;
+  }
+  static class Node<E extends java.lang.Object> extends java.lang.Object {
+      Node(E a_r_g_u_m_e_n_t_0){}
+    volatile E item;
+    java.util.concurrent.LinkedBlockingQueue.Node<E> next;
+  }
+}

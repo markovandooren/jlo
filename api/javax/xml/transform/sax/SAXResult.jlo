@@ -1,0 +1,12 @@
+package javax.xml.transform.sax;
+public class SAXResult extends java.lang.Object implements javax.xml.transform.Result {
+   public  SAXResult(org.xml.sax.ContentHandler a_r_g_u_m_e_n_t_0){}
+   public  SAXResult(){}
+  public native org.xml.sax.ContentHandler getHandler() ;
+  public native java.lang.String getSystemId() ;
+  public native void setSystemId(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void setHandler(org.xml.sax.ContentHandler a_r_g_u_m_e_n_t_0) ;
+  public native void setLexicalHandler(org.xml.sax.ext.LexicalHandler a_r_g_u_m_e_n_t_0) ;
+  public native org.xml.sax.ext.LexicalHandler getLexicalHandler() ;
+  public static final java.lang.String FEATURE;
+}

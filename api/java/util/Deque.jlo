@@ -1,0 +1,30 @@
+package java.util;
+public abstract interface Deque<E extends java.lang.Object> extends java.util.Queue<E> {
+  public abstract boolean add(E a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract int size() ;
+  public abstract java.util.Iterator<E> iterator() ;
+  public abstract boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract E remove() ;
+  public abstract void push(E a_r_g_u_m_e_n_t_0) ;
+  public abstract E pop() ;
+  public abstract E poll() ;
+  public abstract E peek() ;
+  public abstract E getFirst() ;
+  public abstract E getLast() ;
+  public abstract E removeFirst() ;
+  public abstract E removeLast() ;
+  public abstract void addFirst(E a_r_g_u_m_e_n_t_0) ;
+  public abstract void addLast(E a_r_g_u_m_e_n_t_0) ;
+  public abstract E element() ;
+  public abstract boolean offer(E a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean offerFirst(E a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean offerLast(E a_r_g_u_m_e_n_t_0) ;
+  public abstract E peekFirst() ;
+  public abstract E peekLast() ;
+  public abstract E pollFirst() ;
+  public abstract E pollLast() ;
+  public abstract boolean removeFirstOccurrence(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean removeLastOccurrence(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract java.util.Iterator<E> descendingIterator() ;
+}

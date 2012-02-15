@@ -1,0 +1,51 @@
+package java.util.jar;
+public class Attributes extends java.lang.Object implements java.util.Map<java.lang.Object,java.lang.Object>, java.lang.Cloneable {
+   public  Attributes(int a_r_g_u_m_e_n_t_0){}
+   public  Attributes(java.util.jar.Attributes a_r_g_u_m_e_n_t_0){}
+   public  Attributes(){}
+  public native java.lang.Object get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object put(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native boolean isEmpty() ;
+  public native java.lang.String getValue(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getValue(java.util.jar.Attributes.Name a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Collection<java.lang.Object> values() ;
+  public native int size() ;
+  public native java.util.Set<java.util.Map.Entry<java.lang.Object,java.lang.Object>> entrySet() ;
+  public native void putAll(java.util.Map<? extends java.lang.Object,? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native void write(java.io.DataOutputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native java.util.Set<java.lang.Object> keySet() ;
+  public native boolean containsValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native void read(java.util.jar.Manifest.FastInputStream a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  native void writeMain(java.io.DataOutputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native java.lang.String putValue(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  protected java.util.Map<java.lang.Object,java.lang.Object> map;
+  public static class Name extends java.lang.Object {
+     public  Name(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String toString() ;
+    public static final java.util.jar.Attributes.Name MANIFEST_VERSION;
+    public static final java.util.jar.Attributes.Name SIGNATURE_VERSION;
+    public static final java.util.jar.Attributes.Name CONTENT_TYPE;
+    public static final java.util.jar.Attributes.Name CLASS_PATH;
+    public static final java.util.jar.Attributes.Name MAIN_CLASS;
+    public static final java.util.jar.Attributes.Name SEALED;
+    public static final java.util.jar.Attributes.Name EXTENSION_LIST;
+    public static final java.util.jar.Attributes.Name EXTENSION_NAME;
+    public static final java.util.jar.Attributes.Name EXTENSION_INSTALLATION;
+    public static final java.util.jar.Attributes.Name IMPLEMENTATION_TITLE;
+    public static final java.util.jar.Attributes.Name IMPLEMENTATION_VERSION;
+    public static final java.util.jar.Attributes.Name IMPLEMENTATION_VENDOR;
+    public static final java.util.jar.Attributes.Name IMPLEMENTATION_VENDOR_ID;
+    public static final java.util.jar.Attributes.Name IMPLEMENTATION_URL;
+    public static final java.util.jar.Attributes.Name SPECIFICATION_TITLE;
+    public static final java.util.jar.Attributes.Name SPECIFICATION_VERSION;
+    public static final java.util.jar.Attributes.Name SPECIFICATION_VENDOR;
+  }
+}

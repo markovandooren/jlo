@@ -1,0 +1,82 @@
+package java.awt.geom;
+public abstract class QuadCurve2D extends java.lang.Object implements java.awt.Shape, java.lang.Cloneable {
+   protected  QuadCurve2D(){}
+  public native java.lang.Object clone() ;
+  public native boolean contains(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native boolean intersects(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public native boolean intersects(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native java.awt.Rectangle getBounds() ;
+  public native java.awt.geom.PathIterator getPathIterator(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.geom.PathIterator getPathIterator(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public abstract double getX1() ;
+  public abstract double getY1() ;
+  public abstract double getX2() ;
+  public abstract double getY2() ;
+  public abstract java.awt.geom.Point2D getP1() ;
+  public abstract java.awt.geom.Point2D getP2() ;
+  public native void setCurve(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.geom.Point2D a_r_g_u_m_e_n_t_1, java.awt.geom.Point2D a_r_g_u_m_e_n_t_2) ;
+  public native void setCurve(java.awt.geom.Point2D[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setCurve(java.awt.geom.QuadCurve2D a_r_g_u_m_e_n_t_0) ;
+  public native void setCurve(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void setCurve(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5) ;
+  public static native double getFlatnessSq(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5) ;
+  public native double getFlatnessSq() ;
+  public static native double getFlatnessSq(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native double getFlatness() ;
+  public static native double getFlatness(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5) ;
+  public static native double getFlatness(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native void subdivide(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, double[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, double[] a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public native void subdivide(java.awt.geom.QuadCurve2D a_r_g_u_m_e_n_t_0, java.awt.geom.QuadCurve2D a_r_g_u_m_e_n_t_1) ;
+  public static native void subdivide(java.awt.geom.QuadCurve2D a_r_g_u_m_e_n_t_0, java.awt.geom.QuadCurve2D a_r_g_u_m_e_n_t_1, java.awt.geom.QuadCurve2D a_r_g_u_m_e_n_t_2) ;
+  public static native int solveQuadratic(double[] a_r_g_u_m_e_n_t_0, double[] a_r_g_u_m_e_n_t_1) ;
+  public static native int solveQuadratic(double[] a_r_g_u_m_e_n_t_0) ;
+  public abstract double getCtrlX() ;
+  public abstract double getCtrlY() ;
+  public abstract java.awt.geom.Point2D getCtrlPt() ;
+  public static class Double extends java.awt.geom.QuadCurve2D implements java.io.Serializable {
+     public  Double(){}
+     public  Double(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5){}
+    public native java.awt.geom.Rectangle2D getBounds2D() ;
+    public native double getX1() ;
+    public native double getY1() ;
+    public native double getX2() ;
+    public native double getY2() ;
+    public native java.awt.geom.Point2D getP1() ;
+    public native java.awt.geom.Point2D getP2() ;
+    public native void setCurve(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5) ;
+    public native double getCtrlX() ;
+    public native double getCtrlY() ;
+    public native java.awt.geom.Point2D getCtrlPt() ;
+    public double x1;
+    public double y1;
+    public double ctrlx;
+    public double ctrly;
+    public double x2;
+    public double y2;
+  }
+  public static class Float extends java.awt.geom.QuadCurve2D implements java.io.Serializable {
+     public  Float(){}
+     public  Float(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3, float a_r_g_u_m_e_n_t_4, float a_r_g_u_m_e_n_t_5){}
+    public native java.awt.geom.Rectangle2D getBounds2D() ;
+    public native double getX1() ;
+    public native double getY1() ;
+    public native double getX2() ;
+    public native double getY2() ;
+    public native java.awt.geom.Point2D getP1() ;
+    public native java.awt.geom.Point2D getP2() ;
+    public native void setCurve(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3, double a_r_g_u_m_e_n_t_4, double a_r_g_u_m_e_n_t_5) ;
+    public native void setCurve(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3, float a_r_g_u_m_e_n_t_4, float a_r_g_u_m_e_n_t_5) ;
+    public native double getCtrlX() ;
+    public native double getCtrlY() ;
+    public native java.awt.geom.Point2D getCtrlPt() ;
+    public float x1;
+    public float y1;
+    public float ctrlx;
+    public float ctrly;
+    public float x2;
+    public float y2;
+  }
+}

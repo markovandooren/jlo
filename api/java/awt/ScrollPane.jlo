@@ -1,0 +1,42 @@
+package java.awt;
+public class ScrollPane extends java.awt.Container implements javax.accessibility.Accessible {
+   public  ScrollPane() throws java.awt.HeadlessException{}
+   public  ScrollPane(int a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void addNotify() ;
+  public native java.lang.String paramString() ;
+  protected final native void addImpl(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public final native void setLayout(java.awt.LayoutManager a_r_g_u_m_e_n_t_0) ;
+  public native void doLayout() ;
+  public native void layout() ;
+  public native void printComponents(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+  native java.lang.String constructComponentName() ;
+  native void autoProcessMouseWheel(java.awt.event.MouseWheelEvent a_r_g_u_m_e_n_t_0) ;
+  protected native boolean eventTypeEnabled(int a_r_g_u_m_e_n_t_0) ;
+  protected native void processMouseWheelEvent(java.awt.event.MouseWheelEvent a_r_g_u_m_e_n_t_0) ;
+  public native boolean isWheelScrollingEnabled() ;
+  public native void setWheelScrollingEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native int getScrollbarDisplayPolicy() ;
+  public native java.awt.Dimension getViewportSize() ;
+  public native int getHScrollbarHeight() ;
+  public native int getVScrollbarWidth() ;
+  public native java.awt.Adjustable getVAdjustable() ;
+  public native java.awt.Adjustable getHAdjustable() ;
+  public native void setScrollPosition(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setScrollPosition(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Point getScrollPosition() ;
+  native java.awt.Dimension calculateChildSize() ;
+  public static final int SCROLLBARS_AS_NEEDED;
+  public static final int SCROLLBARS_ALWAYS;
+  public static final int SCROLLBARS_NEVER;
+  protected class AccessibleAWTScrollPane extends java.awt.Container.AccessibleAWTContainer {
+     protected  AccessibleAWTScrollPane(java.awt.ScrollPane a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final java.awt.ScrollPane this$0;
+  }
+  class PeerFixer extends java.lang.Object implements java.awt.event.AdjustmentListener, java.io.Serializable {
+      PeerFixer(java.awt.ScrollPane a_r_g_u_m_e_n_t_0, java.awt.ScrollPane a_r_g_u_m_e_n_t_1){}
+    public native void adjustmentValueChanged(java.awt.event.AdjustmentEvent a_r_g_u_m_e_n_t_0) ;
+    final java.awt.ScrollPane this$0;
+  }
+}

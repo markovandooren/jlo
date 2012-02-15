@@ -1,0 +1,21 @@
+package java.awt.event;
+public class HierarchyEvent extends java.awt.AWTEvent {
+   public  HierarchyEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Component a_r_g_u_m_e_n_t_2, java.awt.Container a_r_g_u_m_e_n_t_3){}
+   public  HierarchyEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Component a_r_g_u_m_e_n_t_2, java.awt.Container a_r_g_u_m_e_n_t_3, long a_r_g_u_m_e_n_t_4){}
+  public native java.awt.Component getComponent() ;
+  public native java.lang.String paramString() ;
+  public native java.awt.Component getChanged() ;
+  public native java.awt.Container getChangedParent() ;
+  public native long getChangeFlags() ;
+  public static final int HIERARCHY_FIRST;
+  public static final int HIERARCHY_CHANGED;
+  public static final int ANCESTOR_MOVED;
+  public static final int ANCESTOR_RESIZED;
+  public static final int HIERARCHY_LAST;
+  public static final int PARENT_CHANGED;
+  public static final int DISPLAYABILITY_CHANGED;
+  public static final int SHOWING_CHANGED;
+  java.awt.Component changed;
+  java.awt.Container changedParent;
+  long changeFlags;
+}

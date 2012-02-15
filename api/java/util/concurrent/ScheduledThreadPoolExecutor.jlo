@@ -1,0 +1,59 @@
+package java.util.concurrent;
+public class ScheduledThreadPoolExecutor extends java.util.concurrent.ThreadPoolExecutor implements java.util.concurrent.ScheduledExecutorService {
+   public  ScheduledThreadPoolExecutor(int a_r_g_u_m_e_n_t_0, java.util.concurrent.RejectedExecutionHandler a_r_g_u_m_e_n_t_1){}
+   public  ScheduledThreadPoolExecutor(int a_r_g_u_m_e_n_t_0, java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_1, java.util.concurrent.RejectedExecutionHandler a_r_g_u_m_e_n_t_2){}
+   public  ScheduledThreadPoolExecutor(int a_r_g_u_m_e_n_t_0){}
+   public  ScheduledThreadPoolExecutor(int a_r_g_u_m_e_n_t_0, java.util.concurrent.ThreadFactory a_r_g_u_m_e_n_t_1){}
+  public native void shutdown() ;
+  public native boolean remove(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  public native void execute(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  public native java.util.concurrent.BlockingQueue<java.lang.Runnable> getQueue() ;
+  public native java.util.concurrent.Future<? extends java.lang.Object> submit(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  public native <T extends java.lang.Object>java.util.concurrent.Future<T> submit(java.lang.Runnable a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1) ;
+  public native <T extends java.lang.Object>java.util.concurrent.Future<T> submit(java.util.concurrent.Callable<T> a_r_g_u_m_e_n_t_0) ;
+  public native java.util.List<java.lang.Runnable> shutdownNow() ;
+  public native java.util.concurrent.ScheduledFuture<? extends java.lang.Object> schedule(java.lang.Runnable a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2) ;
+  public native <V extends java.lang.Object>java.util.concurrent.ScheduledFuture<V> schedule(java.util.concurrent.Callable<V> a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2) ;
+  public native java.util.concurrent.ScheduledFuture<? extends java.lang.Object> scheduleAtFixedRate(java.lang.Runnable a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_3) ;
+  public native java.util.concurrent.ScheduledFuture<? extends java.lang.Object> scheduleWithFixedDelay(java.lang.Runnable a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_3) ;
+  final native long now() ;
+  protected native <V extends java.lang.Object>java.util.concurrent.RunnableScheduledFuture<V> decorateTask(java.util.concurrent.Callable<V> a_r_g_u_m_e_n_t_0, java.util.concurrent.RunnableScheduledFuture<V> a_r_g_u_m_e_n_t_1) ;
+  protected native <V extends java.lang.Object>java.util.concurrent.RunnableScheduledFuture<V> decorateTask(java.lang.Runnable a_r_g_u_m_e_n_t_0, java.util.concurrent.RunnableScheduledFuture<V> a_r_g_u_m_e_n_t_1) ;
+  public native void setContinueExistingPeriodicTasksAfterShutdownPolicy(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean getContinueExistingPeriodicTasksAfterShutdownPolicy() ;
+  public native void setExecuteExistingDelayedTasksAfterShutdownPolicy(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean getExecuteExistingDelayedTasksAfterShutdownPolicy() ;
+  private static class DelayedWorkQueue extends java.util.AbstractCollection<java.lang.Runnable> implements java.util.concurrent.BlockingQueue<java.lang.Runnable> {
+    public native boolean add(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+    public native void put(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+    public native void clear() ;
+    public native boolean isEmpty() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native <T extends java.lang.Object>T[] toArray(T[] a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Object[] toArray() ;
+    public native java.util.Iterator<java.lang.Runnable> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Runnable remove() ;
+    public native java.lang.Runnable poll() ;
+    public native java.lang.Runnable poll(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1)  throws java.lang.InterruptedException;
+    public native java.lang.Runnable peek() ;
+    public native java.lang.Runnable element() ;
+    public native boolean offer(java.lang.Runnable a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_2) ;
+    public native boolean offer(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Runnable take()  throws java.lang.InterruptedException;
+    public native int remainingCapacity() ;
+    public native int drainTo(java.util.Collection<? super java.lang.Runnable> a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native int drainTo(java.util.Collection<? super java.lang.Runnable> a_r_g_u_m_e_n_t_0) ;
+  }
+  private class ScheduledFutureTask<V extends java.lang.Object> extends java.util.concurrent.FutureTask<V> {
+      ScheduledFutureTask(java.lang.Runnable a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, long a_r_g_u_m_e_n_t_3){}
+      ScheduledFutureTask(java.util.concurrent.Callable<V> a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1){}
+      ScheduledFutureTask(java.lang.Runnable a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2){}
+    public native void run() ;
+    public native int compareTo(java.util.concurrent.Delayed a_r_g_u_m_e_n_t_0) ;
+    public native long getDelay(java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_0) ;
+    public native boolean isPeriodic() ;
+    final java.util.concurrent.ScheduledThreadPoolExecutor this$0;
+  }
+}

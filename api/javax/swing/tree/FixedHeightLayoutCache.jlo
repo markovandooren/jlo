@@ -1,0 +1,85 @@
+package javax.swing.tree;
+public class FixedHeightLayoutCache extends javax.swing.tree.AbstractLayoutCache {
+   public  FixedHeightLayoutCache(){}
+  public native java.awt.Rectangle getBounds(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+  public native void setModel(javax.swing.tree.TreeModel a_r_g_u_m_e_n_t_0) ;
+  public native void setRootVisible(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setRowHeight(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isExpanded(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.tree.TreePath getPathForRow(int a_r_g_u_m_e_n_t_0) ;
+  public native int getRowForPath(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.tree.TreePath getPathClosestTo(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.util.Enumeration<javax.swing.tree.TreePath> getVisiblePathsFrom(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0) ;
+  public native int getVisibleChildCount(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0) ;
+  public native void setExpandedState(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native boolean getExpandedState(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0) ;
+  public native int getRowCount() ;
+  public native void invalidateSizes() ;
+  public native void invalidatePathBounds(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0) ;
+  public native void treeNodesChanged(javax.swing.event.TreeModelEvent a_r_g_u_m_e_n_t_0) ;
+  public native void treeNodesInserted(javax.swing.event.TreeModelEvent a_r_g_u_m_e_n_t_0) ;
+  public native void treeNodesRemoved(javax.swing.event.TreeModelEvent a_r_g_u_m_e_n_t_0) ;
+  public native void treeStructureChanged(javax.swing.event.TreeModelEvent a_r_g_u_m_e_n_t_0) ;
+  private class VisibleFHTreeStateNodeEnumeration extends java.lang.Object implements java.util.Enumeration<javax.swing.tree.TreePath> {
+     protected  VisibleFHTreeStateNodeEnumeration(javax.swing.tree.FixedHeightLayoutCache a_r_g_u_m_e_n_t_0, javax.swing.tree.FixedHeightLayoutCache.FHTreeStateNode a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+     protected  VisibleFHTreeStateNodeEnumeration(javax.swing.tree.FixedHeightLayoutCache a_r_g_u_m_e_n_t_0, javax.swing.tree.FixedHeightLayoutCache.FHTreeStateNode a_r_g_u_m_e_n_t_1){}
+    public native boolean hasMoreElements() ;
+    public native javax.swing.tree.TreePath nextElement() ;
+    protected native void updateNextObject() ;
+    protected native boolean findNextValidParent() ;
+    protected native boolean updateNextIndex() ;
+    protected javax.swing.tree.FixedHeightLayoutCache.FHTreeStateNode parent;
+    protected int nextIndex;
+    protected int childCount;
+    final javax.swing.tree.FixedHeightLayoutCache this$0;
+  }
+  private class SearchInfo extends java.lang.Object {
+    protected native javax.swing.tree.TreePath getPath() ;
+    protected javax.swing.tree.FixedHeightLayoutCache.FHTreeStateNode node;
+    protected boolean isNodeParentNode;
+    protected int childIndex;
+    final javax.swing.tree.FixedHeightLayoutCache this$0;
+  }
+  private class FHTreeStateNode extends javax.swing.tree.DefaultMutableTreeNode {
+     public  FHTreeStateNode(javax.swing.tree.FixedHeightLayoutCache a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+    public native void remove(int a_r_g_u_m_e_n_t_0) ;
+    public native void setParent(javax.swing.tree.MutableTreeNode a_r_g_u_m_e_n_t_0) ;
+    protected native void expand() ;
+    public native boolean isVisible() ;
+    public native boolean isLeaf() ;
+    public native boolean isExpanded() ;
+    protected native boolean getPathForRow(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.tree.FixedHeightLayoutCache.SearchInfo a_r_g_u_m_e_n_t_2) ;
+    public native javax.swing.tree.TreePath getTreePath() ;
+    public native int getRow() ;
+    protected native void collapse(boolean a_r_g_u_m_e_n_t_0) ;
+    public native int getChildIndex() ;
+    protected native void makeVisible() ;
+    public native void setUserObject(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    protected native void adjustRowBy(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    protected native void adjustRowBy(int a_r_g_u_m_e_n_t_0) ;
+    public native int getRowToModelIndex(int a_r_g_u_m_e_n_t_0) ;
+    public native int getTotalChildCount() ;
+    public native javax.swing.tree.FixedHeightLayoutCache.FHTreeStateNode getChildAtModelIndex(int a_r_g_u_m_e_n_t_0) ;
+    protected native void childInsertedAtModelIndex(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    protected native void removeChildAtModelIndex(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    protected native void resetChildrenRowsFrom(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+    protected native javax.swing.tree.FixedHeightLayoutCache.FHTreeStateNode createChildFor(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int getVisibleLevel() ;
+    protected native void resetChildrenPaths(javax.swing.tree.TreePath a_r_g_u_m_e_n_t_0) ;
+    protected native void removeFromMapping() ;
+    protected native void didExpand() ;
+    protected native int setRowAndChildren(int a_r_g_u_m_e_n_t_0) ;
+    protected native void expandParentAndReceiver() ;
+    protected native void addNode(javax.swing.tree.FixedHeightLayoutCache.FHTreeStateNode a_r_g_u_m_e_n_t_0) ;
+    protected native void adjustChildIndexs(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    protected native int getCountTo(int a_r_g_u_m_e_n_t_0) ;
+    protected native int getNumExpandedChildrenTo(int a_r_g_u_m_e_n_t_0) ;
+    protected native void didAdjustTree() ;
+    protected boolean isExpanded;
+    protected int childIndex;
+    protected int childCount;
+    protected int row;
+    protected javax.swing.tree.TreePath path;
+    final javax.swing.tree.FixedHeightLayoutCache this$0;
+  }
+}

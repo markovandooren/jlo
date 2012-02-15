@@ -1,0 +1,23 @@
+package javax.swing.plaf.multi;
+public class MultiFileChooserUI extends javax.swing.plaf.FileChooserUI {
+   public  MultiFileChooserUI(){}
+  public native boolean contains(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void update(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Dimension getPreferredSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMaximumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMinimumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native int getAccessibleChildrenCount(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.Accessible getAccessibleChild(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void rescanCurrentDirectory(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+  public native void ensureFileIsVisible(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0, java.io.File a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String getDialogTitle(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getApproveButtonText(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.filechooser.FileFilter getAcceptAllFileFilter(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.filechooser.FileView getFileView(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.plaf.ComponentUI[] getUIs() ;
+  protected java.util.Vector uis;
+}

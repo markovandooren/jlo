@@ -1,0 +1,9 @@
+package java.security.cert;
+public class PKIXCertPathValidatorResult extends java.lang.Object implements java.security.cert.CertPathValidatorResult {
+   public  PKIXCertPathValidatorResult(java.security.cert.TrustAnchor a_r_g_u_m_e_n_t_0, java.security.cert.PolicyNode a_r_g_u_m_e_n_t_1, java.security.PublicKey a_r_g_u_m_e_n_t_2){}
+  public native java.lang.Object clone() ;
+  public native java.lang.String toString() ;
+  public native java.security.PublicKey getPublicKey() ;
+  public native java.security.cert.TrustAnchor getTrustAnchor() ;
+  public native java.security.cert.PolicyNode getPolicyTree() ;
+}

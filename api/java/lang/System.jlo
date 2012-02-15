@@ -1,0 +1,33 @@
+package java.lang;
+public final class System extends java.lang.Object {
+  public static native void exit(int a_r_g_u_m_e_n_t_0) ;
+  public static native void runFinalizersOnExit(boolean a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String setProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String getProperty(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String getProperty(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native int identityHashCode(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native long currentTimeMillis() ;
+  public static native long nanoTime() ;
+  public static native void arraycopy(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  static native java.lang.Class getCallerClass() ;
+  public static native java.lang.SecurityManager getSecurityManager() ;
+  public static native void loadLibrary(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String mapLibraryName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native void load(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native void setIn(java.io.InputStream a_r_g_u_m_e_n_t_0) ;
+  public static native void setOut(java.io.PrintStream a_r_g_u_m_e_n_t_0) ;
+  public static native void setErr(java.io.PrintStream a_r_g_u_m_e_n_t_0) ;
+  public static native java.io.Console console() ;
+  public static native java.nio.channels.Channel inheritedChannel()  throws java.io.IOException;
+  public static native void setSecurityManager(java.lang.SecurityManager a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.Properties getProperties() ;
+  public static native void setProperties(java.util.Properties a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String clearProperty(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String getenv(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.Map<java.lang.String,java.lang.String> getenv() ;
+  public static native void gc() ;
+  public static native void runFinalization() ;
+  public static final java.io.InputStream in;
+  public static final java.io.PrintStream out;
+  public static final java.io.PrintStream err;
+}

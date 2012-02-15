@@ -1,0 +1,30 @@
+package java.awt.dnd;
+public class DropTargetContext extends java.lang.Object implements java.io.Serializable {
+    DropTargetContext(java.awt.dnd.DropTarget a_r_g_u_m_e_n_t_0){}
+  public native java.awt.Component getComponent() ;
+  public native void addNotify(java.awt.dnd.peer.DropTargetContextPeer a_r_g_u_m_e_n_t_0) ;
+  public native void removeNotify() ;
+  public native java.awt.dnd.DropTarget getDropTarget() ;
+  protected native java.awt.datatransfer.Transferable getTransferable()  throws java.awt.dnd.InvalidDnDOperationException;
+  protected native boolean isDataFlavorSupported(java.awt.datatransfer.DataFlavor a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.datatransfer.DataFlavor[] getCurrentDataFlavors() ;
+  protected native void setTargetActions(int a_r_g_u_m_e_n_t_0) ;
+  protected native void rejectDrop() ;
+  protected native int getTargetActions() ;
+  protected native java.util.List<java.awt.datatransfer.DataFlavor> getCurrentDataFlavorsAsList() ;
+  protected native void acceptDrag(int a_r_g_u_m_e_n_t_0) ;
+  protected native void rejectDrag() ;
+  protected native void acceptDrop(int a_r_g_u_m_e_n_t_0) ;
+  public native void dropComplete(boolean a_r_g_u_m_e_n_t_0)  throws java.awt.dnd.InvalidDnDOperationException;
+  native java.awt.dnd.peer.DropTargetContextPeer getDropTargetContextPeer() ;
+  protected native java.awt.datatransfer.Transferable createTransferableProxy(java.awt.datatransfer.Transferable a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  protected class TransferableProxy extends java.lang.Object implements java.awt.datatransfer.Transferable {
+      TransferableProxy(java.awt.dnd.DropTargetContext a_r_g_u_m_e_n_t_0, java.awt.datatransfer.Transferable a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+    public native java.lang.Object getTransferData(java.awt.datatransfer.DataFlavor a_r_g_u_m_e_n_t_0)  throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException;
+    public native java.awt.datatransfer.DataFlavor[] getTransferDataFlavors() ;
+    public native boolean isDataFlavorSupported(java.awt.datatransfer.DataFlavor a_r_g_u_m_e_n_t_0) ;
+    protected java.awt.datatransfer.Transferable transferable;
+    protected boolean isLocal;
+    final java.awt.dnd.DropTargetContext this$0;
+  }
+}

@@ -1,0 +1,132 @@
+package javax.swing;
+public class JSpinner extends javax.swing.JComponent implements javax.accessibility.Accessible {
+   public  JSpinner(javax.swing.SpinnerModel a_r_g_u_m_e_n_t_0){}
+   public  JSpinner(){}
+  public native java.lang.Object getValue() ;
+  public native void setValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void updateUI() ;
+  public native void setUI(javax.swing.plaf.SpinnerUI a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getUIClassID() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native javax.swing.SpinnerModel getModel() ;
+  public native void setModel(javax.swing.SpinnerModel a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.plaf.SpinnerUI getUI() ;
+  public native void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.ChangeListener[] getChangeListeners() ;
+  protected native void fireStateChanged() ;
+  public native java.lang.Object getNextValue() ;
+  public native java.lang.Object getPreviousValue() ;
+  protected native javax.swing.JComponent createEditor(javax.swing.SpinnerModel a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JComponent getEditor() ;
+  public native void setEditor(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void commitEdit()  throws java.text.ParseException;
+  protected class AccessibleJSpinner extends javax.swing.JComponent.AccessibleJComponent implements javax.accessibility.AccessibleValue, javax.accessibility.AccessibleAction, javax.accessibility.AccessibleText, javax.accessibility.AccessibleEditableText, javax.swing.event.ChangeListener {
+     protected  AccessibleJSpinner(javax.swing.JSpinner a_r_g_u_m_e_n_t_0){}
+    public native void delete(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native int getAccessibleChildrenCount() ;
+    public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleAction getAccessibleAction() ;
+    public native javax.accessibility.AccessibleValue getAccessibleValue() ;
+    public native int getAccessibleActionCount() ;
+    public native java.lang.String getAccessibleActionDescription(int a_r_g_u_m_e_n_t_0) ;
+    public native boolean doAccessibleAction(int a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Number getCurrentAccessibleValue() ;
+    public native boolean setCurrentAccessibleValue(java.lang.Number a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Number getMinimumAccessibleValue() ;
+    public native java.lang.Number getMaximumAccessibleValue() ;
+    public native javax.accessibility.AccessibleText getAccessibleText() ;
+    public native int getIndexAtPoint(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Rectangle getCharacterBounds(int a_r_g_u_m_e_n_t_0) ;
+    public native int getCharCount() ;
+    public native int getCaretPosition() ;
+    public native java.lang.String getAtIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getAfterIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getBeforeIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native javax.swing.text.AttributeSet getCharacterAttribute(int a_r_g_u_m_e_n_t_0) ;
+    public native int getSelectionStart() ;
+    public native int getSelectionEnd() ;
+    public native java.lang.String getSelectedText() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    public native void setTextContents(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native void insertTextAtIndex(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getTextRange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void cut(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void paste(int a_r_g_u_m_e_n_t_0) ;
+    public native void replaceText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) ;
+    public native void selectText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void setAttributes(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2) ;
+    final javax.swing.JSpinner this$0;
+  }
+  private static class DisabledAction extends java.lang.Object implements javax.swing.Action {
+    public native java.lang.Object getValue(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native void putValue(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public native boolean isEnabled() ;
+    public native void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+    public native void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+    public native void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static class ListEditor extends javax.swing.JSpinner.DefaultEditor {
+     public  ListEditor(javax.swing.JSpinner a_r_g_u_m_e_n_t_0){}
+    public native javax.swing.SpinnerListModel getModel() ;
+    private class ListFormatter extends javax.swing.JFormattedTextField.AbstractFormatter {
+      protected native javax.swing.text.DocumentFilter getDocumentFilter() ;
+      public native java.lang.Object stringToValue(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.text.ParseException;
+      public native java.lang.String valueToString(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.text.ParseException;
+      final javax.swing.JSpinner.ListEditor this$0;
+      private class Filter extends javax.swing.text.DocumentFilter {
+        public native void replace(javax.swing.text.DocumentFilter.FilterBypass a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+        public native void insertString(javax.swing.text.DocumentFilter.FilterBypass a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_3)  throws javax.swing.text.BadLocationException;
+        final javax.swing.JSpinner.ListEditor.ListFormatter this$1;
+      }
+    }
+  }
+  public static class NumberEditor extends javax.swing.JSpinner.DefaultEditor {
+     public  NumberEditor(javax.swing.JSpinner a_r_g_u_m_e_n_t_0){}
+     public  NumberEditor(javax.swing.JSpinner a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public native java.text.DecimalFormat getFormat() ;
+    public native javax.swing.SpinnerNumberModel getModel() ;
+  }
+  private static class NumberEditorFormatter extends javax.swing.text.NumberFormatter {
+      NumberEditorFormatter(javax.swing.SpinnerNumberModel a_r_g_u_m_e_n_t_0, java.text.NumberFormat a_r_g_u_m_e_n_t_1){}
+    public native void setMinimum(java.lang.Comparable a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Comparable getMinimum() ;
+    public native void setMaximum(java.lang.Comparable a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Comparable getMaximum() ;
+  }
+  public static class DateEditor extends javax.swing.JSpinner.DefaultEditor {
+     public  DateEditor(javax.swing.JSpinner a_r_g_u_m_e_n_t_0){}
+     public  DateEditor(javax.swing.JSpinner a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public native java.text.SimpleDateFormat getFormat() ;
+    public native javax.swing.SpinnerDateModel getModel() ;
+  }
+  private static class DateEditorFormatter extends javax.swing.text.DateFormatter {
+      DateEditorFormatter(javax.swing.SpinnerDateModel a_r_g_u_m_e_n_t_0, java.text.DateFormat a_r_g_u_m_e_n_t_1){}
+    public native void setMinimum(java.lang.Comparable a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Comparable getMinimum() ;
+    public native void setMaximum(java.lang.Comparable a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Comparable getMaximum() ;
+  }
+  public static class DefaultEditor extends javax.swing.JPanel implements javax.swing.event.ChangeListener, java.beans.PropertyChangeListener, java.awt.LayoutManager {
+     public  DefaultEditor(javax.swing.JSpinner a_r_g_u_m_e_n_t_0){}
+    public native int getBaseline(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.awt.Component.BaselineResizeBehavior getBaselineResizeBehavior() ;
+    public native void removeLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+    public native void addLayoutComponent(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+    public native void layoutContainer(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Dimension preferredLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Dimension minimumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.JFormattedTextField getTextField() ;
+    public native void commitEdit()  throws java.text.ParseException;
+    public native void dismiss(javax.swing.JSpinner a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.JSpinner getSpinner() ;
+  }
+  private class ModelListener extends java.lang.Object implements javax.swing.event.ChangeListener, java.io.Serializable {
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.JSpinner this$0;
+  }
+}

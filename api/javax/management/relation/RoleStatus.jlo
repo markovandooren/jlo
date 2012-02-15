@@ -1,0 +1,12 @@
+package javax.management.relation;
+public class RoleStatus extends java.lang.Object {
+   public  RoleStatus(){}
+  public static native boolean isRoleStatus(int a_r_g_u_m_e_n_t_0) ;
+  public static final int NO_ROLE_WITH_NAME;
+  public static final int ROLE_NOT_READABLE;
+  public static final int ROLE_NOT_WRITABLE;
+  public static final int LESS_THAN_MIN_ROLE_DEGREE;
+  public static final int MORE_THAN_MAX_ROLE_DEGREE;
+  public static final int REF_MBEAN_OF_INCORRECT_CLASS;
+  public static final int REF_MBEAN_NOT_REGISTERED;
+}

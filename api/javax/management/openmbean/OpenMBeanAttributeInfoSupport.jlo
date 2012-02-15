@@ -1,0 +1,32 @@
+package javax.management.openmbean;
+public class OpenMBeanAttributeInfoSupport extends javax.management.MBeanAttributeInfo implements javax.management.openmbean.OpenMBeanAttributeInfo {
+   public  OpenMBeanAttributeInfoSupport(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenType<? extends java.lang.Object> a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5){}
+   public  OpenMBeanAttributeInfoSupport(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenType<? extends java.lang.Object> a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5, javax.management.Descriptor a_r_g_u_m_e_n_t_6){}
+   public <T extends java.lang.Object> OpenMBeanAttributeInfoSupport(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenType<T> a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5, T a_r_g_u_m_e_n_t_6) throws javax.management.openmbean.OpenDataException{}
+   public <T extends java.lang.Object> OpenMBeanAttributeInfoSupport(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenType<T> a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5, T a_r_g_u_m_e_n_t_6, T[] a_r_g_u_m_e_n_t_7) throws javax.management.openmbean.OpenDataException{}
+   public <T extends java.lang.Object> OpenMBeanAttributeInfoSupport(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenType<T> a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5, T a_r_g_u_m_e_n_t_6, java.lang.Comparable<T> a_r_g_u_m_e_n_t_7, java.lang.Comparable<T> a_r_g_u_m_e_n_t_8) throws javax.management.openmbean.OpenDataException{}
+  public native int hashCode() ;
+  static native int hashCode(javax.management.openmbean.OpenMBeanParameterInfo a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  static native java.lang.String toString(javax.management.openmbean.OpenMBeanParameterInfo a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.Object getDefaultValue() ;
+  static native void check(javax.management.openmbean.OpenMBeanParameterInfo a_r_g_u_m_e_n_t_0)  throws javax.management.openmbean.OpenDataException;
+  public native java.lang.Comparable<? extends java.lang.Object> getMinValue() ;
+  public native java.lang.Comparable<? extends java.lang.Object> getMaxValue() ;
+  static native boolean isValue(javax.management.openmbean.OpenMBeanParameterInfo a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native boolean isValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  static native boolean equal(javax.management.openmbean.OpenMBeanParameterInfo a_r_g_u_m_e_n_t_0, javax.management.openmbean.OpenMBeanParameterInfo a_r_g_u_m_e_n_t_1) ;
+  public native javax.management.openmbean.OpenType<? extends java.lang.Object> getOpenType() ;
+  public native java.util.Set<? extends java.lang.Object> getLegalValues() ;
+  public native boolean hasDefaultValue() ;
+  public native boolean hasLegalValues() ;
+  public native boolean hasMinValue() ;
+  public native boolean hasMaxValue() ;
+  static native javax.management.Descriptor makeDescriptor(javax.management.openmbean.OpenType a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.util.Set a_r_g_u_m_e_n_t_2, java.lang.Comparable a_r_g_u_m_e_n_t_3, java.lang.Comparable a_r_g_u_m_e_n_t_4) ;
+  static native <T extends java.lang.Object>javax.management.Descriptor makeDescriptor(javax.management.openmbean.OpenType<T> a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1, T[] a_r_g_u_m_e_n_t_2, java.lang.Comparable<T> a_r_g_u_m_e_n_t_3, java.lang.Comparable<T> a_r_g_u_m_e_n_t_4) ;
+  static native <T extends java.lang.Object>T valueFrom(javax.management.Descriptor a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenType<T> a_r_g_u_m_e_n_t_2) ;
+  static native <T extends java.lang.Object>java.util.Set<T> valuesFrom(javax.management.Descriptor a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenType<T> a_r_g_u_m_e_n_t_2) ;
+  static native <T extends java.lang.Object>java.lang.Comparable comparableValueFrom(javax.management.Descriptor a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenType<T> a_r_g_u_m_e_n_t_2) ;
+  static final long serialVersionUID;
+}

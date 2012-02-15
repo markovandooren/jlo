@@ -1,0 +1,32 @@
+package java.util;
+public class BitSet extends java.lang.Object implements java.lang.Cloneable, java.io.Serializable {
+   public  BitSet(){}
+   public  BitSet(int a_r_g_u_m_e_n_t_0){}
+  public native java.util.BitSet get(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native boolean get(int a_r_g_u_m_e_n_t_0) ;
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void clear(int a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native java.lang.String toString() ;
+  public native int length() ;
+  public native boolean isEmpty() ;
+  public native int size() ;
+  public native void set(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native void set(int a_r_g_u_m_e_n_t_0) ;
+  public native void set(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void set(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public native void flip(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void flip(int a_r_g_u_m_e_n_t_0) ;
+  public native int nextSetBit(int a_r_g_u_m_e_n_t_0) ;
+  public native int nextClearBit(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean intersects(java.util.BitSet a_r_g_u_m_e_n_t_0) ;
+  public native int cardinality() ;
+  public native void and(java.util.BitSet a_r_g_u_m_e_n_t_0) ;
+  public native void or(java.util.BitSet a_r_g_u_m_e_n_t_0) ;
+  public native void xor(java.util.BitSet a_r_g_u_m_e_n_t_0) ;
+  public native void andNot(java.util.BitSet a_r_g_u_m_e_n_t_0) ;
+  static final boolean $assertionsDisabled;
+}

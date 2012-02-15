@@ -1,0 +1,6 @@
+package javax.accessibility;
+public abstract interface AccessibleExtendedComponent extends javax.accessibility.AccessibleComponent {
+  public abstract java.lang.String getToolTipText() ;
+  public abstract java.lang.String getTitledBorderText() ;
+  public abstract javax.accessibility.AccessibleKeyBinding getAccessibleKeyBinding() ;
+}

@@ -1,0 +1,22 @@
+package javax.swing.text;
+public abstract interface Document {
+  public abstract java.lang.Object getProperty(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract int getLength() ;
+  public abstract void remove(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public abstract void getText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.Segment a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public abstract java.lang.String getText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public abstract void render(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
+  public abstract void addDocumentListener(javax.swing.event.DocumentListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeDocumentListener(javax.swing.event.DocumentListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void addUndoableEditListener(javax.swing.event.UndoableEditListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeUndoableEditListener(javax.swing.event.UndoableEditListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void putProperty(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public abstract void insertString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public abstract javax.swing.text.Position createPosition(int a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException;
+  public abstract javax.swing.text.Position getStartPosition() ;
+  public abstract javax.swing.text.Position getEndPosition() ;
+  public abstract javax.swing.text.Element[] getRootElements() ;
+  public abstract javax.swing.text.Element getDefaultRootElement() ;
+  public static final java.lang.String StreamDescriptionProperty;
+  public static final java.lang.String TitleProperty;
+}

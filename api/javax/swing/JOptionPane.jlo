@@ -1,0 +1,119 @@
+package javax.swing;
+public class JOptionPane extends javax.swing.JComponent implements javax.accessibility.Accessible {
+   public  JOptionPane(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.Icon a_r_g_u_m_e_n_t_3){}
+   public  JOptionPane(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.Icon a_r_g_u_m_e_n_t_3, java.lang.Object[] a_r_g_u_m_e_n_t_4, java.lang.Object a_r_g_u_m_e_n_t_5){}
+   public  JOptionPane(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.Icon a_r_g_u_m_e_n_t_3, java.lang.Object[] a_r_g_u_m_e_n_t_4){}
+   public  JOptionPane(){}
+   public  JOptionPane(java.lang.Object a_r_g_u_m_e_n_t_0){}
+   public  JOptionPane(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  JOptionPane(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native java.lang.Object getValue() ;
+  public native java.lang.Object getMessage() ;
+  public native void setValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void setInitialValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void updateUI() ;
+  public native void setUI(javax.swing.plaf.OptionPaneUI a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getUIClassID() ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  protected native java.lang.String paramString() ;
+  public native javax.swing.Icon getIcon() ;
+  public native void setIcon(javax.swing.Icon a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.plaf.OptionPaneUI getUI() ;
+  public native javax.swing.JDialog createDialog(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  public native javax.swing.JDialog createDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.awt.HeadlessException;
+  static native java.awt.Window getWindowForComponent(java.awt.Component a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  public native java.lang.Object[] getOptions() ;
+  public static native void showMessageDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.Icon a_r_g_u_m_e_n_t_4)  throws java.awt.HeadlessException;
+  public static native void showMessageDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws java.awt.HeadlessException;
+  public static native void showMessageDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.awt.HeadlessException;
+  public native int getMaxCharactersPerLineCount() ;
+  public native void selectInitialValue() ;
+  public native boolean getWantsInput() ;
+  public native java.lang.Object[] getSelectionValues() ;
+  public native java.lang.Object getInitialSelectionValue() ;
+  public native int getMessageType() ;
+  public native int getOptionType() ;
+  public native java.lang.Object getInitialValue() ;
+  public native void setInputValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String showInputDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws java.awt.HeadlessException;
+  public static native java.lang.String showInputDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.awt.HeadlessException;
+  public static native java.lang.String showInputDialog(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String showInputDialog(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  public static native java.lang.Object showInputDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.Icon a_r_g_u_m_e_n_t_4, java.lang.Object[] a_r_g_u_m_e_n_t_5, java.lang.Object a_r_g_u_m_e_n_t_6)  throws java.awt.HeadlessException;
+  public static native java.lang.String showInputDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public static native int showConfirmDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4)  throws java.awt.HeadlessException;
+  public static native int showConfirmDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.awt.HeadlessException;
+  public static native int showConfirmDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws java.awt.HeadlessException;
+  public static native int showConfirmDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, javax.swing.Icon a_r_g_u_m_e_n_t_5)  throws java.awt.HeadlessException;
+  public static native int showOptionDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, javax.swing.Icon a_r_g_u_m_e_n_t_5, java.lang.Object[] a_r_g_u_m_e_n_t_6, java.lang.Object a_r_g_u_m_e_n_t_7)  throws java.awt.HeadlessException;
+  public static native void showInternalMessageDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.Icon a_r_g_u_m_e_n_t_4) ;
+  public static native void showInternalMessageDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public static native void showInternalMessageDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public static native int showInternalConfirmDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, javax.swing.Icon a_r_g_u_m_e_n_t_5) ;
+  public static native int showInternalConfirmDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public static native int showInternalConfirmDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public static native int showInternalConfirmDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public static native int showInternalOptionDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, javax.swing.Icon a_r_g_u_m_e_n_t_5, java.lang.Object[] a_r_g_u_m_e_n_t_6, java.lang.Object a_r_g_u_m_e_n_t_7) ;
+  public static native java.lang.Object showInternalInputDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.Icon a_r_g_u_m_e_n_t_4, java.lang.Object[] a_r_g_u_m_e_n_t_5, java.lang.Object a_r_g_u_m_e_n_t_6) ;
+  public static native java.lang.String showInternalInputDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public static native java.lang.String showInternalInputDialog(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native javax.swing.JInternalFrame createInternalFrame(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.Frame getFrameForComponent(java.awt.Component a_r_g_u_m_e_n_t_0)  throws java.awt.HeadlessException;
+  public static native javax.swing.JDesktopPane getDesktopPaneForComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public static native void setRootFrame(java.awt.Frame a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.Frame getRootFrame()  throws java.awt.HeadlessException;
+  public native void setMessage(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void setOptions(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public native void setMessageType(int a_r_g_u_m_e_n_t_0) ;
+  public native void setOptionType(int a_r_g_u_m_e_n_t_0) ;
+  public native void setSelectionValues(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public native void setInitialSelectionValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getInputValue() ;
+  public native void setWantsInput(boolean a_r_g_u_m_e_n_t_0) ;
+  public static final java.lang.Object UNINITIALIZED_VALUE;
+  public static final int DEFAULT_OPTION;
+  public static final int YES_NO_OPTION;
+  public static final int YES_NO_CANCEL_OPTION;
+  public static final int OK_CANCEL_OPTION;
+  public static final int YES_OPTION;
+  public static final int NO_OPTION;
+  public static final int CANCEL_OPTION;
+  public static final int OK_OPTION;
+  public static final int CLOSED_OPTION;
+  public static final int ERROR_MESSAGE;
+  public static final int INFORMATION_MESSAGE;
+  public static final int WARNING_MESSAGE;
+  public static final int QUESTION_MESSAGE;
+  public static final int PLAIN_MESSAGE;
+  public static final java.lang.String ICON_PROPERTY;
+  public static final java.lang.String MESSAGE_PROPERTY;
+  public static final java.lang.String VALUE_PROPERTY;
+  public static final java.lang.String OPTIONS_PROPERTY;
+  public static final java.lang.String INITIAL_VALUE_PROPERTY;
+  public static final java.lang.String MESSAGE_TYPE_PROPERTY;
+  public static final java.lang.String OPTION_TYPE_PROPERTY;
+  public static final java.lang.String SELECTION_VALUES_PROPERTY;
+  public static final java.lang.String INITIAL_SELECTION_VALUE_PROPERTY;
+  public static final java.lang.String INPUT_VALUE_PROPERTY;
+  public static final java.lang.String WANTS_INPUT_PROPERTY;
+  protected transient javax.swing.Icon icon;
+  protected transient java.lang.Object message;
+  protected transient java.lang.Object[] options;
+  protected transient java.lang.Object initialValue;
+  protected int messageType;
+  protected int optionType;
+  protected transient java.lang.Object value;
+  protected transient java.lang.Object[] selectionValues;
+  protected transient java.lang.Object inputValue;
+  protected transient java.lang.Object initialSelectionValue;
+  protected boolean wantsInput;
+  protected class AccessibleJOptionPane extends javax.swing.JComponent.AccessibleJComponent {
+     protected  AccessibleJOptionPane(javax.swing.JOptionPane a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final javax.swing.JOptionPane this$0;
+  }
+  private static class ModalPrivilegedAction extends java.lang.Object implements java.security.PrivilegedAction {
+     public  ModalPrivilegedAction(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public native java.lang.Object run() ;
+  }
+}

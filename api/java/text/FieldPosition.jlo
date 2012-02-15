@@ -1,0 +1,24 @@
+package java.text;
+public class FieldPosition extends java.lang.Object {
+   public  FieldPosition(java.text.Format.Field a_r_g_u_m_e_n_t_0){}
+   public  FieldPosition(java.text.Format.Field a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  FieldPosition(int a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native int getField() ;
+  public native int getBeginIndex() ;
+  public native int getEndIndex() ;
+  public native java.text.Format.Field getFieldAttribute() ;
+  public native void setBeginIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native void setEndIndex(int a_r_g_u_m_e_n_t_0) ;
+  native java.text.Format.FieldDelegate getFieldDelegate() ;
+  int field;
+  int endIndex;
+  int beginIndex;
+  private class Delegate extends java.lang.Object implements java.text.Format.FieldDelegate {
+    public native void formatted(java.text.Format.Field a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.lang.StringBuffer a_r_g_u_m_e_n_t_4) ;
+    public native void formatted(int a_r_g_u_m_e_n_t_0, java.text.Format.Field a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, java.lang.StringBuffer a_r_g_u_m_e_n_t_5) ;
+    final java.text.FieldPosition this$0;
+  }
+}

@@ -1,0 +1,5 @@
+package java.beans;
+public class ParameterDescriptor extends java.beans.FeatureDescriptor {
+   public  ParameterDescriptor(){}
+    ParameterDescriptor(java.beans.ParameterDescriptor a_r_g_u_m_e_n_t_0){}
+}

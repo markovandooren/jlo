@@ -1,0 +1,29 @@
+package java.awt.image;
+public class DirectColorModel extends java.awt.image.PackedColorModel {
+   public  DirectColorModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  DirectColorModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+   public  DirectColorModel(java.awt.color.ColorSpace a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7){}
+  public native java.lang.String toString() ;
+  public final native int[] getComponents(int a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public final native int[] getComponents(java.lang.Object a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public final native int getRed(int a_r_g_u_m_e_n_t_0) ;
+  public native int getRed(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int getGreen(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public final native int getGreen(int a_r_g_u_m_e_n_t_0) ;
+  public final native int getBlue(int a_r_g_u_m_e_n_t_0) ;
+  public native int getBlue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public final native int getAlpha(int a_r_g_u_m_e_n_t_0) ;
+  public native int getAlpha(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public final native int getRGB(int a_r_g_u_m_e_n_t_0) ;
+  public native int getRGB(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public final native java.awt.image.WritableRaster createCompatibleWritableRaster(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.Object getDataElements(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native java.lang.Object getDataElements(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public final native java.awt.image.ColorModel coerceData(java.awt.image.WritableRaster a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native boolean isCompatibleRaster(java.awt.image.Raster a_r_g_u_m_e_n_t_0) ;
+  public final native int getRedMask() ;
+  public final native int getGreenMask() ;
+  public final native int getBlueMask() ;
+  public final native int getAlphaMask() ;
+  public native int getDataElement(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+}

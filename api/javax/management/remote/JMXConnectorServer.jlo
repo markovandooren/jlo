@@ -1,0 +1,18 @@
+package javax.management.remote;
+public abstract class JMXConnectorServer extends javax.management.NotificationBroadcasterSupport implements javax.management.remote.JMXConnectorServerMBean, javax.management.MBeanRegistration {
+   public  JMXConnectorServer(){}
+   public  JMXConnectorServer(javax.management.MBeanServer a_r_g_u_m_e_n_t_0){}
+  public synchronized native javax.management.MBeanServer getMBeanServer() ;
+  protected native void connectionClosed(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native javax.management.MBeanNotificationInfo[] getNotificationInfo() ;
+  public synchronized native javax.management.ObjectName preRegister(javax.management.MBeanServer a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1) ;
+  public native void postRegister(java.lang.Boolean a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void preDeregister()  throws java.lang.Exception;
+  public native void postDeregister() ;
+  public synchronized native void setMBeanServerForwarder(javax.management.remote.MBeanServerForwarder a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String[] getConnectionIds() ;
+  public native javax.management.remote.JMXConnector toJMXConnector(java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native void connectionOpened(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  protected native void connectionFailed(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public static final java.lang.String AUTHENTICATOR;
+}

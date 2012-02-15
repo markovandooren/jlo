@@ -1,0 +1,16 @@
+package javax.swing;
+public class SortingFocusTraversalPolicy extends javax.swing.InternalFrameFocusTraversalPolicy {
+   protected  SortingFocusTraversalPolicy(){}
+   public  SortingFocusTraversalPolicy(java.util.Comparator<? super java.awt.Component> a_r_g_u_m_e_n_t_0){}
+  protected native boolean accept(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getDefaultComponent(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getComponentAfter(java.awt.Container a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Component getComponentBefore(java.awt.Container a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public native boolean getImplicitDownCycleTraversal() ;
+  public native void setImplicitDownCycleTraversal(boolean a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getFirstComponent(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getLastComponent(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  protected native java.util.Comparator<? super java.awt.Component> getComparator() ;
+  protected native void setComparator(java.util.Comparator<? super java.awt.Component> a_r_g_u_m_e_n_t_0) ;
+  native java.awt.Container getTopmostProvider(java.awt.Container a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+}

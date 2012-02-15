@@ -1,0 +1,12 @@
+package org.ietf.jgss;
+public class Oid extends java.lang.Object {
+   public  Oid(java.lang.String a_r_g_u_m_e_n_t_0) throws org.ietf.jgss.GSSException{}
+   public  Oid(java.io.InputStream a_r_g_u_m_e_n_t_0) throws org.ietf.jgss.GSSException{}
+   public  Oid(byte[] a_r_g_u_m_e_n_t_0) throws org.ietf.jgss.GSSException{}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  static native org.ietf.jgss.Oid getInstance(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native byte[] getDER()  throws org.ietf.jgss.GSSException;
+  public native boolean containedIn(org.ietf.jgss.Oid[] a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,12 @@
+package javax.swing.event;
+public class EventListenerList extends java.lang.Object implements java.io.Serializable {
+   public  EventListenerList(){}
+  public synchronized native <T extends java.util.EventListener>void add(java.lang.Class<T> a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String toString() ;
+  public synchronized native <T extends java.util.EventListener>void remove(java.lang.Class<T> a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1) ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object[] getListenerList() ;
+  public native int getListenerCount(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native int getListenerCount() ;
+  protected transient java.lang.Object[] listenerList;
+}

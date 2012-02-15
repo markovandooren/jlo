@@ -1,0 +1,6 @@
+package javax.sql.rowset.spi;
+public abstract interface TransactionalWriter extends javax.sql.RowSetWriter {
+  public abstract void commit()  throws java.sql.SQLException;
+  public abstract void rollback()  throws java.sql.SQLException;
+  public abstract void rollback(java.sql.Savepoint a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+}

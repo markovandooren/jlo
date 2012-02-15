@@ -1,0 +1,6 @@
+package javax.management;
+public abstract class QueryEval extends java.lang.Object implements java.io.Serializable {
+   public  QueryEval(){}
+  public native void setMBeanServer(javax.management.MBeanServer a_r_g_u_m_e_n_t_0) ;
+  public static native javax.management.MBeanServer getMBeanServer() ;
+}

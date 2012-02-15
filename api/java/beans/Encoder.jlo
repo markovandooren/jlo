@@ -1,0 +1,18 @@
+package java.beans;
+public class Encoder extends java.lang.Object {
+   public  Encoder(){}
+  public native java.lang.Object get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native void clear() ;
+  native java.lang.Object getValue(java.beans.Expression a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  protected native void writeObject(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native java.lang.Object getAttribute(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native void setAttribute(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native java.beans.ExceptionListener getExceptionListener() ;
+  public native void writeExpression(java.beans.Expression a_r_g_u_m_e_n_t_0) ;
+  public native void writeStatement(java.beans.Statement a_r_g_u_m_e_n_t_0) ;
+  public native java.beans.PersistenceDelegate getPersistenceDelegate(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native void setExceptionListener(java.beans.ExceptionListener a_r_g_u_m_e_n_t_0) ;
+  public native void setPersistenceDelegate(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, java.beans.PersistenceDelegate a_r_g_u_m_e_n_t_1) ;
+  boolean executeStatements;
+}

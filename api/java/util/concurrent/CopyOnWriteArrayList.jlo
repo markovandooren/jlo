@@ -1,0 +1,73 @@
+package java.util.concurrent;
+public class CopyOnWriteArrayList<E extends java.lang.Object> extends java.lang.Object implements java.util.List<E>, java.util.RandomAccess, java.lang.Cloneable, java.io.Serializable {
+   public  CopyOnWriteArrayList(E[] a_r_g_u_m_e_n_t_0){}
+   public  CopyOnWriteArrayList(){}
+   public  CopyOnWriteArrayList(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0){}
+  public native boolean add(E a_r_g_u_m_e_n_t_0) ;
+  public native void add(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public native E get(int a_r_g_u_m_e_n_t_0) ;
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int indexOf(E a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int indexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native java.lang.String toString() ;
+  public native boolean isEmpty() ;
+  public native int lastIndexOf(E a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int lastIndexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean addAll(int a_r_g_u_m_e_n_t_0, java.util.Collection<? extends E> a_r_g_u_m_e_n_t_1) ;
+  public native boolean addAll(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0) ;
+  public native int size() ;
+  public native <T extends java.lang.Object>T[] toArray(T[] a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object[] toArray() ;
+  final native java.lang.Object[] getArray() ;
+  public native java.util.Iterator<E> iterator() ;
+  public native E set(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public native E remove(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native boolean removeAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native boolean retainAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native java.util.List<E> subList(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.util.ListIterator<E> listIterator() ;
+  public native java.util.ListIterator<E> listIterator(int a_r_g_u_m_e_n_t_0) ;
+  final native void setArray(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public native boolean addIfAbsent(E a_r_g_u_m_e_n_t_0) ;
+  public native int addAllAbsent(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0) ;
+  final transient java.util.concurrent.locks.ReentrantLock lock;
+  private static class COWSubListIterator<E extends java.lang.Object> extends java.lang.Object implements java.util.ListIterator<E> {
+    public native void add(E a_r_g_u_m_e_n_t_0) ;
+    public native boolean hasNext() ;
+    public native E next() ;
+    public native void set(E a_r_g_u_m_e_n_t_0) ;
+    public native void remove() ;
+    public native int previousIndex() ;
+    public native boolean hasPrevious() ;
+    public native E previous() ;
+    public native int nextIndex() ;
+  }
+  private static class COWSubList<E extends java.lang.Object> extends java.util.AbstractList<E> {
+    public native void add(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+    public native E get(int a_r_g_u_m_e_n_t_0) ;
+    public native void clear() ;
+    public native int size() ;
+    public native java.util.Iterator<E> iterator() ;
+    public native E set(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+    public native E remove(int a_r_g_u_m_e_n_t_0) ;
+    public native java.util.List<E> subList(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.util.ListIterator<E> listIterator(int a_r_g_u_m_e_n_t_0) ;
+  }
+  private static class COWIterator<E extends java.lang.Object> extends java.lang.Object implements java.util.ListIterator<E> {
+    public native void add(E a_r_g_u_m_e_n_t_0) ;
+    public native boolean hasNext() ;
+    public native E next() ;
+    public native void set(E a_r_g_u_m_e_n_t_0) ;
+    public native void remove() ;
+    public native int previousIndex() ;
+    public native boolean hasPrevious() ;
+    public native E previous() ;
+    public native int nextIndex() ;
+  }
+}

@@ -1,0 +1,30 @@
+package javax.accessibility;
+public abstract interface AccessibleComponent {
+  public abstract boolean contains(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Point getLocation() ;
+  public abstract java.awt.Dimension getSize() ;
+  public abstract void setSize(java.awt.Dimension a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Rectangle getBounds() ;
+  public abstract java.awt.Cursor getCursor() ;
+  public abstract boolean isEnabled() ;
+  public abstract void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract void requestFocus() ;
+  public abstract java.awt.FontMetrics getFontMetrics(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+  public abstract void setVisible(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract void setForeground(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  public abstract void setBackground(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  public abstract void setFont(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Color getForeground() ;
+  public abstract java.awt.Font getFont() ;
+  public abstract boolean isVisible() ;
+  public abstract java.awt.Color getBackground() ;
+  public abstract void setBounds(java.awt.Rectangle a_r_g_u_m_e_n_t_0) ;
+  public abstract void setLocation(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isShowing() ;
+  public abstract javax.accessibility.Accessible getAccessibleAt(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Point getLocationOnScreen() ;
+  public abstract void setCursor(java.awt.Cursor a_r_g_u_m_e_n_t_0) ;
+  public abstract void addFocusListener(java.awt.event.FocusListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeFocusListener(java.awt.event.FocusListener a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isFocusTraversable() ;
+}

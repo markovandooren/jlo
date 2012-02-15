@@ -1,0 +1,65 @@
+package javax.swing.text;
+public abstract class TableView extends javax.swing.text.BoxView {
+   public  TableView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+  public native void replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.View[] a_r_g_u_m_e_n_t_2) ;
+  native int getRowCount() ;
+  native int getColumnCount() ;
+  native javax.swing.text.TableView.TableRow getRow(int a_r_g_u_m_e_n_t_0) ;
+  protected native void forwardUpdate(javax.swing.event.DocumentEvent.ElementChange a_r_g_u_m_e_n_t_0, javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_3) ;
+  protected native javax.swing.SizeRequirements calculateMinorAxisRequirements(int a_r_g_u_m_e_n_t_0, javax.swing.SizeRequirements a_r_g_u_m_e_n_t_1) ;
+  protected native void layoutMinorAxis(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, int[] a_r_g_u_m_e_n_t_3) ;
+  protected native javax.swing.text.View getViewAtPosition(int a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+  protected native javax.swing.text.TableView.TableRow createTableRow(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.text.TableView.TableCell createTableCell(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+  native int getColumnSpan(int a_r_g_u_m_e_n_t_0) ;
+  native int getRowSpan(int a_r_g_u_m_e_n_t_0) ;
+  native int getColumnsOccupied(javax.swing.text.View a_r_g_u_m_e_n_t_0) ;
+  native int getRowsOccupied(javax.swing.text.View a_r_g_u_m_e_n_t_0) ;
+  native void invalidateGrid() ;
+  native void updateGrid() ;
+  native void addFill(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected native void layoutColumns(int a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, javax.swing.SizeRequirements[] a_r_g_u_m_e_n_t_3) ;
+  native void calculateColumnRequirements(int a_r_g_u_m_e_n_t_0) ;
+  native void checkSingleColumnCell(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.View a_r_g_u_m_e_n_t_2) ;
+  native void checkMultiColumnCell(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.swing.text.View a_r_g_u_m_e_n_t_3) ;
+  int[] columnSpans;
+  int[] columnOffsets;
+  javax.swing.SizeRequirements[] columnRequirements;
+  java.util.Vector rows;
+  boolean gridValid;
+  static abstract interface GridCell {
+    public abstract int getRowCount() ;
+    public abstract int getColumnCount() ;
+    public abstract void setGridLocation(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public abstract int getGridRow() ;
+    public abstract int getGridColumn() ;
+  }
+  public class TableCell extends javax.swing.text.BoxView implements javax.swing.text.TableView.GridCell {
+     public  TableCell(javax.swing.text.TableView a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1){}
+    public native int getRowCount() ;
+    public native int getColumnCount() ;
+    public native void setGridLocation(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native int getGridRow() ;
+    public native int getGridColumn() ;
+    int row;
+    int col;
+    final javax.swing.text.TableView this$0;
+  }
+  public class TableRow extends javax.swing.text.BoxView {
+     public  TableRow(javax.swing.text.TableView a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1){}
+    public native void replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.View[] a_r_g_u_m_e_n_t_2) ;
+    native int getColumnCount() ;
+    native int getRow() ;
+    public native int getResizeWeight(int a_r_g_u_m_e_n_t_0) ;
+    protected native void layoutMajorAxis(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, int[] a_r_g_u_m_e_n_t_3) ;
+    protected native void layoutMinorAxis(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, int[] a_r_g_u_m_e_n_t_3) ;
+    protected native javax.swing.text.View getViewAtPosition(int a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+    native void clearFilledColumns() ;
+    native void setRow(int a_r_g_u_m_e_n_t_0) ;
+    native boolean isFilled(int a_r_g_u_m_e_n_t_0) ;
+    native void fillColumn(int a_r_g_u_m_e_n_t_0) ;
+    java.util.BitSet fillColumns;
+    int row;
+    final javax.swing.text.TableView this$0;
+  }
+}

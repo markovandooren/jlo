@@ -1,0 +1,36 @@
+package java.util.zip;
+public class ZipEntry extends java.lang.Object implements java.lang.Cloneable {
+    ZipEntry(long a_r_g_u_m_e_n_t_0){}
+   public  ZipEntry(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  ZipEntry(java.util.zip.ZipEntry a_r_g_u_m_e_n_t_0){}
+    ZipEntry(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1){}
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getName() ;
+  public native int getMethod() ;
+  public native long getSize() ;
+  public native void setSize(long a_r_g_u_m_e_n_t_0) ;
+  public native boolean isDirectory() ;
+  public native void setTime(long a_r_g_u_m_e_n_t_0) ;
+  public native long getTime() ;
+  public native long getCompressedSize() ;
+  public native void setCompressedSize(long a_r_g_u_m_e_n_t_0) ;
+  public native void setCrc(long a_r_g_u_m_e_n_t_0) ;
+  public native long getCrc() ;
+  public native void setMethod(int a_r_g_u_m_e_n_t_0) ;
+  public native void setExtra(byte[] a_r_g_u_m_e_n_t_0) ;
+  public native byte[] getExtra() ;
+  public native void setComment(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getComment() ;
+  java.lang.String name;
+  long time;
+  long crc;
+  long size;
+  long csize;
+  int method;
+  byte[] extra;
+  java.lang.String comment;
+  public static final int STORED;
+  public static final int DEFLATED;
+}

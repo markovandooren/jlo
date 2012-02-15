@@ -1,0 +1,8 @@
+package java.lang.management;
+public final class MemoryType extends java.lang.Enum<java.lang.management.MemoryType> {
+  public native java.lang.String toString() ;
+  public static native java.lang.management.MemoryType valueOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.management.MemoryType[] values() ;
+  public static final java.lang.management.MemoryType HEAP;
+  public static final java.lang.management.MemoryType NON_HEAP;
+}

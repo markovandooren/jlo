@@ -1,0 +1,24 @@
+package javax.swing.plaf.metal;
+public class MetalInternalFrameUI extends javax.swing.plaf.basic.BasicInternalFrameUI {
+   public  MetalInternalFrameUI(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0){}
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  protected native void installKeyboardActions() ;
+  protected native void uninstallKeyboardActions() ;
+  protected native void installListeners() ;
+  protected native void uninstallListeners() ;
+  protected native void uninstallComponents() ;
+  protected native javax.swing.JComponent createNorthPane(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.event.MouseInputAdapter createBorderListener(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
+  public native void setPalette(boolean a_r_g_u_m_e_n_t_0) ;
+  protected static java.lang.String IS_PALETTE;
+  private class BorderListener1 extends javax.swing.plaf.basic.BasicInternalFrameUI.BorderListener implements javax.swing.SwingConstants {
+    public native void mouseClicked(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    native java.awt.Rectangle getIconBounds() ;
+    final javax.swing.plaf.metal.MetalInternalFrameUI this$0;
+  }
+  private static class MetalPropertyChangeHandler extends java.lang.Object implements java.beans.PropertyChangeListener {
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+  }
+}

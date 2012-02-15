@@ -1,0 +1,47 @@
+package java.awt;
+public class BorderLayout extends java.lang.Object implements java.awt.LayoutManager2, java.io.Serializable {
+   public  BorderLayout(){}
+   public  BorderLayout(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native java.lang.String toString() ;
+  public native void removeLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void addLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native void addLayoutComponent(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public native void layoutContainer(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native void invalidateLayout(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension preferredLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension minimumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension maximumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native float getLayoutAlignmentX(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native float getLayoutAlignmentY(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getLayoutComponent(java.awt.Container a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Component getLayoutComponent(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getConstraints(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native int getHgap() ;
+  public native void setHgap(int a_r_g_u_m_e_n_t_0) ;
+  public native int getVgap() ;
+  public native void setVgap(int a_r_g_u_m_e_n_t_0) ;
+  int hgap;
+  int vgap;
+  java.awt.Component north;
+  java.awt.Component west;
+  java.awt.Component east;
+  java.awt.Component south;
+  java.awt.Component center;
+  java.awt.Component firstLine;
+  java.awt.Component lastLine;
+  java.awt.Component firstItem;
+  java.awt.Component lastItem;
+  public static final java.lang.String NORTH;
+  public static final java.lang.String SOUTH;
+  public static final java.lang.String EAST;
+  public static final java.lang.String WEST;
+  public static final java.lang.String CENTER;
+  public static final java.lang.String BEFORE_FIRST_LINE;
+  public static final java.lang.String AFTER_LAST_LINE;
+  public static final java.lang.String BEFORE_LINE_BEGINS;
+  public static final java.lang.String AFTER_LINE_ENDS;
+  public static final java.lang.String PAGE_START;
+  public static final java.lang.String PAGE_END;
+  public static final java.lang.String LINE_START;
+  public static final java.lang.String LINE_END;
+}

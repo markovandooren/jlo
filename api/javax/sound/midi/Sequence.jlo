@@ -1,0 +1,21 @@
+package javax.sound.midi;
+public class Sequence extends java.lang.Object {
+   public  Sequence(float a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws javax.sound.midi.InvalidMidiDataException{}
+   public  Sequence(float a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) throws javax.sound.midi.InvalidMidiDataException{}
+  public native long getMicrosecondLength() ;
+  public native long getTickLength() ;
+  public native float getDivisionType() ;
+  public native int getResolution() ;
+  public native javax.sound.midi.Track createTrack() ;
+  public native boolean deleteTrack(javax.sound.midi.Track a_r_g_u_m_e_n_t_0) ;
+  public native javax.sound.midi.Track[] getTracks() ;
+  public native javax.sound.midi.Patch[] getPatchList() ;
+  public static final float PPQ;
+  public static final float SMPTE_24;
+  public static final float SMPTE_25;
+  public static final float SMPTE_30DROP;
+  public static final float SMPTE_30;
+  protected float divisionType;
+  protected int resolution;
+  protected java.util.Vector<javax.sound.midi.Track> tracks;
+}

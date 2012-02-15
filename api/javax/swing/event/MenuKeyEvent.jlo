@@ -1,0 +1,6 @@
+package javax.swing.event;
+public class MenuKeyEvent extends java.awt.event.KeyEvent {
+   public  MenuKeyEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, char a_r_g_u_m_e_n_t_5, javax.swing.MenuElement[] a_r_g_u_m_e_n_t_6, javax.swing.MenuSelectionManager a_r_g_u_m_e_n_t_7){}
+  public native javax.swing.MenuElement[] getPath() ;
+  public native javax.swing.MenuSelectionManager getMenuSelectionManager() ;
+}

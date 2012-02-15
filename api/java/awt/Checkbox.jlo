@@ -1,0 +1,47 @@
+package java.awt;
+public class Checkbox extends java.awt.Component implements java.awt.ItemSelectable, javax.accessibility.Accessible {
+   public  Checkbox(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.CheckboxGroup a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) throws java.awt.HeadlessException{}
+   public  Checkbox() throws java.awt.HeadlessException{}
+   public  Checkbox(java.lang.String a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+   public  Checkbox(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) throws java.awt.HeadlessException{}
+   public  Checkbox(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, java.awt.CheckboxGroup a_r_g_u_m_e_n_t_2) throws java.awt.HeadlessException{}
+  public native boolean getState() ;
+  public native void setState(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native void addNotify() ;
+  protected native java.lang.String paramString() ;
+  native boolean eventEnabled(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void processEvent(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  native java.lang.String constructComponentName() ;
+  public native java.lang.String getLabel() ;
+  public native void setLabel(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void addItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.awt.event.ItemListener[] getItemListeners() ;
+  public native java.lang.Object[] getSelectedObjects() ;
+  native void setStateInternal(boolean a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.CheckboxGroup getCheckboxGroup() ;
+  public native void setCheckboxGroup(java.awt.CheckboxGroup a_r_g_u_m_e_n_t_0) ;
+  protected native void processItemEvent(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+  java.lang.String label;
+  boolean state;
+  java.awt.CheckboxGroup group;
+  transient java.awt.event.ItemListener itemListener;
+  protected class AccessibleAWTCheckbox extends java.awt.Component.AccessibleAWTComponent implements java.awt.event.ItemListener, javax.accessibility.AccessibleAction, javax.accessibility.AccessibleValue {
+     public  AccessibleAWTCheckbox(java.awt.Checkbox a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native void itemStateChanged(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleAction getAccessibleAction() ;
+    public native javax.accessibility.AccessibleValue getAccessibleValue() ;
+    public native int getAccessibleActionCount() ;
+    public native java.lang.String getAccessibleActionDescription(int a_r_g_u_m_e_n_t_0) ;
+    public native boolean doAccessibleAction(int a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Number getCurrentAccessibleValue() ;
+    public native boolean setCurrentAccessibleValue(java.lang.Number a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.Number getMinimumAccessibleValue() ;
+    public native java.lang.Number getMaximumAccessibleValue() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final java.awt.Checkbox this$0;
+  }
+}

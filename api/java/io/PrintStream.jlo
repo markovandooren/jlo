@@ -1,0 +1,43 @@
+package java.io;
+public class PrintStream extends java.io.FilterOutputStream implements java.lang.Appendable, java.io.Closeable {
+   public  PrintStream(java.io.OutputStream a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+   public  PrintStream(java.io.OutputStream a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) throws java.io.UnsupportedEncodingException{}
+   public  PrintStream(java.lang.String a_r_g_u_m_e_n_t_0) throws java.io.FileNotFoundException{}
+   public  PrintStream(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) throws java.io.FileNotFoundException, java.io.UnsupportedEncodingException{}
+   public  PrintStream(java.io.File a_r_g_u_m_e_n_t_0) throws java.io.FileNotFoundException{}
+   public  PrintStream(java.io.File a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) throws java.io.FileNotFoundException, java.io.UnsupportedEncodingException{}
+   public  PrintStream(java.io.OutputStream a_r_g_u_m_e_n_t_0){}
+  public native void println(char a_r_g_u_m_e_n_t_0) ;
+  public native void println() ;
+  public native void println(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void println(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void println(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void println(char[] a_r_g_u_m_e_n_t_0) ;
+  public native void println(double a_r_g_u_m_e_n_t_0) ;
+  public native void println(float a_r_g_u_m_e_n_t_0) ;
+  public native void println(long a_r_g_u_m_e_n_t_0) ;
+  public native void println(int a_r_g_u_m_e_n_t_0) ;
+  public native java.io.PrintStream append(java.lang.CharSequence a_r_g_u_m_e_n_t_0) ;
+  public native java.io.PrintStream append(java.lang.CharSequence a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.io.PrintStream append(char a_r_g_u_m_e_n_t_0) ;
+  public transient native java.io.PrintStream format(java.util.Locale a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object... a_r_g_u_m_e_n_t_2) ;
+  public transient native java.io.PrintStream format(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object... a_r_g_u_m_e_n_t_1) ;
+  public native void write(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void write(int a_r_g_u_m_e_n_t_0) ;
+  public native void print(float a_r_g_u_m_e_n_t_0) ;
+  public native void print(double a_r_g_u_m_e_n_t_0) ;
+  public native void print(char[] a_r_g_u_m_e_n_t_0) ;
+  public native void print(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void print(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void print(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void print(char a_r_g_u_m_e_n_t_0) ;
+  public native void print(int a_r_g_u_m_e_n_t_0) ;
+  public native void print(long a_r_g_u_m_e_n_t_0) ;
+  public native void flush() ;
+  public native void close() ;
+  public native boolean checkError() ;
+  protected native void setError() ;
+  protected native void clearError() ;
+  public transient native java.io.PrintStream printf(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object... a_r_g_u_m_e_n_t_1) ;
+  public transient native java.io.PrintStream printf(java.util.Locale a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object... a_r_g_u_m_e_n_t_2) ;
+}

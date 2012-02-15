@@ -1,0 +1,24 @@
+package javax.print.attribute;
+public class HashAttributeSet extends java.lang.Object implements javax.print.attribute.AttributeSet, java.io.Serializable {
+   protected  HashAttributeSet(javax.print.attribute.AttributeSet a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1){}
+   protected  HashAttributeSet(javax.print.attribute.Attribute a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1){}
+   protected  HashAttributeSet(javax.print.attribute.Attribute[] a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1){}
+   public  HashAttributeSet(){}
+   public  HashAttributeSet(javax.print.attribute.Attribute a_r_g_u_m_e_n_t_0){}
+   public  HashAttributeSet(javax.print.attribute.Attribute[] a_r_g_u_m_e_n_t_0){}
+   public  HashAttributeSet(javax.print.attribute.AttributeSet a_r_g_u_m_e_n_t_0){}
+   protected  HashAttributeSet(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0){}
+  public native boolean add(javax.print.attribute.Attribute a_r_g_u_m_e_n_t_0) ;
+  public native javax.print.attribute.Attribute get(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native boolean isEmpty() ;
+  public native boolean addAll(javax.print.attribute.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public native int size() ;
+  public native javax.print.attribute.Attribute[] toArray() ;
+  public native boolean remove(javax.print.attribute.Attribute a_r_g_u_m_e_n_t_0) ;
+  public native boolean remove(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsValue(javax.print.attribute.Attribute a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsKey(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+}

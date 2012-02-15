@@ -1,0 +1,10 @@
+package java.util.concurrent.locks;
+public abstract interface Condition {
+  public abstract void await()  throws java.lang.InterruptedException;
+  public abstract boolean await(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1)  throws java.lang.InterruptedException;
+  public abstract void signal() ;
+  public abstract void signalAll() ;
+  public abstract void awaitUninterruptibly() ;
+  public abstract long awaitNanos(long a_r_g_u_m_e_n_t_0)  throws java.lang.InterruptedException;
+  public abstract boolean awaitUntil(java.util.Date a_r_g_u_m_e_n_t_0)  throws java.lang.InterruptedException;
+}

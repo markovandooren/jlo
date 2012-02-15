@@ -1,0 +1,13 @@
+package java.lang.annotation;
+public final class ElementType extends java.lang.Enum<java.lang.annotation.ElementType> {
+  public static native java.lang.annotation.ElementType valueOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.annotation.ElementType[] values() ;
+  public static final java.lang.annotation.ElementType TYPE;
+  public static final java.lang.annotation.ElementType FIELD;
+  public static final java.lang.annotation.ElementType METHOD;
+  public static final java.lang.annotation.ElementType PARAMETER;
+  public static final java.lang.annotation.ElementType CONSTRUCTOR;
+  public static final java.lang.annotation.ElementType LOCAL_VARIABLE;
+  public static final java.lang.annotation.ElementType ANNOTATION_TYPE;
+  public static final java.lang.annotation.ElementType PACKAGE;
+}

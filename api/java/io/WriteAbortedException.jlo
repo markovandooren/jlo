@@ -1,0 +1,7 @@
+package java.io;
+public class WriteAbortedException extends java.io.ObjectStreamException {
+   public  WriteAbortedException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Exception a_r_g_u_m_e_n_t_1){}
+  public native java.lang.Throwable getCause() ;
+  public native java.lang.String getMessage() ;
+  public java.lang.Exception detail;
+}

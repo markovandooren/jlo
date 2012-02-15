@@ -1,0 +1,26 @@
+package java.net;
+public final class NetworkInterface extends java.lang.Object {
+    NetworkInterface(){}
+    NetworkInterface(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.net.InetAddress[] a_r_g_u_m_e_n_t_2){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getName() ;
+  public native java.net.NetworkInterface getParent() ;
+  public native java.lang.String getDisplayName() ;
+  public static native java.net.NetworkInterface getByName(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  native int getIndex() ;
+  public native java.util.Enumeration<java.net.InetAddress> getInetAddresses() ;
+  public native java.util.List<java.net.InterfaceAddress> getInterfaceAddresses() ;
+  public native java.util.Enumeration<java.net.NetworkInterface> getSubInterfaces() ;
+  static native java.net.NetworkInterface getByIndex(int a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public static native java.net.NetworkInterface getByInetAddress(java.net.InetAddress a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public static native java.util.Enumeration<java.net.NetworkInterface> getNetworkInterfaces()  throws java.net.SocketException;
+  public native boolean isUp()  throws java.net.SocketException;
+  public native boolean isLoopback()  throws java.net.SocketException;
+  public native boolean isPointToPoint()  throws java.net.SocketException;
+  public native boolean supportsMulticast()  throws java.net.SocketException;
+  public native byte[] getHardwareAddress()  throws java.net.SocketException;
+  public native int getMTU()  throws java.net.SocketException;
+  public native boolean isVirtual() ;
+}

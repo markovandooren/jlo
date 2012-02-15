@@ -1,0 +1,5 @@
+package javax.swing.plaf.synth;
+public abstract class SynthStyleFactory extends java.lang.Object {
+   public  SynthStyleFactory(){}
+  public abstract javax.swing.plaf.synth.SynthStyle getStyle(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.plaf.synth.Region a_r_g_u_m_e_n_t_1) ;
+}

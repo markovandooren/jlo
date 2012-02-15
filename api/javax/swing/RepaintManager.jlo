@@ -1,0 +1,76 @@
+package javax.swing;
+public class RepaintManager extends java.lang.Object {
+   public  RepaintManager(){}
+  public synchronized native java.lang.String toString() ;
+  native void paint(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1, java.awt.Graphics a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+  native boolean isPainting() ;
+  public static native javax.swing.RepaintManager currentManager(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  static native javax.swing.RepaintManager currentManager(sun.awt.AppContext a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.RepaintManager currentManager(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native boolean isDoubleBufferingEnabled() ;
+  native void beginPaint() ;
+  native void endPaint() ;
+  native void resetDoubleBuffer() ;
+  public native void addDirtyRegion(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native void addDirtyRegion(java.awt.Window a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native void addDirtyRegion(java.applet.Applet a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public synchronized native void addInvalidComponent(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  native boolean show(java.awt.Container a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  native void copyArea(javax.swing.JComponent a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, boolean a_r_g_u_m_e_n_t_8) ;
+  public native void markCompletelyClean(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native void setCurrentManager(javax.swing.RepaintManager a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeInvalidComponent(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  native void scheduleHeavyWeightPaints() ;
+  native void nativeAddDirtyRegion(sun.awt.AppContext a_r_g_u_m_e_n_t_0, java.awt.Container a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  native void nativeQueueSurfaceDataRunnable(sun.awt.AppContext a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1, java.lang.Runnable a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Rectangle getDirtyRegion(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void markCompletelyDirty(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native boolean isCompletelyDirty(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void validateInvalidComponents() ;
+  native void seqPaintDirtyRegions() ;
+  public native void paintDirtyRegions() ;
+  native void collectDirtyComponents(java.util.Map<java.awt.Component,java.awt.Rectangle> a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1, java.util.List<java.awt.Component> a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Image getOffscreenBuffer(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Image getVolatileOffscreenBuffer(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void setDoubleBufferMaximumSize(java.awt.Dimension a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getDoubleBufferMaximumSize() ;
+  public native void setDoubleBufferingEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  native void resetVolatileDoubleBuffer(java.awt.GraphicsConfiguration a_r_g_u_m_e_n_t_0) ;
+  native boolean useVolatileDoubleBuffer() ;
+  native void doubleBufferingChanged(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+  native void setPaintManager(javax.swing.RepaintManager.PaintManager a_r_g_u_m_e_n_t_0) ;
+  static final boolean HANDLE_TOP_LEVEL_PAINT;
+  boolean doubleBufferingEnabled;
+  javax.swing.RepaintManager.DoubleBufferInfo standardDoubleBuffer;
+  static boolean volatileImageBufferEnabled;
+  java.awt.Rectangle tmp;
+  private static final class DisplayChangedRunnable extends java.lang.Object implements java.lang.Runnable {
+    public native void run() ;
+  }
+  private static final class DisplayChangedHandler extends java.lang.Object {
+    public native void displayChanged() ;
+    public native void paletteChanged() ;
+  }
+  private class DoubleBufferInfo extends java.lang.Object {
+    public java.awt.Image image;
+    public java.awt.Dimension size;
+    public boolean needsReset;
+    final javax.swing.RepaintManager this$0;
+  }
+  static class PaintManager extends java.lang.Object {
+      PaintManager(){}
+    public native boolean paint(javax.swing.JComponent a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1, java.awt.Graphics a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+    protected native void dispose() ;
+    public native void beginPaint() ;
+    public native void endPaint() ;
+    public native boolean show(java.awt.Container a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+    public native void copyArea(javax.swing.JComponent a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, boolean a_r_g_u_m_e_n_t_8) ;
+    protected native void repaintRoot(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+    public native void doubleBufferingChanged(javax.swing.JRootPane a_r_g_u_m_e_n_t_0) ;
+    protected native boolean isRepaintingRoot() ;
+    protected native void paintDoubleBuffered(javax.swing.JComponent a_r_g_u_m_e_n_t_0, java.awt.Image a_r_g_u_m_e_n_t_1, java.awt.Graphics a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+    protected javax.swing.RepaintManager repaintManager;
+    boolean isRepaintingRoot;
+    static final boolean $assertionsDisabled;
+  }
+}

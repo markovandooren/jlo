@@ -1,0 +1,20 @@
+package javax.imageio;
+public class IIOImage extends java.lang.Object {
+   public  IIOImage(java.awt.image.RenderedImage a_r_g_u_m_e_n_t_0, java.util.List<? extends java.awt.image.BufferedImage> a_r_g_u_m_e_n_t_1, javax.imageio.metadata.IIOMetadata a_r_g_u_m_e_n_t_2){}
+   public  IIOImage(java.awt.image.Raster a_r_g_u_m_e_n_t_0, java.util.List<? extends java.awt.image.BufferedImage> a_r_g_u_m_e_n_t_1, javax.imageio.metadata.IIOMetadata a_r_g_u_m_e_n_t_2){}
+  public native java.awt.image.Raster getRaster() ;
+  public native java.awt.image.RenderedImage getRenderedImage() ;
+  public native void setRenderedImage(java.awt.image.RenderedImage a_r_g_u_m_e_n_t_0) ;
+  public native boolean hasRaster() ;
+  public native void setRaster(java.awt.image.Raster a_r_g_u_m_e_n_t_0) ;
+  public native int getNumThumbnails() ;
+  public native java.awt.image.BufferedImage getThumbnail(int a_r_g_u_m_e_n_t_0) ;
+  public native java.util.List<? extends java.awt.image.BufferedImage> getThumbnails() ;
+  public native void setThumbnails(java.util.List<? extends java.awt.image.BufferedImage> a_r_g_u_m_e_n_t_0) ;
+  public native javax.imageio.metadata.IIOMetadata getMetadata() ;
+  public native void setMetadata(javax.imageio.metadata.IIOMetadata a_r_g_u_m_e_n_t_0) ;
+  protected java.awt.image.RenderedImage image;
+  protected java.awt.image.Raster raster;
+  protected java.util.List<? extends java.awt.image.BufferedImage> thumbnails;
+  protected javax.imageio.metadata.IIOMetadata metadata;
+}

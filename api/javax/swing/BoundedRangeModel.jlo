@@ -1,0 +1,16 @@
+package javax.swing;
+public abstract interface BoundedRangeModel {
+  public abstract int getValue() ;
+  public abstract void setValue(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getValueIsAdjusting() ;
+  public abstract void setMinimum(int a_r_g_u_m_e_n_t_0) ;
+  public abstract int getMinimum() ;
+  public abstract void setMaximum(int a_r_g_u_m_e_n_t_0) ;
+  public abstract int getMaximum() ;
+  public abstract int getExtent() ;
+  public abstract void setValueIsAdjusting(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract void setExtent(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void setRangeProperties(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+}

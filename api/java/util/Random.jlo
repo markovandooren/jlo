@@ -1,0 +1,16 @@
+package java.util;
+public class Random extends java.lang.Object implements java.io.Serializable {
+   public  Random(){}
+   public  Random(long a_r_g_u_m_e_n_t_0){}
+  protected native int next(int a_r_g_u_m_e_n_t_0) ;
+  public native int nextInt() ;
+  public native int nextInt(int a_r_g_u_m_e_n_t_0) ;
+  public native double nextDouble() ;
+  public native long nextLong() ;
+  public native void nextBytes(byte[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setSeed(long a_r_g_u_m_e_n_t_0) ;
+  public native boolean nextBoolean() ;
+  public native float nextFloat() ;
+  public synchronized native double nextGaussian() ;
+  static final long serialVersionUID;
+}

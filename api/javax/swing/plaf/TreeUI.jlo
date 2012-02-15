@@ -1,0 +1,14 @@
+package javax.swing.plaf;
+public abstract class TreeUI extends javax.swing.plaf.ComponentUI {
+   public  TreeUI(){}
+  public abstract javax.swing.tree.TreePath getPathForRow(javax.swing.JTree a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract int getRowForPath(javax.swing.JTree a_r_g_u_m_e_n_t_0, javax.swing.tree.TreePath a_r_g_u_m_e_n_t_1) ;
+  public abstract int getRowCount(javax.swing.JTree a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isEditing(javax.swing.JTree a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Rectangle getPathBounds(javax.swing.JTree a_r_g_u_m_e_n_t_0, javax.swing.tree.TreePath a_r_g_u_m_e_n_t_1) ;
+  public abstract javax.swing.tree.TreePath getClosestPathForLocation(javax.swing.JTree a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public abstract boolean stopEditing(javax.swing.JTree a_r_g_u_m_e_n_t_0) ;
+  public abstract void cancelEditing(javax.swing.JTree a_r_g_u_m_e_n_t_0) ;
+  public abstract void startEditingAtPath(javax.swing.JTree a_r_g_u_m_e_n_t_0, javax.swing.tree.TreePath a_r_g_u_m_e_n_t_1) ;
+  public abstract javax.swing.tree.TreePath getEditingPath(javax.swing.JTree a_r_g_u_m_e_n_t_0) ;
+}

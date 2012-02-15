@@ -1,0 +1,17 @@
+package java.security.cert;
+public abstract class CertPath extends java.lang.Object implements java.io.Serializable {
+   protected  CertPath(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public abstract java.util.List<? extends java.security.cert.Certificate> getCertificates() ;
+  public native java.lang.String getType() ;
+  public abstract byte[] getEncoded()  throws java.security.cert.CertificateEncodingException;
+  public abstract byte[] getEncoded(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateEncodingException;
+  protected native java.lang.Object writeReplace()  throws java.io.ObjectStreamException;
+  public abstract java.util.Iterator<java.lang.String> getEncodings() ;
+  protected static class CertPathRep extends java.lang.Object implements java.io.Serializable {
+     protected  CertPathRep(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1){}
+    protected native java.lang.Object readResolve()  throws java.io.ObjectStreamException;
+  }
+}

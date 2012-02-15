@@ -1,0 +1,39 @@
+package javax.swing.table;
+public class DefaultTableModel extends javax.swing.table.AbstractTableModel implements java.io.Serializable {
+   public  DefaultTableModel(java.util.Vector a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DefaultTableModel(){}
+   public  DefaultTableModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DefaultTableModel(java.lang.Object[][] a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1){}
+   public  DefaultTableModel(java.lang.Object[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DefaultTableModel(java.util.Vector a_r_g_u_m_e_n_t_0, java.util.Vector a_r_g_u_m_e_n_t_1){}
+  public native boolean isCellEditable(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int getRowCount() ;
+  public native java.lang.String getColumnName(int a_r_g_u_m_e_n_t_0) ;
+  public native void setValueAt(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native int getColumnCount() ;
+  public native java.lang.Object getValueAt(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void insertRow(int a_r_g_u_m_e_n_t_0, java.util.Vector a_r_g_u_m_e_n_t_1) ;
+  public native void insertRow(int a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1) ;
+  public native void addColumn(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Vector a_r_g_u_m_e_n_t_1) ;
+  public native void addColumn(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1) ;
+  public native void addColumn(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void setColumnCount(int a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Vector getDataVector() ;
+  public native void setDataVector(java.lang.Object[][] a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1) ;
+  public native void setDataVector(java.util.Vector a_r_g_u_m_e_n_t_0, java.util.Vector a_r_g_u_m_e_n_t_1) ;
+  public native void newDataAvailable(javax.swing.event.TableModelEvent a_r_g_u_m_e_n_t_0) ;
+  public native void newRowsAdded(javax.swing.event.TableModelEvent a_r_g_u_m_e_n_t_0) ;
+  public native void rowsRemoved(javax.swing.event.TableModelEvent a_r_g_u_m_e_n_t_0) ;
+  public native void setNumRows(int a_r_g_u_m_e_n_t_0) ;
+  public native void setRowCount(int a_r_g_u_m_e_n_t_0) ;
+  public native void addRow(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public native void addRow(java.util.Vector a_r_g_u_m_e_n_t_0) ;
+  public native void moveRow(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void removeRow(int a_r_g_u_m_e_n_t_0) ;
+  public native void setColumnIdentifiers(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public native void setColumnIdentifiers(java.util.Vector a_r_g_u_m_e_n_t_0) ;
+  protected static native java.util.Vector convertToVector(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  protected static native java.util.Vector convertToVector(java.lang.Object[][] a_r_g_u_m_e_n_t_0) ;
+  protected java.util.Vector dataVector;
+  protected java.util.Vector columnIdentifiers;
+}

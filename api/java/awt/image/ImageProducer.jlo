@@ -1,0 +1,8 @@
+package java.awt.image;
+public abstract interface ImageProducer {
+  public abstract void requestTopDownLeftRightResend(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+  public abstract void addConsumer(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isConsumer(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeConsumer(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+  public abstract void startProduction(java.awt.image.ImageConsumer a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,19 @@
+package java.util.concurrent.atomic;
+public class AtomicLongArray extends java.lang.Object implements java.io.Serializable {
+   public  AtomicLongArray(int a_r_g_u_m_e_n_t_0){}
+   public  AtomicLongArray(long[] a_r_g_u_m_e_n_t_0){}
+  public final native long get(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public final native int length() ;
+  public final native void set(int a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public final native long getAndAdd(int a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public final native void lazySet(int a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public final native long getAndSet(int a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+  public final native boolean compareAndSet(int a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2) ;
+  public final native boolean weakCompareAndSet(int a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2) ;
+  public final native long getAndIncrement(int a_r_g_u_m_e_n_t_0) ;
+  public final native long getAndDecrement(int a_r_g_u_m_e_n_t_0) ;
+  public final native long incrementAndGet(int a_r_g_u_m_e_n_t_0) ;
+  public final native long decrementAndGet(int a_r_g_u_m_e_n_t_0) ;
+  public native long addAndGet(int a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+}

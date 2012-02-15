@@ -1,0 +1,22 @@
+package javax.swing.plaf.basic;
+public class BasicComboBoxEditor extends java.lang.Object implements javax.swing.ComboBoxEditor, java.awt.event.FocusListener {
+   public  BasicComboBoxEditor(){}
+  public native void focusGained(java.awt.event.FocusEvent a_r_g_u_m_e_n_t_0) ;
+  public native void focusLost(java.awt.event.FocusEvent a_r_g_u_m_e_n_t_0) ;
+  public native void addActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getItem() ;
+  public native java.awt.Component getEditorComponent() ;
+  protected native javax.swing.JTextField createEditorComponent() ;
+  public native void setItem(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void selectAll() ;
+  protected javax.swing.JTextField editor;
+  public static class UIResource extends javax.swing.plaf.basic.BasicComboBoxEditor implements javax.swing.plaf.UIResource {
+     public  UIResource(){}
+  }
+  static class BorderlessTextField extends javax.swing.JTextField {
+     public  BorderlessTextField(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    public native void setText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native void setBorder(javax.swing.border.Border a_r_g_u_m_e_n_t_0) ;
+  }
+}

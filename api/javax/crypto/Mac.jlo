@@ -1,0 +1,22 @@
+package javax.crypto;
+public class Mac extends java.lang.Object implements java.lang.Cloneable {
+   protected  Mac(javax.crypto.MacSpi a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+  public final native java.lang.Object clone()  throws java.lang.CloneNotSupportedException;
+  public static final native javax.crypto.Mac getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException, java.security.NoSuchProviderException;
+  public static final native javax.crypto.Mac getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException;
+  public static final native javax.crypto.Mac getInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+  public final native void init(java.security.Key a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
+  public final native void init(java.security.Key a_r_g_u_m_e_n_t_0, java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  public final native void reset() ;
+  public final native void update(byte a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalStateException;
+  public final native void update(byte[] a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalStateException;
+  public final native void update(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.lang.IllegalStateException;
+  public final native void update(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0) ;
+  public final native java.lang.String getAlgorithm() ;
+  public final native java.security.Provider getProvider() ;
+  native void a() ;
+  public final native byte[] doFinal(byte[] a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalStateException;
+  public final native byte[] doFinal()  throws java.lang.IllegalStateException;
+  public final native void doFinal(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.crypto.ShortBufferException, java.lang.IllegalStateException;
+  public final native int getMacLength() ;
+}

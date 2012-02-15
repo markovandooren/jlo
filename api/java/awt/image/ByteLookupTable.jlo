@@ -1,0 +1,9 @@
+package java.awt.image;
+public class ByteLookupTable extends java.awt.image.LookupTable {
+   public  ByteLookupTable(int a_r_g_u_m_e_n_t_0, byte[][] a_r_g_u_m_e_n_t_1){}
+   public  ByteLookupTable(int a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1){}
+  public final native byte[][] getTable() ;
+  public native int[] lookupPixel(int[] a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1) ;
+  public native byte[] lookupPixel(byte[] a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1) ;
+  byte[][] data;
+}

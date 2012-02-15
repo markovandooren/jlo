@@ -1,0 +1,31 @@
+package java.net;
+public final class Inet6Address extends java.net.InetAddress {
+    Inet6Address(){}
+    Inet6Address(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    Inet6Address(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1){}
+    Inet6Address(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, java.net.NetworkInterface a_r_g_u_m_e_n_t_2) throws java.net.UnknownHostException{}
+    Inet6Address(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) throws java.net.UnknownHostException{}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native byte[] getAddress() ;
+  public native java.lang.String getHostAddress() ;
+  public native boolean isMulticastAddress() ;
+  public native boolean isAnyLocalAddress() ;
+  public native boolean isLoopbackAddress() ;
+  public native boolean isLinkLocalAddress() ;
+  public native boolean isSiteLocalAddress() ;
+  public native boolean isMCGlobal() ;
+  public native boolean isMCNodeLocal() ;
+  public native boolean isMCLinkLocal() ;
+  public native boolean isMCSiteLocal() ;
+  public native boolean isMCOrgLocal() ;
+  public static native java.net.Inet6Address getByAddress(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, java.net.NetworkInterface a_r_g_u_m_e_n_t_2)  throws java.net.UnknownHostException;
+  public static native java.net.Inet6Address getByAddress(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.net.UnknownHostException;
+  static native java.lang.String numericToTextFormat(byte[] a_r_g_u_m_e_n_t_0) ;
+  public native int getScopeId() ;
+  public native java.net.NetworkInterface getScopedInterface() ;
+  public native boolean isIPv4CompatibleAddress() ;
+  static final int INADDRSZ;
+  byte[] ipaddress;
+  static final boolean $assertionsDisabled;
+}

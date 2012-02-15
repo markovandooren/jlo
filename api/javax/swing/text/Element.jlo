@@ -1,0 +1,13 @@
+package javax.swing.text;
+public abstract interface Element {
+  public abstract java.lang.String getName() ;
+  public abstract javax.swing.text.AttributeSet getAttributes() ;
+  public abstract javax.swing.text.Element getElement(int a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.swing.text.Document getDocument() ;
+  public abstract int getElementIndex(int a_r_g_u_m_e_n_t_0) ;
+  public abstract int getEndOffset() ;
+  public abstract int getStartOffset() ;
+  public abstract int getElementCount() ;
+  public abstract javax.swing.text.Element getParentElement() ;
+  public abstract boolean isLeaf() ;
+}

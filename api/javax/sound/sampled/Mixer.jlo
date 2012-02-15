@@ -1,0 +1,26 @@
+package javax.sound.sampled;
+public abstract interface Mixer extends javax.sound.sampled.Line {
+  public abstract javax.sound.sampled.Mixer.Info getMixerInfo() ;
+  public abstract javax.sound.sampled.Line.Info[] getSourceLineInfo() ;
+  public abstract javax.sound.sampled.Line.Info[] getSourceLineInfo(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.sound.sampled.Line.Info[] getTargetLineInfo() ;
+  public abstract javax.sound.sampled.Line.Info[] getTargetLineInfo(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isLineSupported(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.sound.sampled.Line getLine(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.LineUnavailableException;
+  public abstract int getMaxLines(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.sound.sampled.Line[] getSourceLines() ;
+  public abstract javax.sound.sampled.Line[] getTargetLines() ;
+  public abstract void synchronize(javax.sound.sampled.Line[] a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public abstract void unsynchronize(javax.sound.sampled.Line[] a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isSynchronizationSupported(javax.sound.sampled.Line[] a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public static class Info extends java.lang.Object {
+     protected  Info(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3){}
+    public final native int hashCode() ;
+    public final native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public final native java.lang.String toString() ;
+    public final native java.lang.String getName() ;
+    public final native java.lang.String getVersion() ;
+    public final native java.lang.String getDescription() ;
+    public final native java.lang.String getVendor() ;
+  }
+}

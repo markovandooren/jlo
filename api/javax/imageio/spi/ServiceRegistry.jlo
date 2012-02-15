@@ -1,0 +1,24 @@
+package javax.imageio.spi;
+public class ServiceRegistry extends java.lang.Object {
+   public  ServiceRegistry(java.util.Iterator<java.lang.Class<? extends java.lang.Object>> a_r_g_u_m_e_n_t_0){}
+  public native void finalize()  throws java.lang.Throwable;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void registerServiceProvider(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native <T extends java.lang.Object>boolean registerServiceProvider(T a_r_g_u_m_e_n_t_0, java.lang.Class<T> a_r_g_u_m_e_n_t_1) ;
+  public native java.util.Iterator<java.lang.Class<? extends java.lang.Object>> getCategories() ;
+  public static native <T extends java.lang.Object>java.util.Iterator<T> lookupProviders(java.lang.Class<T> a_r_g_u_m_e_n_t_0, java.lang.ClassLoader a_r_g_u_m_e_n_t_1) ;
+  public static native <T extends java.lang.Object>java.util.Iterator<T> lookupProviders(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native void registerServiceProviders(java.util.Iterator<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native <T extends java.lang.Object>boolean deregisterServiceProvider(T a_r_g_u_m_e_n_t_0, java.lang.Class<T> a_r_g_u_m_e_n_t_1) ;
+  public native void deregisterServiceProvider(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native <T extends java.lang.Object>java.util.Iterator<T> getServiceProviders(java.lang.Class<T> a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native <T extends java.lang.Object>java.util.Iterator<T> getServiceProviders(java.lang.Class<T> a_r_g_u_m_e_n_t_0, javax.imageio.spi.ServiceRegistry.Filter a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public native <T extends java.lang.Object>T getServiceProviderByClass(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native <T extends java.lang.Object>boolean setOrdering(java.lang.Class<T> a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1, T a_r_g_u_m_e_n_t_2) ;
+  public native <T extends java.lang.Object>boolean unsetOrdering(java.lang.Class<T> a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1, T a_r_g_u_m_e_n_t_2) ;
+  public native void deregisterAll() ;
+  public native void deregisterAll(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public static abstract interface Filter {
+    public abstract boolean filter(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  }
+}

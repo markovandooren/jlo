@@ -1,0 +1,19 @@
+package java.awt.event;
+public class InputMethodEvent extends java.awt.AWTEvent {
+   public  InputMethodEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.text.AttributedCharacterIterator a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_5, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_6){}
+   public  InputMethodEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.text.AttributedCharacterIterator a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_4, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_5){}
+   public  InputMethodEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_2, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_3){}
+  public native java.lang.String paramString() ;
+  public native boolean isConsumed() ;
+  public native void consume() ;
+  public native long getWhen() ;
+  public native java.text.AttributedCharacterIterator getText() ;
+  public native java.awt.font.TextHitInfo getCaret() ;
+  public native int getCommittedCharacterCount() ;
+  public native java.awt.font.TextHitInfo getVisiblePosition() ;
+  public static final int INPUT_METHOD_FIRST;
+  public static final int INPUT_METHOD_TEXT_CHANGED;
+  public static final int CARET_POSITION_CHANGED;
+  public static final int INPUT_METHOD_LAST;
+  long when;
+}

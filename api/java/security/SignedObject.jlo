@@ -1,0 +1,8 @@
+package java.security;
+public final class SignedObject extends java.lang.Object implements java.io.Serializable {
+   public  SignedObject(java.io.Serializable a_r_g_u_m_e_n_t_0, java.security.PrivateKey a_r_g_u_m_e_n_t_1, java.security.Signature a_r_g_u_m_e_n_t_2) throws java.io.IOException, java.security.InvalidKeyException, java.security.SignatureException{}
+  public native java.lang.Object getObject()  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public native byte[] getSignature() ;
+  public native boolean verify(java.security.PublicKey a_r_g_u_m_e_n_t_0, java.security.Signature a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException, java.security.SignatureException;
+  public native java.lang.String getAlgorithm() ;
+}

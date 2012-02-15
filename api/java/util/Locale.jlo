@@ -1,0 +1,56 @@
+package java.util;
+public final class Locale extends java.lang.Object implements java.lang.Cloneable, java.io.Serializable {
+   public  Locale(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+   public  Locale(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  Locale(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public final native java.lang.String toString() ;
+  public native java.lang.String getLanguage() ;
+  public static native java.util.Locale getDefault() ;
+  static native java.util.Locale getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) ;
+  public static synchronized native void setDefault(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.Locale[] getAvailableLocales() ;
+  public static native java.lang.String[] getISOCountries() ;
+  public static native java.lang.String[] getISOLanguages() ;
+  public native java.lang.String getCountry() ;
+  public native java.lang.String getVariant() ;
+  public native java.lang.String getISO3Language()  throws java.util.MissingResourceException;
+  public native java.lang.String getISO3Country()  throws java.util.MissingResourceException;
+  public native java.lang.String getDisplayLanguage(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public final native java.lang.String getDisplayLanguage() ;
+  public native java.lang.String getDisplayCountry(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public final native java.lang.String getDisplayCountry() ;
+  public final native java.lang.String getDisplayVariant() ;
+  public native java.lang.String getDisplayVariant(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getDisplayName(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public final native java.lang.String getDisplayName() ;
+  public static final java.util.Locale ENGLISH;
+  public static final java.util.Locale FRENCH;
+  public static final java.util.Locale GERMAN;
+  public static final java.util.Locale ITALIAN;
+  public static final java.util.Locale JAPANESE;
+  public static final java.util.Locale KOREAN;
+  public static final java.util.Locale CHINESE;
+  public static final java.util.Locale SIMPLIFIED_CHINESE;
+  public static final java.util.Locale TRADITIONAL_CHINESE;
+  public static final java.util.Locale FRANCE;
+  public static final java.util.Locale GERMANY;
+  public static final java.util.Locale ITALY;
+  public static final java.util.Locale JAPAN;
+  public static final java.util.Locale KOREA;
+  public static final java.util.Locale CHINA;
+  public static final java.util.Locale PRC;
+  public static final java.util.Locale TAIWAN;
+  public static final java.util.Locale UK;
+  public static final java.util.Locale US;
+  public static final java.util.Locale CANADA;
+  public static final java.util.Locale CANADA_FRENCH;
+  public static final java.util.Locale ROOT;
+  static final long serialVersionUID;
+  private static class LocaleNameGetter extends java.lang.Object {
+    public transient native java.lang.String getObject(java.util.spi.LocaleNameProvider a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.Object... a_r_g_u_m_e_n_t_3) ;
+    static final boolean $assertionsDisabled;
+  }
+}

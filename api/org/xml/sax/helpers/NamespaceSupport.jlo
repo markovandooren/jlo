@@ -1,0 +1,35 @@
+package org.xml.sax.helpers;
+public class NamespaceSupport extends java.lang.Object {
+   public  NamespaceSupport(){}
+  public native void reset() ;
+  public native java.lang.String getPrefix(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getURI(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Enumeration getPrefixes(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Enumeration getPrefixes() ;
+  public native void pushContext() ;
+  public native void popContext() ;
+  public native boolean declarePrefix(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String[] processName(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public native java.util.Enumeration getDeclaredPrefixes() ;
+  public native void setNamespaceDeclUris(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isNamespaceDeclUris() ;
+  public static final java.lang.String XMLNS;
+  public static final java.lang.String NSDECL;
+  final class Context extends java.lang.Object {
+      Context(org.xml.sax.helpers.NamespaceSupport a_r_g_u_m_e_n_t_0){}
+    native void clear() ;
+    native void setParent(org.xml.sax.helpers.NamespaceSupport.Context a_r_g_u_m_e_n_t_0) ;
+    native java.lang.String getPrefix(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    native java.lang.String getURI(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    native java.util.Enumeration getPrefixes() ;
+    native void declarePrefix(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+    native java.lang.String[] processName(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    native java.util.Enumeration getDeclaredPrefixes() ;
+    java.util.Hashtable prefixTable;
+    java.util.Hashtable uriTable;
+    java.util.Hashtable elementNameTable;
+    java.util.Hashtable attributeNameTable;
+    java.lang.String defaultNS;
+    final org.xml.sax.helpers.NamespaceSupport this$0;
+  }
+}

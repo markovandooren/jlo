@@ -1,0 +1,19 @@
+package java.sql;
+public abstract interface ParameterMetaData {
+  public abstract int getPrecision(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract int isNullable(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract boolean isSigned(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract int getScale(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract int getParameterCount()  throws java.sql.SQLException;
+  public abstract int getParameterType(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract java.lang.String getParameterTypeName(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract java.lang.String getParameterClassName(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract int getParameterMode(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public static final int parameterNoNulls;
+  public static final int parameterNullable;
+  public static final int parameterNullableUnknown;
+  public static final int parameterModeUnknown;
+  public static final int parameterModeIn;
+  public static final int parameterModeInOut;
+  public static final int parameterModeOut;
+}

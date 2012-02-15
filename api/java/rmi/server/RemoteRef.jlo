@@ -1,0 +1,13 @@
+package java.rmi.server;
+public abstract interface RemoteRef extends java.io.Externalizable {
+  public abstract java.lang.Object invoke(java.rmi.Remote a_r_g_u_m_e_n_t_0, java.lang.reflect.Method a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2, long a_r_g_u_m_e_n_t_3)  throws java.lang.Exception;
+  public abstract void invoke(java.rmi.server.RemoteCall a_r_g_u_m_e_n_t_0)  throws java.lang.Exception;
+  public abstract void done(java.rmi.server.RemoteCall a_r_g_u_m_e_n_t_0)  throws java.rmi.RemoteException;
+  public abstract int remoteHashCode() ;
+  public abstract boolean remoteEquals(java.rmi.server.RemoteRef a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String remoteToString() ;
+  public abstract java.lang.String getRefClass(java.io.ObjectOutput a_r_g_u_m_e_n_t_0) ;
+  public abstract java.rmi.server.RemoteCall newCall(java.rmi.server.RemoteObject a_r_g_u_m_e_n_t_0, java.rmi.server.Operation[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, long a_r_g_u_m_e_n_t_3)  throws java.rmi.RemoteException;
+  public static final long serialVersionUID;
+  public static final java.lang.String packagePrefix;
+}

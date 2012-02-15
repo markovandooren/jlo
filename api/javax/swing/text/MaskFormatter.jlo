@@ -1,0 +1,63 @@
+package javax.swing.text;
+public class MaskFormatter extends javax.swing.text.DefaultFormatter {
+   public  MaskFormatter(){}
+   public  MaskFormatter(java.lang.String a_r_g_u_m_e_n_t_0) throws java.text.ParseException{}
+  public native void install(javax.swing.JFormattedTextField a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getMask() ;
+  public native java.lang.Object stringToValue(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.text.ParseException;
+  public native java.lang.String valueToString(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.text.ParseException;
+  native boolean isNavigatable(int a_r_g_u_m_e_n_t_0) ;
+  native boolean canReplace(javax.swing.text.DefaultFormatter.ReplaceHolder a_r_g_u_m_e_n_t_0) ;
+  native boolean isValidEdit(javax.swing.text.DefaultFormatter.ReplaceHolder a_r_g_u_m_e_n_t_0) ;
+  public native void setMask(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.text.ParseException;
+  public native void setValidCharacters(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getValidCharacters() ;
+  public native void setInvalidCharacters(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getInvalidCharacters() ;
+  public native void setPlaceholder(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getPlaceholder() ;
+  public native void setPlaceholderCharacter(char a_r_g_u_m_e_n_t_0) ;
+  public native char getPlaceholderCharacter() ;
+  public native void setValueContainsLiteralCharacters(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean getValueContainsLiteralCharacters() ;
+  private class HexCharacter extends javax.swing.text.MaskFormatter.MaskCharacter {
+    public native char getChar(char a_r_g_u_m_e_n_t_0) ;
+    public native boolean isValidCharacter(char a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.MaskFormatter this$0;
+  }
+  private class CharCharacter extends javax.swing.text.MaskFormatter.MaskCharacter {
+    public native boolean isValidCharacter(char a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.MaskFormatter this$0;
+  }
+  private class AlphaNumericCharacter extends javax.swing.text.MaskFormatter.MaskCharacter {
+    public native boolean isValidCharacter(char a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.MaskFormatter this$0;
+  }
+  private class LowerCaseCharacter extends javax.swing.text.MaskFormatter.MaskCharacter {
+    public native char getChar(char a_r_g_u_m_e_n_t_0) ;
+    public native boolean isValidCharacter(char a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.MaskFormatter this$0;
+  }
+  private class UpperCaseCharacter extends javax.swing.text.MaskFormatter.MaskCharacter {
+    public native char getChar(char a_r_g_u_m_e_n_t_0) ;
+    public native boolean isValidCharacter(char a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.MaskFormatter this$0;
+  }
+  private class DigitMaskCharacter extends javax.swing.text.MaskFormatter.MaskCharacter {
+    public native boolean isValidCharacter(char a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.MaskFormatter this$0;
+  }
+  private class LiteralCharacter extends javax.swing.text.MaskFormatter.MaskCharacter {
+     public  LiteralCharacter(javax.swing.text.MaskFormatter a_r_g_u_m_e_n_t_0, char a_r_g_u_m_e_n_t_1){}
+    public native char getChar(char a_r_g_u_m_e_n_t_0) ;
+    public native boolean isLiteral() ;
+    final javax.swing.text.MaskFormatter this$0;
+  }
+  private class MaskCharacter extends java.lang.Object {
+    public native char getChar(char a_r_g_u_m_e_n_t_0) ;
+    public native void append(java.lang.StringBuffer a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int[] a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3)  throws java.text.ParseException;
+    public native boolean isLiteral() ;
+    public native boolean isValidCharacter(char a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.MaskFormatter this$0;
+  }
+}

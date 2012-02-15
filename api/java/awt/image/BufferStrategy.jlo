@@ -1,0 +1,10 @@
+package java.awt.image;
+public abstract class BufferStrategy extends java.lang.Object {
+   public  BufferStrategy(){}
+  public native void dispose() ;
+  public abstract void show() ;
+  public abstract java.awt.BufferCapabilities getCapabilities() ;
+  public abstract java.awt.Graphics getDrawGraphics() ;
+  public abstract boolean contentsLost() ;
+  public abstract boolean contentsRestored() ;
+}

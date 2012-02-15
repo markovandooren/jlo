@@ -1,0 +1,163 @@
+package java.io;
+public class ObjectInputStream extends java.io.InputStream implements java.io.ObjectInput, java.io.ObjectStreamConstants {
+   public  ObjectInputStream(java.io.InputStream a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   protected  ObjectInputStream() throws java.io.IOException, java.lang.SecurityException{}
+  protected native java.lang.Class<? extends java.lang.Object> resolveClass(java.io.ObjectStreamClass a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public native java.lang.String readLine()  throws java.io.IOException;
+  public native void close()  throws java.io.IOException;
+  public final native java.lang.Object readObject()  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public native void defaultReadObject()  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public native int readInt()  throws java.io.IOException;
+  public native java.io.ObjectInputStream.GetField readFields()  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public native char readChar()  throws java.io.IOException;
+  public native int read()  throws java.io.IOException;
+  public native int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native int available()  throws java.io.IOException;
+  public native java.lang.String readUTF()  throws java.io.IOException;
+  public native long readLong()  throws java.io.IOException;
+  public native byte readByte()  throws java.io.IOException;
+  public native short readShort()  throws java.io.IOException;
+  native java.lang.String readTypeString()  throws java.io.IOException;
+  public native float readFloat()  throws java.io.IOException;
+  public native void readFully(byte[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void readFully(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native int skipBytes(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native boolean readBoolean()  throws java.io.IOException;
+  public native int readUnsignedByte()  throws java.io.IOException;
+  public native int readUnsignedShort()  throws java.io.IOException;
+  public native double readDouble()  throws java.io.IOException;
+  protected native java.lang.Object readObjectOverride()  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public native java.lang.Object readUnshared()  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public native void registerValidation(java.io.ObjectInputValidation a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.io.NotActiveException, java.io.InvalidObjectException;
+  protected native java.lang.Class<? extends java.lang.Object> resolveProxyClass(java.lang.String[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.lang.ClassNotFoundException;
+  protected native java.lang.Object resolveObject(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native boolean enableResolveObject(boolean a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+  protected native void readStreamHeader()  throws java.io.IOException, java.io.StreamCorruptedException;
+  protected native java.io.ObjectStreamClass readClassDescriptor()  throws java.io.IOException, java.lang.ClassNotFoundException;
+  private static class CallbackContext extends java.lang.Object {
+     public  CallbackContext(java.lang.Object a_r_g_u_m_e_n_t_0, java.io.ObjectStreamClass a_r_g_u_m_e_n_t_1){}
+    public native java.lang.Object getObj()  throws java.io.NotActiveException;
+    public native java.io.ObjectStreamClass getDesc() ;
+    public native void setUsed() ;
+  }
+  private static class HandleTable extends java.lang.Object {
+      HandleTable(int a_r_g_u_m_e_n_t_0){}
+    native void clear() ;
+    native int size() ;
+    native int assign(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    native void markDependency(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    native java.lang.ClassNotFoundException lookupException(int a_r_g_u_m_e_n_t_0) ;
+    native void setObject(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    native java.lang.Object lookupObject(int a_r_g_u_m_e_n_t_0) ;
+    native void markException(int a_r_g_u_m_e_n_t_0, java.lang.ClassNotFoundException a_r_g_u_m_e_n_t_1) ;
+    native void finish(int a_r_g_u_m_e_n_t_0) ;
+    byte[] status;
+    java.lang.Object[] entries;
+    java.io.ObjectInputStream.HandleTable.HandleList[] deps;
+    int lowDep;
+    int size;
+    private static class HandleList extends java.lang.Object {
+       public  HandleList(){}
+      public native void add(int a_r_g_u_m_e_n_t_0) ;
+      public native int get(int a_r_g_u_m_e_n_t_0) ;
+      public native int size() ;
+    }
+  }
+  private class BlockDataInputStream extends java.io.InputStream implements java.io.DataInput {
+      BlockDataInputStream(java.io.ObjectInputStream a_r_g_u_m_e_n_t_0, java.io.InputStream a_r_g_u_m_e_n_t_1){}
+    public native java.lang.String readLine()  throws java.io.IOException;
+    public native void close()  throws java.io.IOException;
+    public native int readInt()  throws java.io.IOException;
+    native int peek()  throws java.io.IOException;
+    public native char readChar()  throws java.io.IOException;
+    native int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3)  throws java.io.IOException;
+    public native int read()  throws java.io.IOException;
+    public native int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    public native long skip(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native int available()  throws java.io.IOException;
+    public native java.lang.String readUTF()  throws java.io.IOException;
+    public native long readLong()  throws java.io.IOException;
+    public native byte readByte()  throws java.io.IOException;
+    public native short readShort()  throws java.io.IOException;
+    public native float readFloat()  throws java.io.IOException;
+    public native void readFully(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    public native void readFully(byte[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void readFully(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3)  throws java.io.IOException;
+    public native int skipBytes(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native boolean readBoolean()  throws java.io.IOException;
+    public native int readUnsignedByte()  throws java.io.IOException;
+    public native int readUnsignedShort()  throws java.io.IOException;
+    public native double readDouble()  throws java.io.IOException;
+    native byte peekByte()  throws java.io.IOException;
+    native boolean setBlockDataMode(boolean a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    native boolean getBlockDataMode() ;
+    native int currentBlockRemaining() ;
+    native java.lang.String readLongUTF()  throws java.io.IOException;
+    native void readInts(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void readLongs(long[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void readFloats(float[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void readDoubles(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void readShorts(short[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void readChars(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void readBooleans(boolean[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void skipBlockData()  throws java.io.IOException;
+    final java.io.ObjectInputStream this$0;
+  }
+  private static class PeekInputStream extends java.io.InputStream {
+      PeekInputStream(java.io.InputStream a_r_g_u_m_e_n_t_0){}
+    public native void close()  throws java.io.IOException;
+    native int peek()  throws java.io.IOException;
+    public native int read()  throws java.io.IOException;
+    public native int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    public native long skip(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native int available()  throws java.io.IOException;
+    native void readFully(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  }
+  private static class ValidationList extends java.lang.Object {
+      ValidationList(){}
+    native void register(java.io.ObjectInputValidation a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.io.InvalidObjectException;
+    public native void clear() ;
+    native void doCallbacks()  throws java.io.InvalidObjectException;
+    private static class Callback extends java.lang.Object {
+        Callback(java.io.ObjectInputValidation a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.io.ObjectInputStream.ValidationList.Callback a_r_g_u_m_e_n_t_2, java.security.AccessControlContext a_r_g_u_m_e_n_t_3){}
+      final java.io.ObjectInputValidation obj;
+      final int priority;
+      java.io.ObjectInputStream.ValidationList.Callback next;
+      final java.security.AccessControlContext acc;
+    }
+  }
+  private class GetFieldImpl extends java.io.ObjectInputStream.GetField {
+      GetFieldImpl(java.io.ObjectInputStream a_r_g_u_m_e_n_t_0, java.io.ObjectStreamClass a_r_g_u_m_e_n_t_1){}
+    public native int get(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native float get(java.lang.String a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native long get(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native double get(java.lang.String a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native java.lang.Object get(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native boolean get(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native byte get(java.lang.String a_r_g_u_m_e_n_t_0, byte a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native char get(java.lang.String a_r_g_u_m_e_n_t_0, char a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native short get(java.lang.String a_r_g_u_m_e_n_t_0, short a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    native void readFields()  throws java.io.IOException;
+    public native boolean defaulted(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native java.io.ObjectStreamClass getObjectStreamClass() ;
+    final java.io.ObjectInputStream this$0;
+  }
+  public static abstract class GetField extends java.lang.Object {
+     public  GetField(){}
+    public abstract java.lang.Object get(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract float get(java.lang.String a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract double get(java.lang.String a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract boolean get(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract byte get(java.lang.String a_r_g_u_m_e_n_t_0, byte a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract char get(java.lang.String a_r_g_u_m_e_n_t_0, char a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract short get(java.lang.String a_r_g_u_m_e_n_t_0, short a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract int get(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract long get(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public abstract boolean defaulted(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public abstract java.io.ObjectStreamClass getObjectStreamClass() ;
+  }
+  private static class Caches extends java.lang.Object {
+    static final java.util.concurrent.ConcurrentMap<java.io.ObjectStreamClass.WeakClassKey,java.lang.Boolean> subclassAudits;
+    static final java.lang.ref.ReferenceQueue<java.lang.Class<? extends java.lang.Object>> subclassAuditsQueue;
+  }
+}

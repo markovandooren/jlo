@@ -1,0 +1,52 @@
+package java.util;
+public class Vector<E extends java.lang.Object> extends java.util.AbstractList<E> implements java.util.List<E>, java.util.RandomAccess, java.lang.Cloneable, java.io.Serializable {
+   public  Vector(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  Vector(int a_r_g_u_m_e_n_t_0){}
+   public  Vector(){}
+   public  Vector(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0){}
+  public native void add(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public synchronized native boolean add(E a_r_g_u_m_e_n_t_0) ;
+  public synchronized native E get(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int hashCode() ;
+  public synchronized native java.lang.Object clone() ;
+  public synchronized native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int indexOf(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int indexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public synchronized native java.lang.String toString() ;
+  public synchronized native boolean isEmpty() ;
+  public synchronized native int lastIndexOf(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native int lastIndexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native boolean addAll(int a_r_g_u_m_e_n_t_0, java.util.Collection<? extends E> a_r_g_u_m_e_n_t_1) ;
+  public synchronized native boolean addAll(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int size() ;
+  public synchronized native <T extends java.lang.Object>T[] toArray(T[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.Object[] toArray() ;
+  public synchronized native void addElement(E a_r_g_u_m_e_n_t_0) ;
+  public synchronized native E set(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public synchronized native E remove(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native E elementAt(int a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Enumeration<E> elements() ;
+  public synchronized native void copyInto(java.lang.Object[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void trimToSize() ;
+  public synchronized native void ensureCapacity(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setSize(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int capacity() ;
+  public synchronized native E firstElement() ;
+  public synchronized native E lastElement() ;
+  public synchronized native void setElementAt(E a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native void removeElementAt(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void insertElementAt(E a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public synchronized native boolean removeElement(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeAllElements() ;
+  public synchronized native boolean containsAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public synchronized native boolean removeAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public synchronized native boolean retainAll(java.util.Collection<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.util.List<E> subList(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected synchronized native void removeRange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected java.lang.Object[] elementData;
+  protected int elementCount;
+  protected int capacityIncrement;
+}

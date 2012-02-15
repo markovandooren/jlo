@@ -1,0 +1,12 @@
+package java.awt.color;
+public class ICC_ColorSpace extends java.awt.color.ColorSpace {
+   public  ICC_ColorSpace(java.awt.color.ICC_Profile a_r_g_u_m_e_n_t_0){}
+  public native float[] toRGB(float[] a_r_g_u_m_e_n_t_0) ;
+  public native float[] toCIEXYZ(float[] a_r_g_u_m_e_n_t_0) ;
+  public native float[] fromCIEXYZ(float[] a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.color.ICC_Profile getProfile() ;
+  public native float getMinValue(int a_r_g_u_m_e_n_t_0) ;
+  public native float getMaxValue(int a_r_g_u_m_e_n_t_0) ;
+  public native float[] fromRGB(float[] a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+}

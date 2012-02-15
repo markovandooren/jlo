@@ -1,0 +1,71 @@
+package java.util;
+public class LinkedList<E extends java.lang.Object> extends java.util.AbstractSequentialList<E> implements java.util.List<E>, java.util.Deque<E>, java.lang.Cloneable, java.io.Serializable {
+   public  LinkedList(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0){}
+   public  LinkedList(){}
+  public native void add(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public native boolean add(E a_r_g_u_m_e_n_t_0) ;
+  public native E get(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object clone() ;
+  public native int indexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native int lastIndexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean addAll(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0) ;
+  public native boolean addAll(int a_r_g_u_m_e_n_t_0, java.util.Collection<? extends E> a_r_g_u_m_e_n_t_1) ;
+  public native int size() ;
+  public native <T extends java.lang.Object>T[] toArray(T[] a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object[] toArray() ;
+  public native E set(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public native E remove() ;
+  public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native E remove(int a_r_g_u_m_e_n_t_0) ;
+  public native void push(E a_r_g_u_m_e_n_t_0) ;
+  public native E pop() ;
+  public native java.util.ListIterator<E> listIterator(int a_r_g_u_m_e_n_t_0) ;
+  public native E poll() ;
+  public native E peek() ;
+  public native E getFirst() ;
+  public native E getLast() ;
+  public native E removeFirst() ;
+  public native E removeLast() ;
+  public native void addFirst(E a_r_g_u_m_e_n_t_0) ;
+  public native void addLast(E a_r_g_u_m_e_n_t_0) ;
+  public native E element() ;
+  public native boolean offer(E a_r_g_u_m_e_n_t_0) ;
+  public native boolean offerFirst(E a_r_g_u_m_e_n_t_0) ;
+  public native boolean offerLast(E a_r_g_u_m_e_n_t_0) ;
+  public native E peekFirst() ;
+  public native E peekLast() ;
+  public native E pollFirst() ;
+  public native E pollLast() ;
+  public native boolean removeFirstOccurrence(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean removeLastOccurrence(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Iterator<E> descendingIterator() ;
+  private class DescendingIterator extends java.lang.Object implements java.util.Iterator {
+    public native boolean hasNext() ;
+    public native E next() ;
+    public native void remove() ;
+    final java.util.LinkedList.ListItr itr;
+    final java.util.LinkedList this$0;
+  }
+  private static class Entry<E extends java.lang.Object> extends java.lang.Object {
+      Entry(E a_r_g_u_m_e_n_t_0, java.util.LinkedList.Entry<E> a_r_g_u_m_e_n_t_1, java.util.LinkedList.Entry<E> a_r_g_u_m_e_n_t_2){}
+    E element;
+    java.util.LinkedList.Entry<E> next;
+    java.util.LinkedList.Entry<E> previous;
+  }
+  private class ListItr extends java.lang.Object implements java.util.ListIterator<E> {
+      ListItr(java.util.LinkedList a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    public native void add(E a_r_g_u_m_e_n_t_0) ;
+    public native boolean hasNext() ;
+    public native E next() ;
+    public native void set(E a_r_g_u_m_e_n_t_0) ;
+    public native void remove() ;
+    public native int previousIndex() ;
+    public native boolean hasPrevious() ;
+    public native E previous() ;
+    public native int nextIndex() ;
+    final native void checkForComodification() ;
+    final java.util.LinkedList this$0;
+  }
+}

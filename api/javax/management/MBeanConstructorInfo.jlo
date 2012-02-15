@@ -1,0 +1,13 @@
+package javax.management;
+public class MBeanConstructorInfo extends javax.management.MBeanFeatureInfo implements java.lang.Cloneable {
+   public  MBeanConstructorInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.reflect.Constructor a_r_g_u_m_e_n_t_1){}
+   public  MBeanConstructorInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.MBeanParameterInfo[] a_r_g_u_m_e_n_t_2){}
+   public  MBeanConstructorInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.MBeanParameterInfo[] a_r_g_u_m_e_n_t_2, javax.management.Descriptor a_r_g_u_m_e_n_t_3){}
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native javax.management.MBeanParameterInfo[] getSignature() ;
+  static final long serialVersionUID;
+  static final javax.management.MBeanConstructorInfo[] NO_CONSTRUCTORS;
+}

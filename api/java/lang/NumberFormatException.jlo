@@ -1,0 +1,7 @@
+package java.lang;
+public class NumberFormatException extends java.lang.IllegalArgumentException {
+   public  NumberFormatException(){}
+   public  NumberFormatException(java.lang.String a_r_g_u_m_e_n_t_0){}
+  static native java.lang.NumberFormatException forInputString(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+}

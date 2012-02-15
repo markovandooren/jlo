@@ -1,0 +1,5 @@
+package org.xml.sax.helpers;
+public class ParserFactory extends java.lang.Object {
+  public static native org.xml.sax.Parser makeParser()  throws java.lang.ClassNotFoundException, java.lang.IllegalAccessException, java.lang.InstantiationException, java.lang.NullPointerException, java.lang.ClassCastException;
+  public static native org.xml.sax.Parser makeParser(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.ClassNotFoundException, java.lang.IllegalAccessException, java.lang.InstantiationException, java.lang.ClassCastException;
+}

@@ -1,0 +1,20 @@
+package javax.swing;
+public abstract interface Action extends java.awt.event.ActionListener {
+  public abstract java.lang.Object getValue(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void putValue(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean isEnabled() ;
+  public abstract void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public static final java.lang.String DEFAULT;
+  public static final java.lang.String NAME;
+  public static final java.lang.String SHORT_DESCRIPTION;
+  public static final java.lang.String LONG_DESCRIPTION;
+  public static final java.lang.String SMALL_ICON;
+  public static final java.lang.String ACTION_COMMAND_KEY;
+  public static final java.lang.String ACCELERATOR_KEY;
+  public static final java.lang.String MNEMONIC_KEY;
+  public static final java.lang.String SELECTED_KEY;
+  public static final java.lang.String DISPLAYED_MNEMONIC_INDEX_KEY;
+  public static final java.lang.String LARGE_ICON_KEY;
+}

@@ -1,0 +1,47 @@
+package javax.swing;
+public class DefaultButtonModel extends java.lang.Object implements javax.swing.ButtonModel, java.io.Serializable {
+   public  DefaultButtonModel(){}
+  public native boolean isSelected() ;
+  public native boolean isEnabled() ;
+  public native void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native void setSelected(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setActionCommand(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getActionCommand() ;
+  public native int getMnemonic() ;
+  public native void setMnemonic(int a_r_g_u_m_e_n_t_0) ;
+  public native void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.ChangeListener[] getChangeListeners() ;
+  protected native void fireStateChanged() ;
+  public native void addActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.event.ActionListener[] getActionListeners() ;
+  protected native void fireActionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void fireItemStateChanged(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+  public native void addItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.event.ItemListener[] getItemListeners() ;
+  public native java.lang.Object[] getSelectedObjects() ;
+  public native void setArmed(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setPressed(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isPressed() ;
+  public native void setRollover(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.ButtonGroup getGroup() ;
+  public native boolean isRollover() ;
+  public native boolean isArmed() ;
+  public native void setGroup(javax.swing.ButtonGroup a_r_g_u_m_e_n_t_0) ;
+  native void setMenuItem(boolean a_r_g_u_m_e_n_t_0) ;
+  native boolean isMenuItem() ;
+  protected int stateMask;
+  protected java.lang.String actionCommand;
+  protected javax.swing.ButtonGroup group;
+  protected int mnemonic;
+  protected transient javax.swing.event.ChangeEvent changeEvent;
+  protected javax.swing.event.EventListenerList listenerList;
+  public static final int ARMED;
+  public static final int SELECTED;
+  public static final int PRESSED;
+  public static final int ENABLED;
+  public static final int ROLLOVER;
+}

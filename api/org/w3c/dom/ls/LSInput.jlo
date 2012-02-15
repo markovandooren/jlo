@@ -1,0 +1,19 @@
+package org.w3c.dom.ls;
+public abstract interface LSInput {
+  public abstract java.lang.String getEncoding() ;
+  public abstract void setEncoding(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.io.Reader getCharacterStream() ;
+  public abstract java.lang.String getBaseURI() ;
+  public abstract void setCharacterStream(java.io.Reader a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getPublicId() ;
+  public abstract java.lang.String getSystemId() ;
+  public abstract void setPublicId(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void setSystemId(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void setByteStream(java.io.InputStream a_r_g_u_m_e_n_t_0) ;
+  public abstract java.io.InputStream getByteStream() ;
+  public abstract java.lang.String getStringData() ;
+  public abstract void setStringData(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void setBaseURI(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getCertifiedText() ;
+  public abstract void setCertifiedText(boolean a_r_g_u_m_e_n_t_0) ;
+}

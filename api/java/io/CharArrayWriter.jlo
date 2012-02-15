@@ -1,0 +1,20 @@
+package java.io;
+public class CharArrayWriter extends java.io.Writer {
+   public  CharArrayWriter(int a_r_g_u_m_e_n_t_0){}
+   public  CharArrayWriter(){}
+  public native java.lang.String toString() ;
+  public native java.io.CharArrayWriter append(java.lang.CharSequence a_r_g_u_m_e_n_t_0) ;
+  public native java.io.CharArrayWriter append(java.lang.CharSequence a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.io.CharArrayWriter append(char a_r_g_u_m_e_n_t_0) ;
+  public native char[] toCharArray() ;
+  public native int size() ;
+  public native void write(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void write(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void write(int a_r_g_u_m_e_n_t_0) ;
+  public native void flush() ;
+  public native void close() ;
+  public native void reset() ;
+  public native void writeTo(java.io.Writer a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected char[] buf;
+  protected int count;
+}

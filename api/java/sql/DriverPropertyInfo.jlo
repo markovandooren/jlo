@@ -1,0 +1,9 @@
+package java.sql;
+public class DriverPropertyInfo extends java.lang.Object {
+   public  DriverPropertyInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public java.lang.String name;
+  public java.lang.String description;
+  public boolean required;
+  public java.lang.String value;
+  public java.lang.String[] choices;
+}

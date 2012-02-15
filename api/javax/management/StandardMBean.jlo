@@ -1,0 +1,43 @@
+package javax.management;
+public class StandardMBean extends java.lang.Object implements javax.management.DynamicMBean, javax.management.MBeanRegistration {
+   public <T extends java.lang.Object> StandardMBean(T a_r_g_u_m_e_n_t_0, java.lang.Class<T> a_r_g_u_m_e_n_t_1) throws javax.management.NotCompliantMBeanException{}
+   protected  StandardMBean(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) throws javax.management.NotCompliantMBeanException{}
+   public <T extends java.lang.Object> StandardMBean(T a_r_g_u_m_e_n_t_0, java.lang.Class<T> a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+   protected  StandardMBean(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+  public native java.lang.Object invoke(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1, java.lang.String[] a_r_g_u_m_e_n_t_2)  throws javax.management.MBeanException, javax.management.ReflectionException;
+  protected native javax.management.MBeanConstructorInfo[] getConstructors(javax.management.MBeanConstructorInfo[] a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  native javax.management.Descriptor getDescriptor(javax.management.MBeanInfo a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  protected native java.lang.String getClassName(javax.management.MBeanInfo a_r_g_u_m_e_n_t_0) ;
+  public native javax.management.AttributeList getAttributes(java.lang.String[] a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getAttribute(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.AttributeNotFoundException, javax.management.MBeanException, javax.management.ReflectionException;
+  public native javax.management.AttributeList setAttributes(javax.management.AttributeList a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.String getDescription(javax.management.MBeanFeatureInfo a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.String getDescription(javax.management.MBeanConstructorInfo a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.String getDescription(javax.management.MBeanConstructorInfo a_r_g_u_m_e_n_t_0, javax.management.MBeanParameterInfo a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native java.lang.String getDescription(javax.management.MBeanInfo a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.String getDescription(javax.management.MBeanOperationInfo a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.String getDescription(javax.management.MBeanOperationInfo a_r_g_u_m_e_n_t_0, javax.management.MBeanParameterInfo a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native java.lang.String getDescription(javax.management.MBeanAttributeInfo a_r_g_u_m_e_n_t_0) ;
+  public native void setAttribute(javax.management.Attribute a_r_g_u_m_e_n_t_0)  throws javax.management.AttributeNotFoundException, javax.management.InvalidAttributeValueException, javax.management.MBeanException, javax.management.ReflectionException;
+  public native javax.management.MBeanInfo getMBeanInfo() ;
+  public native javax.management.ObjectName preRegister(javax.management.MBeanServer a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1)  throws java.lang.Exception;
+  public native void postRegister(java.lang.Boolean a_r_g_u_m_e_n_t_0) ;
+  public native void preDeregister()  throws java.lang.Exception;
+  public native void postDeregister() ;
+  native javax.management.MBeanNotificationInfo[] getNotifications(javax.management.MBeanInfo a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getImplementation() ;
+  protected native int getImpact(javax.management.MBeanOperationInfo a_r_g_u_m_e_n_t_0) ;
+  public native void setImplementation(java.lang.Object a_r_g_u_m_e_n_t_0)  throws javax.management.NotCompliantMBeanException;
+  public final native java.lang.Class<? extends java.lang.Object> getMBeanInterface() ;
+  public native java.lang.Class<? extends java.lang.Object> getImplementationClass() ;
+  protected native java.lang.String getParameterName(javax.management.MBeanOperationInfo a_r_g_u_m_e_n_t_0, javax.management.MBeanParameterInfo a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native java.lang.String getParameterName(javax.management.MBeanConstructorInfo a_r_g_u_m_e_n_t_0, javax.management.MBeanParameterInfo a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native javax.management.MBeanInfo getCachedMBeanInfo() ;
+  protected native void cacheMBeanInfo(javax.management.MBeanInfo a_r_g_u_m_e_n_t_0) ;
+  static native boolean immutableInfo(java.lang.Class<? extends javax.management.StandardMBean> a_r_g_u_m_e_n_t_0) ;
+  static transient native boolean overrides(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.Class<? extends java.lang.Object>... a_r_g_u_m_e_n_t_3) ;
+  private static class MBeanInfoSafeAction extends java.lang.Object implements java.security.PrivilegedAction<java.lang.Boolean> {
+      MBeanInfoSafeAction(java.lang.Class a_r_g_u_m_e_n_t_0){}
+    public native java.lang.Boolean run() ;
+  }
+}

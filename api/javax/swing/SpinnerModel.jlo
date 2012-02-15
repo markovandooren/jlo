@@ -1,0 +1,9 @@
+package javax.swing;
+public abstract interface SpinnerModel {
+  public abstract java.lang.Object getValue() ;
+  public abstract void setValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Object getNextValue() ;
+  public abstract java.lang.Object getPreviousValue() ;
+}

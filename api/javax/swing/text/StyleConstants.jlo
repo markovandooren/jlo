@@ -1,0 +1,90 @@
+package javax.swing.text;
+public class StyleConstants extends java.lang.Object {
+    StyleConstants(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String toString() ;
+  public static native java.awt.Component getComponent(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setForeground(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, java.awt.Color a_r_g_u_m_e_n_t_1) ;
+  public static native void setBackground(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, java.awt.Color a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.Color getForeground(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.Color getBackground(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setComponent(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.Icon getIcon(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setIcon(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, javax.swing.Icon a_r_g_u_m_e_n_t_1) ;
+  public static native int getBidiLevel(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isBold(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isItalic(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native int getAlignment(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setBidiLevel(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String getFontFamily(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setFontFamily(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public static native int getFontSize(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setFontSize(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native void setBold(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public static native void setItalic(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public static native boolean isUnderline(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isStrikeThrough(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isSuperscript(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isSubscript(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setUnderline(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public static native void setStrikeThrough(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public static native void setSuperscript(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public static native void setSubscript(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public static native float getFirstLineIndent(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setFirstLineIndent(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public static native float getRightIndent(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setRightIndent(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public static native float getLeftIndent(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setLeftIndent(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public static native float getLineSpacing(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setLineSpacing(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public static native float getSpaceAbove(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setSpaceAbove(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public static native float getSpaceBelow(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setSpaceBelow(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public static native void setAlignment(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.text.TabSet getTabSet(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public static native void setTabSet(javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_0, javax.swing.text.TabSet a_r_g_u_m_e_n_t_1) ;
+  public static final java.lang.String ComponentElementName;
+  public static final java.lang.String IconElementName;
+  public static final java.lang.Object NameAttribute;
+  public static final java.lang.Object ResolveAttribute;
+  public static final java.lang.Object ModelAttribute;
+  public static final java.lang.Object BidiLevel;
+  public static final java.lang.Object FontFamily;
+  public static final java.lang.Object Family;
+  public static final java.lang.Object FontSize;
+  public static final java.lang.Object Size;
+  public static final java.lang.Object Bold;
+  public static final java.lang.Object Italic;
+  public static final java.lang.Object Underline;
+  public static final java.lang.Object StrikeThrough;
+  public static final java.lang.Object Superscript;
+  public static final java.lang.Object Subscript;
+  public static final java.lang.Object Foreground;
+  public static final java.lang.Object Background;
+  public static final java.lang.Object ComponentAttribute;
+  public static final java.lang.Object IconAttribute;
+  public static final java.lang.Object ComposedTextAttribute;
+  public static final java.lang.Object FirstLineIndent;
+  public static final java.lang.Object LeftIndent;
+  public static final java.lang.Object RightIndent;
+  public static final java.lang.Object LineSpacing;
+  public static final java.lang.Object SpaceAbove;
+  public static final java.lang.Object SpaceBelow;
+  public static final java.lang.Object Alignment;
+  public static final java.lang.Object TabSet;
+  public static final java.lang.Object Orientation;
+  public static final int ALIGN_LEFT;
+  public static final int ALIGN_CENTER;
+  public static final int ALIGN_RIGHT;
+  public static final int ALIGN_JUSTIFIED;
+  static java.lang.Object[] keys;
+  public static class FontConstants extends javax.swing.text.StyleConstants implements javax.swing.text.AttributeSet.FontAttribute, javax.swing.text.AttributeSet.CharacterAttribute {
+  }
+  public static class ColorConstants extends javax.swing.text.StyleConstants implements javax.swing.text.AttributeSet.ColorAttribute, javax.swing.text.AttributeSet.CharacterAttribute {
+  }
+  public static class CharacterConstants extends javax.swing.text.StyleConstants implements javax.swing.text.AttributeSet.CharacterAttribute {
+  }
+  public static class ParagraphConstants extends javax.swing.text.StyleConstants implements javax.swing.text.AttributeSet.ParagraphAttribute {
+  }
+}

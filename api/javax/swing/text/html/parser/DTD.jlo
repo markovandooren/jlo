@@ -1,0 +1,42 @@
+package javax.swing.text.html.parser;
+public class DTD extends java.lang.Object implements javax.swing.text.html.parser.DTDConstants {
+   protected  DTD(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String toString() ;
+  public native java.lang.String getName() ;
+  public native void read(java.io.DataInputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native javax.swing.text.html.parser.Element getElement(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.html.parser.Element getElement(int a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.html.parser.Entity getEntity(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.html.parser.Entity getEntity(int a_r_g_u_m_e_n_t_0) ;
+  native boolean elementExists(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.html.parser.Entity defineEntity(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, char[] a_r_g_u_m_e_n_t_2) ;
+  public native javax.swing.text.html.parser.Element defineElement(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, javax.swing.text.html.parser.ContentModel a_r_g_u_m_e_n_t_4, java.util.BitSet a_r_g_u_m_e_n_t_5, java.util.BitSet a_r_g_u_m_e_n_t_6, javax.swing.text.html.parser.AttributeList a_r_g_u_m_e_n_t_7) ;
+  public native void defineAttributes(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.text.html.parser.AttributeList a_r_g_u_m_e_n_t_1) ;
+  public native javax.swing.text.html.parser.Entity defEntity(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native javax.swing.text.html.parser.Entity defEntity(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) ;
+  protected native javax.swing.text.html.parser.Element defElement(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, javax.swing.text.html.parser.ContentModel a_r_g_u_m_e_n_t_4, java.lang.String[] a_r_g_u_m_e_n_t_5, java.lang.String[] a_r_g_u_m_e_n_t_6, javax.swing.text.html.parser.AttributeList a_r_g_u_m_e_n_t_7) ;
+  protected native javax.swing.text.html.parser.AttributeList defAttributeList(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.lang.String a_r_g_u_m_e_n_t_4, javax.swing.text.html.parser.AttributeList a_r_g_u_m_e_n_t_5) ;
+  protected native javax.swing.text.html.parser.ContentModel defContentModel(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, javax.swing.text.html.parser.ContentModel a_r_g_u_m_e_n_t_2) ;
+  public static native void putDTDHash(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.text.html.parser.DTD a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.text.html.parser.DTD getDTD(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public java.lang.String name;
+  public java.util.Vector<javax.swing.text.html.parser.Element> elements;
+  public java.util.Hashtable<java.lang.String,javax.swing.text.html.parser.Element> elementHash;
+  public java.util.Hashtable<java.lang.Object,javax.swing.text.html.parser.Entity> entityHash;
+  public final javax.swing.text.html.parser.Element pcdata;
+  public final javax.swing.text.html.parser.Element html;
+  public final javax.swing.text.html.parser.Element meta;
+  public final javax.swing.text.html.parser.Element base;
+  public final javax.swing.text.html.parser.Element isindex;
+  public final javax.swing.text.html.parser.Element head;
+  public final javax.swing.text.html.parser.Element body;
+  public final javax.swing.text.html.parser.Element applet;
+  public final javax.swing.text.html.parser.Element param;
+  public final javax.swing.text.html.parser.Element p;
+  public final javax.swing.text.html.parser.Element title;
+  final javax.swing.text.html.parser.Element style;
+  final javax.swing.text.html.parser.Element link;
+  final javax.swing.text.html.parser.Element script;
+  public static final int FILE_VERSION;
+  static java.util.Hashtable dtdHash;
+}

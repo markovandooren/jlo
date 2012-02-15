@@ -1,0 +1,12 @@
+package javax.crypto;
+public abstract class MacSpi extends java.lang.Object {
+   public  MacSpi(){}
+  public native java.lang.Object clone()  throws java.lang.CloneNotSupportedException;
+  protected abstract void engineInit(java.security.Key a_r_g_u_m_e_n_t_0, java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  protected abstract void engineUpdate(byte a_r_g_u_m_e_n_t_0) ;
+  protected abstract void engineUpdate(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected native void engineUpdate(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0) ;
+  protected abstract void engineReset() ;
+  protected abstract byte[] engineDoFinal() ;
+  protected abstract int engineGetMacLength() ;
+}

@@ -1,0 +1,108 @@
+package javax.swing.tree;
+public class DefaultMutableTreeNode extends java.lang.Object implements java.lang.Cloneable, javax.swing.tree.MutableTreeNode, java.io.Serializable {
+   public  DefaultMutableTreeNode(java.lang.Object a_r_g_u_m_e_n_t_0){}
+   public  DefaultMutableTreeNode(java.lang.Object a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+   public  DefaultMutableTreeNode(){}
+  public native void add(javax.swing.tree.MutableTreeNode a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object clone() ;
+  public native java.lang.String toString() ;
+  public native javax.swing.tree.TreeNode getParent() ;
+  public native void remove(javax.swing.tree.MutableTreeNode a_r_g_u_m_e_n_t_0) ;
+  public native void remove(int a_r_g_u_m_e_n_t_0) ;
+  public native void insert(javax.swing.tree.MutableTreeNode a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setParent(javax.swing.tree.MutableTreeNode a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.tree.TreeNode[] getPath() ;
+  public native int getIndex(javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.tree.TreeNode getRoot() ;
+  public native java.util.Enumeration children() ;
+  public native int getLevel() ;
+  public native boolean isLeaf() ;
+  public native boolean getAllowsChildren() ;
+  public native javax.swing.tree.TreeNode getChildAt(int a_r_g_u_m_e_n_t_0) ;
+  public native int getChildCount() ;
+  public native javax.swing.tree.TreeNode getFirstChild() ;
+  public native javax.swing.tree.TreeNode getLastChild() ;
+  public native javax.swing.tree.DefaultMutableTreeNode getPreviousSibling() ;
+  public native javax.swing.tree.DefaultMutableTreeNode getNextSibling() ;
+  public native void setAllowsChildren(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setUserObject(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getUserObject() ;
+  public native void removeFromParent() ;
+  public native void removeAllChildren() ;
+  public native boolean isNodeAncestor(javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_0) ;
+  public native boolean isNodeDescendant(javax.swing.tree.DefaultMutableTreeNode a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.tree.TreeNode getSharedAncestor(javax.swing.tree.DefaultMutableTreeNode a_r_g_u_m_e_n_t_0) ;
+  public native boolean isNodeRelated(javax.swing.tree.DefaultMutableTreeNode a_r_g_u_m_e_n_t_0) ;
+  public native int getDepth() ;
+  protected native javax.swing.tree.TreeNode[] getPathToRoot(javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.Object[] getUserObjectPath() ;
+  public native boolean isRoot() ;
+  public native javax.swing.tree.DefaultMutableTreeNode getNextNode() ;
+  public native javax.swing.tree.DefaultMutableTreeNode getPreviousNode() ;
+  public native java.util.Enumeration preorderEnumeration() ;
+  public native java.util.Enumeration postorderEnumeration() ;
+  public native java.util.Enumeration breadthFirstEnumeration() ;
+  public native java.util.Enumeration depthFirstEnumeration() ;
+  public native java.util.Enumeration pathFromAncestorEnumeration(javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_0) ;
+  public native boolean isNodeChild(javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.tree.TreeNode getChildAfter(javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.tree.TreeNode getChildBefore(javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_0) ;
+  public native boolean isNodeSibling(javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_0) ;
+  public native int getSiblingCount() ;
+  public native javax.swing.tree.DefaultMutableTreeNode getFirstLeaf() ;
+  public native javax.swing.tree.DefaultMutableTreeNode getLastLeaf() ;
+  public native javax.swing.tree.DefaultMutableTreeNode getNextLeaf() ;
+  public native javax.swing.tree.DefaultMutableTreeNode getPreviousLeaf() ;
+  public native int getLeafCount() ;
+  public static final java.util.Enumeration<javax.swing.tree.TreeNode> EMPTY_ENUMERATION;
+  protected javax.swing.tree.MutableTreeNode parent;
+  protected java.util.Vector children;
+  protected transient java.lang.Object userObject;
+  protected boolean allowsChildren;
+  final class PathBetweenNodesEnumeration extends java.lang.Object implements java.util.Enumeration<javax.swing.tree.TreeNode> {
+     public  PathBetweenNodesEnumeration(javax.swing.tree.DefaultMutableTreeNode a_r_g_u_m_e_n_t_0, javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_1, javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_2){}
+    public native boolean hasMoreElements() ;
+    public native javax.swing.tree.TreeNode nextElement() ;
+    protected java.util.Stack<javax.swing.tree.TreeNode> stack;
+    final javax.swing.tree.DefaultMutableTreeNode this$0;
+  }
+  final class BreadthFirstEnumeration extends java.lang.Object implements java.util.Enumeration<javax.swing.tree.TreeNode> {
+     public  BreadthFirstEnumeration(javax.swing.tree.DefaultMutableTreeNode a_r_g_u_m_e_n_t_0, javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_1){}
+    public native boolean hasMoreElements() ;
+    public native javax.swing.tree.TreeNode nextElement() ;
+    protected javax.swing.tree.DefaultMutableTreeNode.BreadthFirstEnumeration.Queue queue;
+    final javax.swing.tree.DefaultMutableTreeNode this$0;
+    final class Queue extends java.lang.Object {
+        Queue(javax.swing.tree.DefaultMutableTreeNode.BreadthFirstEnumeration a_r_g_u_m_e_n_t_0){}
+      public native boolean isEmpty() ;
+      public native void enqueue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+      public native java.lang.Object firstObject() ;
+      public native java.lang.Object dequeue() ;
+      javax.swing.tree.DefaultMutableTreeNode.BreadthFirstEnumeration.Queue.QNode head;
+      javax.swing.tree.DefaultMutableTreeNode.BreadthFirstEnumeration.Queue.QNode tail;
+      final javax.swing.tree.DefaultMutableTreeNode.BreadthFirstEnumeration this$1;
+      final class QNode extends java.lang.Object {
+         public  QNode(javax.swing.tree.DefaultMutableTreeNode.BreadthFirstEnumeration.Queue a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, javax.swing.tree.DefaultMutableTreeNode.BreadthFirstEnumeration.Queue.QNode a_r_g_u_m_e_n_t_2){}
+        public java.lang.Object object;
+        public javax.swing.tree.DefaultMutableTreeNode.BreadthFirstEnumeration.Queue.QNode next;
+        final javax.swing.tree.DefaultMutableTreeNode.BreadthFirstEnumeration.Queue this$2;
+      }
+    }
+  }
+  final class PostorderEnumeration extends java.lang.Object implements java.util.Enumeration<javax.swing.tree.TreeNode> {
+     public  PostorderEnumeration(javax.swing.tree.DefaultMutableTreeNode a_r_g_u_m_e_n_t_0, javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_1){}
+    public native boolean hasMoreElements() ;
+    public native javax.swing.tree.TreeNode nextElement() ;
+    protected javax.swing.tree.TreeNode root;
+    protected java.util.Enumeration<javax.swing.tree.TreeNode> children;
+    protected java.util.Enumeration<javax.swing.tree.TreeNode> subtree;
+    final javax.swing.tree.DefaultMutableTreeNode this$0;
+  }
+  final class PreorderEnumeration extends java.lang.Object implements java.util.Enumeration<javax.swing.tree.TreeNode> {
+     public  PreorderEnumeration(javax.swing.tree.DefaultMutableTreeNode a_r_g_u_m_e_n_t_0, javax.swing.tree.TreeNode a_r_g_u_m_e_n_t_1){}
+    public native boolean hasMoreElements() ;
+    public native javax.swing.tree.TreeNode nextElement() ;
+    protected java.util.Stack stack;
+    final javax.swing.tree.DefaultMutableTreeNode this$0;
+  }
+}

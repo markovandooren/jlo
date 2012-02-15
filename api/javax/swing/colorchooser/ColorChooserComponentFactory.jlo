@@ -1,0 +1,5 @@
+package javax.swing.colorchooser;
+public class ColorChooserComponentFactory extends java.lang.Object {
+  public static native javax.swing.JComponent getPreviewPanel() ;
+  public static native javax.swing.colorchooser.AbstractColorChooserPanel[] getDefaultChooserPanels() ;
+}

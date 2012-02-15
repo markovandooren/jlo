@@ -1,0 +1,63 @@
+package javax.swing;
+public class JViewport extends javax.swing.JComponent implements javax.accessibility.Accessible {
+   public  JViewport(){}
+  public native void remove(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  protected native void firePropertyChange(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native void updateUI() ;
+  public native void setUI(javax.swing.plaf.ViewportUI a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getUIClassID() ;
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+  public final native void setBorder(javax.swing.border.Border a_r_g_u_m_e_n_t_0) ;
+  public final native java.awt.Insets getInsets() ;
+  public final native java.awt.Insets getInsets(java.awt.Insets a_r_g_u_m_e_n_t_0) ;
+  public native void scrollRectToVisible(java.awt.Rectangle a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void reshape(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native void repaint(long a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native boolean isOptimizedDrawingEnabled() ;
+  native boolean isPaintingOrigin() ;
+  protected native java.lang.String paramString() ;
+  protected native void addImpl(java.awt.Component a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native javax.swing.plaf.ViewportUI getUI() ;
+  public native void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.ChangeListener[] getChangeListeners() ;
+  protected native void fireStateChanged() ;
+  public native java.awt.Component getView() ;
+  protected native java.awt.LayoutManager createLayoutManager() ;
+  public native void setViewPosition(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  public native void setView(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getExtentSize() ;
+  public native java.awt.Dimension getViewSize() ;
+  public native java.awt.Point getViewPosition() ;
+  public native java.awt.Rectangle getViewRect() ;
+  public native void setScrollMode(int a_r_g_u_m_e_n_t_0) ;
+  public native int getScrollMode() ;
+  public native boolean isBackingStoreEnabled() ;
+  public native void setBackingStoreEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setViewSize(java.awt.Dimension a_r_g_u_m_e_n_t_0) ;
+  protected native boolean computeBlit(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.Point a_r_g_u_m_e_n_t_2, java.awt.Point a_r_g_u_m_e_n_t_3, java.awt.Dimension a_r_g_u_m_e_n_t_4, java.awt.Rectangle a_r_g_u_m_e_n_t_5) ;
+  public native java.awt.Point toViewCoordinates(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension toViewCoordinates(java.awt.Dimension a_r_g_u_m_e_n_t_0) ;
+  public native void setExtentSize(java.awt.Dimension a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.JViewport.ViewListener createViewListener() ;
+  static final java.lang.Object EnableWindowBlit;
+  protected boolean isViewSizeSet;
+  protected java.awt.Point lastPaintPosition;
+  protected boolean backingStore;
+  protected transient java.awt.Image backingStoreImage;
+  protected boolean scrollUnderway;
+  public static final int BLIT_SCROLL_MODE;
+  public static final int BACKINGSTORE_SCROLL_MODE;
+  public static final int SIMPLE_SCROLL_MODE;
+  protected class AccessibleJViewport extends javax.swing.JComponent.AccessibleJComponent {
+     protected  AccessibleJViewport(javax.swing.JViewport a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final javax.swing.JViewport this$0;
+  }
+  protected class ViewListener extends java.awt.event.ComponentAdapter implements java.io.Serializable {
+     protected  ViewListener(javax.swing.JViewport a_r_g_u_m_e_n_t_0){}
+    public native void componentResized(java.awt.event.ComponentEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.JViewport this$0;
+  }
+}

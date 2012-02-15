@@ -1,0 +1,19 @@
+package javax.sql.rowset.serial;
+public class SerialClob extends java.lang.Object implements java.sql.Clob, java.io.Serializable, java.lang.Cloneable {
+   public  SerialClob(char[] a_r_g_u_m_e_n_t_0) throws javax.sql.rowset.serial.SerialException, java.sql.SQLException{}
+   public  SerialClob(java.sql.Clob a_r_g_u_m_e_n_t_0) throws javax.sql.rowset.serial.SerialException, java.sql.SQLException{}
+  public native long length()  throws javax.sql.rowset.serial.SerialException;
+  public native long position(java.sql.Clob a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  public native long position(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  public native void truncate(long a_r_g_u_m_e_n_t_0)  throws javax.sql.rowset.serial.SerialException;
+  public native void free()  throws java.sql.SQLException;
+  public native java.io.InputStream getAsciiStream()  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  public native java.io.Reader getCharacterStream(long a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native java.io.Reader getCharacterStream()  throws javax.sql.rowset.serial.SerialException;
+  public native int setString(long a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.sql.rowset.serial.SerialException;
+  public native int setString(long a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws javax.sql.rowset.serial.SerialException;
+  public native java.io.OutputStream setAsciiStream(long a_r_g_u_m_e_n_t_0)  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  public native java.io.Writer setCharacterStream(long a_r_g_u_m_e_n_t_0)  throws javax.sql.rowset.serial.SerialException, java.sql.SQLException;
+  public native java.lang.String getSubString(long a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.sql.rowset.serial.SerialException;
+  static final long serialVersionUID;
+}

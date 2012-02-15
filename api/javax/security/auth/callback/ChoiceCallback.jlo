@@ -1,0 +1,11 @@
+package javax.security.auth.callback;
+public class ChoiceCallback extends java.lang.Object implements javax.security.auth.callback.Callback, java.io.Serializable {
+   public  ChoiceCallback(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3){}
+  public native void setSelectedIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getPrompt() ;
+  public native java.lang.String[] getChoices() ;
+  public native int getDefaultChoice() ;
+  public native boolean allowMultipleSelections() ;
+  public native void setSelectedIndexes(int[] a_r_g_u_m_e_n_t_0) ;
+  public native int[] getSelectedIndexes() ;
+}

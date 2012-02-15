@@ -1,0 +1,24 @@
+package javax.transaction.xa;
+public abstract interface XAResource {
+  public abstract void start(javax.transaction.xa.Xid a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.transaction.xa.XAException;
+  public abstract void end(javax.transaction.xa.Xid a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.transaction.xa.XAException;
+  public abstract int prepare(javax.transaction.xa.Xid a_r_g_u_m_e_n_t_0)  throws javax.transaction.xa.XAException;
+  public abstract void commit(javax.transaction.xa.Xid a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws javax.transaction.xa.XAException;
+  public abstract void rollback(javax.transaction.xa.Xid a_r_g_u_m_e_n_t_0)  throws javax.transaction.xa.XAException;
+  public abstract void forget(javax.transaction.xa.Xid a_r_g_u_m_e_n_t_0)  throws javax.transaction.xa.XAException;
+  public abstract int getTransactionTimeout()  throws javax.transaction.xa.XAException;
+  public abstract boolean isSameRM(javax.transaction.xa.XAResource a_r_g_u_m_e_n_t_0)  throws javax.transaction.xa.XAException;
+  public abstract javax.transaction.xa.Xid[] recover(int a_r_g_u_m_e_n_t_0)  throws javax.transaction.xa.XAException;
+  public abstract boolean setTransactionTimeout(int a_r_g_u_m_e_n_t_0)  throws javax.transaction.xa.XAException;
+  public static final int TMENDRSCAN;
+  public static final int TMFAIL;
+  public static final int TMJOIN;
+  public static final int TMNOFLAGS;
+  public static final int TMONEPHASE;
+  public static final int TMRESUME;
+  public static final int TMSTARTRSCAN;
+  public static final int TMSUCCESS;
+  public static final int TMSUSPEND;
+  public static final int XA_RDONLY;
+  public static final int XA_OK;
+}

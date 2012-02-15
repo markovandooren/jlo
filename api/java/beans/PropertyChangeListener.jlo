@@ -1,0 +1,4 @@
+package java.beans;
+public abstract interface PropertyChangeListener extends java.util.EventListener {
+  public abstract void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,9 @@
+package javax.swing.text.rtf;
+public class RTFEditorKit extends javax.swing.text.StyledEditorKit {
+   public  RTFEditorKit(){}
+  public native void write(java.io.OutputStream a_r_g_u_m_e_n_t_0, javax.swing.text.Document a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws java.io.IOException, javax.swing.text.BadLocationException;
+  public native void write(java.io.Writer a_r_g_u_m_e_n_t_0, javax.swing.text.Document a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws java.io.IOException, javax.swing.text.BadLocationException;
+  public native void read(java.io.InputStream a_r_g_u_m_e_n_t_0, javax.swing.text.Document a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException, javax.swing.text.BadLocationException;
+  public native void read(java.io.Reader a_r_g_u_m_e_n_t_0, javax.swing.text.Document a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException, javax.swing.text.BadLocationException;
+  public native java.lang.String getContentType() ;
+}

@@ -1,0 +1,7 @@
+package javax.naming.event;
+public abstract interface EventDirContext extends javax.naming.event.EventContext, javax.naming.directory.DirContext {
+  public abstract void addNamingListener(javax.naming.Name a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.naming.directory.SearchControls a_r_g_u_m_e_n_t_2, javax.naming.event.NamingListener a_r_g_u_m_e_n_t_3)  throws javax.naming.NamingException;
+  public abstract void addNamingListener(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.naming.directory.SearchControls a_r_g_u_m_e_n_t_2, javax.naming.event.NamingListener a_r_g_u_m_e_n_t_3)  throws javax.naming.NamingException;
+  public abstract void addNamingListener(javax.naming.Name a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2, javax.naming.directory.SearchControls a_r_g_u_m_e_n_t_3, javax.naming.event.NamingListener a_r_g_u_m_e_n_t_4)  throws javax.naming.NamingException;
+  public abstract void addNamingListener(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2, javax.naming.directory.SearchControls a_r_g_u_m_e_n_t_3, javax.naming.event.NamingListener a_r_g_u_m_e_n_t_4)  throws javax.naming.NamingException;
+}

@@ -1,0 +1,7 @@
+package java.lang;
+public abstract interface CharSequence {
+  public abstract java.lang.String toString() ;
+  public abstract int length() ;
+  public abstract char charAt(int a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.CharSequence subSequence(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+}

@@ -1,0 +1,8 @@
+package javax.swing.text.html.parser;
+public class ParserDelegator extends javax.swing.text.html.HTMLEditorKit.Parser implements java.io.Serializable {
+   public  ParserDelegator(){}
+  static native java.io.InputStream getResourceAsStream(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void parse(java.io.Reader a_r_g_u_m_e_n_t_0, javax.swing.text.html.HTMLEditorKit.ParserCallback a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  protected static synchronized native void setDefaultDTD() ;
+  protected static native javax.swing.text.html.parser.DTD createDTD(javax.swing.text.html.parser.DTD a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+}

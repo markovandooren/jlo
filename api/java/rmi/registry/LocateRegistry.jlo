@@ -1,0 +1,10 @@
+package java.rmi.registry;
+public final class LocateRegistry extends java.lang.Object {
+  public static native java.rmi.registry.Registry getRegistry()  throws java.rmi.RemoteException;
+  public static native java.rmi.registry.Registry getRegistry(int a_r_g_u_m_e_n_t_0)  throws java.rmi.RemoteException;
+  public static native java.rmi.registry.Registry getRegistry(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.rmi.RemoteException;
+  public static native java.rmi.registry.Registry getRegistry(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.rmi.server.RMIClientSocketFactory a_r_g_u_m_e_n_t_2)  throws java.rmi.RemoteException;
+  public static native java.rmi.registry.Registry getRegistry(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.rmi.RemoteException;
+  public static native java.rmi.registry.Registry createRegistry(int a_r_g_u_m_e_n_t_0)  throws java.rmi.RemoteException;
+  public static native java.rmi.registry.Registry createRegistry(int a_r_g_u_m_e_n_t_0, java.rmi.server.RMIClientSocketFactory a_r_g_u_m_e_n_t_1, java.rmi.server.RMIServerSocketFactory a_r_g_u_m_e_n_t_2)  throws java.rmi.RemoteException;
+}

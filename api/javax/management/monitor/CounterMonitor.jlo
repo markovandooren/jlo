@@ -1,0 +1,48 @@
+package javax.management.monitor;
+public class CounterMonitor extends javax.management.monitor.Monitor implements javax.management.monitor.CounterMonitorMBean {
+   public  CounterMonitor(){}
+  public synchronized native void start() ;
+  public synchronized native void stop() ;
+  public synchronized native java.lang.Number getOffset() ;
+  public synchronized native void setOffset(java.lang.Number a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public synchronized native void setThreshold(java.lang.Number a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  native java.lang.String makeDebugTag() ;
+  public synchronized native java.lang.Number getDerivedGauge() ;
+  public synchronized native java.lang.Number getDerivedGauge(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public synchronized native long getDerivedGaugeTimeStamp(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public synchronized native long getDerivedGaugeTimeStamp() ;
+  public synchronized native java.lang.Number getThreshold() ;
+  public synchronized native java.lang.Number getThreshold(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.lang.Number getInitThreshold() ;
+  public synchronized native void setInitThreshold(java.lang.Number a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public synchronized native java.lang.Number getModulus() ;
+  public synchronized native void setModulus(java.lang.Number a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public synchronized native boolean getNotify() ;
+  public synchronized native void setNotify(boolean a_r_g_u_m_e_n_t_0) ;
+  public synchronized native boolean getDifferenceMode() ;
+  public synchronized native void setDifferenceMode(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.management.MBeanNotificationInfo[] getNotificationInfo() ;
+  native javax.management.monitor.Monitor.ObservedObject createObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  synchronized native boolean isComparableTypeValid(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  synchronized native java.lang.Comparable<? extends java.lang.Object> getDerivedGaugeFromComparable(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  synchronized native void onErrorNotification(javax.management.monitor.MonitorNotification a_r_g_u_m_e_n_t_0) ;
+  synchronized native javax.management.monitor.MonitorNotification buildAlarmNotification(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  synchronized native boolean isThresholdTypeValid(javax.management.ObjectName a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Comparable<? extends java.lang.Object> a_r_g_u_m_e_n_t_2) ;
+  static class CounterMonitorObservedObject extends javax.management.monitor.Monitor.ObservedObject {
+     public  CounterMonitorObservedObject(javax.management.ObjectName a_r_g_u_m_e_n_t_0){}
+    public final synchronized native javax.management.monitor.Monitor.NumericalType getType() ;
+    public final synchronized native void setThreshold(java.lang.Number a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native void setType(javax.management.monitor.Monitor.NumericalType a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native java.lang.Number getThreshold() ;
+    public final synchronized native void setModulusExceeded(boolean a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native void setEventAlreadyNotified(boolean a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native void setPreviousScanCounter(java.lang.Number a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native java.lang.Number getPreviousScanCounter() ;
+    public final synchronized native boolean getEventAlreadyNotified() ;
+    public final synchronized native void setDerivedGaugeExceeded(java.lang.Number a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native boolean getModulusExceeded() ;
+    public final synchronized native java.lang.Number getDerivedGaugeExceeded() ;
+    public final synchronized native void setDerivedGaugeValid(boolean a_r_g_u_m_e_n_t_0) ;
+    public final synchronized native boolean getDerivedGaugeValid() ;
+  }
+}

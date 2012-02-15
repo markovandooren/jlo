@@ -1,0 +1,15 @@
+package java.util.concurrent;
+public class ExecutorCompletionService<V extends java.lang.Object> extends java.lang.Object implements java.util.concurrent.CompletionService<V> {
+   public  ExecutorCompletionService(java.util.concurrent.Executor a_r_g_u_m_e_n_t_0){}
+   public  ExecutorCompletionService(java.util.concurrent.Executor a_r_g_u_m_e_n_t_0, java.util.concurrent.BlockingQueue<java.util.concurrent.Future<V>> a_r_g_u_m_e_n_t_1){}
+  public native java.util.concurrent.Future<V> poll(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1)  throws java.lang.InterruptedException;
+  public native java.util.concurrent.Future<V> poll() ;
+  public native java.util.concurrent.Future<V> submit(java.lang.Runnable a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public native java.util.concurrent.Future<V> submit(java.util.concurrent.Callable<V> a_r_g_u_m_e_n_t_0) ;
+  public native java.util.concurrent.Future<V> take()  throws java.lang.InterruptedException;
+  private class QueueingFuture extends java.util.concurrent.FutureTask<java.lang.Void> {
+      QueueingFuture(java.util.concurrent.RunnableFuture<V> a_r_g_u_m_e_n_t_0){}
+    protected native void done() ;
+    final java.util.concurrent.ExecutorCompletionService this$0;
+  }
+}

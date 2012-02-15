@@ -1,0 +1,11 @@
+package javax.rmi.ssl;
+public class SslRMIServerSocketFactory extends java.lang.Object implements java.rmi.server.RMIServerSocketFactory {
+   public  SslRMIServerSocketFactory(){}
+   public  SslRMIServerSocketFactory(java.lang.String[] a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) throws java.lang.IllegalArgumentException{}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.net.ServerSocket createServerSocket(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public final native java.lang.String[] getEnabledCipherSuites() ;
+  public final native java.lang.String[] getEnabledProtocols() ;
+  public final native boolean getNeedClientAuth() ;
+}

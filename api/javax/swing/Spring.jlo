@@ -1,0 +1,106 @@
+package javax.swing;
+public abstract class Spring extends java.lang.Object {
+   protected  Spring(){}
+  public static native javax.swing.Spring max(javax.swing.Spring a_r_g_u_m_e_n_t_0, javax.swing.Spring a_r_g_u_m_e_n_t_1) ;
+  public abstract int getValue() ;
+  public abstract void setValue(int a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.Spring scale(javax.swing.Spring a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  static native javax.swing.Spring difference(javax.swing.Spring a_r_g_u_m_e_n_t_0, javax.swing.Spring a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.Spring width(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.Spring height(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  native boolean isCyclic(javax.swing.SpringLayout a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.Spring minus(javax.swing.Spring a_r_g_u_m_e_n_t_0) ;
+  public abstract int getMinimumValue() ;
+  public abstract int getPreferredValue() ;
+  public abstract int getMaximumValue() ;
+  native double getStrain() ;
+  native void setStrain(double a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.Spring constant(int a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.Spring constant(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public static native javax.swing.Spring sum(javax.swing.Spring a_r_g_u_m_e_n_t_0, javax.swing.Spring a_r_g_u_m_e_n_t_1) ;
+  public static final int UNSET;
+  private static class MaxSpring extends javax.swing.Spring.CompoundSpring {
+     public  MaxSpring(javax.swing.Spring a_r_g_u_m_e_n_t_0, javax.swing.Spring a_r_g_u_m_e_n_t_1){}
+    protected native int op(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    protected native void setNonClearValue(int a_r_g_u_m_e_n_t_0) ;
+  }
+  private static class SumSpring extends javax.swing.Spring.CompoundSpring {
+     public  SumSpring(javax.swing.Spring a_r_g_u_m_e_n_t_0, javax.swing.Spring a_r_g_u_m_e_n_t_1){}
+    protected native int op(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    protected native void setNonClearValue(int a_r_g_u_m_e_n_t_0) ;
+  }
+  static abstract class CompoundSpring extends javax.swing.Spring.StaticSpring {
+     public  CompoundSpring(javax.swing.Spring a_r_g_u_m_e_n_t_0, javax.swing.Spring a_r_g_u_m_e_n_t_1){}
+    protected native void clear() ;
+    public native java.lang.String toString() ;
+    public native int getValue() ;
+    protected abstract int op(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    native boolean isCyclic(javax.swing.SpringLayout a_r_g_u_m_e_n_t_0) ;
+    public native int getMinimumValue() ;
+    public native int getPreferredValue() ;
+    public native int getMaximumValue() ;
+    protected javax.swing.Spring s1;
+    protected javax.swing.Spring s2;
+  }
+  static abstract class SpringMap extends javax.swing.Spring {
+     public  SpringMap(javax.swing.Spring a_r_g_u_m_e_n_t_0){}
+    public native int getValue() ;
+    public native void setValue(int a_r_g_u_m_e_n_t_0) ;
+    protected abstract int map(int a_r_g_u_m_e_n_t_0) ;
+    native boolean isCyclic(javax.swing.SpringLayout a_r_g_u_m_e_n_t_0) ;
+    public native int getMinimumValue() ;
+    public native int getPreferredValue() ;
+    public native int getMaximumValue() ;
+    protected abstract int inv(int a_r_g_u_m_e_n_t_0) ;
+  }
+  static class HeightSpring extends javax.swing.Spring.AbstractSpring {
+     public  HeightSpring(java.awt.Component a_r_g_u_m_e_n_t_0){}
+    public native int getMinimumValue() ;
+    public native int getPreferredValue() ;
+    public native int getMaximumValue() ;
+    java.awt.Component c;
+  }
+  static class WidthSpring extends javax.swing.Spring.AbstractSpring {
+     public  WidthSpring(java.awt.Component a_r_g_u_m_e_n_t_0){}
+    public native int getMinimumValue() ;
+    public native int getPreferredValue() ;
+    public native int getMaximumValue() ;
+    java.awt.Component c;
+  }
+  private static class ScaleSpring extends javax.swing.Spring {
+    public native int getValue() ;
+    public native void setValue(int a_r_g_u_m_e_n_t_0) ;
+    native boolean isCyclic(javax.swing.SpringLayout a_r_g_u_m_e_n_t_0) ;
+    public native int getMinimumValue() ;
+    public native int getPreferredValue() ;
+    public native int getMaximumValue() ;
+  }
+  private static class NegativeSpring extends javax.swing.Spring {
+     public  NegativeSpring(javax.swing.Spring a_r_g_u_m_e_n_t_0){}
+    public native int getValue() ;
+    public native void setValue(int a_r_g_u_m_e_n_t_0) ;
+    native boolean isCyclic(javax.swing.SpringLayout a_r_g_u_m_e_n_t_0) ;
+    public native int getMinimumValue() ;
+    public native int getPreferredValue() ;
+    public native int getMaximumValue() ;
+  }
+  private static class StaticSpring extends javax.swing.Spring.AbstractSpring {
+     public  StaticSpring(int a_r_g_u_m_e_n_t_0){}
+     public  StaticSpring(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    public native java.lang.String toString() ;
+    public native int getMinimumValue() ;
+    public native int getPreferredValue() ;
+    public native int getMaximumValue() ;
+    protected int min;
+    protected int pref;
+    protected int max;
+  }
+  static abstract class AbstractSpring extends javax.swing.Spring {
+      AbstractSpring(){}
+    protected native void clear() ;
+    public native int getValue() ;
+    public final native void setValue(int a_r_g_u_m_e_n_t_0) ;
+    protected native void setNonClearValue(int a_r_g_u_m_e_n_t_0) ;
+    protected int size;
+  }
+}

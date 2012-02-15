@@ -1,0 +1,9 @@
+package java.lang.management;
+public abstract interface MemoryMXBean {
+  public abstract void gc() ;
+  public abstract boolean isVerbose() ;
+  public abstract void setVerbose(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract int getObjectPendingFinalizationCount() ;
+  public abstract java.lang.management.MemoryUsage getHeapMemoryUsage() ;
+  public abstract java.lang.management.MemoryUsage getNonHeapMemoryUsage() ;
+}

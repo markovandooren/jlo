@@ -1,0 +1,36 @@
+package javax.swing;
+public class DefaultListSelectionModel extends java.lang.Object implements javax.swing.ListSelectionModel, java.lang.Cloneable, java.io.Serializable {
+   public  DefaultListSelectionModel(){}
+  public native java.lang.Object clone()  throws java.lang.CloneNotSupportedException;
+  public native java.lang.String toString() ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native void clearSelection() ;
+  public native boolean getValueIsAdjusting() ;
+  public native void setSelectionMode(int a_r_g_u_m_e_n_t_0) ;
+  public native int getSelectionMode() ;
+  public native boolean isSelectionEmpty() ;
+  public native void addListSelectionListener(javax.swing.event.ListSelectionListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeListSelectionListener(javax.swing.event.ListSelectionListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.ListSelectionListener[] getListSelectionListeners() ;
+  public native int getAnchorSelectionIndex() ;
+  public native int getLeadSelectionIndex() ;
+  public native int getMinSelectionIndex() ;
+  public native int getMaxSelectionIndex() ;
+  public native boolean isSelectedIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native void setSelectionInterval(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void addSelectionInterval(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void removeSelectionInterval(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void setValueIsAdjusting(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setAnchorSelectionIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native void setLeadSelectionIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native void insertIndexInterval(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public native void removeIndexInterval(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void moveLeadSelectionIndex(int a_r_g_u_m_e_n_t_0) ;
+  protected native void fireValueChanged(boolean a_r_g_u_m_e_n_t_0) ;
+  protected native void fireValueChanged(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected native void fireValueChanged(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public native void setLeadAnchorNotificationEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isLeadAnchorNotificationEnabled() ;
+  protected javax.swing.event.EventListenerList listenerList;
+  protected boolean leadAnchorNotificationEnabled;
+}

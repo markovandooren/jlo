@@ -1,0 +1,4 @@
+package javax.management;
+public abstract interface DescriptorAccess {
+  public abstract void setDescriptor(javax.management.Descriptor a_r_g_u_m_e_n_t_0) ;
+}

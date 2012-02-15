@@ -1,0 +1,80 @@
+package java.util;
+public abstract class ResourceBundle extends java.lang.Object {
+   public  ResourceBundle(){}
+  public final native java.lang.Object getObject(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Set<java.lang.String> keySet() ;
+  public native boolean containsKey(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected native void setParent(java.util.ResourceBundle a_r_g_u_m_e_n_t_0) ;
+  public static final native java.util.ResourceBundle getBundle(java.lang.String a_r_g_u_m_e_n_t_0, java.util.ResourceBundle.Control a_r_g_u_m_e_n_t_1) ;
+  public static final native java.util.ResourceBundle getBundle(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public static final native java.util.ResourceBundle getBundle(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.util.ResourceBundle getBundle(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1, java.lang.ClassLoader a_r_g_u_m_e_n_t_2) ;
+  public static native java.util.ResourceBundle getBundle(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1, java.lang.ClassLoader a_r_g_u_m_e_n_t_2, java.util.ResourceBundle.Control a_r_g_u_m_e_n_t_3) ;
+  public static final native java.util.ResourceBundle getBundle(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1, java.util.ResourceBundle.Control a_r_g_u_m_e_n_t_2) ;
+  public final native java.lang.String getString(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static final native void clearCache(java.lang.ClassLoader a_r_g_u_m_e_n_t_0) ;
+  public static final native void clearCache() ;
+  public abstract java.util.Enumeration<java.lang.String> getKeys() ;
+  public native java.util.Locale getLocale() ;
+  public final native java.lang.String[] getStringArray(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected abstract java.lang.Object handleGetObject(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected native java.util.Set<java.lang.String> handleKeySet() ;
+  protected java.util.ResourceBundle parent;
+  static final boolean $assertionsDisabled;
+  private static final class NoFallbackControl extends java.util.ResourceBundle.SingleFormatControl {
+     protected  NoFallbackControl(java.util.List<java.lang.String> a_r_g_u_m_e_n_t_0){}
+    public native java.util.Locale getFallbackLocale(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  }
+  private static class SingleFormatControl extends java.util.ResourceBundle.Control {
+     protected  SingleFormatControl(java.util.List<java.lang.String> a_r_g_u_m_e_n_t_0){}
+    public native java.util.List<java.lang.String> getFormats(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  }
+  public static class Control extends java.lang.Object {
+     protected  Control(){}
+    public native java.util.List<java.util.Locale> getCandidateLocales(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+    public native long getTimeToLive(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+    public static final native java.util.ResourceBundle.Control getControl(java.util.List<java.lang.String> a_r_g_u_m_e_n_t_0) ;
+    public static final native java.util.ResourceBundle.Control getNoFallbackControl(java.util.List<java.lang.String> a_r_g_u_m_e_n_t_0) ;
+    public native java.util.List<java.lang.String> getFormats(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native java.util.Locale getFallbackLocale(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+    public native java.util.ResourceBundle newBundle(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.ClassLoader a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4)  throws java.lang.IllegalAccessException, java.lang.InstantiationException, java.io.IOException;
+    public native boolean needsReload(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.ClassLoader a_r_g_u_m_e_n_t_3, java.util.ResourceBundle a_r_g_u_m_e_n_t_4, long a_r_g_u_m_e_n_t_5) ;
+    public native java.lang.String toBundleName(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+    public final native java.lang.String toResourceName(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+    public static final java.util.List<java.lang.String> FORMAT_DEFAULT;
+    public static final java.util.List<java.lang.String> FORMAT_CLASS;
+    public static final java.util.List<java.lang.String> FORMAT_PROPERTIES;
+    public static final long TTL_DONT_CACHE;
+    public static final long TTL_NO_EXPIRATION_CONTROL;
+  }
+  private static final class BundleReference extends java.lang.ref.SoftReference<java.util.ResourceBundle> implements java.util.ResourceBundle.CacheKeyReference {
+      BundleReference(java.util.ResourceBundle a_r_g_u_m_e_n_t_0, java.lang.ref.ReferenceQueue a_r_g_u_m_e_n_t_1, java.util.ResourceBundle.CacheKey a_r_g_u_m_e_n_t_2){}
+    public native java.util.ResourceBundle.CacheKey getCacheKey() ;
+  }
+  private static final class LoaderReference extends java.lang.ref.WeakReference<java.lang.ClassLoader> implements java.util.ResourceBundle.CacheKeyReference {
+      LoaderReference(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.ref.ReferenceQueue a_r_g_u_m_e_n_t_1, java.util.ResourceBundle.CacheKey a_r_g_u_m_e_n_t_2){}
+    public native java.util.ResourceBundle.CacheKey getCacheKey() ;
+  }
+  private static abstract interface CacheKeyReference {
+    public abstract java.util.ResourceBundle.CacheKey getCacheKey() ;
+  }
+  private static final class CacheKey extends java.lang.Object implements java.lang.Cloneable {
+      CacheKey(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1, java.lang.ClassLoader a_r_g_u_m_e_n_t_2){}
+    public native int hashCode() ;
+    public native java.lang.Object clone() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native java.lang.String toString() ;
+    native java.lang.String getName() ;
+    native java.util.ResourceBundle.CacheKey setName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    native java.lang.ClassLoader getLoader() ;
+    native java.lang.String getFormat() ;
+    native java.util.ResourceBundle.CacheKey setLocale(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+    native java.util.Locale getLocale() ;
+    native void setFormat(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  }
+  private static class RBClassLoader extends java.lang.ClassLoader {
+    public native java.lang.Class<? extends java.lang.Object> loadClass(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.ClassNotFoundException;
+    public native java.io.InputStream getResourceAsStream(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native java.net.URL getResource(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  }
+}

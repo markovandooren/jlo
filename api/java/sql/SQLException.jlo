@@ -1,0 +1,16 @@
+package java.sql;
+public class SQLException extends java.lang.Exception implements java.lang.Iterable<java.lang.Throwable> {
+   public  SQLException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  SQLException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  SQLException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  SQLException(){}
+   public  SQLException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
+   public  SQLException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
+   public  SQLException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Throwable a_r_g_u_m_e_n_t_2){}
+   public  SQLException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.Throwable a_r_g_u_m_e_n_t_3){}
+  public native java.util.Iterator<java.lang.Throwable> iterator() ;
+  public native java.lang.String getSQLState() ;
+  public native int getErrorCode() ;
+  public native java.sql.SQLException getNextException() ;
+  public native void setNextException(java.sql.SQLException a_r_g_u_m_e_n_t_0) ;
+}

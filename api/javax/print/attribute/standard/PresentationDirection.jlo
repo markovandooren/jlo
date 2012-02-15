@@ -1,0 +1,15 @@
+package javax.print.attribute.standard;
+public final class PresentationDirection extends javax.print.attribute.EnumSyntax implements javax.print.attribute.PrintJobAttribute, javax.print.attribute.PrintRequestAttribute {
+  public final native java.lang.String getName() ;
+  public final native java.lang.Class<? extends javax.print.attribute.Attribute> getCategory() ;
+  protected native java.lang.String[] getStringTable() ;
+  protected native javax.print.attribute.EnumSyntax[] getEnumValueTable() ;
+  public static final javax.print.attribute.standard.PresentationDirection TOBOTTOM_TORIGHT;
+  public static final javax.print.attribute.standard.PresentationDirection TOBOTTOM_TOLEFT;
+  public static final javax.print.attribute.standard.PresentationDirection TOTOP_TORIGHT;
+  public static final javax.print.attribute.standard.PresentationDirection TOTOP_TOLEFT;
+  public static final javax.print.attribute.standard.PresentationDirection TORIGHT_TOBOTTOM;
+  public static final javax.print.attribute.standard.PresentationDirection TORIGHT_TOTOP;
+  public static final javax.print.attribute.standard.PresentationDirection TOLEFT_TOBOTTOM;
+  public static final javax.print.attribute.standard.PresentationDirection TOLEFT_TOTOP;
+}

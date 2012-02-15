@@ -1,0 +1,4 @@
+package java.lang.instrument;
+public abstract interface ClassFileTransformer {
+  public abstract byte[] transform(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_2, java.security.ProtectionDomain a_r_g_u_m_e_n_t_3, byte[] a_r_g_u_m_e_n_t_4)  throws java.lang.instrument.IllegalClassFormatException;
+}

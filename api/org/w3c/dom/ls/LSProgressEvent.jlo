@@ -1,0 +1,6 @@
+package org.w3c.dom.ls;
+public abstract interface LSProgressEvent extends org.w3c.dom.events.Event {
+  public abstract int getPosition() ;
+  public abstract org.w3c.dom.ls.LSInput getInput() ;
+  public abstract int getTotalSize() ;
+}

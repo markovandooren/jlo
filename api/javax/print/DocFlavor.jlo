@@ -1,0 +1,100 @@
+package javax.print;
+public class DocFlavor extends java.lang.Object implements java.io.Serializable, java.lang.Cloneable {
+   public  DocFlavor(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getParameter(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getMimeType() ;
+  public native java.lang.String getMediaType() ;
+  public native java.lang.String getMediaSubtype() ;
+  public native java.lang.String getRepresentationClassName() ;
+  public static final java.lang.String hostEncoding;
+  public static class SERVICE_FORMATTED extends javax.print.DocFlavor {
+     public  SERVICE_FORMATTED(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public static final javax.print.DocFlavor.SERVICE_FORMATTED RENDERABLE_IMAGE;
+    public static final javax.print.DocFlavor.SERVICE_FORMATTED PRINTABLE;
+    public static final javax.print.DocFlavor.SERVICE_FORMATTED PAGEABLE;
+  }
+  public static class READER extends javax.print.DocFlavor {
+     public  READER(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public static final javax.print.DocFlavor.READER TEXT_PLAIN;
+    public static final javax.print.DocFlavor.READER TEXT_HTML;
+  }
+  public static class STRING extends javax.print.DocFlavor {
+     public  STRING(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public static final javax.print.DocFlavor.STRING TEXT_PLAIN;
+    public static final javax.print.DocFlavor.STRING TEXT_HTML;
+  }
+  public static class CHAR_ARRAY extends javax.print.DocFlavor {
+     public  CHAR_ARRAY(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public static final javax.print.DocFlavor.CHAR_ARRAY TEXT_PLAIN;
+    public static final javax.print.DocFlavor.CHAR_ARRAY TEXT_HTML;
+  }
+  public static class URL extends javax.print.DocFlavor {
+     public  URL(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public static final javax.print.DocFlavor.URL TEXT_PLAIN_HOST;
+    public static final javax.print.DocFlavor.URL TEXT_PLAIN_UTF_8;
+    public static final javax.print.DocFlavor.URL TEXT_PLAIN_UTF_16;
+    public static final javax.print.DocFlavor.URL TEXT_PLAIN_UTF_16BE;
+    public static final javax.print.DocFlavor.URL TEXT_PLAIN_UTF_16LE;
+    public static final javax.print.DocFlavor.URL TEXT_PLAIN_US_ASCII;
+    public static final javax.print.DocFlavor.URL TEXT_HTML_HOST;
+    public static final javax.print.DocFlavor.URL TEXT_HTML_UTF_8;
+    public static final javax.print.DocFlavor.URL TEXT_HTML_UTF_16;
+    public static final javax.print.DocFlavor.URL TEXT_HTML_UTF_16BE;
+    public static final javax.print.DocFlavor.URL TEXT_HTML_UTF_16LE;
+    public static final javax.print.DocFlavor.URL TEXT_HTML_US_ASCII;
+    public static final javax.print.DocFlavor.URL PDF;
+    public static final javax.print.DocFlavor.URL POSTSCRIPT;
+    public static final javax.print.DocFlavor.URL PCL;
+    public static final javax.print.DocFlavor.URL GIF;
+    public static final javax.print.DocFlavor.URL JPEG;
+    public static final javax.print.DocFlavor.URL PNG;
+    public static final javax.print.DocFlavor.URL AUTOSENSE;
+  }
+  public static class INPUT_STREAM extends javax.print.DocFlavor {
+     public  INPUT_STREAM(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_PLAIN_HOST;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_PLAIN_UTF_8;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_PLAIN_UTF_16;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_PLAIN_UTF_16BE;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_PLAIN_UTF_16LE;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_PLAIN_US_ASCII;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_HTML_HOST;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_HTML_UTF_8;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_HTML_UTF_16;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_HTML_UTF_16BE;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_HTML_UTF_16LE;
+    public static final javax.print.DocFlavor.INPUT_STREAM TEXT_HTML_US_ASCII;
+    public static final javax.print.DocFlavor.INPUT_STREAM PDF;
+    public static final javax.print.DocFlavor.INPUT_STREAM POSTSCRIPT;
+    public static final javax.print.DocFlavor.INPUT_STREAM PCL;
+    public static final javax.print.DocFlavor.INPUT_STREAM GIF;
+    public static final javax.print.DocFlavor.INPUT_STREAM JPEG;
+    public static final javax.print.DocFlavor.INPUT_STREAM PNG;
+    public static final javax.print.DocFlavor.INPUT_STREAM AUTOSENSE;
+  }
+  public static class BYTE_ARRAY extends javax.print.DocFlavor {
+     public  BYTE_ARRAY(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_PLAIN_HOST;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_PLAIN_UTF_8;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_PLAIN_UTF_16;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_PLAIN_UTF_16BE;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_PLAIN_UTF_16LE;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_PLAIN_US_ASCII;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_HTML_HOST;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_HTML_UTF_8;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_HTML_UTF_16;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_HTML_UTF_16BE;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_HTML_UTF_16LE;
+    public static final javax.print.DocFlavor.BYTE_ARRAY TEXT_HTML_US_ASCII;
+    public static final javax.print.DocFlavor.BYTE_ARRAY PDF;
+    public static final javax.print.DocFlavor.BYTE_ARRAY POSTSCRIPT;
+    public static final javax.print.DocFlavor.BYTE_ARRAY PCL;
+    public static final javax.print.DocFlavor.BYTE_ARRAY GIF;
+    public static final javax.print.DocFlavor.BYTE_ARRAY JPEG;
+    public static final javax.print.DocFlavor.BYTE_ARRAY PNG;
+    public static final javax.print.DocFlavor.BYTE_ARRAY AUTOSENSE;
+  }
+}

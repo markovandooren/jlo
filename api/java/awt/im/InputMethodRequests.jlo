@@ -1,0 +1,10 @@
+package java.awt.im;
+public abstract interface InputMethodRequests {
+  public abstract java.text.AttributedCharacterIterator getSelectedText(java.text.AttributedCharacterIterator.Attribute[] a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.Rectangle getTextLocation(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.font.TextHitInfo getLocationOffset(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract int getInsertPositionOffset() ;
+  public abstract java.text.AttributedCharacterIterator getCommittedText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.text.AttributedCharacterIterator.Attribute[] a_r_g_u_m_e_n_t_2) ;
+  public abstract int getCommittedTextLength() ;
+  public abstract java.text.AttributedCharacterIterator cancelLatestCommittedText(java.text.AttributedCharacterIterator.Attribute[] a_r_g_u_m_e_n_t_0) ;
+}

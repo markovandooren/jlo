@@ -1,0 +1,24 @@
+package javax.swing;
+public abstract interface ButtonModel extends java.awt.ItemSelectable {
+  public abstract boolean isSelected() ;
+  public abstract boolean isEnabled() ;
+  public abstract void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract void setSelected(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract void setActionCommand(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getActionCommand() ;
+  public abstract int getMnemonic() ;
+  public abstract void setMnemonic(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void addActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void addItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void setArmed(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract void setPressed(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isPressed() ;
+  public abstract void setRollover(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isRollover() ;
+  public abstract boolean isArmed() ;
+  public abstract void setGroup(javax.swing.ButtonGroup a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,12 @@
+package java.util.concurrent.atomic;
+public class AtomicBoolean extends java.lang.Object implements java.io.Serializable {
+   public  AtomicBoolean(boolean a_r_g_u_m_e_n_t_0){}
+   public  AtomicBoolean(){}
+  public final native boolean get() ;
+  public native java.lang.String toString() ;
+  public final native void set(boolean a_r_g_u_m_e_n_t_0) ;
+  public final native void lazySet(boolean a_r_g_u_m_e_n_t_0) ;
+  public final native boolean getAndSet(boolean a_r_g_u_m_e_n_t_0) ;
+  public final native boolean compareAndSet(boolean a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native boolean weakCompareAndSet(boolean a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+}

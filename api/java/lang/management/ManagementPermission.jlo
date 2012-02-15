@@ -1,0 +1,5 @@
+package java.lang.management;
+public final class ManagementPermission extends java.security.BasicPermission {
+   public  ManagementPermission(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  ManagementPermission(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) throws java.lang.IllegalArgumentException{}
+}

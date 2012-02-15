@@ -1,0 +1,20 @@
+package java.awt.event;
+public class ActionEvent extends java.awt.AWTEvent {
+   public  ActionEvent(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+   public  ActionEvent(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  ActionEvent(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, long a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+  public native int getModifiers() ;
+  public native java.lang.String paramString() ;
+  public native long getWhen() ;
+  public native java.lang.String getActionCommand() ;
+  public static final int SHIFT_MASK;
+  public static final int CTRL_MASK;
+  public static final int META_MASK;
+  public static final int ALT_MASK;
+  public static final int ACTION_FIRST;
+  public static final int ACTION_LAST;
+  public static final int ACTION_PERFORMED;
+  java.lang.String actionCommand;
+  long when;
+  int modifiers;
+}

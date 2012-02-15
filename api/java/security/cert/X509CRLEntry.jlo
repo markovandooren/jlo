@@ -1,0 +1,12 @@
+package java.security.cert;
+public abstract class X509CRLEntry extends java.lang.Object implements java.security.cert.X509Extension {
+   public  X509CRLEntry(){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String toString() ;
+  public abstract byte[] getEncoded()  throws java.security.cert.CRLException;
+  public abstract java.math.BigInteger getSerialNumber() ;
+  public native javax.security.auth.x500.X500Principal getCertificateIssuer() ;
+  public abstract java.util.Date getRevocationDate() ;
+  public abstract boolean hasExtensions() ;
+}

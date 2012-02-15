@@ -1,0 +1,6 @@
+package java.awt;
+public abstract interface ItemSelectable {
+  public abstract void addItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Object[] getSelectedObjects() ;
+}

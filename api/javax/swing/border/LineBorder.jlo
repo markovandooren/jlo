@@ -1,0 +1,18 @@
+package javax.swing.border;
+public class LineBorder extends javax.swing.border.AbstractBorder {
+   public  LineBorder(java.awt.Color a_r_g_u_m_e_n_t_0){}
+   public  LineBorder(java.awt.Color a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  LineBorder(java.awt.Color a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+  public native void paintBorder(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public native java.awt.Insets getBorderInsets(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Insets getBorderInsets(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Insets a_r_g_u_m_e_n_t_1) ;
+  public native boolean isBorderOpaque() ;
+  public static native javax.swing.border.Border createBlackLineBorder() ;
+  public static native javax.swing.border.Border createGrayLineBorder() ;
+  public native java.awt.Color getLineColor() ;
+  public native int getThickness() ;
+  public native boolean getRoundedCorners() ;
+  protected int thickness;
+  protected java.awt.Color lineColor;
+  protected boolean roundedCorners;
+}

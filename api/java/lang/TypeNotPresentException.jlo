@@ -1,0 +1,5 @@
+package java.lang;
+public class TypeNotPresentException extends java.lang.RuntimeException {
+   public  TypeNotPresentException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
+  public native java.lang.String typeName() ;
+}

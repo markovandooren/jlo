@@ -1,0 +1,71 @@
+package java.awt.geom;
+public abstract class Rectangle2D extends java.awt.geom.RectangularShape {
+   protected  Rectangle2D(){}
+  public native void add(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void add(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public native void add(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0) ;
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native boolean contains(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native boolean intersects(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public static native void union(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_1, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.geom.Rectangle2D getBounds2D() ;
+  public native void setRect(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public abstract void setRect(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native int outcode(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0) ;
+  public abstract int outcode(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public abstract java.awt.geom.Rectangle2D createIntersection(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.geom.Rectangle2D createUnion(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+  public static native void intersect(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_1, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.geom.PathIterator getPathIterator(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.geom.PathIterator getPathIterator(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native boolean intersectsLine(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public native boolean intersectsLine(java.awt.geom.Line2D a_r_g_u_m_e_n_t_0) ;
+  public native void setFrame(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+  public static final int OUT_LEFT;
+  public static final int OUT_TOP;
+  public static final int OUT_RIGHT;
+  public static final int OUT_BOTTOM;
+  public static class Double extends java.awt.geom.Rectangle2D implements java.io.Serializable {
+     public  Double(){}
+     public  Double(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3){}
+    public native java.lang.String toString() ;
+    public native boolean isEmpty() ;
+    public native double getY() ;
+    public native double getX() ;
+    public native double getWidth() ;
+    public native double getHeight() ;
+    public native java.awt.geom.Rectangle2D getBounds2D() ;
+    public native void setRect(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+    public native void setRect(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+    public native int outcode(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+    public native java.awt.geom.Rectangle2D createIntersection(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.geom.Rectangle2D createUnion(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+    public double x;
+    public double y;
+    public double width;
+    public double height;
+  }
+  public static class Float extends java.awt.geom.Rectangle2D implements java.io.Serializable {
+     public  Float(){}
+     public  Float(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3){}
+    public native java.lang.String toString() ;
+    public native boolean isEmpty() ;
+    public native double getY() ;
+    public native double getX() ;
+    public native double getWidth() ;
+    public native double getHeight() ;
+    public native java.awt.geom.Rectangle2D getBounds2D() ;
+    public native void setRect(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+    public native void setRect(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, double a_r_g_u_m_e_n_t_2, double a_r_g_u_m_e_n_t_3) ;
+    public native void setRect(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3) ;
+    public native int outcode(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+    public native java.awt.geom.Rectangle2D createIntersection(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.geom.Rectangle2D createUnion(java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_0) ;
+    public float x;
+    public float y;
+    public float width;
+    public float height;
+  }
+}

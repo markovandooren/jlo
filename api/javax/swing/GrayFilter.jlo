@@ -1,0 +1,6 @@
+package javax.swing;
+public class GrayFilter extends java.awt.image.RGBImageFilter {
+   public  GrayFilter(boolean a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public static native java.awt.Image createDisabledImage(java.awt.Image a_r_g_u_m_e_n_t_0) ;
+  public native int filterRGB(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+}

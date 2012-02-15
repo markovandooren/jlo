@@ -1,0 +1,15 @@
+package java.awt.image.renderable;
+public abstract interface RenderableImage {
+  public abstract java.lang.Object getProperty(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract float getWidth() ;
+  public abstract float getHeight() ;
+  public abstract float getMinX() ;
+  public abstract float getMinY() ;
+  public abstract java.util.Vector<java.awt.image.renderable.RenderableImage> getSources() ;
+  public abstract java.lang.String[] getPropertyNames() ;
+  public abstract boolean isDynamic() ;
+  public abstract java.awt.image.RenderedImage createScaledRendering(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.awt.RenderingHints a_r_g_u_m_e_n_t_2) ;
+  public abstract java.awt.image.RenderedImage createDefaultRendering() ;
+  public abstract java.awt.image.RenderedImage createRendering(java.awt.image.renderable.RenderContext a_r_g_u_m_e_n_t_0) ;
+  public static final java.lang.String HINTS_OBSERVED;
+}

@@ -1,0 +1,6 @@
+package javax.sql.rowset;
+public abstract interface Predicate {
+  public abstract boolean evaluate(javax.sql.RowSet a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean evaluate(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract boolean evaluate(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+}

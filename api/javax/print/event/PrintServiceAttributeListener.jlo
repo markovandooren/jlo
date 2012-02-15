@@ -1,0 +1,4 @@
+package javax.print.event;
+public abstract interface PrintServiceAttributeListener {
+  public abstract void attributeUpdate(javax.print.event.PrintServiceAttributeEvent a_r_g_u_m_e_n_t_0) ;
+}

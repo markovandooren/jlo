@@ -1,0 +1,5 @@
+package javax.crypto.interfaces;
+public abstract interface DHPublicKey extends javax.crypto.interfaces.DHKey, java.security.PublicKey {
+  public abstract java.math.BigInteger getY() ;
+  public static final long serialVersionUID;
+}

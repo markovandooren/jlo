@@ -1,0 +1,27 @@
+package java.net;
+public final class DatagramPacket extends java.lang.Object {
+   public  DatagramPacket(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  DatagramPacket(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  DatagramPacket(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.net.InetAddress a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+   public  DatagramPacket(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.net.SocketAddress a_r_g_u_m_e_n_t_3) throws java.net.SocketException{}
+   public  DatagramPacket(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.net.InetAddress a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  DatagramPacket(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.net.SocketAddress a_r_g_u_m_e_n_t_2) throws java.net.SocketException{}
+  public synchronized native int getLength() ;
+  public synchronized native java.net.InetAddress getAddress() ;
+  public synchronized native void setLength(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int getOffset() ;
+  public synchronized native int getPort() ;
+  public synchronized native byte[] getData() ;
+  public synchronized native void setData(byte[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setData(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public synchronized native void setAddress(java.net.InetAddress a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setPort(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setSocketAddress(java.net.SocketAddress a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.net.SocketAddress getSocketAddress() ;
+  byte[] buf;
+  int offset;
+  int length;
+  int bufLength;
+  java.net.InetAddress address;
+  int port;
+}

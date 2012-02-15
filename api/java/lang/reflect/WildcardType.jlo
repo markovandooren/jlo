@@ -1,0 +1,5 @@
+package java.lang.reflect;
+public abstract interface WildcardType extends java.lang.reflect.Type {
+  public abstract java.lang.reflect.Type[] getLowerBounds() ;
+  public abstract java.lang.reflect.Type[] getUpperBounds() ;
+}

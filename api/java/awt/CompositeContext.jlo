@@ -1,0 +1,5 @@
+package java.awt;
+public abstract interface CompositeContext {
+  public abstract void compose(java.awt.image.Raster a_r_g_u_m_e_n_t_0, java.awt.image.Raster a_r_g_u_m_e_n_t_1, java.awt.image.WritableRaster a_r_g_u_m_e_n_t_2) ;
+  public abstract void dispose() ;
+}

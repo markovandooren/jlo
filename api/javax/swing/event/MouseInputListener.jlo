@@ -1,0 +1,3 @@
+package javax.swing.event;
+public abstract interface MouseInputListener extends java.awt.event.MouseListener, java.awt.event.MouseMotionListener {
+}

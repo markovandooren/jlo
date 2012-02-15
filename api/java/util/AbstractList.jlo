@@ -1,0 +1,41 @@
+package java.util;
+public abstract class AbstractList<E extends java.lang.Object> extends java.util.AbstractCollection<E> implements java.util.List<E> {
+   protected  AbstractList(){}
+  public native void add(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public native boolean add(E a_r_g_u_m_e_n_t_0) ;
+  public abstract E get(int a_r_g_u_m_e_n_t_0) ;
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int indexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native int lastIndexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean addAll(int a_r_g_u_m_e_n_t_0, java.util.Collection<? extends E> a_r_g_u_m_e_n_t_1) ;
+  public native java.util.Iterator<E> iterator() ;
+  public native E set(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public native E remove(int a_r_g_u_m_e_n_t_0) ;
+  public native java.util.List<E> subList(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  protected native void removeRange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.util.ListIterator<E> listIterator(int a_r_g_u_m_e_n_t_0) ;
+  public native java.util.ListIterator<E> listIterator() ;
+  protected transient int modCount;
+  private class ListItr extends java.util.AbstractList.Itr implements java.util.ListIterator<E> {
+      ListItr(java.util.AbstractList a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    public native void add(E a_r_g_u_m_e_n_t_0) ;
+    public native void set(E a_r_g_u_m_e_n_t_0) ;
+    public native int previousIndex() ;
+    public native boolean hasPrevious() ;
+    public native E previous() ;
+    public native int nextIndex() ;
+    final java.util.AbstractList this$0;
+  }
+  private class Itr extends java.lang.Object implements java.util.Iterator<E> {
+    public native boolean hasNext() ;
+    public native E next() ;
+    public native void remove() ;
+    final native void checkForComodification() ;
+    int cursor;
+    int lastRet;
+    int expectedModCount;
+    final java.util.AbstractList this$0;
+  }
+}

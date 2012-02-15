@@ -1,0 +1,10 @@
+package org.w3c.dom;
+public abstract interface TypeInfo {
+  public abstract java.lang.String getTypeName() ;
+  public abstract java.lang.String getTypeNamespace() ;
+  public abstract boolean isDerivedFrom(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public static final int DERIVATION_RESTRICTION;
+  public static final int DERIVATION_EXTENSION;
+  public static final int DERIVATION_UNION;
+  public static final int DERIVATION_LIST;
+}

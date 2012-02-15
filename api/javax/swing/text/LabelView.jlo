@@ -1,0 +1,20 @@
+package javax.swing.text;
+public class LabelView extends javax.swing.text.GlyphView implements javax.swing.text.TabableView {
+   public  LabelView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+  final native void sync() ;
+  protected native java.awt.FontMetrics getFontMetrics() ;
+  protected native void setBackground(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Color getForeground() ;
+  public native java.awt.Font getFont() ;
+  public native java.awt.Color getBackground() ;
+  public native void changedUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+  public native boolean isUnderline() ;
+  public native boolean isStrikeThrough() ;
+  public native boolean isSuperscript() ;
+  public native boolean isSubscript() ;
+  protected native void setUnderline(boolean a_r_g_u_m_e_n_t_0) ;
+  protected native void setStrikeThrough(boolean a_r_g_u_m_e_n_t_0) ;
+  protected native void setSuperscript(boolean a_r_g_u_m_e_n_t_0) ;
+  protected native void setSubscript(boolean a_r_g_u_m_e_n_t_0) ;
+  protected native void setPropertiesFromAttributes() ;
+}

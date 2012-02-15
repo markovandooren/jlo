@@ -1,0 +1,9 @@
+package javax.accessibility;
+public abstract class AccessibleBundle extends java.lang.Object {
+   public  AccessibleBundle(){}
+  public native java.lang.String toString() ;
+  protected native java.lang.String toDisplayString(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String toDisplayString(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toDisplayString() ;
+  protected java.lang.String key;
+}

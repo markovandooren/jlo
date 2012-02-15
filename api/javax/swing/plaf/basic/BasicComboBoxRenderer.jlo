@@ -1,0 +1,10 @@
+package javax.swing.plaf.basic;
+public class BasicComboBoxRenderer extends javax.swing.JLabel implements javax.swing.ListCellRenderer, java.io.Serializable {
+   public  BasicComboBoxRenderer(){}
+  public native java.awt.Dimension getPreferredSize() ;
+  public native java.awt.Component getListCellRendererComponent(javax.swing.JList a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+  protected static javax.swing.border.Border noFocusBorder;
+  public static class UIResource extends javax.swing.plaf.basic.BasicComboBoxRenderer implements javax.swing.plaf.UIResource {
+     public  UIResource(){}
+  }
+}

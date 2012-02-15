@@ -1,0 +1,93 @@
+package java.io;
+public class ObjectStreamClass extends java.lang.Object implements java.io.Serializable {
+    ObjectStreamClass(){}
+  public native java.lang.String toString() ;
+  public native java.lang.String getName() ;
+  native java.lang.Object newInstance()  throws java.lang.InstantiationException, java.lang.reflect.InvocationTargetException, java.lang.UnsupportedOperationException;
+  native java.io.ObjectStreamField[] getFields(boolean a_r_g_u_m_e_n_t_0) ;
+  public native java.io.ObjectStreamField[] getFields() ;
+  public native java.io.ObjectStreamField getField(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  native java.io.ObjectStreamField getField(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Class a_r_g_u_m_e_n_t_1) ;
+  native boolean isEnum() ;
+  static native java.lang.String getClassSignature(java.lang.Class a_r_g_u_m_e_n_t_0) ;
+  static native void processQueue(java.lang.ref.ReferenceQueue<java.lang.Class<? extends java.lang.Object>> a_r_g_u_m_e_n_t_0, java.util.concurrent.ConcurrentMap<? extends java.lang.ref.WeakReference<java.lang.Class<? extends java.lang.Object>>,? extends java.lang.Object> a_r_g_u_m_e_n_t_1) ;
+  public static native java.io.ObjectStreamClass lookup(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  static native java.io.ObjectStreamClass lookup(java.lang.Class a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  native boolean isProxy() ;
+  native boolean hasWriteObjectData() ;
+  native boolean hasBlockExternalData() ;
+  public static native java.io.ObjectStreamClass lookupAny(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public native long getSerialVersionUID() ;
+  public native java.lang.Class<? extends java.lang.Object> forClass() ;
+  native void initProxy(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.ClassNotFoundException a_r_g_u_m_e_n_t_1, java.io.ObjectStreamClass a_r_g_u_m_e_n_t_2)  throws java.io.InvalidClassException;
+  native void initNonProxy(java.io.ObjectStreamClass a_r_g_u_m_e_n_t_0, java.lang.Class a_r_g_u_m_e_n_t_1, java.lang.ClassNotFoundException a_r_g_u_m_e_n_t_2, java.io.ObjectStreamClass a_r_g_u_m_e_n_t_3)  throws java.io.InvalidClassException;
+  native void readNonProxy(java.io.ObjectInputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.lang.ClassNotFoundException;
+  native void writeNonProxy(java.io.ObjectOutputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  native java.lang.ClassNotFoundException getResolveException() ;
+  native void checkDeserialize()  throws java.io.InvalidClassException;
+  native void checkSerialize()  throws java.io.InvalidClassException;
+  native void checkDefaultSerialize()  throws java.io.InvalidClassException;
+  native java.io.ObjectStreamClass getSuperDesc() ;
+  native java.io.ObjectStreamClass getLocalDesc() ;
+  native boolean isExternalizable() ;
+  native boolean isSerializable() ;
+  native boolean isInstantiable() ;
+  native boolean hasWriteObjectMethod() ;
+  native boolean hasReadObjectMethod() ;
+  native boolean hasReadObjectNoDataMethod() ;
+  native boolean hasWriteReplaceMethod() ;
+  native boolean hasReadResolveMethod() ;
+  native void invokeWriteObject(java.lang.Object a_r_g_u_m_e_n_t_0, java.io.ObjectOutputStream a_r_g_u_m_e_n_t_1)  throws java.io.IOException, java.lang.UnsupportedOperationException;
+  native void invokeReadObject(java.lang.Object a_r_g_u_m_e_n_t_0, java.io.ObjectInputStream a_r_g_u_m_e_n_t_1)  throws java.lang.ClassNotFoundException, java.io.IOException, java.lang.UnsupportedOperationException;
+  native void invokeReadObjectNoData(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.lang.UnsupportedOperationException;
+  native java.lang.Object invokeWriteReplace(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.lang.UnsupportedOperationException;
+  native java.lang.Object invokeReadResolve(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.lang.UnsupportedOperationException;
+  native java.io.ObjectStreamClass.ClassDataSlot[] getClassDataLayout()  throws java.io.InvalidClassException;
+  native int getPrimDataSize() ;
+  native int getNumObjFields() ;
+  native void getPrimFieldValues(java.lang.Object a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1) ;
+  native void setPrimFieldValues(java.lang.Object a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1) ;
+  native void getObjFieldValues(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1) ;
+  native void setObjFieldValues(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1) ;
+  public static final java.io.ObjectStreamField[] NO_FIELDS;
+  static class WeakClassKey extends java.lang.ref.WeakReference<java.lang.Class<? extends java.lang.Object>> {
+      WeakClassKey(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, java.lang.ref.ReferenceQueue<java.lang.Class<? extends java.lang.Object>> a_r_g_u_m_e_n_t_1){}
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  }
+  private static class FieldReflectorKey extends java.lang.ref.WeakReference<java.lang.Class<? extends java.lang.Object>> {
+      FieldReflectorKey(java.lang.Class a_r_g_u_m_e_n_t_0, java.io.ObjectStreamField[] a_r_g_u_m_e_n_t_1, java.lang.ref.ReferenceQueue<java.lang.Class<? extends java.lang.Object>> a_r_g_u_m_e_n_t_2){}
+    public native int hashCode() ;
+    public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  }
+  private static class FieldReflector extends java.lang.Object {
+      FieldReflector(java.io.ObjectStreamField[] a_r_g_u_m_e_n_t_0){}
+    native java.io.ObjectStreamField[] getFields() ;
+    native void getPrimFieldValues(java.lang.Object a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1) ;
+    native void setPrimFieldValues(java.lang.Object a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1) ;
+    native void getObjFieldValues(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1) ;
+    native void setObjFieldValues(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1) ;
+  }
+  private static class MemberSignature extends java.lang.Object {
+     public  MemberSignature(java.lang.reflect.Field a_r_g_u_m_e_n_t_0){}
+     public  MemberSignature(java.lang.reflect.Constructor a_r_g_u_m_e_n_t_0){}
+     public  MemberSignature(java.lang.reflect.Method a_r_g_u_m_e_n_t_0){}
+    public final java.lang.reflect.Member member;
+    public final java.lang.String name;
+    public final java.lang.String signature;
+  }
+  static class ClassDataSlot extends java.lang.Object {
+      ClassDataSlot(java.io.ObjectStreamClass a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+    final java.io.ObjectStreamClass desc;
+    final boolean hasData;
+  }
+  private static class EntryFuture extends java.lang.Object {
+    synchronized native java.lang.Object get() ;
+    synchronized native boolean set(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    native java.lang.Thread getOwner() ;
+  }
+  private static class Caches extends java.lang.Object {
+    static final java.util.concurrent.ConcurrentMap<java.io.ObjectStreamClass.WeakClassKey,java.lang.ref.Reference<? extends java.lang.Object>> localDescs;
+    static final java.util.concurrent.ConcurrentMap<java.io.ObjectStreamClass.FieldReflectorKey,java.lang.ref.Reference<? extends java.lang.Object>> reflectors;
+  }
+}

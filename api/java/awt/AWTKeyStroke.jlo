@@ -1,0 +1,25 @@
+package java.awt;
+public class AWTKeyStroke extends java.lang.Object implements java.io.Serializable {
+   protected  AWTKeyStroke(){}
+   protected  AWTKeyStroke(char a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3){}
+  public native int hashCode() ;
+  public final native int getModifiers() ;
+  public final native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  protected native java.lang.Object readResolve()  throws java.io.ObjectStreamException;
+  public final native char getKeyChar() ;
+  public final native int getKeyCode() ;
+  protected static native void registerSubclass(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.AWTKeyStroke getAWTKeyStroke(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.AWTKeyStroke getAWTKeyStroke(java.lang.Character a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public static native java.awt.AWTKeyStroke getAWTKeyStroke(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.AWTKeyStroke getAWTKeyStroke(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public static native java.awt.AWTKeyStroke getAWTKeyStroke(char a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.AWTKeyStroke getAWTKeyStrokeForEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+  public final native boolean isOnKeyRelease() ;
+  public final native int getKeyEventType() ;
+  static native java.lang.String getModifiersText(int a_r_g_u_m_e_n_t_0) ;
+  static native java.lang.String getVKText(int a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+  static final boolean $assertionsDisabled;
+}

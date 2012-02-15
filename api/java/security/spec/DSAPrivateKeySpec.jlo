@@ -1,0 +1,8 @@
+package java.security.spec;
+public class DSAPrivateKeySpec extends java.lang.Object implements java.security.spec.KeySpec {
+   public  DSAPrivateKeySpec(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1, java.math.BigInteger a_r_g_u_m_e_n_t_2, java.math.BigInteger a_r_g_u_m_e_n_t_3){}
+  public native java.math.BigInteger getP() ;
+  public native java.math.BigInteger getQ() ;
+  public native java.math.BigInteger getG() ;
+  public native java.math.BigInteger getX() ;
+}

@@ -1,0 +1,5 @@
+package javax.management;
+public class MalformedObjectNameException extends javax.management.OperationsException {
+   public  MalformedObjectNameException(){}
+   public  MalformedObjectNameException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

@@ -1,0 +1,5 @@
+package javax.imageio;
+public abstract interface ImageTranscoder {
+  public abstract javax.imageio.metadata.IIOMetadata convertStreamMetadata(javax.imageio.metadata.IIOMetadata a_r_g_u_m_e_n_t_0, javax.imageio.ImageWriteParam a_r_g_u_m_e_n_t_1) ;
+  public abstract javax.imageio.metadata.IIOMetadata convertImageMetadata(javax.imageio.metadata.IIOMetadata a_r_g_u_m_e_n_t_0, javax.imageio.ImageTypeSpecifier a_r_g_u_m_e_n_t_1, javax.imageio.ImageWriteParam a_r_g_u_m_e_n_t_2) ;
+}

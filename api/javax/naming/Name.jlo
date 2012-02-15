@@ -1,0 +1,19 @@
+package javax.naming;
+public abstract interface Name extends java.lang.Cloneable, java.io.Serializable, java.lang.Comparable<java.lang.Object> {
+  public abstract javax.naming.Name add(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.naming.InvalidNameException;
+  public abstract javax.naming.Name add(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.naming.InvalidNameException;
+  public abstract java.lang.String get(int a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Object clone() ;
+  public abstract int compareTo(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isEmpty() ;
+  public abstract boolean startsWith(javax.naming.Name a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean endsWith(javax.naming.Name a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.naming.Name addAll(javax.naming.Name a_r_g_u_m_e_n_t_0)  throws javax.naming.InvalidNameException;
+  public abstract javax.naming.Name addAll(int a_r_g_u_m_e_n_t_0, javax.naming.Name a_r_g_u_m_e_n_t_1)  throws javax.naming.InvalidNameException;
+  public abstract int size() ;
+  public abstract java.lang.Object remove(int a_r_g_u_m_e_n_t_0)  throws javax.naming.InvalidNameException;
+  public abstract javax.naming.Name getPrefix(int a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.naming.Name getSuffix(int a_r_g_u_m_e_n_t_0) ;
+  public abstract java.util.Enumeration<java.lang.String> getAll() ;
+  public static final long serialVersionUID;
+}

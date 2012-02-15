@@ -1,0 +1,4 @@
+package javax.crypto.interfaces;
+public abstract interface DHKey {
+  public abstract javax.crypto.spec.DHParameterSpec getParams() ;
+}

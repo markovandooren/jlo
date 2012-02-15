@@ -1,0 +1,12 @@
+package javax.swing.plaf.synth;
+public class ColorType extends java.lang.Object {
+   protected  ColorType(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String toString() ;
+  public final native int getID() ;
+  public static final javax.swing.plaf.synth.ColorType FOREGROUND;
+  public static final javax.swing.plaf.synth.ColorType BACKGROUND;
+  public static final javax.swing.plaf.synth.ColorType TEXT_FOREGROUND;
+  public static final javax.swing.plaf.synth.ColorType TEXT_BACKGROUND;
+  public static final javax.swing.plaf.synth.ColorType FOCUS;
+  public static final int MAX_COUNT;
+}

@@ -1,0 +1,8 @@
+package java.security.cert;
+public class PKIXBuilderParameters extends java.security.cert.PKIXParameters {
+   public  PKIXBuilderParameters(java.util.Set<java.security.cert.TrustAnchor> a_r_g_u_m_e_n_t_0, java.security.cert.CertSelector a_r_g_u_m_e_n_t_1) throws java.security.InvalidAlgorithmParameterException{}
+   public  PKIXBuilderParameters(java.security.KeyStore a_r_g_u_m_e_n_t_0, java.security.cert.CertSelector a_r_g_u_m_e_n_t_1) throws java.security.KeyStoreException, java.security.InvalidAlgorithmParameterException{}
+  public native java.lang.String toString() ;
+  public native void setMaxPathLength(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMaxPathLength() ;
+}

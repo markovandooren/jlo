@@ -1,0 +1,5 @@
+package javax.management.relation;
+public class InvalidRoleInfoException extends javax.management.relation.RelationException {
+   public  InvalidRoleInfoException(){}
+   public  InvalidRoleInfoException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

@@ -1,0 +1,41 @@
+package java.awt;
+public class TextField extends java.awt.TextComponent {
+   public  TextField(int a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+   public  TextField() throws java.awt.HeadlessException{}
+   public  TextField(java.lang.String a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+   public  TextField(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws java.awt.HeadlessException{}
+  public native void setText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getPreferredSize() ;
+  public native java.awt.Dimension getPreferredSize(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMinimumSize() ;
+  public native java.awt.Dimension getMinimumSize(int a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native <T extends java.util.EventListener>T[] getListeners(java.lang.Class<T> a_r_g_u_m_e_n_t_0) ;
+  public native void addNotify() ;
+  protected native java.lang.String paramString() ;
+  public native java.awt.Dimension preferredSize(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension preferredSize() ;
+  public native java.awt.Dimension minimumSize(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension minimumSize() ;
+  native boolean eventEnabled(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  protected native void processEvent(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+  native java.lang.String constructComponentName() ;
+  public synchronized native void addActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removeActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native java.awt.event.ActionListener[] getActionListeners() ;
+  public native int getColumns() ;
+  public synchronized native void setColumns(int a_r_g_u_m_e_n_t_0) ;
+  public native char getEchoChar() ;
+  protected native void processActionEvent(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  public native void setEchoChar(char a_r_g_u_m_e_n_t_0) ;
+  public native boolean echoCharIsSet() ;
+  public synchronized native void setEchoCharacter(char a_r_g_u_m_e_n_t_0) ;
+  int columns;
+  char echoChar;
+  transient java.awt.event.ActionListener actionListener;
+  protected class AccessibleAWTTextField extends java.awt.TextComponent.AccessibleAWTTextComponent {
+     protected  AccessibleAWTTextField(java.awt.TextField a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    final java.awt.TextField this$0;
+  }
+}

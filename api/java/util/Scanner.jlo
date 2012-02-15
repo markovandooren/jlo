@@ -1,0 +1,66 @@
+package java.util;
+public final class Scanner extends java.lang.Object implements java.util.Iterator<java.lang.String> {
+   public  Scanner(java.nio.channels.ReadableByteChannel a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  Scanner(java.lang.Readable a_r_g_u_m_e_n_t_0){}
+   public  Scanner(java.io.InputStream a_r_g_u_m_e_n_t_0){}
+   public  Scanner(java.io.InputStream a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  Scanner(java.io.File a_r_g_u_m_e_n_t_0) throws java.io.FileNotFoundException{}
+   public  Scanner(java.io.File a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) throws java.io.FileNotFoundException{}
+   public  Scanner(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  Scanner(java.nio.channels.ReadableByteChannel a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String toString() ;
+  public native boolean hasNext() ;
+  public native boolean hasNext(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native boolean hasNext(java.util.regex.Pattern a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String next(java.util.regex.Pattern a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String next() ;
+  public native java.lang.String next(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void remove() ;
+  public native void close() ;
+  public native java.util.Scanner reset() ;
+  public native int nextInt(int a_r_g_u_m_e_n_t_0) ;
+  public native int nextInt() ;
+  public native double nextDouble() ;
+  public native long nextLong() ;
+  public native long nextLong(int a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Scanner skip(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Scanner skip(java.util.regex.Pattern a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Locale locale() ;
+  public native java.util.regex.MatchResult match() ;
+  public native boolean nextBoolean() ;
+  public native float nextFloat() ;
+  public native java.io.IOException ioException() ;
+  public native int radix() ;
+  public native java.util.regex.Pattern delimiter() ;
+  public native java.util.Scanner useDelimiter(java.util.regex.Pattern a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Scanner useDelimiter(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Scanner useLocale(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Scanner useRadix(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean hasNextLine() ;
+  public native java.lang.String nextLine() ;
+  public native java.lang.String findInLine(java.util.regex.Pattern a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String findInLine(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String findWithinHorizon(java.util.regex.Pattern a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String findWithinHorizon(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native boolean hasNextBoolean() ;
+  public native boolean hasNextByte(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean hasNextByte() ;
+  public native byte nextByte(int a_r_g_u_m_e_n_t_0) ;
+  public native byte nextByte() ;
+  public native boolean hasNextShort() ;
+  public native boolean hasNextShort(int a_r_g_u_m_e_n_t_0) ;
+  public native short nextShort(int a_r_g_u_m_e_n_t_0) ;
+  public native short nextShort() ;
+  public native boolean hasNextInt() ;
+  public native boolean hasNextInt(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean hasNextLong() ;
+  public native boolean hasNextLong(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean hasNextFloat() ;
+  public native boolean hasNextDouble() ;
+  public native boolean hasNextBigInteger() ;
+  public native boolean hasNextBigInteger(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger nextBigInteger(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigInteger nextBigInteger() ;
+  public native boolean hasNextBigDecimal() ;
+  public native java.math.BigDecimal nextBigDecimal() ;
+}

@@ -1,0 +1,20 @@
+package java.beans;
+public class PropertyEditorSupport extends java.lang.Object implements java.beans.PropertyEditor {
+   public  PropertyEditorSupport(java.lang.Object a_r_g_u_m_e_n_t_0){}
+   public  PropertyEditorSupport(){}
+  public native java.lang.Object getValue() ;
+  public native void setValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void firePropertyChange() ;
+  public synchronized native void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getSource() ;
+  public native void setSource(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean isPaintable() ;
+  public native void paintValue(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String getJavaInitializationString() ;
+  public native java.lang.String getAsText() ;
+  public native void setAsText(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public native java.lang.String[] getTags() ;
+  public native java.awt.Component getCustomEditor() ;
+  public native boolean supportsCustomEditor() ;
+}

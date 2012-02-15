@@ -1,0 +1,12 @@
+package java.lang;
+public final class StackTraceElement extends java.lang.Object implements java.io.Serializable {
+   public  StackTraceElement(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getFileName() ;
+  public native int getLineNumber() ;
+  public native java.lang.String getClassName() ;
+  public native java.lang.String getMethodName() ;
+  public native boolean isNativeMethod() ;
+}

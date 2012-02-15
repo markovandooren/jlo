@@ -1,0 +1,32 @@
+package javax.swing.plaf.basic;
+public abstract class BasicLookAndFeel extends javax.swing.LookAndFeel implements java.io.Serializable {
+   public  BasicLookAndFeel(){}
+  public native void initialize() ;
+  public native javax.swing.UIDefaults getDefaults() ;
+  protected native void loadSystemColors(javax.swing.UIDefaults a_r_g_u_m_e_n_t_0, java.lang.String[] a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  static native java.lang.Object getUIOfType(javax.swing.plaf.ComponentUI a_r_g_u_m_e_n_t_0, java.lang.Class a_r_g_u_m_e_n_t_1) ;
+  static native void installAudioActionMap(javax.swing.ActionMap a_r_g_u_m_e_n_t_0) ;
+  protected native void playSound(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  static native void playSound(javax.swing.JComponent a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native void uninitialize() ;
+  protected native javax.swing.ActionMap getAudioActionMap() ;
+  protected native void initComponentDefaults(javax.swing.UIDefaults a_r_g_u_m_e_n_t_0) ;
+  protected native void initSystemColorDefaults(javax.swing.UIDefaults a_r_g_u_m_e_n_t_0) ;
+  protected native void initClassDefaults(javax.swing.UIDefaults a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.Action createAudioAction(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native void installAWTEventListener() ;
+  static boolean needsEventHelper;
+  javax.swing.plaf.basic.BasicLookAndFeel.AWTEventHelper invocator;
+  class AWTEventHelper extends java.lang.Object implements java.awt.event.AWTEventListener, java.security.PrivilegedAction {
+      AWTEventHelper(javax.swing.plaf.basic.BasicLookAndFeel a_r_g_u_m_e_n_t_0){}
+    public native java.lang.Object run() ;
+    public native void eventDispatched(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicLookAndFeel this$0;
+  }
+  private class AudioAction extends javax.swing.AbstractAction implements javax.sound.sampled.LineListener {
+     public  AudioAction(javax.swing.plaf.basic.BasicLookAndFeel a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+    public native void update(javax.sound.sampled.LineEvent a_r_g_u_m_e_n_t_0) ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicLookAndFeel this$0;
+  }
+}

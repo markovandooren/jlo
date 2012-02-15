@@ -1,0 +1,21 @@
+package javax.net.ssl;
+public abstract class SSLServerSocket extends java.net.ServerSocket {
+   protected  SSLServerSocket() throws java.io.IOException{}
+   protected  SSLServerSocket(int a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   protected  SSLServerSocket(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws java.io.IOException{}
+   protected  SSLServerSocket(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.net.InetAddress a_r_g_u_m_e_n_t_2) throws java.io.IOException{}
+  public abstract java.lang.String[] getSupportedCipherSuites() ;
+  public abstract java.lang.String[] getEnabledCipherSuites() ;
+  public abstract void setEnabledCipherSuites(java.lang.String[] a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String[] getSupportedProtocols() ;
+  public abstract java.lang.String[] getEnabledProtocols() ;
+  public abstract void setEnabledProtocols(java.lang.String[] a_r_g_u_m_e_n_t_0) ;
+  public abstract void setUseClientMode(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getUseClientMode() ;
+  public abstract void setNeedClientAuth(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getNeedClientAuth() ;
+  public abstract void setWantClientAuth(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getWantClientAuth() ;
+  public abstract void setEnableSessionCreation(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getEnableSessionCreation() ;
+}

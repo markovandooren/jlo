@@ -1,0 +1,10 @@
+package java.awt.dnd;
+public abstract class DragSourceAdapter extends java.lang.Object implements java.awt.dnd.DragSourceListener, java.awt.dnd.DragSourceMotionListener {
+   public  DragSourceAdapter(){}
+  public native void dragEnter(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dragOver(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dropActionChanged(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dragExit(java.awt.dnd.DragSourceEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dragDropEnd(java.awt.dnd.DragSourceDropEvent a_r_g_u_m_e_n_t_0) ;
+  public native void dragMouseMoved(java.awt.dnd.DragSourceDragEvent a_r_g_u_m_e_n_t_0) ;
+}

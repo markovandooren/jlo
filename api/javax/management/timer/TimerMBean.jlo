@@ -1,0 +1,26 @@
+package javax.management.timer;
+public abstract interface TimerMBean {
+  public abstract boolean isEmpty() ;
+  public abstract void start() ;
+  public abstract void stop() ;
+  public abstract java.util.Date getDate(java.lang.Integer a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isActive() ;
+  public abstract java.lang.Integer addNotification(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, java.util.Date a_r_g_u_m_e_n_t_3)  throws java.lang.IllegalArgumentException;
+  public abstract java.lang.Integer addNotification(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, java.util.Date a_r_g_u_m_e_n_t_3, long a_r_g_u_m_e_n_t_4, long a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6)  throws java.lang.IllegalArgumentException;
+  public abstract java.lang.Integer addNotification(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, java.util.Date a_r_g_u_m_e_n_t_3, long a_r_g_u_m_e_n_t_4, long a_r_g_u_m_e_n_t_5)  throws java.lang.IllegalArgumentException;
+  public abstract java.lang.Integer addNotification(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, java.util.Date a_r_g_u_m_e_n_t_3, long a_r_g_u_m_e_n_t_4)  throws java.lang.IllegalArgumentException;
+  public abstract void removeNotification(java.lang.Integer a_r_g_u_m_e_n_t_0)  throws javax.management.InstanceNotFoundException;
+  public abstract void removeNotifications(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.InstanceNotFoundException;
+  public abstract void removeAllNotifications() ;
+  public abstract int getNbNotifications() ;
+  public abstract java.util.Vector<java.lang.Integer> getAllNotificationIDs() ;
+  public abstract java.util.Vector<java.lang.Integer> getNotificationIDs(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getNotificationType(java.lang.Integer a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getNotificationMessage(java.lang.Integer a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Object getNotificationUserData(java.lang.Integer a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Long getPeriod(java.lang.Integer a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Long getNbOccurences(java.lang.Integer a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.Boolean getFixedRate(java.lang.Integer a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean getSendPastNotifications() ;
+  public abstract void setSendPastNotifications(boolean a_r_g_u_m_e_n_t_0) ;
+}

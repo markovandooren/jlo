@@ -1,0 +1,15 @@
+package javax.xml.xpath;
+public abstract class XPathFactory extends java.lang.Object {
+   protected  XPathFactory(){}
+  public static final native javax.xml.xpath.XPathFactory newInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.xml.xpath.XPathFactoryConfigurationException;
+  public static native javax.xml.xpath.XPathFactory newInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.ClassLoader a_r_g_u_m_e_n_t_2)  throws javax.xml.xpath.XPathFactoryConfigurationException;
+  public static final native javax.xml.xpath.XPathFactory newInstance() ;
+  public abstract boolean getFeature(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.xml.xpath.XPathFactoryConfigurationException;
+  public abstract void setFeature(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws javax.xml.xpath.XPathFactoryConfigurationException;
+  public abstract void setXPathVariableResolver(javax.xml.xpath.XPathVariableResolver a_r_g_u_m_e_n_t_0) ;
+  public abstract void setXPathFunctionResolver(javax.xml.xpath.XPathFunctionResolver a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isObjectModelSupported(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.xml.xpath.XPath newXPath() ;
+  public static final java.lang.String DEFAULT_PROPERTY_NAME;
+  public static final java.lang.String DEFAULT_OBJECT_MODEL_URI;
+}

@@ -1,0 +1,30 @@
+package javax.swing.text.html;
+public class HTMLWriter extends javax.swing.text.AbstractWriter {
+   public  HTMLWriter(java.io.Writer a_r_g_u_m_e_n_t_0, javax.swing.text.html.HTMLDocument a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  HTMLWriter(java.io.Writer a_r_g_u_m_e_n_t_0, javax.swing.text.html.HTMLDocument a_r_g_u_m_e_n_t_1){}
+  public native void write()  throws java.io.IOException, javax.swing.text.BadLocationException;
+  protected native void comment(javax.swing.text.Element a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  protected native void text(javax.swing.text.Element a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  protected native void writeLineSeparator()  throws java.io.IOException;
+  protected native void writeAttributes(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native void output(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  protected native boolean matchNameAttribute(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, javax.swing.text.html.HTML.Tag a_r_g_u_m_e_n_t_1) ;
+  protected native void startTag(javax.swing.text.Element a_r_g_u_m_e_n_t_0)  throws java.io.IOException, javax.swing.text.BadLocationException;
+  protected native void endTag(javax.swing.text.Element a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native void textAreaContent(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  protected native void emptyTag(javax.swing.text.Element a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException, java.io.IOException;
+  protected native boolean isBlockTag(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  protected native void selectContent(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native void writeOption(javax.swing.text.html.Option a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  native void writeComment(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  native void writeAdditionalComments()  throws java.io.IOException;
+  protected native boolean synthesizedElement(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+  protected native void writeEmbeddedTags(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native void closeOutUnwantedEmbeddedTags(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  native void writeMaps(java.util.Enumeration a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  native void writeStyles(javax.swing.text.html.StyleSheet a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  native boolean writeStyle(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.text.Style a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  native void writeStyleStartTag()  throws java.io.IOException;
+  native void writeStyleEndTag()  throws java.io.IOException;
+  native javax.swing.text.AttributeSet convertToHTML(javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+}

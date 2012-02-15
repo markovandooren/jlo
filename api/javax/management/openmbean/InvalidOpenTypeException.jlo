@@ -1,0 +1,5 @@
+package javax.management.openmbean;
+public class InvalidOpenTypeException extends java.lang.IllegalArgumentException {
+   public  InvalidOpenTypeException(){}
+   public  InvalidOpenTypeException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

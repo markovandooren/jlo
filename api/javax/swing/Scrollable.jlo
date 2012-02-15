@@ -1,0 +1,8 @@
+package javax.swing;
+public abstract interface Scrollable {
+  public abstract java.awt.Dimension getPreferredScrollableViewportSize() ;
+  public abstract int getScrollableUnitIncrement(java.awt.Rectangle a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public abstract int getScrollableBlockIncrement(java.awt.Rectangle a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public abstract boolean getScrollableTracksViewportWidth() ;
+  public abstract boolean getScrollableTracksViewportHeight() ;
+}

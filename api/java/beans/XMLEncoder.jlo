@@ -1,0 +1,19 @@
+package java.beans;
+public class XMLEncoder extends java.beans.Encoder {
+   public  XMLEncoder(java.io.OutputStream a_r_g_u_m_e_n_t_0){}
+  native void clear() ;
+  public native void writeObject(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void flush() ;
+  public native void close() ;
+  public native java.lang.Object getOwner() ;
+  public native void writeExpression(java.beans.Expression a_r_g_u_m_e_n_t_0) ;
+  public native void writeStatement(java.beans.Statement a_r_g_u_m_e_n_t_0) ;
+  public native void setOwner(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  private class ValueData extends java.lang.Object {
+    public int refs;
+    public boolean marked;
+    public java.lang.String name;
+    public java.beans.Expression exp;
+    final java.beans.XMLEncoder this$0;
+  }
+}

@@ -1,0 +1,19 @@
+package java.awt.image;
+public abstract interface ImageConsumer {
+  public abstract void setProperties(java.util.Hashtable<? extends java.lang.Object,? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public abstract void setPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.image.ColorModel a_r_g_u_m_e_n_t_4, byte[] a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7) ;
+  public abstract void setPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.image.ColorModel a_r_g_u_m_e_n_t_4, int[] a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7) ;
+  public abstract void setHints(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void setDimensions(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void setColorModel(java.awt.image.ColorModel a_r_g_u_m_e_n_t_0) ;
+  public abstract void imageComplete(int a_r_g_u_m_e_n_t_0) ;
+  public static final int RANDOMPIXELORDER;
+  public static final int TOPDOWNLEFTRIGHT;
+  public static final int COMPLETESCANLINES;
+  public static final int SINGLEPASS;
+  public static final int SINGLEFRAME;
+  public static final int IMAGEERROR;
+  public static final int SINGLEFRAMEDONE;
+  public static final int STATICIMAGEDONE;
+  public static final int IMAGEABORTED;
+}

@@ -1,0 +1,26 @@
+package java.util;
+public class ArrayList<E extends java.lang.Object> extends java.util.AbstractList<E> implements java.util.List<E>, java.util.RandomAccess, java.lang.Cloneable, java.io.Serializable {
+   public  ArrayList(int a_r_g_u_m_e_n_t_0){}
+   public  ArrayList(){}
+   public  ArrayList(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0){}
+  public native void add(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public native boolean add(E a_r_g_u_m_e_n_t_0) ;
+  public native E get(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object clone() ;
+  public native int indexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void clear() ;
+  public native boolean isEmpty() ;
+  public native int lastIndexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean addAll(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0) ;
+  public native boolean addAll(int a_r_g_u_m_e_n_t_0, java.util.Collection<? extends E> a_r_g_u_m_e_n_t_1) ;
+  public native int size() ;
+  public native <T extends java.lang.Object>T[] toArray(T[] a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object[] toArray() ;
+  public native E set(int a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public native E remove(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void trimToSize() ;
+  public native void ensureCapacity(int a_r_g_u_m_e_n_t_0) ;
+  protected native void removeRange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+}

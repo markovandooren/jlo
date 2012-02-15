@@ -1,0 +1,12 @@
+package javax.management.modelmbean;
+public class ModelMBeanConstructorInfo extends javax.management.MBeanConstructorInfo implements javax.management.DescriptorAccess {
+   public  ModelMBeanConstructorInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.reflect.Constructor a_r_g_u_m_e_n_t_1){}
+   public  ModelMBeanConstructorInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.reflect.Constructor a_r_g_u_m_e_n_t_1, javax.management.Descriptor a_r_g_u_m_e_n_t_2){}
+   public  ModelMBeanConstructorInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.MBeanParameterInfo[] a_r_g_u_m_e_n_t_2){}
+   public  ModelMBeanConstructorInfo(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.MBeanParameterInfo[] a_r_g_u_m_e_n_t_2, javax.management.Descriptor a_r_g_u_m_e_n_t_3){}
+    ModelMBeanConstructorInfo(javax.management.modelmbean.ModelMBeanConstructorInfo a_r_g_u_m_e_n_t_0){}
+  public native java.lang.Object clone() ;
+  public native java.lang.String toString() ;
+  public native javax.management.Descriptor getDescriptor() ;
+  public native void setDescriptor(javax.management.Descriptor a_r_g_u_m_e_n_t_0) ;
+}

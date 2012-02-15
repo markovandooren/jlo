@@ -1,0 +1,11 @@
+package javax.imageio.stream;
+public class FileImageInputStream extends javax.imageio.stream.ImageInputStreamImpl {
+   public  FileImageInputStream(java.io.File a_r_g_u_m_e_n_t_0) throws java.io.FileNotFoundException, java.io.IOException{}
+   public  FileImageInputStream(java.io.RandomAccessFile a_r_g_u_m_e_n_t_0){}
+  protected native void finalize()  throws java.lang.Throwable;
+  public native long length() ;
+  public native void close()  throws java.io.IOException;
+  public native int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native int read()  throws java.io.IOException;
+  public native void seek(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+}

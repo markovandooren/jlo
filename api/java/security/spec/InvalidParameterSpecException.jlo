@@ -1,0 +1,5 @@
+package java.security.spec;
+public class InvalidParameterSpecException extends java.security.GeneralSecurityException {
+   public  InvalidParameterSpecException(){}
+   public  InvalidParameterSpecException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

@@ -1,0 +1,9 @@
+package java.util;
+public class Stack<E extends java.lang.Object> extends java.util.Vector<E> {
+   public  Stack(){}
+  public native E push(E a_r_g_u_m_e_n_t_0) ;
+  public synchronized native E pop() ;
+  public synchronized native E peek() ;
+  public native boolean empty() ;
+  public synchronized native int search(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+}

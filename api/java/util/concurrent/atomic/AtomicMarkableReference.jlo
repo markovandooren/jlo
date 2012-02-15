@@ -1,0 +1,14 @@
+package java.util.concurrent.atomic;
+public class AtomicMarkableReference<V extends java.lang.Object> extends java.lang.Object {
+   public  AtomicMarkableReference(V a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+  public native V get(boolean[] a_r_g_u_m_e_n_t_0) ;
+  public native void set(V a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native boolean compareAndSet(V a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+  public native boolean weakCompareAndSet(V a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+  public native V getReference() ;
+  public native boolean isMarked() ;
+  public native boolean attemptMark(V a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  private static class ReferenceBooleanPair<T extends java.lang.Object> extends java.lang.Object {
+      ReferenceBooleanPair(T a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+  }
+}

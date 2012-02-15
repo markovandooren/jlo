@@ -1,0 +1,13 @@
+package java.beans;
+public class Beans extends java.lang.Object {
+   public  Beans(){}
+  public static native boolean isInstanceOf(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1) ;
+  public static native void setDesignTime(boolean a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+  public static native boolean isDesignTime() ;
+  public static native java.lang.Object instantiate(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public static native java.lang.Object instantiate(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.beans.beancontext.BeanContext a_r_g_u_m_e_n_t_2, java.beans.AppletInitializer a_r_g_u_m_e_n_t_3)  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public static native java.lang.Object instantiate(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.beans.beancontext.BeanContext a_r_g_u_m_e_n_t_2)  throws java.io.IOException, java.lang.ClassNotFoundException;
+  public static native java.lang.Object getInstanceOf(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1) ;
+  public static native boolean isGuiAvailable() ;
+  public static native void setGuiAvailable(boolean a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+}

@@ -1,0 +1,25 @@
+package java.util.logging;
+public class FileHandler extends java.util.logging.StreamHandler {
+   public  FileHandler(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) throws java.io.IOException, java.lang.SecurityException{}
+   public  FileHandler(java.lang.String a_r_g_u_m_e_n_t_0) throws java.io.IOException, java.lang.SecurityException{}
+   public  FileHandler() throws java.io.IOException, java.lang.SecurityException{}
+   public  FileHandler(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) throws java.io.IOException, java.lang.SecurityException{}
+   public  FileHandler(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) throws java.io.IOException, java.lang.SecurityException{}
+  public synchronized native void close()  throws java.lang.SecurityException;
+  public synchronized native void publish(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
+  private static class InitializationErrorManager extends java.util.logging.ErrorManager {
+    public native void error(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Exception a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+    java.lang.Exception lastException;
+  }
+  private class MeteredStream extends java.io.OutputStream {
+      MeteredStream(java.util.logging.FileHandler a_r_g_u_m_e_n_t_0, java.io.OutputStream a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    public native void write(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void write(byte[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void write(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    public native void flush()  throws java.io.IOException;
+    public native void close()  throws java.io.IOException;
+    java.io.OutputStream out;
+    int written;
+    final java.util.logging.FileHandler this$0;
+  }
+}

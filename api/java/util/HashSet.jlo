@@ -1,0 +1,17 @@
+package java.util;
+public class HashSet<E extends java.lang.Object> extends java.util.AbstractSet<E> implements java.util.Set<E>, java.lang.Cloneable, java.io.Serializable {
+   public  HashSet(){}
+   public  HashSet(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0){}
+   public  HashSet(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1){}
+   public  HashSet(int a_r_g_u_m_e_n_t_0){}
+    HashSet(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+  public native boolean add(E a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object clone() ;
+  public native void clear() ;
+  public native boolean isEmpty() ;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int size() ;
+  public native java.util.Iterator<E> iterator() ;
+  public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+}

@@ -1,0 +1,17 @@
+package javax.security.auth.kerberos;
+public final class KerberosPrincipal extends java.lang.Object implements java.security.Principal, java.io.Serializable {
+   public  KerberosPrincipal(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  KerberosPrincipal(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getName() ;
+  public native java.lang.String getRealm() ;
+  public native int getNameType() ;
+  public static final int KRB_NT_UNKNOWN;
+  public static final int KRB_NT_PRINCIPAL;
+  public static final int KRB_NT_SRV_INST;
+  public static final int KRB_NT_SRV_HST;
+  public static final int KRB_NT_SRV_XHST;
+  public static final int KRB_NT_UID;
+}

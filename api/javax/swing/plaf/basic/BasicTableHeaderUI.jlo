@@ -1,0 +1,51 @@
+package javax.swing.plaf.basic;
+public class BasicTableHeaderUI extends javax.swing.plaf.TableHeaderUI {
+   public  BasicTableHeaderUI(){}
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Dimension getPreferredSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMaximumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getMinimumSize(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native int getBaseline(javax.swing.JComponent a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  static native void loadActionMap(javax.swing.plaf.basic.LazyActionMap a_r_g_u_m_e_n_t_0) ;
+  protected native void installKeyboardActions() ;
+  protected native void uninstallKeyboardActions() ;
+  protected native void installDefaults() ;
+  protected native void installListeners() ;
+  protected native void uninstallListeners() ;
+  protected native void uninstallDefaults() ;
+  protected native javax.swing.event.MouseInputListener createMouseInputListener() ;
+  protected native int getRolloverColumn() ;
+  protected native void rolloverColumnUpdated(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  native void selectColumn(int a_r_g_u_m_e_n_t_0) ;
+  native void selectColumn(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  protected javax.swing.table.JTableHeader header;
+  protected javax.swing.CellRendererPane rendererPane;
+  protected javax.swing.event.MouseInputListener mouseInputListener;
+  private static class Actions extends sun.swing.UIAction {
+     public  Actions(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public native boolean isEnabled(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    public static final java.lang.String TOGGLE_SORT_ORDER;
+    public static final java.lang.String SELECT_COLUMN_TO_LEFT;
+    public static final java.lang.String SELECT_COLUMN_TO_RIGHT;
+    public static final java.lang.String MOVE_COLUMN_LEFT;
+    public static final java.lang.String MOVE_COLUMN_RIGHT;
+    public static final java.lang.String RESIZE_LEFT;
+    public static final java.lang.String RESIZE_RIGHT;
+    public static final java.lang.String FOCUS_TABLE;
+  }
+  public class MouseInputHandler extends java.lang.Object implements javax.swing.event.MouseInputListener {
+     public  MouseInputHandler(javax.swing.plaf.basic.BasicTableHeaderUI a_r_g_u_m_e_n_t_0){}
+    public native void mousePressed(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseReleased(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseClicked(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseExited(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseEntered(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseMoved(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public native void mouseDragged(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.plaf.basic.BasicTableHeaderUI this$0;
+  }
+}

@@ -1,0 +1,49 @@
+package javax.swing;
+public class JMenuBar extends javax.swing.JComponent implements javax.accessibility.Accessible, javax.swing.MenuElement {
+   public  JMenuBar(){}
+  public native javax.swing.JMenu add(javax.swing.JMenu a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getComponent() ;
+  public native boolean isSelected() ;
+  public native void updateUI() ;
+  public native void setUI(javax.swing.plaf.MenuBarUI a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getUIClassID() ;
+  protected native void paintBorder(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+  public native void processKeyEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0, javax.swing.MenuElement[] a_r_g_u_m_e_n_t_1, javax.swing.MenuSelectionManager a_r_g_u_m_e_n_t_2) ;
+  protected native boolean processKeyBinding(javax.swing.KeyStroke a_r_g_u_m_e_n_t_0, java.awt.event.KeyEvent a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+  public native void processMouseEvent(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0, javax.swing.MenuElement[] a_r_g_u_m_e_n_t_1, javax.swing.MenuSelectionManager a_r_g_u_m_e_n_t_2) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void addNotify() ;
+  public native void removeNotify() ;
+  protected native java.lang.String paramString() ;
+  public native void setSelected(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void setMargin(java.awt.Insets a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Insets getMargin() ;
+  public native boolean isBorderPainted() ;
+  public native void setBorderPainted(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.plaf.MenuBarUI getUI() ;
+  public native javax.swing.SingleSelectionModel getSelectionModel() ;
+  public native void setSelectionModel(javax.swing.SingleSelectionModel a_r_g_u_m_e_n_t_0) ;
+  public native void menuSelectionChanged(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.MenuElement[] getSubElements() ;
+  public native java.awt.Component getComponentAtIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native int getComponentIndex(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JMenu getMenu(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMenuCount() ;
+  public native void setHelpMenu(javax.swing.JMenu a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JMenu getHelpMenu() ;
+  static native boolean processBindingForKeyStrokeRecursive(javax.swing.MenuElement a_r_g_u_m_e_n_t_0, javax.swing.KeyStroke a_r_g_u_m_e_n_t_1, java.awt.event.KeyEvent a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4) ;
+  protected class AccessibleJMenuBar extends javax.swing.JComponent.AccessibleJComponent implements javax.accessibility.AccessibleSelection {
+     protected  AccessibleJMenuBar(javax.swing.JMenuBar a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native javax.accessibility.Accessible getAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleSelection getAccessibleSelection() ;
+    public native boolean isAccessibleChildSelected(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    public native int getAccessibleSelectionCount() ;
+    public native void addAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native void removeAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native void clearAccessibleSelection() ;
+    public native void selectAllAccessibleSelection() ;
+    final javax.swing.JMenuBar this$0;
+  }
+}

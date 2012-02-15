@@ -1,0 +1,9 @@
+package java.awt.geom;
+public abstract class Dimension2D extends java.lang.Object implements java.lang.Cloneable {
+   protected  Dimension2D(){}
+  public native java.lang.Object clone() ;
+  public abstract void setSize(double a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+  public native void setSize(java.awt.geom.Dimension2D a_r_g_u_m_e_n_t_0) ;
+  public abstract double getWidth() ;
+  public abstract double getHeight() ;
+}

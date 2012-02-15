@@ -1,0 +1,12 @@
+package java.security.cert;
+public abstract class CertificateFactorySpi extends java.lang.Object {
+   public  CertificateFactorySpi(){}
+  public abstract java.security.cert.Certificate engineGenerateCertificate(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateException;
+  public native java.util.Iterator<java.lang.String> engineGetCertPathEncodings() ;
+  public native java.security.cert.CertPath engineGenerateCertPath(java.util.List<? extends java.security.cert.Certificate> a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateException;
+  public native java.security.cert.CertPath engineGenerateCertPath(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateException;
+  public native java.security.cert.CertPath engineGenerateCertPath(java.io.InputStream a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.cert.CertificateException;
+  public abstract java.util.Collection<? extends java.security.cert.Certificate> engineGenerateCertificates(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateException;
+  public abstract java.security.cert.CRL engineGenerateCRL(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CRLException;
+  public abstract java.util.Collection<? extends java.security.cert.CRL> engineGenerateCRLs(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.security.cert.CRLException;
+}

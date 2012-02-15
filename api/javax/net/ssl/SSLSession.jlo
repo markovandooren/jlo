@@ -1,0 +1,24 @@
+package javax.net.ssl;
+public abstract interface SSLSession {
+  public abstract java.lang.Object getValue(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract byte[] getId() ;
+  public abstract java.lang.String getProtocol() ;
+  public abstract void putValue(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean isValid() ;
+  public abstract void invalidate() ;
+  public abstract java.lang.String getCipherSuite() ;
+  public abstract java.security.cert.Certificate[] getLocalCertificates() ;
+  public abstract java.security.cert.Certificate[] getPeerCertificates()  throws javax.net.ssl.SSLPeerUnverifiedException;
+  public abstract javax.security.cert.X509Certificate[] getPeerCertificateChain()  throws javax.net.ssl.SSLPeerUnverifiedException;
+  public abstract java.security.Principal getPeerPrincipal()  throws javax.net.ssl.SSLPeerUnverifiedException;
+  public abstract java.security.Principal getLocalPrincipal() ;
+  public abstract javax.net.ssl.SSLSessionContext getSessionContext() ;
+  public abstract long getCreationTime() ;
+  public abstract long getLastAccessedTime() ;
+  public abstract void removeValue(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String[] getValueNames() ;
+  public abstract java.lang.String getPeerHost() ;
+  public abstract int getPeerPort() ;
+  public abstract int getPacketBufferSize() ;
+  public abstract int getApplicationBufferSize() ;
+}

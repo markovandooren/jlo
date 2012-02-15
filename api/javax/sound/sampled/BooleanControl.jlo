@@ -1,0 +1,14 @@
+package javax.sound.sampled;
+public abstract class BooleanControl extends javax.sound.sampled.Control {
+   protected  BooleanControl(javax.sound.sampled.BooleanControl.Type a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3){}
+   protected  BooleanControl(javax.sound.sampled.BooleanControl.Type a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+  public native java.lang.String toString() ;
+  public native boolean getValue() ;
+  public native void setValue(boolean a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getStateLabel(boolean a_r_g_u_m_e_n_t_0) ;
+  public static class Type extends javax.sound.sampled.Control.Type {
+     protected  Type(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public static final javax.sound.sampled.BooleanControl.Type MUTE;
+    public static final javax.sound.sampled.BooleanControl.Type APPLY_REVERB;
+  }
+}

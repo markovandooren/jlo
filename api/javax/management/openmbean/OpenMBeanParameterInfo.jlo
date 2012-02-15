@@ -1,0 +1,18 @@
+package javax.management.openmbean;
+public abstract interface OpenMBeanParameterInfo {
+  public abstract int hashCode() ;
+  public abstract boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String toString() ;
+  public abstract java.lang.String getName() ;
+  public abstract java.lang.Object getDefaultValue() ;
+  public abstract java.lang.Comparable<? extends java.lang.Object> getMinValue() ;
+  public abstract java.lang.Comparable<? extends java.lang.Object> getMaxValue() ;
+  public abstract boolean isValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String getDescription() ;
+  public abstract javax.management.openmbean.OpenType<? extends java.lang.Object> getOpenType() ;
+  public abstract java.util.Set<? extends java.lang.Object> getLegalValues() ;
+  public abstract boolean hasDefaultValue() ;
+  public abstract boolean hasLegalValues() ;
+  public abstract boolean hasMinValue() ;
+  public abstract boolean hasMaxValue() ;
+}

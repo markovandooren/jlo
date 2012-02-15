@@ -1,0 +1,7 @@
+package javax.xml.transform.sax;
+public abstract interface TransformerHandler extends org.xml.sax.ContentHandler, org.xml.sax.ext.LexicalHandler, org.xml.sax.DTDHandler {
+  public abstract void setResult(javax.xml.transform.Result a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract java.lang.String getSystemId() ;
+  public abstract void setSystemId(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.xml.transform.Transformer getTransformer() ;
+}

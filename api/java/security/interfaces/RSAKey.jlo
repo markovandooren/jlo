@@ -1,0 +1,4 @@
+package java.security.interfaces;
+public abstract interface RSAKey {
+  public abstract java.math.BigInteger getModulus() ;
+}

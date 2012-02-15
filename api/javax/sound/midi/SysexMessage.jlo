@@ -1,0 +1,11 @@
+package javax.sound.midi;
+public class SysexMessage extends javax.sound.midi.MidiMessage {
+   public  SysexMessage(){}
+   protected  SysexMessage(byte[] a_r_g_u_m_e_n_t_0){}
+  public native java.lang.Object clone() ;
+  public native byte[] getData() ;
+  public native void setMessage(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.sound.midi.InvalidMidiDataException;
+  public native void setMessage(int a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws javax.sound.midi.InvalidMidiDataException;
+  public static final int SYSTEM_EXCLUSIVE;
+  public static final int SPECIAL_SYSTEM_EXCLUSIVE;
+}

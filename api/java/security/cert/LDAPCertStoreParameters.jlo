@@ -1,0 +1,10 @@
+package java.security.cert;
+public class LDAPCertStoreParameters extends java.lang.Object implements java.security.cert.CertStoreParameters {
+   public  LDAPCertStoreParameters(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  LDAPCertStoreParameters(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  LDAPCertStoreParameters(){}
+  public native java.lang.Object clone() ;
+  public native java.lang.String toString() ;
+  public native int getPort() ;
+  public native java.lang.String getServerName() ;
+}

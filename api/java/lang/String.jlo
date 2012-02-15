@@ -1,0 +1,91 @@
+package java.lang;
+public final class String extends java.lang.Object implements java.io.Serializable, java.lang.Comparable<java.lang.String>, java.lang.CharSequence {
+   public  String(){}
+   public  String(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  String(char[] a_r_g_u_m_e_n_t_0){}
+   public  String(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  String(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  String(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  String(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  String(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3) throws java.io.UnsupportedEncodingException{}
+   public  String(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.nio.charset.Charset a_r_g_u_m_e_n_t_3){}
+   public  String(byte[] a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) throws java.io.UnsupportedEncodingException{}
+   public  String(byte[] a_r_g_u_m_e_n_t_0, java.nio.charset.Charset a_r_g_u_m_e_n_t_1){}
+   public  String(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  String(byte[] a_r_g_u_m_e_n_t_0){}
+   public  String(java.lang.StringBuffer a_r_g_u_m_e_n_t_0){}
+   public  String(java.lang.StringBuilder a_r_g_u_m_e_n_t_0){}
+    String(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, char[] a_r_g_u_m_e_n_t_2){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int compareTo(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static native int indexOf(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, char[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+  public native int indexOf(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int indexOf(int a_r_g_u_m_e_n_t_0) ;
+  public native int indexOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native int indexOf(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String toString() ;
+  public native int length() ;
+  public native boolean isEmpty() ;
+  public native char charAt(int a_r_g_u_m_e_n_t_0) ;
+  public native int codePointAt(int a_r_g_u_m_e_n_t_0) ;
+  public native int codePointBefore(int a_r_g_u_m_e_n_t_0) ;
+  public native int codePointCount(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int offsetByCodePoints(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void getChars(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, char[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  native void getChars(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native byte[] getBytes(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.UnsupportedEncodingException;
+  public native byte[] getBytes() ;
+  public native byte[] getBytes(java.nio.charset.Charset a_r_g_u_m_e_n_t_0) ;
+  public native void getBytes(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, byte[] a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native boolean contentEquals(java.lang.CharSequence a_r_g_u_m_e_n_t_0) ;
+  public native boolean contentEquals(java.lang.StringBuffer a_r_g_u_m_e_n_t_0) ;
+  public native boolean equalsIgnoreCase(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native int compareToIgnoreCase(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native boolean regionMatches(boolean a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4) ;
+  public native boolean regionMatches(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native boolean startsWith(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native boolean startsWith(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native boolean endsWith(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native int lastIndexOf(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  static native int lastIndexOf(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, char[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+  public native int lastIndexOf(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int lastIndexOf(int a_r_g_u_m_e_n_t_0) ;
+  public native int lastIndexOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String substring(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String substring(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.CharSequence subSequence(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String concat(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String replace(char a_r_g_u_m_e_n_t_0, char a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String replace(java.lang.CharSequence a_r_g_u_m_e_n_t_0, java.lang.CharSequence a_r_g_u_m_e_n_t_1) ;
+  public native boolean matches(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(java.lang.CharSequence a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String replaceFirst(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String replaceAll(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String[] split(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String[] split(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String toLowerCase() ;
+  public native java.lang.String toLowerCase(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toUpperCase() ;
+  public native java.lang.String toUpperCase(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String trim() ;
+  public native char[] toCharArray() ;
+  public static transient native java.lang.String format(java.util.Locale a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object... a_r_g_u_m_e_n_t_2) ;
+  public static transient native java.lang.String format(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object... a_r_g_u_m_e_n_t_1) ;
+  public static native java.lang.String valueOf(char[] a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String valueOf(double a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String valueOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String valueOf(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public static native java.lang.String valueOf(boolean a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String valueOf(char a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String valueOf(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String valueOf(long a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String valueOf(float a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.String copyValueOf(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public static native java.lang.String copyValueOf(char[] a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String intern() ;
+  public static final java.util.Comparator<java.lang.String> CASE_INSENSITIVE_ORDER;
+  private static class CaseInsensitiveComparator extends java.lang.Object implements java.util.Comparator<java.lang.String>, java.io.Serializable {
+    public native int compare(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  }
+}

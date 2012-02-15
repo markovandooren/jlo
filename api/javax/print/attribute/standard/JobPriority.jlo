@@ -1,0 +1,7 @@
+package javax.print.attribute.standard;
+public final class JobPriority extends javax.print.attribute.IntegerSyntax implements javax.print.attribute.PrintRequestAttribute, javax.print.attribute.PrintJobAttribute {
+   public  JobPriority(int a_r_g_u_m_e_n_t_0){}
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public final native java.lang.String getName() ;
+  public final native java.lang.Class<? extends javax.print.attribute.Attribute> getCategory() ;
+}

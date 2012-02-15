@@ -1,0 +1,19 @@
+package java.io;
+public class ObjectStreamField extends java.lang.Object implements java.lang.Comparable<java.lang.Object> {
+   public  ObjectStreamField(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1){}
+   public  ObjectStreamField(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+    ObjectStreamField(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+    ObjectStreamField(java.lang.reflect.Field a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+  public native boolean isPrimitive() ;
+  public native int compareTo(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getName() ;
+  native java.lang.reflect.Field getField() ;
+  public native java.lang.Class<? extends java.lang.Object> getType() ;
+  native java.lang.String getSignature() ;
+  public native char getTypeCode() ;
+  public native java.lang.String getTypeString() ;
+  public native int getOffset() ;
+  protected native void setOffset(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isUnshared() ;
+}

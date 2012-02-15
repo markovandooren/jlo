@@ -1,0 +1,19 @@
+package java.net;
+public abstract interface SocketOptions {
+  public abstract java.lang.Object getOption(int a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public abstract void setOption(int a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.net.SocketException;
+  public static final int TCP_NODELAY;
+  public static final int SO_BINDADDR;
+  public static final int SO_REUSEADDR;
+  public static final int SO_BROADCAST;
+  public static final int IP_MULTICAST_IF;
+  public static final int IP_MULTICAST_IF2;
+  public static final int IP_MULTICAST_LOOP;
+  public static final int IP_TOS;
+  public static final int SO_LINGER;
+  public static final int SO_TIMEOUT;
+  public static final int SO_SNDBUF;
+  public static final int SO_RCVBUF;
+  public static final int SO_KEEPALIVE;
+  public static final int SO_OOBINLINE;
+}

@@ -1,0 +1,31 @@
+package javax.sql.rowset.serial;
+public class SQLInputImpl extends java.lang.Object implements java.sql.SQLInput {
+   public  SQLInputImpl(java.lang.Object[] a_r_g_u_m_e_n_t_0, java.util.Map<java.lang.String,java.lang.Class<? extends java.lang.Object>> a_r_g_u_m_e_n_t_1) throws java.sql.SQLException{}
+  public native java.lang.Object readObject()  throws java.sql.SQLException;
+  public native int readInt()  throws java.sql.SQLException;
+  public native byte[] readBytes()  throws java.sql.SQLException;
+  public native long readLong()  throws java.sql.SQLException;
+  public native byte readByte()  throws java.sql.SQLException;
+  public native short readShort()  throws java.sql.SQLException;
+  public native float readFloat()  throws java.sql.SQLException;
+  public native boolean readBoolean()  throws java.sql.SQLException;
+  public native double readDouble()  throws java.sql.SQLException;
+  public native java.lang.String readString()  throws java.sql.SQLException;
+  public native java.sql.Array readArray()  throws java.sql.SQLException;
+  public native boolean wasNull()  throws java.sql.SQLException;
+  public native java.math.BigDecimal readBigDecimal()  throws java.sql.SQLException;
+  public native java.sql.Date readDate()  throws java.sql.SQLException;
+  public native java.sql.Time readTime()  throws java.sql.SQLException;
+  public native java.sql.Timestamp readTimestamp()  throws java.sql.SQLException;
+  public native java.io.Reader readCharacterStream()  throws java.sql.SQLException;
+  public native java.io.InputStream readAsciiStream()  throws java.sql.SQLException;
+  public native java.io.InputStream readBinaryStream()  throws java.sql.SQLException;
+  public native java.sql.Ref readRef()  throws java.sql.SQLException;
+  public native java.sql.Blob readBlob()  throws java.sql.SQLException;
+  public native java.sql.Clob readClob()  throws java.sql.SQLException;
+  public native java.net.URL readURL()  throws java.sql.SQLException;
+  public native java.sql.NClob readNClob()  throws java.sql.SQLException;
+  public native java.lang.String readNString()  throws java.sql.SQLException;
+  public native java.sql.SQLXML readSQLXML()  throws java.sql.SQLException;
+  public native java.sql.RowId readRowId()  throws java.sql.SQLException;
+}

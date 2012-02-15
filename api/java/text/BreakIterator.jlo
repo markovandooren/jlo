@@ -1,0 +1,39 @@
+package java.text;
+public abstract class BreakIterator extends java.lang.Object implements java.lang.Cloneable {
+   protected  BreakIterator(){}
+  public native java.lang.Object clone() ;
+  static native short getShort(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  static native int getInt(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  static native long getLong(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract int next() ;
+  public abstract int next(int a_r_g_u_m_e_n_t_0) ;
+  public abstract int previous() ;
+  public static synchronized native java.util.Locale[] getAvailableLocales() ;
+  public abstract int current() ;
+  public native void setText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract void setText(java.text.CharacterIterator a_r_g_u_m_e_n_t_0) ;
+  public abstract int last() ;
+  public abstract int first() ;
+  public abstract java.text.CharacterIterator getText() ;
+  public static native java.text.BreakIterator getWordInstance(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public static native java.text.BreakIterator getWordInstance() ;
+  public abstract int following(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.text.BreakIterator getSentenceInstance(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public static native java.text.BreakIterator getSentenceInstance() ;
+  public native int preceding(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isBoundary(int a_r_g_u_m_e_n_t_0) ;
+  public static native java.text.BreakIterator getLineInstance() ;
+  public static native java.text.BreakIterator getLineInstance(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public static native java.text.BreakIterator getCharacterInstance(java.util.Locale a_r_g_u_m_e_n_t_0) ;
+  public static native java.text.BreakIterator getCharacterInstance() ;
+  public static final int DONE;
+  private static class BreakIteratorGetter extends java.lang.Object {
+    public transient native java.text.BreakIterator getObject(java.text.spi.BreakIteratorProvider a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.Object... a_r_g_u_m_e_n_t_3) ;
+    static final boolean $assertionsDisabled;
+  }
+  private static final class BreakIteratorCache extends java.lang.Object {
+      BreakIteratorCache(java.util.Locale a_r_g_u_m_e_n_t_0, java.text.BreakIterator a_r_g_u_m_e_n_t_1){}
+    native java.util.Locale getLocale() ;
+    native java.text.BreakIterator createBreakInstance() ;
+  }
+}

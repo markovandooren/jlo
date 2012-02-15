@@ -1,0 +1,9 @@
+package javax.sql.rowset.spi;
+public class SyncProviderException extends java.sql.SQLException {
+   public  SyncProviderException(){}
+   public  SyncProviderException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  SyncProviderException(javax.sql.rowset.spi.SyncResolver a_r_g_u_m_e_n_t_0){}
+  public native javax.sql.rowset.spi.SyncResolver getSyncResolver() ;
+  public native void setSyncResolver(javax.sql.rowset.spi.SyncResolver a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+}

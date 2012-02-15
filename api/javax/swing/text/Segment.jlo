@@ -1,0 +1,24 @@
+package javax.swing.text;
+public class Segment extends java.lang.Object implements java.lang.Cloneable, java.text.CharacterIterator, java.lang.CharSequence {
+   public  Segment(){}
+   public  Segment(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native java.lang.Object clone() ;
+  public native java.lang.String toString() ;
+  public native int length() ;
+  public native char charAt(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.CharSequence subSequence(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native char next() ;
+  public native char previous() ;
+  public native int getIndex() ;
+  public native char current() ;
+  public native char setIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native int getBeginIndex() ;
+  public native int getEndIndex() ;
+  public native char last() ;
+  public native char first() ;
+  public native void setPartialReturn(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isPartialReturn() ;
+  public char[] array;
+  public int offset;
+  public int count;
+}

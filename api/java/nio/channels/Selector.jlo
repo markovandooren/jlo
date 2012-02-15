@@ -1,0 +1,14 @@
+package java.nio.channels;
+public abstract class Selector extends java.lang.Object {
+   protected  Selector(){}
+  public abstract java.nio.channels.spi.SelectorProvider provider() ;
+  public abstract java.util.Set<java.nio.channels.SelectionKey> keys() ;
+  public abstract void close()  throws java.io.IOException;
+  public static native java.nio.channels.Selector open()  throws java.io.IOException;
+  public abstract boolean isOpen() ;
+  public abstract java.util.Set<java.nio.channels.SelectionKey> selectedKeys() ;
+  public abstract int selectNow()  throws java.io.IOException;
+  public abstract int select(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public abstract int select()  throws java.io.IOException;
+  public abstract java.nio.channels.Selector wakeup() ;
+}

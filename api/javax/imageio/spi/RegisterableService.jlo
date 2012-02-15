@@ -1,0 +1,5 @@
+package javax.imageio.spi;
+public abstract interface RegisterableService {
+  public abstract void onRegistration(javax.imageio.spi.ServiceRegistry a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1) ;
+  public abstract void onDeregistration(javax.imageio.spi.ServiceRegistry a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1) ;
+}

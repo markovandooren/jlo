@@ -1,0 +1,5 @@
+package javax.naming.directory;
+public class InvalidSearchFilterException extends javax.naming.NamingException {
+   public  InvalidSearchFilterException(){}
+   public  InvalidSearchFilterException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

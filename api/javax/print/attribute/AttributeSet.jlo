@@ -1,0 +1,16 @@
+package javax.print.attribute;
+public abstract interface AttributeSet {
+  public abstract boolean add(javax.print.attribute.Attribute a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.print.attribute.Attribute get(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public abstract int hashCode() ;
+  public abstract boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract void clear() ;
+  public abstract boolean isEmpty() ;
+  public abstract boolean addAll(javax.print.attribute.AttributeSet a_r_g_u_m_e_n_t_0) ;
+  public abstract int size() ;
+  public abstract javax.print.attribute.Attribute[] toArray() ;
+  public abstract boolean remove(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean remove(javax.print.attribute.Attribute a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean containsValue(javax.print.attribute.Attribute a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean containsKey(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+}

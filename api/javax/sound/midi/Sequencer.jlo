@@ -1,0 +1,57 @@
+package javax.sound.midi;
+public abstract interface Sequencer extends javax.sound.midi.MidiDevice {
+  public abstract void start() ;
+  public abstract void stop() ;
+  public abstract javax.sound.midi.Sequence getSequence() ;
+  public abstract boolean isRunning() ;
+  public abstract long getMicrosecondPosition() ;
+  public abstract long getMicrosecondLength() ;
+  public abstract void setMicrosecondPosition(long a_r_g_u_m_e_n_t_0) ;
+  public abstract long getTickLength() ;
+  public abstract void setSequence(javax.sound.midi.Sequence a_r_g_u_m_e_n_t_0)  throws javax.sound.midi.InvalidMidiDataException;
+  public abstract void setSequence(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws java.io.IOException, javax.sound.midi.InvalidMidiDataException;
+  public abstract void startRecording() ;
+  public abstract void stopRecording() ;
+  public abstract boolean isRecording() ;
+  public abstract void recordEnable(javax.sound.midi.Track a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void recordDisable(javax.sound.midi.Track a_r_g_u_m_e_n_t_0) ;
+  public abstract float getTempoInBPM() ;
+  public abstract void setTempoInBPM(float a_r_g_u_m_e_n_t_0) ;
+  public abstract float getTempoInMPQ() ;
+  public abstract void setTempoInMPQ(float a_r_g_u_m_e_n_t_0) ;
+  public abstract void setTempoFactor(float a_r_g_u_m_e_n_t_0) ;
+  public abstract float getTempoFactor() ;
+  public abstract long getTickPosition() ;
+  public abstract void setTickPosition(long a_r_g_u_m_e_n_t_0) ;
+  public abstract void setMasterSyncMode(javax.sound.midi.Sequencer.SyncMode a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.sound.midi.Sequencer.SyncMode getMasterSyncMode() ;
+  public abstract javax.sound.midi.Sequencer.SyncMode[] getMasterSyncModes() ;
+  public abstract void setSlaveSyncMode(javax.sound.midi.Sequencer.SyncMode a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.sound.midi.Sequencer.SyncMode getSlaveSyncMode() ;
+  public abstract javax.sound.midi.Sequencer.SyncMode[] getSlaveSyncModes() ;
+  public abstract void setTrackMute(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean getTrackMute(int a_r_g_u_m_e_n_t_0) ;
+  public abstract void setTrackSolo(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean getTrackSolo(int a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean addMetaEventListener(javax.sound.midi.MetaEventListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeMetaEventListener(javax.sound.midi.MetaEventListener a_r_g_u_m_e_n_t_0) ;
+  public abstract int[] addControllerEventListener(javax.sound.midi.ControllerEventListener a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1) ;
+  public abstract int[] removeControllerEventListener(javax.sound.midi.ControllerEventListener a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1) ;
+  public abstract void setLoopStartPoint(long a_r_g_u_m_e_n_t_0) ;
+  public abstract long getLoopStartPoint() ;
+  public abstract void setLoopEndPoint(long a_r_g_u_m_e_n_t_0) ;
+  public abstract long getLoopEndPoint() ;
+  public abstract void setLoopCount(int a_r_g_u_m_e_n_t_0) ;
+  public abstract int getLoopCount() ;
+  public static final int LOOP_CONTINUOUSLY;
+  public static class SyncMode extends java.lang.Object {
+     protected  SyncMode(java.lang.String a_r_g_u_m_e_n_t_0){}
+    public final native int hashCode() ;
+    public final native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public final native java.lang.String toString() ;
+    public static final javax.sound.midi.Sequencer.SyncMode INTERNAL_CLOCK;
+    public static final javax.sound.midi.Sequencer.SyncMode MIDI_SYNC;
+    public static final javax.sound.midi.Sequencer.SyncMode MIDI_TIME_CODE;
+    public static final javax.sound.midi.Sequencer.SyncMode NO_SYNC;
+  }
+}

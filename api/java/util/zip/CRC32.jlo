@@ -1,0 +1,9 @@
+package java.util.zip;
+public class CRC32 extends java.lang.Object implements java.util.zip.Checksum {
+   public  CRC32(){}
+  public native long getValue() ;
+  public native void reset() ;
+  public native void update(byte[] a_r_g_u_m_e_n_t_0) ;
+  public native void update(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void update(int a_r_g_u_m_e_n_t_0) ;
+}

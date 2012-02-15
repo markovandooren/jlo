@@ -1,0 +1,25 @@
+package java.awt;
+public class Label extends java.awt.Component implements javax.accessibility.Accessible {
+   public  Label() throws java.awt.HeadlessException{}
+   public  Label(java.lang.String a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+   public  Label(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws java.awt.HeadlessException{}
+  public native void setText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void addNotify() ;
+  protected native java.lang.String paramString() ;
+  native java.lang.String constructComponentName() ;
+  public native java.lang.String getText() ;
+  public native int getAlignment() ;
+  public synchronized native void setAlignment(int a_r_g_u_m_e_n_t_0) ;
+  public static final int LEFT;
+  public static final int CENTER;
+  public static final int RIGHT;
+  java.lang.String text;
+  int alignment;
+  protected class AccessibleAWTLabel extends java.awt.Component.AccessibleAWTComponent {
+     public  AccessibleAWTLabel(java.awt.Label a_r_g_u_m_e_n_t_0){}
+    public native java.lang.String getAccessibleName() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final java.awt.Label this$0;
+  }
+}

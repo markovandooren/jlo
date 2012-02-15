@@ -1,0 +1,11 @@
+package javax.management.relation;
+public class RelationTypeSupport extends java.lang.Object implements javax.management.relation.RelationType {
+   public  RelationTypeSupport(java.lang.String a_r_g_u_m_e_n_t_0, javax.management.relation.RoleInfo[] a_r_g_u_m_e_n_t_1) throws java.lang.IllegalArgumentException, javax.management.relation.InvalidRelationTypeException{}
+   protected  RelationTypeSupport(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public native java.lang.String getRelationTypeName() ;
+  public native java.util.List<javax.management.relation.RoleInfo> getRoleInfos() ;
+  public native javax.management.relation.RoleInfo getRoleInfo(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException, javax.management.relation.RoleInfoNotFoundException;
+  static native void checkRoleInfos(javax.management.relation.RoleInfo[] a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException, javax.management.relation.InvalidRelationTypeException;
+  native void setRelationServiceFlag(boolean a_r_g_u_m_e_n_t_0) ;
+  protected native void addRoleInfo(javax.management.relation.RoleInfo a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException, javax.management.relation.InvalidRelationTypeException;
+}

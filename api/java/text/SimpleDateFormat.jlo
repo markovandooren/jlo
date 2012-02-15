@@ -1,0 +1,26 @@
+package java.text;
+public class SimpleDateFormat extends java.text.DateFormat {
+   public  SimpleDateFormat(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  SimpleDateFormat(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Locale a_r_g_u_m_e_n_t_1){}
+   public  SimpleDateFormat(java.lang.String a_r_g_u_m_e_n_t_0, java.text.DateFormatSymbols a_r_g_u_m_e_n_t_1){}
+    SimpleDateFormat(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.util.Locale a_r_g_u_m_e_n_t_2){}
+   public  SimpleDateFormat(){}
+  public native int hashCode() ;
+  public native java.lang.Object clone() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.StringBuffer format(java.util.Date a_r_g_u_m_e_n_t_0, java.lang.StringBuffer a_r_g_u_m_e_n_t_1, java.text.FieldPosition a_r_g_u_m_e_n_t_2) ;
+  public native java.util.Date parse(java.lang.String a_r_g_u_m_e_n_t_0, java.text.ParsePosition a_r_g_u_m_e_n_t_1) ;
+  public native java.text.AttributedCharacterIterator formatToCharacterIterator(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void applyPattern(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toPattern() ;
+  public native java.lang.String toLocalizedPattern() ;
+  public native void applyLocalizedPattern(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void set2DigitYearStart(java.util.Date a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Date get2DigitYearStart() ;
+  public native java.text.DateFormatSymbols getDateFormatSymbols() ;
+  public native void setDateFormatSymbols(java.text.DateFormatSymbols a_r_g_u_m_e_n_t_0) ;
+  static final long serialVersionUID;
+  static final int currentSerialVersion;
+  transient boolean useDateFormatSymbols;
+  static final boolean $assertionsDisabled;
+}

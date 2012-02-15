@@ -1,0 +1,27 @@
+package java.util;
+public abstract class EnumSet<E extends java.lang.Enum<E>> extends java.util.AbstractSet<E> implements java.lang.Cloneable, java.io.Serializable {
+    EnumSet(java.lang.Class<E> a_r_g_u_m_e_n_t_0, java.lang.Enum[] a_r_g_u_m_e_n_t_1){}
+  public native java.util.EnumSet<E> clone() ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> copyOf(java.util.EnumSet<E> a_r_g_u_m_e_n_t_0) ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> copyOf(java.util.Collection<E> a_r_g_u_m_e_n_t_0) ;
+  abstract void addAll() ;
+  native java.lang.Object writeReplace() ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> range(E a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  abstract void complement() ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> of(E a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1, E a_r_g_u_m_e_n_t_2, E a_r_g_u_m_e_n_t_3) ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> of(E a_r_g_u_m_e_n_t_0) ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> of(E a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> of(E a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1, E a_r_g_u_m_e_n_t_2) ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> of(E a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1, E a_r_g_u_m_e_n_t_2, E a_r_g_u_m_e_n_t_3, E a_r_g_u_m_e_n_t_4) ;
+  public static transient native <E extends java.lang.Enum<E>>java.util.EnumSet<E> of(E a_r_g_u_m_e_n_t_0, E... a_r_g_u_m_e_n_t_1) ;
+  final native void typeCheck(E a_r_g_u_m_e_n_t_0) ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> noneOf(java.lang.Class<E> a_r_g_u_m_e_n_t_0) ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> allOf(java.lang.Class<E> a_r_g_u_m_e_n_t_0) ;
+  public static native <E extends java.lang.Enum<E>>java.util.EnumSet<E> complementOf(java.util.EnumSet<E> a_r_g_u_m_e_n_t_0) ;
+  abstract void addRange(E a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
+  final java.lang.Class<E> elementType;
+  final java.lang.Enum[] universe;
+  private static class SerializationProxy<E extends java.lang.Enum<E>> extends java.lang.Object implements java.io.Serializable {
+      SerializationProxy(java.util.EnumSet<E> a_r_g_u_m_e_n_t_0){}
+  }
+}

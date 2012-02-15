@@ -1,0 +1,9 @@
+package javax.swing.filechooser;
+public abstract class FileView extends java.lang.Object {
+   public  FileView(){}
+  public native java.lang.String getName(java.io.File a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Icon getIcon(java.io.File a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getDescription(java.io.File a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Boolean isTraversable(java.io.File a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getTypeDescription(java.io.File a_r_g_u_m_e_n_t_0) ;
+}

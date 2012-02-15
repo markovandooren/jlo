@@ -1,0 +1,7 @@
+package javax.accessibility;
+public class AccessibleTextSequence extends java.lang.Object {
+   public  AccessibleTextSequence(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+  public int startIndex;
+  public int endIndex;
+  public java.lang.String text;
+}

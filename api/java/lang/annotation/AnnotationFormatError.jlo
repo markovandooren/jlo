@@ -1,0 +1,6 @@
+package java.lang.annotation;
+public class AnnotationFormatError extends java.lang.Error {
+   public  AnnotationFormatError(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  AnnotationFormatError(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
+   public  AnnotationFormatError(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
+}

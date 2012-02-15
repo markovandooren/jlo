@@ -1,0 +1,10 @@
+package javax.sound.midi;
+public abstract interface Soundbank {
+  public abstract java.lang.String getName() ;
+  public abstract javax.sound.midi.SoundbankResource[] getResources() ;
+  public abstract java.lang.String getVersion() ;
+  public abstract java.lang.String getDescription() ;
+  public abstract java.lang.String getVendor() ;
+  public abstract javax.sound.midi.Instrument[] getInstruments() ;
+  public abstract javax.sound.midi.Instrument getInstrument(javax.sound.midi.Patch a_r_g_u_m_e_n_t_0) ;
+}

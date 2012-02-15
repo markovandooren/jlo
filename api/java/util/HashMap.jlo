@@ -1,0 +1,104 @@
+package java.util;
+public class HashMap<K extends java.lang.Object, V extends java.lang.Object> extends java.util.AbstractMap<K,V> implements java.util.Map<K,V>, java.lang.Cloneable, java.io.Serializable {
+   public  HashMap(java.util.Map<? extends K,? extends V> a_r_g_u_m_e_n_t_0){}
+   public  HashMap(int a_r_g_u_m_e_n_t_0){}
+   public  HashMap(){}
+   public  HashMap(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1){}
+  public native V get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native V put(K a_r_g_u_m_e_n_t_0, V a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.Object clone() ;
+  public native void clear() ;
+  static native int hash(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isEmpty() ;
+  public native java.util.Collection<V> values() ;
+  public native int size() ;
+  public native java.util.Set<java.util.Map.Entry<K,V>> entrySet() ;
+  public native void putAll(java.util.Map<? extends K,? extends V> a_r_g_u_m_e_n_t_0) ;
+  public native V remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native void init() ;
+  public native java.util.Set<K> keySet() ;
+  native float loadFactor() ;
+  public native boolean containsValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean containsKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native int capacity() ;
+  static native int indexFor(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  final native java.util.HashMap.Entry<K,V> getEntry(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native void resize(int a_r_g_u_m_e_n_t_0) ;
+  native void transfer(java.util.HashMap.Entry[] a_r_g_u_m_e_n_t_0) ;
+  final native java.util.HashMap.Entry<K,V> removeEntryForKey(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  final native java.util.HashMap.Entry<K,V> removeMapping(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  native void addEntry(int a_r_g_u_m_e_n_t_0, K a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  native void createEntry(int a_r_g_u_m_e_n_t_0, K a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  native java.util.Iterator<K> newKeyIterator() ;
+  native java.util.Iterator<V> newValueIterator() ;
+  native java.util.Iterator<java.util.Map.Entry<K,V>> newEntryIterator() ;
+  static final int DEFAULT_INITIAL_CAPACITY;
+  static final int MAXIMUM_CAPACITY;
+  static final float DEFAULT_LOAD_FACTOR;
+  transient java.util.HashMap.Entry[] table;
+  transient int size;
+  int threshold;
+  final float loadFactor;
+  transient volatile int modCount;
+  private final class EntrySet extends java.util.AbstractSet<java.util.Map.Entry<K,V>> {
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<java.util.Map.Entry<K,V>> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.HashMap this$0;
+  }
+  private final class Values extends java.util.AbstractCollection<V> {
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<V> iterator() ;
+    final java.util.HashMap this$0;
+  }
+  private final class KeySet extends java.util.AbstractSet<K> {
+    public native void clear() ;
+    public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.util.Iterator<K> iterator() ;
+    public native boolean remove(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    final java.util.HashMap this$0;
+  }
+  private final class EntryIterator extends java.util.HashMap.HashIterator<java.util.Map.Entry<K,V>> {
+    public native java.util.Map.Entry<K,V> next() ;
+    final java.util.HashMap this$0;
+  }
+  private final class KeyIterator extends java.util.HashMap.HashIterator<K> {
+    public native K next() ;
+    final java.util.HashMap this$0;
+  }
+  private final class ValueIterator extends java.util.HashMap.HashIterator<V> {
+    public native V next() ;
+    final java.util.HashMap this$0;
+  }
+  private abstract class HashIterator<E extends java.lang.Object> extends java.lang.Object implements java.util.Iterator<E> {
+      HashIterator(java.util.HashMap a_r_g_u_m_e_n_t_0){}
+    public final native boolean hasNext() ;
+    public native void remove() ;
+    final native java.util.HashMap.Entry<K,V> nextEntry() ;
+    java.util.HashMap.Entry<K,V> next;
+    int expectedModCount;
+    int index;
+    java.util.HashMap.Entry<K,V> current;
+    final java.util.HashMap this$0;
+  }
+  static class Entry<K extends java.lang.Object, V extends java.lang.Object> extends java.lang.Object implements java.util.Map.Entry<K,V> {
+      Entry(int a_r_g_u_m_e_n_t_0, K a_r_g_u_m_e_n_t_1, V a_r_g_u_m_e_n_t_2, java.util.HashMap.Entry<K,V> a_r_g_u_m_e_n_t_3){}
+    public final native int hashCode() ;
+    public final native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public final native java.lang.String toString() ;
+    public final native V getValue() ;
+    public final native K getKey() ;
+    native void recordAccess(java.util.HashMap<K,V> a_r_g_u_m_e_n_t_0) ;
+    native void recordRemoval(java.util.HashMap<K,V> a_r_g_u_m_e_n_t_0) ;
+    public final native V setValue(V a_r_g_u_m_e_n_t_0) ;
+    final K key;
+    V value;
+    java.util.HashMap.Entry<K,V> next;
+    final int hash;
+  }
+}

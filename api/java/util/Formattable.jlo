@@ -1,0 +1,4 @@
+package java.util;
+public abstract interface Formattable {
+  public abstract void formatTo(java.util.Formatter a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+}

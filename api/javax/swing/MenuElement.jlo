@@ -1,0 +1,8 @@
+package javax.swing;
+public abstract interface MenuElement {
+  public abstract java.awt.Component getComponent() ;
+  public abstract void processKeyEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0, javax.swing.MenuElement[] a_r_g_u_m_e_n_t_1, javax.swing.MenuSelectionManager a_r_g_u_m_e_n_t_2) ;
+  public abstract void processMouseEvent(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0, javax.swing.MenuElement[] a_r_g_u_m_e_n_t_1, javax.swing.MenuSelectionManager a_r_g_u_m_e_n_t_2) ;
+  public abstract void menuSelectionChanged(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract javax.swing.MenuElement[] getSubElements() ;
+}

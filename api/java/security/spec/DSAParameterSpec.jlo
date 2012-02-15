@@ -1,0 +1,10 @@
+package java.security.spec;
+public class DSAParameterSpec extends java.lang.Object implements java.security.spec.AlgorithmParameterSpec, java.security.interfaces.DSAParams {
+   public  DSAParameterSpec(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1, java.math.BigInteger a_r_g_u_m_e_n_t_2){}
+  public native java.math.BigInteger getP() ;
+  public native java.math.BigInteger getQ() ;
+  public native java.math.BigInteger getG() ;
+  java.math.BigInteger p;
+  java.math.BigInteger q;
+  java.math.BigInteger g;
+}

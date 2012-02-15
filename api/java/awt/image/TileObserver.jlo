@@ -1,0 +1,4 @@
+package java.awt.image;
+public abstract interface TileObserver {
+  public abstract void tileUpdate(java.awt.image.WritableRenderedImage a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3) ;
+}

@@ -1,0 +1,4 @@
+package java.awt.color;
+public class CMMException extends java.lang.RuntimeException {
+   public  CMMException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

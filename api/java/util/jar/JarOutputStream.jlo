@@ -1,0 +1,6 @@
+package java.util.jar;
+public class JarOutputStream extends java.util.zip.ZipOutputStream {
+   public  JarOutputStream(java.io.OutputStream a_r_g_u_m_e_n_t_0, java.util.jar.Manifest a_r_g_u_m_e_n_t_1) throws java.io.IOException{}
+   public  JarOutputStream(java.io.OutputStream a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+  public native void putNextEntry(java.util.zip.ZipEntry a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+}

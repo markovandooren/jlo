@@ -1,0 +1,10 @@
+package javax.swing.plaf.metal;
+public class MetalScrollPaneUI extends javax.swing.plaf.basic.BasicScrollPaneUI {
+   public  MetalScrollPaneUI(){}
+  public native void uninstallUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  public native void installListeners(javax.swing.JScrollPane a_r_g_u_m_e_n_t_0) ;
+  public native void uninstallListeners(javax.swing.JScrollPane a_r_g_u_m_e_n_t_0) ;
+  protected native java.beans.PropertyChangeListener createScrollBarSwapListener() ;
+}

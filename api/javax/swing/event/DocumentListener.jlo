@@ -1,0 +1,6 @@
+package javax.swing.event;
+public abstract interface DocumentListener extends java.util.EventListener {
+  public abstract void insertUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+  public abstract void changedUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+}

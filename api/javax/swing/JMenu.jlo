@@ -1,0 +1,90 @@
+package javax.swing;
+public class JMenu extends javax.swing.JMenuItem implements javax.accessibility.Accessible, javax.swing.MenuElement {
+   public  JMenu(){}
+   public  JMenu(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  JMenu(javax.swing.Action a_r_g_u_m_e_n_t_0){}
+   public  JMenu(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+  public native java.awt.Component add(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native javax.swing.JMenuItem add(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JMenuItem add(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JMenuItem add(javax.swing.JMenuItem a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component add(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void remove(int a_r_g_u_m_e_n_t_0) ;
+  public native void remove(javax.swing.JMenuItem a_r_g_u_m_e_n_t_0) ;
+  public native void remove(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void removeAll() ;
+  public native void insert(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native javax.swing.JMenuItem insert(javax.swing.JMenuItem a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native javax.swing.JMenuItem insert(javax.swing.Action a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Component getComponent() ;
+  public native boolean isSelected() ;
+  public native void updateUI() ;
+  public native java.lang.String getUIClassID() ;
+  protected native void processKeyEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  protected native java.lang.String paramString() ;
+  public native void applyComponentOrientation(java.awt.ComponentOrientation a_r_g_u_m_e_n_t_0) ;
+  public native void setComponentOrientation(java.awt.ComponentOrientation a_r_g_u_m_e_n_t_0) ;
+  public native void setSelected(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void doClick(int a_r_g_u_m_e_n_t_0) ;
+  public native void setModel(javax.swing.ButtonModel a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.JMenuItem getItem(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isTopLevelMenu() ;
+  native void initFocusability() ;
+  public native void setAccelerator(javax.swing.KeyStroke a_r_g_u_m_e_n_t_0) ;
+  native void configureAcceleratorFromAction(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  public native void menuSelectionChanged(boolean a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.MenuElement[] getSubElements() ;
+  public native int getItemCount() ;
+  protected native javax.swing.JMenuItem createActionComponent(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  protected native java.beans.PropertyChangeListener createActionChangeListener(javax.swing.JMenuItem a_r_g_u_m_e_n_t_0) ;
+  public native void addSeparator() ;
+  public native javax.swing.JPopupMenu getPopupMenu() ;
+  public native void setPopupMenuVisible(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setDelay(int a_r_g_u_m_e_n_t_0) ;
+  public native int getDelay() ;
+  public native java.awt.Component[] getMenuComponents() ;
+  public native boolean isPopupMenuVisible() ;
+  protected native java.awt.Point getPopupMenuOrigin() ;
+  public native void setMenuLocation(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void insertSeparator(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isTearOff() ;
+  public native int getMenuComponentCount() ;
+  public native java.awt.Component getMenuComponent(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isMenuComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void addMenuListener(javax.swing.event.MenuListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeMenuListener(javax.swing.event.MenuListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.MenuListener[] getMenuListeners() ;
+  protected native void fireMenuSelected() ;
+  protected native void fireMenuDeselected() ;
+  protected native void fireMenuCanceled() ;
+  protected native javax.swing.JMenu.WinListener createWinListener(javax.swing.JPopupMenu a_r_g_u_m_e_n_t_0) ;
+  protected javax.swing.JMenu.WinListener popupListener;
+  protected class AccessibleJMenu extends javax.swing.JMenuItem.AccessibleJMenuItem implements javax.accessibility.AccessibleSelection {
+     protected  AccessibleJMenu(javax.swing.JMenu a_r_g_u_m_e_n_t_0){}
+    public native int getAccessibleChildrenCount() ;
+    public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.Accessible getAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleSelection getAccessibleSelection() ;
+    public native boolean isAccessibleChildSelected(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    public native int getAccessibleSelectionCount() ;
+    public native void addAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native void removeAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native void clearAccessibleSelection() ;
+    public native void selectAllAccessibleSelection() ;
+    final javax.swing.JMenu this$0;
+  }
+  protected class WinListener extends java.awt.event.WindowAdapter implements java.io.Serializable {
+     public  WinListener(javax.swing.JMenu a_r_g_u_m_e_n_t_0, javax.swing.JPopupMenu a_r_g_u_m_e_n_t_1){}
+    public native void windowClosing(java.awt.event.WindowEvent a_r_g_u_m_e_n_t_0) ;
+    javax.swing.JPopupMenu popupMenu;
+    final javax.swing.JMenu this$0;
+  }
+  class MenuChangeListener extends java.lang.Object implements javax.swing.event.ChangeListener, java.io.Serializable {
+      MenuChangeListener(javax.swing.JMenu a_r_g_u_m_e_n_t_0){}
+    public native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    boolean isSelected;
+    final javax.swing.JMenu this$0;
+  }
+}

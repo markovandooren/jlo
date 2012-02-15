@@ -1,0 +1,125 @@
+package java.io;
+public class ObjectOutputStream extends java.io.OutputStream implements java.io.ObjectOutput, java.io.ObjectStreamConstants {
+   public  ObjectOutputStream(java.io.OutputStream a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   protected  ObjectOutputStream() throws java.io.IOException, java.lang.SecurityException{}
+  public native void write(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public native void write(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void write(byte[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public final native void writeObject(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void defaultWriteObject()  throws java.io.IOException;
+  public native void flush()  throws java.io.IOException;
+  public native void close()  throws java.io.IOException;
+  public native void writeInt(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native java.io.ObjectOutputStream.PutField putFields()  throws java.io.IOException;
+  public native void writeFields()  throws java.io.IOException;
+  public native void reset()  throws java.io.IOException;
+  public native void writeChar(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void writeBytes(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void writeUTF(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void writeLong(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  native int getProtocolVersion() ;
+  public native void writeByte(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void writeShort(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  native void writeTypeString(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void writeFloat(float a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void useProtocolVersion(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native void writeObjectOverride(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void writeUnshared(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native void annotateClass(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native void annotateProxyClass(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native java.lang.Object replaceObject(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native boolean enableReplaceObject(boolean a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
+  protected native void writeStreamHeader()  throws java.io.IOException;
+  protected native void writeClassDescriptor(java.io.ObjectStreamClass a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native void drain()  throws java.io.IOException;
+  public native void writeBoolean(boolean a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void writeDouble(double a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void writeChars(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  private static class DebugTraceInfoStack extends java.lang.Object {
+      DebugTraceInfoStack(){}
+    native void clear() ;
+    public native java.lang.String toString() ;
+    native void push(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    native void pop() ;
+  }
+  private static class ReplaceTable extends java.lang.Object {
+      ReplaceTable(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1){}
+    native void clear() ;
+    native int size() ;
+    native java.lang.Object lookup(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    native void assign(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  }
+  private static class HandleTable extends java.lang.Object {
+      HandleTable(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1){}
+    native void clear() ;
+    native int size() ;
+    native int lookup(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    native int assign(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  }
+  private static class BlockDataOutputStream extends java.io.OutputStream implements java.io.DataOutput {
+      BlockDataOutputStream(java.io.OutputStream a_r_g_u_m_e_n_t_0){}
+    native void write(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3)  throws java.io.IOException;
+    public native void write(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void write(byte[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void write(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    public native void flush()  throws java.io.IOException;
+    public native void close()  throws java.io.IOException;
+    public native void writeInt(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void writeChar(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void writeBytes(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void writeUTF(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    native void writeUTF(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    public native void writeLong(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void writeByte(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void writeShort(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void writeFloat(float a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    native void drain()  throws java.io.IOException;
+    public native void writeBoolean(boolean a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    public native void writeDouble(double a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    native void writeChars(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    public native void writeChars(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    native boolean setBlockDataMode(boolean a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    native long getUTFLength(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    native void writeLongUTF(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    native void writeLongUTF(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+    native void writeInts(int[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void writeLongs(long[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void writeFloats(float[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void writeDoubles(double[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void writeShorts(short[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native void writeBooleans(boolean[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+    native boolean getBlockDataMode() ;
+  }
+  private class PutFieldImpl extends java.io.ObjectOutputStream.PutField {
+      PutFieldImpl(java.io.ObjectOutputStream a_r_g_u_m_e_n_t_0, java.io.ObjectStreamClass a_r_g_u_m_e_n_t_1){}
+    public native void put(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    public native void put(java.lang.String a_r_g_u_m_e_n_t_0, byte a_r_g_u_m_e_n_t_1) ;
+    public native void put(java.lang.String a_r_g_u_m_e_n_t_0, char a_r_g_u_m_e_n_t_1) ;
+    public native void put(java.lang.String a_r_g_u_m_e_n_t_0, short a_r_g_u_m_e_n_t_1) ;
+    public native void put(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void put(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+    public native void put(java.lang.String a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+    public native void put(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public native void put(java.lang.String a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+    public native void write(java.io.ObjectOutput a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+    native void writeFields()  throws java.io.IOException;
+    final java.io.ObjectOutputStream this$0;
+  }
+  public static abstract class PutField extends java.lang.Object {
+     public  PutField(){}
+    public abstract void put(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    public abstract void put(java.lang.String a_r_g_u_m_e_n_t_0, byte a_r_g_u_m_e_n_t_1) ;
+    public abstract void put(java.lang.String a_r_g_u_m_e_n_t_0, char a_r_g_u_m_e_n_t_1) ;
+    public abstract void put(java.lang.String a_r_g_u_m_e_n_t_0, short a_r_g_u_m_e_n_t_1) ;
+    public abstract void put(java.lang.String a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1) ;
+    public abstract void put(java.lang.String a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+    public abstract void put(java.lang.String a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1) ;
+    public abstract void put(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+    public abstract void put(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public abstract void write(java.io.ObjectOutput a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  }
+  private static class Caches extends java.lang.Object {
+    static final java.util.concurrent.ConcurrentMap<java.io.ObjectStreamClass.WeakClassKey,java.lang.Boolean> subclassAudits;
+    static final java.lang.ref.ReferenceQueue<java.lang.Class<? extends java.lang.Object>> subclassAuditsQueue;
+  }
+}

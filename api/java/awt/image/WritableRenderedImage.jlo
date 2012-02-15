@@ -1,0 +1,11 @@
+package java.awt.image;
+public abstract interface WritableRenderedImage extends java.awt.image.RenderedImage {
+  public abstract void setData(java.awt.image.Raster a_r_g_u_m_e_n_t_0) ;
+  public abstract void addTileObserver(java.awt.image.TileObserver a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeTileObserver(java.awt.image.TileObserver a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isTileWritable(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract java.awt.Point[] getWritableTileIndices() ;
+  public abstract boolean hasTileWriters() ;
+  public abstract java.awt.image.WritableRaster getWritableTile(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract void releaseWritableTile(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+}

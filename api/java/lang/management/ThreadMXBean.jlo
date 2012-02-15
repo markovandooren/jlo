@@ -1,0 +1,30 @@
+package java.lang.management;
+public abstract interface ThreadMXBean {
+  public abstract int getThreadCount() ;
+  public abstract int getPeakThreadCount() ;
+  public abstract long getTotalStartedThreadCount() ;
+  public abstract int getDaemonThreadCount() ;
+  public abstract long[] getAllThreadIds() ;
+  public abstract java.lang.management.ThreadInfo getThreadInfo(long a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract java.lang.management.ThreadInfo getThreadInfo(long a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.management.ThreadInfo[] getThreadInfo(long[] a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.management.ThreadInfo[] getThreadInfo(long[] a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public abstract java.lang.management.ThreadInfo[] getThreadInfo(long[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public abstract boolean isThreadContentionMonitoringSupported() ;
+  public abstract boolean isThreadContentionMonitoringEnabled() ;
+  public abstract void setThreadContentionMonitoringEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract long getCurrentThreadCpuTime() ;
+  public abstract long getCurrentThreadUserTime() ;
+  public abstract long getThreadCpuTime(long a_r_g_u_m_e_n_t_0) ;
+  public abstract long getThreadUserTime(long a_r_g_u_m_e_n_t_0) ;
+  public abstract boolean isThreadCpuTimeSupported() ;
+  public abstract boolean isCurrentThreadCpuTimeSupported() ;
+  public abstract boolean isThreadCpuTimeEnabled() ;
+  public abstract void setThreadCpuTimeEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract long[] findMonitorDeadlockedThreads() ;
+  public abstract void resetPeakThreadCount() ;
+  public abstract long[] findDeadlockedThreads() ;
+  public abstract boolean isObjectMonitorUsageSupported() ;
+  public abstract boolean isSynchronizerUsageSupported() ;
+  public abstract java.lang.management.ThreadInfo[] dumpAllThreads(boolean a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+}

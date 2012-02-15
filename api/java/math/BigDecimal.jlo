@@ -1,0 +1,107 @@
+package java.math;
+public class BigDecimal extends java.lang.Number implements java.lang.Comparable<java.math.BigDecimal> {
+    BigDecimal(java.math.BigInteger a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  BigDecimal(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  BigDecimal(char[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.math.MathContext a_r_g_u_m_e_n_t_3){}
+   public  BigDecimal(char[] a_r_g_u_m_e_n_t_0){}
+   public  BigDecimal(char[] a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1){}
+   public  BigDecimal(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  BigDecimal(java.lang.String a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1){}
+   public  BigDecimal(double a_r_g_u_m_e_n_t_0){}
+   public  BigDecimal(double a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1){}
+   public  BigDecimal(java.math.BigInteger a_r_g_u_m_e_n_t_0){}
+   public  BigDecimal(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1){}
+   public  BigDecimal(java.math.BigInteger a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  BigDecimal(java.math.BigInteger a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.math.MathContext a_r_g_u_m_e_n_t_2){}
+   public  BigDecimal(int a_r_g_u_m_e_n_t_0){}
+   public  BigDecimal(int a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1){}
+   public  BigDecimal(long a_r_g_u_m_e_n_t_0){}
+   public  BigDecimal(long a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1){}
+  public native java.math.BigDecimal add(java.math.BigDecimal a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal add(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native int hashCode() ;
+  public native java.math.BigDecimal abs() ;
+  public native java.math.BigDecimal abs(java.math.MathContext a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal pow(int a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal pow(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal min(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal max(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int compareTo(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public static native java.math.BigDecimal valueOf(long a_r_g_u_m_e_n_t_0) ;
+  public static native java.math.BigDecimal valueOf(double a_r_g_u_m_e_n_t_0) ;
+  public static native java.math.BigDecimal valueOf(long a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native int intValue() ;
+  public native long longValue() ;
+  public native float floatValue() ;
+  public native double doubleValue() ;
+  public native int signum() ;
+  public native java.math.BigDecimal round(java.math.MathContext a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal ulp() ;
+  public native int scale() ;
+  public native java.math.BigDecimal subtract(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal subtract(java.math.BigDecimal a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal multiply(java.math.BigDecimal a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal multiply(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal divide(java.math.BigDecimal a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.math.BigDecimal divide(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal divide(java.math.BigDecimal a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal divide(java.math.BigDecimal a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal divide(java.math.BigDecimal a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.math.RoundingMode a_r_g_u_m_e_n_t_2) ;
+  public native java.math.BigDecimal divide(java.math.BigDecimal a_r_g_u_m_e_n_t_0, java.math.RoundingMode a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal[] divideAndRemainder(java.math.BigDecimal a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal[] divideAndRemainder(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal remainder(java.math.BigDecimal a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal remainder(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal negate(java.math.MathContext a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal negate() ;
+  public native java.math.BigInteger toBigInteger() ;
+  public native int precision() ;
+  public native java.math.BigDecimal divideToIntegralValue(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal divideToIntegralValue(java.math.BigDecimal a_r_g_u_m_e_n_t_0, java.math.MathContext a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal plus(java.math.MathContext a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal plus() ;
+  public native java.math.BigInteger unscaledValue() ;
+  public native java.math.BigDecimal setScale(int a_r_g_u_m_e_n_t_0, java.math.RoundingMode a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal setScale(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal setScale(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native java.math.BigDecimal movePointLeft(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal movePointRight(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal scaleByPowerOfTen(int a_r_g_u_m_e_n_t_0) ;
+  public native java.math.BigDecimal stripTrailingZeros() ;
+  public native java.lang.String toEngineeringString() ;
+  public native java.lang.String toPlainString() ;
+  public native java.math.BigInteger toBigIntegerExact() ;
+  public native long longValueExact() ;
+  public native int intValueExact() ;
+  public native short shortValueExact() ;
+  public native byte byteValueExact() ;
+  static final long INFLATED;
+  public static final java.math.BigDecimal ZERO;
+  public static final java.math.BigDecimal ONE;
+  public static final java.math.BigDecimal TEN;
+  public static final int ROUND_UP;
+  public static final int ROUND_DOWN;
+  public static final int ROUND_CEILING;
+  public static final int ROUND_FLOOR;
+  public static final int ROUND_HALF_UP;
+  public static final int ROUND_HALF_DOWN;
+  public static final int ROUND_HALF_EVEN;
+  public static final int ROUND_UNNECESSARY;
+  static final boolean $assertionsDisabled;
+  static class StringBuilderHelper extends java.lang.Object {
+      StringBuilderHelper(){}
+    native int putIntCompact(long a_r_g_u_m_e_n_t_0) ;
+    native char[] getCompactCharArray() ;
+    native java.lang.StringBuilder getStringBuilder() ;
+    final java.lang.StringBuilder sb;
+    final char[] cmpCharArray;
+    static final char[] DIGIT_TENS;
+    static final char[] DIGIT_ONES;
+    static final boolean $assertionsDisabled;
+  }
+  private static class LongOverflow extends java.lang.Object {
+    public static native void check(java.math.BigDecimal a_r_g_u_m_e_n_t_0) ;
+  }
+}

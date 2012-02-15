@@ -1,0 +1,10 @@
+package java.nio;
+public abstract class MappedByteBuffer extends java.nio.ByteBuffer {
+    MappedByteBuffer(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4){}
+    MappedByteBuffer(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+  public final native java.nio.MappedByteBuffer load() ;
+  public final native boolean isLoaded() ;
+  public final native java.nio.MappedByteBuffer force() ;
+  volatile boolean isAMappedBuffer;
+  static final boolean $assertionsDisabled;
+}

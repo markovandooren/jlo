@@ -1,0 +1,8 @@
+package java.awt.image;
+public abstract interface RasterOp {
+  public abstract java.awt.geom.Rectangle2D getBounds2D(java.awt.image.Raster a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.image.WritableRaster filter(java.awt.image.Raster a_r_g_u_m_e_n_t_0, java.awt.image.WritableRaster a_r_g_u_m_e_n_t_1) ;
+  public abstract java.awt.image.WritableRaster createCompatibleDestRaster(java.awt.image.Raster a_r_g_u_m_e_n_t_0) ;
+  public abstract java.awt.geom.Point2D getPoint2D(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.geom.Point2D a_r_g_u_m_e_n_t_1) ;
+  public abstract java.awt.RenderingHints getRenderingHints() ;
+}

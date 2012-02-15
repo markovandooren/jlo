@@ -1,0 +1,55 @@
+package javax.swing.plaf.basic;
+public class BasicIconFactory extends java.lang.Object implements java.io.Serializable {
+   public  BasicIconFactory(){}
+  public static native javax.swing.Icon getMenuItemCheckIcon() ;
+  public static native javax.swing.Icon getMenuItemArrowIcon() ;
+  public static native javax.swing.Icon getMenuArrowIcon() ;
+  public static native javax.swing.Icon getCheckBoxIcon() ;
+  public static native javax.swing.Icon getRadioButtonIcon() ;
+  public static native javax.swing.Icon getCheckBoxMenuItemIcon() ;
+  public static native javax.swing.Icon getRadioButtonMenuItemIcon() ;
+  public static native javax.swing.Icon createEmptyFrameIcon() ;
+  private static class MenuArrowIcon extends java.lang.Object implements javax.swing.Icon, javax.swing.plaf.UIResource, java.io.Serializable {
+    public native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    public native int getIconWidth() ;
+    public native int getIconHeight() ;
+  }
+  private static class MenuItemArrowIcon extends java.lang.Object implements javax.swing.Icon, javax.swing.plaf.UIResource, java.io.Serializable {
+    public native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    public native int getIconWidth() ;
+    public native int getIconHeight() ;
+  }
+  private static class MenuItemCheckIcon extends java.lang.Object implements javax.swing.Icon, javax.swing.plaf.UIResource, java.io.Serializable {
+    public native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    public native int getIconWidth() ;
+    public native int getIconHeight() ;
+  }
+  private static class RadioButtonMenuItemIcon extends java.lang.Object implements javax.swing.Icon, javax.swing.plaf.UIResource, java.io.Serializable {
+    public native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    public native int getIconWidth() ;
+    public native int getIconHeight() ;
+  }
+  private static class CheckBoxMenuItemIcon extends java.lang.Object implements javax.swing.Icon, javax.swing.plaf.UIResource, java.io.Serializable {
+    public native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    public native int getIconWidth() ;
+    public native int getIconHeight() ;
+  }
+  private static class RadioButtonIcon extends java.lang.Object implements javax.swing.Icon, javax.swing.plaf.UIResource, java.io.Serializable {
+    public native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    public native int getIconWidth() ;
+    public native int getIconHeight() ;
+  }
+  private static class CheckBoxIcon extends java.lang.Object implements javax.swing.Icon, java.io.Serializable {
+    public native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    public native int getIconWidth() ;
+    public native int getIconHeight() ;
+    static final int csize;
+  }
+  private static class EmptyFrameIcon extends java.lang.Object implements javax.swing.Icon, java.io.Serializable {
+    public native void paintIcon(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+    public native int getIconWidth() ;
+    public native int getIconHeight() ;
+    int height;
+    int width;
+  }
+}

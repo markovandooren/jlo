@@ -1,0 +1,5 @@
+package java.security.acl;
+public abstract interface Permission {
+  public abstract boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String toString() ;
+}

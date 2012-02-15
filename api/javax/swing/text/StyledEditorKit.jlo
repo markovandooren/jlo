@@ -1,0 +1,67 @@
+package javax.swing.text;
+public class StyledEditorKit extends javax.swing.text.DefaultEditorKit {
+   public  StyledEditorKit(){}
+  public native java.lang.Object clone() ;
+  public native javax.swing.Action[] getActions() ;
+  public native void install(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.ViewFactory getViewFactory() ;
+  public native void deinstall(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.Document createDefaultDocument() ;
+  public native javax.swing.text.MutableAttributeSet getInputAttributes() ;
+  protected native void createInputAttributes(javax.swing.text.Element a_r_g_u_m_e_n_t_0, javax.swing.text.MutableAttributeSet a_r_g_u_m_e_n_t_1) ;
+  public native javax.swing.text.Element getCharacterAttributeRun() ;
+  javax.swing.text.Element currentRun;
+  javax.swing.text.Element currentParagraph;
+  javax.swing.text.MutableAttributeSet inputAttributes;
+  static class StyledInsertBreakAction extends javax.swing.text.StyledEditorKit.StyledTextAction {
+      StyledInsertBreakAction(){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static class UnderlineAction extends javax.swing.text.StyledEditorKit.StyledTextAction {
+     public  UnderlineAction(){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static class ItalicAction extends javax.swing.text.StyledEditorKit.StyledTextAction {
+     public  ItalicAction(){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static class BoldAction extends javax.swing.text.StyledEditorKit.StyledTextAction {
+     public  BoldAction(){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static class AlignmentAction extends javax.swing.text.StyledEditorKit.StyledTextAction {
+     public  AlignmentAction(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static class ForegroundAction extends javax.swing.text.StyledEditorKit.StyledTextAction {
+     public  ForegroundAction(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Color a_r_g_u_m_e_n_t_1){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static class FontSizeAction extends javax.swing.text.StyledEditorKit.StyledTextAction {
+     public  FontSizeAction(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static class FontFamilyAction extends javax.swing.text.StyledEditorKit.StyledTextAction {
+     public  FontFamilyAction(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static abstract class StyledTextAction extends javax.swing.text.TextAction {
+     public  StyledTextAction(java.lang.String a_r_g_u_m_e_n_t_0){}
+    protected final native javax.swing.JEditorPane getEditor(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+    protected final native void setParagraphAttributes(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+    protected final native void setCharacterAttributes(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+    protected final native javax.swing.text.StyledDocument getStyledDocument(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0) ;
+    protected final native javax.swing.text.StyledEditorKit getStyledEditorKit(javax.swing.JEditorPane a_r_g_u_m_e_n_t_0) ;
+  }
+  static class StyledViewFactory extends java.lang.Object implements javax.swing.text.ViewFactory {
+      StyledViewFactory(){}
+    public native javax.swing.text.View create(javax.swing.text.Element a_r_g_u_m_e_n_t_0) ;
+  }
+  class AttributeTracker extends java.lang.Object implements javax.swing.event.CaretListener, java.beans.PropertyChangeListener, java.io.Serializable {
+      AttributeTracker(javax.swing.text.StyledEditorKit a_r_g_u_m_e_n_t_0){}
+    public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public native void caretUpdate(javax.swing.event.CaretEvent a_r_g_u_m_e_n_t_0) ;
+    native void updateInputAttributes(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_2) ;
+    final javax.swing.text.StyledEditorKit this$0;
+  }
+}

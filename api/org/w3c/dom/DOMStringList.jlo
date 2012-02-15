@@ -1,0 +1,6 @@
+package org.w3c.dom;
+public abstract interface DOMStringList {
+  public abstract int getLength() ;
+  public abstract boolean contains(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public abstract java.lang.String item(int a_r_g_u_m_e_n_t_0) ;
+}

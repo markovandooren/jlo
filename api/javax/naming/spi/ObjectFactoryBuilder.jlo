@@ -1,0 +1,4 @@
+package javax.naming.spi;
+public abstract interface ObjectFactoryBuilder {
+  public abstract javax.naming.spi.ObjectFactory createObjectFactory(java.lang.Object a_r_g_u_m_e_n_t_0, java.util.Hashtable<? extends java.lang.Object,? extends java.lang.Object> a_r_g_u_m_e_n_t_1)  throws javax.naming.NamingException;
+}

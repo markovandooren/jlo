@@ -1,0 +1,43 @@
+package javax.management;
+public class ObjectName extends java.lang.Object implements java.lang.Comparable<javax.management.ObjectName>, javax.management.QueryExp {
+   public  ObjectName(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Hashtable<java.lang.String,java.lang.String> a_r_g_u_m_e_n_t_1) throws javax.management.MalformedObjectNameException, java.lang.NullPointerException{}
+   public  ObjectName(java.lang.String a_r_g_u_m_e_n_t_0) throws javax.management.MalformedObjectNameException, java.lang.NullPointerException{}
+   public  ObjectName(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) throws javax.management.MalformedObjectNameException, java.lang.NullPointerException{}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native int compareTo(javax.management.ObjectName a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.String getCanonicalName() ;
+  public static native javax.management.ObjectName getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2)  throws javax.management.MalformedObjectNameException, java.lang.NullPointerException;
+  public static native javax.management.ObjectName getInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.management.MalformedObjectNameException, java.lang.NullPointerException;
+  public static native javax.management.ObjectName getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.util.Hashtable<java.lang.String,java.lang.String> a_r_g_u_m_e_n_t_1)  throws javax.management.MalformedObjectNameException, java.lang.NullPointerException;
+  public static native javax.management.ObjectName getInstance(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws java.lang.NullPointerException;
+  public static native java.lang.String quote(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NullPointerException;
+  public native java.lang.String getDomain() ;
+  public native boolean isPattern() ;
+  public native boolean isDomainPattern() ;
+  public native boolean isPropertyPattern() ;
+  public native boolean isPropertyListPattern() ;
+  public native boolean isPropertyValuePattern() ;
+  public native boolean isPropertyValuePattern(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NullPointerException, java.lang.IllegalArgumentException;
+  public native java.lang.String getKeyProperty(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.NullPointerException;
+  public native java.util.Hashtable<java.lang.String,java.lang.String> getKeyPropertyList() ;
+  public native java.lang.String getKeyPropertyListString() ;
+  public native java.lang.String getCanonicalKeyPropertyListString() ;
+  public static native java.lang.String unquote(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException, java.lang.NullPointerException;
+  public native boolean apply(javax.management.ObjectName a_r_g_u_m_e_n_t_0)  throws java.lang.NullPointerException;
+  public native void setMBeanServer(javax.management.MBeanServer a_r_g_u_m_e_n_t_0) ;
+  public static final javax.management.ObjectName WILDCARD;
+  private static class PatternProperty extends javax.management.ObjectName.Property {
+      PatternProperty(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  }
+  private static class Property extends java.lang.Object {
+      Property(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    native java.lang.String getValueString(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    native void setKeyIndex(int a_r_g_u_m_e_n_t_0) ;
+    native java.lang.String getKeyString(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    int _key_index;
+    int _key_length;
+    int _value_length;
+  }
+}

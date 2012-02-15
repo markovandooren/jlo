@@ -1,0 +1,16 @@
+package java.awt.font;
+public class FontRenderContext extends java.lang.Object {
+   protected  FontRenderContext(){}
+   public  FontRenderContext(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
+   public  FontRenderContext(java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.awt.font.FontRenderContext a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.geom.AffineTransform getTransform() ;
+  public native boolean isTransformed() ;
+  public native java.lang.Object getAntiAliasingHint() ;
+  public native java.lang.Object getFractionalMetricsHint() ;
+  public native boolean isAntiAliased() ;
+  public native boolean usesFractionalMetrics() ;
+  public native int getTransformType() ;
+}

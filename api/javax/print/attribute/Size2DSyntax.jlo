@@ -1,0 +1,16 @@
+package javax.print.attribute;
+public abstract class Size2DSyntax extends java.lang.Object implements java.io.Serializable, java.lang.Cloneable {
+   protected  Size2DSyntax(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   protected  Size2DSyntax(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String toString() ;
+  public native float[] getSize(int a_r_g_u_m_e_n_t_0) ;
+  public native float getY(int a_r_g_u_m_e_n_t_0) ;
+  public native float getX(int a_r_g_u_m_e_n_t_0) ;
+  protected native int getXMicrometers() ;
+  protected native int getYMicrometers() ;
+  public static final int INCH;
+  public static final int MM;
+}

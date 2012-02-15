@@ -1,0 +1,35 @@
+package javax.sound.sampled;
+public class AudioSystem extends java.lang.Object {
+  public static native int write(javax.sound.sampled.AudioInputStream a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioFileFormat.Type a_r_g_u_m_e_n_t_1, java.io.OutputStream a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public static native int write(javax.sound.sampled.AudioInputStream a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioFileFormat.Type a_r_g_u_m_e_n_t_1, java.io.File a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
+  public static native javax.sound.sampled.Clip getClip(javax.sound.sampled.Mixer.Info a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.LineUnavailableException;
+  public static native javax.sound.sampled.Clip getClip()  throws javax.sound.sampled.LineUnavailableException;
+  public static native javax.sound.sampled.AudioFileFormat getAudioFileFormat(java.io.File a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.UnsupportedAudioFileException, java.io.IOException;
+  public static native javax.sound.sampled.AudioFileFormat getAudioFileFormat(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.UnsupportedAudioFileException, java.io.IOException;
+  public static native javax.sound.sampled.AudioFileFormat getAudioFileFormat(java.net.URL a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.UnsupportedAudioFileException, java.io.IOException;
+  public static native javax.sound.sampled.AudioInputStream getAudioInputStream(javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioInputStream a_r_g_u_m_e_n_t_1) ;
+  public static native javax.sound.sampled.AudioInputStream getAudioInputStream(java.io.File a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.UnsupportedAudioFileException, java.io.IOException;
+  public static native javax.sound.sampled.AudioInputStream getAudioInputStream(javax.sound.sampled.AudioFormat.Encoding a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioInputStream a_r_g_u_m_e_n_t_1) ;
+  public static native javax.sound.sampled.AudioInputStream getAudioInputStream(java.net.URL a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.UnsupportedAudioFileException, java.io.IOException;
+  public static native javax.sound.sampled.AudioInputStream getAudioInputStream(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.UnsupportedAudioFileException, java.io.IOException;
+  public static native javax.sound.sampled.AudioFileFormat.Type[] getAudioFileTypes(javax.sound.sampled.AudioInputStream a_r_g_u_m_e_n_t_0) ;
+  public static native javax.sound.sampled.AudioFileFormat.Type[] getAudioFileTypes() ;
+  public static native boolean isFileTypeSupported(javax.sound.sampled.AudioFileFormat.Type a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioInputStream a_r_g_u_m_e_n_t_1) ;
+  public static native boolean isFileTypeSupported(javax.sound.sampled.AudioFileFormat.Type a_r_g_u_m_e_n_t_0) ;
+  public static native javax.sound.sampled.Mixer.Info[] getMixerInfo() ;
+  public static native javax.sound.sampled.Mixer getMixer(javax.sound.sampled.Mixer.Info a_r_g_u_m_e_n_t_0) ;
+  public static native javax.sound.sampled.Line.Info[] getSourceLineInfo(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0) ;
+  public static native javax.sound.sampled.Line.Info[] getTargetLineInfo(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isLineSupported(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0) ;
+  public static native javax.sound.sampled.Line getLine(javax.sound.sampled.Line.Info a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.LineUnavailableException;
+  public static native javax.sound.sampled.SourceDataLine getSourceDataLine(javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_0, javax.sound.sampled.Mixer.Info a_r_g_u_m_e_n_t_1)  throws javax.sound.sampled.LineUnavailableException;
+  public static native javax.sound.sampled.SourceDataLine getSourceDataLine(javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.LineUnavailableException;
+  public static native javax.sound.sampled.TargetDataLine getTargetDataLine(javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_0, javax.sound.sampled.Mixer.Info a_r_g_u_m_e_n_t_1)  throws javax.sound.sampled.LineUnavailableException;
+  public static native javax.sound.sampled.TargetDataLine getTargetDataLine(javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_0)  throws javax.sound.sampled.LineUnavailableException;
+  public static native javax.sound.sampled.AudioFormat.Encoding[] getTargetEncodings(javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_0) ;
+  public static native javax.sound.sampled.AudioFormat.Encoding[] getTargetEncodings(javax.sound.sampled.AudioFormat.Encoding a_r_g_u_m_e_n_t_0) ;
+  public static native boolean isConversionSupported(javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_1) ;
+  public static native boolean isConversionSupported(javax.sound.sampled.AudioFormat.Encoding a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_1) ;
+  public static native javax.sound.sampled.AudioFormat[] getTargetFormats(javax.sound.sampled.AudioFormat.Encoding a_r_g_u_m_e_n_t_0, javax.sound.sampled.AudioFormat a_r_g_u_m_e_n_t_1) ;
+  public static final int NOT_SPECIFIED;
+}

@@ -1,0 +1,58 @@
+package javax.crypto;
+public class Cipher extends java.lang.Object {
+   protected  Cipher(javax.crypto.CipherSpi a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+    Cipher(javax.crypto.CipherSpi a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  public static final native javax.crypto.Cipher getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException, java.security.NoSuchProviderException, javax.crypto.NoSuchPaddingException;
+  public static final native javax.crypto.Cipher getInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.security.Provider a_r_g_u_m_e_n_t_1)  throws java.security.NoSuchAlgorithmException, javax.crypto.NoSuchPaddingException;
+  public static final native javax.crypto.Cipher getInstance(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException, javax.crypto.NoSuchPaddingException;
+  public final native void init(int a_r_g_u_m_e_n_t_0, java.security.cert.Certificate a_r_g_u_m_e_n_t_1, java.security.SecureRandom a_r_g_u_m_e_n_t_2)  throws java.security.InvalidKeyException;
+  public final native void init(int a_r_g_u_m_e_n_t_0, java.security.Key a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException;
+  public final native void init(int a_r_g_u_m_e_n_t_0, java.security.Key a_r_g_u_m_e_n_t_1, java.security.SecureRandom a_r_g_u_m_e_n_t_2)  throws java.security.InvalidKeyException;
+  public final native void init(int a_r_g_u_m_e_n_t_0, java.security.Key a_r_g_u_m_e_n_t_1, java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_2)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  public final native void init(int a_r_g_u_m_e_n_t_0, java.security.Key a_r_g_u_m_e_n_t_1, java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_2, java.security.SecureRandom a_r_g_u_m_e_n_t_3)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  public final native void init(int a_r_g_u_m_e_n_t_0, java.security.Key a_r_g_u_m_e_n_t_1, java.security.AlgorithmParameters a_r_g_u_m_e_n_t_2)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  public final native void init(int a_r_g_u_m_e_n_t_0, java.security.Key a_r_g_u_m_e_n_t_1, java.security.AlgorithmParameters a_r_g_u_m_e_n_t_2, java.security.SecureRandom a_r_g_u_m_e_n_t_3)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  public final native void init(int a_r_g_u_m_e_n_t_0, java.security.cert.Certificate a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException;
+  public final native byte[] wrap(java.security.Key a_r_g_u_m_e_n_t_0)  throws javax.crypto.IllegalBlockSizeException, java.security.InvalidKeyException;
+  public final native int update(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, byte[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4)  throws javax.crypto.ShortBufferException;
+  public final native int update(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, byte[] a_r_g_u_m_e_n_t_3)  throws javax.crypto.ShortBufferException;
+  public final native byte[] update(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public final native byte[] update(byte[] a_r_g_u_m_e_n_t_0) ;
+  public final native int update(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0, java.nio.ByteBuffer a_r_g_u_m_e_n_t_1)  throws javax.crypto.ShortBufferException;
+  public final native java.lang.String getAlgorithm() ;
+  public final native java.security.Provider getProvider() ;
+  public final native java.security.AlgorithmParameters getParameters() ;
+  native void a() ;
+  public final native java.security.Key unwrap(byte[] a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.security.InvalidKeyException, java.security.NoSuchAlgorithmException;
+  public final native int doFinal(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.crypto.IllegalBlockSizeException, javax.crypto.ShortBufferException, javax.crypto.BadPaddingException;
+  public final native byte[] doFinal()  throws javax.crypto.IllegalBlockSizeException, javax.crypto.BadPaddingException;
+  public final native byte[] doFinal(byte[] a_r_g_u_m_e_n_t_0)  throws javax.crypto.IllegalBlockSizeException, javax.crypto.BadPaddingException;
+  public final native byte[] doFinal(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws javax.crypto.IllegalBlockSizeException, javax.crypto.BadPaddingException;
+  public final native int doFinal(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, byte[] a_r_g_u_m_e_n_t_3)  throws javax.crypto.ShortBufferException, javax.crypto.IllegalBlockSizeException, javax.crypto.BadPaddingException;
+  public final native int doFinal(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, byte[] a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4)  throws javax.crypto.ShortBufferException, javax.crypto.IllegalBlockSizeException, javax.crypto.BadPaddingException;
+  public final native int doFinal(java.nio.ByteBuffer a_r_g_u_m_e_n_t_0, java.nio.ByteBuffer a_r_g_u_m_e_n_t_1)  throws javax.crypto.ShortBufferException, javax.crypto.IllegalBlockSizeException, javax.crypto.BadPaddingException;
+  public final native int getBlockSize() ;
+  public final native javax.crypto.ExemptionMechanism getExemptionMechanism() ;
+  public final native byte[] getIV() ;
+  public static final native int getMaxAllowedKeyLength(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+  public static final native java.security.spec.AlgorithmParameterSpec getMaxAllowedParameterSpec(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException;
+  public final native int getOutputSize(int a_r_g_u_m_e_n_t_0) ;
+  public static final int ENCRYPT_MODE;
+  public static final int DECRYPT_MODE;
+  public static final int WRAP_MODE;
+  public static final int UNWRAP_MODE;
+  public static final int PUBLIC_KEY;
+  public static final int PRIVATE_KEY;
+  public static final int SECRET_KEY;
+  private static class r extends java.lang.Object {
+      r(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3){}
+    native int c(java.security.Provider.Service a_r_g_u_m_e_n_t_0) ;
+    native int b(java.security.Provider.Service a_r_g_u_m_e_n_t_0) ;
+    native int a(java.security.Provider.Service a_r_g_u_m_e_n_t_0) ;
+    native void a(javax.crypto.CipherSpi a_r_g_u_m_e_n_t_0)  throws java.security.NoSuchAlgorithmException, javax.crypto.NoSuchPaddingException;
+    final java.lang.String a;
+    final java.lang.String b;
+    final java.lang.String c;
+    final java.lang.String d;
+  }
+}

@@ -1,0 +1,5 @@
+package java.awt;
+public class IllegalComponentStateException extends java.lang.IllegalStateException {
+   public  IllegalComponentStateException(){}
+   public  IllegalComponentStateException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

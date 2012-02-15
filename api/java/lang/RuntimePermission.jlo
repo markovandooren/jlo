@@ -1,0 +1,5 @@
+package java.lang;
+public final class RuntimePermission extends java.security.BasicPermission {
+   public  RuntimePermission(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  RuntimePermission(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+}

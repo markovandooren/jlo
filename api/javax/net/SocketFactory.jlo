@@ -1,0 +1,10 @@
+package javax.net;
+public abstract class SocketFactory extends java.lang.Object {
+   protected  SocketFactory(){}
+  public static native javax.net.SocketFactory getDefault() ;
+  public native java.net.Socket createSocket()  throws java.io.IOException;
+  public abstract java.net.Socket createSocket(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.io.IOException, java.net.UnknownHostException;
+  public abstract java.net.Socket createSocket(java.lang.String a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.net.InetAddress a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws java.io.IOException, java.net.UnknownHostException;
+  public abstract java.net.Socket createSocket(java.net.InetAddress a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public abstract java.net.Socket createSocket(java.net.InetAddress a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.net.InetAddress a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws java.io.IOException;
+}

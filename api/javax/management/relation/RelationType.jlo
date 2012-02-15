@@ -1,0 +1,6 @@
+package javax.management.relation;
+public abstract interface RelationType extends java.io.Serializable {
+  public abstract java.lang.String getRelationTypeName() ;
+  public abstract java.util.List<javax.management.relation.RoleInfo> getRoleInfos() ;
+  public abstract javax.management.relation.RoleInfo getRoleInfo(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException, javax.management.relation.RoleInfoNotFoundException;
+}

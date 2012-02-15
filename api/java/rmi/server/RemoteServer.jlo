@@ -1,0 +1,8 @@
+package java.rmi.server;
+public abstract class RemoteServer extends java.rmi.server.RemoteObject {
+   protected  RemoteServer(){}
+   protected  RemoteServer(java.rmi.server.RemoteRef a_r_g_u_m_e_n_t_0){}
+  public static native java.lang.String getClientHost()  throws java.rmi.server.ServerNotActiveException;
+  public static native void setLog(java.io.OutputStream a_r_g_u_m_e_n_t_0) ;
+  public static native java.io.PrintStream getLog() ;
+}

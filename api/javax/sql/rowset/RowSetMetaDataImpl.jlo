@@ -1,0 +1,66 @@
+package javax.sql.rowset;
+public class RowSetMetaDataImpl extends java.lang.Object implements javax.sql.RowSetMetaData, java.io.Serializable {
+   public  RowSetMetaDataImpl(){}
+  public native boolean isReadOnly(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native boolean isWritable(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native java.lang.String getColumnName(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native int getColumnCount()  throws java.sql.SQLException;
+  public native <T extends java.lang.Object>T unwrap(java.lang.Class<T> a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native boolean isWrapperFor(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void setScale(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native int getPrecision(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native java.lang.String getTableName(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void setTableName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setColumnCount(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native void setAutoIncrement(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setCaseSensitive(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setSearchable(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setCurrency(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setNullable(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setSigned(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setColumnDisplaySize(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setColumnLabel(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setColumnName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setSchemaName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setPrecision(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setCatalogName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setColumnType(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native void setColumnTypeName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public native boolean isAutoIncrement(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native boolean isCaseSensitive(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native boolean isSearchable(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native boolean isCurrency(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native int isNullable(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native boolean isSigned(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native int getColumnDisplaySize(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native java.lang.String getColumnLabel(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native java.lang.String getSchemaName(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native int getScale(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native java.lang.String getCatalogName(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native int getColumnType(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native java.lang.String getColumnTypeName(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native boolean isDefinitelyWritable(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public native java.lang.String getColumnClassName(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  static final long serialVersionUID;
+  private class ColInfo extends java.lang.Object implements java.io.Serializable {
+    public boolean autoIncrement;
+    public boolean caseSensitive;
+    public boolean currency;
+    public int nullable;
+    public boolean signed;
+    public boolean searchable;
+    public int columnDisplaySize;
+    public java.lang.String columnLabel;
+    public java.lang.String columnName;
+    public java.lang.String schemaName;
+    public int colPrecision;
+    public int colScale;
+    public java.lang.String tableName;
+    public java.lang.String catName;
+    public int colType;
+    public java.lang.String colTypeName;
+    public boolean readOnly;
+    public boolean writable;
+    final javax.sql.rowset.RowSetMetaDataImpl this$0;
+  }
+}

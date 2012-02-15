@@ -1,0 +1,7 @@
+package javax.print;
+public class PrintException extends java.lang.Exception {
+   public  PrintException(){}
+   public  PrintException(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  PrintException(java.lang.Exception a_r_g_u_m_e_n_t_0){}
+   public  PrintException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Exception a_r_g_u_m_e_n_t_1){}
+}

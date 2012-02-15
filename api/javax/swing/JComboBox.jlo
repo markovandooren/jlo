@@ -1,0 +1,165 @@
+package javax.swing;
+public class JComboBox extends javax.swing.JComponent implements java.awt.ItemSelectable, javax.swing.event.ListDataListener, java.awt.event.ActionListener, javax.accessibility.Accessible {
+   public  JComboBox(java.lang.Object[] a_r_g_u_m_e_n_t_0){}
+   public  JComboBox(java.util.Vector<? extends java.lang.Object> a_r_g_u_m_e_n_t_0){}
+   public  JComboBox(){}
+   public  JComboBox(javax.swing.ComboBoxModel a_r_g_u_m_e_n_t_0){}
+  public native void setEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+  public native void updateUI() ;
+  public native void setUI(javax.swing.plaf.ComboBoxUI a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getUIClassID() ;
+  public native void processKeyEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  protected native java.lang.String paramString() ;
+  public native void setActionCommand(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getActionCommand() ;
+  public native void setAction(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.Action getAction() ;
+  protected native void configurePropertiesFromAction(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  protected native void actionPropertyChanged(javax.swing.Action a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  protected native java.beans.PropertyChangeListener createActionPropertyChangeListener(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.ComboBoxModel getModel() ;
+  public native void setModel(javax.swing.ComboBoxModel a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.plaf.ComboBoxUI getUI() ;
+  public native void addActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.event.ActionListener[] getActionListeners() ;
+  protected native void fireItemStateChanged(java.awt.event.ItemEvent a_r_g_u_m_e_n_t_0) ;
+  public native void addItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeItemListener(java.awt.event.ItemListener a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.event.ItemListener[] getItemListeners() ;
+  public native java.lang.Object[] getSelectedObjects() ;
+  public native javax.swing.ListCellRenderer getRenderer() ;
+  public native void contentsChanged(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
+  public native void intervalAdded(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
+  public native void intervalRemoved(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
+  public native int getSelectedIndex() ;
+  public native void setSelectedIndex(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isEditable() ;
+  public native void setEditable(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void configureEditor(javax.swing.ComboBoxEditor a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
+  public native boolean isPopupVisible() ;
+  public native void setPopupVisible(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void hidePopup() ;
+  public native void setRenderer(javax.swing.ListCellRenderer a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.ComboBoxEditor getEditor() ;
+  public native void setEditor(javax.swing.ComboBoxEditor a_r_g_u_m_e_n_t_0) ;
+  public native void setKeySelectionManager(javax.swing.JComboBox.KeySelectionManager a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getSelectedItem() ;
+  public native java.lang.Object getPrototypeDisplayValue() ;
+  public native boolean selectWithKeyChar(char a_r_g_u_m_e_n_t_0) ;
+  public native void setSelectedItem(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  protected native void installAncestorListener() ;
+  public native void setLightWeightPopupEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isLightWeightPopupEnabled() ;
+  public native void setMaximumRowCount(int a_r_g_u_m_e_n_t_0) ;
+  public native int getMaximumRowCount() ;
+  public native void setPrototypeDisplayValue(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void addItem(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void insertItemAt(java.lang.Object a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void removeItem(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native void removeItemAt(int a_r_g_u_m_e_n_t_0) ;
+  public native void removeAllItems() ;
+  native void checkMutableComboBoxModel() ;
+  public native void showPopup() ;
+  public native void addPopupMenuListener(javax.swing.event.PopupMenuListener a_r_g_u_m_e_n_t_0) ;
+  public native void removePopupMenuListener(javax.swing.event.PopupMenuListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.PopupMenuListener[] getPopupMenuListeners() ;
+  public native void firePopupMenuWillBecomeVisible() ;
+  public native void firePopupMenuWillBecomeInvisible() ;
+  public native void firePopupMenuCanceled() ;
+  protected native void fireActionEvent() ;
+  protected native void selectedItemChanged() ;
+  public native javax.swing.JComboBox.KeySelectionManager getKeySelectionManager() ;
+  public native int getItemCount() ;
+  public native java.lang.Object getItemAt(int a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.JComboBox.KeySelectionManager createDefaultKeySelectionManager() ;
+  protected javax.swing.ComboBoxModel dataModel;
+  protected javax.swing.ListCellRenderer renderer;
+  protected javax.swing.ComboBoxEditor editor;
+  protected int maximumRowCount;
+  protected boolean isEditable;
+  protected javax.swing.JComboBox.KeySelectionManager keySelectionManager;
+  protected java.lang.String actionCommand;
+  protected boolean lightWeightPopupEnabled;
+  protected java.lang.Object selectedItemReminder;
+  protected class AccessibleJComboBox extends javax.swing.JComponent.AccessibleJComponent implements javax.accessibility.AccessibleAction, javax.accessibility.AccessibleSelection {
+     public  AccessibleJComboBox(javax.swing.JComboBox a_r_g_u_m_e_n_t_0){}
+    public native int getAccessibleChildrenCount() ;
+    public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native javax.accessibility.Accessible getAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleSelection getAccessibleSelection() ;
+    public native boolean isAccessibleChildSelected(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleAction getAccessibleAction() ;
+    public native int getAccessibleActionCount() ;
+    public native java.lang.String getAccessibleActionDescription(int a_r_g_u_m_e_n_t_0) ;
+    public native boolean doAccessibleAction(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    public native int getAccessibleSelectionCount() ;
+    public native void addAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native void removeAccessibleSelection(int a_r_g_u_m_e_n_t_0) ;
+    public native void clearAccessibleSelection() ;
+    public native void selectAllAccessibleSelection() ;
+    final javax.swing.JComboBox this$0;
+    private class EditorAccessibleContext extends javax.accessibility.AccessibleContext {
+        EditorAccessibleContext(javax.swing.JComboBox.AccessibleJComboBox a_r_g_u_m_e_n_t_0, javax.accessibility.Accessible a_r_g_u_m_e_n_t_1){}
+      public native void firePropertyChange(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+      public native void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+      public native void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+      public native int getAccessibleChildrenCount() ;
+      public native javax.accessibility.Accessible getAccessibleChild(int a_r_g_u_m_e_n_t_0) ;
+      public native javax.accessibility.AccessibleComponent getAccessibleComponent() ;
+      public native java.util.Locale getLocale()  throws java.awt.IllegalComponentStateException;
+      public native int getAccessibleIndexInParent() ;
+      public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+      public native javax.accessibility.Accessible getAccessibleParent() ;
+      public native javax.accessibility.AccessibleSelection getAccessibleSelection() ;
+      public native java.lang.String getAccessibleName() ;
+      public native javax.accessibility.AccessibleIcon[] getAccessibleIcon() ;
+      public native javax.accessibility.AccessibleRelationSet getAccessibleRelationSet() ;
+      public native javax.accessibility.AccessibleAction getAccessibleAction() ;
+      public native javax.accessibility.AccessibleValue getAccessibleValue() ;
+      public native javax.accessibility.AccessibleText getAccessibleText() ;
+      public native java.lang.String getAccessibleDescription() ;
+      public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+      public native void setAccessibleName(java.lang.String a_r_g_u_m_e_n_t_0) ;
+      public native void setAccessibleDescription(java.lang.String a_r_g_u_m_e_n_t_0) ;
+      public native void setAccessibleParent(javax.accessibility.Accessible a_r_g_u_m_e_n_t_0) ;
+      public native javax.accessibility.AccessibleEditableText getAccessibleEditableText() ;
+      public native javax.accessibility.AccessibleTable getAccessibleTable() ;
+      final javax.swing.JComboBox.AccessibleJComboBox this$1;
+    }
+    private class AccessibleEditor extends java.lang.Object implements javax.accessibility.Accessible {
+      public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+      final javax.swing.JComboBox.AccessibleJComboBox this$1;
+    }
+    private class AccessibleJComboBoxListSelectionListener extends java.lang.Object implements javax.swing.event.ListSelectionListener {
+      public native void valueChanged(javax.swing.event.ListSelectionEvent a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.JComboBox.AccessibleJComboBox this$1;
+    }
+    private class AccessibleJComboBoxPopupMenuListener extends java.lang.Object implements javax.swing.event.PopupMenuListener {
+      public native void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent a_r_g_u_m_e_n_t_0) ;
+      public native void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent a_r_g_u_m_e_n_t_0) ;
+      public native void popupMenuCanceled(javax.swing.event.PopupMenuEvent a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.JComboBox.AccessibleJComboBox this$1;
+    }
+    private class AccessibleJComboBoxPropertyChangeListener extends java.lang.Object implements java.beans.PropertyChangeListener {
+      public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+      final javax.swing.JComboBox.AccessibleJComboBox this$1;
+    }
+  }
+  class DefaultKeySelectionManager extends java.lang.Object implements javax.swing.JComboBox.KeySelectionManager, java.io.Serializable {
+      DefaultKeySelectionManager(javax.swing.JComboBox a_r_g_u_m_e_n_t_0){}
+    public native int selectionForKey(char a_r_g_u_m_e_n_t_0, javax.swing.ComboBoxModel a_r_g_u_m_e_n_t_1) ;
+    final javax.swing.JComboBox this$0;
+  }
+  public static abstract interface KeySelectionManager {
+    public abstract int selectionForKey(char a_r_g_u_m_e_n_t_0, javax.swing.ComboBoxModel a_r_g_u_m_e_n_t_1) ;
+  }
+  private static class ComboBoxActionPropertyChangeListener extends javax.swing.ActionPropertyChangeListener<javax.swing.JComboBox> {
+      ComboBoxActionPropertyChangeListener(javax.swing.JComboBox a_r_g_u_m_e_n_t_0, javax.swing.Action a_r_g_u_m_e_n_t_1){}
+    protected native void actionPropertyChanged(javax.swing.JComboBox a_r_g_u_m_e_n_t_0, javax.swing.Action a_r_g_u_m_e_n_t_1, java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_2) ;
+  }
+}

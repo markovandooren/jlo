@@ -1,0 +1,21 @@
+package javax.swing.event;
+public class TableModelEvent extends java.util.EventObject {
+   public  TableModelEvent(javax.swing.table.TableModel a_r_g_u_m_e_n_t_0){}
+   public  TableModelEvent(javax.swing.table.TableModel a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+   public  TableModelEvent(javax.swing.table.TableModel a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+   public  TableModelEvent(javax.swing.table.TableModel a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  TableModelEvent(javax.swing.table.TableModel a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4){}
+  public native int getType() ;
+  public native int getFirstRow() ;
+  public native int getLastRow() ;
+  public native int getColumn() ;
+  public static final int INSERT;
+  public static final int UPDATE;
+  public static final int DELETE;
+  public static final int HEADER_ROW;
+  public static final int ALL_COLUMNS;
+  protected int type;
+  protected int firstRow;
+  protected int lastRow;
+  protected int column;
+}

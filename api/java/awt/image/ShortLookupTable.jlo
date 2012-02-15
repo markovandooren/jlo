@@ -1,0 +1,9 @@
+package java.awt.image;
+public class ShortLookupTable extends java.awt.image.LookupTable {
+   public  ShortLookupTable(int a_r_g_u_m_e_n_t_0, short[][] a_r_g_u_m_e_n_t_1){}
+   public  ShortLookupTable(int a_r_g_u_m_e_n_t_0, short[] a_r_g_u_m_e_n_t_1){}
+  public final native short[][] getTable() ;
+  public native int[] lookupPixel(int[] a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1) ;
+  public native short[] lookupPixel(short[] a_r_g_u_m_e_n_t_0, short[] a_r_g_u_m_e_n_t_1) ;
+  short[][] data;
+}

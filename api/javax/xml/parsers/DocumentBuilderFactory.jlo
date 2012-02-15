@@ -1,0 +1,27 @@
+package javax.xml.parsers;
+public abstract class DocumentBuilderFactory extends java.lang.Object {
+   protected  DocumentBuilderFactory(){}
+  public static native javax.xml.parsers.DocumentBuilderFactory newInstance(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.ClassLoader a_r_g_u_m_e_n_t_1) ;
+  public static native javax.xml.parsers.DocumentBuilderFactory newInstance() ;
+  public abstract java.lang.Object getAttribute(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalArgumentException;
+  public abstract boolean getFeature(java.lang.String a_r_g_u_m_e_n_t_0)  throws javax.xml.parsers.ParserConfigurationException;
+  public abstract void setAttribute(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalArgumentException;
+  public native javax.xml.validation.Schema getSchema() ;
+  public native boolean isNamespaceAware() ;
+  public native boolean isValidating() ;
+  public native boolean isXIncludeAware() ;
+  public abstract javax.xml.parsers.DocumentBuilder newDocumentBuilder()  throws javax.xml.parsers.ParserConfigurationException;
+  public native void setNamespaceAware(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setValidating(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setIgnoringElementContentWhitespace(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setExpandEntityReferences(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setIgnoringComments(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setCoalescing(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isIgnoringElementContentWhitespace() ;
+  public native boolean isExpandEntityReferences() ;
+  public native boolean isIgnoringComments() ;
+  public native boolean isCoalescing() ;
+  public abstract void setFeature(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws javax.xml.parsers.ParserConfigurationException;
+  public native void setSchema(javax.xml.validation.Schema a_r_g_u_m_e_n_t_0) ;
+  public native void setXIncludeAware(boolean a_r_g_u_m_e_n_t_0) ;
+}

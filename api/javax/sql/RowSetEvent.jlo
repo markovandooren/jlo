@@ -1,0 +1,5 @@
+package javax.sql;
+public class RowSetEvent extends java.util.EventObject {
+   public  RowSetEvent(javax.sql.RowSet a_r_g_u_m_e_n_t_0){}
+  static final long serialVersionUID;
+}

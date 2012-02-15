@@ -1,0 +1,10 @@
+package javax.swing;
+public class DefaultFocusManager extends javax.swing.FocusManager {
+   public  DefaultFocusManager(){}
+  public native java.awt.Component getComponentAfter(java.awt.Container a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Component getComponentBefore(java.awt.Container a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.Component getFirstComponent(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Component getLastComponent(java.awt.Container a_r_g_u_m_e_n_t_0) ;
+  public native boolean compareTabOrder(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
+  final java.awt.FocusTraversalPolicy gluePolicy;
+}

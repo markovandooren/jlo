@@ -1,0 +1,8 @@
+package javax.management.relation;
+public class RoleResult extends java.lang.Object implements java.io.Serializable {
+   public  RoleResult(javax.management.relation.RoleList a_r_g_u_m_e_n_t_0, javax.management.relation.RoleUnresolvedList a_r_g_u_m_e_n_t_1){}
+  public native javax.management.relation.RoleList getRoles() ;
+  public native void setRoles(javax.management.relation.RoleList a_r_g_u_m_e_n_t_0) ;
+  public native javax.management.relation.RoleUnresolvedList getRolesUnresolved() ;
+  public native void setRolesUnresolved(javax.management.relation.RoleUnresolvedList a_r_g_u_m_e_n_t_0) ;
+}

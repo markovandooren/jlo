@@ -1,0 +1,28 @@
+package java.awt.geom;
+public class FlatteningPathIterator extends java.lang.Object implements java.awt.geom.PathIterator {
+   public  FlatteningPathIterator(java.awt.geom.PathIterator a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1){}
+   public  FlatteningPathIterator(java.awt.geom.PathIterator a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+  public native void next() ;
+  public native boolean isDone() ;
+  public native int getWindingRule() ;
+  public native int currentSegment(float[] a_r_g_u_m_e_n_t_0) ;
+  public native int currentSegment(double[] a_r_g_u_m_e_n_t_0) ;
+  public native double getFlatness() ;
+  public native int getRecursionLimit() ;
+  native void ensureHoldCapacity(int a_r_g_u_m_e_n_t_0) ;
+  static final int GROW_SIZE;
+  java.awt.geom.PathIterator src;
+  double squareflat;
+  int limit;
+  double[] hold;
+  double curx;
+  double cury;
+  double movx;
+  double movy;
+  int holdType;
+  int holdEnd;
+  int holdIndex;
+  int[] levels;
+  int levelIndex;
+  boolean done;
+}

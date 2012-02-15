@@ -1,0 +1,10 @@
+package java.awt.image;
+public abstract class LookupTable extends java.lang.Object {
+   protected  LookupTable(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native int getOffset() ;
+  public native int getNumComponents() ;
+  public abstract int[] lookupPixel(int[] a_r_g_u_m_e_n_t_0, int[] a_r_g_u_m_e_n_t_1) ;
+  int numComponents;
+  int offset;
+  int numEntries;
+}

@@ -1,0 +1,10 @@
+package javax.crypto;
+public abstract class KeyAgreementSpi extends java.lang.Object {
+   public  KeyAgreementSpi(){}
+  protected abstract void engineInit(java.security.Key a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException;
+  protected abstract void engineInit(java.security.Key a_r_g_u_m_e_n_t_0, java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_1, java.security.SecureRandom a_r_g_u_m_e_n_t_2)  throws java.security.InvalidKeyException, java.security.InvalidAlgorithmParameterException;
+  protected abstract java.security.Key engineDoPhase(java.security.Key a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException, java.lang.IllegalStateException;
+  protected abstract byte[] engineGenerateSecret()  throws java.lang.IllegalStateException;
+  protected abstract int engineGenerateSecret(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.lang.IllegalStateException, javax.crypto.ShortBufferException;
+  protected abstract javax.crypto.SecretKey engineGenerateSecret(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.IllegalStateException, java.security.NoSuchAlgorithmException, java.security.InvalidKeyException;
+}

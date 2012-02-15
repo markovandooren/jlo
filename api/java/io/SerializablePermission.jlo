@@ -1,0 +1,5 @@
+package java.io;
+public final class SerializablePermission extends java.security.BasicPermission {
+   public  SerializablePermission(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  SerializablePermission(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+}

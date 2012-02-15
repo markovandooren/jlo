@@ -1,0 +1,7 @@
+package javax.swing.text;
+public abstract class TextAction extends javax.swing.AbstractAction {
+   public  TextAction(java.lang.String a_r_g_u_m_e_n_t_0){}
+  public static final native javax.swing.Action[] augmentList(javax.swing.Action[] a_r_g_u_m_e_n_t_0, javax.swing.Action[] a_r_g_u_m_e_n_t_1) ;
+  protected final native javax.swing.text.JTextComponent getFocusedComponent() ;
+  protected final native javax.swing.text.JTextComponent getTextComponent(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
+}

@@ -1,0 +1,33 @@
+package java.util.zip;
+public class Deflater extends java.lang.Object {
+   public  Deflater(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+   public  Deflater(int a_r_g_u_m_e_n_t_0){}
+   public  Deflater(){}
+  protected native void finalize() ;
+  public synchronized native void reset() ;
+  public synchronized native boolean finished() ;
+  public synchronized native void end() ;
+  public native void setInput(byte[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setInput(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public synchronized native long getBytesWritten() ;
+  public native boolean needsInput() ;
+  public native void setDictionary(byte[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setDictionary(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public synchronized native int getAdler() ;
+  public native int getTotalIn() ;
+  public synchronized native long getBytesRead() ;
+  public native int getTotalOut() ;
+  public synchronized native void finish() ;
+  public synchronized native void setLevel(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int deflate(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native int deflate(byte[] a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setStrategy(int a_r_g_u_m_e_n_t_0) ;
+  public static final int DEFLATED;
+  public static final int NO_COMPRESSION;
+  public static final int BEST_SPEED;
+  public static final int BEST_COMPRESSION;
+  public static final int DEFAULT_COMPRESSION;
+  public static final int FILTERED;
+  public static final int HUFFMAN_ONLY;
+  public static final int DEFAULT_STRATEGY;
+}

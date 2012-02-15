@@ -1,0 +1,6 @@
+package java.security.spec;
+public class RSAPrivateKeySpec extends java.lang.Object implements java.security.spec.KeySpec {
+   public  RSAPrivateKeySpec(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1){}
+  public native java.math.BigInteger getModulus() ;
+  public native java.math.BigInteger getPrivateExponent() ;
+}

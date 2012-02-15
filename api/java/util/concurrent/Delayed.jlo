@@ -1,0 +1,4 @@
+package java.util.concurrent;
+public abstract interface Delayed extends java.lang.Comparable<java.util.concurrent.Delayed> {
+  public abstract long getDelay(java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_0) ;
+}

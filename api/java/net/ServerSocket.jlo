@@ -1,0 +1,31 @@
+package java.net;
+public class ServerSocket extends java.lang.Object {
+   public  ServerSocket() throws java.io.IOException{}
+   public  ServerSocket(int a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
+   public  ServerSocket(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws java.io.IOException{}
+   public  ServerSocket(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.net.InetAddress a_r_g_u_m_e_n_t_2) throws java.io.IOException{}
+  public native java.lang.String toString() ;
+  public native void close()  throws java.io.IOException;
+  public native java.net.Socket accept()  throws java.io.IOException;
+  public native java.nio.channels.ServerSocketChannel getChannel() ;
+  public native boolean isClosed() ;
+  native java.net.SocketImpl getImpl()  throws java.net.SocketException;
+  public native void bind(java.net.SocketAddress a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native void bind(java.net.SocketAddress a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public native boolean isBound() ;
+  native void setBound() ;
+  native void createImpl()  throws java.net.SocketException;
+  public native java.net.InetAddress getInetAddress() ;
+  public native java.net.SocketAddress getLocalSocketAddress() ;
+  public native int getLocalPort() ;
+  public synchronized native void setSoTimeout(int a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public synchronized native int getSoTimeout()  throws java.io.IOException;
+  public synchronized native void setReceiveBufferSize(int a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public synchronized native int getReceiveBufferSize()  throws java.net.SocketException;
+  public native void setReuseAddress(boolean a_r_g_u_m_e_n_t_0)  throws java.net.SocketException;
+  public native boolean getReuseAddress()  throws java.net.SocketException;
+  native void setCreated() ;
+  public native void setPerformancePreferences(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  protected final native void implAccept(java.net.Socket a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public static synchronized native void setSocketFactory(java.net.SocketImplFactory a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+}

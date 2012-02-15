@@ -1,0 +1,7 @@
+package javax.management;
+public abstract interface MBeanRegistration {
+  public abstract javax.management.ObjectName preRegister(javax.management.MBeanServer a_r_g_u_m_e_n_t_0, javax.management.ObjectName a_r_g_u_m_e_n_t_1)  throws java.lang.Exception;
+  public abstract void postRegister(java.lang.Boolean a_r_g_u_m_e_n_t_0) ;
+  public abstract void preDeregister()  throws java.lang.Exception;
+  public abstract void postDeregister() ;
+}

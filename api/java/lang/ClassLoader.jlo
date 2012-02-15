@@ -1,0 +1,53 @@
+package java.lang;
+public abstract class ClassLoader extends java.lang.Object {
+   protected  ClassLoader(java.lang.ClassLoader a_r_g_u_m_e_n_t_0){}
+   protected  ClassLoader(){}
+  public native java.lang.Class<? extends java.lang.Object> loadClass(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.ClassNotFoundException;
+  protected synchronized native java.lang.Class<? extends java.lang.Object> loadClass(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.lang.ClassNotFoundException;
+  static native long findNative(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+  native void addClass(java.lang.Class a_r_g_u_m_e_n_t_0) ;
+  public static native java.lang.ClassLoader getSystemClassLoader() ;
+  protected native java.lang.Package getPackage(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected final native void setSigners(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, java.lang.Object[] a_r_g_u_m_e_n_t_1) ;
+  public native java.io.InputStream getResourceAsStream(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.net.URL getResource(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  synchronized native boolean desiredAssertionStatus(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static native java.lang.ClassLoader getCallerClassLoader() ;
+  native boolean isAncestor(java.lang.ClassLoader a_r_g_u_m_e_n_t_0) ;
+  public static native java.io.InputStream getSystemResourceAsStream(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.net.URL getSystemResource(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected native java.lang.Class<? extends java.lang.Object> findClass(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.ClassNotFoundException;
+  protected final native java.lang.Class<? extends java.lang.Object> defineClass(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.security.ProtectionDomain a_r_g_u_m_e_n_t_4)  throws java.lang.ClassFormatError;
+  protected final native java.lang.Class<? extends java.lang.Object> defineClass(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3)  throws java.lang.ClassFormatError;
+  protected final native java.lang.Class<? extends java.lang.Object> defineClass(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.lang.ClassFormatError;
+  protected final native java.lang.Class<? extends java.lang.Object> defineClass(java.lang.String a_r_g_u_m_e_n_t_0, java.nio.ByteBuffer a_r_g_u_m_e_n_t_1, java.security.ProtectionDomain a_r_g_u_m_e_n_t_2)  throws java.lang.ClassFormatError;
+  protected final native void resolveClass(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
+  protected final native java.lang.Class<? extends java.lang.Object> findSystemClass(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.ClassNotFoundException;
+  protected final native java.lang.Class<? extends java.lang.Object> findLoadedClass(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.util.Enumeration<java.net.URL> getResources(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  protected native java.net.URL findResource(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  protected native java.util.Enumeration<java.net.URL> findResources(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public static native java.util.Enumeration<java.net.URL> getSystemResources(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  static native sun.misc.URLClassPath getBootstrapClassPath() ;
+  public final native java.lang.ClassLoader getParent() ;
+  protected native java.lang.Package definePackage(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.lang.String a_r_g_u_m_e_n_t_4, java.lang.String a_r_g_u_m_e_n_t_5, java.lang.String a_r_g_u_m_e_n_t_6, java.net.URL a_r_g_u_m_e_n_t_7)  throws java.lang.IllegalArgumentException;
+  protected native java.lang.Package[] getPackages() ;
+  protected native java.lang.String findLibrary(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  static native void loadLibrary(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public synchronized native void setDefaultAssertionStatus(boolean a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setPackageAssertionStatus(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public synchronized native void setClassAssertionStatus(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public synchronized native void clearAssertionStatus() ;
+  java.security.cert.Certificate[] nocerts;
+  java.util.Map classAssertionStatus;
+  static class NativeLibrary extends java.lang.Object {
+     public  NativeLibrary(java.lang.Class a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    protected native void finalize() ;
+    static native java.lang.Class getFromClass() ;
+    native void load(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    native long find(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    native void unload() ;
+    long handle;
+    java.lang.String name;
+  }
+}

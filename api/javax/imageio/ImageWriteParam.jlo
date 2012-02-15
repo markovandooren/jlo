@@ -1,0 +1,55 @@
+package javax.imageio;
+public class ImageWriteParam extends javax.imageio.IIOParam {
+   protected  ImageWriteParam(){}
+   public  ImageWriteParam(java.util.Locale a_r_g_u_m_e_n_t_0){}
+  public native java.util.Locale getLocale() ;
+  public native int getTileWidth() ;
+  public native int getTileHeight() ;
+  public native int getTileGridXOffset() ;
+  public native int getTileGridYOffset() ;
+  public native boolean canWriteCompressed() ;
+  public native boolean canWriteTiles() ;
+  public native boolean canOffsetTiles() ;
+  public native boolean canWriteProgressive() ;
+  public native void setTilingMode(int a_r_g_u_m_e_n_t_0) ;
+  public native int getTilingMode() ;
+  public native java.awt.Dimension[] getPreferredTileSizes() ;
+  public native void setTiling(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
+  public native void unsetTiling() ;
+  public native void setProgressiveMode(int a_r_g_u_m_e_n_t_0) ;
+  public native int getProgressiveMode() ;
+  public native void setCompressionMode(int a_r_g_u_m_e_n_t_0) ;
+  public native int getCompressionMode() ;
+  public native java.lang.String[] getCompressionTypes() ;
+  public native void setCompressionType(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getCompressionType() ;
+  public native void unsetCompression() ;
+  public native java.lang.String getLocalizedCompressionTypeName() ;
+  public native boolean isCompressionLossless() ;
+  public native void setCompressionQuality(float a_r_g_u_m_e_n_t_0) ;
+  public native float getCompressionQuality() ;
+  public native float getBitRate(float a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String[] getCompressionQualityDescriptions() ;
+  public native float[] getCompressionQualityValues() ;
+  public static final int MODE_DISABLED;
+  public static final int MODE_DEFAULT;
+  public static final int MODE_EXPLICIT;
+  public static final int MODE_COPY_FROM_METADATA;
+  protected boolean canWriteTiles;
+  protected int tilingMode;
+  protected java.awt.Dimension[] preferredTileSizes;
+  protected boolean tilingSet;
+  protected int tileWidth;
+  protected int tileHeight;
+  protected boolean canOffsetTiles;
+  protected int tileGridXOffset;
+  protected int tileGridYOffset;
+  protected boolean canWriteProgressive;
+  protected int progressiveMode;
+  protected boolean canWriteCompressed;
+  protected int compressionMode;
+  protected java.lang.String[] compressionTypes;
+  protected java.lang.String compressionType;
+  protected float compressionQuality;
+  protected java.util.Locale locale;
+}

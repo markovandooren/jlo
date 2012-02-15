@@ -1,0 +1,4 @@
+package java.security.cert;
+public abstract interface CertStoreParameters extends java.lang.Cloneable {
+  public abstract java.lang.Object clone() ;
+}

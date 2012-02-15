@@ -1,0 +1,4 @@
+package javax.sql.rowset.spi;
+public abstract interface XmlReader extends javax.sql.RowSetReader {
+  public abstract void readXML(javax.sql.rowset.WebRowSet a_r_g_u_m_e_n_t_0, java.io.Reader a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+}

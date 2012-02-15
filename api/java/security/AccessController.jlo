@@ -1,0 +1,12 @@
+package java.security;
+public final class AccessController extends java.lang.Object {
+  public static native void checkPermission(java.security.Permission a_r_g_u_m_e_n_t_0)  throws java.security.AccessControlException;
+  public static native <T extends java.lang.Object>T doPrivileged(java.security.PrivilegedAction<T> a_r_g_u_m_e_n_t_0) ;
+  public static native <T extends java.lang.Object>T doPrivileged(java.security.PrivilegedAction<T> a_r_g_u_m_e_n_t_0, java.security.AccessControlContext a_r_g_u_m_e_n_t_1) ;
+  public static native <T extends java.lang.Object>T doPrivileged(java.security.PrivilegedExceptionAction<T> a_r_g_u_m_e_n_t_0)  throws java.security.PrivilegedActionException;
+  public static native <T extends java.lang.Object>T doPrivileged(java.security.PrivilegedExceptionAction<T> a_r_g_u_m_e_n_t_0, java.security.AccessControlContext a_r_g_u_m_e_n_t_1)  throws java.security.PrivilegedActionException;
+  static native java.security.AccessControlContext getInheritedAccessControlContext() ;
+  public static native java.security.AccessControlContext getContext() ;
+  public static native <T extends java.lang.Object>T doPrivilegedWithCombiner(java.security.PrivilegedAction<T> a_r_g_u_m_e_n_t_0) ;
+  public static native <T extends java.lang.Object>T doPrivilegedWithCombiner(java.security.PrivilegedExceptionAction<T> a_r_g_u_m_e_n_t_0)  throws java.security.PrivilegedActionException;
+}

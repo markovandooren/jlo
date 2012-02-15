@@ -1,0 +1,65 @@
+package java.awt;
+public class Frame extends java.awt.Window implements java.awt.MenuContainer {
+   public  Frame() throws java.awt.HeadlessException{}
+   public  Frame(java.awt.GraphicsConfiguration a_r_g_u_m_e_n_t_0){}
+   public  Frame(java.lang.String a_r_g_u_m_e_n_t_0) throws java.awt.HeadlessException{}
+   public  Frame(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.GraphicsConfiguration a_r_g_u_m_e_n_t_1){}
+  public native void remove(java.awt.MenuComponent a_r_g_u_m_e_n_t_0) ;
+  public synchronized native int getState() ;
+  public synchronized native void setState(int a_r_g_u_m_e_n_t_0) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void addNotify() ;
+  public native void removeNotify() ;
+  protected native java.lang.String paramString() ;
+  native void postProcessKeyEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
+  native java.lang.String constructComponentName() ;
+  public native void setCursor(int a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getTitle() ;
+  public native java.awt.MenuBar getMenuBar() ;
+  public native void setMenuBar(java.awt.MenuBar a_r_g_u_m_e_n_t_0) ;
+  public native void setResizable(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean isResizable() ;
+  public native void setTitle(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native java.awt.Frame[] getFrames() ;
+  public synchronized native int getExtendedState() ;
+  public native void setUndecorated(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setIconImage(java.awt.Image a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Image getIconImage() ;
+  public synchronized native void setExtendedState(int a_r_g_u_m_e_n_t_0) ;
+  public synchronized native void setMaximizedBounds(java.awt.Rectangle a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Rectangle getMaximizedBounds() ;
+  public native boolean isUndecorated() ;
+  public native int getCursorType() ;
+  public static final int DEFAULT_CURSOR;
+  public static final int CROSSHAIR_CURSOR;
+  public static final int TEXT_CURSOR;
+  public static final int WAIT_CURSOR;
+  public static final int SW_RESIZE_CURSOR;
+  public static final int SE_RESIZE_CURSOR;
+  public static final int NW_RESIZE_CURSOR;
+  public static final int NE_RESIZE_CURSOR;
+  public static final int N_RESIZE_CURSOR;
+  public static final int S_RESIZE_CURSOR;
+  public static final int W_RESIZE_CURSOR;
+  public static final int E_RESIZE_CURSOR;
+  public static final int HAND_CURSOR;
+  public static final int MOVE_CURSOR;
+  public static final int NORMAL;
+  public static final int ICONIFIED;
+  public static final int MAXIMIZED_HORIZ;
+  public static final int MAXIMIZED_VERT;
+  public static final int MAXIMIZED_BOTH;
+  java.awt.Rectangle maximizedBounds;
+  java.lang.String title;
+  java.awt.MenuBar menuBar;
+  boolean resizable;
+  boolean undecorated;
+  boolean mbManagement;
+  java.util.Vector ownedWindows;
+  protected class AccessibleAWTFrame extends java.awt.Window.AccessibleAWTWindow {
+     protected  AccessibleAWTFrame(java.awt.Frame a_r_g_u_m_e_n_t_0){}
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    final java.awt.Frame this$0;
+  }
+}

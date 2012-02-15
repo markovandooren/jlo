@@ -1,0 +1,9 @@
+package javax.naming;
+public class BinaryRefAddr extends javax.naming.RefAddr {
+   public  BinaryRefAddr(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1){}
+   public  BinaryRefAddr(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native java.lang.Object getContent() ;
+}

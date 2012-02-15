@@ -1,0 +1,7 @@
+package java.util;
+public class LinkedHashSet<E extends java.lang.Object> extends java.util.HashSet<E> implements java.util.Set<E>, java.lang.Cloneable, java.io.Serializable {
+   public  LinkedHashSet(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1){}
+   public  LinkedHashSet(int a_r_g_u_m_e_n_t_0){}
+   public  LinkedHashSet(){}
+   public  LinkedHashSet(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0){}
+}

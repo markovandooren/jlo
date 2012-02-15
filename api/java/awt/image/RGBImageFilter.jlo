@@ -1,0 +1,14 @@
+package java.awt.image;
+public abstract class RGBImageFilter extends java.awt.image.ImageFilter {
+   public  RGBImageFilter(){}
+  public native void setPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.image.ColorModel a_r_g_u_m_e_n_t_4, byte[] a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7) ;
+  public native void setPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.image.ColorModel a_r_g_u_m_e_n_t_4, int[] a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7) ;
+  public native void setColorModel(java.awt.image.ColorModel a_r_g_u_m_e_n_t_0) ;
+  public abstract int filterRGB(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native void substituteColorModel(java.awt.image.ColorModel a_r_g_u_m_e_n_t_0, java.awt.image.ColorModel a_r_g_u_m_e_n_t_1) ;
+  public native java.awt.image.IndexColorModel filterIndexColorModel(java.awt.image.IndexColorModel a_r_g_u_m_e_n_t_0) ;
+  public native void filterRGBPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int[] a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6) ;
+  protected java.awt.image.ColorModel origmodel;
+  protected java.awt.image.ColorModel newmodel;
+  protected boolean canFilterIndexColorModel;
+}

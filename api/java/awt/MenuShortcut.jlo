@@ -1,0 +1,14 @@
+package java.awt;
+public class MenuShortcut extends java.lang.Object implements java.io.Serializable {
+   public  MenuShortcut(int a_r_g_u_m_e_n_t_0){}
+   public  MenuShortcut(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
+  public native int hashCode() ;
+  public native boolean equals(java.awt.MenuShortcut a_r_g_u_m_e_n_t_0) ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native int getKey() ;
+  protected native java.lang.String paramString() ;
+  public native boolean usesShiftModifier() ;
+  int key;
+  boolean usesShift;
+}

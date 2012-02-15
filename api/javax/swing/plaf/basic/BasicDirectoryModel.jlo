@@ -1,0 +1,40 @@
+package javax.swing.plaf.basic;
+public class BasicDirectoryModel extends javax.swing.AbstractListModel implements java.beans.PropertyChangeListener {
+   public  BasicDirectoryModel(javax.swing.JFileChooser a_r_g_u_m_e_n_t_0){}
+  public native int indexOf(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  protected native boolean lt(java.io.File a_r_g_u_m_e_n_t_0, java.io.File a_r_g_u_m_e_n_t_1) ;
+  public native int getSize() ;
+  protected native void sort(java.util.Vector<? extends java.io.File> a_r_g_u_m_e_n_t_0) ;
+  protected native void firePropertyChange(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
+  public native void addPropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native void removePropertyChangeListener(java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_0) ;
+  public native java.beans.PropertyChangeListener[] getPropertyChangeListeners() ;
+  public native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
+  public native void fireContentsChanged() ;
+  public native void intervalAdded(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
+  public native void intervalRemoved(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.Object getElementAt(int a_r_g_u_m_e_n_t_0) ;
+  public native void invalidateFileCache() ;
+  public native java.util.Vector<java.io.File> getDirectories() ;
+  public native java.util.Vector<java.io.File> getFiles() ;
+  public native void validateFileCache() ;
+  public native boolean renameFile(java.io.File a_r_g_u_m_e_n_t_0, java.io.File a_r_g_u_m_e_n_t_1) ;
+  class DoChangeContents extends java.lang.Object implements java.lang.Runnable {
+     public  DoChangeContents(javax.swing.plaf.basic.BasicDirectoryModel a_r_g_u_m_e_n_t_0, java.util.List a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.util.List a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5){}
+    public synchronized native void run() ;
+    synchronized native void cancel() ;
+    final javax.swing.plaf.basic.BasicDirectoryModel this$0;
+  }
+  class LoadFilesThread extends java.lang.Thread {
+     public  LoadFilesThread(javax.swing.plaf.basic.BasicDirectoryModel a_r_g_u_m_e_n_t_0, java.io.File a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
+    public native void run() ;
+    public native void cancelRunnables(java.util.Vector a_r_g_u_m_e_n_t_0) ;
+    public native void cancelRunnables() ;
+    public native void run0() ;
+    java.io.File currentDirectory;
+    int fid;
+    java.util.Vector runnables;
+    final javax.swing.plaf.basic.BasicDirectoryModel this$0;
+  }
+}

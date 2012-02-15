@@ -1,0 +1,232 @@
+package javax.swing.text;
+public abstract class JTextComponent extends javax.swing.JComponent implements javax.swing.Scrollable, javax.accessibility.Accessible {
+   public  JTextComponent(){}
+  public native void write(java.io.Writer a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
+  public native javax.swing.Action[] getActions() ;
+  public native boolean print(java.text.MessageFormat a_r_g_u_m_e_n_t_0, java.text.MessageFormat a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, javax.print.PrintService a_r_g_u_m_e_n_t_3, javax.print.attribute.PrintRequestAttributeSet a_r_g_u_m_e_n_t_4, boolean a_r_g_u_m_e_n_t_5)  throws java.awt.print.PrinterException;
+  public native boolean print(java.text.MessageFormat a_r_g_u_m_e_n_t_0, java.text.MessageFormat a_r_g_u_m_e_n_t_1)  throws java.awt.print.PrinterException;
+  public native boolean print()  throws java.awt.print.PrinterException;
+  public native void copy() ;
+  public native void read(java.io.Reader a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
+  public native void setText(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void updateUI() ;
+  public native void setUI(javax.swing.plaf.TextUI a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getToolTipText(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+  native javax.swing.text.JTextComponent.DropLocation dropLocationForPoint(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  native java.lang.Object setDropLocation(javax.swing.TransferHandler.DropLocation a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  public native javax.accessibility.AccessibleContext getAccessibleContext() ;
+  public native void removeNotify() ;
+  protected native java.lang.String paramString() ;
+  public native void addInputMethodListener(java.awt.event.InputMethodListener a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.im.InputMethodRequests getInputMethodRequests() ;
+  protected native void processInputMethodEvent(java.awt.event.InputMethodEvent a_r_g_u_m_e_n_t_0) ;
+  public native void setComponentOrientation(java.awt.ComponentOrientation a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String getText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws javax.swing.text.BadLocationException;
+  public native java.lang.String getText() ;
+  public native void setMargin(java.awt.Insets a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Insets getMargin() ;
+  public native javax.swing.plaf.TextUI getUI() ;
+  public native int getCaretPosition() ;
+  public native int getSelectionStart() ;
+  public native int getSelectionEnd() ;
+  public native java.lang.String getSelectedText() ;
+  public native int viewToModel(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Rectangle modelToView(int a_r_g_u_m_e_n_t_0)  throws javax.swing.text.BadLocationException;
+  public native javax.swing.text.Document getDocument() ;
+  public native void setDragEnabled(boolean a_r_g_u_m_e_n_t_0) ;
+  public native boolean getDragEnabled() ;
+  public native void select(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native void cut() ;
+  public native void paste() ;
+  public native javax.swing.text.Caret getCaret() ;
+  public native void selectAll() ;
+  public native void setDocument(javax.swing.text.Document a_r_g_u_m_e_n_t_0) ;
+  public native void addCaretListener(javax.swing.event.CaretListener a_r_g_u_m_e_n_t_0) ;
+  public native void removeCaretListener(javax.swing.event.CaretListener a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.event.CaretListener[] getCaretListeners() ;
+  protected native void fireCaretUpdate(javax.swing.event.CaretEvent a_r_g_u_m_e_n_t_0) ;
+  public native void setNavigationFilter(javax.swing.text.NavigationFilter a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.NavigationFilter getNavigationFilter() ;
+  public native void setCaret(javax.swing.text.Caret a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.Highlighter getHighlighter() ;
+  public native void setHighlighter(javax.swing.text.Highlighter a_r_g_u_m_e_n_t_0) ;
+  public native void setKeymap(javax.swing.text.Keymap a_r_g_u_m_e_n_t_0) ;
+  public final native void setDropMode(javax.swing.DropMode a_r_g_u_m_e_n_t_0) ;
+  public final native javax.swing.DropMode getDropMode() ;
+  public final native javax.swing.text.JTextComponent.DropLocation getDropLocation() ;
+  native void updateInputMap(javax.swing.text.Keymap a_r_g_u_m_e_n_t_0, javax.swing.text.Keymap a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.text.Keymap getKeymap(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.Keymap getKeymap() ;
+  public static native javax.swing.text.Keymap addKeymap(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.text.Keymap a_r_g_u_m_e_n_t_1) ;
+  public static native javax.swing.text.Keymap removeKeymap(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public static native void loadKeymap(javax.swing.text.Keymap a_r_g_u_m_e_n_t_0, javax.swing.text.JTextComponent.KeyBinding[] a_r_g_u_m_e_n_t_1, javax.swing.Action[] a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Color getCaretColor() ;
+  public native void setCaretColor(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Color getSelectionColor() ;
+  public native void setSelectionColor(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Color getSelectedTextColor() ;
+  public native void setSelectedTextColor(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Color getDisabledTextColor() ;
+  public native void setDisabledTextColor(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  public native void replaceSelection(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native void moveCaretPosition(int a_r_g_u_m_e_n_t_0) ;
+  public native void setFocusAccelerator(char a_r_g_u_m_e_n_t_0) ;
+  public native char getFocusAccelerator() ;
+  public native void setCaretPosition(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean isEditable() ;
+  public native void setEditable(boolean a_r_g_u_m_e_n_t_0) ;
+  public native void setSelectionStart(int a_r_g_u_m_e_n_t_0) ;
+  public native void setSelectionEnd(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Dimension getPreferredScrollableViewportSize() ;
+  public native int getScrollableUnitIncrement(java.awt.Rectangle a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native int getScrollableBlockIncrement(java.awt.Rectangle a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native boolean getScrollableTracksViewportWidth() ;
+  public native boolean getScrollableTracksViewportHeight() ;
+  public native java.awt.print.Printable getPrintable(java.text.MessageFormat a_r_g_u_m_e_n_t_0, java.text.MessageFormat a_r_g_u_m_e_n_t_1) ;
+  static final native javax.swing.text.JTextComponent getFocusedComponent() ;
+  native boolean composedTextExists() ;
+  public static final java.lang.String FOCUS_ACCELERATOR_KEY;
+  public static final java.lang.String DEFAULT_KEYMAP;
+  private class DoSetCaretPosition extends java.lang.Object implements java.lang.Runnable {
+      DoSetCaretPosition(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0, javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_1, javax.swing.text.Position a_r_g_u_m_e_n_t_2){}
+    public native void run() ;
+    javax.swing.text.JTextComponent host;
+    javax.swing.text.Position newPos;
+    final javax.swing.text.JTextComponent this$0;
+  }
+  class ComposedTextCaret extends javax.swing.text.DefaultCaret implements java.io.Serializable {
+      ComposedTextCaret(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0){}
+    public native void install(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0) ;
+    public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+    protected native void positionCaret(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    java.awt.Color bg;
+    final javax.swing.text.JTextComponent this$0;
+  }
+  class InputMethodRequestsHandler extends java.lang.Object implements java.awt.im.InputMethodRequests, javax.swing.event.DocumentListener {
+      InputMethodRequestsHandler(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0){}
+    public native java.text.AttributedCharacterIterator getSelectedText(java.text.AttributedCharacterIterator.Attribute[] a_r_g_u_m_e_n_t_0) ;
+    public native void insertUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+    public native void removeUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+    public native void changedUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Rectangle getTextLocation(java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.font.TextHitInfo getLocationOffset(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native int getInsertPositionOffset() ;
+    public native java.text.AttributedCharacterIterator getCommittedText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.text.AttributedCharacterIterator.Attribute[] a_r_g_u_m_e_n_t_2) ;
+    public native int getCommittedTextLength() ;
+    public native java.text.AttributedCharacterIterator cancelLatestCommittedText(java.text.AttributedCharacterIterator.Attribute[] a_r_g_u_m_e_n_t_0) ;
+    final javax.swing.text.JTextComponent this$0;
+  }
+  static class MutableCaretEvent extends javax.swing.event.CaretEvent implements javax.swing.event.ChangeListener, java.awt.event.FocusListener, java.awt.event.MouseListener {
+      MutableCaretEvent(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0){}
+    public final native java.lang.String toString() ;
+    public native void focusGained(java.awt.event.FocusEvent a_r_g_u_m_e_n_t_0) ;
+    public native void focusLost(java.awt.event.FocusEvent a_r_g_u_m_e_n_t_0) ;
+    public final native void mousePressed(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public final native void mouseReleased(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public final native void mouseClicked(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public final native void mouseExited(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public final native void mouseEntered(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
+    public final native void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+    public final native int getMark() ;
+    public final native int getDot() ;
+    final native void fire() ;
+  }
+  static class KeymapActionMap extends javax.swing.ActionMap {
+      KeymapActionMap(javax.swing.text.Keymap a_r_g_u_m_e_n_t_0){}
+    public native javax.swing.Action get(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native java.lang.Object[] keys() ;
+  }
+  static class KeymapWrapper extends javax.swing.InputMap {
+      KeymapWrapper(javax.swing.text.Keymap a_r_g_u_m_e_n_t_0){}
+    public native java.lang.Object get(javax.swing.KeyStroke a_r_g_u_m_e_n_t_0) ;
+    public native int size() ;
+    public native javax.swing.KeyStroke[] keys() ;
+    static final java.lang.Object DefaultActionKey;
+  }
+  static class DefaultKeymap extends java.lang.Object implements javax.swing.text.Keymap {
+      DefaultKeymap(java.lang.String a_r_g_u_m_e_n_t_0, javax.swing.text.Keymap a_r_g_u_m_e_n_t_1){}
+    public native java.lang.String toString() ;
+    public native java.lang.String getName() ;
+    public native javax.swing.Action getAction(javax.swing.KeyStroke a_r_g_u_m_e_n_t_0) ;
+    public native javax.swing.text.Keymap getResolveParent() ;
+    public native void setResolveParent(javax.swing.text.Keymap a_r_g_u_m_e_n_t_0) ;
+    public native void setDefaultAction(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+    public native void addActionForKeyStroke(javax.swing.KeyStroke a_r_g_u_m_e_n_t_0, javax.swing.Action a_r_g_u_m_e_n_t_1) ;
+    public native javax.swing.Action getDefaultAction() ;
+    public native javax.swing.KeyStroke[] getBoundKeyStrokes() ;
+    public native javax.swing.Action[] getBoundActions() ;
+    public native javax.swing.KeyStroke[] getKeyStrokesForAction(javax.swing.Action a_r_g_u_m_e_n_t_0) ;
+    public native boolean isLocallyDefined(javax.swing.KeyStroke a_r_g_u_m_e_n_t_0) ;
+    public native void removeKeyStrokeBinding(javax.swing.KeyStroke a_r_g_u_m_e_n_t_0) ;
+    public native void removeBindings() ;
+    java.lang.String nm;
+    javax.swing.text.Keymap parent;
+    java.util.Hashtable bindings;
+    javax.swing.Action defaultAction;
+  }
+  static class DefaultTransferHandler extends javax.swing.TransferHandler implements javax.swing.plaf.UIResource {
+      DefaultTransferHandler(){}
+    public native void exportToClipboard(javax.swing.JComponent a_r_g_u_m_e_n_t_0, java.awt.datatransfer.Clipboard a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.lang.IllegalStateException;
+    public native boolean importData(javax.swing.JComponent a_r_g_u_m_e_n_t_0, java.awt.datatransfer.Transferable a_r_g_u_m_e_n_t_1) ;
+    public native boolean canImport(javax.swing.JComponent a_r_g_u_m_e_n_t_0, java.awt.datatransfer.DataFlavor[] a_r_g_u_m_e_n_t_1) ;
+    public native int getSourceActions(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
+  }
+  public static final class DropLocation extends javax.swing.TransferHandler.DropLocation {
+    public native java.lang.String toString() ;
+    public native int getIndex() ;
+    public native javax.swing.text.Position.Bias getBias() ;
+  }
+  public class AccessibleJTextComponent extends javax.swing.JComponent.AccessibleJComponent implements javax.accessibility.AccessibleText, javax.swing.event.CaretListener, javax.swing.event.DocumentListener, javax.accessibility.AccessibleAction, javax.accessibility.AccessibleEditableText, javax.accessibility.AccessibleExtendedText {
+     public  AccessibleJTextComponent(javax.swing.text.JTextComponent a_r_g_u_m_e_n_t_0){}
+    public native void delete(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native javax.accessibility.AccessibleStateSet getAccessibleStateSet() ;
+    public native javax.accessibility.AccessibleAction getAccessibleAction() ;
+    public native int getAccessibleActionCount() ;
+    public native java.lang.String getAccessibleActionDescription(int a_r_g_u_m_e_n_t_0) ;
+    public native boolean doAccessibleAction(int a_r_g_u_m_e_n_t_0) ;
+    public native javax.accessibility.AccessibleText getAccessibleText() ;
+    public native int getIndexAtPoint(java.awt.Point a_r_g_u_m_e_n_t_0) ;
+    public native java.awt.Rectangle getCharacterBounds(int a_r_g_u_m_e_n_t_0) ;
+    public native int getCharCount() ;
+    public native int getCaretPosition() ;
+    public native java.lang.String getAtIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getAfterIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getBeforeIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native javax.swing.text.AttributeSet getCharacterAttribute(int a_r_g_u_m_e_n_t_0) ;
+    public native int getSelectionStart() ;
+    public native int getSelectionEnd() ;
+    public native java.lang.String getSelectedText() ;
+    public native javax.accessibility.AccessibleRole getAccessibleRole() ;
+    public native javax.accessibility.AccessibleEditableText getAccessibleEditableText() ;
+    public native void insertUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+    public native void removeUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+    public native void changedUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0) ;
+    public native void setTextContents(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native void insertTextAtIndex(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
+    public native java.lang.String getTextRange(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void cut(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void paste(int a_r_g_u_m_e_n_t_0) ;
+    public native void replaceText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2) ;
+    public native void selectText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void setAttributes(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.AttributeSet a_r_g_u_m_e_n_t_2) ;
+    public native javax.accessibility.AccessibleTextSequence getTextSequenceAt(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native javax.accessibility.AccessibleTextSequence getTextSequenceAfter(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native javax.accessibility.AccessibleTextSequence getTextSequenceBefore(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native java.awt.Rectangle getTextBounds(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native void caretUpdate(javax.swing.event.CaretEvent a_r_g_u_m_e_n_t_0) ;
+    native java.awt.Rectangle getRootEditorRect() ;
+    int caretPos;
+    java.awt.Point oldLocationOnScreen;
+    final javax.swing.text.JTextComponent this$0;
+    private class IndexedSegment extends javax.swing.text.Segment {
+      public int modelOffset;
+      final javax.swing.text.JTextComponent.AccessibleJTextComponent this$1;
+    }
+  }
+  public static class KeyBinding extends java.lang.Object {
+     public  KeyBinding(javax.swing.KeyStroke a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+    public javax.swing.KeyStroke key;
+    public java.lang.String actionName;
+  }
+}

@@ -1,0 +1,4 @@
+package javax.swing.event;
+public abstract interface ChangeListener extends java.util.EventListener {
+  public abstract void stateChanged(javax.swing.event.ChangeEvent a_r_g_u_m_e_n_t_0) ;
+}

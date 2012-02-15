@@ -1,0 +1,20 @@
+package javax.sql;
+public abstract interface RowSetMetaData extends java.sql.ResultSetMetaData {
+  public abstract void setScale(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setTableName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setColumnCount(int a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
+  public abstract void setAutoIncrement(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setCaseSensitive(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setSearchable(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setCurrency(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setNullable(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setSigned(int a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setColumnDisplaySize(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setColumnLabel(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setColumnName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setSchemaName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setPrecision(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setCatalogName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setColumnType(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+  public abstract void setColumnTypeName(int a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
+}

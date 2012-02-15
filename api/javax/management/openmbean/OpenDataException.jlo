@@ -1,0 +1,5 @@
+package javax.management.openmbean;
+public class OpenDataException extends javax.management.JMException {
+   public  OpenDataException(){}
+   public  OpenDataException(java.lang.String a_r_g_u_m_e_n_t_0){}
+}

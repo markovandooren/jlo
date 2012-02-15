@@ -1,0 +1,51 @@
+package javax.swing.border;
+public class TitledBorder extends javax.swing.border.AbstractBorder {
+   public  TitledBorder(javax.swing.border.Border a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3){}
+   public  TitledBorder(javax.swing.border.Border a_r_g_u_m_e_n_t_0){}
+   public  TitledBorder(javax.swing.border.Border a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+   public  TitledBorder(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  TitledBorder(javax.swing.border.Border a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.Font a_r_g_u_m_e_n_t_4){}
+   public  TitledBorder(javax.swing.border.Border a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.Font a_r_g_u_m_e_n_t_4, java.awt.Color a_r_g_u_m_e_n_t_5){}
+  public native void paintBorder(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Graphics a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+  public native java.awt.Dimension getMinimumSize(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native void setBorder(javax.swing.border.Border a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.border.Border getBorder() ;
+  public native int getBaseline(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Component.BaselineResizeBehavior getBaselineResizeBehavior(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  protected native java.awt.Font getFont(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Insets getBorderInsets(java.awt.Component a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Insets getBorderInsets(java.awt.Component a_r_g_u_m_e_n_t_0, java.awt.Insets a_r_g_u_m_e_n_t_1) ;
+  public native boolean isBorderOpaque() ;
+  public native java.lang.String getTitle() ;
+  public native void setTitle(java.lang.String a_r_g_u_m_e_n_t_0) ;
+  public native int getTitlePosition() ;
+  public native int getTitleJustification() ;
+  public native java.awt.Font getTitleFont() ;
+  public native java.awt.Color getTitleColor() ;
+  public native void setTitlePosition(int a_r_g_u_m_e_n_t_0) ;
+  public native void setTitleJustification(int a_r_g_u_m_e_n_t_0) ;
+  public native void setTitleFont(java.awt.Font a_r_g_u_m_e_n_t_0) ;
+  public native void setTitleColor(java.awt.Color a_r_g_u_m_e_n_t_0) ;
+  protected java.lang.String title;
+  protected javax.swing.border.Border border;
+  protected int titlePosition;
+  protected int titleJustification;
+  protected java.awt.Font titleFont;
+  protected java.awt.Color titleColor;
+  public static final int DEFAULT_POSITION;
+  public static final int ABOVE_TOP;
+  public static final int TOP;
+  public static final int BELOW_TOP;
+  public static final int ABOVE_BOTTOM;
+  public static final int BOTTOM;
+  public static final int BELOW_BOTTOM;
+  public static final int DEFAULT_JUSTIFICATION;
+  public static final int LEFT;
+  public static final int CENTER;
+  public static final int RIGHT;
+  public static final int LEADING;
+  public static final int TRAILING;
+  protected static final int EDGE_SPACING;
+  protected static final int TEXT_SPACING;
+  protected static final int TEXT_INSET_H;
+}

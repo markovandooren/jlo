@@ -1,0 +1,38 @@
+package javax.swing.text.html;
+public class ImageView extends javax.swing.text.View {
+   public  ImageView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
+  public native void setSize(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native void setParent(javax.swing.text.View a_r_g_u_m_e_n_t_0) ;
+  public native javax.swing.text.AttributeSet getAttributes() ;
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String getToolTipText(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2) ;
+  public native java.awt.Image getImage() ;
+  public native int viewToModel(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_3) ;
+  public native java.awt.Shape modelToView(int a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public native void changedUpdate(javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_2) ;
+  public native float getPreferredSpan(int a_r_g_u_m_e_n_t_0) ;
+  public native float getAlignment(int a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.text.html.StyleSheet getStyleSheet() ;
+  public native void setLoadsSynchronously(boolean a_r_g_u_m_e_n_t_0) ;
+  protected native void setPropertiesFromAttributes() ;
+  public native java.lang.String getAltText() ;
+  public native java.net.URL getImageURL() ;
+  public native javax.swing.Icon getNoImageIcon() ;
+  public native javax.swing.Icon getLoadingImageIcon() ;
+  public native boolean getLoadsSynchronously() ;
+  private class ImageLabelView extends javax.swing.text.html.InlineView {
+      ImageLabelView(javax.swing.text.html.ImageView a_r_g_u_m_e_n_t_0, javax.swing.text.Element a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
+    public native void reset(java.lang.String a_r_g_u_m_e_n_t_0) ;
+    public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+    public native java.awt.Color getForeground() ;
+    public native javax.swing.text.Segment getText(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+    public native int getEndOffset() ;
+    public native int getStartOffset() ;
+    public native javax.swing.text.View breakView(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3) ;
+    final javax.swing.text.html.ImageView this$0;
+  }
+  private class ImageHandler extends java.lang.Object implements java.awt.image.ImageObserver {
+    public native boolean imageUpdate(java.awt.Image a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
+    final javax.swing.text.html.ImageView this$0;
+  }
+}

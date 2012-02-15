@@ -1,0 +1,14 @@
+package javax.print.attribute;
+public abstract class SetOfIntegerSyntax extends java.lang.Object implements java.io.Serializable, java.lang.Cloneable {
+   protected  SetOfIntegerSyntax(java.lang.String a_r_g_u_m_e_n_t_0){}
+   protected  SetOfIntegerSyntax(int[][] a_r_g_u_m_e_n_t_0){}
+   protected  SetOfIntegerSyntax(int a_r_g_u_m_e_n_t_0){}
+   protected  SetOfIntegerSyntax(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native int hashCode() ;
+  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
+  public native java.lang.String toString() ;
+  public native boolean contains(int a_r_g_u_m_e_n_t_0) ;
+  public native boolean contains(javax.print.attribute.IntegerSyntax a_r_g_u_m_e_n_t_0) ;
+  public native int next(int a_r_g_u_m_e_n_t_0) ;
+  public native int[][] getMembers() ;
+}

@@ -1,0 +1,95 @@
+package javax.swing.text;
+public class AsyncBoxView extends javax.swing.text.View {
+   public  AsyncBoxView(javax.swing.text.Element a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
+  public native void replace(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, javax.swing.text.View[] a_r_g_u_m_e_n_t_2) ;
+  public native void setSize(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native void setParent(javax.swing.text.View a_r_g_u_m_e_n_t_0) ;
+  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+  public native int viewToModel(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_3) ;
+  public native java.awt.Shape modelToView(int a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_2)  throws javax.swing.text.BadLocationException;
+  public native int getMajorAxis() ;
+  public native int getMinorAxis() ;
+  public native float getTopInset() ;
+  public native void setTopInset(float a_r_g_u_m_e_n_t_0) ;
+  public native float getBottomInset() ;
+  public native void setBottomInset(float a_r_g_u_m_e_n_t_0) ;
+  public native float getLeftInset() ;
+  public native void setLeftInset(float a_r_g_u_m_e_n_t_0) ;
+  public native float getRightInset() ;
+  public native void setRightInset(float a_r_g_u_m_e_n_t_0) ;
+  protected native float getInsetSpan(int a_r_g_u_m_e_n_t_0) ;
+  protected native void setEstimatedMajorSpan(boolean a_r_g_u_m_e_n_t_0) ;
+  protected native boolean getEstimatedMajorSpan() ;
+  protected native javax.swing.text.AsyncBoxView.ChildState getChildState(int a_r_g_u_m_e_n_t_0) ;
+  protected native javax.swing.text.LayoutQueue getLayoutQueue() ;
+  protected native javax.swing.text.AsyncBoxView.ChildState createChildState(javax.swing.text.View a_r_g_u_m_e_n_t_0) ;
+  protected synchronized native void majorRequirementChange(javax.swing.text.AsyncBoxView.ChildState a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  protected synchronized native void minorRequirementChange(javax.swing.text.AsyncBoxView.ChildState a_r_g_u_m_e_n_t_0) ;
+  protected native void flushRequirementChanges() ;
+  protected native void loadChildren(javax.swing.text.ViewFactory a_r_g_u_m_e_n_t_0) ;
+  protected synchronized native int getViewIndexAtPosition(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1) ;
+  protected native void updateLayout(javax.swing.event.DocumentEvent.ElementChange a_r_g_u_m_e_n_t_0, javax.swing.event.DocumentEvent a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2) ;
+  public synchronized native void preferenceChanged(javax.swing.text.View a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2) ;
+  native float getSpanOnAxis(int a_r_g_u_m_e_n_t_0) ;
+  native void setSpanOnAxis(int a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1) ;
+  public native float getPreferredSpan(int a_r_g_u_m_e_n_t_0) ;
+  public native float getMinimumSpan(int a_r_g_u_m_e_n_t_0) ;
+  public native float getMaximumSpan(int a_r_g_u_m_e_n_t_0) ;
+  public native int getViewCount() ;
+  public native javax.swing.text.View getView(int a_r_g_u_m_e_n_t_0) ;
+  public native java.awt.Shape getChildAllocation(int a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+  public native int getViewIndex(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1) ;
+  public native int getNextVisualPositionFrom(int a_r_g_u_m_e_n_t_0, javax.swing.text.Position.Bias a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, javax.swing.text.Position.Bias[] a_r_g_u_m_e_n_t_4)  throws javax.swing.text.BadLocationException;
+  int axis;
+  java.util.List stats;
+  float majorSpan;
+  boolean estimatedMajorSpan;
+  float minorSpan;
+  protected javax.swing.text.AsyncBoxView.ChildLocator locator;
+  float topInset;
+  float bottomInset;
+  float leftInset;
+  float rightInset;
+  javax.swing.text.AsyncBoxView.ChildState minRequest;
+  javax.swing.text.AsyncBoxView.ChildState prefRequest;
+  boolean majorChanged;
+  boolean minorChanged;
+  java.lang.Runnable flushTask;
+  javax.swing.text.AsyncBoxView.ChildState changing;
+  class FlushTask extends java.lang.Object implements java.lang.Runnable {
+      FlushTask(javax.swing.text.AsyncBoxView a_r_g_u_m_e_n_t_0){}
+    public native void run() ;
+    final javax.swing.text.AsyncBoxView this$0;
+  }
+  public class ChildState extends java.lang.Object implements java.lang.Runnable {
+     public  ChildState(javax.swing.text.AsyncBoxView a_r_g_u_m_e_n_t_0, javax.swing.text.View a_r_g_u_m_e_n_t_1){}
+    public native void run() ;
+    public native void preferenceChanged(boolean a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+    public native float getMajorSpan() ;
+    public native javax.swing.text.View getChildView() ;
+    native void updateChild() ;
+    public native float getMinorSpan() ;
+    public native float getMinorOffset() ;
+    public native float getMajorOffset() ;
+    public native void setMajorOffset(float a_r_g_u_m_e_n_t_0) ;
+    public native boolean isLayoutValid() ;
+    final javax.swing.text.AsyncBoxView this$0;
+  }
+  public class ChildLocator extends java.lang.Object {
+     public  ChildLocator(javax.swing.text.AsyncBoxView a_r_g_u_m_e_n_t_0){}
+    public synchronized native void paintChildren(java.awt.Graphics a_r_g_u_m_e_n_t_0) ;
+    protected native java.awt.Shape getChildAllocation(int a_r_g_u_m_e_n_t_0) ;
+    public synchronized native java.awt.Shape getChildAllocation(int a_r_g_u_m_e_n_t_0, java.awt.Shape a_r_g_u_m_e_n_t_1) ;
+    public synchronized native void childChanged(javax.swing.text.AsyncBoxView.ChildState a_r_g_u_m_e_n_t_0) ;
+    protected native void setAllocation(java.awt.Shape a_r_g_u_m_e_n_t_0) ;
+    public native int getViewIndexAtPoint(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Shape a_r_g_u_m_e_n_t_2) ;
+    protected native int getViewIndexAtVisualOffset(float a_r_g_u_m_e_n_t_0) ;
+    native int updateChildOffsets(float a_r_g_u_m_e_n_t_0) ;
+    native void updateChildOffsetsToIndex(int a_r_g_u_m_e_n_t_0) ;
+    native boolean intersectsClip(java.awt.Shape a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1) ;
+    protected javax.swing.text.AsyncBoxView.ChildState lastValidOffset;
+    protected java.awt.Rectangle lastAlloc;
+    protected java.awt.Rectangle childAlloc;
+    final javax.swing.text.AsyncBoxView this$0;
+  }
+}

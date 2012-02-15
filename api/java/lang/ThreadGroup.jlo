@@ -1,0 +1,44 @@
+package java.lang;
+public class ThreadGroup extends java.lang.Object implements java.lang.Thread.UncaughtExceptionHandler {
+   public  ThreadGroup(java.lang.String a_r_g_u_m_e_n_t_0){}
+   public  ThreadGroup(java.lang.ThreadGroup a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
+  native void add(java.lang.Thread a_r_g_u_m_e_n_t_0) ;
+  public native void uncaughtException(java.lang.Thread a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1) ;
+  public native java.lang.String toString() ;
+  public final native java.lang.String getName() ;
+  public final native java.lang.ThreadGroup getParent() ;
+  native void remove(java.lang.Thread a_r_g_u_m_e_n_t_0) ;
+  public final native void setDaemon(boolean a_r_g_u_m_e_n_t_0) ;
+  public final native void stop() ;
+  public final native void interrupt() ;
+  public final native void destroy() ;
+  public final native void suspend() ;
+  public final native void resume() ;
+  public native int activeCount() ;
+  public native int enumerate(java.lang.Thread[] a_r_g_u_m_e_n_t_0) ;
+  public native int enumerate(java.lang.Thread[] a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public native int enumerate(java.lang.ThreadGroup[] a_r_g_u_m_e_n_t_0) ;
+  public native int enumerate(java.lang.ThreadGroup[] a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
+  public final native boolean isDaemon() ;
+  public final native void checkAccess() ;
+  native void addUnstarted() ;
+  public final native int getMaxPriority() ;
+  public synchronized native boolean isDestroyed() ;
+  public final native void setMaxPriority(int a_r_g_u_m_e_n_t_0) ;
+  public final native boolean parentOf(java.lang.ThreadGroup a_r_g_u_m_e_n_t_0) ;
+  public native int activeGroupCount() ;
+  public native void list() ;
+  native void list(java.io.PrintStream a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
+  public native boolean allowThreadSuspension(boolean a_r_g_u_m_e_n_t_0) ;
+  java.lang.ThreadGroup parent;
+  java.lang.String name;
+  int maxPriority;
+  boolean destroyed;
+  boolean daemon;
+  boolean vmAllowSuspension;
+  int nUnstartedThreads;
+  int nthreads;
+  java.lang.Thread[] threads;
+  int ngroups;
+  java.lang.ThreadGroup[] groups;
+}

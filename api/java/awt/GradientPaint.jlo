@@ -1,0 +1,19 @@
+package java.awt;
+public class GradientPaint extends java.lang.Object implements java.awt.Paint {
+   public  GradientPaint(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.Color a_r_g_u_m_e_n_t_1, java.awt.geom.Point2D a_r_g_u_m_e_n_t_2, java.awt.Color a_r_g_u_m_e_n_t_3){}
+   public  GradientPaint(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Color a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3, float a_r_g_u_m_e_n_t_4, java.awt.Color a_r_g_u_m_e_n_t_5, boolean a_r_g_u_m_e_n_t_6){}
+   public  GradientPaint(java.awt.geom.Point2D a_r_g_u_m_e_n_t_0, java.awt.Color a_r_g_u_m_e_n_t_1, java.awt.geom.Point2D a_r_g_u_m_e_n_t_2, java.awt.Color a_r_g_u_m_e_n_t_3, boolean a_r_g_u_m_e_n_t_4){}
+   public  GradientPaint(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, java.awt.Color a_r_g_u_m_e_n_t_2, float a_r_g_u_m_e_n_t_3, float a_r_g_u_m_e_n_t_4, java.awt.Color a_r_g_u_m_e_n_t_5){}
+  public native java.awt.PaintContext createContext(java.awt.image.ColorModel a_r_g_u_m_e_n_t_0, java.awt.Rectangle a_r_g_u_m_e_n_t_1, java.awt.geom.Rectangle2D a_r_g_u_m_e_n_t_2, java.awt.geom.AffineTransform a_r_g_u_m_e_n_t_3, java.awt.RenderingHints a_r_g_u_m_e_n_t_4) ;
+  public native int getTransparency() ;
+  public native java.awt.geom.Point2D getPoint1() ;
+  public native java.awt.Color getColor1() ;
+  public native java.awt.geom.Point2D getPoint2() ;
+  public native java.awt.Color getColor2() ;
+  public native boolean isCyclic() ;
+  java.awt.geom.Point2D.Float p1;
+  java.awt.geom.Point2D.Float p2;
+  java.awt.Color color1;
+  java.awt.Color color2;
+  boolean cyclic;
+}

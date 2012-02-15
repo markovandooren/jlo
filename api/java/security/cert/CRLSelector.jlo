@@ -1,0 +1,5 @@
+package java.security.cert;
+public abstract interface CRLSelector extends java.lang.Cloneable {
+  public abstract java.lang.Object clone() ;
+  public abstract boolean match(java.security.cert.CRL a_r_g_u_m_e_n_t_0) ;
+}

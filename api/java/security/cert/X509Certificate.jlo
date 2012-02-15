@@ -1,0 +1,26 @@
+package java.security.cert;
+public abstract class X509Certificate extends java.security.cert.Certificate implements java.security.cert.X509Extension {
+   protected  X509Certificate(){}
+  public abstract byte[] getSignature() ;
+  public abstract int getVersion() ;
+  public abstract java.math.BigInteger getSerialNumber() ;
+  public abstract java.security.Principal getIssuerDN() ;
+  public abstract byte[] getTBSCertificate()  throws java.security.cert.CertificateEncodingException;
+  public abstract void checkValidity()  throws java.security.cert.CertificateExpiredException, java.security.cert.CertificateNotYetValidException;
+  public abstract void checkValidity(java.util.Date a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertificateExpiredException, java.security.cert.CertificateNotYetValidException;
+  public native javax.security.auth.x500.X500Principal getIssuerX500Principal() ;
+  public abstract java.security.Principal getSubjectDN() ;
+  public native javax.security.auth.x500.X500Principal getSubjectX500Principal() ;
+  public abstract java.util.Date getNotBefore() ;
+  public abstract java.util.Date getNotAfter() ;
+  public abstract java.lang.String getSigAlgName() ;
+  public abstract java.lang.String getSigAlgOID() ;
+  public abstract byte[] getSigAlgParams() ;
+  public abstract boolean[] getIssuerUniqueID() ;
+  public abstract boolean[] getSubjectUniqueID() ;
+  public abstract boolean[] getKeyUsage() ;
+  public native java.util.List<java.lang.String> getExtendedKeyUsage()  throws java.security.cert.CertificateParsingException;
+  public abstract int getBasicConstraints() ;
+  public native java.util.Collection<java.util.List<? extends java.lang.Object>> getSubjectAlternativeNames()  throws java.security.cert.CertificateParsingException;
+  public native java.util.Collection<java.util.List<? extends java.lang.Object>> getIssuerAlternativeNames()  throws java.security.cert.CertificateParsingException;
+}

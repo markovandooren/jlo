@@ -1,0 +1,9 @@
+package javax.sql;
+public abstract interface PooledConnection {
+  public abstract void close()  throws java.sql.SQLException;
+  public abstract java.sql.Connection getConnection()  throws java.sql.SQLException;
+  public abstract void addConnectionEventListener(javax.sql.ConnectionEventListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeConnectionEventListener(javax.sql.ConnectionEventListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void addStatementEventListener(javax.sql.StatementEventListener a_r_g_u_m_e_n_t_0) ;
+  public abstract void removeStatementEventListener(javax.sql.StatementEventListener a_r_g_u_m_e_n_t_0) ;
+}
