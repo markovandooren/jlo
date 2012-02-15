@@ -1,0 +1,1 @@
+Main-Class: subobjectjava.translate.BatchTranslator
