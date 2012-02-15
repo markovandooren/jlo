@@ -1,0 +1,7 @@
+rm JavaL.g
+rm JavaL.g~
+rm JavaP.g
+rm JavaP.g~
+ln -s ~/git/jnome/src/jnome/input/parser/JavaL.g
+ln -s ~/git/jnome/src/jnome/input/parser/JavaP.g
+
