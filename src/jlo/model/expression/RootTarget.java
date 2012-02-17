@@ -1,10 +1,8 @@
 package jlo.model.expression;
 
-import chameleon.core.declaration.TargetDeclaration;
-import chameleon.core.lookup.LookupException;
 import chameleon.oo.type.Type;
 
-public class RootTarget extends AbstractTarget<RootTarget> {
+public class RootTarget extends AbstractTarget {
 
 	@Override
 	public Type getTargetDeclaration() {

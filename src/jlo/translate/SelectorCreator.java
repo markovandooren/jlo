@@ -53,11 +53,11 @@ public class SelectorCreator extends AbstractTranslator {
 		}
 	}
 
-	private FormalComponentParameter<?> highestSubobjectParameter(FormalComponentParameter<?> par) throws LookupException {
-		FormalComponentParameter<?> result = par;
+	private FormalComponentParameter highestSubobjectParameter(FormalComponentParameter par) throws LookupException {
+		FormalComponentParameter result = par;
 		Set<? extends Member> overridden = result.overriddenMembers();
 		while(! overridden.isEmpty()) {
-			result = (FormalComponentParameter<?>) overridden.iterator().next();
+			result = (FormalComponentParameter) overridden.iterator().next();
 			overridden = result.overriddenMembers();
 		}
 		return result;
@@ -69,10 +69,10 @@ public class SelectorCreator extends AbstractTranslator {
 		parameters.addAll(t.members(ComponentParameter.class));
 		// HACK that must be removed (as in "always used" so no if statement) when functional
 		// style parameters are removed.
-		for(ComponentParameter<?> par: parameters) {
-			AbstractInstantiatedComponentParameter<?> instantiatedPar = (AbstractInstantiatedComponentParameter) par;
-			FormalComponentParameter<?> formalParameter = instantiatedPar.formalParameter();
-			FormalComponentParameter<?> originalFormalParameter = (FormalComponentParameter<?>) formalParameter.origin();
+		for(ComponentParameter par: parameters) {
+			AbstractInstantiatedComponentParameter instantiatedPar = (AbstractInstantiatedComponentParameter) par;
+			FormalComponentParameter formalParameter = instantiatedPar.formalParameter();
+			FormalComponentParameter originalFormalParameter = (FormalComponentParameter) formalParameter.origin();
 //			FormalComponentParameter<?> highestFormalParameter = highestSubobjectParameter(originalFormalParameter);
 			Type p = t;
 			if(t instanceof ComponentType) {
@@ -87,14 +87,14 @@ public class SelectorCreator extends AbstractTranslator {
 		return result;
 	}
 	
-	private Method realSelectorFor(AbstractInstantiatedComponentParameter<?> par) throws LookupException {
+	private Method realSelectorFor(AbstractInstantiatedComponentParameter par) throws LookupException {
 		FormalComponentParameter formal = par.formalParameter();
 		Java language = par.language(Java.class);
 //		Method result = new NormalMethod(header,formal.componentTypeReference().clone());
 		Type declarationType = formal.declarationType();
 		JavaTypeReference reference = language.reference(declarationType);
 		reference.setUniParent(null);
-		MethodHeader header = new SimpleNameMethodHeader(selectorName((ComponentParameter<?>) par),reference);
+		MethodHeader header = new SimpleNameMethodHeader(selectorName((ComponentParameter) par),reference);
 		Method result = par.language(Java.class).createNormalMethod(header);
 		result.addModifier(new Public());
 //		result.addModifier(new Abstract());
@@ -160,19 +160,19 @@ public class SelectorCreator extends AbstractTranslator {
 	public List<Method> selectorsFor(Type type) throws LookupException {
 		List<Method> result = new ArrayList<Method>();
 		List<ComponentParameter> parameters = new ArrayList<ComponentParameter>(); 
-		ParameterBlock<?,ComponentParameter> block = type.parameterBlock(ComponentParameter.class);
+		ParameterBlock<ComponentParameter> block = type.parameterBlock(ComponentParameter.class);
 		if(block != null) {
 		  parameters.addAll(block.parameters());
 		}
 		parameters.addAll(type.members(ComponentParameter.class));
 		for(ComponentParameter par: parameters) {
-	  	result.add(selectorFor((FormalComponentParameter<?>) par));
+	  	result.add(selectorFor((FormalComponentParameter) par));
 	  }
 		
 		return result;
 	}
 
-	public String selectorName(ComponentParameter<?> par) throws LookupException {
+	public String selectorName(ComponentParameter par) throws LookupException {
 //		Type type;
 //		if(par instanceof InstantiatedMemberSubobjectParameter) {
 //			type = (Type) ((InstantiatedMemberSubobjectParameter) par).formalParameter().origin().nearestAncestor(Type.class);
@@ -183,7 +183,7 @@ public class SelectorCreator extends AbstractTranslator {
 		return "__select$" + par.signature().name();
 	}
 	
-	private Method selectorFor(FormalComponentParameter<?> par) throws LookupException {
+	private Method selectorFor(FormalComponentParameter par) throws LookupException {
 		Java language = par.language(Java.class);
 		JavaTypeReference reference = language.reference(par.declarationType());
 		reference.setUniParent(null);

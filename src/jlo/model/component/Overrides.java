@@ -18,7 +18,7 @@ import chameleon.oo.member.Member;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeElementImpl;
 
-public class Overrides extends TypeElementImpl<Overrides> {
+public class Overrides extends TypeElementImpl {
 
 	public Overrides(Signature newSignature, QualifiedName oldFqn) {
 		setNewSignature(newSignature);
@@ -45,7 +45,7 @@ public class Overrides extends TypeElementImpl<Overrides> {
 
 	private SingleAssociation<Overrides, QualifiedName> _fqn = new SingleAssociation<Overrides, QualifiedName>(this);
 
-	public QualifiedName<?> oldFQN() {
+	public QualifiedName oldFQN() {
 	  return _fqn.getOtherEnd();
 	}
 	

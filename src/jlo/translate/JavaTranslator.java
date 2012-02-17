@@ -133,11 +133,11 @@ public class JavaTranslator extends AbstractTranslator {
   	Iterator<Type> originalTypes = originalNamespacePart.children(Type.class).iterator();
   	Iterator<Type> newTypes = newNamespacePart.children(Type.class).iterator();
   	while(originalTypes.hasNext()) {
-  		SingleAssociation<Type, Element> newParentLink = newTypes.next().parentLink();
+  		SingleAssociation newParentLink = newTypes.next().parentLink();
   		Type translated = translatedImplementation(originalTypes.next());
   		newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
   	}
-  	for(Import<?> imp: originalNamespacePart.imports()) {
+  	for(Import imp: originalNamespacePart.imports()) {
 //  		boolean add = true;
 //  		if(imp instanceof TypeImport) {
 //  			if(((TypeImport)imp).getTypeReference().getElement().isTrue(imp.language(Java.class).PRIMITIVE_TYPE)) {
@@ -191,7 +191,7 @@ public class JavaTranslator extends AbstractTranslator {
 //  	nsp.removeDuplicateImports();
   }
   
-	private void replaceStaticCallTargets(Element<?> element) throws LookupException {
+	private void replaceStaticCallTargets(Element element) throws LookupException {
 		List<MethodInvocation> invocations = element.descendants(MethodInvocation.class);
 		for(MethodInvocation invocation: invocations) {
 			transformToImplReference(invocation);
@@ -204,7 +204,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
-	private void replaceConstructorCalls(Element<?> type) throws LookupException {
+	private void replaceConstructorCalls(Element type) throws LookupException {
 		List<ConstructorInvocation> invocations = type.descendants(ConstructorInvocation.class);
 		Collections.reverse(invocations);
 		for(ConstructorInvocation invocation: invocations) {
@@ -219,7 +219,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void replaceThisLiterals(Element<?> type) throws LookupException {
+	private void replaceThisLiterals(Element type) throws LookupException {
 		List<ThisLiteral> literals = type.descendants(ThisLiteral.class);
 		for(ThisLiteral literal: literals) {
 			TypeReference typeReference = literal.getTypeReference();
@@ -233,7 +233,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void replaceSubobjectAccess(Element<?> type) {
+	private void replaceSubobjectAccess(Element type) {
 		List<CrossReferenceWithTarget> literals = type.nearestDescendants(CrossReferenceWithTarget.class);
 		for(CrossReferenceWithTarget literal: literals) {
 			replaceSubobjectAccessors(literal);
@@ -245,8 +245,8 @@ public class JavaTranslator extends AbstractTranslator {
 	private final static String NO_SUBOBJECT_READ = "NoSubobjectRead";
 	
 	//JENS
-	private void replaceSubobjectAccessors(CrossReferenceWithTarget<?,?> cwt) {
-		Element<?> target = cwt.getTarget();
+	private void replaceSubobjectAccessors(CrossReferenceWithTarget<?> cwt) {
+		Element target = cwt.getTarget();
 		for(Element element: cwt.children()) {
 			replaceSubobjectAccess(element);
 		}
@@ -274,7 +274,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private boolean isReadOfFieldCreatedForSubobject(Declaration decl,CrossReference<?,?> cref) {
+	private boolean isReadOfFieldCreatedForSubobject(Declaration decl,CrossReference<?> cref) {
 		boolean fieldIsCreatedForSubobject = decl.origin().parent().hasTag(SUBOBJECT_READ);
 		AssignmentExpression assignment = cref.nearestAncestor(AssignmentExpression.class);
 		boolean isRead = (assignment == null) || 
@@ -283,7 +283,7 @@ public class JavaTranslator extends AbstractTranslator {
 		return fieldIsCreatedForSubobject && isRead;
 	}
 
-	private boolean considerForComponentAccessorTransformation(CrossReferenceWithTarget<?, ?> cwt) {
+	private boolean considerForComponentAccessorTransformation(CrossReferenceWithTarget<?> cwt) {
 		boolean a = ! (cwt instanceof MethodInvocation);
 		boolean b = ! (cwt instanceof TypeReference);
 		InheritanceRelation nearestInheritanceRelation = cwt.nearestAncestor(InheritanceRelation.class);
@@ -296,14 +296,14 @@ public class JavaTranslator extends AbstractTranslator {
 		return a && b && c && f;
 	}	
 
-	private void markSubobjectAccess(Element<?> type) {
+	private void markSubobjectAccess(Element type) {
 		List<CrossReferenceWithTarget> literals = type.nearestDescendants(CrossReferenceWithTarget.class);
 		for(CrossReferenceWithTarget literal: literals) {
 			markSubobjectAccessors(literal);
 		}
 	}
 	
-	private void markSubobjectAccessors(CrossReferenceWithTarget<?,?> cwt) {
+	private void markSubobjectAccessors(CrossReferenceWithTarget<?> cwt) {
 		for(Element element: cwt.children()) {
 			markSubobjectAccess(element);
 		}
@@ -511,7 +511,7 @@ public class JavaTranslator extends AbstractTranslator {
 		ChameleonProperty ov = lang.OVERRIDABLE;
 		ChameleonProperty def = lang.DEFINED;
 		incorporateImports(relation,result.nearestAncestor(NamespacePart.class));
-		for(Member<?,?> member: members) {
+		for(Member member: members) {
 			Element farthestOrigin = member.farthestOrigin();
 			ComponentRelation nearestSubobject = member.nearestAncestor(ComponentRelation.class);
 			ComponentRelation originOfNearestSubobject = (nearestSubobject == null ? null : (ComponentRelation) nearestSubobject.origin());
@@ -526,7 +526,7 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 		}
 	}
-	private void incorporateImports(Method<?,?,?> method) throws LookupException {
+	private void incorporateImports(Method method) throws LookupException {
 		Java java = method.language(Java.class);
 		NamespacePart namespacePart = method.nearestAncestor(NamespacePart.class);
 		for(TypeReference tref: method.descendants(TypeReference.class)) {
@@ -542,7 +542,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 	
-  private void createSuperImplementation(Method<?,?,?> method, Method original) throws LookupException {
+  private void createSuperImplementation(Method method, Method original) throws LookupException {
   	Block body = new Block();
   	method.setImplementation(new RegularImplementation(body));
   	MethodInvocation invocation = invocation(method, original.signature().name());
@@ -560,7 +560,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void rebindOverriddenMethodsOf(Type result, Type original, Method<?,?,?> method) throws Error, ModelException {
+	private void rebindOverriddenMethodsOf(Type result, Type original, Method method) throws Error, ModelException {
 		flushCache(original);
 		Set<? extends Member> overridden = method.overriddenMembers();
 		Java language = method.language(Java.class);
@@ -577,7 +577,7 @@ public class JavaTranslator extends AbstractTranslator {
 						}
 					};
 					Method newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-					Method<?,?,?> stat = newDefinitionInResult.clone();
+					Method stat = newDefinitionInResult.clone();
 					String name = staticMethodName(method, containerOfNewDefinition);
 					stat.setName(name);
 					containerOfNewDefinition.add(stat);
@@ -589,7 +589,7 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private void rebind(Type container, Type original, Method<?,?,?> newDefinition, Method toBeRebound) throws ModelException {
+	private void rebind(Type container, Type original, Method newDefinition, Method toBeRebound) throws ModelException {
 		try {
 			String newwFQN = newDefinition.nearestAncestor(Type.class).getFullyQualifiedName()+"."+newDefinition.name();
 //		Type containerOfNewDefinition = containerOfDefinition(container,original, newDefinition);
@@ -616,14 +616,14 @@ public class JavaTranslator extends AbstractTranslator {
 			Method reboundMethod = createOutward(toBeRebound, newDefinition.name(),thisName);
 			//FIXME this is tricky.
 			reboundMethod.setUniParent(toBeRebound);
-			Implementation<Implementation> impl = reboundMethod.implementation();
+			Implementation impl = reboundMethod.implementation();
 			reboundMethod.setImplementation(null);
 			substituteTypeParameters(reboundMethod);
 			reboundMethod.setImplementation(impl);
 			reboundMethod.setUniParent(null);
 			containerOfToBebound.add(reboundMethod);
 			
-			Method<?, ?, ?> staticReboundMethod = staticMethod(containerOfToBebound, reboundMethod);
+			Method staticReboundMethod = staticMethod(containerOfToBebound, reboundMethod);
 			String name = containerOfNewDefinition.getFullyQualifiedName().replace('.', '_');
 			for(SimpleNameMethodInvocation inv:staticReboundMethod.descendants(SimpleNameMethodInvocation.class)) {
 				if(! (inv instanceof ConstructorInvocation)) {
@@ -639,8 +639,8 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private Method<?, ?, ?> staticMethod(Type containerOfToBebound, Method<?,?,?> reboundMethod) throws ModelException {
-		Method<?,?,?> staticReboundMethod = reboundMethod.clone();
+	private Method staticMethod(Type containerOfToBebound, Method reboundMethod) throws ModelException {
+		Method staticReboundMethod = reboundMethod.clone();
 		staticReboundMethod.setOrigin(reboundMethod);
 		String newName = staticMethodName(reboundMethod,containerOfToBebound);
 //		staticReboundMethod.addModifier(new Final());
@@ -654,7 +654,7 @@ public class JavaTranslator extends AbstractTranslator {
 		return staticReboundMethod;
 	}
 
-	private Type typeOfDefinition(Type container, Type original, Element<?> newDefinition) throws LookupException {
+	private Type typeOfDefinition(Type container, Type original, Element newDefinition) throws LookupException {
 		Type rootOfNewDefinitionInOriginal = levelOfDefinition(newDefinition);
 		Type result = container;
 
@@ -724,7 +724,7 @@ public class JavaTranslator extends AbstractTranslator {
 		return result;
 	}
 	
-	private Type levelOfDefinition(Element<?> element) {
+	private Type levelOfDefinition(Element element) {
 		Type result = element.nearestAncestor(Type.class, new SafePredicate<Type>(){
 			@Override
 			public boolean eval(Type object) {
@@ -780,7 +780,7 @@ public class JavaTranslator extends AbstractTranslator {
 		Type result = relation.componentType();
 		return createOrGetSubobject(result, original, elements, baseOneIndex + 1);
 }
-	private List<Element> filterAncestors(Element<?> element) {
+	private List<Element> filterAncestors(Element element) {
 		SafePredicate<Element> predicate = componentRelationOrNonComponentTypePredicate();
 		return element.ancestors(Element.class, predicate);
 	}
@@ -883,7 +883,7 @@ public class JavaTranslator extends AbstractTranslator {
 
 
 
-	private void processSuperComponentParameters(AbstractInheritanceRelation<?> relation) throws LookupException {
+	private void processSuperComponentParameters(AbstractInheritanceRelation relation) throws LookupException {
 		TypeReference tref = relation.superClassReference();
 		Type type = relation.nearestAncestor(Type.class);
 		if(tref instanceof ComponentParameterTypeReference) {
@@ -896,7 +896,7 @@ public class JavaTranslator extends AbstractTranslator {
 
 	private void removeNonLocalReferences(Type type) throws LookupException {
 		for(NonLocalJavaTypeReference tref: type.descendants(NonLocalJavaTypeReference.class)) {
-			SingleAssociation<NonLocalJavaTypeReference, Element> parentLink = tref.parentLink();
+			SingleAssociation parentLink = tref.parentLink();
 			TypeReference actualReference = tref.actualReference();
 			if(tref.hasTag(IMPL)) {
 				actualReference.setTag(new TagImpl(), IMPL);
@@ -905,8 +905,8 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 	}
 
-	private Method createOutward(Method<?,?,?> method, String newName, String className) throws LookupException {
-		NormalMethod<?,?,?> result;
+	private Method createOutward(Method method, String newName, String className) throws LookupException {
+		NormalMethod result;
 		Java java = method.language(Java.class);
 		if(//(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
 			 (method.is(java.OVERRIDABLE) == Ternary.TRUE)) {
@@ -967,13 +967,13 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 		);
 		for(SuperTarget superTarget : superTargets) {
-			Element<?> cr = superTarget.parent();
+			Element cr = superTarget.parent();
 			if(cr instanceof CrossReferenceWithArguments) {
-				Element<?> inv = cr.parent();
+				Element inv = cr.parent();
 				if(inv instanceof RegularMethodInvocation) {
 					RegularMethodInvocation call = (RegularMethodInvocation) inv;
 					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
-					Method<?,?,?> invoked = call.getElement();
+					Method invoked = call.getElement();
 					List<ComponentRelation> trail = new ArrayList<ComponentRelation>();
 					trail.add(targetComponent);
 					Element el = invoked;
@@ -1002,7 +1002,7 @@ public class JavaTranslator extends AbstractTranslator {
 					for(ComponentRelation rel: trail) {
 						subobjectSelection = new JavaMethodInvocation(getterName(rel), subobjectSelection);
 					}
-					Method<?,?,?> farthestOrigin = (Method) invoked.farthestOrigin();
+					Method farthestOrigin = (Method) invoked.farthestOrigin();
 					call.setTarget(subobjectSelection);
 					String name = staticMethodName(call.name(), farthestOrigin.nearestAncestor(Type.class));
 					call.setName(name);

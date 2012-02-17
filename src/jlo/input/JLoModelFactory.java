@@ -92,7 +92,7 @@ public class JLoModelFactory extends JavaModelFactory {
 //	  addPrimitives(language().defaultNamespace());
 //	}
   
-	protected <P extends Element> Element parse(Element<?> element, String text) throws ParseException {
+	protected <P extends Element> Element parse(Element element, String text) throws ParseException {
 		try {
 		  InputStream inputStream = new StringBufferInputStream(text);
 		  Element result = null;

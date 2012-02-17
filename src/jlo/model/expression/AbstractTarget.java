@@ -6,7 +6,6 @@ import java.util.List;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.core.reference.CrossReferenceTarget;
 import chameleon.core.validation.Valid;
@@ -14,13 +13,13 @@ import chameleon.core.validation.VerificationResult;
 import chameleon.oo.statement.CheckedExceptionList;
 import chameleon.oo.type.Type;
 
-public abstract class AbstractTarget<E extends AbstractTarget<E>> extends NamespaceElementImpl<E> implements CrossReferenceTarget<E> {
+public abstract class AbstractTarget extends NamespaceElementImpl implements CrossReferenceTarget {
 
 	public AbstractTarget() {
 		super();
 	}
 	
-	public abstract E clone();
+	public abstract AbstractTarget clone();
 
 	public List<Element> children() {
 		return new ArrayList<Element>();

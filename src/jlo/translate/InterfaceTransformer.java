@@ -125,19 +125,19 @@ public class InterfaceTransformer extends AbstractTranslator {
 		}
 	}
 
-	private void removeNonInterfaceModifiers(TypeElement<?> element) throws ModelException {
+	private void removeNonInterfaceModifiers(TypeElement element) throws ModelException {
 		removeFinal(element);
 		removeSynchronized(element);
 	}
 
-	private void removeSynchronized(TypeElement<?> element) throws ModelException {
+	private void removeSynchronized(TypeElement element) throws ModelException {
 		Property property = element.language(Java.class).SYNCHRONIZED;
 		for(Modifier modifier: element.modifiers(property)) {
 			element.removeModifier(modifier);
 		}
 	}
 	
-	private void removeFinal(TypeElement<?> element) throws ModelException {
+	private void removeFinal(TypeElement element) throws ModelException {
 		Property property = element.language(ObjectOrientedLanguage.class).OVERRIDABLE.inverse();
 		for(Modifier modifier: element.modifiers(property)) {
 			element.removeModifier(modifier);
@@ -152,7 +152,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 			if(tpars == null) {
 				type.addParameterBlock(new TypeParameterBlock());
 			}
-			for(TypeParameter<?> typeParameter:typeParameters) {
+			for(TypeParameter typeParameter:typeParameters) {
 				type.addParameter(TypeParameter.class, typeParameter.clone());
 			}
 		}

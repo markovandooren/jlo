@@ -14,12 +14,12 @@ public class JLoOutlineSelector extends JavaOutlineSelector {
 	
 	
 	@Override
-	public boolean isAllowed(Element<?> element) throws ModelException {
+	public boolean isAllowed(Element element) throws ModelException {
 		return (! (element instanceof ComponentType)) && super.isAllowed(element);
 	}
 
 	@Override
-	public List<Element> outlineChildren(Element<?> element) throws ModelException {
+	public List<Element> outlineChildren(Element element) throws ModelException {
 		List<Element> result = super.outlineChildren(element);
 		if(element instanceof Type) {
 			Type type = (Type) element;

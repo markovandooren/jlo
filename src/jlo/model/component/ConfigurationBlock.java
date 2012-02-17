@@ -22,12 +22,12 @@ import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.type.Type;
 import chameleon.util.Pair;
 
-public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock> {
+public class ConfigurationBlock extends NamespaceElementImpl {
 
 	@Override
 	public ConfigurationBlock clone() {
 		ConfigurationBlock result = new ConfigurationBlock();
-		for(ConfigurationClause<?> clause:localClauses()) {
+		for(ConfigurationClause clause:localClauses()) {
 			result.add(clause.clone());
 		}
 		return result;
@@ -51,15 +51,11 @@ public class ConfigurationBlock extends NamespaceElementImpl<ConfigurationBlock>
 	private OrderedMultiAssociation<ConfigurationBlock, ConfigurationClause> _elements = new OrderedMultiAssociation<ConfigurationBlock, ConfigurationClause>(this);
 
 	public void add(ConfigurationClause element) {
-	  if(element != null) {
-	    _elements.add(element.parentLink());
-	  }
+	  add(_elements,element);
 	}
 	
 	public void remove(ConfigurationClause element) {
-	  if(element != null) {
-	    _elements.remove(element.parentLink());
-	  }
+	  remove(_elements,element);
 	}
 	
 	public List<ConfigurationClause> clauses() throws LookupException {

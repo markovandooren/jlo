@@ -7,7 +7,7 @@ import chameleon.oo.type.Type;
 /**
  * @author Marko van Dooren
  */
-public class OuterTarget extends AbstractTarget<OuterTarget> {
+public class OuterTarget extends AbstractTarget {
 
   public OuterTarget() {
 	}

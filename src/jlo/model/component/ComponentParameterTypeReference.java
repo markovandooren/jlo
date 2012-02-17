@@ -31,7 +31,7 @@ import chameleon.util.Util;
  * @deprecated
  * @author Marko van Dooren
  */
-public class ComponentParameterTypeReference extends NamespaceElementImpl<ComponentParameterTypeReference> implements JavaTypeReference<ComponentParameterTypeReference>,ComponentArgumentContainer<ComponentParameterTypeReference> {
+public class ComponentParameterTypeReference extends NamespaceElementImpl implements JavaTypeReference,ComponentArgumentContainer {
 
 	public ComponentParameterTypeReference(JavaTypeReference target) {
 		setTarget(target);
@@ -52,9 +52,7 @@ public class ComponentParameterTypeReference extends NamespaceElementImpl<Compon
   }
   
   public void addArgument(ActualComponentArgument arg) {
-  	if(arg != null) {
-  		_genericParameters.add(arg.parentLink());
-  	}
+  	add(_genericParameters,arg);
   }
   
   public void addAllArguments(List<ActualComponentArgument> args) {
@@ -64,9 +62,7 @@ public class ComponentParameterTypeReference extends NamespaceElementImpl<Compon
   }
   
   public void removeArgument(ActualComponentArgument arg) {
-  	if(arg != null) {
-  		_genericParameters.remove(arg.parentLink());
-  	}
+  	remove(_genericParameters,arg);
   }
   
   public int indexOf(ActualComponentArgument arg) {
@@ -108,8 +104,8 @@ public class ComponentParameterTypeReference extends NamespaceElementImpl<Compon
 		return intersectionTypeReference;
 	}
 
-	public TypeReference intersectionDoubleDispatch(IntersectionTypeReference<?> other) {
-		IntersectionTypeReference<?> result = other.clone();
+	public TypeReference intersectionDoubleDispatch(IntersectionTypeReference other) {
+		IntersectionTypeReference result = other.clone();
 		result.add(clone());
 		return result;
 	}
@@ -149,7 +145,7 @@ public class ComponentParameterTypeReference extends NamespaceElementImpl<Compon
 		JavaTypeReference target = target();
 		JavaTypeReference clone = target == null ? null : target.clone();
 		ComponentParameterTypeReference result = new ComponentParameterTypeReference(clone);
-		for(ActualComponentArgument<?> arg: componentArguments()) {
+		for(ActualComponentArgument arg: componentArguments()) {
 			result.addArgument(arg.clone());
 		}
 		return result;
@@ -175,7 +171,7 @@ public class ComponentParameterTypeReference extends NamespaceElementImpl<Compon
 	}
 
 	@Override
-	public String infoDisplayName() {
+	public String toString() {
 		return "";
 	}
 

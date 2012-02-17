@@ -144,11 +144,11 @@ public class InnerClassCreator extends AbstractTranslator {
 private void processInnerClassMethod(ComponentRelation relationBeingTranslated, Type result) throws LookupException {
 	Type componentType = relationBeingTranslated.referencedComponentType();
 	List<Method> localMethods = componentType.directlyDeclaredMembers(Method.class);
-	for(Method<?,?,?> method: localMethods) {
+	for(Method method: localMethods) {
 		if(method.is(method.language(ObjectOrientedLanguage.class).CONSTRUCTOR) == Ternary.TRUE) {
-			NormalMethod<?,?,?> clone = (NormalMethod) method.clone();
+			NormalMethod clone = (NormalMethod) method.clone();
 			clone.setUniParent(method.parent());
-			for(BasicTypeReference<?> tref: clone.descendants(BasicTypeReference.class)) {
+			for(BasicTypeReference tref: clone.descendants(BasicTypeReference.class)) {
 				if(tref.getTarget() == null) {
 				  Type element = tref.getElement();
 					Type base = element.baseType();
