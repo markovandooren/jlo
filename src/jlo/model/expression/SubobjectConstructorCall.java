@@ -23,7 +23,7 @@ import chameleon.oo.member.MoreSpecificTypesOrder;
 import chameleon.oo.type.Type;
 import chameleon.support.member.simplename.method.NormalMethod;
 
-public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstructorCall, NormalMethod> {
+public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 
   public SubobjectConstructorCall(SimpleReference<ComponentRelation> subobjectTarget) {
   	super(subobjectTarget);
@@ -75,7 +75,7 @@ public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstruc
 		public boolean selectedBasedOnName(Signature signature) throws LookupException {
     	boolean result = false;
 			if(signature instanceof DeclarationWithParametersSignature) {
-				DeclarationWithParametersSignature<?> sig = (DeclarationWithParametersSignature<?>)signature;
+				DeclarationWithParametersSignature sig = (DeclarationWithParametersSignature)signature;
 				List<Type> actuals = getActualParameterTypes();
 				List<Type> formals = ((DeclarationWithParametersSignature)signature).parameterTypes();
 				if (MoreSpecificTypesOrder.create().contains(actuals, formals)) {
@@ -102,7 +102,7 @@ public class SubobjectConstructorCall extends MethodInvocation<SubobjectConstruc
 		}
 
 		@Override
-		public String selectionName(DeclarationContainer<?> container) throws LookupException {
+		public String selectionName(DeclarationContainer container) throws LookupException {
 			// FIXME: this is horribly inefficient, but otherwise we must add more redundancy
 			//        in the source code.
 			return getTarget().getElement().componentType().signature().name();

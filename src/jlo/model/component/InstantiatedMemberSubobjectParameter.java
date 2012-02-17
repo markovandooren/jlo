@@ -26,7 +26,7 @@ import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
 
-public class InstantiatedMemberSubobjectParameter<E extends InstantiatedMemberSubobjectParameter<E>> extends ComponentParameter<E> implements ComponentArgumentContainer<E>, AbstractInstantiatedComponentParameter<E> {
+public class InstantiatedMemberSubobjectParameter extends ComponentParameter implements ComponentArgumentContainer, AbstractInstantiatedComponentParameter {
 
 
 	public InstantiatedMemberSubobjectParameter(SimpleNameSignature sig, ActualComponentArgument argument) {
@@ -85,8 +85,8 @@ public class InstantiatedMemberSubobjectParameter<E extends InstantiatedMemberSu
 	}
 
 	@Override
-	public E clone() {
-		return (E) new InstantiatedMemberSubobjectParameter(signature().clone(),argument().clone());
+	public InstantiatedMemberSubobjectParameter clone() {
+		return new InstantiatedMemberSubobjectParameter(signature().clone(),argument().clone());
 	}
 
 	@Override

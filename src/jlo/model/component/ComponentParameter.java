@@ -28,9 +28,9 @@ import chameleon.oo.type.Parameter;
 import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
-public abstract class ComponentParameter<E extends ComponentParameter<E>> extends Parameter<E> implements DeclarationWithType<E, SimpleNameSignature>, Member<E,SimpleNameSignature> {
+public abstract class ComponentParameter extends Parameter implements DeclarationWithType, Member {
 
-	public abstract E clone();
+	public abstract ComponentParameter clone();
 	
 	public ComponentParameter(SimpleNameSignature sig) {
 		super(sig);
@@ -166,7 +166,7 @@ public abstract class ComponentParameter<E extends ComponentParameter<E>> extend
   	List<Member> todo = (List<Member>) directlyOverriddenMembers();
   	Map<Type,List<Member>> visitedTypes = new HashMap<Type,List<Member>>();
   	while(! todo.isEmpty()) {
-  		Member<?,?> m = todo.get(0);
+  		Member m = todo.get(0);
   		todo.remove(0);
   		Type containingType = m.nearestAncestor(Type.class);
 		if(! visitedTypes.containsKey(containingType)) {
@@ -198,7 +198,7 @@ public abstract class ComponentParameter<E extends ComponentParameter<E>> extend
 	  List<Member> todo = (List<Member>) directlyAliasedMembers();
 	  Set<Member> result = new HashSet<Member>();
 	  while(! todo.isEmpty()) {
-		  Member<?,?> m = todo.get(0);
+		  Member m = todo.get(0);
 		  System.out.println(m.nearestAncestor(Type.class).getFullyQualifiedName()+"."+m.signature().name());
 		  todo.remove(0);
 		  if(result.add(m)) {
@@ -212,7 +212,7 @@ public abstract class ComponentParameter<E extends ComponentParameter<E>> extend
 	  List<Member> todo = (List<Member>) directlyAliasingMembers();
 	  Set<Member> result = new HashSet<Member>();
 	  while(! todo.isEmpty()) {
-		  Member<?,?> m = todo.get(0);
+		  Member m = todo.get(0);
 		  todo.remove(0);
 		  if(result.add(m)) {
 			  todo.addAll(m.directlyAliasingMembers());
