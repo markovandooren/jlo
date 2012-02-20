@@ -61,7 +61,7 @@ public class AbstractTranslator {
 	
 	public final static String IMPL = "_implementation";
 
-	protected void makePublic(ElementWithModifiers<?> element) throws ModelException {
+	protected void makePublic(ElementWithModifiers element) throws ModelException {
 		Java language = element.language(Java.class);
 		if(element.hasProperty(language.SCOPE_MUTEX)) {
 			Property access = element.property(language.SCOPE_MUTEX);
@@ -74,7 +74,7 @@ public class AbstractTranslator {
 		}
 	}
 
-	protected void expandReferences(Element<?> type) throws LookupException {
+	protected void expandReferences(Element type) throws LookupException {
 		Java language = type.language(Java.class);
 		for(BasicJavaTypeReference tref: type.descendants(BasicJavaTypeReference.class)) {
 			if(tref.getTarget() == null) {
@@ -124,7 +124,7 @@ public class AbstractTranslator {
 	 * @param element
 	 * @throws LookupException
 	 */
-	protected void substituteTypeParameters(Element<?> element) throws LookupException {
+	protected void substituteTypeParameters(Element element) throws LookupException {
 		List<TypeReference> crossReferences = 
 			element.descendants(TypeReference.class, 
 					new UnsafePredicate<TypeReference,LookupException>() {
@@ -165,7 +165,7 @@ public class AbstractTranslator {
 		}
 	}
 	
-	protected void transformToImplReference(CrossReference<?,?> tref) {
+	protected void transformToImplReference(CrossReference<?> tref) {
 		if(tref instanceof NonLocalTypeReference) {
 			transformToImplReference(((NonLocalTypeReference)tref).actualReference());
 		} else if(tref instanceof CrossReferenceWithName) {
@@ -173,7 +173,7 @@ public class AbstractTranslator {
 			if(ref instanceof CrossReferenceWithTarget) {
 				Element target = ((CrossReferenceWithTarget)ref).getTarget();
 				if(target instanceof CrossReference) {
-					transformToImplReference((CrossReference<?, ?>) target);
+					transformToImplReference((CrossReference<?>) target);
 				}
 			}
 			if(! (ref instanceof MethodInvocation)) {
@@ -201,7 +201,7 @@ public class AbstractTranslator {
 						CrossReferenceTarget cref = newRef.getTarget();
 						if(((CrossReferenceWithTarget)ref).getTarget() == null) {
 							((CrossReferenceWithTarget)ref).setTarget(cref);
-							transformToImplReference((CrossReference<?, ?>) cref);
+							transformToImplReference((CrossReference<?>) cref);
 						}
 					}
 				}
@@ -254,13 +254,13 @@ public class AbstractTranslator {
 		}
 	}
 
-	protected void substituteTypeParameters(Method<?, ?, ?> methodInTypeWhoseParametersMustBeSubstituted, NormalMethod<?, ?, ?> methodWhereActualTypeParametersMustBeFilledIn) throws LookupException {
+	protected void substituteTypeParameters(Method methodInTypeWhoseParametersMustBeSubstituted, NormalMethod methodWhereActualTypeParametersMustBeFilledIn) throws LookupException {
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(methodInTypeWhoseParametersMustBeSubstituted);
 		substituteTypeParameters(methodWhereActualTypeParametersMustBeFilledIn);
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(null);
 	}
 
-	protected void useParametersInInvocation(Method<?, ?, ?> method, MethodInvocation invocation) {
+	protected void useParametersInInvocation(Method method, MethodInvocation invocation) {
 		for(FormalParameter param: method.formalParameters()) {
 			invocation.addArgument(new NamedTargetExpression(param.signature().name(), null));
 		}
@@ -288,14 +288,14 @@ public class AbstractTranslator {
 		return componentName+COMPONENT;
 	}
 	
-	protected MethodInvocation invocation(Method<?, ?, ?> method, String origin) {
+	protected MethodInvocation invocation(Method method, String origin) {
 		MethodInvocation invocation = new JavaMethodInvocation(origin, null);
 		// pass parameters.
 		useParametersInInvocation(method, invocation);
 		return invocation;
 	}
 
-	protected void addImplementation(Method<?, ?, ?> method, Block body, MethodInvocation invocation) throws LookupException {
+	protected void addImplementation(Method method, Block body, MethodInvocation invocation) throws LookupException {
 		if(method.returnType().equals(method.language(Java.class).voidType())) {
 			body.addStatement(new StatementExpression(invocation));
 		} else {
@@ -303,8 +303,8 @@ public class AbstractTranslator {
 		}
 	}
 
-	protected NormalMethod<?, ?, ?> innerMethod(Method<?, ?, ?> method, String original) throws LookupException {
-		NormalMethod<?, ?, ?> result;
+	protected NormalMethod innerMethod(Method method, String original) throws LookupException {
+		NormalMethod result;
 		result = method.language(Java.class).createNormalMethod((MethodHeader)method.header().clone());
 		((SimpleNameMethodHeader)result.header()).setName(original);
 		ExceptionClause exceptionClause = method.getExceptionClause();
@@ -314,7 +314,7 @@ public class AbstractTranslator {
 		return result;
 	}
 
-	protected void copyTypeParametersFromAncestors(Element<?> type, BasicJavaTypeReference createTypeReference) {
+	protected void copyTypeParametersFromAncestors(Element type, BasicJavaTypeReference createTypeReference) {
 		Type ancestor = type.nearestAncestorOrSelf(Type.class);
 		Java language = type.language(Java.class);
 		while(ancestor != null) {

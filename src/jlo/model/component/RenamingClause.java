@@ -12,7 +12,7 @@ import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
-public class RenamingClause extends AbstractClause<RenamingClause> {
+public class RenamingClause extends AbstractClause {
 
 	public RenamingClause(Signature newSignature, QualifiedName oldFqn) {
 		setNewSignature(newSignature);

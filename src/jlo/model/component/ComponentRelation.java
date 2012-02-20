@@ -6,16 +6,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import jlo.model.type.RegularJLoType;
-
 import org.rejuse.association.Association;
 import org.rejuse.association.AssociationListener;
 import org.rejuse.association.SingleAssociation;
 import org.rejuse.predicate.TypePredicate;
 
-
 import chameleon.core.declaration.Declaration;
-import chameleon.core.declaration.Definition;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
@@ -44,9 +40,9 @@ import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.util.CreationStackTrace;
 import chameleon.util.Util;
 
-public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSignature> implements DeclarationWithType<ComponentRelation,SimpleNameSignature>, Definition<ComponentRelation,SimpleNameSignature>, InheritanceRelation<ComponentRelation,Type>{
+public class ComponentRelation extends MemberImpl implements DeclarationWithType, InheritanceRelation {
 
-	private CreationStackTrace _trace;
+//	private CreationStackTrace _trace;
 	
 	@Override
 	public void disconnect() {
@@ -57,25 +53,25 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		setSignature(signature);
 		setComponentType(type);
 		setBody(new ClassBody());
-		_trace = new CreationStackTrace();
-		parentLink().addListener(new AssociationListener() {
-
-			@Override
-			public void notifyElementAdded(Object element) {
-				ComponentRelation.this._trace = new CreationStackTrace();
-			}
-
-			@Override
-			public void notifyElementRemoved(Object element) {
-				ComponentRelation.this._trace = new CreationStackTrace();
-			}
-
-			@Override
-			public void notifyElementReplaced(Object oldElement, Object newElement) {
-				ComponentRelation.this._trace = new CreationStackTrace();
-			}
-
-		});
+//		_trace = new CreationStackTrace();
+//		parentLink().addListener(new AssociationListener() {
+//
+//			@Override
+//			public void notifyElementAdded(Object element) {
+//				ComponentRelation.this._trace = new CreationStackTrace();
+//			}
+//
+//			@Override
+//			public void notifyElementRemoved(Object element) {
+//				ComponentRelation.this._trace = new CreationStackTrace();
+//			}
+//
+//			@Override
+//			public void notifyElementReplaced(Object oldElement, Object newElement) {
+//				ComponentRelation.this._trace = new CreationStackTrace();
+//			}
+//
+//		});
 
 	}
 	
@@ -93,10 +89,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return result;
 	}
 
-	public String infoDisplayName() {
+	public String toString() {
 		try {
 			try {
-				return componentType().infoDisplayName();
+				return componentType().toString();
 			} catch (LookupException e) {
 				return signature().name();
 			}
@@ -129,10 +125,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 					try {
 						overriddenRefType = overridden.referencedComponentType();
 					} catch(LookupException exc) {
-							result = result.and(new BasicProblem(this, "Cannot determine the type of refined subobject "+overridden.infoDisplayName()));
+							result = result.and(new BasicProblem(this, "Cannot determine the type of refined subobject "+overridden.toString()));
 					}
 					if(overriddenRefType != null) {
-						result = result.and(reftype.verifySubtypeOf(overriddenRefType,"the declared subobject type","the declared subobject type of refined subobject "+overridden.infoDisplayName())); 
+						result = result.and(reftype.verifySubtypeOf(overriddenRefType,"the declared subobject type","the declared subobject type of refined subobject "+overridden.toString())); 
 					}
 				}
 			}
@@ -197,12 +193,7 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 	}
 
 	public void setComponentType(TypeReference type) {
-		if(type != null) {
-			_typeReference.connectTo(type.parentLink());
-		}
-		else {
-			_typeReference.connectTo(null);
-		}
+		setAsParent(_typeReference,type);
 	}
 	
 	public void setName(String name) {
@@ -211,11 +202,9 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 
 	
   public void setSignature(Signature signature) {
-  	if(signature instanceof SimpleNameSignature) {
-  			_signature.connectTo(signature.parentLink());
-  	} else if(signature == null) {
-			_signature.connectTo(null);
-		} else {
+  	if(signature instanceof SimpleNameSignature || signature == null) {
+  		setAsParent(_signature,(SimpleNameSignature)signature);
+  	} else {
   		throw new ChameleonProgrammerException("Setting wrong type of signature. Provided: "+(signature == null ? null :signature.getClass().getName())+" Expected SimpleNameSignature");
   	}
   }
@@ -490,13 +479,10 @@ public class ComponentRelation extends MemberImpl<ComponentRelation,SimpleNameSi
 		return result;
 	}
 	
-	/**
-	 * For debugging purposes because Eclipse detail formatters simply don't work.
-	 */
-	public String toString() {
-		Type nearestAncestor = nearestAncestor(Type.class);
-		return (nearestAncestor != null ? nearestAncestor.getFullyQualifiedName() + "." + signature().name() : signature().name());
-	}
+//	public String toString() {
+//		Type nearestAncestor = nearestAncestor(Type.class);
+//		return (nearestAncestor != null ? nearestAncestor.getFullyQualifiedName() + "." + signature().name() : signature().name());
+//	}
 
 	public MemberRelationSelector<ComponentRelation> overridesSelector() {
 		return new MemberRelationSelector<ComponentRelation>(ComponentRelation.class,this,_overridesSelector);

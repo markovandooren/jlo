@@ -101,15 +101,15 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		for(RenamingClause renamingClause: clauses) {
 			Declaration decl = renamingClause.oldDeclaration();
 			if(decl instanceof Method) {
-				final Method<?,?,?> method = (Method<?, ?, ?>) decl;
+				final Method method = (Method) decl;
 				Method alias = createAlias(relation, method, ((SimpleNameDeclarationWithParametersSignature)renamingClause.newSignature()).name());
 				outer.add(alias);
 			}
 		}
 	}
 	
-	private Method createAlias(ComponentRelation relation, Method<?,?,?> method, String newName) throws LookupException {
-		NormalMethod<?,?,?> result;
+	private Method createAlias(ComponentRelation relation, Method method, String newName) throws LookupException {
+		NormalMethod result;
 		result = innerMethod(method, newName);
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
@@ -200,7 +200,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		}
 	}
 	
-	private void rewriteAllThis(Member<?,?> member, ComponentRelation relation, ComponentRelation original) throws LookupException {
+	private void rewriteAllThis(Member member, ComponentRelation relation, ComponentRelation original) throws LookupException {
 		for(ThisLiteral literal: member.descendants(ThisLiteral.class)) {
 			rewriteThis(literal,relation,original);
 		}
@@ -236,7 +236,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 
 	private static boolean PROCESS_NESTED_CONSTRUCTORS=true;
 
-	private void replaceOuterAndRootTargets(TypeElement<?> clone) {
+	private void replaceOuterAndRootTargets(TypeElement clone) {
 		List<AbstractTarget> outers = clone.descendants(AbstractTarget.class);
 		for(AbstractTarget o: outers) {
 			String name = o.getTargetDeclaration().getName();

@@ -16,7 +16,7 @@ import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.type.Type;
 
-public class OverridesClause extends AbstractClause<OverridesClause> {
+public class OverridesClause extends AbstractClause {
 
 	public OverridesClause(Signature newSignature, QualifiedName oldFqn) {
 		setNewSignature(newSignature);

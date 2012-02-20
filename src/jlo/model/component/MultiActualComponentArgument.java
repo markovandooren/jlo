@@ -13,7 +13,7 @@ import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.Type;
 
-public class MultiActualComponentArgument extends ActualComponentArgument<MultiActualComponentArgument> implements ComponentArgumentContainer<MultiActualComponentArgument> {
+public class MultiActualComponentArgument extends ActualComponentArgument implements ComponentArgumentContainer {
 
 	public MultiActualComponentArgument() {
 		
@@ -29,7 +29,7 @@ public class MultiActualComponentArgument extends ActualComponentArgument<MultiA
 	@Override
 	public ComponentRelationSet declaration() throws LookupException {
 		List<DeclarationWithType> relations = new ArrayList<DeclarationWithType>();
-		for(SingleActualComponentArgument<?> argument : arguments()) {
+		for(SingleActualComponentArgument argument : arguments()) {
 			relations.add(argument.declaration());
 		}
 		return new ComponentRelationSet(relations, formalParameter());
@@ -59,15 +59,11 @@ public class MultiActualComponentArgument extends ActualComponentArgument<MultiA
 	private OrderedMultiAssociation<MultiActualComponentArgument, SingleActualComponentArgument> _elements = new OrderedMultiAssociation<MultiActualComponentArgument, SingleActualComponentArgument>(this);
 
 	public void add(SingleActualComponentArgument element) {
-	  if(element != null) {
-	    _elements.add(element.parentLink());
-	  }
+	  add(_elements,element);
 	}
 	
 	public void remove(SingleActualComponentArgument element) {
-	  if(element != null) {
-	    _elements.remove(element.parentLink());
-	  }
+	  remove(_elements,element);
 	}
 	
 	public List<SingleActualComponentArgument> arguments() {

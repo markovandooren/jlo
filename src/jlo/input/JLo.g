@@ -54,7 +54,6 @@ import chameleon.core.modifier.Modifier;
 
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
-import chameleon.core.namespace.NamespaceOrTypeReference;
 import chameleon.core.namespace.NamespaceReference;
 
 import chameleon.core.namespacepart.NamespacePart;
@@ -263,11 +262,11 @@ import java.util.ArrayList;
     return gJLoP.typeRef(qn);
   }
 
-  public JavaTypeReference createTypeReference(CrossReference<?, ? extends TargetDeclaration> target, String name) {
+  public JavaTypeReference createTypeReference(CrossReference<? extends TargetDeclaration> target, String name) {
     return gJLoP.createTypeReference(target,name);
   }
   
-  public JavaTypeReference createTypeReference(CrossReference<?, ? extends TargetDeclaration> target, SimpleNameSignature signature) {
+  public JavaTypeReference createTypeReference(CrossReference<? extends TargetDeclaration> target, SimpleNameSignature signature) {
     return gJLoP.createTypeReference(target,signature);
   }
 

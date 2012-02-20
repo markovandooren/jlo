@@ -70,11 +70,11 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		}
 	}
 	
-	private void createStrategyCloneOfConstructor(Method<?,?,?> constructor) throws ModelException {
+	private void createStrategyCloneOfConstructor(Method constructor) throws ModelException {
 		MethodInvocation superCall = superDelegation(constructor);
 		Java language = constructor.language(Java.class);
 	  Type container = constructor.nearestAncestor(Type.class);
-	  Method<?,?,?> clone = constructor.clone();
+	  Method clone = constructor.clone();
 	  DeclarationWithParametersHeader header = clone.header();
 	  boolean added = false;
 	  for(ComponentRelation relation: container.members(ComponentRelation.class)) {
@@ -139,7 +139,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			strategy.add(constructor);
 			strategy.addModifier(new Abstract());
 			strategy.addModifier(new Static());
-			for(Member<?,?> member: relation.directlyOverriddenMembers()) {
+			for(Member member: relation.directlyOverriddenMembers()) {
 				if(type.subTypeOf(member.nearestAncestor(Type.class))) {
 					strategy.addInheritanceRelation(new SubtypeRelation(language.createTypeReference(strategyNameFQN((ComponentRelation) member))));
 				}
@@ -159,7 +159,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		return notExists;
 	}
 
-	private void createSpecificStrategy(ComponentRelation relation, Method<?,?,?> constructor) throws LookupException {
+	private void createSpecificStrategy(ComponentRelation relation, Method constructor) throws LookupException {
 		Type type = relation.nearestAncestor(Type.class);
 		String componentTypeName = interfaceName(relation.componentType().getFullyQualifiedName());
 		String name = defaultStrategyName(relation, constructor);
@@ -179,14 +179,14 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			strategy.add(factoryMethod);
 			strategy.addModifier(new Abstract());
 			strategy.addModifier(new Static());
-			for(TypeParameter<?> parameter: constructor.nearestAncestor(Type.class).parameters(TypeParameter.class)) {
+			for(TypeParameter parameter: constructor.nearestAncestor(Type.class).parameters(TypeParameter.class)) {
 				strategy.addParameter(TypeParameter.class, parameter.clone());
 			}
 			type.farthestAncestorOrSelf(Type.class).add(strategy);
 		}
 	}
 
-	private String defaultStrategyName(ComponentRelation relation, Method<?, ?, ?> constructor) throws LookupException {
+	private String defaultStrategyName(ComponentRelation relation, Method constructor) throws LookupException {
 		String name = strategyName(relation);
 		List<Type> parameterTypes;
 		try {
@@ -202,12 +202,12 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	}
 
 	@SuppressWarnings("unchecked")
-	private String defaultStrategyNameWhenNoLocalSubobjectConstruction(ComponentRelation relation,	MethodInvocation<?,?> superCall) throws LookupException {
+	private String defaultStrategyNameWhenNoLocalSubobjectConstruction(ComponentRelation relation,	MethodInvocation<?> superCall) throws LookupException {
 		Java lang = relation.language(Java.class);
 		SubobjectConstructorCall currentSubobjectConstructorCall = subobjectConstructorCall(relation, superCall);
 		if(currentSubobjectConstructorCall != null) {
 			SubobjectConstructorCall subobjectConstructorCall = (SubobjectConstructorCall) currentSubobjectConstructorCall.farthestOrigin();
-			SubobjectConstructorCall subobjectConstructorCallX = currentSubobjectConstructorCall.clone();
+			SubobjectConstructorCall subobjectConstructorCallX = (SubobjectConstructorCall) currentSubobjectConstructorCall.clone();
 			Type out = currentSubobjectConstructorCall.nearestAncestor(Type.class);
 			Type origin = (Type) out.farthestOrigin();
 			subobjectConstructorCallX.setUniParent(origin);
@@ -234,12 +234,12 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		}
 	}
 
-	private SubobjectConstructorCall subobjectConstructorCall(ComponentRelation relation, MethodInvocation<?, ?> superCall)
+	private SubobjectConstructorCall subobjectConstructorCall(ComponentRelation relation, MethodInvocation<?> superCall)
 			throws LookupException {
 		SubobjectConstructorCall subobjectConstructorCall = null;
 		Set<ComponentRelation> allRelatedSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
 		allRelatedSubobjects.add(relation);
-		Method<?,?,?> constructor = null;
+		Method constructor = null;
 		try {
 			constructor = superCall.getElement();
 		} catch(LookupException exc) {
@@ -282,8 +282,8 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	
 	public final String STRATEGY = "_constructor";
 
-	private SuperConstructorDelegation superDelegation(Method<?,?,?> constructor) throws LookupException {
-		Method<?,?,?> consch = constructor;
+	private SuperConstructorDelegation superDelegation(Method constructor) throws LookupException {
+		Method consch = constructor;
 		SuperConstructorDelegation superCall = null;
 		while(superCall == null) {
 			superCall = delegation(consch,SuperConstructorDelegation.class);
@@ -332,7 +332,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		return result;
 	}
 	
-	protected static <C extends ConstructorDelegation> C delegation(Method<?,?,?> constructor, Class<C> kind) {
+	protected static <C extends ConstructorDelegation> C delegation(Method constructor, Class<C> kind) {
 		C result = null;
 		Block body = constructor.body();
 		if(body.nbStatements() > 0) {
@@ -347,7 +347,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		return result;
 	}
 	
-	private void replaceSubobjectConstructorCalls(Method<?,?,?> constructor, boolean clonedConstructor)
+	private void replaceSubobjectConstructorCalls(Method constructor, boolean clonedConstructor)
 	throws ModelException {
 		SuperConstructorDelegation superCall = superDelegation(constructor);
 		// The method invocation above will guarantee that there is an explicit constructor delegation.
@@ -429,7 +429,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 				} else {
 					// Create and set the subobject
 					for(SubobjectConstructorCall call: subCalls) {
-						MethodInvocation<?,?> inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation), null);
+						MethodInvocation<?> inv = new ConstructorInvocation((BasicJavaTypeReference) innerClassTypeReference(relation), null);
 						inv.addAllArguments(call.getActualParameters());
 						MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
 						setterCall.addArgument(inv);
@@ -443,7 +443,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							Block nestedIfBlock = new Block();
 							nestedIfBlock.addStatement(new StatementExpression(setterCall));
 							Block nestedElseBlock = new Block();
-							MethodInvocation<?,?> defaultStrategyCall = setterCall.clone();
+							MethodInvocation<?> defaultStrategyCall = setterCall.clone();
 							defaultStrategyCall.getActualParameters().get(0).disconnect();
 							nestedElseBlock.addStatement(new StatementExpression(defaultStrategyCall));
 							MethodInvocation defaultStrategyInvocation = new JavaMethodInvocation(CONSTRUCT, new NamedTargetExpression(defaultConstructorArgumentName(relation)));
@@ -456,7 +456,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							
 							ifBlock.addStatement(ifthenelseDefault);
 							Block elseBlock = new Block();
-							MethodInvocation<?,?> strategyCall = setterCall.clone();
+							MethodInvocation<?> strategyCall = setterCall.clone();
 							strategyCall.getActualParameters().get(0).disconnect();
 							elseBlock.addStatement(new StatementExpression(strategyCall));
 							MethodInvocation strategyInvocation = new JavaMethodInvocation(CONSTRUCT, new NamedTargetExpression(constructorArgumentName(relation)));
@@ -464,10 +464,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							strategyCall.addArgument(strategyInvocation);
 							Statement ifthenelse = new IfThenElseStatement(expression, ifBlock, elseBlock);
 							
-							SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parent().parentLink();
+							SingleAssociation parentLink = call.parent().parentLink();
 							parentLink.getOtherRelation().replace(parentLink, ifthenelse.parentLink());
 						} else {
-							SingleAssociation<SubobjectConstructorCall, Element> parentLink = call.parentLink();
+							SingleAssociation parentLink = call.parentLink();
 							parentLink.getOtherRelation().replace(parentLink, setterCall.parentLink());
 						}
 					}
@@ -481,7 +481,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	}
 	
 	private abstract class SubobjectFactoryFactory {
-		public ConstructorInvocation strategy(SubobjectConstructorCall constructorCall, Method<?, ?, ?> constructor,	SuperConstructorDelegation superCall,
+		public ConstructorInvocation strategy(SubobjectConstructorCall constructorCall, Method constructor,	SuperConstructorDelegation superCall,
 				List<FormalParameter> formalParameters, ComponentRelation relation) throws LookupException {
 			Java language = constructor.language(Java.class);
 
@@ -572,10 +572,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			return method;
 		}
 		
-		protected Method<?, ?, ?> subobjectConstructor(ComponentRelation relation,
+		protected Method subobjectConstructor(ComponentRelation relation,
 				SuperConstructorDelegation superCall) throws LookupException {
 			SubobjectConstructorCall subobjectConstructorCall=subobjectConstructorCall(relation,superCall);
-			Method<?,?,?> subobjectConstructor = subobjectConstructorCall.getElement();
+			Method subobjectConstructor = subobjectConstructorCall.getElement();
 			return subobjectConstructor;
 		}
 
@@ -619,7 +619,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			// Copy the formal parameters of the subobject constructor that is invoked in the delegated constructor
 			// (either via a super(...) delegation or a this(...) delegation).
 			//
-			Method<?, ?, ?> subobjectConstructor = subobjectConstructor(relation,
+			Method subobjectConstructor = subobjectConstructor(relation,
 					superCall);
 			for(FormalParameter param: subobjectConstructor.formalParameters()) {
 				FormalParameter clone = param.clone();
@@ -634,7 +634,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		@Override
 		protected void addArguments(SubobjectConstructorCall constructorCall, SuperConstructorDelegation superCall, ComponentRelation relation, ConstructorInvocation constructorInvocation)
 				throws LookupException {
-			Method<?, ?, ?> subobjectConstructor = subobjectConstructor(relation,	superCall);
+			Method subobjectConstructor = subobjectConstructor(relation,	superCall);
 			for(FormalParameter param: subobjectConstructor.formalParameters()) {
 				NamedTargetExpression constructorArgument = new NamedTargetExpression(param.getName());
 				constructorInvocation.addArgument(constructorArgument);
@@ -645,7 +645,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	
 
 	private List<SubobjectConstructorCall> constructorCallsOfRelation(
-			final ComponentRelation relation, Method<?, ?, ?> constructor)
+			final ComponentRelation relation, Method constructor)
 			throws LookupException {
 		List<SubobjectConstructorCall> constructorCalls = constructor.descendants(SubobjectConstructorCall.class, new UnsafePredicate<SubobjectConstructorCall,LookupException>() {
 			@Override
@@ -670,7 +670,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		Type subobjectType = relation.referencedComponentType();
 		List<Method> constructorsOfReferencedSubobjectType = subobjectType.directlyDeclaredMembers(Method.class, lang.CONSTRUCTOR);
 		boolean defaultConstructor = constructorsOfReferencedSubobjectType.isEmpty();
-		for(Method<?,?,?> cons: constructorsOfReferencedSubobjectType) {
+		for(Method cons: constructorsOfReferencedSubobjectType) {
 			if(cons.nbFormalParameters() == 0) {
 				defaultConstructor = true;
 				break;
@@ -687,7 +687,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			}
 			if(differentDeclaredType) {
 				Type type = relation.nearestAncestor(Type.class);
-				for(Method<?,?,?> cons: type.directlyDeclaredMembers(Method.class, lang.CONSTRUCTOR)) {
+				for(Method cons: type.directlyDeclaredMembers(Method.class, lang.CONSTRUCTOR)) {
 					boolean hasThisConstructorDelegation = false;
 					for(ThisConstructorDelegation deleg: cons.descendants(ThisConstructorDelegation.class)) {
 						if(deleg.nearestAncestor(Method.class) == cons) {

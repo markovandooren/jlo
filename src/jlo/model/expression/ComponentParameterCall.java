@@ -23,7 +23,7 @@ import chameleon.oo.expression.Expression;
 import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
-public class ComponentParameterCall extends Expression<ComponentParameterCall> implements CrossReference<ComponentParameterCall,FormalComponentParameter> {
+public class ComponentParameterCall extends Expression implements CrossReference<FormalComponentParameter> {
 
 	public ComponentParameterCall(CrossReferenceTarget target, SimpleNameSignature signature) {
 		setSignature(signature);
@@ -137,12 +137,7 @@ public class ComponentParameterCall extends Expression<ComponentParameterCall> i
   }
 
   public void setTarget(CrossReferenceTarget target) {
-    if (target != null) {
-      _target.connectTo(target.parentLink());
-    }
-    else {
-      _target.connectTo(null);
-    }
+    setAsParent(_target,target);
   }
 
 }

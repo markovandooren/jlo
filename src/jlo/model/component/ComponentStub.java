@@ -15,7 +15,7 @@ import chameleon.exception.ChameleonProgrammerException;
 import chameleon.oo.type.TypeElementStub;
 import chameleon.util.Util;
 
-public class ComponentStub extends NamespaceElementImpl<ComponentStub> implements TypeElementStub<ComponentStub>{
+public class ComponentStub extends NamespaceElementImpl implements TypeElementStub {
 	
 	public ComponentStub(ComponentRelation generator, Declaration child) {
 		setChild(child);
