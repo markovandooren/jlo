@@ -20,7 +20,7 @@ import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
 import chameleon.util.Util;
 
-public abstract class AbstractClause<E extends AbstractClause> extends ConfigurationClause<E> {
+public abstract class AbstractClause extends ConfigurationClause {
 
 	public QualifiedName oldNameFor(Signature signature) throws LookupException {
 		QualifiedName result = null;
@@ -111,7 +111,7 @@ public abstract class AbstractClause<E extends AbstractClause> extends Configura
 	/**
 	 * Return the signature of this member.
 	 */
-	public QualifiedName<?> oldFQN() {
+	public QualifiedName oldFQN() {
 	  return _fqn.getOtherEnd();
 	}
 

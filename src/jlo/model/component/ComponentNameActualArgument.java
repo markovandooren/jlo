@@ -8,7 +8,7 @@ import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.Type;
 
-public class ComponentNameActualArgument extends SingleActualComponentArgument<ComponentNameActualArgument> {
+public class ComponentNameActualArgument extends SingleActualComponentArgument {
 
 	public ComponentNameActualArgument(String name) {
 		super(name);
@@ -54,7 +54,7 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument<C
 			// should be available to show to the user.
 			result = result.and(formalParameterVerification);
 			if(result.equals(Valid.create())) {
-				String typeName = formal.containerTypeReference().infoDisplayName();
+				String typeName = formal.containerTypeReference().toString();
 				ComponentRelation rel = null;
 				try {
 					rel = declaration();

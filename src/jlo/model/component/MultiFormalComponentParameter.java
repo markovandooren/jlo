@@ -8,7 +8,7 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.generics.ActualTypeArgument;
 
-public class MultiFormalComponentParameter extends FormalComponentParameter<MultiFormalComponentParameter> {
+public class MultiFormalComponentParameter extends FormalComponentParameter {
 
 	public MultiFormalComponentParameter(SimpleNameSignature signature, TypeReference containerTypeReference,
 			TypeReference componentTypeReference) {

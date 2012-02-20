@@ -17,7 +17,7 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.util.Util;
 
-public class SingleFormalComponentParameter extends FormalComponentParameter<SingleFormalComponentParameter> {
+public class SingleFormalComponentParameter extends FormalComponentParameter {
 
 	public SingleFormalComponentParameter(SimpleNameSignature signature, TypeReference containerTypeReference, TypeReference componentTypeReference) {
 		super(signature,containerTypeReference,componentTypeReference);

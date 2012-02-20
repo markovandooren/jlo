@@ -9,13 +9,13 @@ import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 
-public abstract class SingleActualComponentArgument<E extends SingleActualComponentArgument<E>> extends ActualComponentArgument<E> {
+public abstract class SingleActualComponentArgument extends ActualComponentArgument {
 
 	public SingleActualComponentArgument(String name) {
 		setSignature(new SimpleNameSignature(name));
 	}
 	
-	public abstract E clone();
+	public abstract SingleActualComponentArgument clone();
 	
 	private SingleAssociation<SingleActualComponentArgument,Signature> _signature = new SingleAssociation<SingleActualComponentArgument,Signature>(this);
 	

@@ -6,25 +6,20 @@ import java.util.List;
 import org.rejuse.association.SingleAssociation;
 
 import chameleon.core.declaration.Declaration;
-import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.lookup.LookupStrategy;
-import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.core.scope.Scope;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
-import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
-import chameleon.oo.type.Parameter;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.util.Util;
 
-public abstract class FormalComponentParameter<E extends FormalComponentParameter<E>> extends ComponentParameter<E> {
+public abstract class FormalComponentParameter extends ComponentParameter {
 
 	public FormalComponentParameter(SimpleNameSignature signature, TypeReference containerTypeReference, TypeReference componentTypeReference) {
 		super(signature);
@@ -43,12 +38,7 @@ public abstract class FormalComponentParameter<E extends FormalComponentParamete
 	}
 
 	public void setContainerType(TypeReference type) {
-		if(type != null) {
-			_containerTypeReference.connectTo(type.parentLink());
-		}
-		else {
-			_containerTypeReference.connectTo(null);
-		}
+		setAsParent(_containerTypeReference,type);
 	}
 
 	private SingleAssociation<FormalComponentParameter,TypeReference> _typeReference = new SingleAssociation<FormalComponentParameter,TypeReference>(this);
@@ -58,12 +48,7 @@ public abstract class FormalComponentParameter<E extends FormalComponentParamete
 	}
 	
 	public void setComponentType(TypeReference type) {
-		if(type != null) {
-			_typeReference.connectTo(type.parentLink());
-		}
-		else {
-			_typeReference.connectTo(null);
-		}
+		setAsParent(_typeReference,type);
 	}
 
 //	@Override

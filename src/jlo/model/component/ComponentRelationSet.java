@@ -20,7 +20,7 @@ import chameleon.exception.ModelException;
 import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.Type;
 
-public class ComponentRelationSet extends NamespaceElementImpl<ComponentRelationSet> implements DeclarationWithType<ComponentRelationSet, SimpleNameSignature>{
+public class ComponentRelationSet extends NamespaceElementImpl implements DeclarationWithType{
 
 	
 	public ComponentRelationSet(List<DeclarationWithType> relations, FormalComponentParameter formal) {
@@ -77,7 +77,7 @@ public class ComponentRelationSet extends NamespaceElementImpl<ComponentRelation
 		setSignature(new SimpleNameSignature(name));
 	}
 
-	public Declaration<?, ?> selectionDeclaration() throws LookupException {
+	public Declaration selectionDeclaration() throws LookupException {
 		return this;
 	}
 

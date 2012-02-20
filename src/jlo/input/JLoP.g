@@ -45,11 +45,11 @@ import JavaP;
     return gJavaP.typeRef(qn);
   }
 
-  public JavaTypeReference createTypeReference(CrossReference<?, ? extends TargetDeclaration> target, String name) {
+  public JavaTypeReference createTypeReference(CrossReference<? extends TargetDeclaration> target, String name) {
     return gJavaP.createTypeReference(target,name);
   }
   
-  public JavaTypeReference createTypeReference(CrossReference<?, ? extends TargetDeclaration> target, SimpleNameSignature signature) {
+  public JavaTypeReference createTypeReference(CrossReference<? extends TargetDeclaration> target, SimpleNameSignature signature) {
     return gJavaP.createTypeReference(target,signature);
   }
 

@@ -20,7 +20,7 @@ import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.Type;
 
 
-public class InstantiatedComponentParameter<E extends InstantiatedComponentParameter<E>> extends ComponentParameter<E> implements AbstractInstantiatedComponentParameter<E> {
+public class InstantiatedComponentParameter extends ComponentParameter implements AbstractInstantiatedComponentParameter {
 
 	
 	public InstantiatedComponentParameter(SimpleNameSignature sig, ActualComponentArgument argument) {
@@ -53,7 +53,7 @@ public class InstantiatedComponentParameter<E extends InstantiatedComponentParam
 		} else {
 			ComponentRelation result = null;
 			Type original = (Type) enclosing.origin();
-			ParameterBlock<?,?> block = original.parameterBlock(ComponentParameter.class);
+			ParameterBlock<?> block = original.parameterBlock(ComponentParameter.class);
 			FormalComponentParameter p = null;
 			for(Parameter param: block.parameters()) {
 				if(param.signature().sameAs(signature())) {
@@ -82,8 +82,8 @@ public class InstantiatedComponentParameter<E extends InstantiatedComponentParam
 	}
 
 	@Override
-	public E clone() {
-		return (E) new InstantiatedComponentParameter(signature().clone(),argument());
+	public InstantiatedComponentParameter clone() {
+		return new InstantiatedComponentParameter(signature().clone(),argument());
 	}
 
 	@Override

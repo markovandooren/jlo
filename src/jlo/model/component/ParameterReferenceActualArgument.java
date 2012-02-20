@@ -7,7 +7,7 @@ import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 
-public class ParameterReferenceActualArgument extends SingleActualComponentArgument<ParameterReferenceActualArgument> {
+public class ParameterReferenceActualArgument extends SingleActualComponentArgument {
 
 	public ParameterReferenceActualArgument(String name) {
 		super(name);

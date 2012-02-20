@@ -14,12 +14,12 @@ import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.type.TypeElementImpl;
 
-public class Export extends TypeElementImpl<Export> {
+public class Export extends TypeElementImpl {
 
 	private OrderedMultiAssociation<Export, RenamingClause> _clauses = new OrderedMultiAssociation<Export, RenamingClause>(this);
 	
 	public void add(RenamingClause clause) {
-		setAsParent(_clauses,clause);
+		add(_clauses,clause);
 	}
 	
 	public void addAll(Collection<? extends RenamingClause> elements) {
@@ -38,9 +38,7 @@ public class Export extends TypeElementImpl<Export> {
 	}
 	
 	public void remove(RenamingClause clause) {
-		if(clause != null) {
-			_clauses.remove(clause.parentLink());
-		}
+		remove(_clauses,clause);
 	}
 
 	@Override

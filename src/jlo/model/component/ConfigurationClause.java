@@ -1,22 +1,18 @@
 package jlo.model.component;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
-import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
-import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
-import chameleon.oo.type.Type;
-import chameleon.util.Pair;
 
-public abstract class ConfigurationClause<E extends ConfigurationClause> extends NamespaceElementImpl<E> {
+public abstract class ConfigurationClause extends NamespaceElementImpl {
 
+	public abstract ConfigurationClause clone();
+	
 	/**
 	 * Return a list of members that are inherited from the given type because of the current
 	 * configuration clause.

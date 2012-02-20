@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 JLoP.g 2012-02-11 14:59:14
+// $ANTLR 3.3 Nov 30, 2010 12:45:30 JLoP.g 2012-02-17 16:35:23
 
 package jlo.input;
 
@@ -46,7 +46,6 @@ import chameleon.core.modifier.Modifier;
 
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
-import chameleon.core.namespace.NamespaceOrTypeReference;
 import chameleon.core.namespace.NamespaceReference;
 
 import chameleon.core.namespacepart.NamespacePart;
@@ -418,11 +417,11 @@ public class JLo_JLoP extends ChameleonParser {
         return gJavaP.typeRef(qn);
       }
 
-      public JavaTypeReference createTypeReference(CrossReference<?, ? extends TargetDeclaration> target, String name) {
+      public JavaTypeReference createTypeReference(CrossReference<? extends TargetDeclaration> target, String name) {
         return gJavaP.createTypeReference(target,name);
       }
       
-      public JavaTypeReference createTypeReference(CrossReference<?, ? extends TargetDeclaration> target, SimpleNameSignature signature) {
+      public JavaTypeReference createTypeReference(CrossReference<? extends TargetDeclaration> target, SimpleNameSignature signature) {
         return gJavaP.createTypeReference(target,signature);
       }
 
@@ -4253,7 +4252,7 @@ public class JLo_JLoP extends ChameleonParser {
     static final String DFA15_acceptS =
         "\14\uffff\1\2\1\1";
     static final String DFA15_specialS =
-        "\1\uffff\1\5\1\0\1\6\1\2\1\11\1\4\1\12\1\1\1\10\1\3\1\7\2\uffff}>";
+        "\1\uffff\1\12\1\4\1\10\1\3\1\6\1\2\1\5\1\0\1\7\1\11\1\1\2\uffff}>";
     static final String[] DFA15_transitionS = {
             "\1\14\15\uffff\1\12\1\14\1\13\2\uffff\1\14\3\uffff\1\14\1\uffff"+
             "\1\1\17\uffff\1\14\7\uffff\1\14\16\uffff\1\2\1\3\1\4\1\5\1\6"+
@@ -4310,21 +4309,6 @@ public class JLo_JLoP extends ChameleonParser {
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA15_2 = input.LA(1);
-
-                         
-                        int index15_2 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred29_JLoP()) ) {s = 13;}
-
-                        else if ( (true) ) {s = 12;}
-
-                         
-                        input.seek(index15_2);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
                         int LA15_8 = input.LA(1);
 
                          
@@ -4339,82 +4323,7 @@ public class JLo_JLoP extends ChameleonParser {
                         input.seek(index15_8);
                         if ( s>=0 ) return s;
                         break;
-                    case 2 : 
-                        int LA15_4 = input.LA(1);
-
-                         
-                        int index15_4 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred29_JLoP()) ) {s = 13;}
-
-                        else if ( (true) ) {s = 12;}
-
-                         
-                        input.seek(index15_4);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 3 : 
-                        int LA15_10 = input.LA(1);
-
-                         
-                        int index15_10 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred29_JLoP()) ) {s = 13;}
-
-                        else if ( (true) ) {s = 12;}
-
-                         
-                        input.seek(index15_10);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 4 : 
-                        int LA15_6 = input.LA(1);
-
-                         
-                        int index15_6 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred29_JLoP()) ) {s = 13;}
-
-                        else if ( (true) ) {s = 12;}
-
-                         
-                        input.seek(index15_6);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 5 : 
-                        int LA15_1 = input.LA(1);
-
-                         
-                        int index15_1 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred29_JLoP()) ) {s = 13;}
-
-                        else if ( (true) ) {s = 12;}
-
-                         
-                        input.seek(index15_1);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 6 : 
-                        int LA15_3 = input.LA(1);
-
-                         
-                        int index15_3 = input.index();
-                        input.rewind();
-                        s = -1;
-                        if ( (synpred29_JLoP()) ) {s = 13;}
-
-                        else if ( (true) ) {s = 12;}
-
-                         
-                        input.seek(index15_3);
-                        if ( s>=0 ) return s;
-                        break;
-                    case 7 : 
+                    case 1 : 
                         int LA15_11 = input.LA(1);
 
                          
@@ -4429,11 +4338,11 @@ public class JLo_JLoP extends ChameleonParser {
                         input.seek(index15_11);
                         if ( s>=0 ) return s;
                         break;
-                    case 8 : 
-                        int LA15_9 = input.LA(1);
+                    case 2 : 
+                        int LA15_6 = input.LA(1);
 
                          
-                        int index15_9 = input.index();
+                        int index15_6 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred29_JLoP()) ) {s = 13;}
@@ -4441,10 +4350,55 @@ public class JLo_JLoP extends ChameleonParser {
                         else if ( (true) ) {s = 12;}
 
                          
-                        input.seek(index15_9);
+                        input.seek(index15_6);
                         if ( s>=0 ) return s;
                         break;
-                    case 9 : 
+                    case 3 : 
+                        int LA15_4 = input.LA(1);
+
+                         
+                        int index15_4 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred29_JLoP()) ) {s = 13;}
+
+                        else if ( (true) ) {s = 12;}
+
+                         
+                        input.seek(index15_4);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 4 : 
+                        int LA15_2 = input.LA(1);
+
+                         
+                        int index15_2 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred29_JLoP()) ) {s = 13;}
+
+                        else if ( (true) ) {s = 12;}
+
+                         
+                        input.seek(index15_2);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 5 : 
+                        int LA15_7 = input.LA(1);
+
+                         
+                        int index15_7 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred29_JLoP()) ) {s = 13;}
+
+                        else if ( (true) ) {s = 12;}
+
+                         
+                        input.seek(index15_7);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 6 : 
                         int LA15_5 = input.LA(1);
 
                          
@@ -4459,11 +4413,11 @@ public class JLo_JLoP extends ChameleonParser {
                         input.seek(index15_5);
                         if ( s>=0 ) return s;
                         break;
-                    case 10 : 
-                        int LA15_7 = input.LA(1);
+                    case 7 : 
+                        int LA15_9 = input.LA(1);
 
                          
-                        int index15_7 = input.index();
+                        int index15_9 = input.index();
                         input.rewind();
                         s = -1;
                         if ( (synpred29_JLoP()) ) {s = 13;}
@@ -4471,7 +4425,52 @@ public class JLo_JLoP extends ChameleonParser {
                         else if ( (true) ) {s = 12;}
 
                          
-                        input.seek(index15_7);
+                        input.seek(index15_9);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 8 : 
+                        int LA15_3 = input.LA(1);
+
+                         
+                        int index15_3 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred29_JLoP()) ) {s = 13;}
+
+                        else if ( (true) ) {s = 12;}
+
+                         
+                        input.seek(index15_3);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 9 : 
+                        int LA15_10 = input.LA(1);
+
+                         
+                        int index15_10 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred29_JLoP()) ) {s = 13;}
+
+                        else if ( (true) ) {s = 12;}
+
+                         
+                        input.seek(index15_10);
+                        if ( s>=0 ) return s;
+                        break;
+                    case 10 : 
+                        int LA15_1 = input.LA(1);
+
+                         
+                        int index15_1 = input.index();
+                        input.rewind();
+                        s = -1;
+                        if ( (synpred29_JLoP()) ) {s = 13;}
+
+                        else if ( (true) ) {s = 12;}
+
+                         
+                        input.seek(index15_1);
                         if ( s>=0 ) return s;
                         break;
             }
