@@ -21,7 +21,6 @@ import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.modifier.ElementWithModifiers;
 import chameleon.core.modifier.Modifier;
-import chameleon.core.namespace.NamespaceElement;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.NamespacePart;
 import chameleon.core.reference.CrossReference;
@@ -183,7 +182,7 @@ public class AbstractTranslator {
 				Java lang = tref.language(Java.class);
 				try {
 					referencedElement = ref.getElement();
-					if(referencedElement instanceof Type && isJLo((NamespaceElement) referencedElement) && (! referencedElement.isTrue(lang.INTERFACE))) {
+					if(referencedElement instanceof Type && isJLo(referencedElement) && (! referencedElement.isTrue(lang.INTERFACE))) {
 						change = true;
 					} else {
 						change = false;
@@ -355,7 +354,7 @@ public class AbstractTranslator {
 		return result;
 	}
 
-	protected boolean isJLo(NamespaceElement element) {
+	protected boolean isJLo(Element element) {
 		String fullyQualifiedName = element.getNamespace().getFullyQualifiedName();
 		return (! fullyQualifiedName.startsWith("java.")) &&
 		       (! fullyQualifiedName.startsWith("javax.")) &&
