@@ -4,12 +4,12 @@ import java.util.List;
 
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
+import chameleon.core.element.ElementImpl;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
 
-public abstract class ConfigurationClause extends NamespaceElementImpl {
+public abstract class ConfigurationClause extends ElementImpl {
 
 	public abstract ConfigurationClause clone();
 	

@@ -1,11 +1,11 @@
 package jlo.model.component;
 
+import chameleon.core.element.ElementImpl;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.Type;
 
-public abstract class ActualComponentArgument extends NamespaceElementImpl {
+public abstract class ActualComponentArgument extends ElementImpl {
 
 	
 	public abstract DeclarationWithType declaration() throws LookupException;
