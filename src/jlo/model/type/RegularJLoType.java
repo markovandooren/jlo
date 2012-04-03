@@ -5,41 +5,37 @@ import java.util.List;
 import jlo.model.component.ComponentRelation;
 import jlo.model.component.Overrides;
 import jnome.core.type.RegularJavaType;
-
-import org.rejuse.association.AssociationListener;
-
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.lookup.LookupException;
 import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.inheritance.InheritanceRelation;
-import chameleon.util.CreationStackTrace;
 
 public class RegularJLoType extends RegularJavaType {
 	
-	private CreationStackTrace _trace;
+//	private CreationStackTrace _trace;
 
 	public RegularJLoType(SimpleNameSignature sig) {
 		super(sig);
-		sig.parentLink().addListener(new AssociationListener() {
-
-			@Override
-			public void notifyElementAdded(Object element) {
-				
-			}
-
-			@Override
-			public void notifyElementRemoved(Object element) {
-				RegularJLoType.this._trace = new CreationStackTrace();
-			}
-
-			@Override
-			public void notifyElementReplaced(Object oldElement, Object newElement) {
-				RegularJLoType.this._trace = new CreationStackTrace();
-			}
-
-		});
+//		sig.parentLink().addListener(new AssociationListener() {
+//
+//			@Override
+//			public void notifyElementAdded(Object element) {
+//				
+//			}
+//
+//			@Override
+//			public void notifyElementRemoved(Object element) {
+//				RegularJLoType.this._trace = new CreationStackTrace();
+//			}
+//
+//			@Override
+//			public void notifyElementReplaced(Object oldElement, Object newElement) {
+//				RegularJLoType.this._trace = new CreationStackTrace();
+//			}
+//
+//		});
 	}
 
 	public RegularJLoType(String name) {
