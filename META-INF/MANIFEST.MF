@@ -4,8 +4,7 @@ Bundle-Name: JLo Eclipse
 Bundle-SymbolicName: be.chameleon.eclipse.jlo;singleton:=true
 Bundle-Version: 1.0.6
 Bundle-ClassPath: bin/.,
- .,
- dist/local/jar/jlo-local.jar
+ .
 Bundle-Vendor: K.U.Leuven
 Export-Package: jlo.build,
  jlo.eclipse,
