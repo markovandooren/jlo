@@ -15,9 +15,9 @@ import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
+import chameleon.core.element.ElementImpl;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
-import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.language.ObjectOrientedLanguage;
@@ -31,7 +31,7 @@ import chameleon.util.Util;
  * @deprecated
  * @author Marko van Dooren
  */
-public class ComponentParameterTypeReference extends NamespaceElementImpl implements JavaTypeReference,ComponentArgumentContainer {
+public class ComponentParameterTypeReference extends ElementImpl implements JavaTypeReference,ComponentArgumentContainer {
 
 	public ComponentParameterTypeReference(JavaTypeReference target) {
 		setTarget(target);
