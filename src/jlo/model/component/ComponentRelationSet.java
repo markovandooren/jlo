@@ -9,9 +9,9 @@ import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
+import chameleon.core.element.ElementImpl;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.core.scope.Scope;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
@@ -20,7 +20,7 @@ import chameleon.exception.ModelException;
 import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.Type;
 
-public class ComponentRelationSet extends NamespaceElementImpl implements DeclarationWithType{
+public class ComponentRelationSet extends ElementImpl implements DeclarationWithType{
 
 	
 	public ComponentRelationSet(List<DeclarationWithType> relations, FormalComponentParameter formal) {

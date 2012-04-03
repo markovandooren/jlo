@@ -2,27 +2,19 @@ package jlo.model.component;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.rejuse.association.OrderedMultiAssociation;
 
-import chameleon.core.declaration.Declaration;
-import chameleon.core.declaration.QualifiedName;
-import chameleon.core.declaration.Signature;
 import chameleon.core.element.Element;
-import chameleon.core.lookup.DeclarationSelector;
+import chameleon.core.element.ElementImpl;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.namespace.NamespaceElementImpl;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
-import chameleon.oo.type.Type;
-import chameleon.util.Pair;
 
-public class ConfigurationBlock extends NamespaceElementImpl {
+public class ConfigurationBlock extends ElementImpl {
 
 	@Override
 	public ConfigurationBlock clone() {
