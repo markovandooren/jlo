@@ -52,13 +52,6 @@ public abstract class AbstractClause extends ConfigurationClause {
 		return result;
 	}
 
-	public List<? extends Element> children() {
-		List<Element> result = new ArrayList<Element>();
-		Util.addNonNull(newSignature(), result);
-		Util.addNonNull(oldFQN(), result);
-		return result;
-	}
-
 	public void setNewSignature(Signature signature) {
 	  setAsParent(_signature, signature);
 	}

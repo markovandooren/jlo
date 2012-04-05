@@ -30,10 +30,6 @@ public class ConfigurationBlock extends ElementImpl {
 		return Valid.create();
 	}
 
-	public List<? extends Element> children() {
-		return localClauses();
-	}
-
 	public void addAll(Collection<? extends ConfigurationClause> elements) {
 		for(ConfigurationClause element:elements) {
 			add(element);
