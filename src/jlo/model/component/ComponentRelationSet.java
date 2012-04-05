@@ -41,10 +41,6 @@ public class ComponentRelationSet extends ElementImpl implements DeclarationWith
 	
 	private List<DeclarationWithType> _relations;
 	
-	public List<? extends Element> children() {
-		return new ArrayList<Element>();
-	}
-
 	@Override
 	public ComponentRelationSet clone() {
 		return new ComponentRelationSet(relations(),formalParameter());
@@ -63,6 +59,11 @@ public class ComponentRelationSet extends ElementImpl implements DeclarationWith
 		return _signature.getOtherEnd();
 	}
 	
+	@Override
+	public String name() {
+		return signature().name();
+	}
+
 	private SingleAssociation<ComponentRelationSet, SimpleNameSignature> _signature = new SingleAssociation<ComponentRelationSet, SimpleNameSignature>(this); 
 
 	public void setSignature(Signature signature) {

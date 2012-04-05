@@ -114,12 +114,6 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 		return target().getDeclarator();
 	}
 
-	public List<? extends Element> children() {
-		List<Element> result = Util.createNonNullList(target());
-		result.addAll(componentArguments());
-		return result;
-	}
-
 	public JavaTypeReference toArray(int dimension) {
   	JavaTypeReference result;
   	if(dimension > 0) {

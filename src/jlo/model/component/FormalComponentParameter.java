@@ -61,14 +61,6 @@ public abstract class FormalComponentParameter extends ComponentParameter {
 		return Valid.create();
 	}
 
-	public List<? extends Element> children() {
-		List<Element> result = new ArrayList<Element>();
-		Util.addNonNull(containerTypeReference(), result);
-		Util.addNonNull(componentTypeReference(), result);
-		Util.addNonNull(signature(), result);
-		return result;
-	}
-
 	public FormalComponentParameter actualDeclaration() throws LookupException {
 		return this;
 	}

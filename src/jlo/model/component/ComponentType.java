@@ -81,13 +81,6 @@ public class ComponentType extends AnonymousType {
 		return nearestAncestor(ComponentRelation.class).componentTypeReference();
 	}
 
-	public List<Element> children() {
-		List<Element> result = (List)modifiers();
-		result.addAll(parameterBlocks());
-		Util.addNonNull(body(), result);
-		return result;
-	}
-
 	@Override
 	public ComponentType clone() {
 		ComponentType result = new ComponentType();

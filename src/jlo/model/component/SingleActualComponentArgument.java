@@ -34,10 +34,4 @@ public abstract class SingleActualComponentArgument extends ActualComponentArgum
 	public void setSignature(Signature signature) {
 		setAsParent(_signature, signature);
 	}
-	
-	public List<? extends Element> children() {
-		return new ArrayList<Element>();
-	}
-
-
 }

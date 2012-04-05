@@ -22,10 +22,6 @@ public class MultiActualComponentArgument extends ActualComponentArgument implem
 		addAll(arguments);
 	}
 	
-	public List<? extends Element> children() {
-		return arguments();
-	}
-
 	@Override
 	public ComponentRelationSet declaration() throws LookupException {
 		List<DeclarationWithType> relations = new ArrayList<DeclarationWithType>();

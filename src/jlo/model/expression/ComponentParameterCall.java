@@ -122,10 +122,6 @@ public class ComponentParameterCall extends Expression implements CrossReference
 		};
 	}
 
-	public List<? extends Element> children() {
-		return Util.createNonNullList(target());
-	}
-
 	/**
 	 * TARGET
 	 */

@@ -52,10 +52,6 @@ public class ComponentStub extends ElementImpl implements TypeElementStub {
 		return Valid.create();
 	}
 
-	public List<? extends Element> children() {
-		return Util.createNonNullList(child());
-	}
-	
 	@Override
 	public LookupStrategy lexicalLookupStrategy(Element child) throws LookupException {
 		if(child.origin() == child) {

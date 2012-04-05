@@ -216,17 +216,6 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
     return _signature.getOtherEnd();
   }
   
-  @Override
-  @SuppressWarnings("unchecked")
-  public List<Element> children() {
-  	List<Element> result = super.children();
-  	Util.addNonNull(signature(), result);
-  	Util.addNonNull(componentTypeReference(), result);
-  	Util.addNonNull(configurationBlock(), result);
-  	Util.addNonNull(componentTypeDeclaration(), result);
-  	return result;
-  }
-  
   private SingleAssociation<ComponentRelation, SimpleNameSignature> _signature = new SingleAssociation<ComponentRelation, SimpleNameSignature>(this);
 
 

@@ -41,13 +41,6 @@ public class Export extends TypeElementImpl {
 		remove(_clauses,clause);
 	}
 
-	@Override
-	public List<Element> children() {
-		List<Element> result = super.children();
-		result.addAll(_clauses.getOtherEnds());
-		return result;
-	}
-	
 	public List<RenamingClause> clauses() {
 		return _clauses.getOtherEnds();
 	}

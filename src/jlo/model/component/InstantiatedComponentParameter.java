@@ -38,10 +38,6 @@ public class InstantiatedComponentParameter extends ComponentParameter implement
 		return _argument;
 	}
 	
-	public List<? extends Element> children() {
-		return new ArrayList<Element>();
-	}
-	
 	public DeclarationWithType declaration() throws LookupException {
 		return argument().declaration();
 	}

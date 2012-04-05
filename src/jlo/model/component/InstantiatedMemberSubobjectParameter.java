@@ -48,10 +48,6 @@ public class InstantiatedMemberSubobjectParameter extends ComponentParameter imp
 		setAsParent(_argument, argument);
 	}
 
-	public List<? extends Element> children() {
-		return Util.createNonNullList(argument());
-	}
-
 	public DeclarationWithType declaration() throws LookupException {
 		return argument().declaration();
 	}
