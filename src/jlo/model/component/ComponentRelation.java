@@ -7,14 +7,13 @@ import java.util.List;
 import java.util.Set;
 
 import org.rejuse.association.Association;
-import org.rejuse.association.AssociationListener;
-import org.rejuse.association.SingleAssociation;
 import org.rejuse.predicate.TypePredicate;
 
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
+import chameleon.core.lookup.DeclarationCollector;
 import chameleon.core.lookup.DeclarationContainerSkipper;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LocalLookupStrategy;
@@ -37,8 +36,8 @@ import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeWithBody;
 import chameleon.oo.type.inheritance.InheritanceRelation;
-import chameleon.util.CreationStackTrace;
 import chameleon.util.Util;
+import chameleon.util.association.Single;
 
 public class ComponentRelation extends MemberImpl implements DeclarationWithType, InheritanceRelation {
 
@@ -157,8 +156,8 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 		private Type _type;
 
 		@Override
-		public <D extends Declaration> D lookUp(DeclarationSelector<D> selector) throws LookupException {
-			return _parentStrategy.lookUp(new DeclarationContainerSkipper<D>(selector, _type));
+		public <D extends Declaration> void lookUp(DeclarationCollector<D> selector) throws LookupException {
+			_parentStrategy.lookUp(new DeclarationContainerSkipper<D>(selector, _type));
 		}
 		
 		private LookupStrategy _parentStrategy;
@@ -170,7 +169,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 		return Util.<Member>createSingletonList(this);
 	}
 	
-	private SingleAssociation<ComponentRelation,TypeReference> _typeReference = new SingleAssociation<ComponentRelation,TypeReference>(this);
+	private Single<TypeReference> _typeReference = new Single<TypeReference>(this);
 
 	public TypeReference componentTypeReference() {
 		return _typeReference.getOtherEnd();
@@ -193,7 +192,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	}
 
 	public void setComponentType(TypeReference type) {
-		setAsParent(_typeReference,type);
+		set(_typeReference,type);
 	}
 	
 	public void setName(String name) {
@@ -203,7 +202,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	
   public void setSignature(Signature signature) {
   	if(signature instanceof SimpleNameSignature || signature == null) {
-  		setAsParent(_signature,(SimpleNameSignature)signature);
+  		set(_signature,(SimpleNameSignature)signature);
   	} else {
   		throw new ChameleonProgrammerException("Setting wrong type of signature. Provided: "+(signature == null ? null :signature.getClass().getName())+" Expected SimpleNameSignature");
   	}
@@ -216,11 +215,11 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
     return _signature.getOtherEnd();
   }
   
-  private SingleAssociation<ComponentRelation, SimpleNameSignature> _signature = new SingleAssociation<ComponentRelation, SimpleNameSignature>(this);
+  private Single<SimpleNameSignature> _signature = new Single<SimpleNameSignature>(this);
 
 
   public void setConfigurationBlock(ConfigurationBlock configurationBlock) {
-  	setAsParent(_configurationBlock, configurationBlock);
+  	set(_configurationBlock, configurationBlock);
   }
   
   /**
@@ -245,7 +244,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	  return result;
   }
   
-  private SingleAssociation<ComponentRelation, ConfigurationBlock> _configurationBlock = new SingleAssociation<ComponentRelation, ConfigurationBlock>(this);
+  private Single<ConfigurationBlock> _configurationBlock = new Single<ConfigurationBlock>(this);
 
 	public LocalLookupStrategy<?> targetContext() throws LookupException {
 		return componentType().targetContext();
@@ -263,7 +262,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 		return this;
 	}
 
-	private SingleAssociation<ComponentRelation,ComponentType> _componentType = new SingleAssociation<ComponentRelation,ComponentType>(this);
+	private Single<ComponentType> _componentType = new Single<ComponentType>(this);
 	
 	/**
 	 * Set the body of this component relation.

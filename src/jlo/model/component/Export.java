@@ -4,19 +4,17 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.rejuse.association.OrderedMultiAssociation;
-
-import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.type.TypeElementImpl;
+import chameleon.util.association.Multi;
 
 public class Export extends TypeElementImpl {
 
-	private OrderedMultiAssociation<Export, RenamingClause> _clauses = new OrderedMultiAssociation<Export, RenamingClause>(this);
+	private Multi<RenamingClause> _clauses = new Multi<RenamingClause>(this);
 	
 	public void add(RenamingClause clause) {
 		add(_clauses,clause);

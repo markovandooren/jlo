@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.rejuse.association.OrderedMultiAssociation;
-
-import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.Type;
+import chameleon.util.association.Multi;
 
 public class MultiActualComponentArgument extends ActualComponentArgument implements ComponentArgumentContainer {
 
@@ -52,7 +50,7 @@ public class MultiActualComponentArgument extends ActualComponentArgument implem
 		}
 	}
 	
-	private OrderedMultiAssociation<MultiActualComponentArgument, SingleActualComponentArgument> _elements = new OrderedMultiAssociation<MultiActualComponentArgument, SingleActualComponentArgument>(this);
+	private Multi<SingleActualComponentArgument> _elements = new Multi<SingleActualComponentArgument>(this);
 
 	public void add(SingleActualComponentArgument element) {
 	  add(_elements,element);

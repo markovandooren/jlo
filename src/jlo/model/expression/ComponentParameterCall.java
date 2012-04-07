@@ -1,15 +1,10 @@
 package jlo.model.expression;
 
-import java.util.List;
-
 import jlo.model.component.FormalComponentParameter;
-
-import org.rejuse.association.SingleAssociation;
-
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
-import chameleon.core.element.Element;
+import chameleon.core.lookup.DeclarationCollector;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.DeclaratorSelector;
 import chameleon.core.lookup.LookupException;
@@ -21,7 +16,7 @@ import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.expression.Expression;
 import chameleon.oo.type.Type;
-import chameleon.util.Util;
+import chameleon.util.association.Single;
 
 public class ComponentParameterCall extends Expression implements CrossReference<FormalComponentParameter> {
 
@@ -46,7 +41,7 @@ public class ComponentParameterCall extends Expression implements CrossReference
 	}
 	
 	public void setSignature(SimpleNameSignature signature) {
-		setAsParent(_signature, signature);
+		set(_signature, signature);
 	}
 	
 	public SimpleNameSignature signature() {
@@ -57,7 +52,7 @@ public class ComponentParameterCall extends Expression implements CrossReference
 		signature().setName(name);
 	}
 	
-	private SingleAssociation<ComponentParameterCall,SimpleNameSignature> _signature = new SingleAssociation<ComponentParameterCall,SimpleNameSignature>(this);
+	private Single<SimpleNameSignature> _signature = new Single<SimpleNameSignature>(this);
 
 	@Override
 	protected Type actualType() throws LookupException {
@@ -94,22 +89,17 @@ public class ComponentParameterCall extends Expression implements CrossReference
   
   @SuppressWarnings("unchecked")
   public <X extends Declaration> X getElement(DeclarationSelector<X> selector) throws LookupException {
-//    InvocationTarget target = target();
     X result;
-//    if(target != null) {
-//      result = target.targetContext().lookUp(selector);//findElement(getName());
-//    } else {
-      result = lexicalLookupStrategy().lookUp(selector);//findElement(getName());
-//    }
+    DeclarationCollector<X> collector = new DeclarationCollector<X>(selector);
+    lexicalLookupStrategy().lookUp(collector);
+    result = collector.result();//findElement(getName());
     if(result != null) {
       return result;
     } else {
     	// repeat for debugging purposes
-//      if(target != null) {
-//        result = target.targetContext().lookUp(selector);//findElement(getName());
-//      } else {
-        result = lexicalLookupStrategy().lookUp(selector);//findElement(getName());
-//      }
+    	collector = new DeclarationCollector<X>(selector);
+    	lexicalLookupStrategy().lookUp(collector);//findElement(getName());
+    	result = collector.result(); 
     	throw new LookupException("Lookup of component parameter with name: "+name()+" returned null.");
     }
   }
@@ -125,7 +115,7 @@ public class ComponentParameterCall extends Expression implements CrossReference
 	/**
 	 * TARGET
 	 */
-	private SingleAssociation<ComponentParameterCall,CrossReferenceTarget> _target = new SingleAssociation<ComponentParameterCall,CrossReferenceTarget>(this);
+	private Single<CrossReferenceTarget> _target = new Single<CrossReferenceTarget>(this);
 
 
   public CrossReferenceTarget target() {
@@ -133,7 +123,7 @@ public class ComponentParameterCall extends Expression implements CrossReference
   }
 
   public void setTarget(CrossReferenceTarget target) {
-    setAsParent(_target,target);
+    set(_target,target);
   }
 
 }

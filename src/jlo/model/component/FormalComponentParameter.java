@@ -1,14 +1,8 @@
 package jlo.model.component;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.rejuse.association.SingleAssociation;
-
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
-import chameleon.core.element.Element;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.scope.Scope;
@@ -17,7 +11,7 @@ import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ModelException;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
-import chameleon.util.Util;
+import chameleon.util.association.Single;
 
 public abstract class FormalComponentParameter extends ComponentParameter {
 
@@ -27,7 +21,7 @@ public abstract class FormalComponentParameter extends ComponentParameter {
 		setComponentType(componentTypeReference);
 	}
 	
-	private SingleAssociation<FormalComponentParameter,TypeReference> _containerTypeReference = new SingleAssociation<FormalComponentParameter,TypeReference>(this);
+	private Single<TypeReference> _containerTypeReference = new Single<TypeReference>(this);
 
 	public TypeReference containerTypeReference() {
 		return _containerTypeReference.getOtherEnd();
@@ -38,17 +32,17 @@ public abstract class FormalComponentParameter extends ComponentParameter {
 	}
 
 	public void setContainerType(TypeReference type) {
-		setAsParent(_containerTypeReference,type);
+		set(_containerTypeReference,type);
 	}
 
-	private SingleAssociation<FormalComponentParameter,TypeReference> _typeReference = new SingleAssociation<FormalComponentParameter,TypeReference>(this);
+	private Single<TypeReference> _typeReference = new Single<TypeReference>(this);
 
 	public TypeReference componentTypeReference() {
 		return _typeReference.getOtherEnd();
 	}
 	
 	public void setComponentType(TypeReference type) {
-		setAsParent(_typeReference,type);
+		set(_typeReference,type);
 	}
 
 //	@Override

@@ -1,9 +1,5 @@
 package jlo.model.component;
 
-import java.util.List;
-
-import org.rejuse.association.SingleAssociation;
-
 import chameleon.core.declaration.Declaration;
 import chameleon.core.element.Element;
 import chameleon.core.element.ElementImpl;
@@ -13,7 +9,7 @@ import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.oo.type.TypeElementStub;
-import chameleon.util.Util;
+import chameleon.util.association.Single;
 
 public class ComponentStub extends ElementImpl implements TypeElementStub {
 	
@@ -32,10 +28,10 @@ public class ComponentStub extends ElementImpl implements TypeElementStub {
 		return _generator;
 	}
 
-	private SingleAssociation<ComponentStub, Declaration> _element = new SingleAssociation<ComponentStub, Declaration>(this);
+	private Single<Declaration> _element = new Single<Declaration>(this);
 
 	public void setChild(Declaration element) {
-		setAsParent(_element, element);
+		set(_element, element);
 	}
 	
 	public Declaration child() {
