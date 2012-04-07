@@ -3,12 +3,9 @@ package jlo.model.component;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.rejuse.association.SingleAssociation;
-
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
-import chameleon.core.element.Element;
 import chameleon.core.element.ElementImpl;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
@@ -19,6 +16,7 @@ import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.Type;
+import chameleon.util.association.Single;
 
 public class ComponentRelationSet extends ElementImpl implements DeclarationWithType{
 
@@ -64,11 +62,11 @@ public class ComponentRelationSet extends ElementImpl implements DeclarationWith
 		return signature().name();
 	}
 
-	private SingleAssociation<ComponentRelationSet, SimpleNameSignature> _signature = new SingleAssociation<ComponentRelationSet, SimpleNameSignature>(this); 
+	private Single<SimpleNameSignature> _signature = new Single<SimpleNameSignature>(this); 
 
 	public void setSignature(Signature signature) {
 		if(signature instanceof SimpleNameSignature) {
-			setAsParent(_signature,(SimpleNameSignature) signature);
+			set(_signature,(SimpleNameSignature) signature);
 		} else {
 			throw new ChameleonProgrammerException("Not a valid signature type for a component parameter set: "+ signature == null ? "" : signature.getClass().getName());
 		}

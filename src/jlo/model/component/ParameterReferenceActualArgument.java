@@ -1,6 +1,7 @@
 package jlo.model.component;
 
 import chameleon.core.declaration.Signature;
+import chameleon.core.lookup.DeclarationCollector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.validation.BasicProblem;
@@ -20,11 +21,14 @@ public class ParameterReferenceActualArgument extends SingleActualComponentArgum
 
 	@Override
 	public ComponentParameter declaration() throws LookupException {
-		return lexicalLookupStrategy().lookUp(new SelectorWithoutOrder<ComponentParameter>(ComponentParameter.class){
-			public Signature signature() {
-				return ParameterReferenceActualArgument.this.signature();
-			}
-		});
+		DeclarationCollector<ComponentParameter> collector = new DeclarationCollector<ComponentParameter>(
+			new SelectorWithoutOrder<ComponentParameter>(ComponentParameter.class){
+			  public Signature signature() {
+				  return ParameterReferenceActualArgument.this.signature();
+			  }
+		  });
+		lexicalLookupStrategy().lookUp(collector);
+		return collector.result();
 	}
 
 	@Override

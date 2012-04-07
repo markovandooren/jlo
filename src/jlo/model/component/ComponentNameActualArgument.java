@@ -1,6 +1,8 @@
 package jlo.model.component;
 
 import chameleon.core.declaration.Signature;
+import chameleon.core.lookup.DeclarationCollector;
+import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.validation.BasicProblem;
@@ -17,14 +19,15 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument {
 	@Override
 	public ComponentRelation declaration() throws LookupException {
 		Type enclosing = containerType();
-		ComponentRelation result = enclosing.targetContext().lookUp(
-				 new SelectorWithoutOrder<ComponentRelation>(ComponentRelation.class) {
-					@Override
-					public Signature signature() {
-						return ComponentNameActualArgument.this.signature();
-					}
-				 }
-		);
+		DeclarationSelector<ComponentRelation> selector = new SelectorWithoutOrder<ComponentRelation>(ComponentRelation.class) {
+			@Override
+			public Signature signature() {
+				return ComponentNameActualArgument.this.signature();
+			}
+		 };
+		 DeclarationCollector<ComponentRelation> collector = new DeclarationCollector<ComponentRelation>(selector);
+		enclosing.targetContext().lookUp(collector);
+		ComponentRelation result = collector.result();
 		if(result != null) {
 			return result;
 		} else {

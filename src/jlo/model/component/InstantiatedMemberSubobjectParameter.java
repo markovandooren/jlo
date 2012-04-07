@@ -1,16 +1,11 @@
 
 package jlo.model.component;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-
-import org.rejuse.association.SingleAssociation;
 
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
-import chameleon.core.element.Element;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.scope.Scope;
@@ -19,11 +14,8 @@ import chameleon.core.validation.VerificationResult;
 import chameleon.exception.ModelException;
 import chameleon.oo.member.Member;
 import chameleon.oo.type.DeclarationWithType;
-import chameleon.oo.type.DerivedType;
-import chameleon.oo.type.Parameter;
-import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.Type;
-import chameleon.util.Util;
+import chameleon.util.association.Single;
 
 
 public class InstantiatedMemberSubobjectParameter extends ComponentParameter implements ComponentArgumentContainer, AbstractInstantiatedComponentParameter {
@@ -38,14 +30,14 @@ public class InstantiatedMemberSubobjectParameter extends ComponentParameter imp
 		return declaration();
 	}
 
-	private SingleAssociation<InstantiatedMemberSubobjectParameter, ActualComponentArgument> _argument = new SingleAssociation<InstantiatedMemberSubobjectParameter, ActualComponentArgument>(this);
+	private Single<ActualComponentArgument> _argument = new Single<ActualComponentArgument>(this);
 
 	public ActualComponentArgument argument() {
 		return _argument.getOtherEnd();
 	}
 	
 	public void setArgument(ActualComponentArgument argument) {
-		setAsParent(_argument, argument);
+		set(_argument, argument);
 	}
 
 	public DeclarationWithType declaration() throws LookupException {

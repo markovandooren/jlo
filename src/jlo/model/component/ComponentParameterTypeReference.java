@@ -7,14 +7,9 @@ import java.util.List;
 import jnome.core.language.Java;
 import jnome.core.type.ArrayTypeReference;
 import jnome.core.type.JavaTypeReference;
-
-import org.rejuse.association.OrderedMultiAssociation;
-import org.rejuse.association.SingleAssociation;
-
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
-import chameleon.core.element.Element;
 import chameleon.core.element.ElementImpl;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
@@ -25,7 +20,8 @@ import chameleon.oo.type.DerivedType;
 import chameleon.oo.type.IntersectionTypeReference;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
-import chameleon.util.Util;
+import chameleon.util.association.Multi;
+import chameleon.util.association.Single;
 
 /**
  * @deprecated
@@ -41,10 +37,10 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
   	return _componentType.getOtherEnd();
   }
   
-  private SingleAssociation<ComponentParameterTypeReference, JavaTypeReference> _componentType = new SingleAssociation<ComponentParameterTypeReference, JavaTypeReference>(this);
+  private Single<JavaTypeReference> _componentType = new Single<JavaTypeReference>(this);
 
   public void setTarget(JavaTypeReference target) {
-    setAsParent(_componentType, target);
+    set(_componentType, target);
   }
   
   public List<ActualComponentArgument> componentArguments() {
@@ -69,7 +65,7 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
   	return _genericParameters.indexOf(arg);
   }
   
-  private OrderedMultiAssociation<ComponentParameterTypeReference,ActualComponentArgument> _genericParameters = new OrderedMultiAssociation<ComponentParameterTypeReference, ActualComponentArgument>(this);
+  private Multi<ActualComponentArgument> _genericParameters = new Multi<ActualComponentArgument>(this);
 
 	public Type getType() throws LookupException {
 		return getElement();

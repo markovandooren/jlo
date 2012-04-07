@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.rejuse.association.OrderedMultiAssociation;
-
-import chameleon.core.element.Element;
 import chameleon.core.element.ElementImpl;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
+import chameleon.util.association.Multi;
 
 public class ConfigurationBlock extends ElementImpl {
 
@@ -36,7 +34,7 @@ public class ConfigurationBlock extends ElementImpl {
 		}
 	}
 	
-	private OrderedMultiAssociation<ConfigurationBlock, ConfigurationClause> _elements = new OrderedMultiAssociation<ConfigurationBlock, ConfigurationClause>(this);
+	private Multi<ConfigurationClause> _elements = new Multi<ConfigurationClause>(this);
 
 	public void add(ConfigurationClause element) {
 	  add(_elements,element);

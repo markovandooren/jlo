@@ -3,12 +3,11 @@ package jlo.model.component;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.rejuse.association.SingleAssociation;
-
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.TargetDeclaration;
+import chameleon.core.lookup.DeclarationCollector;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
@@ -17,6 +16,7 @@ import chameleon.core.validation.VerificationResult;
 import chameleon.oo.member.Member;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeElementImpl;
+import chameleon.util.association.Single;
 
 public class Overrides extends TypeElementImpl {
 
@@ -26,10 +26,10 @@ public class Overrides extends TypeElementImpl {
 	}
 	
 	public void setNewSignature(Signature signature) {
-	  setAsParent(_signature, signature);
+	  set(_signature, signature);
 	}
 
-	private SingleAssociation<Overrides, Signature> _signature = new SingleAssociation<Overrides, Signature>(this);
+	private Single<Signature> _signature = new Single<Signature>(this);
 
 	/**
 	 * Return the signature of this member.
@@ -43,14 +43,14 @@ public class Overrides extends TypeElementImpl {
 	  return result;
 	}
 
-	private SingleAssociation<Overrides, QualifiedName> _fqn = new SingleAssociation<Overrides, QualifiedName>(this);
+	private Single<QualifiedName> _fqn = new Single<QualifiedName>(this);
 
 	public QualifiedName oldFQN() {
 	  return _fqn.getOtherEnd();
 	}
 	
 	public void setOldFqn(QualifiedName fqn) {
-	  setAsParent(_fqn, fqn);
+	  set(_fqn, fqn);
 	}
 
 	@Override
@@ -81,9 +81,13 @@ public class Overrides extends TypeElementImpl {
 				}
 			};
 			if(i < size - 1) {
-			container = (TargetDeclaration) container.targetContext().lookUp(selector);
+				DeclarationCollector<Declaration> collector = new DeclarationCollector<Declaration>(selector);
+			  container.targetContext().lookUp(collector);
+			  container = (TargetDeclaration) collector.result();
 			} else {// i = size - 1, after which the iteration stops.
-				result = container.targetContext().lookUp(selector);
+				DeclarationCollector<Declaration> collector = new DeclarationCollector<Declaration>(selector);
+				container.targetContext().lookUp(collector);
+				result = collector.result();
 			}
 		}
 		if(result != null) {

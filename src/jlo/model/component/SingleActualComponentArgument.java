@@ -1,13 +1,8 @@
 package jlo.model.component;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.rejuse.association.SingleAssociation;
-
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
-import chameleon.core.element.Element;
+import chameleon.util.association.Single;
 
 public abstract class SingleActualComponentArgument extends ActualComponentArgument {
 
@@ -17,7 +12,7 @@ public abstract class SingleActualComponentArgument extends ActualComponentArgum
 	
 	public abstract SingleActualComponentArgument clone();
 	
-	private SingleAssociation<SingleActualComponentArgument,Signature> _signature = new SingleAssociation<SingleActualComponentArgument,Signature>(this);
+	private Single<Signature> _signature = new Single<Signature>(this);
 	
 	public String name() {
 		return signature().name();
@@ -32,6 +27,6 @@ public abstract class SingleActualComponentArgument extends ActualComponentArgum
 	}
 	
 	public void setSignature(Signature signature) {
-		setAsParent(_signature, signature);
+		set(_signature, signature);
 	}
 }
