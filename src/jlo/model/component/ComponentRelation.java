@@ -13,12 +13,14 @@ import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
+import chameleon.core.lookup.Collector;
 import chameleon.core.lookup.DeclarationCollector;
 import chameleon.core.lookup.DeclarationContainerSkipper;
 import chameleon.core.lookup.DeclarationSelector;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.LookupStrategy;
+import chameleon.core.lookup.Skipper;
 import chameleon.core.lookup.Stub;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.Valid;
@@ -155,12 +157,22 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 		
 		private Type _type;
 
-		@Override
-		public <D extends Declaration> void lookUp(DeclarationCollector<D> selector) throws LookupException {
-			_parentStrategy.lookUp(new DeclarationContainerSkipper<D>(selector, _type));
-		}
-		
+//		@Override
+//		public <D extends Declaration> void lookUp(DeclarationCollector<D> selector) throws LookupException {
+//			_parentStrategy.lookUp(new DeclarationContainerSkipper<D>(selector, _type));
+//		}
+//		
 		private LookupStrategy _parentStrategy;
+
+		@Override
+		public <D extends Declaration> void lookUp(Collector<D> collector) throws LookupException {
+			DeclarationSelector<D> selector = collector.selector();
+			DeclarationSelector<D> skipper = new Skipper<D>(selector, _type);
+			collector.setSelector(skipper);
+		  _parentStrategy.lookUp(collector);
+		  collector.setSelector(selector);
+//			_parentStrategy.lookUp(new DeclarationContainerSkipper<D>(collector, _type));
+		}
 		
 	}
 	
