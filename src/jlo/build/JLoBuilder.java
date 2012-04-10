@@ -11,7 +11,7 @@ import jlo.translate.IncrementalJavaTranslator;
 import jnome.core.language.Java;
 import jnome.input.JavaFactory;
 import jnome.output.JavaCompilationUnitWriter;
-import chameleon.core.compilationunit.CompilationUnit;
+import chameleon.core.compilationunit.Document;
 import chameleon.core.language.Language;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
@@ -52,16 +52,16 @@ public class JLoBuilder extends PluginImpl implements Builder {
 
 	JavaCompilationUnitWriter _writer;
 
-	public void build(CompilationUnit compilationUnit, List<CompilationUnit> allProjectCompilationUnits) throws ModelException, IOException {
+	public void build(Document compilationUnit, List<Document> allProjectCompilationUnits) throws ModelException, IOException {
 		build(compilationUnit,allProjectCompilationUnits,null);
 	}
 	
-	public void build(CompilationUnit compilationUnit, List<CompilationUnit> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException, IOException {
+	public void build(Document compilationUnit, List<Document> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException, IOException {
 		try {
 			String fileName = _writer.fileName(compilationUnit);
 			System.out.println("Building "+fileName);
-			Collection<CompilationUnit> compilationUnits = _translator.build(compilationUnit, allProjectCompilationUnits,buildProgressHelper);
-			for(CompilationUnit translated : compilationUnits) {
+			Collection<Document> compilationUnits = _translator.build(compilationUnit, allProjectCompilationUnits,buildProgressHelper);
+			for(Document translated : compilationUnits) {
 				_writer.write(translated);
 			}
 		} catch(Error e) {
@@ -89,8 +89,8 @@ public class JLoBuilder extends PluginImpl implements Builder {
 	}
 
 	@Override
-	public void build(List<CompilationUnit> compilationUnits, List<CompilationUnit> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException,	IOException {
-		for (CompilationUnit cu : compilationUnits) {
+	public void build(List<Document> compilationUnits, List<Document> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException,	IOException {
+		for (Document cu : compilationUnits) {
 			buildProgressHelper.checkForCancellation();
 			build(cu, allProjectCompilationUnits,buildProgressHelper);
 			buildProgressHelper.addWorked(1);
@@ -98,7 +98,7 @@ public class JLoBuilder extends PluginImpl implements Builder {
 	}
 
 	@Override
-	public int totalAmountOfWork(List<CompilationUnit> compilationUnits, List<CompilationUnit> allProjectCompilationUnits) {
+	public int totalAmountOfWork(List<Document> compilationUnits, List<Document> allProjectCompilationUnits) {
 		return compilationUnits.size();
 	}
 }

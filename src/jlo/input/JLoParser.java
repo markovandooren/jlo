@@ -7,7 +7,7 @@ import chameleon.exception.ChameleonProgrammerException;
 
 import chameleon.core.lookup.LookupStrategyFactory;
 
-import chameleon.core.compilationunit.CompilationUnit;
+import chameleon.core.compilationunit.Document;
 
 import chameleon.oo.member.SimpleNameDeclarationWithParametersSignature;
 import chameleon.oo.member.SimpleNameDeclarationWithParametersHeader;
@@ -48,7 +48,7 @@ import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
 import chameleon.core.namespace.NamespaceReference;
 
-import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.namespacepart.NamespaceDeclaration;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.DemandImport;
 
@@ -396,11 +396,11 @@ public class JLoParser extends ChameleonParser {
         return gJLoP.language();
       }
       
-      public CompilationUnit getCompilationUnit() {
+      public Document getCompilationUnit() {
         return gJLoP.getCompilationUnit();
       }
     	   
-      public void setCompilationUnit(CompilationUnit compilationUnit) {
+      public void setCompilationUnit(Document compilationUnit) {
         gJLoP.setCompilationUnit(compilationUnit);
         gJavaP.setCompilationUnit(compilationUnit);
         super.setCompilationUnit(compilationUnit);

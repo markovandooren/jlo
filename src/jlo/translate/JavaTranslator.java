@@ -31,7 +31,7 @@ import org.rejuse.predicate.SafePredicate;
 import org.rejuse.predicate.TypePredicate;
 import org.rejuse.predicate.UnsafePredicate;
 
-import chameleon.core.compilationunit.CompilationUnit;
+import chameleon.core.compilationunit.Document;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;
@@ -42,7 +42,7 @@ import chameleon.core.lookup.LookupException;
 import chameleon.core.lookup.SelectorWithoutOrder;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.Import;
-import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.namespacepart.NamespaceDeclaration;
 import chameleon.core.property.ChameleonProperty;
 import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.CrossReferenceTarget;
@@ -122,13 +122,13 @@ public class JavaTranslator extends AbstractTranslator {
 		return _subobjectToClassTransformer;
 	}
 
-  public List<CompilationUnit> translate(CompilationUnit source, CompilationUnit implementationCompilationUnit) throws LookupException, ModelException {
+  public List<Document> translate(Document source, Document implementationCompilationUnit) throws LookupException, ModelException {
 //  	BasicJavaTypeReference.TRACE = true;
-  	List<CompilationUnit> result = new ArrayList<CompilationUnit>();
+  	List<Document> result = new ArrayList<Document>();
   	// Remove a possible old translation of the given compilation unit
   	// from the target model.
-  	NamespacePart originalNamespacePart = source.namespaceParts().get(0);
-  	NamespacePart newNamespacePart = implementationCompilationUnit.namespaceParts().get(0);
+  	NamespaceDeclaration originalNamespacePart = source.namespaceParts().get(0);
+  	NamespaceDeclaration newNamespacePart = implementationCompilationUnit.namespaceParts().get(0);
 
   	Iterator<Type> originalTypes = originalNamespacePart.children(Type.class).iterator();
   	Iterator<Type> newTypes = newNamespacePart.children(Type.class).iterator();
@@ -151,21 +151,21 @@ public class JavaTranslator extends AbstractTranslator {
   	implementationCompilationUnit.flushCache();
   	result.add(implementationCompilationUnit);
   	//implementationCompilationUnit.namespacePart(1).getNamespaceLink().lock();
-  	List<NamespacePart> parts = implementationCompilationUnit.descendants(NamespacePart.class);
+  	List<NamespaceDeclaration> parts = implementationCompilationUnit.descendants(NamespaceDeclaration.class);
   	boolean iface = true;
   	if(iface) {
-  		CompilationUnit interfaceCompilationUnit = interfaceTransformer().interfaceCompilationUnit(source, implementationCompilationUnit);
+  		Document interfaceCompilationUnit = interfaceTransformer().interfaceCompilationUnit(source, implementationCompilationUnit);
   		if(interfaceCompilationUnit != null) {
-  			parts.addAll(interfaceCompilationUnit.descendants(NamespacePart.class));
+  			parts.addAll(interfaceCompilationUnit.descendants(NamespaceDeclaration.class));
   			result.add(interfaceCompilationUnit);
   		}
   	}
   	for(Type type: implementationCompilationUnit.descendants(Type.class)) {
-  		if(type.hasTag(REMOVE)) {
+  		if(type.hasMetadata(REMOVE)) {
   			type.disconnect();
   		}
   	}
-  	for(NamespacePart part: parts) {
+  	for(NamespaceDeclaration part: parts) {
   		removeDuplicateImports(part);
   	}
   	return result;
@@ -178,7 +178,7 @@ public class JavaTranslator extends AbstractTranslator {
    * @param nsp
    * @throws ModelException
    */
-  private void removeDuplicateImports(NamespacePart nsp) throws ModelException {
+  private void removeDuplicateImports(NamespaceDeclaration nsp) throws ModelException {
   	Syntax syntax = nsp.language(Java.class).plugin(Syntax.class);
   	List<Import> imports = nsp.imports();
   	Set<String> importStrings = new HashSet<String>();
@@ -250,8 +250,8 @@ public class JavaTranslator extends AbstractTranslator {
 		for(Element element: cwt.children()) {
 			replaceSubobjectAccess(element);
 		}
-		if(! cwt.hasTag(NO_SUBOBJECT_READ) && cwt instanceof CrossReferenceWithName) {
-			boolean rewrite = cwt.hasTag(SUBOBJECT_READ);
+		if(! cwt.hasMetadata(NO_SUBOBJECT_READ) && cwt instanceof CrossReferenceWithName) {
+			boolean rewrite = cwt.hasMetadata(SUBOBJECT_READ);
 			String name = ((CrossReferenceWithName)cwt).name();
 			if((! rewrite) && considerForComponentAccessorTransformation(cwt)) {
 				try {
@@ -275,7 +275,7 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	private boolean isReadOfFieldCreatedForSubobject(Declaration decl,CrossReference<?> cref) {
-		boolean fieldIsCreatedForSubobject = decl.origin().parent().hasTag(SUBOBJECT_READ);
+		boolean fieldIsCreatedForSubobject = decl.origin().parent().hasMetadata(SUBOBJECT_READ);
 		AssignmentExpression assignment = cref.nearestAncestor(AssignmentExpression.class);
 		boolean isRead = (assignment == null) || 
 				             (assignment.getVariable() != cref &&
@@ -311,7 +311,7 @@ public class JavaTranslator extends AbstractTranslator {
 			try {
 				Declaration decl = cwt.getElement();
 				if(decl instanceof ComponentRelation) {
-					cwt.setTag(new TagImpl(), SUBOBJECT_READ);
+					cwt.setMetadata(new TagImpl(), SUBOBJECT_READ);
 				}
 			}catch(LookupException exc) {
 			}
@@ -403,7 +403,7 @@ public class JavaTranslator extends AbstractTranslator {
 			MemberVariableDeclarator fieldForComponent = fieldForComponent(relation,result);
 			if(fieldForComponent != null) {
 				result.add(fieldForComponent);
-				fieldForComponent.setTag(new TagImpl(), SUBOBJECT_READ);
+				fieldForComponent.setMetadata(new TagImpl(), SUBOBJECT_READ);
 			}
 			// We must flush the cache because the type reference of the declared subobject type might be in the
 			// language cache.
@@ -510,7 +510,7 @@ public class JavaTranslator extends AbstractTranslator {
 		Java lang = relation.language(Java.class);
 		ChameleonProperty ov = lang.OVERRIDABLE;
 		ChameleonProperty def = lang.DEFINED;
-		incorporateImports(relation,result.nearestAncestor(NamespacePart.class));
+		incorporateImports(relation,result.nearestAncestor(NamespaceDeclaration.class));
 		for(Member member: members) {
 			Element farthestOrigin = member.farthestOrigin();
 			ComponentRelation nearestSubobject = member.nearestAncestor(ComponentRelation.class);
@@ -528,7 +528,7 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 	private void incorporateImports(Method method) throws LookupException {
 		Java java = method.language(Java.class);
-		NamespacePart namespacePart = method.nearestAncestor(NamespacePart.class);
+		NamespaceDeclaration namespacePart = method.nearestAncestor(NamespaceDeclaration.class);
 		for(TypeReference tref: method.descendants(TypeReference.class)) {
 			try {
 			Type type = tref.getElement().baseType();
@@ -833,7 +833,7 @@ public class JavaTranslator extends AbstractTranslator {
 	private void transformToImpl(Type type) throws ModelException {
 		JLo lang = type.language(JLo.class);
 		if(type.isTrue(lang.INTERFACE)) {
-			type.setTag(new TagImpl(), REMOVE);
+			type.setMetadata(new TagImpl(), REMOVE);
 		}
 //		if(! type.isTrue(lang.PRIVATE)) {
 			// Change the name of the outer type.
@@ -898,8 +898,8 @@ public class JavaTranslator extends AbstractTranslator {
 		for(NonLocalJavaTypeReference tref: type.descendants(NonLocalJavaTypeReference.class)) {
 			SingleAssociation parentLink = tref.parentLink();
 			TypeReference actualReference = tref.actualReference();
-			if(tref.hasTag(IMPL)) {
-				actualReference.setTag(new TagImpl(), IMPL);
+			if(tref.hasMetadata(IMPL)) {
+				actualReference.setMetadata(new TagImpl(), IMPL);
 			}
 			parentLink.getOtherRelation().replace(parentLink, actualReference.parentLink());
 		}
@@ -1031,7 +1031,7 @@ public class JavaTranslator extends AbstractTranslator {
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
 			NamedTargetExpression fieldAccessor = new NamedTargetExpression(fieldName(relation), null);
-			fieldAccessor.setTag(new TagImpl(), NO_SUBOBJECT_READ);
+			fieldAccessor.setMetadata(new TagImpl(), NO_SUBOBJECT_READ);
 			body.addStatement(new ReturnStatement(fieldAccessor));
 			return result;
 		} else {

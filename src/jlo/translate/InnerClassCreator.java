@@ -18,7 +18,7 @@ import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.modifier.Modifier;
-import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.namespacepart.NamespaceDeclaration;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.tag.TagImpl;
 import chameleon.oo.expression.MethodInvocation;
@@ -31,7 +31,7 @@ import chameleon.oo.type.BasicTypeReference;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
-import chameleon.oo.type.generics.ActualType;
+import chameleon.oo.type.generics.InstantiatedParameterType;
 import chameleon.oo.type.generics.ActualTypeArgument;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.member.simplename.method.NormalMethod;
@@ -107,7 +107,7 @@ public class InnerClassCreator extends AbstractTranslator {
 
 		//	result.add(superReference);
 		if(toImpl) {
-			nonLocal.setTag(new TagImpl(), IMPL);
+			nonLocal.setMetadata(new TagImpl(), IMPL);
 		}
 		result.add(nonLocal);
 		Set<ComponentRelation> superSubobjects = (Set<ComponentRelation>) relation.overriddenMembers();
@@ -152,7 +152,7 @@ private void processInnerClassMethod(ComponentRelation relationBeingTranslated, 
 				if(tref.getTarget() == null) {
 				  Type element = tref.getElement();
 					Type base = element.baseType();
-				  if((! (element instanceof ActualType)) && base instanceof RegularType) {
+				  if((! (element instanceof InstantiatedParameterType)) && base instanceof RegularType) {
 				  	String fqn = base.getFullyQualifiedName();
 				  	String qn = Util.getAllButLastPart(fqn);
 				  	if(qn != null && (! qn.isEmpty())) {
@@ -187,7 +187,7 @@ private void processInnerClassMethod(ComponentRelation relationBeingTranslated, 
  * @throws LookupException
  */
 private void incorporateImports(ComponentRelation relationBeingTranslated) throws LookupException {
-	incorporateImports(relationBeingTranslated, relationBeingTranslated.farthestAncestor(NamespacePart.class));
+	incorporateImports(relationBeingTranslated, relationBeingTranslated.farthestAncestor(NamespaceDeclaration.class));
 }
 
 

@@ -22,7 +22,7 @@ import chameleon.core.lookup.LookupException;
 import chameleon.core.modifier.ElementWithModifiers;
 import chameleon.core.modifier.Modifier;
 import chameleon.core.namespacepart.Import;
-import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.namespacepart.NamespaceDeclaration;
 import chameleon.core.reference.CrossReference;
 import chameleon.core.reference.CrossReferenceTarget;
 import chameleon.core.reference.CrossReferenceWithName;
@@ -40,7 +40,7 @@ import chameleon.oo.statement.Block;
 import chameleon.oo.type.NonLocalTypeReference;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
-import chameleon.oo.type.generics.ActualType;
+import chameleon.oo.type.generics.InstantiatedParameterType;
 import chameleon.oo.type.generics.InstantiatedTypeParameter;
 import chameleon.oo.type.generics.TypeParameter;
 import chameleon.oo.variable.FormalParameter;
@@ -142,8 +142,8 @@ public class AbstractTranslator {
 				Association childLink = parentLink.getOtherRelation();
 				InstantiatedTypeParameter declarator = (InstantiatedTypeParameter) cref.getDeclarator(); 
 				Type type = cref.getElement();
-				while(type instanceof ActualType) {
-					type = ((ActualType)type).aliasedType();
+				while(type instanceof InstantiatedParameterType) {
+					type = ((InstantiatedParameterType)type).aliasedType();
 				}
 //				TypeReference namedTargetExpression = element.language(ObjectOrientedLanguage.class).createTypeReference(type.getFullyQualifiedName());
 				TypeReference namedTargetExpression = element.language(ObjectOrientedLanguage.class).createTypeReference(type);
@@ -244,10 +244,10 @@ public class AbstractTranslator {
 	 * @param relationBeingTranslated
 	 * @throws LookupException
 	 */
-	protected void incorporateImports(ComponentRelation relationBeingTranslated, NamespacePart target)
+	protected void incorporateImports(ComponentRelation relationBeingTranslated, NamespaceDeclaration target)
 	throws LookupException {
 		Type baseT = relationBeingTranslated.referencedComponentType().baseType();
-		NamespacePart originalNsp = baseT.farthestAncestor(NamespacePart.class);
+		NamespaceDeclaration originalNsp = baseT.farthestAncestor(NamespaceDeclaration.class);
 		for(Import imp: originalNsp.imports()) {
 			target.addImport(imp.clone());
 		}
