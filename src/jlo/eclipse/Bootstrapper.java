@@ -23,36 +23,10 @@ public class Bootstrapper extends EclipseBootstrapper {
 	
 	public final static String PLUGIN_ID="be.chameleon.eclipse.jlo";
 	
-	public void registerFileExtensions() {
-//		addExtension("java"); This causes problems with the generated files after a refresh. Until
-//		                      we have a source path, I will simply rename the API files to .jlo
-		addExtension("jlo");
+	public Bootstrapper() {
+		super("JLo","0.1","jlo");
 	}
 	
-	public String getLanguageName() {
-		return "J.Lo";
-	}
-
-	public String getLanguageVersion() {
-		return "1.0";
-	}
-
-	public String getVersion() {
-		return "1.0";
-	}
-
-	public String getDescription() {
-		return "Java with subobjects";
-	}
-	
-	public String getLicense() {
-		return "";
-	}
-
-	public Syntax getCodeWriter() {
-		return null;
-	}
-
 	public Language createLanguage() throws IOException, ParseException {
 		JLo result = new JLo();
 		ModelFactory factory = new JLoModelFactory(result);

@@ -15,7 +15,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import chameleon.core.Config;
-import chameleon.core.compilationunit.CompilationUnit;
+import chameleon.core.compilationunit.Document;
 import chameleon.core.namespace.Namespace;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
@@ -58,9 +58,9 @@ public class BatchTranslator {
 		for(Type type: typeProvider().elements(sourceLanguage())) {
 			// The second argument is never used for the JLo translation, but for now it must be present because otherwise the
 			// aspect weaver does not know which compilation units are present in the project.
-			CompilationUnit compilationUnit = type.nearestAncestor(CompilationUnit.class);
+			Document compilationUnit = type.nearestAncestor(Document.class);
 			compilationUnit.verify();
-			_builder.build(compilationUnit, new ArrayList<CompilationUnit>());
+			_builder.build(compilationUnit, new ArrayList<Document>());
 		}
 	}
 	

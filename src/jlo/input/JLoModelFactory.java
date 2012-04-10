@@ -16,7 +16,7 @@ import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 
-import chameleon.core.compilationunit.CompilationUnit;
+import chameleon.core.compilationunit.Document;
 import chameleon.core.element.Element;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ModelFactory;
@@ -98,12 +98,12 @@ public class JLoModelFactory extends JavaModelFactory {
 		  Element result = null;
 		  if(element instanceof Member) {
 	  		Parser parser = (Parser)getParser(inputStream, "document");
-	  		parser.setCompilationUnit(element.nearestAncestor(CompilationUnit.class));
+	  		parser.setCompilationUnit(element.nearestAncestor(Document.class));
 				result = parser.memberDecl().element;
 			}
 			return result;
 		} catch(RecognitionException exc) {
-			throw new ParseException(element.nearestAncestor(CompilationUnit.class));
+			throw new ParseException(element.nearestAncestor(Document.class));
 		} catch(IOException exc) {
 			throw new ChameleonProgrammerException("Parsing of a string caused an IOException",exc);
 		}

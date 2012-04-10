@@ -9,7 +9,7 @@ import jlo.model.language.JLo;
 import jnome.core.language.Java;
 import jnome.input.JavaFactory;
 import jnome.output.JavaCodeWriter;
-import chameleon.core.compilationunit.CompilationUnit;
+import chameleon.core.compilationunit.Document;
 import chameleon.core.lookup.LookupException;
 import chameleon.exception.ModelException;
 import chameleon.oo.plugin.ObjectOrientedFactory;
@@ -49,10 +49,10 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
    @ post \result != null;
    @ post \fresh(\result);
    @*/
-	public Collection<CompilationUnit> build(CompilationUnit source, List<CompilationUnit> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException {
+	public Collection<Document> build(Document source, List<Document> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException {
 		//initTargetLanguage();
-		List<CompilationUnit> result = translate(source,implementationCompilationUnit(source));
-		CompilationUnit ifaceCU = (result.size() > 1 ? result.get(1) : null); 
+		List<Document> result = translate(source,implementationCompilationUnit(source));
+		Document ifaceCU = (result.size() > 1 ? result.get(1) : null); 
 		store(source, ifaceCU,_interfaceMap);
 		if(buildProgressHelper != null) {
 			buildProgressHelper.addWorked(1);
@@ -60,9 +60,9 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
 		return result;
 	}
 
-	public List<CompilationUnit> translate(CompilationUnit source, CompilationUnit implementationCompilationUnit) throws LookupException, ModelException {
+	public List<Document> translate(Document source, Document implementationCompilationUnit) throws LookupException, ModelException {
 		return _translator.translate(source, implementationCompilationUnit);
 	}
   
-	private Map<CompilationUnit,CompilationUnit> _interfaceMap = new HashMap<CompilationUnit,CompilationUnit>();
+	private Map<Document,Document> _interfaceMap = new HashMap<Document,Document>();
 }

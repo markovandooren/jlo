@@ -7,7 +7,7 @@ import chameleon.exception.ChameleonProgrammerException;
 
 import chameleon.core.lookup.LookupStrategyFactory;
 
-import chameleon.core.compilationunit.CompilationUnit;
+import chameleon.core.compilationunit.Document;
 
 import chameleon.oo.member.SimpleNameDeclarationWithParametersSignature;
 import chameleon.oo.member.SimpleNameDeclarationWithParametersHeader;
@@ -48,7 +48,7 @@ import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
 import chameleon.core.namespace.NamespaceReference;
 
-import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.namespacepart.NamespaceDeclaration;
 import chameleon.core.namespacepart.Import;
 import chameleon.core.namespacepart.DemandImport;
 
@@ -621,7 +621,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
       }
       
 
-      public void processType(NamespacePart np, Type type){
+      public void processType(NamespaceDeclaration np, Type type){
         if(np == null) {throw new IllegalArgumentException("namespace part given to processType is null.");}
         if(type == null) {return;}  //throw new IllegalArgumentException("type given to processType is null.");}
         np.add(type);
@@ -672,7 +672,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
 
 
     public static class compilationUnit_return extends ParserRuleReturnScope {
-        public CompilationUnit element;
+        public Document element;
         Object tree;
         public Object getTree() { return tree; }
     };
@@ -698,7 +698,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
 
 
          
-        NamespacePart npp = null;
+        NamespaceDeclaration npp = null;
         retval.element = getCompilationUnit();
 
         try {
@@ -831,7 +831,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
                             if (state.failed) return retval;
                             if ( state.backtracking==0 ) adaptor.addChild(root_0, cd.getTree());
                             if ( state.backtracking==0 ) {
-                              npp = new NamespacePart(language().defaultNamespace());
+                              npp = new NamespaceDeclaration(language().defaultNamespace());
                                               retval.element.add(npp);
                                               npp.addImport(new DemandImport(new NamespaceReference("java.lang")));
                                               processType(npp,cd.element);
@@ -916,7 +916,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
                     if ( state.backtracking==0 ) {
 
                                if(npp == null) {
-                                 npp = new NamespacePart(language().defaultNamespace());
+                                 npp = new NamespaceDeclaration(language().defaultNamespace());
                                }
                                npp.addImport(new DemandImport(new NamespaceReference("java.lang")));
                                retval.element.add(npp);
@@ -1017,7 +1017,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
     // $ANTLR end "compilationUnit"
 
     public static class packageDeclaration_return extends ParserRuleReturnScope {
-        public NamespacePart element;
+        public NamespaceDeclaration element;
         Object tree;
         public Object getTree() { return tree; }
     };
@@ -1063,7 +1063,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
             }
             if ( state.backtracking==0 ) {
               try{
-                         retval.element = new NamespacePart(getDefaultNamespace().getOrCreateNamespace((qn!=null?input.toString(qn.start,qn.stop):null)));
+                         retval.element = new NamespaceDeclaration(getDefaultNamespace().getOrCreateNamespace((qn!=null?input.toString(qn.start,qn.stop):null)));
                          setKeyword(retval.element,pkgkw);
                        }
                        catch(ModelException exc) {
@@ -17341,7 +17341,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, arg.getTree());
                     if ( state.backtracking==0 ) {
-                      retval.element.removeAllTags(); retval.element = arg.element;
+                      retval.element.removeAllMetadata(); retval.element = arg.element;
                     }
 
                     }
@@ -17360,7 +17360,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
                     adaptor.addChild(root_0, clkw_tree);
                     }
                     if ( state.backtracking==0 ) {
-                      retval.element.removeAllTags();
+                      retval.element.removeAllMetadata();
                                retval.element = new ClassLiteral(createTypeReference((NamedTarget)((TargetScope_scope)TargetScope_stack.peek()).target));
                                 setLocation(retval.element, ((TargetScope_scope)TargetScope_stack.peek()).start, clkw);
                                
@@ -17383,7 +17383,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, gen.getTree());
                     if ( state.backtracking==0 ) {
-                      retval.element.removeAllTags(); retval.element = gen.element;
+                      retval.element.removeAllMetadata(); retval.element = gen.element;
                     }
 
                     }
@@ -17402,7 +17402,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
                     adaptor.addChild(root_0, thiskw_tree);
                     }
                     if ( state.backtracking==0 ) {
-                      retval.element.removeAllTags();
+                      retval.element.removeAllMetadata();
                                 retval.element = new ThisLiteral(createTypeReference((NamedTarget)((TargetScope_scope)TargetScope_stack.peek()).target));
                                 setLocation(retval.element, ((TargetScope_scope)TargetScope_stack.peek()).start, thiskw);
                               
@@ -17431,7 +17431,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, supsuf.getTree());
                     if ( state.backtracking==0 ) {
 
-                                     retval.element.removeAllTags();
+                                     retval.element.removeAllMetadata();
                                      CrossReferenceTarget tar = new SuperTarget(((TargetScope_scope)TargetScope_stack.peek()).target);
                                      setKeyword(tar,supkw); 
                                      setLocation(tar,((TargetScope_scope)TargetScope_stack.peek()).start,supkw);
@@ -17483,7 +17483,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
             if ( state.backtracking==0 ) {
 
               if(! retval.element.descendants().contains(scopeTarget)) {
-                scopeTarget.removeAllTags();
+                scopeTarget.removeAllMetadata();
               }
 
             }

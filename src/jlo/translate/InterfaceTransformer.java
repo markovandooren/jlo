@@ -9,10 +9,10 @@ import jnome.core.type.BasicJavaTypeReference;
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.property.Property;
 
-import chameleon.core.compilationunit.CompilationUnit;
+import chameleon.core.compilationunit.Document;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.modifier.Modifier;
-import chameleon.core.namespacepart.NamespacePart;
+import chameleon.core.namespacepart.NamespaceDeclaration;
 import chameleon.core.reference.SimpleReference;
 import chameleon.exception.ModelException;
 import chameleon.oo.language.ObjectOrientedLanguage;
@@ -32,8 +32,8 @@ import chameleon.support.modifier.Interface;
 
 public class InterfaceTransformer extends AbstractTranslator {
 
-	public CompilationUnit interfaceCompilationUnit(CompilationUnit original, CompilationUnit implementation) throws ModelException {
-		CompilationUnit interfaceCompilationUnit = null;
+	public Document interfaceCompilationUnit(Document original, Document implementation) throws ModelException {
+		Document interfaceCompilationUnit = null;
 		Java lang = original.language(Java.class);
 		if(! original.isTrue(lang.INTERFACE)) {
 			original.flushCache();
@@ -42,7 +42,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 			Type implementationType = original.namespacePart(1).declarations(Type.class).get(0);
 			if(splitClass(implementationType)) {
 				interfaceCompilationUnit = implementation.cloneTo(implementation.language());
-				NamespacePart interfaceNamespacePart = interfaceCompilationUnit.namespacePart(1);
+				NamespaceDeclaration interfaceNamespacePart = interfaceCompilationUnit.namespacePart(1);
 				Type interfaceType = interfaceNamespacePart.declarations(Type.class).get(0);
 				interfaceType.addModifier(new Interface());
 				transformToInterfaceDeep(interfaceType);
@@ -64,7 +64,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 					List<InheritanceRelation> relations = type.inheritanceRelations();
 					for(InheritanceRelation relation: relations) {
 						TypeReference t = relation.superClassReference();
-						if(t.hasTag(IMPL)) {
+						if(t.hasMetadata(IMPL)) {
 							if(t instanceof BasicTypeReference) {
 								BasicTypeReference b = (BasicTypeReference) t;
 								b.setName(b.name()+IMPL);

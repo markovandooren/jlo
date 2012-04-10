@@ -18,7 +18,7 @@ import chameleon.oo.type.generics.ActualTypeArgument;
 public class JLo extends Java {
 
 	public JLo() {
-		this("J.Lo");
+		this("JLo");
 	}
 
 	protected JLo(String name) {
