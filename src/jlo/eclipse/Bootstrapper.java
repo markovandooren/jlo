@@ -43,10 +43,6 @@ public class Bootstrapper extends EclipseBootstrapper {
 	}
 
 	public Builder createBuilder(Language source, File projectDirectory) {
-//		RootNamespace clone = source.defaultNamespace().clone();
-//		result.cloneConnectorsFrom(source);
-//		result.cloneProcessorsFrom(source);
-//		result.setDefaultNamespace(clone);
 		File outputDirectory = new File(projectDirectory.getAbsolutePath()+File.separator+"java");
 		return new JLoBuilder((JLo) source, outputDirectory);
 	}
