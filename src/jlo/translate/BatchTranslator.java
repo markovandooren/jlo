@@ -15,7 +15,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import chameleon.core.Config;
-import chameleon.core.compilationunit.Document;
+import chameleon.core.document.Document;
 import chameleon.core.namespace.Namespace;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;

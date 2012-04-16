@@ -11,7 +11,7 @@ import jlo.translate.IncrementalJavaTranslator;
 import jnome.core.language.Java;
 import jnome.input.JavaFactory;
 import jnome.output.JavaCompilationUnitWriter;
-import chameleon.core.compilationunit.Document;
+import chameleon.core.document.Document;
 import chameleon.core.language.Language;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
