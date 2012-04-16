@@ -9,7 +9,7 @@ import jlo.model.language.JLo;
 import jnome.core.language.Java;
 import jnome.input.JavaFactory;
 import jnome.output.JavaCodeWriter;
-import chameleon.core.compilationunit.Document;
+import chameleon.core.document.Document;
 import chameleon.core.lookup.LookupException;
 import chameleon.exception.ModelException;
 import chameleon.oo.plugin.ObjectOrientedFactory;

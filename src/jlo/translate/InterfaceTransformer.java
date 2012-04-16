@@ -9,10 +9,10 @@ import jnome.core.type.BasicJavaTypeReference;
 import org.rejuse.logic.ternary.Ternary;
 import org.rejuse.property.Property;
 
-import chameleon.core.compilationunit.Document;
 import chameleon.core.declaration.SimpleNameSignature;
+import chameleon.core.document.Document;
 import chameleon.core.modifier.Modifier;
-import chameleon.core.namespacepart.NamespaceDeclaration;
+import chameleon.core.namespacedeclaration.NamespaceDeclaration;
 import chameleon.core.reference.SimpleReference;
 import chameleon.exception.ModelException;
 import chameleon.oo.language.ObjectOrientedLanguage;
