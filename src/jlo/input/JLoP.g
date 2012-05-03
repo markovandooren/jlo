@@ -21,12 +21,12 @@ import JavaP;
     return gJavaP.language();
   }
   
-  public CompilationUnit getCompilationUnit() {
-    return gJavaP.getCompilationUnit();
+  public Document getDocument() {
+    return gJavaP.getDocument();
   }
 	   
-  public void setCompilationUnit(CompilationUnit compilationUnit) {
-    gJavaP.setCompilationUnit(compilationUnit);
+  public void setDocument(Document compilationUnit) {
+    gJavaP.setDocument(compilationUnit);
   }
   
   public Namespace getDefaultNamespace() {
