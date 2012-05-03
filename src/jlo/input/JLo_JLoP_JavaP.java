@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 JavaP.g 2012-02-17 16:35:24
+// $ANTLR 3.3 Nov 30, 2010 12:45:30 JavaP.g 2012-05-04 00:04:40
 
 package jlo.input;
 
@@ -7,6 +7,7 @@ import chameleon.exception.ChameleonProgrammerException;
 
 import chameleon.core.lookup.LookupStrategyFactory;
 
+import chameleon.core.document.Document;
 
 import chameleon.oo.member.SimpleNameDeclarationWithParametersSignature;
 import chameleon.oo.member.SimpleNameDeclarationWithParametersHeader;
@@ -15,7 +16,6 @@ import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.TargetDeclaration;
-import chameleon.core.document.Document;
 
 import chameleon.core.element.Element;
 
@@ -48,9 +48,9 @@ import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
 import chameleon.core.namespace.NamespaceReference;
 
-import chameleon.core.namespacedeclaration.DemandImport;
-import chameleon.core.namespacedeclaration.Import;
 import chameleon.core.namespacedeclaration.NamespaceDeclaration;
+import chameleon.core.namespacedeclaration.Import;
+import chameleon.core.namespacedeclaration.DemandImport;
 
 import chameleon.core.reference.CrossReference;
 
@@ -678,7 +678,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
     };
 
     // $ANTLR start "compilationUnit"
-    // JavaP.g:347:1: compilationUnit returns [CompilationUnit element] : ( annotations (np= packageDeclaration (imp= importDeclaration )* (typech= typeDeclaration )* | cd= classOrInterfaceDeclaration (typech= typeDeclaration )* ) | (np= packageDeclaration )? (imp= importDeclaration )* (typech= typeDeclaration )* );
+    // JavaP.g:347:1: compilationUnit returns [Document element] : ( annotations (np= packageDeclaration (imp= importDeclaration )* (typech= typeDeclaration )* | cd= classOrInterfaceDeclaration (typech= typeDeclaration )* ) | (np= packageDeclaration )? (imp= importDeclaration )* (typech= typeDeclaration )* );
     public final JLo_JLoP_JavaP.compilationUnit_return compilationUnit() throws RecognitionException {
         JLo_JLoP_JavaP.compilationUnit_return retval = new JLo_JLoP_JavaP.compilationUnit_return();
         retval.start = input.LT(1);
@@ -1023,7 +1023,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
     };
 
     // $ANTLR start "packageDeclaration"
-    // JavaP.g:396:1: packageDeclaration returns [NamespacePart element] : pkgkw= 'package' qn= qualifiedName ';' ;
+    // JavaP.g:396:1: packageDeclaration returns [NamespaceDeclaration element] : pkgkw= 'package' qn= qualifiedName ';' ;
     public final JLo_JLoP_JavaP.packageDeclaration_return packageDeclaration() throws RecognitionException {
         JLo_JLoP_JavaP.packageDeclaration_return retval = new JLo_JLoP_JavaP.packageDeclaration_return();
         retval.start = input.LT(1);
@@ -20720,7 +20720,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
             this.transition = DFA8_transition;
         }
         public String getDescription() {
-            return "347:1: compilationUnit returns [CompilationUnit element] : ( annotations (np= packageDeclaration (imp= importDeclaration )* (typech= typeDeclaration )* | cd= classOrInterfaceDeclaration (typech= typeDeclaration )* ) | (np= packageDeclaration )? (imp= importDeclaration )* (typech= typeDeclaration )* );";
+            return "347:1: compilationUnit returns [Document element] : ( annotations (np= packageDeclaration (imp= importDeclaration )* (typech= typeDeclaration )* | cd= classOrInterfaceDeclaration (typech= typeDeclaration )* ) | (np= packageDeclaration )? (imp= importDeclaration )* (typech= typeDeclaration )* );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             TokenStream input = (TokenStream)_input;

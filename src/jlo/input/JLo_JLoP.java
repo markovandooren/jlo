@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 JLoP.g 2012-02-17 16:35:23
+// $ANTLR 3.3 Nov 30, 2010 12:45:30 JLoP.g 2012-05-04 00:04:40
 
 package jlo.input;
 
@@ -7,6 +7,7 @@ import chameleon.exception.ChameleonProgrammerException;
 
 import chameleon.core.lookup.LookupStrategyFactory;
 
+import chameleon.core.document.Document;
 
 import chameleon.oo.member.SimpleNameDeclarationWithParametersSignature;
 import chameleon.oo.member.SimpleNameDeclarationWithParametersHeader;
@@ -15,7 +16,6 @@ import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.CompositeQualifiedName;
 import chameleon.core.declaration.TargetDeclaration;
-import chameleon.core.document.Document;
 
 import chameleon.core.element.Element;
 
@@ -48,9 +48,9 @@ import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
 import chameleon.core.namespace.NamespaceReference;
 
-import chameleon.core.namespacedeclaration.DemandImport;
-import chameleon.core.namespacedeclaration.Import;
 import chameleon.core.namespacedeclaration.NamespaceDeclaration;
+import chameleon.core.namespacedeclaration.Import;
+import chameleon.core.namespacedeclaration.DemandImport;
 
 import chameleon.core.reference.CrossReference;
 
