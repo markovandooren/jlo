@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 JLoP.g 2012-05-04 00:04:40
+// $ANTLR 3.3 Nov 30, 2010 12:45:30 JLoP.g 2012-05-04 14:58:17
 
 package jlo.input;
 
@@ -66,7 +66,7 @@ import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeElement;
-import chameleon.oo.type.TypeWithBody;
+import chameleon.oo.type.ClassWithBody;
 import chameleon.oo.type.ParameterBlock;
 
 import chameleon.oo.type.generics.TypeParameter;

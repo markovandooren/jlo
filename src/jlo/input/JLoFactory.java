@@ -7,10 +7,12 @@ import jnome.input.JavaFactory;
 
 public class JLoFactory extends JavaFactory {
 
+	public JLoFactory() {
+		
+	}
 	@Override
 	public RegularType createRegularType(SimpleNameSignature signature) {
 		return new RegularJLoType(signature);
 	}
-
 	
 }

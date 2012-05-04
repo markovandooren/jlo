@@ -36,7 +36,7 @@ import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
-import chameleon.oo.type.TypeWithBody;
+import chameleon.oo.type.ClassWithBody;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 import chameleon.util.Util;
 import chameleon.util.association.Single;
@@ -287,7 +287,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 		}
 	}
 
-  private TypeWithBody createComponentType(ClassBody body) {
+  private ClassWithBody createComponentType(ClassBody body) {
   	RegularType anon = new ComponentType();
 	  anon.setBody(body);
 		return anon;
