@@ -69,6 +69,8 @@ import chameleon.oo.modifier.AnnotationModifier;
 
 import chameleon.oo.namespacedeclaration.TypeImport;
 
+import chameleon.oo.plugin.ObjectOrientedFactory;
+
 import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
