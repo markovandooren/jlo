@@ -74,7 +74,7 @@ import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeElement;
-import chameleon.oo.type.TypeWithBody;
+import chameleon.oo.type.ClassWithBody;
 import chameleon.oo.type.ParameterBlock;
 
 import chameleon.oo.type.generics.TypeParameter;

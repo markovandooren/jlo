@@ -1,4 +1,4 @@
-// $ANTLR 3.3 Nov 30, 2010 12:45:30 JavaP.g 2012-05-04 00:04:40
+// $ANTLR 3.3 Nov 30, 2010 12:45:30 JavaP.g 2012-05-04 14:58:18
 
 package jlo.input;
 
@@ -66,7 +66,7 @@ import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.TypeElement;
-import chameleon.oo.type.TypeWithBody;
+import chameleon.oo.type.ClassWithBody;
 import chameleon.oo.type.ParameterBlock;
 
 import chameleon.oo.type.generics.TypeParameter;
@@ -626,12 +626,12 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
         if(type == null) {return;}  //throw new IllegalArgumentException("type given to processType is null.");}
         np.add(type);
         // inherit from java.lang.Object if there is no explicit extends relation
-        String fqn = type.getFullyQualifiedName();
-        if(fqn != null) {
-          if(type.nonMemberInheritanceRelations().isEmpty() && (! fqn.equals("java.lang.Object"))){
-            type.addInheritanceRelation(new SubtypeRelation(createTypeReference(new NamedTarget("java.lang"),"Object")));
-          }
-        }
+        //String fqn = type.getFullyQualifiedName();
+        //if(fqn != null) {
+        //  if(type.nonMemberInheritanceRelations().isEmpty() && (! fqn.equals("java.lang.Object"))){
+        //    type.addInheritanceRelation(new SubtypeRelation(createTypeReference(new NamedTarget("java.lang"),"Object")));
+        //  }
+        //}
 
       }
       
@@ -645,9 +645,9 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
       }
       
       public void addNonTopLevelObjectInheritance(Type type) {
-        if(type.nonMemberInheritanceRelations().isEmpty()){
-          type.addInheritanceRelation(new SubtypeRelation(createTypeReference(new NamedTarget("java.lang"),"Object")));
-        }
+        //if(type.nonMemberInheritanceRelations().isEmpty()){
+        //  type.addInheritanceRelation(new SubtypeRelation(createTypeReference(new NamedTarget("java.lang"),"Object")));
+        //}
       }
       
       public JavaTypeReference typeRef(String qn) {
@@ -10356,13 +10356,13 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
     // $ANTLR end "elementValueArrayInitializer"
 
     public static class annotationTypeDeclaration_return extends ParserRuleReturnScope {
-        public TypeWithBody element;
+        public ClassWithBody element;
         Object tree;
         public Object getTree() { return tree; }
     };
 
     // $ANTLR start "annotationTypeDeclaration"
-    // JavaP.g:1115:1: annotationTypeDeclaration returns [TypeWithBody element] : '@' 'interface' name= identifierRule body= annotationTypeBody ;
+    // JavaP.g:1115:1: annotationTypeDeclaration returns [ClassWithBody element] : '@' 'interface' name= identifierRule body= annotationTypeBody ;
     public final JLo_JLoP_JavaP.annotationTypeDeclaration_return annotationTypeDeclaration() throws RecognitionException {
         JLo_JLoP_JavaP.annotationTypeDeclaration_return retval = new JLo_JLoP_JavaP.annotationTypeDeclaration_return();
         retval.start = input.LT(1);
@@ -10404,7 +10404,7 @@ public class JLo_JLoP_JavaP extends ChameleonParser {
             if ( state.backtracking==0 ) adaptor.addChild(root_0, name.getTree());
             if ( state.backtracking==0 ) {
 
-                             retval.element = (TypeWithBody)createType(new SimpleNameSignature((name!=null?input.toString(name.start,name.stop):null)));
+                             retval.element = (ClassWithBody)createType(new SimpleNameSignature((name!=null?input.toString(name.start,name.stop):null)));
                              retval.element.addModifier(new AnnotationType());
                              setName(retval.element,name.start);
                            
