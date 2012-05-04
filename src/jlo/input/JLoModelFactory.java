@@ -7,9 +7,7 @@ import java.io.StringBufferInputStream;
 import java.util.Collection;
 
 import jlo.model.language.JLo;
-import jnome.core.language.Java;
 import jnome.input.JavaModelFactory;
-import jnome.input.parser.JavaParser;
 import jnome.output.JavaCodeWriter;
 
 import org.antlr.runtime.ANTLRInputStream;
@@ -23,7 +21,7 @@ import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.member.Member;
-import chameleon.plugin.Plugin;
+import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.output.Syntax;
 import chameleon.support.input.ChameleonParser;
 import chameleon.support.input.ModelFactoryUsingANTLR;
@@ -39,6 +37,7 @@ public class JLoModelFactory extends JavaModelFactory {
 	public JLoModelFactory() {
 		JLo lang = new JLo();
 		lang.setPlugin(Syntax.class, new JavaCodeWriter());
+		lang.setPlugin(ObjectOrientedFactory.class, new JLoFactory());
 		setLanguage(lang, ModelFactory.class);
 	}
 	
