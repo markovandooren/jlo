@@ -355,7 +355,7 @@ public class AbstractTranslator {
 	}
 
 	protected boolean isJLo(Element element) {
-		String fullyQualifiedName = element.getNamespace().getFullyQualifiedName();
+		String fullyQualifiedName = element.namespace().getFullyQualifiedName();
 		return (! fullyQualifiedName.startsWith("java.")) &&
 		       (! fullyQualifiedName.startsWith("javax.")) &&
 		       (! fullyQualifiedName.equals("org.ietf.jgss")) &&
