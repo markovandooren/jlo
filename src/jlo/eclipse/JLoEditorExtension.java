@@ -11,11 +11,13 @@ import jnome.eclipse.JavaEditorExtension;
 import chameleon.eclipse.presentation.treeview.CompositeIconProvider;
 import chameleon.eclipse.presentation.treeview.DefaultIconProvider;
 import chameleon.eclipse.presentation.treeview.IconProvider;
+import chameleon.plugin.Plugin;
 
 public class JLoEditorExtension extends JavaEditorExtension {
 
 
-	public JLoEditorExtension() {
+	public JLoEditorExtension(String name) {
+		super(name);
 	  SUBOBJECT_ICON_PROVIDER = new DefaultIconProvider("subobject", ComponentRelation.class);
 	  SINGLE_SUBOBJECT_PARAMETER_ICON_PROVIDER = new DefaultIconProvider("singleformalsubobjectparameter", SingleFormalComponentParameter.class);
 	  MULTI_SUBOBJECT_PARAMETER_ICON_PROVIDER = new DefaultIconProvider("multiformalsubobjectparameter", MultiFormalComponentParameter.class);
@@ -68,6 +70,11 @@ public class JLoEditorExtension extends JavaEditorExtension {
 	@Override
 	public String pluginID() {
 		return Bootstrapper.PLUGIN_ID;
+	}
+	
+	@Override
+	public Plugin clone() {
+		return new JLoEditorExtension(languageName());
 	}
 
 }
