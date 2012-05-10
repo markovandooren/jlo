@@ -1,14 +1,10 @@
 package jlo.model.component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.declaration.TargetDeclaration;
-import chameleon.core.element.Element;
-import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.lookup.LookupStrategy;
 import chameleon.core.scope.Scope;
 import chameleon.core.validation.Valid;
 import chameleon.core.validation.VerificationResult;
@@ -60,7 +56,7 @@ public class InstantiatedComponentParameter extends ComponentParameter implement
 		}
 	}
 
-	public LocalLookupStrategy<?> targetContext() throws LookupException {
+	public LookupStrategy targetContext() throws LookupException {
 		return declaration().targetContext();
 	}
 
