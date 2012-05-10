@@ -28,17 +28,15 @@ public class Bootstrapper extends EclipseBootstrapper {
 	}
 	
 	public Language createLanguage() throws IOException, ParseException {
-		JLo result = new JLo();
-		ModelFactory factory = new JLoModelFactory(result);
+		ModelFactory factory = new JLoModelFactory();
+		JLo result = (JLo) factory.language();
 		factory.setLanguage(result, ModelFactory.class);
 		try {
 			loadAPIFiles(".jlo", PLUGIN_ID, factory);
 		} catch(ChameleonProgrammerException exc) {
 			// Object and String may not be present yet.
 		}
-		result.setPlugin(EclipseEditorExtension.class, new JLoEditorExtension());
-		result.setPlugin(Syntax.class, new JLoSyntax());
-		result.setPlugin(ObjectOrientedFactory.class, new JLoFactory());
+		result.setPlugin(EclipseEditorExtension.class, new JLoEditorExtension(getLanguageName()));
 		return result;
 	}
 
