@@ -241,7 +241,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		allRelatedSubobjects.add(relation);
 		Method constructor = null;
 		try {
-			constructor = superCall.getElement();
+			constructor = (Method) superCall.getElement();
 		} catch(LookupException exc) {
 			superCall.getElement();
 			throw exc;
