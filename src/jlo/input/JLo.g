@@ -280,7 +280,7 @@ import java.util.ArrayList;
     return gJLoP.cloneTarget(target);
   }
   
-  public RegularMethodInvocation invocation(String name, CrossReferenceTarget target) {
+  public MethodInvocation invocation(String name, CrossReferenceTarget target) {
     return gJLoP.invocation(name,target);
   }
 }

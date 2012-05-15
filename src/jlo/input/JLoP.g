@@ -61,7 +61,7 @@ import JavaP;
     return gJavaP.cloneTarget(target);
   }
   
-  public RegularMethodInvocation invocation(String name, CrossReferenceTarget target) {
+  public MethodInvocation invocation(String name, CrossReferenceTarget target) {
     return gJavaP.invocation(name,target);
   }
 }
