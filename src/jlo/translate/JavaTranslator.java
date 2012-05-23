@@ -482,7 +482,7 @@ public class JavaTranslator extends AbstractTranslator {
 				}
 			}
 			if(! hasConstructor) {
-				MethodHeader header = new SimpleNameMethodHeader(result.getName(), language.createTypeReference(result.getName()));
+				MethodHeader header = new SimpleNameMethodHeader(result.name(), language.createTypeReference(result.name()));
 				Method method = language.createNormalMethod(header);
 				method.addModifier(new Constructor());
 				method.setImplementation(new RegularImplementation(new Block()));
@@ -840,7 +840,7 @@ public class JavaTranslator extends AbstractTranslator {
 			// What a crappy code. I would probably be easier to not add IMPL
 			// to the generated subobject class in the first place, but add
 			// it afterwards.
-			String oldName = type.getName();
+			String oldName = type.name();
 			String name = oldName;
 			if(! name.endsWith(IMPL)) {
 				name = name +IMPL;

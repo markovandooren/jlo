@@ -86,7 +86,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 	}
 	
 	private void transformToInterface(Type type) throws ModelException {
-		String name = type.getName();
+		String name = type.name();
 		Java language = type.language(Java.class);
 		if(name.endsWith(IMPL)) {
 			copyTypeParametersIfNecessary(type);

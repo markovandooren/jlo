@@ -51,16 +51,6 @@ public abstract class ComponentParameter extends Parameter implements Declaratio
 	}
 
 	@Override
-	public CheckedExceptionList getCEL() throws LookupException {
-		throw new ChameleonProgrammerException();
-	}
-
-	@Override
-	public CheckedExceptionList getAbsCEL() throws LookupException {
-		throw new ChameleonProgrammerException();
-	}
-
-	@Override
 	public List<Modifier> modifiers() {
 		return new ArrayList<Modifier>();
 	}
