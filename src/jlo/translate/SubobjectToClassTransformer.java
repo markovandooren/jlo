@@ -239,7 +239,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	private void replaceOuterAndRootTargets(TypeElement clone) {
 		List<AbstractTarget> outers = clone.descendants(AbstractTarget.class);
 		for(AbstractTarget o: outers) {
-			String name = o.getTargetDeclaration().getName();
+			String name = o.getTargetDeclaration().name();
 			SingleAssociation parentLink = o.parentLink();
 			ThisLiteral e = new ThisLiteral();
 			e.setTypeReference(new BasicJavaTypeReference(name));

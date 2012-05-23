@@ -58,9 +58,6 @@ import chameleon.support.statement.StatementExpression;
 public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 	public void replaceSubobjectConstructorCalls(Type type) throws ModelException {
-		if(type.getName().equals("RefinedCounter")) {
-			System.out.println("debug");
-		}
 		Java lang = type.language(Java.class);
 		List<Method> constructors = type.descendants(Method.class, lang.CONSTRUCTOR);
 		Collections.sort(constructors, new DelegationComparator());
@@ -192,7 +189,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		try {
 			parameterTypes = constructor.formalParameterTypes();
 			for(Type t: parameterTypes) {
-				name += toUnderScore(t.getName());
+				name += toUnderScore(t.name());
 			}
 			return name;
 		} catch (LookupException e) {
@@ -494,11 +491,11 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			//    }
 
 			// Cast the first parameter to the type of the outer class.
-			BasicJavaTypeReference castTypeReference = language.createTypeReference(toImplName(constructor.nearestAncestor(Type.class).getName()));
+			BasicJavaTypeReference castTypeReference = language.createTypeReference(toImplName(constructor.nearestAncestor(Type.class).name()));
 			ClassCastExpression cast = new ClassCastExpression(castTypeReference, new NamedTargetExpression("o"));
 			// -> ((OuterType)o)
 
-			BasicJavaTypeReference subobjectTypeReference = language.createTypeReference(toImplName(relation.componentType().getName()));
+			BasicJavaTypeReference subobjectTypeReference = language.createTypeReference(toImplName(relation.componentType().name()));
 			ConstructorInvocation constructorInvocation = new ConstructorInvocation(subobjectTypeReference, cast);
 			// -> ((OuterType)o).new SubobjectType()
 

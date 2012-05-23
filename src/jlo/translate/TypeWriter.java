@@ -46,7 +46,7 @@ public class TypeWriter {
     int i = 1;
     for(Type type:typeProvider().elements(language())) {
     	if(type.nearestAncestor(Type.class) == null) {
-      String fileName = type.getName()+".java";
+      String fileName = type.name()+".java";
       String packageFQN = type.namespace().getFullyQualifiedName();
       String relDirName = packageFQN.replace('.', File.separatorChar);
       File out = new File(outputDirName()+File.separatorChar + relDirName + File.separatorChar + fileName);
