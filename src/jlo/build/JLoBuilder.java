@@ -9,13 +9,12 @@ import jlo.model.language.JLo;
 import jlo.output.JLoSyntax;
 import jlo.translate.IncrementalJavaTranslator;
 import jnome.core.language.Java;
-import jnome.input.JavaFactory;
+import jnome.core.language.JavaLanguageFactory;
 import jnome.output.JavaCompilationUnitWriter;
 import chameleon.core.document.Document;
 import chameleon.core.language.Language;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
-import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.Plugin;
 import chameleon.plugin.PluginImpl;
 import chameleon.plugin.build.BuildProgressHelper;
@@ -39,10 +38,9 @@ public class JLoBuilder extends PluginImpl implements Builder {
 			throw new ChameleonProgrammerException();
 		}
 		super.setLanguage(lang, pluginInterface);
-		Java target = new Java();
+		Java target = new JavaLanguageFactory().create();
 		//		target.setPlugin(Syntax.class, new JavaCodeWriter());
-		target.setPlugin(Syntax.class, new JLoSyntax()); // DEBUG for viewing the intermediate steps, we attach the J.Lo syntax.
-		target.setPlugin(ObjectOrientedFactory.class, new JavaFactory());
+		target.setPlugin(Syntax.class, new JLoSyntax()); // DEBUG for viewing the intermediate steps, we attach the JLo syntax.
 		_translator = new IncrementalJavaTranslator((JLo) lang, target);
 	}
 

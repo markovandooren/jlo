@@ -14,6 +14,7 @@ import chameleon.oo.type.Parameter;
 import chameleon.oo.type.ParameterSubstitution;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.generics.ActualTypeArgument;
+import chameleon.workspace.Project;
 
 public class JLo extends Java {
 
@@ -25,10 +26,10 @@ public class JLo extends Java {
 		super(name);
 	}
 
-	@Override
-	protected Language cloneThis() {
-		return new JLo();
-	}
+//	@Override
+//	protected Language cloneThis() {
+//		return new JLo(null);
+//	}
 
 	@Override
 	public StrictPartialOrder<Member> implementsRelation() {
