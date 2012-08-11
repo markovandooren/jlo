@@ -10,9 +10,11 @@ import jnome.core.language.Java;
 import jnome.core.language.JavaLanguageFactory;
 import chameleon.core.document.Document;
 import chameleon.core.lookup.LookupException;
+import chameleon.core.namespace.RootNamespace;
 import chameleon.exception.ModelException;
 import chameleon.plugin.build.BuildProgressHelper;
 import chameleon.support.translate.IncrementalTranslator;
+import chameleon.workspace.Project;
 
 public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> {
 
@@ -26,7 +28,9 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
 	}
 	
 	private static Java createJava() {
-		return new JavaLanguageFactory().create();
+		Java result = new JavaLanguageFactory().create();
+		Project project = new Project("clone", new RootNamespace(), result);
+		return result;
 	}
 
 	private JavaTranslator _translator;

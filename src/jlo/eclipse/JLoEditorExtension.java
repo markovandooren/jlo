@@ -1,5 +1,6 @@
 package jlo.eclipse;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
@@ -77,4 +78,8 @@ public class JLoEditorExtension extends JavaEditorExtension {
 		return new JLoEditorExtension(languageName());
 	}
 
+	@Override
+	public File buildDirectory(File projectRoot) {
+		return new File(projectRoot.getAbsolutePath()+File.separator+"java");
+	}
 }

@@ -41,32 +41,8 @@ public class JLoModelFactory extends JavaModelFactory {
 		setLanguage(lang, ModelFactory.class);
 	}
 	
-	/**
-	 * BE SURE TO CALL INIT() IF YOU USE THIS CONSTRUCTOR.
-	 * 
-	 * @throws IOException
-	 * @throws ParseException
-	 */
-	public JLoModelFactory(JLo language) throws IOException, ParseException {
-		super(language);
-	}
-	
-	
-	/**
-	 * Initialize a new Java model factory with the given collection of base classes.
-	 * All predefined elements of the language will be initialized. 
-	 */
-	public JLoModelFactory(Collection<File> base) throws IOException, ParseException {
-		this(new JLo(), base);
-	}
-	
-	//FIXME: Object and String must be parsed.
-	public JLoModelFactory(JLo language, Collection<File> base) throws IOException, ParseException {
-		super(language, base);
-	}
-
 	@Override
-  public ChameleonParser getParser(InputStream inputStream, String fileName) throws IOException {
+  public ChameleonParser getParser(InputStream inputStream) throws IOException {
     ANTLRInputStream input = new ANTLRInputStream(inputStream);
     JLoLexer lexer = new JLoLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -96,7 +72,7 @@ public class JLoModelFactory extends JavaModelFactory {
 		  InputStream inputStream = new StringBufferInputStream(text);
 		  Element result = null;
 		  if(element instanceof Member) {
-	  		Parser parser = (Parser)getParser(inputStream, "document");
+	  		Parser parser = (Parser)getParser(inputStream);
 	  		parser.setDocument(element.nearestAncestor(Document.class));
 				result = parser.memberDecl().element;
 			}

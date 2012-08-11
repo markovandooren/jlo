@@ -1,22 +1,20 @@
 package jlo.eclipse;
 
-import java.io.File;
 import java.io.IOException;
 
 import jlo.build.JLoBuilder;
-import jlo.input.JLoFactory;
-import jlo.input.JLoModelFactory;
 import jlo.model.language.JLo;
-import jlo.output.JLoSyntax;
+import jlo.model.language.JLoLanguageFactory;
+import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.language.Language;
+import chameleon.core.namespace.RootNamespace;
 import chameleon.eclipse.connector.EclipseBootstrapper;
 import chameleon.eclipse.connector.EclipseEditorExtension;
 import chameleon.exception.ChameleonProgrammerException;
-import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
-import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.build.Builder;
-import chameleon.plugin.output.Syntax;
+import chameleon.test.provider.DirectoryProjectBuilder;
+import chameleon.workspace.Project;
 
 
 public class Bootstrapper extends EclipseBootstrapper {
@@ -28,21 +26,20 @@ public class Bootstrapper extends EclipseBootstrapper {
 	}
 	
 	public Language createLanguage() throws IOException, ParseException {
-		ModelFactory factory = new JLoModelFactory();
-		JLo result = (JLo) factory.language();
-		factory.setLanguage(result, ModelFactory.class);
+		String extension = ".jlo";
+		JLo result = new JLoLanguageFactory().create();
+		
+		Project project = new Project("x", new RootNamespace(new SimpleNameSignature("")), result);
+		DirectoryProjectBuilder builder = new DirectoryProjectBuilder(project, extension);
+
 		try {
-			loadAPIFiles(".jlo", PLUGIN_ID, factory);
+			loadAPIFiles(extension, PLUGIN_ID, builder);
 		} catch(ChameleonProgrammerException exc) {
 			// Object and String may not be present yet.
 		}
 		result.setPlugin(EclipseEditorExtension.class, new JLoEditorExtension(getLanguageName()));
+		result.setPlugin(Builder.class, new JLoBuilder());
 		return result;
-	}
-
-	public Builder createBuilder(Language source, File projectDirectory) {
-		File outputDirectory = new File(projectDirectory.getAbsolutePath()+File.separator+"java");
-		return new JLoBuilder((JLo) source, outputDirectory);
 	}
 
 }

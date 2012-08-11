@@ -4,26 +4,26 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import chameleon.core.language.Language;
 import chameleon.exception.ModelException;
 import chameleon.oo.type.Type;
 import chameleon.plugin.output.Syntax;
 import chameleon.test.provider.ElementProvider;
+import chameleon.workspace.Project;
 
 public class TypeWriter {
 
-	public TypeWriter(Language language, ElementProvider<Type> typeProvider, File outputDir) {
+	public TypeWriter(Project project, ElementProvider<Type> typeProvider, File outputDir) {
 		super();
-		_language = language;
+		_project = project;
 		_typeProvider = typeProvider;
 		_outputDir = outputDir;
 	}
 
-	public Language language() {
-		return _language;
+	public Project project() {
+		return _project;
 	}
 	
-	private Language _language;
+	private Project _project;
 	
 	public ElementProvider<Type> typeProvider() {
 		return _typeProvider;
@@ -42,9 +42,9 @@ public class TypeWriter {
 	private File _outputDir;
 	
 	public void write() throws IOException, ModelException {
-    Syntax writer = language().plugin(Syntax.class);
+    Syntax writer = project().language().plugin(Syntax.class);
     int i = 1;
-    for(Type type:typeProvider().elements(language())) {
+    for(Type type:typeProvider().elements(project())) {
     	if(type.nearestAncestor(Type.class) == null) {
       String fileName = type.name()+".java";
       String packageFQN = type.namespace().getFullyQualifiedName();

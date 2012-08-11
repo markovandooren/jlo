@@ -5,9 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import jlo.build.JLoBuilder;
-import jlo.input.JLoFactory;
-import jlo.input.JLoModelFactory;
 import jlo.model.language.JLo;
+import jlo.model.language.JLoLanguageFactory;
 import jlo.model.type.RegularJLoType;
 
 import org.apache.log4j.BasicConfigurator;
@@ -17,35 +16,38 @@ import org.apache.log4j.Logger;
 import chameleon.core.Config;
 import chameleon.core.document.Document;
 import chameleon.core.namespace.Namespace;
+import chameleon.core.namespace.RootNamespace;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.input.ParseException;
-import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.oo.type.Type;
 import chameleon.support.tool.ModelBuilder;
 import chameleon.test.provider.BasicDescendantProvider;
+import chameleon.test.provider.DirectoryProjectBuilder;
 import chameleon.test.provider.ElementProvider;
+import chameleon.workspace.Project;
 
 public class BatchTranslator {
 
-	public BatchTranslator(JLo language, ElementProvider<Namespace> namespaceProvider, File outputDir) throws ParseException, IOException {
-		_sourceLanguage = language;
-		_sourceLanguage.setPlugin(ObjectOrientedFactory.class, new JLoFactory());
+	public BatchTranslator(Project project, ElementProvider<Namespace> namespaceProvider, File outputDir) throws ParseException, IOException {
+		_sourceProject = project;
 		_typeProvider = new BasicDescendantProvider<RegularJLoType>(namespaceProvider, RegularJLoType.class);
-		_builder = new JLoBuilder(_sourceLanguage, outputDir);
+		_builder = new JLoBuilder(_sourceProject);
+		_outputDir = outputDir;
 	}
 
+	private File _outputDir;
 	private JLoBuilder _builder;
 	
 	public JLoBuilder builder() {
 		return _builder;
 	}
 	
-	public JLo sourceLanguage() {
-		return _sourceLanguage;
+	public Project sourceProject() {
+		return _sourceProject;
 	}
 	
-	private JLo _sourceLanguage;
+	private Project _sourceProject;
 	
 	public ElementProvider<? extends Type> typeProvider() {
 		return _typeProvider;
@@ -60,7 +62,7 @@ public class BatchTranslator {
 			// aspect weaver does not know which compilation units are present in the project.
 			Document compilationUnit = type.nearestAncestor(Document.class);
 			compilationUnit.verify();
-			_builder.build(compilationUnit, new ArrayList<Document>());
+			_builder.build(compilationUnit, new ArrayList<Document>(),_outputDir);
 		}
 	}
 	
@@ -83,10 +85,13 @@ public class BatchTranslator {
     BasicConfigurator.configure();
     Logger.getRootLogger().setLevel(Level.FATAL);
     Config.setCaching(true);
-    ModelBuilder provider = new ModelBuilder(new JLoModelFactory(),args,".jlo",true,true);
+    String ext = ".jlo";
+		JLo language = new JLoLanguageFactory().create();
+		DirectoryProjectBuilder builder = new DirectoryProjectBuilder(new Project("copy test",new RootNamespace(),language),ext);
+    ModelBuilder provider = new ModelBuilder(builder,args,ext,true,true);
     File outputDir = provider.outputDir();
     long start = System.currentTimeMillis();
-    new BatchTranslator((JLo) provider.language(), provider.namespaceProvider(),outputDir).translate();
+    new BatchTranslator(builder.project(), provider.namespaceProvider(),outputDir).translate();
     long stop = System.currentTimeMillis();
     System.out.println("Translation took "+(stop - start) + " milliseconds.");
   }

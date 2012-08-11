@@ -13,23 +13,25 @@ import jnome.core.language.JavaLanguageFactory;
 import jnome.output.JavaCompilationUnitWriter;
 import chameleon.core.document.Document;
 import chameleon.core.language.Language;
+import chameleon.core.namespace.RootNamespace;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.plugin.Plugin;
 import chameleon.plugin.PluginImpl;
 import chameleon.plugin.build.BuildProgressHelper;
 import chameleon.plugin.build.Builder;
+import chameleon.plugin.build.CompilationUnitWriter;
 import chameleon.plugin.output.Syntax;
+import chameleon.workspace.Project;
 
 public class JLoBuilder extends PluginImpl implements Builder {
 	
-	public JLoBuilder(JLo source, File outputDir) {
-		this(outputDir);
-		setLanguage(source, Builder.class);
+	public JLoBuilder(Project project) {
+		setLanguage(project.language(), Builder.class);
 	}
 	
-	public JLoBuilder(File outputDir) {
-		_writer = new JavaCompilationUnitWriter(outputDir, ".java");
+	public JLoBuilder() {
+		
 	}	
 	
 	@Override
@@ -39,28 +41,24 @@ public class JLoBuilder extends PluginImpl implements Builder {
 		}
 		super.setLanguage(lang, pluginInterface);
 		Java target = new JavaLanguageFactory().create();
+		Project project = new Project("target", new RootNamespace(), target);
 		//		target.setPlugin(Syntax.class, new JavaCodeWriter());
 		target.setPlugin(Syntax.class, new JLoSyntax()); // DEBUG for viewing the intermediate steps, we attach the JLo syntax.
 		_translator = new IncrementalJavaTranslator((JLo) lang, target);
 	}
 
-  public JavaCompilationUnitWriter writer() {
-  	return _writer;
-  }
-
-	JavaCompilationUnitWriter _writer;
-
-	public void build(Document compilationUnit, List<Document> allProjectCompilationUnits) throws ModelException, IOException {
-		build(compilationUnit,allProjectCompilationUnits,null);
+	public void build(Document compilationUnit, List<Document> allProjectCompilationUnits, File outputDir) throws ModelException, IOException {
+		build(compilationUnit,allProjectCompilationUnits,outputDir,null);
 	}
 	
-	public void build(Document compilationUnit, List<Document> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException, IOException {
+	public void build(Document compilationUnit, List<Document> allProjectCompilationUnits, File outputDir, BuildProgressHelper buildProgressHelper) throws ModelException, IOException {
 		try {
-			String fileName = _writer.fileName(compilationUnit);
+			CompilationUnitWriter writer = new JavaCompilationUnitWriter(".java");
+			String fileName = writer.fileName(compilationUnit);
 			System.out.println("Building "+fileName);
 			Collection<Document> compilationUnits = _translator.build(compilationUnit, allProjectCompilationUnits,buildProgressHelper);
 			for(Document translated : compilationUnits) {
-				_writer.write(translated);
+				writer.write(translated,outputDir);
 			}
 		} catch(Error e) {
 			e.printStackTrace();
@@ -83,14 +81,14 @@ public class JLoBuilder extends PluginImpl implements Builder {
 
 	@Override
 	public Plugin clone() {
-		return new JLoBuilder(writer().outputDir());
+		return new JLoBuilder();
 	}
 
 	@Override
-	public void build(List<Document> compilationUnits, List<Document> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException,	IOException {
+	public void build(List<Document> compilationUnits, List<Document> allProjectCompilationUnits,	File outputDir, BuildProgressHelper buildProgressHelper) throws ModelException,	IOException {
 		for (Document cu : compilationUnits) {
 			buildProgressHelper.checkForCancellation();
-			build(cu, allProjectCompilationUnits,buildProgressHelper);
+			build(cu, allProjectCompilationUnits,outputDir,buildProgressHelper);
 			buildProgressHelper.addWorked(1);
 		}
 	}
