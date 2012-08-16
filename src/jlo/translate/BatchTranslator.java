@@ -23,8 +23,8 @@ import chameleon.input.ParseException;
 import chameleon.oo.type.Type;
 import chameleon.support.tool.ModelBuilder;
 import chameleon.test.provider.BasicDescendantProvider;
-import chameleon.test.provider.DirectoryProjectBuilder;
 import chameleon.test.provider.ElementProvider;
+import chameleon.workspace.DirectoryProjectBuilder;
 import chameleon.workspace.Project;
 
 public class BatchTranslator {
