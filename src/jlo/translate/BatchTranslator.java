@@ -24,7 +24,7 @@ import chameleon.oo.type.Type;
 import chameleon.support.tool.ModelBuilder;
 import chameleon.test.provider.BasicDescendantProvider;
 import chameleon.test.provider.ElementProvider;
-import chameleon.workspace.DirectoryProjectBuilder;
+import chameleon.workspace.DirectoryLoader;
 import chameleon.workspace.Project;
 
 public class BatchTranslator {
@@ -87,7 +87,7 @@ public class BatchTranslator {
     Config.setCaching(true);
     String ext = ".jlo";
 		JLo language = new JLoLanguageFactory().create();
-		DirectoryProjectBuilder builder = new DirectoryProjectBuilder(new Project("copy test",new RootNamespace(),language),ext);
+		DirectoryLoader builder = new DirectoryLoader(new Project("copy test",new RootNamespace(),language),ext);
     ModelBuilder provider = new ModelBuilder(builder,args,ext,true,true);
     File outputDir = provider.outputDir();
     long start = System.currentTimeMillis();

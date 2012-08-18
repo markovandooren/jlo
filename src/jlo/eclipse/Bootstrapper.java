@@ -13,7 +13,7 @@ import chameleon.eclipse.connector.EclipseEditorExtension;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ParseException;
 import chameleon.plugin.build.Builder;
-import chameleon.workspace.DirectoryProjectBuilder;
+import chameleon.workspace.DirectoryLoader;
 import chameleon.workspace.Project;
 
 
@@ -30,7 +30,7 @@ public class Bootstrapper extends EclipseBootstrapper {
 		JLo result = new JLoLanguageFactory().create();
 		
 		Project project = new Project("x", new RootNamespace(new SimpleNameSignature("")), result);
-		DirectoryProjectBuilder builder = new DirectoryProjectBuilder(project, extension);
+		DirectoryLoader builder = new DirectoryLoader(project, extension);
 
 		try {
 			loadAPIFiles(extension, PLUGIN_ID, builder);
