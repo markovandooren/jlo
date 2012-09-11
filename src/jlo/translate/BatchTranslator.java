@@ -8,6 +8,7 @@ import jlo.build.JLoBuilder;
 import jlo.model.language.JLo;
 import jlo.model.language.JLoLanguageFactory;
 import jlo.model.type.RegularJLoType;
+import jnome.input.LazyJavaFileInputSourceFactory;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Level;
@@ -15,10 +16,12 @@ import org.apache.log4j.Logger;
 
 import chameleon.core.Config;
 import chameleon.core.document.Document;
+import chameleon.core.namespace.LazyNamespaceFactory;
 import chameleon.core.namespace.Namespace;
 import chameleon.core.namespace.RootNamespace;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
+import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
 import chameleon.oo.type.Type;
 import chameleon.support.tool.ModelBuilder;
@@ -87,11 +90,12 @@ public class BatchTranslator {
     Config.setCaching(true);
     String ext = ".jlo";
 		JLo language = new JLoLanguageFactory().create();
-		DirectoryLoader builder = new DirectoryLoader(new Project("copy test",new RootNamespace(),language),ext);
-    ModelBuilder provider = new ModelBuilder(builder,args,ext,true,true);
+		ModelFactory modelFactory = language.plugin(ModelFactory.class);
+		Project project = new Project("copy test",new RootNamespace(new LazyNamespaceFactory()),language);
+    ModelBuilder provider = new ModelBuilder(project,args,ext,true,true, new LazyJavaFileInputSourceFactory(modelFactory));
     File outputDir = provider.outputDir();
     long start = System.currentTimeMillis();
-    new BatchTranslator(builder.project(), provider.namespaceProvider(),outputDir).translate();
+    new BatchTranslator(project, provider.namespaceProvider(),outputDir).translate();
     long stop = System.currentTimeMillis();
     System.out.println("Translation took "+(stop - start) + " milliseconds.");
   }
