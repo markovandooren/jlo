@@ -24,12 +24,12 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
 	}
 	
 	public IncrementalJavaTranslator(JLo source) {
-		this(source,createJava());
+		this(source,createJava(source));
 	}
 	
-	private static Java createJava() {
+	private static Java createJava(Java source) {
 		Java result = new JavaLanguageFactory().create();
-		Project project = new Project("clone", new RootNamespace(), result);
+		Project project = new Project("clone", (RootNamespace) source.defaultNamespace().clone(), result);
 		return result;
 	}
 

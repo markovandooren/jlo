@@ -41,7 +41,7 @@ public class JLoBuilder extends PluginImpl implements Builder {
 		}
 		super.setLanguage(lang, pluginInterface);
 		Java target = new JavaLanguageFactory().create();
-		Project project = new Project("target", new RootNamespace(), target);
+		Project project = new Project("target", (RootNamespace) lang.defaultNamespace().clone(), target);
 		//		target.setPlugin(Syntax.class, new JavaCodeWriter());
 		target.setPlugin(Syntax.class, new JLoSyntax()); // DEBUG for viewing the intermediate steps, we attach the JLo syntax.
 		_translator = new IncrementalJavaTranslator((JLo) lang, target);
