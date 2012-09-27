@@ -91,7 +91,7 @@ public class BatchTranslator {
     String ext = ".jlo";
 		JLo language = new JLoLanguageFactory().create();
 		ModelFactory modelFactory = language.plugin(ModelFactory.class);
-		Project project = new Project("copy test",new RootNamespace(new LazyNamespaceFactory()),language);
+		Project project = new Project("copy test",new RootNamespace(new LazyNamespaceFactory()),language, new File("."));
     ModelBuilder provider = new ModelBuilder(project,args,ext,true,true, new LazyJavaFileInputSourceFactory(modelFactory));
     File outputDir = provider.outputDir();
     long start = System.currentTimeMillis();

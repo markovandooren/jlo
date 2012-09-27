@@ -29,7 +29,7 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
 	
 	private static Java createJava(Java source) {
 		Java result = new JavaLanguageFactory().create();
-		Project project = new Project("clone", (RootNamespace) source.defaultNamespace().clone(), result);
+		Project project = new Project("clone", (RootNamespace) source.defaultNamespace().clone(), result, source.project().ro ot());
 		return result;
 	}
 
