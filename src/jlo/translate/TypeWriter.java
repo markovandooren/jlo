@@ -9,21 +9,22 @@ import chameleon.oo.type.Type;
 import chameleon.plugin.output.Syntax;
 import chameleon.test.provider.ElementProvider;
 import chameleon.workspace.Project;
+import chameleon.workspace.View;
 
 public class TypeWriter {
 
-	public TypeWriter(Project project, ElementProvider<Type> typeProvider, File outputDir) {
+	public TypeWriter(View view, ElementProvider<Type> typeProvider, File outputDir) {
 		super();
-		_project = project;
+		_view = view;
 		_typeProvider = typeProvider;
 		_outputDir = outputDir;
 	}
 
-	public Project project() {
-		return _project;
+	public View view() {
+		return _view;
 	}
 	
-	private Project _project;
+	private View _view;
 	
 	public ElementProvider<Type> typeProvider() {
 		return _typeProvider;
@@ -42,9 +43,9 @@ public class TypeWriter {
 	private File _outputDir;
 	
 	public void write() throws IOException, ModelException {
-    Syntax writer = project().language().plugin(Syntax.class);
+    Syntax writer = view().language().plugin(Syntax.class);
     int i = 1;
-    for(Type type:typeProvider().elements(project())) {
+    for(Type type:typeProvider().elements(view())) {
     	if(type.nearestAncestor(Type.class) == null) {
       String fileName = type.name()+".java";
       String packageFQN = type.namespace().getFullyQualifiedName();

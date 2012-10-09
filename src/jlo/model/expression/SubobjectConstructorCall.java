@@ -62,7 +62,7 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 
 	@Override
 	protected Type actualType() throws LookupException {
-		return language(ObjectOrientedLanguage.class).voidType();
+		return language(ObjectOrientedLanguage.class).voidType(view().namespace());
 	}
 	
   public class ConstructorSelector extends TwoPhaseDeclarationSelector<NormalMethod> {
@@ -75,7 +75,6 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 		public boolean selectedBasedOnName(Signature signature) throws LookupException {
     	boolean result = false;
 			if(signature instanceof DeclarationWithParametersSignature) {
-				DeclarationWithParametersSignature sig = (DeclarationWithParametersSignature)signature;
 				List<Type> actuals = getActualParameterTypes();
 				List<Type> formals = ((DeclarationWithParametersSignature)signature).parameterTypes();
 				if (MoreSpecificTypesOrder.create().contains(actuals, formals)) {

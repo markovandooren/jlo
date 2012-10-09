@@ -19,20 +19,20 @@ import chameleon.workspace.View;
 
 public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> {
 
-	public IncrementalJavaTranslator(JLo source, Java target) {
+	public IncrementalJavaTranslator(View source, View target) {
 		super(source, target);
 		_translator = new JavaTranslator();
 	}
 	
-	public IncrementalJavaTranslator(JLo source) {
-		this(source,createJava(source));
-	}
+//	public IncrementalJavaTranslator(JLo source) {
+//		this(source,createJava(source));
+//	}
 	
-	private static Java createJava(View source) {
-		Java result = new JavaLanguageFactory().create();
-		Project project = new Project("clone", (RootNamespace) source.namespace().clone(), result, source.project().ro ot());
-		return result;
-	}
+//	private static Java createJava(View source) {
+//		Java result = new JavaLanguageFactory().create();
+//		Project project = new Project("clone", (RootNamespace) source.namespace().clone(), result, source.project().ro ot());
+//		return result;
+//	}
 
 	private JavaTranslator _translator;
 	

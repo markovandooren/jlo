@@ -5,7 +5,9 @@ import java.util.List;
 import jlo.model.type.JLoCapturedType;
 import jlo.model.type.JLoDerivedType;
 import jnome.core.language.Java;
-import chameleon.core.language.Language;
+
+import org.rejuse.junit.BasicRevision;
+
 import chameleon.core.lookup.LookupException;
 import chameleon.core.relation.StrictPartialOrder;
 import chameleon.oo.member.Member;
@@ -14,7 +16,6 @@ import chameleon.oo.type.Parameter;
 import chameleon.oo.type.ParameterSubstitution;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.generics.ActualTypeArgument;
-import chameleon.workspace.Project;
 
 public class JLo extends Java {
 
@@ -23,7 +24,7 @@ public class JLo extends Java {
 	}
 
 	protected JLo(String name) {
-		super(name);
+		super(name, new BasicRevision(0,1,0));
 	}
 
 //	@Override

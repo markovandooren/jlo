@@ -2,7 +2,6 @@ package jlo.translate;
 
 import java.util.List;
 
-import jnome.core.expression.invocation.NonLocalJavaTypeReference;
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
 
@@ -18,7 +17,6 @@ import chameleon.exception.ModelException;
 import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.method.Method;
 import chameleon.oo.type.BasicTypeReference;
-import chameleon.oo.type.NonLocalTypeReference;
 import chameleon.oo.type.ParameterBlock;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeElement;
@@ -41,7 +39,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 
 			Type implementationType = original.namespacePart(1).declarations(Type.class).get(0);
 			if(splitClass(implementationType)) {
-				interfaceCompilationUnit = implementation.cloneTo(implementation.language());
+				interfaceCompilationUnit = implementation.cloneTo(implementation.view());
 				NamespaceDeclaration interfaceNamespacePart = interfaceCompilationUnit.namespacePart(1);
 				Type interfaceType = interfaceNamespacePart.declarations(Type.class).get(0);
 				interfaceType.addModifier(new Interface());

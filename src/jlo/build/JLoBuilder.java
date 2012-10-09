@@ -13,7 +13,7 @@ import jnome.core.language.JavaLanguageFactory;
 import jnome.output.JavaCompilationUnitWriter;
 import chameleon.core.document.Document;
 import chameleon.core.language.Language;
-import chameleon.core.namespace.RootNamespace;
+import chameleon.core.namespace.LazyRootNamespace;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.plugin.Plugin;
@@ -22,12 +22,19 @@ import chameleon.plugin.build.BuildProgressHelper;
 import chameleon.plugin.build.Builder;
 import chameleon.plugin.build.CompilationUnitWriter;
 import chameleon.plugin.output.Syntax;
-import chameleon.workspace.Project;
+import chameleon.workspace.View;
 
 public class JLoBuilder extends PluginImpl implements Builder {
 	
-	public JLoBuilder(Project project) {
-		setLanguage(project.language(), Builder.class);
+	public JLoBuilder(View view) {
+		_view = view;
+		setLanguage(view.language(), Builder.class);
+	}
+	
+	private View _view;
+	
+	public View view() {
+		return _view;
 	}
 	
 	public JLoBuilder() {
@@ -41,10 +48,10 @@ public class JLoBuilder extends PluginImpl implements Builder {
 		}
 		super.setLanguage(lang, pluginInterface);
 		Java target = new JavaLanguageFactory().create();
-		Project project = new Project("target", (RootNamespace) lang.defaultNamespace().clone(), target,lang.proje ct().root());
+		View targetView = new View(new LazyRootNamespace(), target);
 		//		target.setPlugin(Syntax.class, new JavaCodeWriter());
 		target.setPlugin(Syntax.class, new JLoSyntax()); // DEBUG for viewing the intermediate steps, we attach the JLo syntax.
-		_translator = new IncrementalJavaTranslator((JLo) lang, target);
+		_translator = new IncrementalJavaTranslator(view(), targetView);
 	}
 
 	public void build(Document compilationUnit, List<Document> allProjectCompilationUnits, File outputDir) throws ModelException, IOException {
@@ -69,12 +76,12 @@ public class JLoBuilder extends PluginImpl implements Builder {
 		}
 	}
 
-	public Language targetLanguage() {
-		return _translator.targetLanguage();
+	public View target() {
+		return _translator.target();
 	}
 
-	public Language sourceLanguage() {
-		return _translator.sourceLanguage();
+	public View source() {
+		return _translator.source();
 	}
 
 	private IncrementalJavaTranslator _translator;

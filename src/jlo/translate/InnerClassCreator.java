@@ -18,6 +18,7 @@ import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.modifier.Modifier;
+import chameleon.core.namespace.RootNamespace;
 import chameleon.core.namespacedeclaration.NamespaceDeclaration;
 import chameleon.core.reference.SimpleReference;
 import chameleon.core.tag.TagImpl;
@@ -31,12 +32,13 @@ import chameleon.oo.type.BasicTypeReference;
 import chameleon.oo.type.RegularType;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
-import chameleon.oo.type.generics.InstantiatedParameterType;
 import chameleon.oo.type.generics.ActualTypeArgument;
+import chameleon.oo.type.generics.InstantiatedParameterType;
 import chameleon.oo.type.inheritance.SubtypeRelation;
 import chameleon.support.member.simplename.method.NormalMethod;
 import chameleon.support.statement.StatementExpression;
 import chameleon.util.Util;
+import chameleon.workspace.View;
 
 public class InnerClassCreator extends AbstractTranslator {
 	
@@ -75,7 +77,8 @@ public class InnerClassCreator extends AbstractTranslator {
 //	}
 
 	private List<TypeReference> superClassReferences(ComponentRelation relation, Type context) throws LookupException {
-		Java language = relation.language(Java.class);
+		View view = relation.view();
+		Java language = view.language(Java.class);
 		List<TypeReference> result = new ArrayList<TypeReference>();
 		TypeReference superReference = relation.componentTypeReference().clone();
 		superReference.setUniParent(relation);
@@ -83,6 +86,7 @@ public class InnerClassCreator extends AbstractTranslator {
 		Type parent = relation.nearestAncestor(Type.class);
 		Type type = superReference.getType();
 		String superTypeName = type.getFullyQualifiedName();
+		RootNamespace namespace = view.namespace();
 		boolean toImpl = false;
 		if(isJLo(parent) && ! splitClass(parent)) {
 			toImpl = true;
@@ -102,7 +106,7 @@ public class InnerClassCreator extends AbstractTranslator {
 			//		TypeReference nonLocalTref = language.createNonLocalTypeReference(tref, tref.getElement());
 			//		nonLocalTref.parentLink().connectTo(parentLink);
 		}
-		TypeReference nonLocal = language.createNonLocalTypeReference(expandedSuperTypeReference, language.defaultNamespace());
+		TypeReference nonLocal = language.createNonLocalTypeReference(expandedSuperTypeReference, namespace);
 		superReference.setUniParent(null);
 
 		//	result.add(superReference);
@@ -130,7 +134,7 @@ public class InnerClassCreator extends AbstractTranslator {
 				tref = language.createTypeReference(fqn);
 			}
 			if(! doneFQNs.contains(fqn)) {
-				result.tryToAdd(language.createNonLocalTypeReference(tref, language.defaultNamespace()));
+				result.add(language.createNonLocalTypeReference(tref, namespace));
 				doneFQNs.add(fqn);
 			}
 		}

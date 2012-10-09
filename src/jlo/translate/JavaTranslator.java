@@ -89,6 +89,7 @@ import chameleon.support.modifier.Constructor;
 import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
+import chameleon.workspace.View;
 
 public class JavaTranslator extends AbstractTranslator {
 	
@@ -907,7 +908,8 @@ public class JavaTranslator extends AbstractTranslator {
 
 	private Method createOutward(Method method, String newName, String className) throws LookupException {
 		NormalMethod result;
-		Java java = method.language(Java.class);
+		View view = method.view();
+		Java java = view.language(Java.class);
 		if(//(method.is(method.language(ObjectOrientedLanguage.class).DEFINED) == Ternary.TRUE) && 
 			 (method.is(java.OVERRIDABLE) == Ternary.TRUE)) {
 			result = innerMethod(method, method.name());
@@ -915,7 +917,7 @@ public class JavaTranslator extends AbstractTranslator {
 			result.setImplementation(new RegularImplementation(body));
 			MethodInvocation invocation = invocation(result, newName);
 			TypeReference ref = java.createTypeReference(className);
-			ref = java.createNonLocalTypeReference(ref, java.defaultNamespace());
+			ref = java.createNonLocalTypeReference(ref, view.namespace());
 			ThisLiteral target = new ThisLiteral(ref);
 			invocation.setTarget(target);
 			substituteTypeParameters(method, result);

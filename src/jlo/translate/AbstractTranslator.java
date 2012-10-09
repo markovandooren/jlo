@@ -49,6 +49,7 @@ import chameleon.support.modifier.Public;
 import chameleon.support.statement.ReturnStatement;
 import chameleon.support.statement.StatementExpression;
 import chameleon.util.Util;
+import chameleon.workspace.View;
 
 public class AbstractTranslator {
 
@@ -295,7 +296,8 @@ public class AbstractTranslator {
 	}
 
 	protected void addImplementation(Method method, Block body, MethodInvocation invocation) throws LookupException {
-		if(method.returnType().equals(method.language(Java.class).voidType())) {
+		View view = method.view();
+		if(method.returnType().equals(view.language(Java.class).voidType(view.namespace()))) {
 			body.addStatement(new StatementExpression(invocation));
 		} else {
 			body.addStatement(new ReturnStatement(invocation));
@@ -345,7 +347,7 @@ public class AbstractTranslator {
 		Set<Type> types = type.getAllSuperTypes();
 		boolean result = false;
 		ObjectOrientedLanguage lang = type.language(ObjectOrientedLanguage.class);
-		Type object = lang.findType("java.lang.Object");
+		Type object = lang.findType("java.lang.Object", type.view().namespace());
 		for(Type superType: types) {
 			if(superType != object && !isJLo(superType) && ! superType.isTrue(lang.INTERFACE)) {
 				result = true;

@@ -25,6 +25,7 @@ import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.output.Syntax;
 import chameleon.support.input.ChameleonParser;
 import chameleon.support.input.ModelFactoryUsingANTLR;
+import chameleon.workspace.View;
 
 public class JLoModelFactory extends JavaModelFactory {
 
@@ -42,12 +43,12 @@ public class JLoModelFactory extends JavaModelFactory {
 	}
 	
 	@Override
-  public ChameleonParser getParser(InputStream inputStream) throws IOException {
+  public ChameleonParser getParser(InputStream inputStream,View view) throws IOException {
     ANTLRInputStream input = new ANTLRInputStream(inputStream);
     JLoLexer lexer = new JLoLexer(input);
     CommonTokenStream tokens = new CommonTokenStream(lexer);
     JLoParser parser = new Parser(tokens);
-    parser.setLanguage((ObjectOrientedLanguage) language());
+    parser.setView(view);
     return parser;
   }
 	
@@ -72,7 +73,7 @@ public class JLoModelFactory extends JavaModelFactory {
 		  InputStream inputStream = new StringBufferInputStream(text);
 		  Element result = null;
 		  if(element instanceof Member) {
-	  		Parser parser = (Parser)getParser(inputStream);
+	  		Parser parser = (Parser)getParser(inputStream, element.view());
 	  		parser.setDocument(element.nearestAncestor(Document.class));
 				result = parser.memberDecl().element;
 			}

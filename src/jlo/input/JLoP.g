@@ -12,13 +12,17 @@ import JavaP;
 @members{
 
   @Override
-  public void setLanguage(Language language) {
-    gJavaP.setLanguage(language);
+  public void setView(View view) {
+    gJavaP.setView(view);
   }
   
   @Override
+  public View view() {
+    return gJavaP.view();
+  }
+  
   public Language language() {
-    return gJavaP.language();
+    return view().language();
   }
   
   public Document getDocument() {

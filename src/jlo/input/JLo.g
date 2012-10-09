@@ -10,6 +10,7 @@ import JLoP,JLoL;
 @header {
 package jlo.input;
 
+import chameleon.workspace.*;
 import chameleon.exception.ModelException;
 import chameleon.exception.ChameleonProgrammerException;
 
@@ -229,13 +230,16 @@ import java.util.ArrayList;
 @members{
 
   @Override
-  public void setLanguage(Language language) {
-    gJLoP.setLanguage(language);
+  public void setView(View view) {
+    gJLoP.setView(view);
   }
-  
-  @Override
+
+  public View view() {
+    return   gJLoP.view();
+  }
+
   public Language language() {
-    return gJLoP.language();
+    return view().language();
   }
   
   public Document getDocument() {
