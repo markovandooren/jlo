@@ -130,7 +130,7 @@ public class InnerClassCreator extends AbstractTranslator {
 				tref = language.createTypeReference(fqn);
 			}
 			if(! doneFQNs.contains(fqn)) {
-				result.add(language.createNonLocalTypeReference(tref, language.defaultNamespace()));
+				result.tryToAdd(language.createNonLocalTypeReference(tref, language.defaultNamespace()));
 				doneFQNs.add(fqn);
 			}
 		}

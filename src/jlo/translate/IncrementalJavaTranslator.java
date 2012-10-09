@@ -15,6 +15,7 @@ import chameleon.exception.ModelException;
 import chameleon.plugin.build.BuildProgressHelper;
 import chameleon.support.translate.IncrementalTranslator;
 import chameleon.workspace.Project;
+import chameleon.workspace.View;
 
 public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> {
 
@@ -27,9 +28,9 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
 		this(source,createJava(source));
 	}
 	
-	private static Java createJava(Java source) {
+	private static Java createJava(View source) {
 		Java result = new JavaLanguageFactory().create();
-		Project project = new Project("clone", (RootNamespace) source.defaultNamespace().clone(), result, source.project().ro ot());
+		Project project = new Project("clone", (RootNamespace) source.namespace().clone(), result, source.project().ro ot());
 		return result;
 	}
 

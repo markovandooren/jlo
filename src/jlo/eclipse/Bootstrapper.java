@@ -5,7 +5,7 @@ import java.io.IOException;
 import jlo.build.JLoBuilder;
 import jlo.model.language.JLo;
 import jlo.model.language.JLoLanguageFactory;
-import jnome.input.JavaFileInputSourceFactory;
+import jnome.input.EagerJavaFileInputSourceFactory;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.language.Language;
 import chameleon.core.namespace.RegularNamespaceFactory;
@@ -34,7 +34,7 @@ public class Bootstrapper extends EclipseBootstrapper {
 		JLo result = new JLoLanguageFactory().create();
 		
 		Project project = new Project("Chameleon Eclipse project", new RootNamespace(new RegularNamespaceFactory()), result);
-		JavaFileInputSourceFactory factory = new JavaFileInputSourceFactory(result.plugin(ModelFactory.class));
+		EagerJavaFileInputSourceFactory factory = new EagerJavaFileInputSourceFactory(result.plugin(ModelFactory.class));
 		project.addSource(new DirectoryLoader(extension,null, factory));
 		try {
 			loadAPIFiles(extension, PLUGIN_ID, project, factory);
