@@ -12,41 +12,32 @@ import jnome.core.language.Java;
 import jnome.core.language.JavaLanguageFactory;
 import jnome.output.JavaCompilationUnitWriter;
 import chameleon.core.document.Document;
-import chameleon.core.language.Language;
 import chameleon.core.namespace.LazyRootNamespace;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
-import chameleon.plugin.Plugin;
-import chameleon.plugin.PluginImpl;
+import chameleon.plugin.ViewPlugin;
+import chameleon.plugin.ViewPluginImpl;
 import chameleon.plugin.build.BuildProgressHelper;
 import chameleon.plugin.build.Builder;
 import chameleon.plugin.build.CompilationUnitWriter;
 import chameleon.plugin.output.Syntax;
 import chameleon.workspace.View;
 
-public class JLoBuilder extends PluginImpl implements Builder {
+public class JLoBuilder extends ViewPluginImpl implements Builder {
 	
 	public JLoBuilder(View view) {
-		_view = view;
-		setLanguage(view.language(), Builder.class);
+		setContainer(view, Builder.class);
 	}
 	
-	private View _view;
-	
-	public View view() {
-		return _view;
+	private JLoBuilder() {
 	}
-	
-	public JLoBuilder() {
-		
-	}	
 	
 	@Override
-	public <T extends Plugin> void setLanguage(Language lang, Class<T> pluginInterface) {
-		if(! (lang instanceof JLo)) {
+	public <T extends ViewPlugin> void setContainer(View view, Class<T> pluginInterface) {
+		if(! (view.language() instanceof JLo)) {
 			throw new ChameleonProgrammerException();
 		}
-		super.setLanguage(lang, pluginInterface);
+		super.setContainer(view, pluginInterface);
 		Java target = new JavaLanguageFactory().create();
 		View targetView = new View(new LazyRootNamespace(), target);
 		//		target.setPlugin(Syntax.class, new JavaCodeWriter());
@@ -87,7 +78,7 @@ public class JLoBuilder extends PluginImpl implements Builder {
 	private IncrementalJavaTranslator _translator;
 
 	@Override
-	public Plugin clone() {
+	public JLoBuilder clone() {
 		return new JLoBuilder();
 	}
 

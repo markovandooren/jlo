@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import jlo.build.JLoBuilder;
 import jlo.model.component.ComponentRelation;
 import jlo.model.component.InstantiatedMemberSubobjectParameter;
 import jlo.model.component.MultiFormalComponentParameter;
@@ -12,7 +13,7 @@ import jnome.eclipse.JavaEditorExtension;
 import chameleon.eclipse.presentation.treeview.CompositeIconProvider;
 import chameleon.eclipse.presentation.treeview.DefaultIconProvider;
 import chameleon.eclipse.presentation.treeview.IconProvider;
-import chameleon.plugin.Plugin;
+import chameleon.workspace.View;
 
 public class JLoEditorExtension extends JavaEditorExtension {
 
@@ -74,12 +75,17 @@ public class JLoEditorExtension extends JavaEditorExtension {
 	}
 	
 	@Override
-	public Plugin clone() {
+	public JLoEditorExtension clone() {
 		return new JLoEditorExtension(languageName());
 	}
 
 	@Override
 	public File buildDirectory(File projectRoot) {
 		return new File(projectRoot.getAbsolutePath()+File.separator+"java");
+	}
+	
+	@Override
+	public void initialize(View view) {
+		new JLoBuilder(view);
 	}
 }
