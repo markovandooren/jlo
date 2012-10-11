@@ -3,17 +3,15 @@ package jlo.model.type;
 import java.util.List;
 
 import jlo.model.component.ComponentRelation;
-
-
+import jnome.core.type.JavaDerivedType;
 import chameleon.core.lookup.LookupException;
-import chameleon.oo.type.DerivedType;
 import chameleon.oo.type.Parameter;
 import chameleon.oo.type.ParameterSubstitution;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.generics.ActualTypeArgument;
 import chameleon.oo.type.inheritance.InheritanceRelation;
 
-public class JLoDerivedType extends DerivedType {
+public class JLoDerivedType extends JavaDerivedType {
 
 	public <P extends Parameter> JLoDerivedType(Class<P> kind, List<P> parameters, Type baseType) {
 		super(kind,parameters,baseType);
