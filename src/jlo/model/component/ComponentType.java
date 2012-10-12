@@ -95,6 +95,12 @@ public class ComponentType extends AnonymousType {
 			return new ArrayList<D>();//FIXME I think this is wrong and should look for deeper nested declarations.
 		}
 	}
+
+	@Override
+	public Type erasure() {
+		// I am not sure whether this is correct. The memberInheritanceRelations are not erased in RawType.
+		return this;
+	}
 	
 //	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
 //		List<D> result = new ArrayList<D>();
