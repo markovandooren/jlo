@@ -22,7 +22,6 @@ import chameleon.oo.member.HidesRelation;
 import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.member.OverridesRelation;
-import chameleon.oo.statement.CheckedExceptionList;
 import chameleon.oo.type.DeclarationWithType;
 import chameleon.oo.type.Parameter;
 import chameleon.oo.type.Type;

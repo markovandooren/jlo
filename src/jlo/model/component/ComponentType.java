@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import jnome.core.language.Java;
 import jnome.core.type.AnonymousType;
+import jnome.core.type.JavaType;
+import jnome.core.type.RawType;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.lookup.Stub;
+import chameleon.core.reference.SimpleReference;
+import chameleon.exception.ChameleonProgrammerException;
 import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
 import chameleon.oo.type.ClassBody;
 import chameleon.oo.type.Type;
 import chameleon.oo.type.TypeReference;
 import chameleon.oo.type.inheritance.InheritanceRelation;
-import chameleon.oo.type.inheritance.SubtypeRelation;
-import chameleon.util.Util;
 
 public class ComponentType extends AnonymousType {
 
@@ -98,8 +100,39 @@ public class ComponentType extends AnonymousType {
 
 	@Override
 	public Type erasure() {
+		Element el = farthestOrigin();
+		if(el != this) {
+			return ((JavaType)el).erasure();
+		}
 		// I am not sure whether this is correct. The memberInheritanceRelations are not erased in RawType.
-		return this;
+		Java language = language(Java.class);
+					Type outmostType = farthestAncestor(chameleon.oo.type.Type.class);
+					if(outmostType == null) {
+						outmostType = this;
+					}
+					RawType outer;
+					if(outmostType instanceof RawType) {
+						outer = (RawType) outmostType;
+					} else {
+						outer = new RawType(outmostType);
+					}
+					RawType current = outer;
+					List<Type> outerTypes = ancestors(Type.class);
+					outerTypes.add(0, this);
+
+					int size = outerTypes.size();
+					for(int i = size - 2; i>=0;i--) {
+						SimpleReference<RawType> simpleRef = new SimpleReference<RawType>(outerTypes.get(i).signature().name(), RawType.class);
+						simpleRef.setUniParent(current);
+						try {
+							current = simpleRef.getElement();
+						} catch (LookupException e) {
+							e.printStackTrace();
+							throw new ChameleonProgrammerException("An inner type of a newly created outer raw type cannot be found",e);
+						}
+					}
+					RawType result = current;
+		  return result;	
 	}
 	
 //	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {

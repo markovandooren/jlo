@@ -7,14 +7,11 @@ import java.util.Map;
 
 import jlo.model.language.JLo;
 import jnome.core.language.Java;
-import jnome.core.language.JavaLanguageFactory;
 import chameleon.core.document.Document;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.namespace.RootNamespace;
 import chameleon.exception.ModelException;
 import chameleon.plugin.build.BuildProgressHelper;
 import chameleon.support.translate.IncrementalTranslator;
-import chameleon.workspace.Project;
 import chameleon.workspace.View;
 
 public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> {

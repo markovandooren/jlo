@@ -2,7 +2,6 @@ package jlo.model.type;
 
 import java.util.List;
 
-
 import jlo.model.component.ComponentRelation;
 import jnome.core.type.CapturedType;
 import chameleon.core.lookup.LookupException;

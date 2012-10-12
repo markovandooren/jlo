@@ -6,10 +6,8 @@ import java.util.List;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.lookup.Stub;
 import chameleon.oo.member.Member;
 import chameleon.oo.member.MemberRelationSelector;
-import chameleon.oo.type.Type;
 import chameleon.util.Util;
 
 public class RenamingClause extends AbstractClause {

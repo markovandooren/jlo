@@ -1,9 +1,5 @@
 package jlo.model.expression;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import chameleon.core.element.Element;
 import chameleon.core.element.ElementImpl;
 import chameleon.core.lookup.LocalLookupStrategy;
 import chameleon.core.lookup.LookupException;

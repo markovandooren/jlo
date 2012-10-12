@@ -5,11 +5,9 @@ import java.util.List;
 
 import org.rejuse.predicate.UnsafePredicate;
 
-import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;
-import chameleon.core.lookup.Stub;
 import chameleon.core.validation.BasicProblem;
 import chameleon.core.validation.VerificationResult;
 import chameleon.oo.member.Member;

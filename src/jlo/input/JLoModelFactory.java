@@ -1,10 +1,8 @@
 package jlo.input;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
-import java.util.Collection;
 
 import jlo.model.language.JLo;
 import jnome.input.JavaModelFactory;
@@ -19,7 +17,6 @@ import chameleon.core.element.Element;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
-import chameleon.oo.language.ObjectOrientedLanguage;
 import chameleon.oo.member.Member;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.output.Syntax;

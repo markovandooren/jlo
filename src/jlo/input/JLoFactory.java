@@ -1,9 +1,9 @@
 package jlo.input;
 
-import chameleon.core.declaration.SimpleNameSignature;
-import chameleon.oo.type.RegularType;
 import jlo.model.type.RegularJLoType;
 import jnome.input.JavaFactory;
+import chameleon.core.declaration.SimpleNameSignature;
+import chameleon.oo.type.RegularType;
 
 public class JLoFactory extends JavaFactory {
 

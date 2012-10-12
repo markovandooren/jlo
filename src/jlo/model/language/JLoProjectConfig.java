@@ -2,10 +2,10 @@ package jlo.model.language;
 
 import java.io.File;
 
+import jnome.workspace.JavaProjectConfig;
 import chameleon.workspace.ConfigException;
 import chameleon.workspace.FileInputSourceFactory;
 import chameleon.workspace.View;
-import jnome.workspace.JavaProjectConfig;
 
 public class JLoProjectConfig extends JavaProjectConfig {
 

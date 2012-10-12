@@ -24,7 +24,6 @@ import chameleon.core.lookup.LookupException;
 import chameleon.oo.expression.Expression;
 import chameleon.oo.expression.NamedTargetExpression;
 import chameleon.oo.member.Member;
-import chameleon.oo.member.SimpleNameDeclarationWithParametersHeader;
 import chameleon.oo.method.Method;
 import chameleon.oo.method.MethodHeader;
 import chameleon.oo.method.RegularImplementation;

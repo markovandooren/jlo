@@ -5,7 +5,6 @@ import java.net.URL;
 import jlo.input.JLoFactory;
 import jlo.input.JLoModelFactory;
 import jlo.output.JLoSyntax;
-import jnome.workspace.JavaConfigLoader;
 import chameleon.input.ModelFactory;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.output.Syntax;

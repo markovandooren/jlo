@@ -8,7 +8,6 @@ import chameleon.exception.ModelException;
 import chameleon.oo.type.Type;
 import chameleon.plugin.output.Syntax;
 import chameleon.test.provider.ElementProvider;
-import chameleon.workspace.Project;
 import chameleon.workspace.View;
 
 public class TypeWriter {

@@ -2,11 +2,11 @@ package jlo.model.language;
 
 import java.io.File;
 
-import chameleon.workspace.ConfigException;
-import chameleon.workspace.View;
 import jnome.input.LazyJavaFileInputSourceFactory;
 import jnome.workspace.JavaConfigLoader;
 import jnome.workspace.JavaProjectConfig;
+import chameleon.workspace.ConfigException;
+import chameleon.workspace.View;
 
 public class JLoConfigLoader extends JavaConfigLoader {
 
