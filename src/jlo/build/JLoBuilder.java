@@ -56,6 +56,7 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 			System.out.println("Building "+fileName);
 			Collection<Document> compilationUnits = _translator.build(compilationUnit, allProjectCompilationUnits,buildProgressHelper);
 			for(Document translated : compilationUnits) {
+				translated.flushCache();
 				writer.write(translated,outputDir);
 			}
 		} catch(Error e) {
