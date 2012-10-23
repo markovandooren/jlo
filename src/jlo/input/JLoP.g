@@ -13,6 +13,7 @@ import JavaP;
 
   @Override
   public void setView(View view) {
+    super.setView(view);
     gJavaP.setView(view);
   }
   

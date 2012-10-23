@@ -231,6 +231,7 @@ import java.util.ArrayList;
 
   @Override
   public void setView(View view) {
+    super.setView(view);
     gJLoP.setView(view);
   }
 

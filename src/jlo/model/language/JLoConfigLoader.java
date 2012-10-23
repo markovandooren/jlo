@@ -14,6 +14,7 @@ public class JLoConfigLoader extends JavaConfigLoader {
 		super(javaBaseJarPath);
 	}
 
+	@Override
 	protected JavaProjectConfig createProjectConfig(String projectName, File root, View view) throws ConfigException {
 		return new JLoProjectConfig(view, new LazyJavaFileInputSourceFactory(), projectName, root, baseJarPath());
 	}
