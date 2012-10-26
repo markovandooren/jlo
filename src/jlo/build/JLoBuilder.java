@@ -11,6 +11,7 @@ import jlo.translate.IncrementalJavaTranslator;
 import jnome.core.language.Java;
 import jnome.core.language.JavaLanguageFactory;
 import jnome.output.JavaCompilationUnitWriter;
+import jnome.workspace.JavaView;
 import chameleon.core.document.Document;
 import chameleon.core.namespace.LazyRootNamespace;
 import chameleon.exception.ChameleonProgrammerException;
@@ -39,7 +40,7 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 		}
 		super.setContainer(view, pluginInterface);
 		Java target = new JavaLanguageFactory().create();
-		View targetView = new View(new LazyRootNamespace(), target);
+		View targetView = new JavaView(new LazyRootNamespace(), target);
 		//		target.setPlugin(Syntax.class, new JavaCodeWriter());
 		target.setPlugin(Syntax.class, new JLoSyntax()); // DEBUG for viewing the intermediate steps, we attach the JLo syntax.
 		_translator = new IncrementalJavaTranslator(view(), targetView);
