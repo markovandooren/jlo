@@ -1,6 +1,6 @@
 <ivy-module version="2.0">
   <info organisation="distrinet.cs.kuleuven.be" module="jlo"/>
   <dependencies>
-    <dependency org="distrinet.cs.kuleuven.be" name="jnome" rev="0.8.7"/>
+    <dependency org="distrinet.cs.kuleuven.be" name="jnome" rev="0.9"/>
   </dependencies>
 </ivy-module>
