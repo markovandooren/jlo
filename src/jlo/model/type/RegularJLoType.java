@@ -46,19 +46,6 @@ public class RegularJLoType extends RegularJavaType {
 		super(name);
 	}
 	
-//	@Override
-//	public synchronized Ternary is(ChameleonProperty property) {
-//		if(property == language(ObjectOrientedLanguage.class).OVERRIDABLE) {
-//			System.out.println("debug");
-//		}
-//		Ternary result = super.is(property);
-//		if(property == language(ObjectOrientedLanguage.class).OVERRIDABLE && result == Ternary.UNKNOWN) {
-//			flushLocalCache();
-//			System.out.println("debug");
-//		}
-//		return result;
-//	}
-
 	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
 		// first take the subtype relations
 		List<InheritanceRelation> result = super.inheritanceRelations();
