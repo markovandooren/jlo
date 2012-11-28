@@ -8,7 +8,7 @@ import jlo.output.JLoSyntax;
 import chameleon.input.ModelFactory;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.output.Syntax;
-import chameleon.workspace.ConfigLoader;
+import chameleon.workspace.ProjectConfigurator;
 
 public class JLoLanguageFactory {
 	
@@ -20,7 +20,7 @@ public class JLoLanguageFactory {
 		URL objectLocation = Object.class.getResource("/java/lang/Object.class");
 		String fileName = objectLocation.getFile();
 		String jarName = fileName.substring(5,fileName.indexOf('!'));
-		result.setPlugin(ConfigLoader.class, new JLoConfigLoader(jarName));
+		result.setPlugin(ProjectConfigurator.class, new JLoConfigLoader(jarName));
 		return result;
 	}
 
