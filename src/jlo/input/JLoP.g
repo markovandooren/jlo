@@ -141,7 +141,7 @@ map returns [RenamingClause element]
 	;    	
 
 subobjectDeclaration returns [ComponentRelation element]
-    	:	cp='subobject' tp=type? name=identifierRule 
+    	:	cp='subobject' name=identifierRule tp=type?
     	        {retval.element = new ComponentRelation(new SimpleNameSignature($name.text), $tp.element);
     	         setKeyword(retval.element,cp);
     	         setName(retval.element,name.start);
