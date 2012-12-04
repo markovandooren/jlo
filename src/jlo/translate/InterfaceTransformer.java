@@ -37,10 +37,10 @@ public class InterfaceTransformer extends AbstractTranslator {
 			original.flushCache();
 			implementation.flushCache();
 
-			Type implementationType = original.namespacePart(1).declarations(Type.class).get(0);
+			Type implementationType = original.namespaceDeclaration(1).declarations(Type.class).get(0);
 			if(splitClass(implementationType)) {
 				interfaceCompilationUnit = implementation.cloneTo(implementation.view());
-				NamespaceDeclaration interfaceNamespacePart = interfaceCompilationUnit.namespacePart(1);
+				NamespaceDeclaration interfaceNamespacePart = interfaceCompilationUnit.namespaceDeclaration(1);
 				Type interfaceType = interfaceNamespacePart.declarations(Type.class).get(0);
 				interfaceType.addModifier(new Interface());
 				transformToInterfaceDeep(interfaceType);

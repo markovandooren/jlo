@@ -17,7 +17,6 @@ public class Bootstrapper extends EclipseBootstrapper {
 	}
 	
 	public Language createLanguage() throws ProjectException  {
-//		String extension = ".jlo";
 		JLo result = new JLoLanguageFactory().create();
 		result.setPlugin(EclipseEditorExtension.class, new JLoEditorExtension(getLanguageName()));
 		return result;

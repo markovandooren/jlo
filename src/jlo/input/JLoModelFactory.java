@@ -3,6 +3,7 @@ package jlo.input;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringBufferInputStream;
+import java.util.Collection;
 
 import jlo.model.language.JLo;
 import jnome.input.JavaModelFactory;
@@ -14,9 +15,12 @@ import org.antlr.runtime.RecognitionException;
 
 import chameleon.core.document.Document;
 import chameleon.core.element.Element;
+import chameleon.core.tag.Metadata;
+import chameleon.eclipse.connector.EclipseEditorTag;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.input.ModelFactory;
 import chameleon.input.ParseException;
+import chameleon.input.PositionMetadata;
 import chameleon.oo.member.Member;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.output.Syntax;
@@ -70,9 +74,16 @@ public class JLoModelFactory extends JavaModelFactory {
 		  InputStream inputStream = new StringBufferInputStream(text);
 		  Element result = null;
 		  if(element instanceof Member) {
-	  		Parser parser = (Parser)getParser(inputStream, element.view());
-	  		parser.setDocument(element.nearestAncestor(Document.class));
-				result = parser.memberDecl().element;
+		  	EclipseEditorTag all = (EclipseEditorTag) element.metadata(PositionMetadata.ALL);
+		  	// If there is no ALL tag on the element, we cannot correctly shift the offset.
+		  	if(all != null) {
+		  		Parser parser = (Parser)getParser(inputStream, element.view());
+		  		parser.setDocument(element.nearestAncestor(Document.class));
+		  		result = parser.memberDecl().element;
+		  		if(result != null) {
+		  			shiftOffset(result, all.getOffset());
+		  		}
+		  	}
 			}
 			return result;
 		} catch(RecognitionException exc) {
@@ -82,4 +93,15 @@ public class JLoModelFactory extends JavaModelFactory {
 		}
 	}
 
+	private void shiftOffset(Element element, int shift) {
+		Collection<Element> c = element.descendants();
+		c.add(element);
+		for(Element e: c) {
+			for(Metadata m : e.metadata()) {
+				if(m instanceof EclipseEditorTag) {
+					((EclipseEditorTag)m).shift(shift);
+				}
+			}
+		}
+	}
 }

@@ -128,8 +128,8 @@ public class JavaTranslator extends AbstractTranslator {
   	List<Document> result = new ArrayList<Document>();
   	// Remove a possible old translation of the given compilation unit
   	// from the target model.
-  	NamespaceDeclaration originalNamespacePart = source.namespaceParts().get(0);
-  	NamespaceDeclaration newNamespacePart = implementationCompilationUnit.namespaceParts().get(0);
+  	NamespaceDeclaration originalNamespacePart = source.namespaceDeclarations().get(0);
+  	NamespaceDeclaration newNamespacePart = implementationCompilationUnit.namespaceDeclarations().get(0);
 
   	Iterator<Type> originalTypes = originalNamespacePart.children(Type.class).iterator();
   	Iterator<Type> newTypes = newNamespacePart.children(Type.class).iterator();
@@ -264,9 +264,6 @@ public class JavaTranslator extends AbstractTranslator {
 				}
 			}
 			if(rewrite) {
-				if(name == null) {
-					System.out.println("debug");
-				}
 				String getterName = getterName(name);
 				MethodInvocation inv = new JavaMethodInvocation(getterName,(CrossReferenceTarget) target);
 				SingleAssociation parentLink = cwt.parentLink();
