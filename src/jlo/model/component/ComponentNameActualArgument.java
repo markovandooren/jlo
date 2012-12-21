@@ -67,7 +67,7 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument {
 				if(rel != null) {
 					try {
 						Type formalType = formal.componentTypeReference().getElement();
-						result = result.and(rel.componentType().verifySubtypeOf(formalType, "the type of the subobject", "the type of the formal subobject parameter"));
+						result = result.and(rel.componentType().verifySubtypeOf(formalType, "the type of the subobject", "the type of the formal subobject parameter", this));
 					} catch (LookupException e) {
 						// should not happen because the formal parameter is verified as well.
 					}

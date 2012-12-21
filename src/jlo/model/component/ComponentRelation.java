@@ -127,7 +127,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 							result = result.and(new BasicProblem(this, "Cannot determine the type of refined subobject "+overridden.toString()));
 					}
 					if(overriddenRefType != null) {
-						result = result.and(reftype.verifySubtypeOf(overriddenRefType,"the declared subobject type","the declared subobject type of refined subobject "+overridden.toString())); 
+						result = result.and(reftype.verifySubtypeOf(overriddenRefType,"the declared subobject type","the declared subobject type of refined subobject "+overridden.toString(), componentTypeReference())); 
 					}
 				}
 			}
