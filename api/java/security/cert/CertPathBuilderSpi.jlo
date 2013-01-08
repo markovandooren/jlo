@@ -1,5 +1,0 @@
-package java.security.cert;
-public abstract class CertPathBuilderSpi extends java.lang.Object {
-   public  CertPathBuilderSpi(){}
-  public abstract java.security.cert.CertPathBuilderResult engineBuild(java.security.cert.CertPathParameters a_r_g_u_m_e_n_t_0)  throws java.security.cert.CertPathBuilderException, java.security.InvalidAlgorithmParameterException;
-}

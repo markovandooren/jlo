@@ -1,8 +1,0 @@
-package java.security.spec;
-public class ECFieldFp extends java.lang.Object implements java.security.spec.ECField {
-   public  ECFieldFp(java.math.BigInteger a_r_g_u_m_e_n_t_0){}
-  public native int hashCode() ;
-  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public native java.math.BigInteger getP() ;
-  public native int getFieldSize() ;
-}

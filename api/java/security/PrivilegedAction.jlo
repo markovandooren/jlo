@@ -1,4 +1,0 @@
-package java.security;
-public abstract interface PrivilegedAction<T extends java.lang.Object> {
-  public abstract T run() ;
-}

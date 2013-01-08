@@ -1,6 +1,0 @@
-package org.xml.sax;
-public abstract interface ErrorHandler {
-  public abstract void fatalError(org.xml.sax.SAXParseException a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
-  public abstract void error(org.xml.sax.SAXParseException a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
-  public abstract void warning(org.xml.sax.SAXParseException a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
-}

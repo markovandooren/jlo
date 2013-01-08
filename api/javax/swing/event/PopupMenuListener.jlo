@@ -1,6 +1,0 @@
-package javax.swing.event;
-public abstract interface PopupMenuListener extends java.util.EventListener {
-  public abstract void popupMenuWillBecomeVisible(javax.swing.event.PopupMenuEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void popupMenuWillBecomeInvisible(javax.swing.event.PopupMenuEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void popupMenuCanceled(javax.swing.event.PopupMenuEvent a_r_g_u_m_e_n_t_0) ;
-}

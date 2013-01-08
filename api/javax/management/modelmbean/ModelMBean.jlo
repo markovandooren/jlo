@@ -1,5 +1,0 @@
-package javax.management.modelmbean;
-public abstract interface ModelMBean extends javax.management.DynamicMBean, javax.management.PersistentMBean, javax.management.modelmbean.ModelMBeanNotificationBroadcaster {
-  public abstract void setModelMBeanInfo(javax.management.modelmbean.ModelMBeanInfo a_r_g_u_m_e_n_t_0)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException;
-  public abstract void setManagedResource(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.management.MBeanException, javax.management.RuntimeOperationsException, javax.management.InstanceNotFoundException, javax.management.modelmbean.InvalidTargetObjectTypeException;
-}

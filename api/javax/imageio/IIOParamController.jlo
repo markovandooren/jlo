@@ -1,4 +1,0 @@
-package javax.imageio;
-public abstract interface IIOParamController {
-  public abstract boolean activate(javax.imageio.IIOParam a_r_g_u_m_e_n_t_0) ;
-}

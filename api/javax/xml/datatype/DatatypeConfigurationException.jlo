@@ -1,7 +1,0 @@
-package javax.xml.datatype;
-public class DatatypeConfigurationException extends java.lang.Exception {
-   public  DatatypeConfigurationException(){}
-   public  DatatypeConfigurationException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  DatatypeConfigurationException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
-   public  DatatypeConfigurationException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
-}

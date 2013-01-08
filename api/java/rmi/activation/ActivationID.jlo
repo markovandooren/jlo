@@ -1,7 +1,0 @@
-package java.rmi.activation;
-public class ActivationID extends java.lang.Object implements java.io.Serializable {
-   public  ActivationID(java.rmi.activation.Activator a_r_g_u_m_e_n_t_0){}
-  public native int hashCode() ;
-  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public native java.rmi.Remote activate(boolean a_r_g_u_m_e_n_t_0)  throws java.rmi.activation.ActivationException, java.rmi.activation.UnknownObjectException, java.rmi.RemoteException;
-}

@@ -1,8 +1,0 @@
-package java.lang.annotation;
-public final class RetentionPolicy extends java.lang.Enum<java.lang.annotation.RetentionPolicy> {
-  public static native java.lang.annotation.RetentionPolicy valueOf(java.lang.String a_r_g_u_m_e_n_t_0) ;
-  public static native java.lang.annotation.RetentionPolicy[] values() ;
-  public static final java.lang.annotation.RetentionPolicy SOURCE;
-  public static final java.lang.annotation.RetentionPolicy CLASS;
-  public static final java.lang.annotation.RetentionPolicy RUNTIME;
-}

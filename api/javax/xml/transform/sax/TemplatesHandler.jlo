@@ -1,6 +1,0 @@
-package javax.xml.transform.sax;
-public abstract interface TemplatesHandler extends org.xml.sax.ContentHandler {
-  public abstract java.lang.String getSystemId() ;
-  public abstract void setSystemId(java.lang.String a_r_g_u_m_e_n_t_0) ;
-  public abstract javax.xml.transform.Templates getTemplates() ;
-}

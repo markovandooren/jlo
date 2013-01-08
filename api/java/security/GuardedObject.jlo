@@ -1,5 +1,0 @@
-package java.security;
-public class GuardedObject extends java.lang.Object implements java.io.Serializable {
-   public  GuardedObject(java.lang.Object a_r_g_u_m_e_n_t_0, java.security.Guard a_r_g_u_m_e_n_t_1){}
-  public native java.lang.Object getObject()  throws java.lang.SecurityException;
-}

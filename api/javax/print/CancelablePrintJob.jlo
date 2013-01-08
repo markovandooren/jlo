@@ -1,4 +1,0 @@
-package javax.print;
-public abstract interface CancelablePrintJob extends javax.print.DocPrintJob {
-  public abstract void cancel()  throws javax.print.PrintException;
-}

@@ -1,3 +1,0 @@
-package javax.security.auth.callback;
-public abstract interface Callback {
-}

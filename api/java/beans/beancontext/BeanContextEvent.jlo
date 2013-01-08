@@ -1,9 +1,0 @@
-package java.beans.beancontext;
-public abstract class BeanContextEvent extends java.util.EventObject {
-   protected  BeanContextEvent(java.beans.beancontext.BeanContext a_r_g_u_m_e_n_t_0){}
-  public native java.beans.beancontext.BeanContext getBeanContext() ;
-  public synchronized native void setPropagatedFrom(java.beans.beancontext.BeanContext a_r_g_u_m_e_n_t_0) ;
-  public synchronized native java.beans.beancontext.BeanContext getPropagatedFrom() ;
-  public synchronized native boolean isPropagated() ;
-  protected java.beans.beancontext.BeanContext propagatedFrom;
-}

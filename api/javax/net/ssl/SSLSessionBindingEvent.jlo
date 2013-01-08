@@ -1,6 +1,0 @@
-package javax.net.ssl;
-public class SSLSessionBindingEvent extends java.util.EventObject {
-   public  SSLSessionBindingEvent(javax.net.ssl.SSLSession a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
-  public native java.lang.String getName() ;
-  public native javax.net.ssl.SSLSession getSession() ;
-}

@@ -1,4 +1,0 @@
-package javax.swing.plaf;
-public class ActionMapUIResource extends javax.swing.ActionMap implements javax.swing.plaf.UIResource {
-   public  ActionMapUIResource(){}
-}

@@ -1,5 +1,0 @@
-package java.security.interfaces;
-public abstract interface ECPublicKey extends java.security.PublicKey, java.security.interfaces.ECKey {
-  public abstract java.security.spec.ECPoint getW() ;
-  public static final long serialVersionUID;
-}

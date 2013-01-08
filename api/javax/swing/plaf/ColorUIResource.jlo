@@ -1,7 +1,0 @@
-package javax.swing.plaf;
-public class ColorUIResource extends java.awt.Color implements javax.swing.plaf.UIResource {
-   public  ColorUIResource(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
-   public  ColorUIResource(int a_r_g_u_m_e_n_t_0){}
-   public  ColorUIResource(float a_r_g_u_m_e_n_t_0, float a_r_g_u_m_e_n_t_1, float a_r_g_u_m_e_n_t_2){}
-   public  ColorUIResource(java.awt.Color a_r_g_u_m_e_n_t_0){}
-}

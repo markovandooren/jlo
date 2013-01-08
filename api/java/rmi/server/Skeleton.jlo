@@ -1,5 +1,0 @@
-package java.rmi.server;
-public abstract interface Skeleton {
-  public abstract void dispatch(java.rmi.Remote a_r_g_u_m_e_n_t_0, java.rmi.server.RemoteCall a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, long a_r_g_u_m_e_n_t_3)  throws java.lang.Exception;
-  public abstract java.rmi.server.Operation[] getOperations() ;
-}

@@ -1,9 +1,0 @@
-package javax.security.auth;
-public abstract class Policy extends java.lang.Object {
-   protected  Policy(){}
-  public abstract java.security.PermissionCollection getPermissions(javax.security.auth.Subject a_r_g_u_m_e_n_t_0, java.security.CodeSource a_r_g_u_m_e_n_t_1) ;
-  static native javax.security.auth.Policy getPolicyNoCheck() ;
-  public abstract void refresh() ;
-  public static native javax.security.auth.Policy getPolicy() ;
-  public static native void setPolicy(javax.security.auth.Policy a_r_g_u_m_e_n_t_0) ;
-}

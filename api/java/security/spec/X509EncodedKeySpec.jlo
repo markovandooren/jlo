@@ -1,6 +1,0 @@
-package java.security.spec;
-public class X509EncodedKeySpec extends java.security.spec.EncodedKeySpec {
-   public  X509EncodedKeySpec(byte[] a_r_g_u_m_e_n_t_0){}
-  public native byte[] getEncoded() ;
-  public final native java.lang.String getFormat() ;
-}

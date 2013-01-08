@@ -1,4 +1,0 @@
-package javax.swing.undo;
-public class CannotRedoException extends java.lang.RuntimeException {
-   public  CannotRedoException(){}
-}

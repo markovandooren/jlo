@@ -1,4 +1,0 @@
-package java.lang.reflect;
-public abstract interface GenericArrayType extends java.lang.reflect.Type {
-  public abstract java.lang.reflect.Type getGenericComponentType() ;
-}

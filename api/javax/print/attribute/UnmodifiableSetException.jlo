@@ -1,5 +1,0 @@
-package javax.print.attribute;
-public class UnmodifiableSetException extends java.lang.RuntimeException {
-   public  UnmodifiableSetException(){}
-   public  UnmodifiableSetException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

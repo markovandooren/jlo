@@ -1,7 +1,0 @@
-package org.w3c.dom;
-public abstract interface Text extends org.w3c.dom.CharacterData {
-  public abstract org.w3c.dom.Text splitText(int a_r_g_u_m_e_n_t_0)  throws org.w3c.dom.DOMException;
-  public abstract boolean isElementContentWhitespace() ;
-  public abstract java.lang.String getWholeText() ;
-  public abstract org.w3c.dom.Text replaceWholeText(java.lang.String a_r_g_u_m_e_n_t_0)  throws org.w3c.dom.DOMException;
-}

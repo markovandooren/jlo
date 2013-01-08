@@ -1,9 +1,0 @@
-package javax.swing.plaf.basic;
-public class BasicToggleButtonUI extends javax.swing.plaf.basic.BasicButtonUI {
-   public  BasicToggleButtonUI(){}
-  protected native void paintIcon(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.AbstractButton a_r_g_u_m_e_n_t_1, java.awt.Rectangle a_r_g_u_m_e_n_t_2) ;
-  public native void paint(java.awt.Graphics a_r_g_u_m_e_n_t_0, javax.swing.JComponent a_r_g_u_m_e_n_t_1) ;
-  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
-  protected native java.lang.String getPropertyPrefix() ;
-  protected native int getTextShiftOffset() ;
-}

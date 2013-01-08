@@ -1,3 +1,0 @@
-package java.lang.reflect;
-public abstract interface Type {
-}

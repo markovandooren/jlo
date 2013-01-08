@@ -1,4 +1,0 @@
-package java.lang;
-public abstract interface Comparable<T extends java.lang.Object> {
-  public abstract int compareTo(T a_r_g_u_m_e_n_t_0) ;
-}

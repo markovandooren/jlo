@@ -1,5 +1,0 @@
-package javax.crypto;
-public class ShortBufferException extends java.security.GeneralSecurityException {
-   public  ShortBufferException(){}
-   public  ShortBufferException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

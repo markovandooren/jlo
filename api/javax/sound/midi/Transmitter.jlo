@@ -1,6 +1,0 @@
-package javax.sound.midi;
-public abstract interface Transmitter {
-  public abstract void close() ;
-  public abstract javax.sound.midi.Receiver getReceiver() ;
-  public abstract void setReceiver(javax.sound.midi.Receiver a_r_g_u_m_e_n_t_0) ;
-}

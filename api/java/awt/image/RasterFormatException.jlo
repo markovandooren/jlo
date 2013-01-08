@@ -1,4 +1,0 @@
-package java.awt.image;
-public class RasterFormatException extends java.lang.RuntimeException {
-   public  RasterFormatException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

@@ -1,8 +1,0 @@
-package java.awt.datatransfer;
-public class StringSelection extends java.lang.Object implements java.awt.datatransfer.Transferable, java.awt.datatransfer.ClipboardOwner {
-   public  StringSelection(java.lang.String a_r_g_u_m_e_n_t_0){}
-  public native java.lang.Object getTransferData(java.awt.datatransfer.DataFlavor a_r_g_u_m_e_n_t_0)  throws java.awt.datatransfer.UnsupportedFlavorException, java.io.IOException;
-  public native java.awt.datatransfer.DataFlavor[] getTransferDataFlavors() ;
-  public native boolean isDataFlavorSupported(java.awt.datatransfer.DataFlavor a_r_g_u_m_e_n_t_0) ;
-  public native void lostOwnership(java.awt.datatransfer.Clipboard a_r_g_u_m_e_n_t_0, java.awt.datatransfer.Transferable a_r_g_u_m_e_n_t_1) ;
-}

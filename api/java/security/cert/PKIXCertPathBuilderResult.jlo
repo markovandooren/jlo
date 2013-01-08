@@ -1,6 +1,0 @@
-package java.security.cert;
-public class PKIXCertPathBuilderResult extends java.security.cert.PKIXCertPathValidatorResult implements java.security.cert.CertPathBuilderResult {
-   public  PKIXCertPathBuilderResult(java.security.cert.CertPath a_r_g_u_m_e_n_t_0, java.security.cert.TrustAnchor a_r_g_u_m_e_n_t_1, java.security.cert.PolicyNode a_r_g_u_m_e_n_t_2, java.security.PublicKey a_r_g_u_m_e_n_t_3){}
-  public native java.lang.String toString() ;
-  public native java.security.cert.CertPath getCertPath() ;
-}

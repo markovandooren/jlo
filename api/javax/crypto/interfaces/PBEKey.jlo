@@ -1,7 +1,0 @@
-package javax.crypto.interfaces;
-public abstract interface PBEKey extends javax.crypto.SecretKey {
-  public abstract char[] getPassword() ;
-  public abstract int getIterationCount() ;
-  public abstract byte[] getSalt() ;
-  public static final long serialVersionUID;
-}

@@ -1,5 +1,0 @@
-package javax.accessibility;
-public abstract interface AccessibleKeyBinding {
-  public abstract java.lang.Object getAccessibleKeyBinding(int a_r_g_u_m_e_n_t_0) ;
-  public abstract int getAccessibleKeyBindingCount() ;
-}

@@ -1,4 +1,0 @@
-package org.xml.sax;
-public abstract interface EntityResolver {
-  public abstract org.xml.sax.InputSource resolveEntity(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws org.xml.sax.SAXException, java.io.IOException;
-}

@@ -1,9 +1,0 @@
-package javax.swing.tree;
-public abstract interface MutableTreeNode extends javax.swing.tree.TreeNode {
-  public abstract void remove(int a_r_g_u_m_e_n_t_0) ;
-  public abstract void remove(javax.swing.tree.MutableTreeNode a_r_g_u_m_e_n_t_0) ;
-  public abstract void insert(javax.swing.tree.MutableTreeNode a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
-  public abstract void setParent(javax.swing.tree.MutableTreeNode a_r_g_u_m_e_n_t_0) ;
-  public abstract void setUserObject(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public abstract void removeFromParent() ;
-}

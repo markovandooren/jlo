@@ -1,5 +1,0 @@
-package java.lang.instrument;
-public class IllegalClassFormatException extends java.lang.Exception {
-   public  IllegalClassFormatException(){}
-   public  IllegalClassFormatException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

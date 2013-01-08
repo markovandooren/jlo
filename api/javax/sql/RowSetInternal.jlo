@@ -1,8 +1,0 @@
-package javax.sql;
-public abstract interface RowSetInternal {
-  public abstract java.lang.Object[] getParams()  throws java.sql.SQLException;
-  public abstract java.sql.Connection getConnection()  throws java.sql.SQLException;
-  public abstract void setMetaData(javax.sql.RowSetMetaData a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
-  public abstract java.sql.ResultSet getOriginal()  throws java.sql.SQLException;
-  public abstract java.sql.ResultSet getOriginalRow()  throws java.sql.SQLException;
-}

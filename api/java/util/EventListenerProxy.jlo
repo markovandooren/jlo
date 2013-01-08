@@ -1,5 +1,0 @@
-package java.util;
-public abstract class EventListenerProxy extends java.lang.Object implements java.util.EventListener {
-   public  EventListenerProxy(java.util.EventListener a_r_g_u_m_e_n_t_0){}
-  public native java.util.EventListener getListener() ;
-}

@@ -1,4 +1,0 @@
-package javax.swing.plaf;
-public abstract class RootPaneUI extends javax.swing.plaf.ComponentUI {
-   public  RootPaneUI(){}
-}

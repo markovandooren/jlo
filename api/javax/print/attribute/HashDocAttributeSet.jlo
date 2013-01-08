@@ -1,7 +1,0 @@
-package javax.print.attribute;
-public class HashDocAttributeSet extends javax.print.attribute.HashAttributeSet implements javax.print.attribute.DocAttributeSet, java.io.Serializable {
-   public  HashDocAttributeSet(){}
-   public  HashDocAttributeSet(javax.print.attribute.DocAttribute a_r_g_u_m_e_n_t_0){}
-   public  HashDocAttributeSet(javax.print.attribute.DocAttribute[] a_r_g_u_m_e_n_t_0){}
-   public  HashDocAttributeSet(javax.print.attribute.DocAttributeSet a_r_g_u_m_e_n_t_0){}
-}

@@ -1,7 +1,0 @@
-package java.util.prefs;
-public class PreferenceChangeEvent extends java.util.EventObject {
-   public  PreferenceChangeEvent(java.util.prefs.Preferences a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
-  public native java.lang.String getKey() ;
-  public native java.lang.String getNewValue() ;
-  public native java.util.prefs.Preferences getNode() ;
-}

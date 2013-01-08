@@ -1,5 +1,0 @@
-package org.xml.sax.ext;
-public abstract interface EntityResolver2 extends org.xml.sax.EntityResolver {
-  public abstract org.xml.sax.InputSource resolveEntity(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3)  throws org.xml.sax.SAXException, java.io.IOException;
-  public abstract org.xml.sax.InputSource getExternalSubset(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws org.xml.sax.SAXException, java.io.IOException;
-}

@@ -1,5 +1,0 @@
-package javax.naming;
-public class StringRefAddr extends javax.naming.RefAddr {
-   public  StringRefAddr(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
-  public native java.lang.Object getContent() ;
-}

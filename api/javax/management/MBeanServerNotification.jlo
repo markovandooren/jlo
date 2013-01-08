@@ -1,7 +1,0 @@
-package javax.management;
-public class MBeanServerNotification extends javax.management.Notification {
-   public  MBeanServerNotification(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, javax.management.ObjectName a_r_g_u_m_e_n_t_3){}
-  public native javax.management.ObjectName getMBeanName() ;
-  public static final java.lang.String REGISTRATION_NOTIFICATION;
-  public static final java.lang.String UNREGISTRATION_NOTIFICATION;
-}

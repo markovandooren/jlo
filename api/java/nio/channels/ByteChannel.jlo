@@ -1,3 +1,0 @@
-package java.nio.channels;
-public abstract interface ByteChannel extends java.nio.channels.ReadableByteChannel, java.nio.channels.WritableByteChannel {
-}

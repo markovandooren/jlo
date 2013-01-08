@@ -1,7 +1,0 @@
-package java.net;
-public class URLDecoder extends java.lang.Object {
-   public  URLDecoder(){}
-  public static native java.lang.String decode(java.lang.String a_r_g_u_m_e_n_t_0) ;
-  public static native java.lang.String decode(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.io.UnsupportedEncodingException;
-  static java.lang.String dfltEncName;
-}

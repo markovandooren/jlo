@@ -1,7 +1,0 @@
-package javax.management;
-public class RuntimeErrorException extends javax.management.JMRuntimeException {
-   public  RuntimeErrorException(java.lang.Error a_r_g_u_m_e_n_t_0){}
-   public  RuntimeErrorException(java.lang.Error a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
-  public native java.lang.Throwable getCause() ;
-  public native java.lang.Error getTargetError() ;
-}

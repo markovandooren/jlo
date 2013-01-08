@@ -1,4 +1,0 @@
-package javax.swing.event;
-public abstract interface TableModelListener extends java.util.EventListener {
-  public abstract void tableChanged(javax.swing.event.TableModelEvent a_r_g_u_m_e_n_t_0) ;
-}

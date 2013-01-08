@@ -1,7 +1,0 @@
-package java.awt.image;
-public class PixelInterleavedSampleModel extends java.awt.image.ComponentSampleModel {
-   public  PixelInterleavedSampleModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int[] a_r_g_u_m_e_n_t_5){}
-  public native int hashCode() ;
-  public native java.awt.image.SampleModel createCompatibleSampleModel(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
-  public native java.awt.image.SampleModel createSubsetSampleModel(int[] a_r_g_u_m_e_n_t_0) ;
-}

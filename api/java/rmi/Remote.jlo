@@ -1,3 +1,0 @@
-package java.rmi;
-public abstract interface Remote {
-}

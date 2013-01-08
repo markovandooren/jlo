@@ -1,5 +1,0 @@
-package java.awt;
-public final class AWTPermission extends java.security.BasicPermission {
-   public  AWTPermission(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  AWTPermission(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
-}

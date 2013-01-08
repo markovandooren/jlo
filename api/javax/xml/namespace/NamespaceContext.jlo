@@ -1,6 +1,0 @@
-package javax.xml.namespace;
-public abstract interface NamespaceContext {
-  public abstract java.lang.String getPrefix(java.lang.String a_r_g_u_m_e_n_t_0) ;
-  public abstract java.lang.String getNamespaceURI(java.lang.String a_r_g_u_m_e_n_t_0) ;
-  public abstract java.util.Iterator getPrefixes(java.lang.String a_r_g_u_m_e_n_t_0) ;
-}

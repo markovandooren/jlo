@@ -1,7 +1,0 @@
-package javax.sound.sampled.spi;
-public abstract class MixerProvider extends java.lang.Object {
-   public  MixerProvider(){}
-  public abstract javax.sound.sampled.Mixer.Info[] getMixerInfo() ;
-  public abstract javax.sound.sampled.Mixer getMixer(javax.sound.sampled.Mixer.Info a_r_g_u_m_e_n_t_0) ;
-  public native boolean isMixerSupported(javax.sound.sampled.Mixer.Info a_r_g_u_m_e_n_t_0) ;
-}

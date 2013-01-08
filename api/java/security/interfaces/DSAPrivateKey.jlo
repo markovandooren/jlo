@@ -1,5 +1,0 @@
-package java.security.interfaces;
-public abstract interface DSAPrivateKey extends java.security.interfaces.DSAKey, java.security.PrivateKey {
-  public abstract java.math.BigInteger getX() ;
-  public static final long serialVersionUID;
-}

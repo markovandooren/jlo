@@ -1,5 +1,0 @@
-package javax.naming.ldap;
-public abstract interface UnsolicitedNotification extends javax.naming.ldap.ExtendedResponse, javax.naming.ldap.HasControls {
-  public abstract javax.naming.NamingException getException() ;
-  public abstract java.lang.String[] getReferrals() ;
-}

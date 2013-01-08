@@ -1,8 +1,0 @@
-package java.net;
-public abstract class ResponseCache extends java.lang.Object {
-   public  ResponseCache(){}
-  public abstract java.net.CacheResponse get(java.net.URI a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.util.Map<java.lang.String,java.util.List<java.lang.String>> a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
-  public abstract java.net.CacheRequest put(java.net.URI a_r_g_u_m_e_n_t_0, java.net.URLConnection a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
-  public static synchronized native java.net.ResponseCache getDefault() ;
-  public static synchronized native void setDefault(java.net.ResponseCache a_r_g_u_m_e_n_t_0) ;
-}

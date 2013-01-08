@@ -1,8 +1,0 @@
-package java.awt.event;
-public abstract class ComponentAdapter extends java.lang.Object implements java.awt.event.ComponentListener {
-   public  ComponentAdapter(){}
-  public native void componentResized(java.awt.event.ComponentEvent a_r_g_u_m_e_n_t_0) ;
-  public native void componentMoved(java.awt.event.ComponentEvent a_r_g_u_m_e_n_t_0) ;
-  public native void componentShown(java.awt.event.ComponentEvent a_r_g_u_m_e_n_t_0) ;
-  public native void componentHidden(java.awt.event.ComponentEvent a_r_g_u_m_e_n_t_0) ;
-}

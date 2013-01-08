@@ -1,5 +1,0 @@
-package java.io;
-public abstract interface Externalizable extends java.io.Serializable {
-  public abstract void writeExternal(java.io.ObjectOutput a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
-  public abstract void readExternal(java.io.ObjectInput a_r_g_u_m_e_n_t_0)  throws java.io.IOException, java.lang.ClassNotFoundException;
-}

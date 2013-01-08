@@ -1,5 +1,0 @@
-package javax.accessibility;
-public class AccessibleResourceBundle extends java.util.ListResourceBundle {
-   public  AccessibleResourceBundle(){}
-  public native java.lang.Object[][] getContents() ;
-}

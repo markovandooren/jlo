@@ -1,7 +1,0 @@
-package org.w3c.dom;
-public abstract interface DOMImplementation {
-  public abstract java.lang.Object getFeature(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
-  public abstract boolean hasFeature(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
-  public abstract org.w3c.dom.DocumentType createDocumentType(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2)  throws org.w3c.dom.DOMException;
-  public abstract org.w3c.dom.Document createDocument(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, org.w3c.dom.DocumentType a_r_g_u_m_e_n_t_2)  throws org.w3c.dom.DOMException;
-}

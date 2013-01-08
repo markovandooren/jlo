@@ -1,4 +1,0 @@
-package java.lang;
-public abstract interface SuppressWarnings extends java.lang.annotation.Annotation {
-  public abstract java.lang.String[] value() ;
-}

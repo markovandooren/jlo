@@ -1,6 +1,0 @@
-package java.util;
-public class FormattableFlags extends java.lang.Object {
-  public static final int LEFT_JUSTIFY;
-  public static final int UPPERCASE;
-  public static final int ALTERNATE;
-}

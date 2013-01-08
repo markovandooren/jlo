@@ -1,5 +1,0 @@
-package java.lang;
-public class NoSuchFieldError extends java.lang.IncompatibleClassChangeError {
-   public  NoSuchFieldError(){}
-   public  NoSuchFieldError(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

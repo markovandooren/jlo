@@ -1,8 +1,0 @@
-package javax.swing.text;
-public class ChangedCharSetException extends java.io.IOException {
-   public  ChangedCharSetException(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1){}
-  public native java.lang.String getCharSetSpec() ;
-  public native boolean keyEqualsCharSet() ;
-  java.lang.String charSetSpec;
-  boolean charSetKey;
-}

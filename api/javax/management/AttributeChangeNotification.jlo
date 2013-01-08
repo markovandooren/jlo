@@ -1,9 +1,0 @@
-package javax.management;
-public class AttributeChangeNotification extends javax.management.Notification {
-   public  AttributeChangeNotification(java.lang.Object a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.lang.String a_r_g_u_m_e_n_t_4, java.lang.String a_r_g_u_m_e_n_t_5, java.lang.Object a_r_g_u_m_e_n_t_6, java.lang.Object a_r_g_u_m_e_n_t_7){}
-  public native java.lang.Object getNewValue() ;
-  public native java.lang.Object getOldValue() ;
-  public native java.lang.String getAttributeName() ;
-  public native java.lang.String getAttributeType() ;
-  public static final java.lang.String ATTRIBUTE_CHANGE;
-}

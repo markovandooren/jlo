@@ -1,6 +1,0 @@
-package java.awt;
-public abstract interface PaintContext {
-  public abstract void dispose() ;
-  public abstract java.awt.image.ColorModel getColorModel() ;
-  public abstract java.awt.image.Raster getRaster(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3) ;
-}

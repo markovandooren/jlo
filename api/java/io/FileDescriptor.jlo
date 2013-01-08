@@ -1,9 +1,0 @@
-package java.io;
-public final class FileDescriptor extends java.lang.Object {
-   public  FileDescriptor(){}
-  public native boolean valid() ;
-  public native void sync()  throws java.io.SyncFailedException;
-  public static final java.io.FileDescriptor in;
-  public static final java.io.FileDescriptor out;
-  public static final java.io.FileDescriptor err;
-}

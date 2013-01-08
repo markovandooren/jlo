@@ -1,9 +1,0 @@
-package java.util;
-public abstract interface SortedSet<E extends java.lang.Object> extends java.util.Set<E> {
-  public abstract E last() ;
-  public abstract E first() ;
-  public abstract java.util.SortedSet<E> subSet(E a_r_g_u_m_e_n_t_0, E a_r_g_u_m_e_n_t_1) ;
-  public abstract java.util.SortedSet<E> headSet(E a_r_g_u_m_e_n_t_0) ;
-  public abstract java.util.SortedSet<E> tailSet(E a_r_g_u_m_e_n_t_0) ;
-  public abstract java.util.Comparator<? super E> comparator() ;
-}

@@ -1,7 +1,0 @@
-package java.lang;
-public class InheritableThreadLocal<T extends java.lang.Object> extends java.lang.ThreadLocal<T> {
-   public  InheritableThreadLocal(){}
-  native java.lang.ThreadLocal.ThreadLocalMap getMap(java.lang.Thread a_r_g_u_m_e_n_t_0) ;
-  native void createMap(java.lang.Thread a_r_g_u_m_e_n_t_0, T a_r_g_u_m_e_n_t_1) ;
-  protected native T childValue(T a_r_g_u_m_e_n_t_0) ;
-}

@@ -1,9 +1,0 @@
-package java.security.spec;
-public class MGF1ParameterSpec extends java.lang.Object implements java.security.spec.AlgorithmParameterSpec {
-   public  MGF1ParameterSpec(java.lang.String a_r_g_u_m_e_n_t_0){}
-  public native java.lang.String getDigestAlgorithm() ;
-  public static final java.security.spec.MGF1ParameterSpec SHA1;
-  public static final java.security.spec.MGF1ParameterSpec SHA256;
-  public static final java.security.spec.MGF1ParameterSpec SHA384;
-  public static final java.security.spec.MGF1ParameterSpec SHA512;
-}

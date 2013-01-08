@@ -1,5 +1,0 @@
-package javax.management;
-public class OperationsException extends javax.management.JMException {
-   public  OperationsException(){}
-   public  OperationsException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

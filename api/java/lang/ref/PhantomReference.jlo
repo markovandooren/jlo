@@ -1,5 +1,0 @@
-package java.lang.ref;
-public class PhantomReference<T extends java.lang.Object> extends java.lang.ref.Reference<T> {
-   public  PhantomReference(T a_r_g_u_m_e_n_t_0, java.lang.ref.ReferenceQueue<? super T> a_r_g_u_m_e_n_t_1){}
-  public native T get() ;
-}

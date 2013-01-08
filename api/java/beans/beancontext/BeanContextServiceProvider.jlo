@@ -1,6 +1,0 @@
-package java.beans.beancontext;
-public abstract interface BeanContextServiceProvider {
-  public abstract java.lang.Object getService(java.beans.beancontext.BeanContextServices a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Class a_r_g_u_m_e_n_t_2, java.lang.Object a_r_g_u_m_e_n_t_3) ;
-  public abstract java.util.Iterator getCurrentServiceSelectors(java.beans.beancontext.BeanContextServices a_r_g_u_m_e_n_t_0, java.lang.Class a_r_g_u_m_e_n_t_1) ;
-  public abstract void releaseService(java.beans.beancontext.BeanContextServices a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2) ;
-}

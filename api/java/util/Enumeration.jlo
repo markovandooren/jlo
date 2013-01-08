@@ -1,5 +1,0 @@
-package java.util;
-public abstract interface Enumeration<E extends java.lang.Object> {
-  public abstract boolean hasMoreElements() ;
-  public abstract E nextElement() ;
-}

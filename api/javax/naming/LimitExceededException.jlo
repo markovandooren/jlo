@@ -1,5 +1,0 @@
-package javax.naming;
-public class LimitExceededException extends javax.naming.NamingException {
-   public  LimitExceededException(){}
-   public  LimitExceededException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

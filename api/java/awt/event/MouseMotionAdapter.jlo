@@ -1,6 +1,0 @@
-package java.awt.event;
-public abstract class MouseMotionAdapter extends java.lang.Object implements java.awt.event.MouseMotionListener {
-   public  MouseMotionAdapter(){}
-  public native void mouseMoved(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
-  public native void mouseDragged(java.awt.event.MouseEvent a_r_g_u_m_e_n_t_0) ;
-}

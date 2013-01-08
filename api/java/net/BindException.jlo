@@ -1,5 +1,0 @@
-package java.net;
-public class BindException extends java.net.SocketException {
-   public  BindException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  BindException(){}
-}

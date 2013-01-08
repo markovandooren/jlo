@@ -1,4 +1,0 @@
-package java.beans;
-public abstract interface ExceptionListener {
-  public abstract void exceptionThrown(java.lang.Exception a_r_g_u_m_e_n_t_0) ;
-}

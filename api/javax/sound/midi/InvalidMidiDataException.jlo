@@ -1,5 +1,0 @@
-package javax.sound.midi;
-public class InvalidMidiDataException extends java.lang.Exception {
-   public  InvalidMidiDataException(){}
-   public  InvalidMidiDataException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

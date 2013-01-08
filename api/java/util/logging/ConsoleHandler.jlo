@@ -1,6 +1,0 @@
-package java.util.logging;
-public class ConsoleHandler extends java.util.logging.StreamHandler {
-   public  ConsoleHandler(){}
-  public native void close() ;
-  public native void publish(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
-}

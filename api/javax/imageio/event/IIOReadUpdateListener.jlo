@@ -1,9 +1,0 @@
-package javax.imageio.event;
-public abstract interface IIOReadUpdateListener extends java.util.EventListener {
-  public abstract void imageUpdate(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0, java.awt.image.BufferedImage a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int[] a_r_g_u_m_e_n_t_8) ;
-  public abstract void passStarted(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0, java.awt.image.BufferedImage a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8, int[] a_r_g_u_m_e_n_t_9) ;
-  public abstract void passComplete(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0, java.awt.image.BufferedImage a_r_g_u_m_e_n_t_1) ;
-  public abstract void thumbnailPassStarted(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0, java.awt.image.BufferedImage a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8, int[] a_r_g_u_m_e_n_t_9) ;
-  public abstract void thumbnailUpdate(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0, java.awt.image.BufferedImage a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int[] a_r_g_u_m_e_n_t_8) ;
-  public abstract void thumbnailPassComplete(javax.imageio.ImageReader a_r_g_u_m_e_n_t_0, java.awt.image.BufferedImage a_r_g_u_m_e_n_t_1) ;
-}

@@ -1,4 +1,0 @@
-package javax.xml.transform;
-public abstract interface URIResolver {
-  public abstract javax.xml.transform.Source resolve(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws javax.xml.transform.TransformerException;
-}

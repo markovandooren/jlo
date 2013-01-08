@@ -1,9 +1,0 @@
-package java.util;
-public abstract class AbstractQueue<E extends java.lang.Object> extends java.util.AbstractCollection<E> implements java.util.Queue<E> {
-   protected  AbstractQueue(){}
-  public native boolean add(E a_r_g_u_m_e_n_t_0) ;
-  public native void clear() ;
-  public native boolean addAll(java.util.Collection<? extends E> a_r_g_u_m_e_n_t_0) ;
-  public native E remove() ;
-  public native E element() ;
-}

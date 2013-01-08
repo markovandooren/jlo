@@ -1,7 +1,0 @@
-package javax.sound.midi.spi;
-public abstract class SoundbankReader extends java.lang.Object {
-   public  SoundbankReader(){}
-  public abstract javax.sound.midi.Soundbank getSoundbank(java.net.URL a_r_g_u_m_e_n_t_0)  throws javax.sound.midi.InvalidMidiDataException, java.io.IOException;
-  public abstract javax.sound.midi.Soundbank getSoundbank(java.io.InputStream a_r_g_u_m_e_n_t_0)  throws javax.sound.midi.InvalidMidiDataException, java.io.IOException;
-  public abstract javax.sound.midi.Soundbank getSoundbank(java.io.File a_r_g_u_m_e_n_t_0)  throws javax.sound.midi.InvalidMidiDataException, java.io.IOException;
-}

@@ -33,7 +33,6 @@ public class AntCompileTask extends Task {
 			} catch (chameleon.plugin.build.BuildException e) {
 				throw new BuildException(e);
 			}
-			
 		} catch (ConfigException e) {
 			throw new BuildException(e);
 		}

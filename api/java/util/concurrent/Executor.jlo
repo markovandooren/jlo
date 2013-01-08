@@ -1,4 +1,0 @@
-package java.util.concurrent;
-public abstract interface Executor {
-  public abstract void execute(java.lang.Runnable a_r_g_u_m_e_n_t_0) ;
-}

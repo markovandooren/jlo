@@ -1,4 +1,0 @@
-package javax.swing.plaf;
-public abstract class TableHeaderUI extends javax.swing.plaf.ComponentUI {
-   public  TableHeaderUI(){}
-}

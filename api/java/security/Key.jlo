@@ -1,7 +1,0 @@
-package java.security;
-public abstract interface Key extends java.io.Serializable {
-  public abstract java.lang.String getAlgorithm() ;
-  public abstract byte[] getEncoded() ;
-  public abstract java.lang.String getFormat() ;
-  public static final long serialVersionUID;
-}

@@ -1,8 +1,0 @@
-package java.util.zip;
-public class CheckedInputStream extends java.io.FilterInputStream {
-   public  CheckedInputStream(java.io.InputStream a_r_g_u_m_e_n_t_0, java.util.zip.Checksum a_r_g_u_m_e_n_t_1){}
-  public native int read()  throws java.io.IOException;
-  public native int read(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
-  public native long skip(long a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
-  public native java.util.zip.Checksum getChecksum() ;
-}

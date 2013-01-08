@@ -1,6 +1,0 @@
-package java.text;
-public class Annotation extends java.lang.Object {
-   public  Annotation(java.lang.Object a_r_g_u_m_e_n_t_0){}
-  public native java.lang.String toString() ;
-  public native java.lang.Object getValue() ;
-}

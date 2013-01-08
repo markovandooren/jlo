@@ -1,8 +1,0 @@
-package javax.crypto.spec;
-public class DHParameterSpec extends java.lang.Object implements java.security.spec.AlgorithmParameterSpec {
-   public  DHParameterSpec(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1){}
-   public  DHParameterSpec(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
-  public native java.math.BigInteger getP() ;
-  public native java.math.BigInteger getG() ;
-  public native int getL() ;
-}

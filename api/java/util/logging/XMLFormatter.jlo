@@ -1,7 +1,0 @@
-package java.util.logging;
-public class XMLFormatter extends java.util.logging.Formatter {
-   public  XMLFormatter(){}
-  public native java.lang.String format(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
-  public native java.lang.String getHead(java.util.logging.Handler a_r_g_u_m_e_n_t_0) ;
-  public native java.lang.String getTail(java.util.logging.Handler a_r_g_u_m_e_n_t_0) ;
-}

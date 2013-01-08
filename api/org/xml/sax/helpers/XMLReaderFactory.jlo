@@ -1,5 +1,0 @@
-package org.xml.sax.helpers;
-public final class XMLReaderFactory extends java.lang.Object {
-  public static native org.xml.sax.XMLReader createXMLReader()  throws org.xml.sax.SAXException;
-  public static native org.xml.sax.XMLReader createXMLReader(java.lang.String a_r_g_u_m_e_n_t_0)  throws org.xml.sax.SAXException;
-}

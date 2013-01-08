@@ -1,4 +1,0 @@
-package java.security.interfaces;
-public abstract interface DSAKey {
-  public abstract java.security.interfaces.DSAParams getParams() ;
-}

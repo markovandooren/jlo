@@ -1,4 +1,0 @@
-package java.lang.reflect;
-public abstract interface GenericDeclaration {
-  public abstract java.lang.reflect.TypeVariable<? extends java.lang.Object>[] getTypeParameters() ;
-}

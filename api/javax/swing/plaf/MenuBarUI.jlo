@@ -1,4 +1,0 @@
-package javax.swing.plaf;
-public abstract class MenuBarUI extends javax.swing.plaf.ComponentUI {
-   public  MenuBarUI(){}
-}

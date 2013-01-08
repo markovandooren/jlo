@@ -1,5 +1,0 @@
-package java.awt.event;
-public abstract interface ContainerListener extends java.util.EventListener {
-  public abstract void componentAdded(java.awt.event.ContainerEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void componentRemoved(java.awt.event.ContainerEvent a_r_g_u_m_e_n_t_0) ;
-}

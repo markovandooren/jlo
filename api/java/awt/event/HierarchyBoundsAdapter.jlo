@@ -1,6 +1,0 @@
-package java.awt.event;
-public abstract class HierarchyBoundsAdapter extends java.lang.Object implements java.awt.event.HierarchyBoundsListener {
-   public  HierarchyBoundsAdapter(){}
-  public native void ancestorMoved(java.awt.event.HierarchyEvent a_r_g_u_m_e_n_t_0) ;
-  public native void ancestorResized(java.awt.event.HierarchyEvent a_r_g_u_m_e_n_t_0) ;
-}

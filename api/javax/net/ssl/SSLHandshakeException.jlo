@@ -1,4 +1,0 @@
-package javax.net.ssl;
-public class SSLHandshakeException extends javax.net.ssl.SSLException {
-   public  SSLHandshakeException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

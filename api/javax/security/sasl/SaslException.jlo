@@ -1,9 +1,0 @@
-package javax.security.sasl;
-public class SaslException extends java.io.IOException {
-   public  SaslException(){}
-   public  SaslException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  SaslException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
-  public native java.lang.Throwable getCause() ;
-  public native java.lang.Throwable initCause(java.lang.Throwable a_r_g_u_m_e_n_t_0) ;
-  public native java.lang.String toString() ;
-}

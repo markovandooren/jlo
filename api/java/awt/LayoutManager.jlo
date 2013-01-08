@@ -1,8 +1,0 @@
-package java.awt;
-public abstract interface LayoutManager {
-  public abstract void removeLayoutComponent(java.awt.Component a_r_g_u_m_e_n_t_0) ;
-  public abstract void addLayoutComponent(java.lang.String a_r_g_u_m_e_n_t_0, java.awt.Component a_r_g_u_m_e_n_t_1) ;
-  public abstract void layoutContainer(java.awt.Container a_r_g_u_m_e_n_t_0) ;
-  public abstract java.awt.Dimension preferredLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
-  public abstract java.awt.Dimension minimumLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
-}

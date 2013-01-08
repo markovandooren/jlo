@@ -1,4 +1,0 @@
-package java.awt.color;
-public class ProfileDataException extends java.lang.RuntimeException {
-   public  ProfileDataException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

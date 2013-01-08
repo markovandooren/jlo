@@ -1,6 +1,0 @@
-package javax.print.event;
-public class PrintServiceAttributeEvent extends javax.print.event.PrintEvent {
-   public  PrintServiceAttributeEvent(javax.print.PrintService a_r_g_u_m_e_n_t_0, javax.print.attribute.PrintServiceAttributeSet a_r_g_u_m_e_n_t_1){}
-  public native javax.print.attribute.PrintServiceAttributeSet getAttributes() ;
-  public native javax.print.PrintService getPrintService() ;
-}

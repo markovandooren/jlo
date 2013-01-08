@@ -1,4 +1,0 @@
-package javax.naming.ldap;
-public abstract interface HasControls {
-  public abstract javax.naming.ldap.Control[] getControls()  throws javax.naming.NamingException;
-}

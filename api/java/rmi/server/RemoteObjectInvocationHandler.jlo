@@ -1,9 +1,0 @@
-package java.rmi.server;
-public class RemoteObjectInvocationHandler extends java.rmi.server.RemoteObject implements java.lang.reflect.InvocationHandler {
-   public  RemoteObjectInvocationHandler(java.rmi.server.RemoteRef a_r_g_u_m_e_n_t_0){}
-  public native java.lang.Object invoke(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.reflect.Method a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2)  throws java.lang.Throwable;
-  private static class MethodToHash_Maps extends sun.rmi.server.WeakClassHashMap<java.util.Map<java.lang.reflect.Method,java.lang.Long>> {
-      MethodToHash_Maps(){}
-    protected native java.util.Map<java.lang.reflect.Method,java.lang.Long> computeValue(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
-  }
-}

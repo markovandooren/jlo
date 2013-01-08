@@ -1,6 +1,0 @@
-package java.lang.management;
-public abstract interface MemoryManagerMXBean {
-  public abstract java.lang.String getName() ;
-  public abstract boolean isValid() ;
-  public abstract java.lang.String[] getMemoryPoolNames() ;
-}

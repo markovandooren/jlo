@@ -1,5 +1,0 @@
-package java.rmi.activation;
-public class ActivateFailedException extends java.rmi.RemoteException {
-   public  ActivateFailedException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  ActivateFailedException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Exception a_r_g_u_m_e_n_t_1){}
-}

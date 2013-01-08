@@ -1,4 +1,0 @@
-package java.awt.print;
-public abstract interface PrinterGraphics {
-  public abstract java.awt.print.PrinterJob getPrinterJob() ;
-}

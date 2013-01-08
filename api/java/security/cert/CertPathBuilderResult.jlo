@@ -1,5 +1,0 @@
-package java.security.cert;
-public abstract interface CertPathBuilderResult extends java.lang.Cloneable {
-  public abstract java.lang.Object clone() ;
-  public abstract java.security.cert.CertPath getCertPath() ;
-}

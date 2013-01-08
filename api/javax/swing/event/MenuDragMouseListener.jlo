@@ -1,7 +1,0 @@
-package javax.swing.event;
-public abstract interface MenuDragMouseListener extends java.util.EventListener {
-  public abstract void menuDragMouseEntered(javax.swing.event.MenuDragMouseEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void menuDragMouseExited(javax.swing.event.MenuDragMouseEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void menuDragMouseDragged(javax.swing.event.MenuDragMouseEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void menuDragMouseReleased(javax.swing.event.MenuDragMouseEvent a_r_g_u_m_e_n_t_0) ;
-}

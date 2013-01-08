@@ -1,4 +1,0 @@
-package java.awt;
-public abstract interface ActiveEvent {
-  public abstract void dispatch() ;
-}

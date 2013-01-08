@@ -1,9 +1,0 @@
-package org.xml.sax.ext;
-public abstract interface Attributes2 extends org.xml.sax.Attributes {
-  public abstract boolean isDeclared(int a_r_g_u_m_e_n_t_0) ;
-  public abstract boolean isDeclared(java.lang.String a_r_g_u_m_e_n_t_0) ;
-  public abstract boolean isDeclared(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
-  public abstract boolean isSpecified(int a_r_g_u_m_e_n_t_0) ;
-  public abstract boolean isSpecified(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1) ;
-  public abstract boolean isSpecified(java.lang.String a_r_g_u_m_e_n_t_0) ;
-}

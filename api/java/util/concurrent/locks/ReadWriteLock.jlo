@@ -1,5 +1,0 @@
-package java.util.concurrent.locks;
-public abstract interface ReadWriteLock {
-  public abstract java.util.concurrent.locks.Lock writeLock() ;
-  public abstract java.util.concurrent.locks.Lock readLock() ;
-}

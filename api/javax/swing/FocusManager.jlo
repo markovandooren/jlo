@@ -1,9 +1,0 @@
-package javax.swing;
-public abstract class FocusManager extends java.awt.DefaultKeyboardFocusManager {
-   public  FocusManager(){}
-  public static native javax.swing.FocusManager getCurrentManager() ;
-  public static native boolean isFocusManagerEnabled() ;
-  public static native void setCurrentManager(javax.swing.FocusManager a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
-  public static native void disableSwingFocusManager() ;
-  public static final java.lang.String FOCUS_MANAGER_CLASS_PROPERTY;
-}

@@ -1,6 +1,0 @@
-package java.rmi.dgc;
-public final class Lease extends java.lang.Object implements java.io.Serializable {
-   public  Lease(java.rmi.dgc.VMID a_r_g_u_m_e_n_t_0, long a_r_g_u_m_e_n_t_1){}
-  public native long getValue() ;
-  public native java.rmi.dgc.VMID getVMID() ;
-}

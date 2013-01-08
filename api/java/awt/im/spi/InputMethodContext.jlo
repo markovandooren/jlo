@@ -1,7 +1,0 @@
-package java.awt.im.spi;
-public abstract interface InputMethodContext extends java.awt.im.InputMethodRequests {
-  public abstract java.awt.Window createInputMethodWindow(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
-  public abstract void dispatchInputMethodEvent(int a_r_g_u_m_e_n_t_0, java.text.AttributedCharacterIterator a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_3, java.awt.font.TextHitInfo a_r_g_u_m_e_n_t_4) ;
-  public abstract javax.swing.JFrame createInputMethodJFrame(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
-  public abstract void enableClientWindowNotification(java.awt.im.spi.InputMethod a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
-}

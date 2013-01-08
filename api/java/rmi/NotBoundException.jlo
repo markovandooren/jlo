@@ -1,5 +1,0 @@
-package java.rmi;
-public class NotBoundException extends java.lang.Exception {
-   public  NotBoundException(){}
-   public  NotBoundException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

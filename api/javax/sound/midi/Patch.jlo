@@ -1,6 +1,0 @@
-package javax.sound.midi;
-public class Patch extends java.lang.Object {
-   public  Patch(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
-  public native int getBank() ;
-  public native int getProgram() ;
-}

@@ -1,5 +1,0 @@
-package java.awt.event;
-public abstract interface FocusListener extends java.util.EventListener {
-  public abstract void focusGained(java.awt.event.FocusEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void focusLost(java.awt.event.FocusEvent a_r_g_u_m_e_n_t_0) ;
-}

@@ -1,8 +1,0 @@
-package java.lang;
-public final class Compiler extends java.lang.Object {
-  public static native boolean compileClass(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
-  public static native boolean compileClasses(java.lang.String a_r_g_u_m_e_n_t_0) ;
-  public static native java.lang.Object command(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public static native void enable() ;
-  public static native void disable() ;
-}

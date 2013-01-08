@@ -1,5 +1,0 @@
-package javax.swing;
-public abstract class InternalFrameFocusTraversalPolicy extends java.awt.FocusTraversalPolicy {
-   public  InternalFrameFocusTraversalPolicy(){}
-  public native java.awt.Component getInitialComponent(javax.swing.JInternalFrame a_r_g_u_m_e_n_t_0) ;
-}

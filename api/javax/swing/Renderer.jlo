@@ -1,5 +1,0 @@
-package javax.swing;
-public abstract interface Renderer {
-  public abstract void setValue(java.lang.Object a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1) ;
-  public abstract java.awt.Component getComponent() ;
-}

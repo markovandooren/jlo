@@ -1,7 +1,0 @@
-package javax.sql;
-public class ConnectionEvent extends java.util.EventObject {
-   public  ConnectionEvent(javax.sql.PooledConnection a_r_g_u_m_e_n_t_0){}
-   public  ConnectionEvent(javax.sql.PooledConnection a_r_g_u_m_e_n_t_0, java.sql.SQLException a_r_g_u_m_e_n_t_1){}
-  public native java.sql.SQLException getSQLException() ;
-  static final long serialVersionUID;
-}

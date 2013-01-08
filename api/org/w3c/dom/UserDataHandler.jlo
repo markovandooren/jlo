@@ -1,9 +1,0 @@
-package org.w3c.dom;
-public abstract interface UserDataHandler {
-  public abstract void handle(short a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, org.w3c.dom.Node a_r_g_u_m_e_n_t_3, org.w3c.dom.Node a_r_g_u_m_e_n_t_4) ;
-  public static final short NODE_CLONED;
-  public static final short NODE_IMPORTED;
-  public static final short NODE_DELETED;
-  public static final short NODE_RENAMED;
-  public static final short NODE_ADOPTED;
-}

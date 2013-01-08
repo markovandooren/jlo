@@ -1,6 +1,0 @@
-package javax.sql.rowset.serial;
-public class SerialException extends java.sql.SQLException {
-   public  SerialException(){}
-   public  SerialException(java.lang.String a_r_g_u_m_e_n_t_0){}
-  static final long serialVersionUID;
-}

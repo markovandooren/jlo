@@ -1,7 +1,0 @@
-package java.awt;
-public abstract interface Transparency {
-  public abstract int getTransparency() ;
-  public static final int OPAQUE;
-  public static final int BITMASK;
-  public static final int TRANSLUCENT;
-}

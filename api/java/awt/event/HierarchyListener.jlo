@@ -1,4 +1,0 @@
-package java.awt.event;
-public abstract interface HierarchyListener extends java.util.EventListener {
-  public abstract void hierarchyChanged(java.awt.event.HierarchyEvent a_r_g_u_m_e_n_t_0) ;
-}

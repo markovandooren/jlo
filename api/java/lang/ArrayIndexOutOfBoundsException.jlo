@@ -1,6 +1,0 @@
-package java.lang;
-public class ArrayIndexOutOfBoundsException extends java.lang.IndexOutOfBoundsException {
-   public  ArrayIndexOutOfBoundsException(){}
-   public  ArrayIndexOutOfBoundsException(int a_r_g_u_m_e_n_t_0){}
-   public  ArrayIndexOutOfBoundsException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

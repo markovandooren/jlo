@@ -1,5 +1,0 @@
-package java.beans.beancontext;
-public abstract interface BeanContextMembershipListener extends java.util.EventListener {
-  public abstract void childrenAdded(java.beans.beancontext.BeanContextMembershipEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void childrenRemoved(java.beans.beancontext.BeanContextMembershipEvent a_r_g_u_m_e_n_t_0) ;
-}

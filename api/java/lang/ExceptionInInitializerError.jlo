@@ -1,8 +1,0 @@
-package java.lang;
-public class ExceptionInInitializerError extends java.lang.LinkageError {
-   public  ExceptionInInitializerError(){}
-   public  ExceptionInInitializerError(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
-   public  ExceptionInInitializerError(java.lang.String a_r_g_u_m_e_n_t_0){}
-  public native java.lang.Throwable getCause() ;
-  public native java.lang.Throwable getException() ;
-}

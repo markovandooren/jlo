@@ -1,5 +1,0 @@
-package javax.security.cert;
-public class CertificateNotYetValidException extends javax.security.cert.CertificateException {
-   public  CertificateNotYetValidException(){}
-   public  CertificateNotYetValidException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

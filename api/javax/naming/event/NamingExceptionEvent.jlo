@@ -1,7 +1,0 @@
-package javax.naming.event;
-public class NamingExceptionEvent extends java.util.EventObject {
-   public  NamingExceptionEvent(javax.naming.event.EventContext a_r_g_u_m_e_n_t_0, javax.naming.NamingException a_r_g_u_m_e_n_t_1){}
-  public native void dispatch(javax.naming.event.NamingListener a_r_g_u_m_e_n_t_0) ;
-  public native javax.naming.NamingException getException() ;
-  public native javax.naming.event.EventContext getEventContext() ;
-}

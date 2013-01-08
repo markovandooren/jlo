@@ -1,5 +1,0 @@
-package javax.security.sasl;
-public abstract interface SaslClientFactory {
-  public abstract javax.security.sasl.SaslClient createSaslClient(java.lang.String[] a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_4, javax.security.auth.callback.CallbackHandler a_r_g_u_m_e_n_t_5)  throws javax.security.sasl.SaslException;
-  public abstract java.lang.String[] getMechanismNames(java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
-}

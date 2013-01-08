@@ -1,5 +1,0 @@
-package java.security;
-public class InvalidParameterException extends java.lang.IllegalArgumentException {
-   public  InvalidParameterException(){}
-   public  InvalidParameterException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

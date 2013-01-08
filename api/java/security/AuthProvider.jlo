@@ -1,7 +1,0 @@
-package java.security;
-public abstract class AuthProvider extends java.security.Provider {
-   protected  AuthProvider(java.lang.String a_r_g_u_m_e_n_t_0, double a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2){}
-  public abstract void login(javax.security.auth.Subject a_r_g_u_m_e_n_t_0, javax.security.auth.callback.CallbackHandler a_r_g_u_m_e_n_t_1)  throws javax.security.auth.login.LoginException;
-  public abstract void logout()  throws javax.security.auth.login.LoginException;
-  public abstract void setCallbackHandler(javax.security.auth.callback.CallbackHandler a_r_g_u_m_e_n_t_0) ;
-}

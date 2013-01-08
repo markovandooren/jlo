@@ -1,5 +1,0 @@
-package javax.swing.plaf.basic;
-public class DefaultMenuLayout extends javax.swing.BoxLayout implements javax.swing.plaf.UIResource {
-   public  DefaultMenuLayout(java.awt.Container a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
-  public native java.awt.Dimension preferredLayoutSize(java.awt.Container a_r_g_u_m_e_n_t_0) ;
-}

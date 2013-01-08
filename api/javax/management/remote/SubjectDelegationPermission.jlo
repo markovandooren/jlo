@@ -1,5 +1,0 @@
-package javax.management.remote;
-public final class SubjectDelegationPermission extends java.security.BasicPermission {
-   public  SubjectDelegationPermission(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  SubjectDelegationPermission(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
-}

@@ -1,5 +1,0 @@
-package javax.imageio;
-public class IIOException extends java.io.IOException {
-   public  IIOException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  IIOException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
-}

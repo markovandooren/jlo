@@ -1,4 +1,0 @@
-package java.net;
-public abstract class SocketAddress extends java.lang.Object implements java.io.Serializable {
-   public  SocketAddress(){}
-}

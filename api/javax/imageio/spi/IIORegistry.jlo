@@ -1,5 +1,0 @@
-package javax.imageio.spi;
-public final class IIORegistry extends javax.imageio.spi.ServiceRegistry {
-  public static native javax.imageio.spi.IIORegistry getDefaultInstance() ;
-  public native void registerApplicationClasspathSpis() ;
-}

@@ -1,4 +1,0 @@
-package java.security;
-public abstract interface Guard {
-  public abstract void checkGuard(java.lang.Object a_r_g_u_m_e_n_t_0)  throws java.lang.SecurityException;
-}

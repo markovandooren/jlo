@@ -1,9 +1,0 @@
-package javax.security.auth.callback;
-public class NameCallback extends java.lang.Object implements javax.security.auth.callback.Callback, java.io.Serializable {
-   public  NameCallback(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  NameCallback(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
-  public native java.lang.String getName() ;
-  public native void setName(java.lang.String a_r_g_u_m_e_n_t_0) ;
-  public native java.lang.String getPrompt() ;
-  public native java.lang.String getDefaultName() ;
-}

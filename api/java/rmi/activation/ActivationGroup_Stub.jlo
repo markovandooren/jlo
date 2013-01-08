@@ -1,8 +1,0 @@
-package java.rmi.activation;
-public final class ActivationGroup_Stub extends java.rmi.server.RemoteStub implements java.rmi.activation.ActivationInstantiator, java.rmi.Remote {
-   public  ActivationGroup_Stub(java.rmi.server.RemoteRef a_r_g_u_m_e_n_t_0){}
-  public native java.rmi.MarshalledObject newInstance(java.rmi.activation.ActivationID a_r_g_u_m_e_n_t_0, java.rmi.activation.ActivationDesc a_r_g_u_m_e_n_t_1)  throws java.rmi.RemoteException, java.rmi.activation.ActivationException;
-  static java.lang.Class class$java$rmi$activation$ActivationInstantiator;
-  static java.lang.Class class$java$rmi$activation$ActivationID;
-  static java.lang.Class class$java$rmi$activation$ActivationDesc;
-}

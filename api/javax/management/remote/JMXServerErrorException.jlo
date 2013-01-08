@@ -1,5 +1,0 @@
-package javax.management.remote;
-public class JMXServerErrorException extends java.io.IOException {
-   public  JMXServerErrorException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Error a_r_g_u_m_e_n_t_1){}
-  public native java.lang.Throwable getCause() ;
-}

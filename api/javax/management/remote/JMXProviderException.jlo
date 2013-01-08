@@ -1,7 +1,0 @@
-package javax.management.remote;
-public class JMXProviderException extends java.io.IOException {
-   public  JMXProviderException(){}
-   public  JMXProviderException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  JMXProviderException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
-  public native java.lang.Throwable getCause() ;
-}

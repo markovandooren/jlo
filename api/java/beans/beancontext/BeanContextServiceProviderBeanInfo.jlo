@@ -1,4 +1,0 @@
-package java.beans.beancontext;
-public abstract interface BeanContextServiceProviderBeanInfo extends java.beans.BeanInfo {
-  public abstract java.beans.BeanInfo[] getServicesBeanInfo() ;
-}

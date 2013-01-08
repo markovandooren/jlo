@@ -1,4 +1,0 @@
-package java.util.prefs;
-public abstract interface PreferenceChangeListener extends java.util.EventListener {
-  public abstract void preferenceChange(java.util.prefs.PreferenceChangeEvent a_r_g_u_m_e_n_t_0) ;
-}

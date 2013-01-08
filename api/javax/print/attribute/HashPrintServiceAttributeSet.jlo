@@ -1,7 +1,0 @@
-package javax.print.attribute;
-public class HashPrintServiceAttributeSet extends javax.print.attribute.HashAttributeSet implements javax.print.attribute.PrintServiceAttributeSet, java.io.Serializable {
-   public  HashPrintServiceAttributeSet(){}
-   public  HashPrintServiceAttributeSet(javax.print.attribute.PrintServiceAttribute a_r_g_u_m_e_n_t_0){}
-   public  HashPrintServiceAttributeSet(javax.print.attribute.PrintServiceAttribute[] a_r_g_u_m_e_n_t_0){}
-   public  HashPrintServiceAttributeSet(javax.print.attribute.PrintServiceAttributeSet a_r_g_u_m_e_n_t_0){}
-}

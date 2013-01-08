@@ -1,5 +1,0 @@
-package javax.sound.midi;
-public class MidiUnavailableException extends java.lang.Exception {
-   public  MidiUnavailableException(){}
-   public  MidiUnavailableException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

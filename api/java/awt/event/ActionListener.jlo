@@ -1,4 +1,0 @@
-package java.awt.event;
-public abstract interface ActionListener extends java.util.EventListener {
-  public abstract void actionPerformed(java.awt.event.ActionEvent a_r_g_u_m_e_n_t_0) ;
-}

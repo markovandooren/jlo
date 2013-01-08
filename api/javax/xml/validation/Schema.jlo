@@ -1,6 +1,0 @@
-package javax.xml.validation;
-public abstract class Schema extends java.lang.Object {
-   protected  Schema(){}
-  public abstract javax.xml.validation.Validator newValidator() ;
-  public abstract javax.xml.validation.ValidatorHandler newValidatorHandler() ;
-}

@@ -1,5 +1,0 @@
-package java.lang;
-public class StackOverflowError extends java.lang.VirtualMachineError {
-   public  StackOverflowError(){}
-   public  StackOverflowError(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

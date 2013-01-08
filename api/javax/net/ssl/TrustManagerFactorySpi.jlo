@@ -1,7 +1,0 @@
-package javax.net.ssl;
-public abstract class TrustManagerFactorySpi extends java.lang.Object {
-   public  TrustManagerFactorySpi(){}
-  protected abstract void engineInit(java.security.KeyStore a_r_g_u_m_e_n_t_0)  throws java.security.KeyStoreException;
-  protected abstract void engineInit(javax.net.ssl.ManagerFactoryParameters a_r_g_u_m_e_n_t_0)  throws java.security.InvalidAlgorithmParameterException;
-  protected abstract javax.net.ssl.TrustManager[] engineGetTrustManagers() ;
-}

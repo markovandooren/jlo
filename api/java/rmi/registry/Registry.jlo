@@ -1,9 +1,0 @@
-package java.rmi.registry;
-public abstract interface Registry extends java.rmi.Remote {
-  public abstract java.lang.String[] list()  throws java.rmi.RemoteException, java.rmi.AccessException;
-  public abstract java.rmi.Remote lookup(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.rmi.RemoteException, java.rmi.NotBoundException, java.rmi.AccessException;
-  public abstract void bind(java.lang.String a_r_g_u_m_e_n_t_0, java.rmi.Remote a_r_g_u_m_e_n_t_1)  throws java.rmi.RemoteException, java.rmi.AlreadyBoundException, java.rmi.AccessException;
-  public abstract void rebind(java.lang.String a_r_g_u_m_e_n_t_0, java.rmi.Remote a_r_g_u_m_e_n_t_1)  throws java.rmi.RemoteException, java.rmi.AccessException;
-  public abstract void unbind(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.rmi.RemoteException, java.rmi.NotBoundException, java.rmi.AccessException;
-  public static final int REGISTRY_PORT;
-}

@@ -1,4 +1,0 @@
-package javax.swing.plaf;
-public class ComponentInputMapUIResource extends javax.swing.ComponentInputMap implements javax.swing.plaf.UIResource {
-   public  ComponentInputMapUIResource(javax.swing.JComponent a_r_g_u_m_e_n_t_0){}
-}

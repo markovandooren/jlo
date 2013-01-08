@@ -1,4 +1,0 @@
-package java.util.concurrent;
-public abstract interface RejectedExecutionHandler {
-  public abstract void rejectedExecution(java.lang.Runnable a_r_g_u_m_e_n_t_0, java.util.concurrent.ThreadPoolExecutor a_r_g_u_m_e_n_t_1) ;
-}

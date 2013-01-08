@@ -1,9 +1,0 @@
-package java.awt.dnd;
-public class DragSourceEvent extends java.util.EventObject {
-   public  DragSourceEvent(java.awt.dnd.DragSourceContext a_r_g_u_m_e_n_t_0){}
-   public  DragSourceEvent(java.awt.dnd.DragSourceContext a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
-  public native java.awt.Point getLocation() ;
-  public native int getY() ;
-  public native int getX() ;
-  public native java.awt.dnd.DragSourceContext getDragSourceContext() ;
-}

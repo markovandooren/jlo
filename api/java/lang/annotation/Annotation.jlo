@@ -1,7 +1,0 @@
-package java.lang.annotation;
-public abstract interface Annotation {
-  public abstract int hashCode() ;
-  public abstract boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public abstract java.lang.String toString() ;
-  public abstract java.lang.Class<? extends java.lang.annotation.Annotation> annotationType() ;
-}

@@ -1,8 +1,0 @@
-package java.lang.management;
-public abstract interface ClassLoadingMXBean {
-  public abstract long getTotalLoadedClassCount() ;
-  public abstract int getLoadedClassCount() ;
-  public abstract long getUnloadedClassCount() ;
-  public abstract boolean isVerbose() ;
-  public abstract void setVerbose(boolean a_r_g_u_m_e_n_t_0) ;
-}

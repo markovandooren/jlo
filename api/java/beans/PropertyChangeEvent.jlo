@@ -1,9 +1,0 @@
-package java.beans;
-public class PropertyChangeEvent extends java.util.EventObject {
-   public  PropertyChangeEvent(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, java.lang.Object a_r_g_u_m_e_n_t_3){}
-  public native java.lang.String getPropertyName() ;
-  public native java.lang.Object getNewValue() ;
-  public native java.lang.Object getOldValue() ;
-  public native void setPropagationId(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public native java.lang.Object getPropagationId() ;
-}

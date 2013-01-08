@@ -1,9 +1,0 @@
-package java.beans.beancontext;
-public class BeanContextServiceRevokedEvent extends java.beans.beancontext.BeanContextEvent {
-   public  BeanContextServiceRevokedEvent(java.beans.beancontext.BeanContextServices a_r_g_u_m_e_n_t_0, java.lang.Class a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2){}
-  public native java.beans.beancontext.BeanContextServices getSourceAsBeanContextServices() ;
-  public native java.lang.Class getServiceClass() ;
-  public native boolean isServiceClass(java.lang.Class a_r_g_u_m_e_n_t_0) ;
-  public native boolean isCurrentServiceInvalidNow() ;
-  protected java.lang.Class serviceClass;
-}

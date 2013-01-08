@@ -1,8 +1,0 @@
-package javax.security.auth.spi;
-public abstract interface LoginModule {
-  public abstract void initialize(javax.security.auth.Subject a_r_g_u_m_e_n_t_0, javax.security.auth.callback.CallbackHandler a_r_g_u_m_e_n_t_1, java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_2, java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_3) ;
-  public abstract boolean login()  throws javax.security.auth.login.LoginException;
-  public abstract boolean logout()  throws javax.security.auth.login.LoginException;
-  public abstract boolean commit()  throws javax.security.auth.login.LoginException;
-  public abstract boolean abort()  throws javax.security.auth.login.LoginException;
-}

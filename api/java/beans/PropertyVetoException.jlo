@@ -1,5 +1,0 @@
-package java.beans;
-public class PropertyVetoException extends java.lang.Exception {
-   public  PropertyVetoException(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_1){}
-  public native java.beans.PropertyChangeEvent getPropertyChangeEvent() ;
-}

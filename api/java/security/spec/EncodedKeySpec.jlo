@@ -1,6 +1,0 @@
-package java.security.spec;
-public abstract class EncodedKeySpec extends java.lang.Object implements java.security.spec.KeySpec {
-   public  EncodedKeySpec(byte[] a_r_g_u_m_e_n_t_0){}
-  public native byte[] getEncoded() ;
-  public abstract java.lang.String getFormat() ;
-}

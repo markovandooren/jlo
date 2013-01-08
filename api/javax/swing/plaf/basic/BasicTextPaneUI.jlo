@@ -1,8 +1,0 @@
-package javax.swing.plaf.basic;
-public class BasicTextPaneUI extends javax.swing.plaf.basic.BasicEditorPaneUI {
-   public  BasicTextPaneUI(){}
-  public native void installUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
-  protected native void propertyChange(java.beans.PropertyChangeEvent a_r_g_u_m_e_n_t_0) ;
-  public static native javax.swing.plaf.ComponentUI createUI(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
-  protected native java.lang.String getPropertyPrefix() ;
-}

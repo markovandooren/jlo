@@ -1,9 +1,0 @@
-package java.io;
-public abstract class OutputStream extends java.lang.Object implements java.io.Closeable, java.io.Flushable {
-   public  OutputStream(){}
-  public abstract void write(int a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
-  public native void write(byte[] a_r_g_u_m_e_n_t_0)  throws java.io.IOException;
-  public native void write(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
-  public native void flush()  throws java.io.IOException;
-  public native void close()  throws java.io.IOException;
-}

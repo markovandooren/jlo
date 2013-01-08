@@ -1,6 +1,0 @@
-package javax.management.loading;
-public abstract interface ClassLoaderRepository {
-  public abstract java.lang.Class<? extends java.lang.Object> loadClass(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.ClassNotFoundException;
-  public abstract java.lang.Class<? extends java.lang.Object> loadClassWithout(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.lang.ClassNotFoundException;
-  public abstract java.lang.Class<? extends java.lang.Object> loadClassBefore(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.lang.ClassNotFoundException;
-}

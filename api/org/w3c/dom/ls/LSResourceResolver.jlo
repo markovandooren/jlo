@@ -1,4 +1,0 @@
-package org.w3c.dom.ls;
-public abstract interface LSResourceResolver {
-  public abstract org.w3c.dom.ls.LSInput resolveResource(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.lang.String a_r_g_u_m_e_n_t_4) ;
-}

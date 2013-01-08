@@ -1,4 +1,0 @@
-package java.nio.charset;
-public class CoderMalfunctionError extends java.lang.Error {
-   public  CoderMalfunctionError(java.lang.Exception a_r_g_u_m_e_n_t_0){}
-}

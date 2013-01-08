@@ -1,4 +1,0 @@
-package javax.swing.event;
-public abstract interface UndoableEditListener extends java.util.EventListener {
-  public abstract void undoableEditHappened(javax.swing.event.UndoableEditEvent a_r_g_u_m_e_n_t_0) ;
-}

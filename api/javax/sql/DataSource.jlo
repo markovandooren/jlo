@@ -1,5 +1,0 @@
-package javax.sql;
-public abstract interface DataSource {
-  public abstract java.sql.Connection getConnection()  throws java.sql.SQLException;
-  public abstract java.sql.Connection getConnection(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
-}

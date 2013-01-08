@@ -1,7 +1,0 @@
-package org.w3c.dom;
-public abstract interface DOMConfiguration {
-  public abstract void setParameter(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1)  throws org.w3c.dom.DOMException;
-  public abstract java.lang.Object getParameter(java.lang.String a_r_g_u_m_e_n_t_0)  throws org.w3c.dom.DOMException;
-  public abstract boolean canSetParameter(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
-  public abstract org.w3c.dom.DOMStringList getParameterNames() ;
-}

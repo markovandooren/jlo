@@ -1,3 +1,0 @@
-package java.util.concurrent;
-public abstract interface ScheduledFuture<V extends java.lang.Object> extends java.util.concurrent.Delayed, java.util.concurrent.Future<V> {
-}

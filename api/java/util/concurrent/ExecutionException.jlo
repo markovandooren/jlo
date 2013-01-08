@@ -1,7 +1,0 @@
-package java.util.concurrent;
-public class ExecutionException extends java.lang.Exception {
-   protected  ExecutionException(){}
-   protected  ExecutionException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  ExecutionException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
-   public  ExecutionException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
-}

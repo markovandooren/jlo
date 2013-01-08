@@ -1,7 +1,0 @@
-package java.rmi.server;
-public abstract interface LoaderHandler {
-  public abstract java.lang.Class<? extends java.lang.Object> loadClass(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.net.MalformedURLException, java.lang.ClassNotFoundException;
-  public abstract java.lang.Class<? extends java.lang.Object> loadClass(java.net.URL a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.net.MalformedURLException, java.lang.ClassNotFoundException;
-  public abstract java.lang.Object getSecurityContext(java.lang.ClassLoader a_r_g_u_m_e_n_t_0) ;
-  public static final java.lang.String packagePrefix;
-}

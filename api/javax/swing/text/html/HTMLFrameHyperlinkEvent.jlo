@@ -1,8 +1,0 @@
-package javax.swing.text.html;
-public class HTMLFrameHyperlinkEvent extends javax.swing.event.HyperlinkEvent {
-   public  HTMLFrameHyperlinkEvent(java.lang.Object a_r_g_u_m_e_n_t_0, javax.swing.event.HyperlinkEvent.EventType a_r_g_u_m_e_n_t_1, java.net.URL a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3){}
-   public  HTMLFrameHyperlinkEvent(java.lang.Object a_r_g_u_m_e_n_t_0, javax.swing.event.HyperlinkEvent.EventType a_r_g_u_m_e_n_t_1, java.net.URL a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.lang.String a_r_g_u_m_e_n_t_4){}
-   public  HTMLFrameHyperlinkEvent(java.lang.Object a_r_g_u_m_e_n_t_0, javax.swing.event.HyperlinkEvent.EventType a_r_g_u_m_e_n_t_1, java.net.URL a_r_g_u_m_e_n_t_2, javax.swing.text.Element a_r_g_u_m_e_n_t_3, java.lang.String a_r_g_u_m_e_n_t_4){}
-   public  HTMLFrameHyperlinkEvent(java.lang.Object a_r_g_u_m_e_n_t_0, javax.swing.event.HyperlinkEvent.EventType a_r_g_u_m_e_n_t_1, java.net.URL a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, javax.swing.text.Element a_r_g_u_m_e_n_t_4, java.lang.String a_r_g_u_m_e_n_t_5){}
-  public native java.lang.String getTarget() ;
-}

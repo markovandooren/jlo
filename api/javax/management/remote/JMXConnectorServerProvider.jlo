@@ -1,4 +1,0 @@
-package javax.management.remote;
-public abstract interface JMXConnectorServerProvider {
-  public abstract javax.management.remote.JMXConnectorServer newJMXConnectorServer(javax.management.remote.JMXServiceURL a_r_g_u_m_e_n_t_0, java.util.Map<java.lang.String,? extends java.lang.Object> a_r_g_u_m_e_n_t_1, javax.management.MBeanServer a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
-}

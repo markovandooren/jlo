@@ -1,7 +1,0 @@
-package javax.activity;
-public class ActivityCompletedException extends java.rmi.RemoteException {
-   public  ActivityCompletedException(){}
-   public  ActivityCompletedException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  ActivityCompletedException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
-   public  ActivityCompletedException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
-}

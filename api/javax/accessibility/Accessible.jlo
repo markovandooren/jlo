@@ -1,4 +1,0 @@
-package javax.accessibility;
-public abstract interface Accessible {
-  public abstract javax.accessibility.AccessibleContext getAccessibleContext() ;
-}

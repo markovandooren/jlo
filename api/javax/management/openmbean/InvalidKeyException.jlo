@@ -1,5 +1,0 @@
-package javax.management.openmbean;
-public class InvalidKeyException extends java.lang.IllegalArgumentException {
-   public  InvalidKeyException(){}
-   public  InvalidKeyException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

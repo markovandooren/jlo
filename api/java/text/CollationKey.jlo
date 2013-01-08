@@ -1,7 +1,0 @@
-package java.text;
-public abstract class CollationKey extends java.lang.Object implements java.lang.Comparable<java.text.CollationKey> {
-   protected  CollationKey(java.lang.String a_r_g_u_m_e_n_t_0){}
-  public abstract int compareTo(java.text.CollationKey a_r_g_u_m_e_n_t_0) ;
-  public abstract byte[] toByteArray() ;
-  public native java.lang.String getSourceString() ;
-}

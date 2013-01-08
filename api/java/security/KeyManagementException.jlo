@@ -1,7 +1,0 @@
-package java.security;
-public class KeyManagementException extends java.security.KeyException {
-   public  KeyManagementException(){}
-   public  KeyManagementException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  KeyManagementException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
-   public  KeyManagementException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
-}

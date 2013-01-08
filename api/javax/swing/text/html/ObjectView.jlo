@@ -1,6 +1,0 @@
-package javax.swing.text.html;
-public class ObjectView extends javax.swing.text.ComponentView {
-   public  ObjectView(javax.swing.text.Element a_r_g_u_m_e_n_t_0){}
-  protected native java.awt.Component createComponent() ;
-  native java.awt.Component getUnloadableRepresentation() ;
-}

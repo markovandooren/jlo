@@ -1,4 +1,0 @@
-package javax.naming;
-public abstract interface Referenceable {
-  public abstract javax.naming.Reference getReference()  throws javax.naming.NamingException;
-}

@@ -1,7 +1,0 @@
-package javax.xml.transform;
-public abstract interface Result {
-  public abstract java.lang.String getSystemId() ;
-  public abstract void setSystemId(java.lang.String a_r_g_u_m_e_n_t_0) ;
-  public static final java.lang.String PI_DISABLE_OUTPUT_ESCAPING;
-  public static final java.lang.String PI_ENABLE_OUTPUT_ESCAPING;
-}

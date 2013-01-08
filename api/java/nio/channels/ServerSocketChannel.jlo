@@ -1,8 +1,0 @@
-package java.nio.channels;
-public abstract class ServerSocketChannel extends java.nio.channels.spi.AbstractSelectableChannel {
-   protected  ServerSocketChannel(java.nio.channels.spi.SelectorProvider a_r_g_u_m_e_n_t_0){}
-  public abstract java.nio.channels.SocketChannel accept()  throws java.io.IOException;
-  public static native java.nio.channels.ServerSocketChannel open()  throws java.io.IOException;
-  public final native int validOps() ;
-  public abstract java.net.ServerSocket socket() ;
-}

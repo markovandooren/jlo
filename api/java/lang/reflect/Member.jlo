@@ -1,9 +1,0 @@
-package java.lang.reflect;
-public abstract interface Member {
-  public abstract int getModifiers() ;
-  public abstract java.lang.String getName() ;
-  public abstract boolean isSynthetic() ;
-  public abstract java.lang.Class<? extends java.lang.Object> getDeclaringClass() ;
-  public static final int PUBLIC;
-  public static final int DECLARED;
-}

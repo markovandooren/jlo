@@ -1,6 +1,0 @@
-package javax.swing.event;
-public abstract interface ListDataListener extends java.util.EventListener {
-  public abstract void contentsChanged(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void intervalAdded(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void intervalRemoved(javax.swing.event.ListDataEvent a_r_g_u_m_e_n_t_0) ;
-}

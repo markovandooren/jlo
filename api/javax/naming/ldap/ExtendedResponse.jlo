@@ -1,5 +1,0 @@
-package javax.naming.ldap;
-public abstract interface ExtendedResponse extends java.io.Serializable {
-  public abstract java.lang.String getID() ;
-  public abstract byte[] getEncodedValue() ;
-}

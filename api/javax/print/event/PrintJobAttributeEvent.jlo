@@ -1,6 +1,0 @@
-package javax.print.event;
-public class PrintJobAttributeEvent extends javax.print.event.PrintEvent {
-   public  PrintJobAttributeEvent(javax.print.DocPrintJob a_r_g_u_m_e_n_t_0, javax.print.attribute.PrintJobAttributeSet a_r_g_u_m_e_n_t_1){}
-  public native javax.print.attribute.PrintJobAttributeSet getAttributes() ;
-  public native javax.print.DocPrintJob getPrintJob() ;
-}

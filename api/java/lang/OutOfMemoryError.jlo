@@ -1,5 +1,0 @@
-package java.lang;
-public class OutOfMemoryError extends java.lang.VirtualMachineError {
-   public  OutOfMemoryError(){}
-   public  OutOfMemoryError(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

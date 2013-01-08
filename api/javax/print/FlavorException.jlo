@@ -1,4 +1,0 @@
-package javax.print;
-public abstract interface FlavorException {
-  public abstract javax.print.DocFlavor[] getUnsupportedFlavors() ;
-}

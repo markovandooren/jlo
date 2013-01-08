@@ -1,4 +1,0 @@
-package java.net;
-public abstract interface DatagramSocketImplFactory {
-  public abstract java.net.DatagramSocketImpl createDatagramSocketImpl() ;
-}

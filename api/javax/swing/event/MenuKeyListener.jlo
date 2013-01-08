@@ -1,6 +1,0 @@
-package javax.swing.event;
-public abstract interface MenuKeyListener extends java.util.EventListener {
-  public abstract void menuKeyPressed(javax.swing.event.MenuKeyEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void menuKeyReleased(javax.swing.event.MenuKeyEvent a_r_g_u_m_e_n_t_0) ;
-  public abstract void menuKeyTyped(javax.swing.event.MenuKeyEvent a_r_g_u_m_e_n_t_0) ;
-}

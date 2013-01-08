@@ -1,9 +1,0 @@
-package javax.security.auth.kerberos;
-public final class DelegationPermission extends java.security.BasicPermission implements java.io.Serializable {
-   public  DelegationPermission(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  DelegationPermission(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
-  public native int hashCode() ;
-  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public native boolean implies(java.security.Permission a_r_g_u_m_e_n_t_0) ;
-  public native java.security.PermissionCollection newPermissionCollection() ;
-}

@@ -1,6 +1,0 @@
-package javax.swing.filechooser;
-public abstract class FileFilter extends java.lang.Object {
-   public  FileFilter(){}
-  public abstract boolean accept(java.io.File a_r_g_u_m_e_n_t_0) ;
-  public abstract java.lang.String getDescription() ;
-}

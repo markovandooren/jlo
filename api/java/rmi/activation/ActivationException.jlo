@@ -1,9 +1,0 @@
-package java.rmi.activation;
-public class ActivationException extends java.lang.Exception {
-   public  ActivationException(){}
-   public  ActivationException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  ActivationException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
-  public native java.lang.Throwable getCause() ;
-  public native java.lang.String getMessage() ;
-  public java.lang.Throwable detail;
-}

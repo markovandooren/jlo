@@ -1,5 +1,0 @@
-package java.rmi;
-public class StubNotFoundException extends java.rmi.RemoteException {
-   public  StubNotFoundException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  StubNotFoundException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Exception a_r_g_u_m_e_n_t_1){}
-}

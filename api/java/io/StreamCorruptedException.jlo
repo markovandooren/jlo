@@ -1,5 +1,0 @@
-package java.io;
-public class StreamCorruptedException extends java.io.ObjectStreamException {
-   public  StreamCorruptedException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  StreamCorruptedException(){}
-}

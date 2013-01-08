@@ -1,9 +1,0 @@
-package java.security.spec;
-public class ECPoint extends java.lang.Object {
-   public  ECPoint(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1){}
-  public native int hashCode() ;
-  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public native java.math.BigInteger getAffineX() ;
-  public native java.math.BigInteger getAffineY() ;
-  public static final java.security.spec.ECPoint POINT_INFINITY;
-}

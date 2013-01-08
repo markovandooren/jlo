@@ -1,4 +1,0 @@
-package javax.crypto;
-public class NullCipher extends javax.crypto.Cipher {
-   public  NullCipher(){}
-}

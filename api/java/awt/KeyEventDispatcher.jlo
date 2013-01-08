@@ -1,4 +1,0 @@
-package java.awt;
-public abstract interface KeyEventDispatcher {
-  public abstract boolean dispatchKeyEvent(java.awt.event.KeyEvent a_r_g_u_m_e_n_t_0) ;
-}

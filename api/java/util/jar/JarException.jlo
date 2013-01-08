@@ -1,5 +1,0 @@
-package java.util.jar;
-public class JarException extends java.util.zip.ZipException {
-   public  JarException(){}
-   public  JarException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

@@ -1,4 +1,0 @@
-package javax.naming.spi;
-public abstract interface StateFactory {
-  public abstract java.lang.Object getStateToBind(java.lang.Object a_r_g_u_m_e_n_t_0, javax.naming.Name a_r_g_u_m_e_n_t_1, javax.naming.Context a_r_g_u_m_e_n_t_2, java.util.Hashtable<? extends java.lang.Object,? extends java.lang.Object> a_r_g_u_m_e_n_t_3)  throws javax.naming.NamingException;
-}

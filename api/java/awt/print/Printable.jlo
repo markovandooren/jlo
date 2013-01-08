@@ -1,6 +1,0 @@
-package java.awt.print;
-public abstract interface Printable {
-  public abstract int print(java.awt.Graphics a_r_g_u_m_e_n_t_0, java.awt.print.PageFormat a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.awt.print.PrinterException;
-  public static final int PAGE_EXISTS;
-  public static final int NO_SUCH_PAGE;
-}

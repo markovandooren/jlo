@@ -1,4 +1,0 @@
-package java.lang.annotation;
-public abstract interface Target extends java.lang.annotation.Annotation {
-  public abstract java.lang.annotation.ElementType[] value() ;
-}

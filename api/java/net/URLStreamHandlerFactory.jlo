@@ -1,4 +1,0 @@
-package java.net;
-public abstract interface URLStreamHandlerFactory {
-  public abstract java.net.URLStreamHandler createURLStreamHandler(java.lang.String a_r_g_u_m_e_n_t_0) ;
-}

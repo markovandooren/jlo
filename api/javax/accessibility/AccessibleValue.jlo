@@ -1,7 +1,0 @@
-package javax.accessibility;
-public abstract interface AccessibleValue {
-  public abstract java.lang.Number getCurrentAccessibleValue() ;
-  public abstract boolean setCurrentAccessibleValue(java.lang.Number a_r_g_u_m_e_n_t_0) ;
-  public abstract java.lang.Number getMinimumAccessibleValue() ;
-  public abstract java.lang.Number getMaximumAccessibleValue() ;
-}

@@ -1,6 +1,0 @@
-package java.beans;
-public abstract interface DesignMode {
-  public abstract void setDesignTime(boolean a_r_g_u_m_e_n_t_0) ;
-  public abstract boolean isDesignTime() ;
-  public static final java.lang.String PROPERTYNAME;
-}

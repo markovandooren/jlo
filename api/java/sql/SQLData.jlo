@@ -1,6 +1,0 @@
-package java.sql;
-public abstract interface SQLData {
-  public abstract java.lang.String getSQLTypeName()  throws java.sql.SQLException;
-  public abstract void writeSQL(java.sql.SQLOutput a_r_g_u_m_e_n_t_0)  throws java.sql.SQLException;
-  public abstract void readSQL(java.sql.SQLInput a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.sql.SQLException;
-}

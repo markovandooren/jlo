@@ -1,6 +1,0 @@
-package javax.sql.rowset.serial;
-public class SerialDatalink extends java.lang.Object implements java.io.Serializable, java.lang.Cloneable {
-   public  SerialDatalink(java.net.URL a_r_g_u_m_e_n_t_0) throws javax.sql.rowset.serial.SerialException{}
-  public native java.net.URL getDatalink()  throws javax.sql.rowset.serial.SerialException;
-  static final long serialVersionUID;
-}

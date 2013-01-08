@@ -1,6 +1,0 @@
-package javax.management;
-public class MBeanServerBuilder extends java.lang.Object {
-   public  MBeanServerBuilder(){}
-  public native javax.management.MBeanServerDelegate newMBeanServerDelegate() ;
-  public native javax.management.MBeanServer newMBeanServer(java.lang.String a_r_g_u_m_e_n_t_0, javax.management.MBeanServer a_r_g_u_m_e_n_t_1, javax.management.MBeanServerDelegate a_r_g_u_m_e_n_t_2) ;
-}

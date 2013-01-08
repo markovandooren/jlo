@@ -1,7 +1,0 @@
-package javax.naming.directory;
-public class ModificationItem extends java.lang.Object implements java.io.Serializable {
-   public  ModificationItem(int a_r_g_u_m_e_n_t_0, javax.naming.directory.Attribute a_r_g_u_m_e_n_t_1){}
-  public native java.lang.String toString() ;
-  public native javax.naming.directory.Attribute getAttribute() ;
-  public native int getModificationOp() ;
-}

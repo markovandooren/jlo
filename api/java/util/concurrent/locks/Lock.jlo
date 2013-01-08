@@ -1,9 +1,0 @@
-package java.util.concurrent.locks;
-public abstract interface Lock {
-  public abstract void lock() ;
-  public abstract void unlock() ;
-  public abstract void lockInterruptibly()  throws java.lang.InterruptedException;
-  public abstract boolean tryLock() ;
-  public abstract boolean tryLock(long a_r_g_u_m_e_n_t_0, java.util.concurrent.TimeUnit a_r_g_u_m_e_n_t_1)  throws java.lang.InterruptedException;
-  public abstract java.util.concurrent.locks.Condition newCondition() ;
-}

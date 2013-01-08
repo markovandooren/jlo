@@ -1,5 +1,0 @@
-package javax.security.auth.login;
-public class AccountException extends javax.security.auth.login.LoginException {
-   public  AccountException(){}
-   public  AccountException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

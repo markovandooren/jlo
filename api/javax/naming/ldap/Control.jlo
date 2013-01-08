@@ -1,8 +1,0 @@
-package javax.naming.ldap;
-public abstract interface Control extends java.io.Serializable {
-  public abstract boolean isCritical() ;
-  public abstract java.lang.String getID() ;
-  public abstract byte[] getEncodedValue() ;
-  public static final boolean CRITICAL;
-  public static final boolean NONCRITICAL;
-}

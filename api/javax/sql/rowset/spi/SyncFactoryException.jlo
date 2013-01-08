@@ -1,6 +1,0 @@
-package javax.sql.rowset.spi;
-public class SyncFactoryException extends java.sql.SQLException {
-   public  SyncFactoryException(){}
-   public  SyncFactoryException(java.lang.String a_r_g_u_m_e_n_t_0){}
-  static final long serialVersionUID;
-}

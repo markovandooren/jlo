@@ -1,7 +1,0 @@
-package java.nio;
-public final class ByteOrder extends java.lang.Object {
-  public native java.lang.String toString() ;
-  public static native java.nio.ByteOrder nativeOrder() ;
-  public static final java.nio.ByteOrder BIG_ENDIAN;
-  public static final java.nio.ByteOrder LITTLE_ENDIAN;
-}

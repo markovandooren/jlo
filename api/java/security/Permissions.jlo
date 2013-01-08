@@ -1,8 +1,0 @@
-package java.security;
-public final class Permissions extends java.security.PermissionCollection implements java.io.Serializable {
-   public  Permissions(){}
-  public native void add(java.security.Permission a_r_g_u_m_e_n_t_0) ;
-  public native boolean implies(java.security.Permission a_r_g_u_m_e_n_t_0) ;
-  public native java.util.Enumeration<java.security.Permission> elements() ;
-  java.security.PermissionCollection allPermission;
-}

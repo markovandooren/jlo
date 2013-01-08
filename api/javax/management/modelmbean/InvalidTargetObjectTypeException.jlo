@@ -1,7 +1,0 @@
-package javax.management.modelmbean;
-public class InvalidTargetObjectTypeException extends java.lang.Exception {
-   public  InvalidTargetObjectTypeException(){}
-   public  InvalidTargetObjectTypeException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  InvalidTargetObjectTypeException(java.lang.Exception a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
-  java.lang.Exception exception;
-}

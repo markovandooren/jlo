@@ -1,4 +1,0 @@
-package java.util.logging;
-public abstract interface Filter {
-  public abstract boolean isLoggable(java.util.logging.LogRecord a_r_g_u_m_e_n_t_0) ;
-}

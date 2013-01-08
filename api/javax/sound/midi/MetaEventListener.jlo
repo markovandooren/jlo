@@ -1,4 +1,0 @@
-package javax.sound.midi;
-public abstract interface MetaEventListener extends java.util.EventListener {
-  public abstract void meta(javax.sound.midi.MetaMessage a_r_g_u_m_e_n_t_0) ;
-}

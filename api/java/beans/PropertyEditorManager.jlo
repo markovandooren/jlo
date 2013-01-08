@@ -1,8 +1,0 @@
-package java.beans;
-public class PropertyEditorManager extends java.lang.Object {
-   public  PropertyEditorManager(){}
-  public static native void registerEditor(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_1) ;
-  public static synchronized native java.beans.PropertyEditor findEditor(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0) ;
-  public static synchronized native java.lang.String[] getEditorSearchPath() ;
-  public static synchronized native void setEditorSearchPath(java.lang.String[] a_r_g_u_m_e_n_t_0) ;
-}

@@ -1,3 +1,0 @@
-package javax.print.attribute;
-public abstract interface SupportedValuesAttribute extends javax.print.attribute.Attribute {
-}

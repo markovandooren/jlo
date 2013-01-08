@@ -1,6 +1,0 @@
-package java.lang.reflect;
-public abstract interface TypeVariable<D extends java.lang.reflect.GenericDeclaration> extends java.lang.reflect.Type {
-  public abstract java.lang.String getName() ;
-  public abstract java.lang.reflect.Type[] getBounds() ;
-  public abstract D getGenericDeclaration() ;
-}

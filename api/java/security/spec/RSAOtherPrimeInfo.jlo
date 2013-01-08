@@ -1,7 +1,0 @@
-package java.security.spec;
-public class RSAOtherPrimeInfo extends java.lang.Object {
-   public  RSAOtherPrimeInfo(java.math.BigInteger a_r_g_u_m_e_n_t_0, java.math.BigInteger a_r_g_u_m_e_n_t_1, java.math.BigInteger a_r_g_u_m_e_n_t_2){}
-  public final native java.math.BigInteger getExponent() ;
-  public final native java.math.BigInteger getCrtCoefficient() ;
-  public final native java.math.BigInteger getPrime() ;
-}

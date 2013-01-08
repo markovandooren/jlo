@@ -1,6 +1,0 @@
-package java.security.spec;
-public class ECPublicKeySpec extends java.lang.Object implements java.security.spec.KeySpec {
-   public  ECPublicKeySpec(java.security.spec.ECPoint a_r_g_u_m_e_n_t_0, java.security.spec.ECParameterSpec a_r_g_u_m_e_n_t_1){}
-  public native java.security.spec.ECParameterSpec getParams() ;
-  public native java.security.spec.ECPoint getW() ;
-}

@@ -1,7 +1,0 @@
-package java.security.cert;
-public abstract class CRL extends java.lang.Object {
-   protected  CRL(java.lang.String a_r_g_u_m_e_n_t_0){}
-  public abstract java.lang.String toString() ;
-  public final native java.lang.String getType() ;
-  public abstract boolean isRevoked(java.security.cert.Certificate a_r_g_u_m_e_n_t_0) ;
-}

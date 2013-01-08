@@ -1,9 +1,0 @@
-package java.beans;
-public class DefaultPersistenceDelegate extends java.beans.PersistenceDelegate {
-   public  DefaultPersistenceDelegate(java.lang.String[] a_r_g_u_m_e_n_t_0){}
-   public  DefaultPersistenceDelegate(){}
-  protected native void initialize(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, java.lang.Object a_r_g_u_m_e_n_t_2, java.beans.Encoder a_r_g_u_m_e_n_t_3) ;
-  protected native java.beans.Expression instantiate(java.lang.Object a_r_g_u_m_e_n_t_0, java.beans.Encoder a_r_g_u_m_e_n_t_1) ;
-  protected native boolean mutatesTo(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1) ;
-  static native void invokeStatement(java.lang.Object a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.Object[] a_r_g_u_m_e_n_t_2, java.beans.Encoder a_r_g_u_m_e_n_t_3) ;
-}

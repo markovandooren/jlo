@@ -1,9 +1,0 @@
-package javax.naming.spi;
-public abstract interface DirStateFactory extends javax.naming.spi.StateFactory {
-  public abstract javax.naming.spi.DirStateFactory.Result getStateToBind(java.lang.Object a_r_g_u_m_e_n_t_0, javax.naming.Name a_r_g_u_m_e_n_t_1, javax.naming.Context a_r_g_u_m_e_n_t_2, java.util.Hashtable<? extends java.lang.Object,? extends java.lang.Object> a_r_g_u_m_e_n_t_3, javax.naming.directory.Attributes a_r_g_u_m_e_n_t_4)  throws javax.naming.NamingException;
-  public static class Result extends java.lang.Object {
-     public  Result(java.lang.Object a_r_g_u_m_e_n_t_0, javax.naming.directory.Attributes a_r_g_u_m_e_n_t_1){}
-    public native java.lang.Object getObject() ;
-    public native javax.naming.directory.Attributes getAttributes() ;
-  }
-}

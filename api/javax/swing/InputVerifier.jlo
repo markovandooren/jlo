@@ -1,6 +1,0 @@
-package javax.swing;
-public abstract class InputVerifier extends java.lang.Object {
-   public  InputVerifier(){}
-  public abstract boolean verify(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
-  public native boolean shouldYieldFocus(javax.swing.JComponent a_r_g_u_m_e_n_t_0) ;
-}

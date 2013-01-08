@@ -1,4 +1,0 @@
-package java.security;
-public abstract interface PrivateKey extends java.security.Key {
-  public static final long serialVersionUID;
-}

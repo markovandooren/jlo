@@ -1,7 +1,0 @@
-package java.security.cert;
-public class CRLException extends java.security.GeneralSecurityException {
-   public  CRLException(){}
-   public  CRLException(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  CRLException(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.Throwable a_r_g_u_m_e_n_t_1){}
-   public  CRLException(java.lang.Throwable a_r_g_u_m_e_n_t_0){}
-}

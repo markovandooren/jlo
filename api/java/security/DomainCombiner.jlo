@@ -1,4 +1,0 @@
-package java.security;
-public abstract interface DomainCombiner {
-  public abstract java.security.ProtectionDomain[] combine(java.security.ProtectionDomain[] a_r_g_u_m_e_n_t_0, java.security.ProtectionDomain[] a_r_g_u_m_e_n_t_1) ;
-}

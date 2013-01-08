@@ -1,7 +1,0 @@
-package java.awt.image;
-public class AreaAveragingScaleFilter extends java.awt.image.ReplicateScaleFilter {
-   public  AreaAveragingScaleFilter(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1){}
-  public native void setPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.image.ColorModel a_r_g_u_m_e_n_t_4, byte[] a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7) ;
-  public native void setPixels(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.awt.image.ColorModel a_r_g_u_m_e_n_t_4, int[] a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7) ;
-  public native void setHints(int a_r_g_u_m_e_n_t_0) ;
-}

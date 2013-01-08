@@ -1,6 +1,0 @@
-package java.awt;
-public class MouseInfo extends java.lang.Object {
-  public static native java.awt.PointerInfo getPointerInfo()  throws java.awt.HeadlessException;
-  public static native int getNumberOfButtons()  throws java.awt.HeadlessException;
-  static final boolean $assertionsDisabled;
-}

@@ -1,5 +1,0 @@
-package java.security.cert;
-public abstract class CertPathValidatorSpi extends java.lang.Object {
-   public  CertPathValidatorSpi(){}
-  public abstract java.security.cert.CertPathValidatorResult engineValidate(java.security.cert.CertPath a_r_g_u_m_e_n_t_0, java.security.cert.CertPathParameters a_r_g_u_m_e_n_t_1)  throws java.security.cert.CertPathValidatorException, java.security.InvalidAlgorithmParameterException;
-}

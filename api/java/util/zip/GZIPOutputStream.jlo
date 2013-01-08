@@ -1,8 +1,0 @@
-package java.util.zip;
-public class GZIPOutputStream extends java.util.zip.DeflaterOutputStream {
-   public  GZIPOutputStream(java.io.OutputStream a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws java.io.IOException{}
-   public  GZIPOutputStream(java.io.OutputStream a_r_g_u_m_e_n_t_0) throws java.io.IOException{}
-  public synchronized native void write(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2)  throws java.io.IOException;
-  public native void finish()  throws java.io.IOException;
-  protected java.util.zip.CRC32 crc;
-}

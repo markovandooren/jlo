@@ -1,6 +1,0 @@
-package javax.accessibility;
-public abstract interface AccessibleExtendedTable extends javax.accessibility.AccessibleTable {
-  public abstract int getAccessibleRow(int a_r_g_u_m_e_n_t_0) ;
-  public abstract int getAccessibleColumn(int a_r_g_u_m_e_n_t_0) ;
-  public abstract int getAccessibleIndex(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) ;
-}

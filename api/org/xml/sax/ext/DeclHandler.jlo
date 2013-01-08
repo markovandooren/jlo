@@ -1,7 +1,0 @@
-package org.xml.sax.ext;
-public abstract interface DeclHandler {
-  public abstract void elementDecl(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws org.xml.sax.SAXException;
-  public abstract void attributeDecl(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2, java.lang.String a_r_g_u_m_e_n_t_3, java.lang.String a_r_g_u_m_e_n_t_4)  throws org.xml.sax.SAXException;
-  public abstract void internalEntityDecl(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws org.xml.sax.SAXException;
-  public abstract void externalEntityDecl(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, java.lang.String a_r_g_u_m_e_n_t_2)  throws org.xml.sax.SAXException;
-}

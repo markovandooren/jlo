@@ -1,7 +1,0 @@
-package javax.swing;
-public abstract interface ListModel {
-  public abstract int getSize() ;
-  public abstract void addListDataListener(javax.swing.event.ListDataListener a_r_g_u_m_e_n_t_0) ;
-  public abstract void removeListDataListener(javax.swing.event.ListDataListener a_r_g_u_m_e_n_t_0) ;
-  public abstract java.lang.Object getElementAt(int a_r_g_u_m_e_n_t_0) ;
-}

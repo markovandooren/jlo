@@ -1,6 +1,0 @@
-package java.awt.event;
-public class AWTEventListenerProxy extends java.util.EventListenerProxy implements java.awt.event.AWTEventListener {
-   public  AWTEventListenerProxy(long a_r_g_u_m_e_n_t_0, java.awt.event.AWTEventListener a_r_g_u_m_e_n_t_1){}
-  public native void eventDispatched(java.awt.AWTEvent a_r_g_u_m_e_n_t_0) ;
-  public native long getEventMask() ;
-}

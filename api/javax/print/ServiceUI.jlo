@@ -1,5 +1,0 @@
-package javax.print;
-public class ServiceUI extends java.lang.Object {
-   public  ServiceUI(){}
-  public static native javax.print.PrintService printDialog(java.awt.GraphicsConfiguration a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, javax.print.PrintService[] a_r_g_u_m_e_n_t_3, javax.print.PrintService a_r_g_u_m_e_n_t_4, javax.print.DocFlavor a_r_g_u_m_e_n_t_5, javax.print.attribute.PrintRequestAttributeSet a_r_g_u_m_e_n_t_6)  throws java.awt.HeadlessException;
-}

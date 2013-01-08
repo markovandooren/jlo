@@ -1,3 +1,0 @@
-package java.lang.annotation;
-public abstract interface Documented extends java.lang.annotation.Annotation {
-}

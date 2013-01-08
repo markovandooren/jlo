@@ -1,6 +1,0 @@
-package java.lang.instrument;
-public final class ClassDefinition extends java.lang.Object {
-   public  ClassDefinition(java.lang.Class<? extends java.lang.Object> a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1){}
-  public native java.lang.Class<? extends java.lang.Object> getDefinitionClass() ;
-  public native byte[] getDefinitionClassFile() ;
-}

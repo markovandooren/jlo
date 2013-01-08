@@ -1,8 +1,0 @@
-package java.security;
-public class SecureClassLoader extends java.lang.ClassLoader {
-   protected  SecureClassLoader(java.lang.ClassLoader a_r_g_u_m_e_n_t_0){}
-   protected  SecureClassLoader(){}
-  protected final native java.lang.Class<? extends java.lang.Object> defineClass(java.lang.String a_r_g_u_m_e_n_t_0, java.nio.ByteBuffer a_r_g_u_m_e_n_t_1, java.security.CodeSource a_r_g_u_m_e_n_t_2) ;
-  protected final native java.lang.Class<? extends java.lang.Object> defineClass(java.lang.String a_r_g_u_m_e_n_t_0, byte[] a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, java.security.CodeSource a_r_g_u_m_e_n_t_4) ;
-  protected native java.security.PermissionCollection getPermissions(java.security.CodeSource a_r_g_u_m_e_n_t_0) ;
-}

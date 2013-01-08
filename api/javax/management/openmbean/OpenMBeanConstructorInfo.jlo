@@ -1,9 +1,0 @@
-package javax.management.openmbean;
-public abstract interface OpenMBeanConstructorInfo {
-  public abstract int hashCode() ;
-  public abstract boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public abstract java.lang.String toString() ;
-  public abstract java.lang.String getName() ;
-  public abstract javax.management.MBeanParameterInfo[] getSignature() ;
-  public abstract java.lang.String getDescription() ;
-}

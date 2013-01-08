@@ -1,5 +1,0 @@
-package java.util;
-public class ConcurrentModificationException extends java.lang.RuntimeException {
-   public  ConcurrentModificationException(){}
-   public  ConcurrentModificationException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

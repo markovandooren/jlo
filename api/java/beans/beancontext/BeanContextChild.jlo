@@ -1,9 +1,0 @@
-package java.beans.beancontext;
-public abstract interface BeanContextChild {
-  public abstract void addPropertyChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_1) ;
-  public abstract void removePropertyChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.PropertyChangeListener a_r_g_u_m_e_n_t_1) ;
-  public abstract void addVetoableChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.VetoableChangeListener a_r_g_u_m_e_n_t_1) ;
-  public abstract void removeVetoableChangeListener(java.lang.String a_r_g_u_m_e_n_t_0, java.beans.VetoableChangeListener a_r_g_u_m_e_n_t_1) ;
-  public abstract void setBeanContext(java.beans.beancontext.BeanContext a_r_g_u_m_e_n_t_0)  throws java.beans.PropertyVetoException;
-  public abstract java.beans.beancontext.BeanContext getBeanContext() ;
-}

@@ -1,8 +1,0 @@
-package java.net;
-public abstract class CookieHandler extends java.lang.Object {
-   public  CookieHandler(){}
-  public abstract java.util.Map<java.lang.String,java.util.List<java.lang.String>> get(java.net.URI a_r_g_u_m_e_n_t_0, java.util.Map<java.lang.String,java.util.List<java.lang.String>> a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
-  public abstract void put(java.net.URI a_r_g_u_m_e_n_t_0, java.util.Map<java.lang.String,java.util.List<java.lang.String>> a_r_g_u_m_e_n_t_1)  throws java.io.IOException;
-  public static synchronized native java.net.CookieHandler getDefault() ;
-  public static synchronized native void setDefault(java.net.CookieHandler a_r_g_u_m_e_n_t_0) ;
-}

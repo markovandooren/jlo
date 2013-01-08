@@ -1,9 +1,0 @@
-package javax.swing;
-public abstract interface SingleSelectionModel {
-  public abstract boolean isSelected() ;
-  public abstract void addChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
-  public abstract void removeChangeListener(javax.swing.event.ChangeListener a_r_g_u_m_e_n_t_0) ;
-  public abstract void clearSelection() ;
-  public abstract int getSelectedIndex() ;
-  public abstract void setSelectedIndex(int a_r_g_u_m_e_n_t_0) ;
-}

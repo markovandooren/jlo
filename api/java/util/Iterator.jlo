@@ -1,6 +1,0 @@
-package java.util;
-public abstract interface Iterator<E extends java.lang.Object> {
-  public abstract boolean hasNext() ;
-  public abstract E next() ;
-  public abstract void remove() ;
-}

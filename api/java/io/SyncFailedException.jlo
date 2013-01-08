@@ -1,4 +1,0 @@
-package java.io;
-public class SyncFailedException extends java.io.IOException {
-   public  SyncFailedException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

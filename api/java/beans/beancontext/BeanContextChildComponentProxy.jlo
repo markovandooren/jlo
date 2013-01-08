@@ -1,4 +1,0 @@
-package java.beans.beancontext;
-public abstract interface BeanContextChildComponentProxy {
-  public abstract java.awt.Component getComponent() ;
-}

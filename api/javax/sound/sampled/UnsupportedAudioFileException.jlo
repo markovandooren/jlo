@@ -1,5 +1,0 @@
-package javax.sound.sampled;
-public class UnsupportedAudioFileException extends java.lang.Exception {
-   public  UnsupportedAudioFileException(){}
-   public  UnsupportedAudioFileException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

@@ -1,6 +1,0 @@
-package java.awt;
-public class PointerInfo extends java.lang.Object {
-    PointerInfo(java.awt.GraphicsDevice a_r_g_u_m_e_n_t_0, java.awt.Point a_r_g_u_m_e_n_t_1){}
-  public native java.awt.Point getLocation() ;
-  public native java.awt.GraphicsDevice getDevice() ;
-}

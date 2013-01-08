@@ -1,6 +1,0 @@
-package javax.security.auth.callback;
-public class LanguageCallback extends java.lang.Object implements javax.security.auth.callback.Callback, java.io.Serializable {
-   public  LanguageCallback(){}
-  public native void setLocale(java.util.Locale a_r_g_u_m_e_n_t_0) ;
-  public native java.util.Locale getLocale() ;
-}

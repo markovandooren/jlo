@@ -1,4 +1,0 @@
-package javax.swing.table;
-public abstract interface TableCellRenderer {
-  public abstract java.awt.Component getTableCellRendererComponent(javax.swing.JTable a_r_g_u_m_e_n_t_0, java.lang.Object a_r_g_u_m_e_n_t_1, boolean a_r_g_u_m_e_n_t_2, boolean a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5) ;
-}

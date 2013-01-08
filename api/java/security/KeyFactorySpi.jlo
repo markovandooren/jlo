@@ -1,8 +1,0 @@
-package java.security;
-public abstract class KeyFactorySpi extends java.lang.Object {
-   public  KeyFactorySpi(){}
-  protected abstract java.security.PublicKey engineGeneratePublic(java.security.spec.KeySpec a_r_g_u_m_e_n_t_0)  throws java.security.spec.InvalidKeySpecException;
-  protected abstract java.security.PrivateKey engineGeneratePrivate(java.security.spec.KeySpec a_r_g_u_m_e_n_t_0)  throws java.security.spec.InvalidKeySpecException;
-  protected abstract <T extends java.security.spec.KeySpec>T engineGetKeySpec(java.security.Key a_r_g_u_m_e_n_t_0, java.lang.Class<T> a_r_g_u_m_e_n_t_1)  throws java.security.spec.InvalidKeySpecException;
-  protected abstract java.security.Key engineTranslateKey(java.security.Key a_r_g_u_m_e_n_t_0)  throws java.security.InvalidKeyException;
-}

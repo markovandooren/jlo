@@ -1,9 +1,0 @@
-package javax.swing;
-public abstract interface ComboBoxEditor {
-  public abstract void addActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
-  public abstract void removeActionListener(java.awt.event.ActionListener a_r_g_u_m_e_n_t_0) ;
-  public abstract java.lang.Object getItem() ;
-  public abstract java.awt.Component getEditorComponent() ;
-  public abstract void setItem(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public abstract void selectAll() ;
-}

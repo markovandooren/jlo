@@ -1,7 +1,0 @@
-package javax.swing.event;
-public class MenuDragMouseEvent extends java.awt.event.MouseEvent {
-   public  MenuDragMouseEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, boolean a_r_g_u_m_e_n_t_7, javax.swing.MenuElement[] a_r_g_u_m_e_n_t_8, javax.swing.MenuSelectionManager a_r_g_u_m_e_n_t_9){}
-   public  MenuDragMouseEvent(java.awt.Component a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, long a_r_g_u_m_e_n_t_2, int a_r_g_u_m_e_n_t_3, int a_r_g_u_m_e_n_t_4, int a_r_g_u_m_e_n_t_5, int a_r_g_u_m_e_n_t_6, int a_r_g_u_m_e_n_t_7, int a_r_g_u_m_e_n_t_8, boolean a_r_g_u_m_e_n_t_9, javax.swing.MenuElement[] a_r_g_u_m_e_n_t_10, javax.swing.MenuSelectionManager a_r_g_u_m_e_n_t_11){}
-  public native javax.swing.MenuElement[] getPath() ;
-  public native javax.swing.MenuSelectionManager getMenuSelectionManager() ;
-}

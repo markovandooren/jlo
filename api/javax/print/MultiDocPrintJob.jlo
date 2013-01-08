@@ -1,4 +1,0 @@
-package javax.print;
-public abstract interface MultiDocPrintJob extends javax.print.DocPrintJob {
-  public abstract void print(javax.print.MultiDoc a_r_g_u_m_e_n_t_0, javax.print.attribute.PrintRequestAttributeSet a_r_g_u_m_e_n_t_1)  throws javax.print.PrintException;
-}

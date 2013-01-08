@@ -1,7 +1,0 @@
-package java.security;
-public abstract class AlgorithmParameterGeneratorSpi extends java.lang.Object {
-   public  AlgorithmParameterGeneratorSpi(){}
-  protected abstract void engineInit(int a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1) ;
-  protected abstract void engineInit(java.security.spec.AlgorithmParameterSpec a_r_g_u_m_e_n_t_0, java.security.SecureRandom a_r_g_u_m_e_n_t_1)  throws java.security.InvalidAlgorithmParameterException;
-  protected abstract java.security.AlgorithmParameters engineGenerateParameters() ;
-}

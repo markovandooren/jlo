@@ -1,5 +1,0 @@
-package java.security;
-public final class SecurityPermission extends java.security.BasicPermission {
-   public  SecurityPermission(java.lang.String a_r_g_u_m_e_n_t_0){}
-   public  SecurityPermission(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1){}
-}

@@ -1,6 +1,0 @@
-package javax.management;
-public class DefaultLoaderRepository extends java.lang.Object {
-   public  DefaultLoaderRepository(){}
-  public static native java.lang.Class loadClass(java.lang.String a_r_g_u_m_e_n_t_0)  throws java.lang.ClassNotFoundException;
-  public static native java.lang.Class loadClassWithout(java.lang.ClassLoader a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1)  throws java.lang.ClassNotFoundException;
-}

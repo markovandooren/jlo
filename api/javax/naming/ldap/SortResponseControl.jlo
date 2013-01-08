@@ -1,9 +1,0 @@
-package javax.naming.ldap;
-public final class SortResponseControl extends javax.naming.ldap.BasicControl {
-   public  SortResponseControl(java.lang.String a_r_g_u_m_e_n_t_0, boolean a_r_g_u_m_e_n_t_1, byte[] a_r_g_u_m_e_n_t_2) throws java.io.IOException{}
-  public native javax.naming.NamingException getException() ;
-  public native java.lang.String getAttributeID() ;
-  public native boolean isSorted() ;
-  public native int getResultCode() ;
-  public static final java.lang.String OID;
-}

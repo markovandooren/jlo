@@ -1,9 +1,0 @@
-package javax.management.openmbean;
-public class OpenMBeanInfoSupport extends javax.management.MBeanInfo implements javax.management.openmbean.OpenMBeanInfo {
-   public  OpenMBeanInfoSupport(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenMBeanAttributeInfo[] a_r_g_u_m_e_n_t_2, javax.management.openmbean.OpenMBeanConstructorInfo[] a_r_g_u_m_e_n_t_3, javax.management.openmbean.OpenMBeanOperationInfo[] a_r_g_u_m_e_n_t_4, javax.management.MBeanNotificationInfo[] a_r_g_u_m_e_n_t_5){}
-   public  OpenMBeanInfoSupport(java.lang.String a_r_g_u_m_e_n_t_0, java.lang.String a_r_g_u_m_e_n_t_1, javax.management.openmbean.OpenMBeanAttributeInfo[] a_r_g_u_m_e_n_t_2, javax.management.openmbean.OpenMBeanConstructorInfo[] a_r_g_u_m_e_n_t_3, javax.management.openmbean.OpenMBeanOperationInfo[] a_r_g_u_m_e_n_t_4, javax.management.MBeanNotificationInfo[] a_r_g_u_m_e_n_t_5, javax.management.Descriptor a_r_g_u_m_e_n_t_6){}
-  public native int hashCode() ;
-  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public native java.lang.String toString() ;
-  static final long serialVersionUID;
-}

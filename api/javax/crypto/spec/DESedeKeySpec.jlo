@@ -1,8 +1,0 @@
-package javax.crypto.spec;
-public class DESedeKeySpec extends java.lang.Object implements java.security.spec.KeySpec {
-   public  DESedeKeySpec(byte[] a_r_g_u_m_e_n_t_0) throws java.security.InvalidKeyException{}
-   public  DESedeKeySpec(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1) throws java.security.InvalidKeyException{}
-  public native byte[] getKey() ;
-  public static native boolean isParityAdjusted(byte[] a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1)  throws java.security.InvalidKeyException;
-  public static final int DES_EDE_KEY_LEN;
-}

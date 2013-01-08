@@ -1,5 +1,0 @@
-package java.util;
-public class InputMismatchException extends java.util.NoSuchElementException {
-   public  InputMismatchException(){}
-   public  InputMismatchException(java.lang.String a_r_g_u_m_e_n_t_0){}
-}

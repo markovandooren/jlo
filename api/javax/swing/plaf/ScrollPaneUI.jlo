@@ -1,4 +1,0 @@
-package javax.swing.plaf;
-public abstract class ScrollPaneUI extends javax.swing.plaf.ComponentUI {
-   public  ScrollPaneUI(){}
-}

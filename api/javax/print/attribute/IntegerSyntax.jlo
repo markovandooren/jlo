@@ -1,9 +1,0 @@
-package javax.print.attribute;
-public abstract class IntegerSyntax extends java.lang.Object implements java.io.Serializable, java.lang.Cloneable {
-   protected  IntegerSyntax(int a_r_g_u_m_e_n_t_0){}
-   protected  IntegerSyntax(int a_r_g_u_m_e_n_t_0, int a_r_g_u_m_e_n_t_1, int a_r_g_u_m_e_n_t_2){}
-  public native int hashCode() ;
-  public native boolean equals(java.lang.Object a_r_g_u_m_e_n_t_0) ;
-  public native java.lang.String toString() ;
-  public native int getValue() ;
-}
