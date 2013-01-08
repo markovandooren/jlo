@@ -13,15 +13,18 @@ import jnome.core.language.JavaLanguageFactory;
 import jnome.output.JavaCompilationUnitWriter;
 import jnome.workspace.JavaView;
 import chameleon.core.document.Document;
+import chameleon.core.lookup.LookupException;
 import chameleon.core.namespace.LazyRootNamespace;
 import chameleon.exception.ChameleonProgrammerException;
 import chameleon.exception.ModelException;
 import chameleon.plugin.ViewPlugin;
 import chameleon.plugin.ViewPluginImpl;
+import chameleon.plugin.build.BuildException;
 import chameleon.plugin.build.BuildProgressHelper;
 import chameleon.plugin.build.Builder;
 import chameleon.plugin.build.CompilationUnitWriter;
 import chameleon.plugin.output.Syntax;
+import chameleon.workspace.InputException;
 import chameleon.workspace.View;
 
 public class JLoBuilder extends ViewPluginImpl implements Builder {
@@ -46,16 +49,16 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 		_translator = new IncrementalJavaTranslator(view(), targetView);
 	}
 
-	public void build(Document compilationUnit, List<Document> allProjectCompilationUnits, File outputDir) throws ModelException, IOException {
-		build(compilationUnit,allProjectCompilationUnits,outputDir,null);
+	public void build(Document compilationUnit, File outputDir) throws BuildException {
+		build(compilationUnit,outputDir,null);
 	}
 	
-	public void build(Document compilationUnit, List<Document> allProjectCompilationUnits, File outputDir, BuildProgressHelper buildProgressHelper) throws ModelException, IOException {
+	public void build(Document compilationUnit, File outputDir, BuildProgressHelper buildProgressHelper) throws BuildException {
 		try {
 			CompilationUnitWriter writer = new JavaCompilationUnitWriter(".java");
 			String fileName = writer.fileName(compilationUnit);
 			System.out.println("Building "+fileName);
-			Collection<Document> compilationUnits = _translator.build(compilationUnit, allProjectCompilationUnits,buildProgressHelper);
+			Collection<Document> compilationUnits = _translator.build(compilationUnit, buildProgressHelper);
 			for(Document translated : compilationUnits) {
 				translated.flushCache();
 				writer.write(translated,outputDir);
@@ -66,6 +69,12 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 		} catch(RuntimeException e) {
 			e.printStackTrace();
 			throw e;
+		} catch (LookupException e) {
+			throw new BuildException(e);
+		} catch (ModelException e) {
+			throw new BuildException(e);
+		} catch (IOException e) {
+			throw new BuildException(e);
 		}
 	}
 
@@ -84,11 +93,19 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 		return new JLoBuilder();
 	}
 
+	public void buildAll(File outputDir, BuildProgressHelper buildProgressHelper) throws BuildException {
+		try {
+			build(view().sourceDocuments(), outputDir, buildProgressHelper);
+		} catch (InputException e) {
+			throw new BuildException(e);
+		}
+	}
+	
 	@Override
-	public void build(List<Document> compilationUnits, List<Document> allProjectCompilationUnits,	File outputDir, BuildProgressHelper buildProgressHelper) throws ModelException,	IOException {
+	public void build(List<Document> compilationUnits, File outputDir, BuildProgressHelper buildProgressHelper) throws BuildException {
 		for (Document cu : compilationUnits) {
 			buildProgressHelper.checkForCancellation();
-			build(cu, allProjectCompilationUnits,outputDir,buildProgressHelper);
+			build(cu, outputDir,buildProgressHelper);
 			buildProgressHelper.addWorked(1);
 		}
 	}

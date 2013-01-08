@@ -17,10 +17,9 @@ import org.apache.log4j.Logger;
 import chameleon.core.Config;
 import chameleon.core.document.Document;
 import chameleon.core.namespace.Namespace;
-import chameleon.exception.ChameleonProgrammerException;
-import chameleon.exception.ModelException;
 import chameleon.input.ParseException;
 import chameleon.oo.type.Type;
+import chameleon.plugin.build.BuildException;
 import chameleon.support.tool.ModelBuilder;
 import chameleon.test.provider.BasicDescendantProvider;
 import chameleon.test.provider.ElementProvider;
@@ -57,13 +56,13 @@ public class BatchTranslator {
 	private ElementProvider<RegularJLoType> _typeProvider;
 
 
-	public void translate() throws ParseException, IOException, ChameleonProgrammerException, ModelException {
+	public void translate() throws BuildException {
 		for(Type type: typeProvider().elements(sourceProject())) {
 			// The second argument is never used for the JLo translation, but for now it must be present because otherwise the
 			// aspect weaver does not know which compilation units are present in the project.
 			Document compilationUnit = type.nearestAncestor(Document.class);
 			compilationUnit.verify();
-			_builder.build(compilationUnit, new ArrayList<Document>(),_outputDir);
+			_builder.build(compilationUnit, _outputDir);
 		}
 	}
 	

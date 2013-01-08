@@ -10,6 +10,7 @@ import jnome.core.language.Java;
 import chameleon.core.document.Document;
 import chameleon.core.lookup.LookupException;
 import chameleon.exception.ModelException;
+import chameleon.plugin.build.BuildException;
 import chameleon.plugin.build.BuildProgressHelper;
 import chameleon.support.translate.IncrementalTranslator;
 import chameleon.workspace.View;
@@ -45,15 +46,21 @@ public class IncrementalJavaTranslator extends IncrementalTranslator<JLo, Java> 
    @ post \result != null;
    @ post \fresh(\result);
    @*/
-	public Collection<Document> build(Document source, List<Document> allProjectCompilationUnits,	BuildProgressHelper buildProgressHelper) throws ModelException {
+	public Collection<Document> build(Document source, BuildProgressHelper buildProgressHelper) throws BuildException {
 		//initTargetLanguage();
-		List<Document> result = translate(source,implementationCompilationUnit(source));
-		Document ifaceCU = (result.size() > 1 ? result.get(1) : null); 
-		store(source, ifaceCU,_interfaceMap);
-		if(buildProgressHelper != null) {
-			buildProgressHelper.addWorked(1);
+		try {
+			List<Document> result = translate(source,implementationCompilationUnit(source));
+			Document ifaceCU = (result.size() > 1 ? result.get(1) : null); 
+			store(source, ifaceCU,_interfaceMap);
+			if(buildProgressHelper != null) {
+				buildProgressHelper.addWorked(1);
+			}
+			return result;
+		} catch (LookupException e) {
+			throw new BuildException(e);
+		} catch (ModelException e) {
+			throw new BuildException(e);
 		}
-		return result;
 	}
 
 	public List<Document> translate(Document source, Document implementationCompilationUnit) throws LookupException, ModelException {
