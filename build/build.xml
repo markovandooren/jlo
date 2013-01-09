@@ -7,9 +7,13 @@
   <property name="workspace.dir" value="${basedir}/.."/>
   <property name="common.dir" value="${workspace.dir}/common"/>
   <import file="${common.dir}/build/build.xml"/>
-
-  <target name="bla">
-    <taskdef name="jloc" classname="jlo.build.AntCompileTask" classpath="jloc.path"/>
+  <target name="build-api" depends="build">
+    <path id="jloc.path">
+      <fileset file="${dist.local.jar}/${module}.jar"/>
+      <path refid="project.classpath"/>
+    </path>
+    <taskdef name="jloc" classname="jlo.build.AntCompileTask" classpathref="jloc.path"/>
+    <jloc config="api/project.xml" output="${dist}/api"/>
   </target>
 
 </project>

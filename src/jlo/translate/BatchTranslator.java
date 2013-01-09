@@ -10,10 +10,6 @@ import jlo.model.language.JLoLanguageFactory;
 import jlo.model.type.RegularJLoType;
 import jnome.core.language.JavaLanguageFactory;
 
-import org.apache.log4j.BasicConfigurator;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-
 import chameleon.core.Config;
 import chameleon.core.document.Document;
 import chameleon.core.namespace.Namespace;
@@ -82,8 +78,6 @@ public class BatchTranslator {
     if(args.length < 2) {
       System.out.println("Usage: java .... JavaTranslator projectXML outputDir @recursivePackageFQN*"); // #packageFQN* $typeFQN*
     }
-    BasicConfigurator.configure();
-    Logger.getRootLogger().setLevel(Level.FATAL);
     Config.setCaching(true);
 
     LanguageRepository repo = new LanguageRepository();

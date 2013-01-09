@@ -8,6 +8,7 @@ import jnome.core.language.JavaLanguageFactory;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 
+import chameleon.core.Config;
 import chameleon.workspace.BootstrapProjectConfig;
 import chameleon.workspace.ConfigException;
 import chameleon.workspace.LanguageRepository;
@@ -17,6 +18,7 @@ public class AntCompileTask extends Task {
 
 	@Override
 	public void execute() throws BuildException {
+		Config.setCaching(true);
 		LanguageRepository repository = new LanguageRepository();
 		repository.add(new JavaLanguageFactory().create());
 		repository.add(new JLoLanguageFactory().create());
@@ -66,4 +68,16 @@ public class AntCompileTask extends Task {
 	}
 	
 	private File _config;
+	
+	/**
+	 * args[0] should be the name of the config file.
+	 * args[1] should be the name of the output directory.
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		AntCompileTask task = new AntCompileTask();
+		task.setConfig(new File(args[0]));
+		task.setOutput(new File(args[1]));
+		task.execute();
+	}
 }

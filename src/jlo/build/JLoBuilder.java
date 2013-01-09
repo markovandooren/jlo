@@ -104,9 +104,13 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 	@Override
 	public void build(List<Document> compilationUnits, File outputDir, BuildProgressHelper buildProgressHelper) throws BuildException {
 		for (Document cu : compilationUnits) {
-			buildProgressHelper.checkForCancellation();
+			if(buildProgressHelper != null) {
+				buildProgressHelper.checkForCancellation();
+			}
 			build(cu, outputDir,buildProgressHelper);
-			buildProgressHelper.addWorked(1);
+			if(buildProgressHelper != null) {
+				buildProgressHelper.addWorked(1);
+			}
 		}
 	}
 
