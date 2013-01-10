@@ -7,13 +7,22 @@
   <property name="workspace.dir" value="${basedir}/.."/>
   <property name="common.dir" value="${workspace.dir}/common"/>
   <import file="${common.dir}/build/build.xml"/>
-  <target name="build-api" depends="build">
+
+  <property name="dist.base_library" value="${dist}/base_library"/>
+  <property name="dist.compiled_base_library" value="${dist}/compiled_base_library"/>
+
+
+  <target name="build-base" depends="build">
     <path id="jloc.path">
       <fileset file="${dist.local.jar}/${module}.jar"/>
       <path refid="project.classpath"/>
     </path>
     <taskdef name="jloc" classname="jlo.build.AntCompileTask" classpathref="jloc.path"/>
-    <jloc config="api/project.xml" output="${dist}/api"/>
+    <mkdir dir="${dist.base_library}"/>
+    <mkdir dir="${dist.compiled_base_library}"/>
+    <jloc config="api/project.xml" output="${dist.compile_base_library}"/>
+    <javac srcdir="${dist.base_library}" destdir="${dist.compiled_base_library}"/>
+    <jar jarfile="${dist}/jlo-base-library.jar" basedir="${dist.compiled_base_library}" includes="**"/>
   </target>
 
 </project>
