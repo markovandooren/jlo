@@ -6,10 +6,18 @@
        for your directory layout -->
   <property name="workspace.dir" value="${basedir}/.."/>
   <property name="common.dir" value="${workspace.dir}/common"/>
+  <property name="base_library" value="base_library"/>
   <import file="${common.dir}/build/build.xml"/>
 
   <property name="dist.base_library" value="${dist}/base_library"/>
   <property name="dist.compiled_base_library" value="${dist}/compiled_base_library"/>
+
+  <target name="jar" depends="compile">
+    <jar jarfile="${dist.jar}/${module}.jar">
+      <fileset dir="${bin}"/>
+      <fileset dir="${base_library}/src" includes="**/*.jlo"/>
+    </jar>
+  </target>
 
 
   <target name="build-base" depends="build">
@@ -20,9 +28,9 @@
     <taskdef name="jloc" classname="jlo.build.AntCompileTask" classpathref="jloc.path"/>
     <mkdir dir="${dist.base_library}"/>
     <mkdir dir="${dist.compiled_base_library}"/>
-    <jloc config="api/project.xml" output="${dist.compile_base_library}"/>
+    <jloc config="${base_library}/project.xml" output="${dist.compile_base_library}"/>
     <javac srcdir="${dist.base_library}" destdir="${dist.compiled_base_library}"/>
-    <jar jarfile="${dist}/jlo-base-library.jar" basedir="${dist.compiled_base_library}" includes="**"/>
+    <jar jarfile="${dist}/jlo-base.jar" basedir="${dist.compiled_base_library}" includes="**"/>
   </target>
 
 </project>
