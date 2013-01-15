@@ -1,0 +1,6 @@
+The following additional files are needed:
+
+JavaP.g
+JavaL.g
+
+It is best to create a symbolic link to the corresponding files from the Jnome project.
