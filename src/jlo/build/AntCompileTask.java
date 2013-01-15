@@ -13,6 +13,7 @@ import chameleon.workspace.BootstrapProjectConfig;
 import chameleon.workspace.ConfigException;
 import chameleon.workspace.LanguageRepository;
 import chameleon.workspace.Project;
+import chameleon.workspace.Workspace;
 
 public class AntCompileTask extends Task {
 
@@ -20,11 +21,13 @@ public class AntCompileTask extends Task {
 	public void execute() throws BuildException {
 		Config.setCaching(true);
 		LanguageRepository repository = new LanguageRepository();
+		Workspace workspace = new Workspace(repository);
+
 		repository.add(new JavaLanguageFactory().create());
 		repository.add(new JLoLanguageFactory().create());
 		File configFile = getConfig();
 		File root = configFile.getParentFile();
-		BootstrapProjectConfig config = new BootstrapProjectConfig(root, repository);
+		BootstrapProjectConfig config = new BootstrapProjectConfig(root, workspace);
 		try {
 			Project project = config.project(configFile, null);
 			// Attach the builder

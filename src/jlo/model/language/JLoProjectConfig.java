@@ -2,22 +2,26 @@ package jlo.model.language;
 
 import java.io.File;
 import java.net.URL;
-import java.util.Collections;
-import java.util.List;
 
 import jnome.workspace.JavaProjectConfig;
+
+import org.rejuse.predicate.SafePredicate;
+
+import chameleon.core.language.Language;
+import chameleon.workspace.BootstrapProjectConfig.BaseLibraryConfiguration;
 import chameleon.workspace.ConfigException;
 import chameleon.workspace.DirectoryLoader;
 import chameleon.workspace.FileInputSourceFactory;
+import chameleon.workspace.ProjectConfigurator;
 import chameleon.workspace.View;
+import chameleon.workspace.Workspace;
 import chameleon.workspace.ZipLoader;
-import chameleon.workspace.BootstrapProjectConfig.BaseLibraryConfiguration;
 
 public class JLoProjectConfig extends JavaProjectConfig {
 
-	public JLoProjectConfig(View view, FileInputSourceFactory inputSourceFactory, String projectName, File root, String baseJarPath, BaseLibraryConfiguration baseLibraryConfiguration)
+	public JLoProjectConfig(String projectName, File root, View view, Workspace workspace, FileInputSourceFactory inputSourceFactory, String baseJarPath, BaseLibraryConfiguration baseLibraryConfiguration)
 			throws ConfigException {
-		super(view, inputSourceFactory, projectName, root, baseJarPath,baseLibraryConfiguration);
+		super(projectName, root, view, workspace, inputSourceFactory, baseJarPath,baseLibraryConfiguration);
 		// The base loader for Java already creates the primitive types
 		// and load the Java base library.
 		// Therefore, we only have to add a loader for the base JLo library file.
@@ -32,11 +36,12 @@ public class JLoProjectConfig extends JavaProjectConfig {
 			try {
 				File file = new File(url.toURI());
 				String path = file.getAbsolutePath();
+				SafePredicate<? super String> sourceFileFilter = jlo().plugin(ProjectConfigurator.class).sourceFileFilter();
 				if(path.endsWith(".jar")) {
-					view.addBinary(new ZipLoader(path, JLO_FILE_EXTENSION));
+					view.addBinary(new ZipLoader(path, sourceFileFilter));
 				} else {
 					file = new File(file,JLO_BASE_LIBRARY_DIRECTORY);
-					view.addBinary(new DirectoryLoader(path, fileInputSourceFactory()));
+					view.addBinary(new DirectoryLoader(path, fileInputSourceFactory(), sourceFileFilter));
 				}
 			} catch (Exception e) {
 				throw new ConfigException(e);
@@ -44,11 +49,9 @@ public class JLoProjectConfig extends JavaProjectConfig {
 		}
 	}
 	
-	@Override
-	protected List<String> sourceExtensions() {
-		return Collections.singletonList(JLO_FILE_EXTENSION);
+	protected Language jlo() {
+		return language("jlo");
 	}
-	
+		
 	private static final String JLO_BASE_LIBRARY_DIRECTORY = "base_library";
-	private static final String JLO_FILE_EXTENSION = ".jlo";
 }

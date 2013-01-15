@@ -22,6 +22,7 @@ import chameleon.test.provider.ElementProvider;
 import chameleon.workspace.LanguageRepository;
 import chameleon.workspace.Project;
 import chameleon.workspace.View;
+import chameleon.workspace.Workspace;
 
 public class BatchTranslator {
 
@@ -81,6 +82,8 @@ public class BatchTranslator {
     Config.setCaching(true);
 
     LanguageRepository repo = new LanguageRepository();
+		Workspace workspace = new Workspace(repo);
+
     repo.add(new JLoLanguageFactory().create());
     repo.add(new JavaLanguageFactory().create());
     File outputDir = new File(args[1]);
@@ -94,7 +97,7 @@ public class BatchTranslator {
     String[] arguments = new String[list.size()];
     for(int i=0; i<arguments.length;i++){arguments[i]=list.get(i);}
 //		Project project = new Project("copy test",new RootNamespace(new LazyNamespaceFactory()),language, new File("."));
-    ModelBuilder provider = new ModelBuilder(arguments,repo);
+    ModelBuilder provider = new ModelBuilder(arguments,workspace);
     Project project = provider.project();
 		View view = project.views().get(0);
     long start = System.currentTimeMillis();

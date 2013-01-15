@@ -22,7 +22,7 @@
 
   <target name="build-base" depends="build">
     <path id="jloc.path">
-      <fileset file="${dist.local.jar}/${module}.jar"/>
+      <fileset file="${dist.jar}/${module}.jar"/>
       <path refid="project.classpath"/>
     </path>
     <taskdef name="jloc" classname="jlo.build.AntCompileTask" classpathref="jloc.path"/>

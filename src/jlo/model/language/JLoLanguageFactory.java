@@ -35,7 +35,7 @@ public class JLoLanguageFactory {
 		URL objectLocation = Object.class.getResource("/java/lang/Object.class");
 		String fileName = objectLocation.getFile();
 		String jarName = fileName.substring(5,fileName.indexOf('!'));
-		result.setPlugin(ProjectConfigurator.class, new JLoConfigLoader(jarName));
+		result.setPlugin(ProjectConfigurator.class, new JLoProjectConfigurator(jarName));
 		return result;
 	}
 
