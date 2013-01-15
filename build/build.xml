@@ -33,6 +33,7 @@
     <jar jarfile="${dist}/jlo-base.jar">
       <fileset dir="${dist.compiled_base_library}"/>
       <fileset dir="${dist.base_library}"/>
+      <fileset dir="base_library/src"/>
     </jar>
   </target>
 
