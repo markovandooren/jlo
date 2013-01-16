@@ -28,7 +28,7 @@
     <taskdef name="jloc" classname="jlo.build.AntCompileTask" classpathref="jloc.path"/>
     <mkdir dir="${dist.base_library}"/>
     <mkdir dir="${dist.compiled_base_library}"/>
-    <jloc config="${base_library}/project.xml" output="${dist.base_library}"/>
+    <jloc config="${base_library}/project.xml" destdir="${dist.base_library}"/>
     <javac srcdir="${dist.base_library}" destdir="${dist.compiled_base_library}"/>
     <jar jarfile="${dist}/jlo-base.jar">
       <fileset dir="${dist.compiled_base_library}"/>

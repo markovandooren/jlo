@@ -34,7 +34,7 @@ public class AntCompileTask extends Task {
 			JLoBuilder builder = new JLoBuilder(project.views().get(0));
 			// build!
 			try {
-				builder.buildAll(getOutput(),null);
+				builder.buildAll(getDestDir(),null);
 			} catch (chameleon.plugin.build.BuildException e) {
 				throw new BuildException(e);
 			}
@@ -43,11 +43,11 @@ public class AntCompileTask extends Task {
 		}
 	}
 	
-	public void setOutput(File output) {
+	public void setDestDir(File output) {
 		_output = output;
 	}
 	
-	public File getOutput() {
+	public File getDestDir() {
 		return _output;
 	}
 	
@@ -80,7 +80,7 @@ public class AntCompileTask extends Task {
 	public static void main(String[] args) {
 		AntCompileTask task = new AntCompileTask();
 		task.setConfig(new File(args[0]));
-		task.setOutput(new File(args[1]));
+		task.setDestDir(new File(args[1]));
 		task.execute();
 	}
 }

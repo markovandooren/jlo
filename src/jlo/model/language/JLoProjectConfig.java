@@ -40,8 +40,8 @@ public class JLoProjectConfig extends JavaProjectConfig {
 				if(path.endsWith(".jar")) {
 					view.addBinary(new ZipLoader(path, sourceFileFilter));
 				} else {
-					file = new File(file,JLO_BASE_LIBRARY_DIRECTORY);
-					view.addBinary(new DirectoryLoader(path, fileInputSourceFactory(), sourceFileFilter));
+					file = new File(file.getParentFile(),JLO_BASE_LIBRARY_DIRECTORY);
+					view.addBinary(new DirectoryLoader(file.getAbsolutePath(), fileInputSourceFactory(), sourceFileFilter));
 				}
 			} catch (Exception e) {
 				throw new ConfigException(e);
@@ -53,5 +53,5 @@ public class JLoProjectConfig extends JavaProjectConfig {
 		return language("jlo");
 	}
 		
-	private static final String JLO_BASE_LIBRARY_DIRECTORY = "base_library";
+	private static final String JLO_BASE_LIBRARY_DIRECTORY = "base_library/src";
 }
