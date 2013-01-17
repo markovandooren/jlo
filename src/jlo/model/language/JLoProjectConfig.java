@@ -40,7 +40,7 @@ public class JLoProjectConfig extends JavaProjectConfig {
 				if(path.endsWith(".jar")) {
 					view.addBinary(new ZipLoader(path, sourceFileFilter));
 				} else {
-					file = new File(file.getParentFile(),JLO_BASE_LIBRARY_DIRECTORY);
+					file = new File(file,JLO_BASE_LIBRARY_DIRECTORY);
 					view.addBinary(new DirectoryLoader(file.getAbsolutePath(), fileInputSourceFactory(), sourceFileFilter));
 				}
 			} catch (Exception e) {
