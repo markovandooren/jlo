@@ -20,5 +20,6 @@ Require-Bundle: be.chameleon.eclipse.java;bundle-version="1.0.0",
  org.eclipse.swt;bundle-version="3.7.0",
  org.eclipse.jface;bundle-version="3.7.0",
  org.eclipse.jface.text;bundle-version="3.8.1",
- rejuse.distrinet.cs.kuleuven.be;bundle-version="1.0.10"
+ rejuse.distrinet.cs.kuleuven.be;bundle-version="1.0.10",
+ org.junit;bundle-version="4.10.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
