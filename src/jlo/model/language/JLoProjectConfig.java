@@ -41,12 +41,20 @@ public class JLoProjectConfig extends JavaProjectConfig {
 					view.addBinary(new ZipLoader(path, sourceFileFilter));
 				} else {
 					file = new File(file,JLO_BASE_LIBRARY_DIRECTORY);
-					view.addBinary(new DirectoryLoader(file.getAbsolutePath(), fileInputSourceFactory(), sourceFileFilter));
+					view.addBinary(new BaseDirectoryLoader(file.getAbsolutePath(), fileInputSourceFactory(), sourceFileFilter));
 				}
 			} catch (Exception e) {
 				throw new ConfigException(e);
 			}
 		}
+	}
+	
+	public static class BaseDirectoryLoader extends DirectoryLoader {
+
+		public BaseDirectoryLoader(String root, FileInputSourceFactory factory, SafePredicate<? super String> filter) {
+			super(root, filter, true, factory);
+		} 
+		
 	}
 	
 	protected Language jlo() {
