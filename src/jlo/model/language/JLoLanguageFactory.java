@@ -5,6 +5,7 @@ import java.net.URL;
 import jlo.input.JLoFactory;
 import jlo.input.JLoModelFactory;
 import jlo.output.JLoSyntax;
+import chameleon.core.factory.Factory;
 import chameleon.input.ModelFactory;
 import chameleon.oo.plugin.ObjectOrientedFactory;
 import chameleon.plugin.output.Syntax;
@@ -31,6 +32,7 @@ public class JLoLanguageFactory {
 		JLo result = new JLo();
 		result.setPlugin(ModelFactory.class, new JLoModelFactory());
 		result.setPlugin(Syntax.class, new JLoSyntax());
+		result.setPlugin(Factory.class, new JLoFactory());
 		result.setPlugin(ObjectOrientedFactory.class, new JLoFactory());
 		URL objectLocation = Object.class.getResource("/java/lang/Object.class");
 		String fileName = objectLocation.getFile();

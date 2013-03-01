@@ -1,12 +1,12 @@
-package jlo.build;
+package jlo.ant;
 
 import java.io.File;
 
+import jlo.build.JLoBuilder;
 import jlo.model.language.JLoLanguageFactory;
 import jnome.core.language.JavaLanguageFactory;
 
 import org.apache.tools.ant.BuildException;
-import org.apache.tools.ant.Task;
 
 import chameleon.core.Config;
 import chameleon.workspace.BootstrapProjectConfig;
@@ -15,7 +15,7 @@ import chameleon.workspace.LanguageRepository;
 import chameleon.workspace.Project;
 import chameleon.workspace.Workspace;
 
-public class AntCompileTask extends Task {
+public class AntCompileTask extends AbstractTask {
 
 	@Override
 	public void execute() throws BuildException {
@@ -53,25 +53,6 @@ public class AntCompileTask extends Task {
 	
 	private File _output;
 
-	/**
-	 * Set the configuration file of the Chameleon project. Typically
-	 * this file will be named 'project.xml'.
-	 * @param config
-	 */
-	public void setConfig(File config) {
-		_config = config;
-	}
-	
-	/**
-	 * Return the 
-	 * @return
-	 */
-	public File getConfig() {
-		return _config;
-	}
-	
-	private File _config;
-	
 	/**
 	 * args[0] should be the name of the config file.
 	 * args[1] should be the name of the output directory.

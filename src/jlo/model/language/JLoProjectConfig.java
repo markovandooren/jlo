@@ -49,6 +49,21 @@ public class JLoProjectConfig extends JavaProjectConfig {
 		}
 	}
 	
+	public static File jloBase() {
+		URL url = JLoProjectConfig.class.getProtectionDomain().getCodeSource().getLocation();
+		try {
+			File file = new File(url.toURI());
+			String path = file.getAbsolutePath();
+			if(path.endsWith(".jar")) {
+				return new File(path);
+			} else {
+				return new File(file,JLO_BASE_LIBRARY_DIRECTORY);
+			}
+		} catch (Exception e) {
+			throw new IllegalStateException(e);
+		}
+	}
+	
 	public static class BaseDirectoryLoader extends DirectoryLoader {
 
 		public BaseDirectoryLoader(String root, FileInputSourceFactory factory, SafePredicate<? super String> filter) {
