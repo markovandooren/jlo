@@ -3,8 +3,7 @@ package jlo.model.component;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.rejuse.predicate.UnsafePredicate;
-
+import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.LookupException;

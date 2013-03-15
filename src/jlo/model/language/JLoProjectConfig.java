@@ -4,9 +4,7 @@ import java.io.File;
 import java.net.URL;
 
 import jnome.workspace.JavaProjectConfig;
-
-import org.rejuse.predicate.SafePredicate;
-
+import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
 import chameleon.core.language.Language;
 import chameleon.workspace.BootstrapProjectConfig.BaseLibraryConfiguration;
 import chameleon.workspace.ConfigException;

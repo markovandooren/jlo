@@ -5,9 +5,7 @@ import java.util.List;
 import jlo.model.type.JLoCapturedType;
 import jlo.model.type.JLoDerivedType;
 import jnome.core.language.Java;
-
-import org.rejuse.junit.BasicRevision;
-
+import be.kuleuven.cs.distrinet.rejuse.junit.BasicRevision;
 import chameleon.core.lookup.LookupException;
 import chameleon.core.relation.StrictPartialOrder;
 import chameleon.oo.member.Member;

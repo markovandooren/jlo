@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jlo.model.component.ComponentRelation;
-
-import org.rejuse.logic.ternary.Ternary;
-
+import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
 import chameleon.core.declaration.DeclarationContainer;
 import chameleon.core.declaration.Signature;
 import chameleon.core.lookup.DeclarationSelector;

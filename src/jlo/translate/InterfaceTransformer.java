@@ -4,10 +4,8 @@ import java.util.List;
 
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
-
-import org.rejuse.logic.ternary.Ternary;
-import org.rejuse.property.Property;
-
+import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
+import be.kuleuven.cs.distrinet.rejuse.property.Property;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.document.Document;
 import chameleon.core.modifier.Modifier;

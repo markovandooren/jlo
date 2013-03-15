@@ -13,9 +13,7 @@ import jlo.model.expression.AbstractTarget;
 import jnome.core.expression.invocation.JavaMethodInvocation;
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
-
-import org.rejuse.association.SingleAssociation;
-
+import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.lookup.LookupException;
 import chameleon.exception.ChameleonProgrammerException;

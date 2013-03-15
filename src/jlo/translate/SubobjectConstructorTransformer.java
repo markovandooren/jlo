@@ -15,10 +15,8 @@ import jnome.core.expression.invocation.SuperConstructorDelegation;
 import jnome.core.expression.invocation.ThisConstructorDelegation;
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
-
-import org.rejuse.association.SingleAssociation;
-import org.rejuse.predicate.UnsafePredicate;
-
+import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
+import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.SimpleNameSignature;
 import chameleon.core.element.Element;

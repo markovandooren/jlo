@@ -24,13 +24,11 @@ import jnome.core.modifier.Implements;
 import jnome.core.type.AnonymousInnerClass;
 import jnome.core.type.BasicJavaTypeReference;
 import jnome.core.type.JavaTypeReference;
-
-import org.rejuse.association.SingleAssociation;
-import org.rejuse.logic.ternary.Ternary;
-import org.rejuse.predicate.SafePredicate;
-import org.rejuse.predicate.TypePredicate;
-import org.rejuse.predicate.UnsafePredicate;
-
+import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
+import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
+import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
+import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
+import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.Signature;
 import chameleon.core.declaration.SimpleNameSignature;

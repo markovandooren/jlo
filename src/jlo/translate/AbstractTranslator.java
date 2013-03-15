@@ -7,12 +7,10 @@ import jlo.model.component.ComponentRelation;
 import jnome.core.expression.invocation.JavaMethodInvocation;
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
-
-import org.rejuse.association.Association;
-import org.rejuse.association.SingleAssociation;
-import org.rejuse.predicate.UnsafePredicate;
-import org.rejuse.property.Property;
-
+import be.kuleuven.cs.distrinet.rejuse.association.Association;
+import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
+import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
+import be.kuleuven.cs.distrinet.rejuse.property.Property;
 import chameleon.core.declaration.Declaration;
 import chameleon.core.declaration.QualifiedName;
 import chameleon.core.declaration.Signature;

@@ -10,10 +10,8 @@ import jlo.model.type.RegularJLoType;
 import jnome.core.expression.invocation.SuperConstructorDelegation;
 import jnome.core.language.Java;
 import jnome.core.type.BasicJavaTypeReference;
-
-import org.rejuse.association.Association;
-import org.rejuse.logic.ternary.Ternary;
-
+import be.kuleuven.cs.distrinet.rejuse.association.Association;
+import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
 import chameleon.core.declaration.TargetDeclaration;
 import chameleon.core.element.Element;
 import chameleon.core.lookup.LookupException;

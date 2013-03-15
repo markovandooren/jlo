@@ -2,8 +2,7 @@ package jlo.model.language;
 
 import java.io.File;
 
-import org.rejuse.predicate.SafePredicate;
-
+import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
 import jnome.input.LazyJavaFileInputSourceFactory;
 import jnome.workspace.JavaProjectConfig;
 import jnome.workspace.JavaProjectConfigurator;
