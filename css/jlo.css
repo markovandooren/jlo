@@ -1,0 +1,172 @@
+body {
+       font-family: 'Quattrocento Sans', sans-serif;
+        font-size: 16px;
+        font-weight: 400;
+        background-color:#f2f2f2;
+        color: #222222;
+      }
+      h1 h2 h3 {
+         font-family: 'Quattrocento Sans', sans-serif;
+     }
+/* DROP CAP */
+/*p:first-child:first-letter { float: left; color: #903; font-size: 300%;padding-top: 6px; padding-right: 8px; padding-left: 3px;}*/
+      p {
+        line-height: 150%;
+    }
+#banner {
+  position: relative;
+  width: 752px;
+  background-color: #333333;
+  color: #ffffff;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+        box-shadow: 0 8px 6px -6px black;
+}
+#banner #title {
+  font-size: 96px;
+  font-weight: 700;
+}
+
+      .section {
+  position: relative;
+        width: 752px;
+        border: 1px solid #DDDDDD;
+        box-shadow: 0 8px 6px -6px black;
+        background-color:#ffffff;
+       padding: 10px 15px;
+        margin-bottom:15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+     }
+      .section .header {
+        font-family: 'Quattrocento Sans', sans-serif;
+        font-size: 36px;
+        font-weight:700;
+        padding: 0px;
+        margin:0px;
+        width:752px;
+        color:444444;
+/* text-shadow: 0 1px rgba(255, 255, 255, 0.5); */
+    }
+      .section .content {
+         text-align:justify;
+         text-justify:inter-word;
+        width:732px;
+        padding:0px 0px 0px 10px;
+        margin:0px;
+      }
+      .section b {
+        font-weight:500;
+      }
+
+
+
+.ribbon-wrapper-green {
+  width: 85px;
+  height: 88px;
+  overflow: hidden;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+-webkit-transform: translateX(1px) translateY(-1px);
+-o-transform: scale() rotate(deg) translateX(1px) translateY(1px) skewX(0deg) skewY(0deg);
+-ms-transform: scale() rotate(deg) translateX(1px) translateY(1px) skewX(0deg) skewY(0deg);
+transform: scale() rotate(deg) translateX(1px) translateY(1px) skewX(0deg) skewY(0deg); }
+
+.ribbon-green {
+/*  font-family: 'Quattrocento Sans', sans-serif;
+  font-size: 16px;*/
+  font: bold 15px Sans-Serif;
+  color: white;
+  text-align: center;
+  text-shadow: rgba(0,0,0,0.5) 0px 1px 0px;
+  -webkit-transform: rotate(45deg);
+  -moz-transform:    rotate(45deg);
+  -ms-transform:     rotate(45deg);
+  -o-transform:      rotate(45deg);
+  position: relative;
+  padding: 7px 0;
+  left: -5px;
+  top: 15px;
+  width: 120px;
+  /*margin-top:5px;*/
+  background-color: #BFDC7A;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#DCBF7A), to(#BF8E45)); 
+  background-image: -webkit-linear-gradient(top, #DC7A7A, #BF4545); 
+  background-image:    -moz-linear-gradient(top, #DC7A7A, #BF4545); 
+  background-image:     -ms-linear-gradient(top, #DC7A7A, #BF4545); 
+  background-image:      -o-linear-gradient(top, #DC7A7A, #BF4545); 
+  /*color: #6a6340;*/
+  -webkit-box-shadow: 0px 0px 3px rgba(0,0,0,0.3);
+  -moz-box-shadow:    0px 0px 3px rgba(0,0,0,0.3);
+  box-shadow:         0px 0px 3px rgba(0,0,0,0.3);
+}
+
+.ribbon-green:before, .ribbon-green:after {
+  content: "";
+  border-top:   3px solid #994545;   
+  border-left:  3px solid transparent;
+  border-right: 3px solid transparent;
+  position:absolute;
+  bottom: -3px;
+}
+
+.ribbon-green:before {
+  left: 0;
+}
+.ribbon-green:after {
+  right: 0;
+}
+
+/* Can be removed I think when the screenshots have the proper size 
+               #contentWrapper{
+                        width: 100%;
+                        position: absolute;
+                       top:0;
+                        left:0;
+                        overflow:hidden;
+
+                }*/
+
+
+    .gallery {
+     position:relative;
+    list-style:none;
+    border:1px solid #000000;
+    }  
+    .gallery .image {  
+    /* position:relative;*/
+    background:#e8e8e8;  
+    float:left;  
+   display:block;  
+    border:1px solid #d7d7d7;  
+    -moz-border-radius:4px;  
+    -webkit-border-radius:4px;  
+    border-radius:4px;  
+    -webkit-box-shadow:1px 1px 6px #ddd;  
+    -moz-box-shadow:1px 1px 6px #ddd;  
+    box-shadow:1px 1px 6px #ddd;  
+    margin:15px 15px;
+    padding:0;
+/*width:315px;*/
+    }  
+      position:relative;
+   .image p {  
+    border:1px solid #fff;  
+    -moz-border-radius:4px;  
+    -webkit-border-radius:4px;  
+    border-radius:4px;  
+    margin:0;  
+    padding:7px;  
+    }  
+    .image a {  
+     position:relative;
+    display:block;  
+    color:#fff;  
+    text-decoration:none;  
+    padding:0;  
+    }  
