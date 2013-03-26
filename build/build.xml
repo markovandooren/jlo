@@ -17,7 +17,7 @@
       <pathelement path="${bin}"/>
       <path refid="project.classpath"/>
     </path>
-    <taskdef name="jloc" classname="jlo.ant.AntCompileTask" classpathref="jloc.path"/>
+    <taskdef name="jloc" classname="be.kuleuven.cs.distrinet.jlo.ant.AntCompileTask" classpathref="jloc.path"/>
     <mkdir dir="${dist.base_library}"/>
     <mkdir dir="${dist.compiled_base_library}"/>
     <jloc config="${base_library}/project.xml" destdir="${dist.base_library}"/>
