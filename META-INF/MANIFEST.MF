@@ -6,15 +6,16 @@ Bundle-Version: 1.0.6
 Bundle-ClassPath: bin/.,
  .
 Bundle-Vendor: K.U.Leuven
-Export-Package: jlo.build,
- jlo.eclipse,
- jlo.input,
- jlo.model.component,
- jlo.model.expression,
- jlo.model.language,
- jlo.model.type,
- jlo.output,
- jlo.translate
+Export-Package: be.kuleuven.cs.distrinet.jlo.ant,
+ be.kuleuven.cs.distrinet.jlo.build,
+ be.kuleuven.cs.distrinet.jlo.eclipse,
+ be.kuleuven.cs.distrinet.jlo.input,
+ be.kuleuven.cs.distrinet.jlo.model.component,
+ be.kuleuven.cs.distrinet.jlo.model.expression,
+ be.kuleuven.cs.distrinet.jlo.model.language,
+ be.kuleuven.cs.distrinet.jlo.model.type,
+ be.kuleuven.cs.distrinet.jlo.output,
+ be.kuleuven.cs.distrinet.jlo.translate
 Require-Bundle: be.chameleon.eclipse.java;bundle-version="1.0.0",
  be.chameleon.eclipse;bundle-version="1.0.6",
  org.eclipse.swt;bundle-version="3.7.0",
