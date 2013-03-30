@@ -27,7 +27,7 @@ public class ParameterReferenceActualArgument extends SingleActualComponentArgum
 				  return ParameterReferenceActualArgument.this.signature();
 			  }
 		  });
-		lexicalLookupStrategy().lookUp(collector);
+		lexicalContext().lookUp(collector);
 		return collector.result();
 	}
 

@@ -1,7 +1,7 @@
 package be.kuleuven.cs.distrinet.jlo.model.expression;
 
 import be.kuleuven.cs.distrinet.chameleon.core.element.ElementImpl;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupStrategy;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceTarget;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
@@ -27,7 +27,7 @@ public abstract class AbstractTarget extends ElementImpl implements CrossReferen
 
 	public abstract Type getTargetDeclaration();
 	
-	public LocalLookupStrategy<?> targetContext() throws LookupException {
+	public LocalLookupContext<?> targetContext() throws LookupException {
 	  return getTargetDeclaration().targetContext();
 	}
 

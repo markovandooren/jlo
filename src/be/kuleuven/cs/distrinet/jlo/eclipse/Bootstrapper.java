@@ -12,13 +12,9 @@ public class Bootstrapper extends EclipseBootstrapper {
 	
 	public final static String PLUGIN_ID="be.chameleon.eclipse.jlo";
 	
-	public Bootstrapper() {
-		super("JLo","0.1",PLUGIN_ID);
-	}
-	
 	public Language createLanguage() throws ProjectException  {
 		JLo result = new JLoLanguageFactory().create();
-		result.setPlugin(EclipseEditorExtension.class, new JLoEditorExtension(getLanguageName()));
+		result.setPlugin(EclipseEditorExtension.class, new JLoEditorExtension());
 		return result;
 	}
 

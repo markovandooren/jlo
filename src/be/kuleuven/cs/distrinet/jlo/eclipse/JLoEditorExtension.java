@@ -18,8 +18,7 @@ import be.kuleuven.cs.distrinet.chameleon.workspace.View;
 public class JLoEditorExtension extends JavaEditorExtension {
 
 
-	public JLoEditorExtension(String name) {
-		super(name);
+	public JLoEditorExtension() {
 	  SUBOBJECT_ICON_PROVIDER = new DefaultIconProvider("subobject", ComponentRelation.class);
 	  SINGLE_SUBOBJECT_PARAMETER_ICON_PROVIDER = new DefaultIconProvider("singleformalsubobjectparameter", SingleFormalComponentParameter.class);
 	  MULTI_SUBOBJECT_PARAMETER_ICON_PROVIDER = new DefaultIconProvider("multiformalsubobjectparameter", MultiFormalComponentParameter.class);
@@ -76,7 +75,7 @@ public class JLoEditorExtension extends JavaEditorExtension {
 	
 	@Override
 	public JLoEditorExtension clone() {
-		return new JLoEditorExtension(languageName());
+		return new JLoEditorExtension();
 	}
 
 	@Override

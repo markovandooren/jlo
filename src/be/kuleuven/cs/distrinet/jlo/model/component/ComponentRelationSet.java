@@ -7,7 +7,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.element.ElementImpl;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupStrategy;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.scope.Scope;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
@@ -49,7 +49,7 @@ public class ComponentRelationSet extends ElementImpl implements DeclarationWith
 		return Valid.create();
 	}
 
-	public LocalLookupStrategy<?> targetContext() throws LookupException {
+	public LocalLookupContext<?> targetContext() throws LookupException {
 		return declarationType().targetContext();
 	}
 

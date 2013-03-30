@@ -3,7 +3,7 @@ package be.kuleuven.cs.distrinet.jlo.model.component;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.TargetDeclaration;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupStrategy;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.scope.Scope;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
@@ -71,7 +71,7 @@ public abstract class FormalComponentParameter extends ComponentParameter {
 		return this;
 	}
 
-	public LocalLookupStrategy<?> targetContext() throws LookupException {
+	public LocalLookupContext<?> targetContext() throws LookupException {
 		return declarationType().targetContext();
 	}
 	

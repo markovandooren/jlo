@@ -91,14 +91,14 @@ public class ComponentParameterCall extends Expression implements CrossReference
   public <X extends Declaration> X getElement(DeclarationSelector<X> selector) throws LookupException {
     X result;
     DeclarationCollector<X> collector = new DeclarationCollector<X>(selector);
-    lexicalLookupStrategy().lookUp(collector);
+    lexicalContext().lookUp(collector);
     result = collector.result();//findElement(getName());
     if(result != null) {
       return result;
     } else {
     	// repeat for debugging purposes
     	collector = new DeclarationCollector<X>(selector);
-    	lexicalLookupStrategy().lookUp(collector);//findElement(getName());
+    	lexicalContext().lookUp(collector);//findElement(getName());
     	result = collector.result(); 
     	throw new LookupException("Lookup of component parameter with name: "+name()+" returned null.");
     }

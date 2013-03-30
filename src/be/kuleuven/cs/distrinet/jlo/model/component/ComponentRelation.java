@@ -14,9 +14,9 @@ import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.Collector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupStrategy;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupStrategy;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.Skipper;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.Stub;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
@@ -138,16 +138,16 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	}
 	
 	@Override
-	public LookupStrategy lexicalLookupStrategy(Element child) throws LookupException {
-		LookupStrategy result = parent().lexicalLookupStrategy(this);
+	public LookupContext lexicalLookupStrategy(Element child) throws LookupException {
+		LookupContext result = parent().lexicalLookupStrategy(this);
 		result = new ComponentTypeLookupStrategy(result, nearestAncestor(Type.class));
 		return result;
 	}
 
   //PAPER: customize lookup
-	public static class ComponentTypeLookupStrategy extends LookupStrategy {
+	public static class ComponentTypeLookupStrategy extends LookupContext {
 
-		public ComponentTypeLookupStrategy(LookupStrategy parentStrategy, Type type) {
+		public ComponentTypeLookupStrategy(LookupContext parentStrategy, Type type) {
 			_parentStrategy = parentStrategy;
 			_type = type;
 		}
@@ -159,7 +159,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 //			_parentStrategy.lookUp(new DeclarationContainerSkipper<D>(selector, _type));
 //		}
 //		
-		private LookupStrategy _parentStrategy;
+		private LookupContext _parentStrategy;
 
 		@Override
 		public <D extends Declaration> void lookUp(Collector<D> collector) throws LookupException {
@@ -255,7 +255,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
   
   private Single<ConfigurationBlock> _configurationBlock = new Single<ConfigurationBlock>(this);
 
-	public LocalLookupStrategy<?> targetContext() throws LookupException {
+	public LocalLookupContext<?> targetContext() throws LookupException {
 		return componentType().targetContext();
 	}
 
