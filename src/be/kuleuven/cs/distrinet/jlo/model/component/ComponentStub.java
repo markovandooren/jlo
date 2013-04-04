@@ -49,7 +49,7 @@ public class ComponentStub extends ElementImpl implements TypeElementStub {
 	}
 
 	@Override
-	public LookupContext lexicalLookupStrategy(Element child) throws LookupException {
+	public LookupContext lookupContext(Element child) throws LookupException {
 		if(child.origin() == child) {
 			throw new ChameleonProgrammerException("A child of a component stub has itself as origin.");
 		}

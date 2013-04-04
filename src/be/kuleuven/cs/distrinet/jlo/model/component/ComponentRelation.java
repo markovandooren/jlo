@@ -138,8 +138,8 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	}
 	
 	@Override
-	public LookupContext lexicalLookupStrategy(Element child) throws LookupException {
-		LookupContext result = parent().lexicalLookupStrategy(this);
+	public LookupContext lookupContext(Element child) throws LookupException {
+		LookupContext result = parent().lookupContext(this);
 		result = new ComponentTypeLookupStrategy(result, nearestAncestor(Type.class));
 		return result;
 	}
