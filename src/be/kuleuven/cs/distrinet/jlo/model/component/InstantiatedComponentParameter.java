@@ -7,7 +7,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.scope.Scope;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.DeclarationWithType;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.DerivedType;
@@ -79,7 +79,7 @@ public class InstantiatedComponentParameter extends ComponentParameter implement
 	}
 
 	@Override
-	public VerificationResult verifySelf() {
+	public Verification verifySelf() {
 		return Valid.create();
 	}
 

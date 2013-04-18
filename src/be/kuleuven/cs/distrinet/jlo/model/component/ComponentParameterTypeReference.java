@@ -14,7 +14,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.element.ElementImpl;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
 import be.kuleuven.cs.distrinet.chameleon.oo.language.ObjectOrientedLanguage;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.DerivedType;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.IntersectionTypeReference;
@@ -142,7 +142,7 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 	}
 
 	@Override
-	public VerificationResult verifySelf() {
+	public Verification verifySelf() {
 		return Valid.create();
 	}
 

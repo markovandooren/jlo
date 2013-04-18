@@ -7,7 +7,7 @@ import java.util.List;
 import be.kuleuven.cs.distrinet.chameleon.core.element.ElementImpl;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.MemberRelationSelector;
 import be.kuleuven.cs.distrinet.chameleon.util.association.Multi;
@@ -24,7 +24,7 @@ public class ConfigurationBlock extends ElementImpl {
 	}
 
 	@Override
-	public VerificationResult verifySelf() {
+	public Verification verifySelf() {
 		return Valid.create();
 	}
 
