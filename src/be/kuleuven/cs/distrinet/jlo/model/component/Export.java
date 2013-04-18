@@ -6,7 +6,7 @@ import java.util.List;
 
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.MemberRelationSelector;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.TypeElementImpl;
@@ -61,7 +61,7 @@ public class Export extends TypeElementImpl {
 	}
 
 	@Override
-	public Verification verifySelf() {
+	public VerificationResult verifySelf() {
 		return Valid.create();
 	}
 	

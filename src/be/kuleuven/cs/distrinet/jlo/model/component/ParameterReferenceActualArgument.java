@@ -6,7 +6,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectorWithoutOrder;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
 
 public class ParameterReferenceActualArgument extends SingleActualComponentArgument {
 
@@ -32,8 +32,8 @@ public class ParameterReferenceActualArgument extends SingleActualComponentArgum
 	}
 
 	@Override
-	public Verification verifySelf() {
-		Verification result = Valid.create();
+	public VerificationResult verifySelf() {
+		VerificationResult result = Valid.create();
 		try {
 			if(declaration() == null) {
 				result = result.and(new BasicProblem(this, "Cannot resolve component parameter reference."));

@@ -6,7 +6,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.element.ElementImpl;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.TypeElementStub;
 import be.kuleuven.cs.distrinet.chameleon.util.association.Single;
@@ -44,7 +44,7 @@ public class ComponentStub extends ElementImpl implements TypeElementStub {
 	}
 
 	@Override
-	public Verification verifySelf() {
+	public VerificationResult verifySelf() {
 		return Valid.create();
 	}
 

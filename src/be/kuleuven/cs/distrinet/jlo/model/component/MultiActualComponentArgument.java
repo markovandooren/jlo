@@ -6,7 +6,7 @@ import java.util.List;
 
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.DeclarationWithType;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
 import be.kuleuven.cs.distrinet.chameleon.util.association.Multi;
@@ -39,7 +39,7 @@ public class MultiActualComponentArgument extends ActualComponentArgument implem
 	}
 
 	@Override
-	public Verification verifySelf() {
+	public VerificationResult verifySelf() {
 		return Valid.create();
 	}
 

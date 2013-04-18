@@ -13,7 +13,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReference;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceTarget;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.UnresolvableCrossReference;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.Expression;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
 import be.kuleuven.cs.distrinet.chameleon.util.association.Single;
@@ -65,7 +65,7 @@ public class ComponentParameterCall extends Expression implements CrossReference
 	}
 
 	@Override
-	public Verification verifySelf() {
+	public VerificationResult verifySelf() {
 		FormalComponentParameter referencedElement;
 		try {
 			referencedElement = getElement();

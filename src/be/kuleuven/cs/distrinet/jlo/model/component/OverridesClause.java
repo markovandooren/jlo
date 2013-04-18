@@ -8,7 +8,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.declaration.QualifiedName;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.MemberRelationSelector;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
@@ -29,8 +29,8 @@ public class OverridesClause extends AbstractClause {
 	
 
 	@Override
-	public Verification verifySelf() {
-		Verification result = super.verifySelf();
+	public VerificationResult verifySelf() {
+		VerificationResult result = super.verifySelf();
 		final Signature newSignature = newSignature();
 		if(newSignature != null) {
 			List<Member> members = nearestAncestor(Type.class).directlyDeclaredMembers();

@@ -21,7 +21,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.Skipper;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.Stub;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.HidesRelation;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
@@ -100,8 +100,8 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	}
 	
 	@Override
-	public Verification verifySelf() {
-		Verification result = Valid.create();
+	public VerificationResult verifySelf() {
+		VerificationResult result = Valid.create();
 		Set<? extends Member> overriddenMembers = null;
 		try {
 			overriddenMembers = overriddenMembers();

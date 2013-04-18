@@ -7,7 +7,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectorWithoutOrder;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
-import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
+import be.kuleuven.cs.distrinet.chameleon.core.validation.VerificationResult;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
 
 public class ComponentNameActualArgument extends SingleActualComponentArgument {
@@ -42,8 +42,8 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument {
 	}
 
 	@Override
-	public Verification verifySelf() {
-		Verification result = Valid.create();
+	public VerificationResult verifySelf() {
+		VerificationResult result = Valid.create();
 		FormalComponentParameter formal = null;
 		try {
 			formal = formalParameter();
@@ -51,11 +51,11 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument {
 			result = result.and(new BasicProblem(this, "Cannot determine the formal subobject parameter that corresponds to this actual subobject argument."));
 		}
 		if(formal != null) {
-			Verification formalParameterVerification = formal.verifySelf();
-			formalParameterVerification.setElement(this);
+			VerificationResult formalParameterVerificationResult = formal.verifySelf();
+			formalParameterVerificationResult.setElement(this);
 			// This is not ideal, the information about the original element is lost. That information
 			// should be available to show to the user.
-			result = result.and(formalParameterVerification);
+			result = result.and(formalParameterVerificationResult);
 			if(result.equals(Valid.create())) {
 				String typeName = formal.containerTypeReference().toString();
 				ComponentRelation rel = null;
