@@ -1,20 +1,21 @@
 package be.kuleuven.cs.distrinet.jlo.model.language;
 
 import java.io.File;
+import java.util.jar.JarFile;
 
-import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
-import be.kuleuven.cs.distrinet.jnome.input.LazyJavaFileInputSourceFactory;
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfig;
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfigurator;
 import be.kuleuven.cs.distrinet.chameleon.workspace.BootstrapProjectConfig.BaseLibraryConfiguration;
 import be.kuleuven.cs.distrinet.chameleon.workspace.ConfigException;
 import be.kuleuven.cs.distrinet.chameleon.workspace.ExtensionPredicate;
 import be.kuleuven.cs.distrinet.chameleon.workspace.View;
 import be.kuleuven.cs.distrinet.chameleon.workspace.Workspace;
+import be.kuleuven.cs.distrinet.jnome.input.LazyJavaFileInputSourceFactory;
+import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfig;
+import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfigurator;
+import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
 
 public class JLoProjectConfigurator extends JavaProjectConfigurator {
 
-	public JLoProjectConfigurator(String javaBaseJarPath) {
+	public JLoProjectConfigurator(JarFile javaBaseJarPath) {
 		super(javaBaseJarPath);
 	}
 
