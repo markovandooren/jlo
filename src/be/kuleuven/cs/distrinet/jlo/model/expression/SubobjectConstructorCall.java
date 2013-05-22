@@ -47,8 +47,9 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
   }
 	
 	@Override
-	protected SubobjectConstructorCall cloneInvocation(CrossReferenceTarget target) {
-		SubobjectConstructorCall result = new SubobjectConstructorCall((SimpleReference<ComponentRelation>)getTarget().clone(), new ArrayList<Expression>());
+	protected SubobjectConstructorCall cloneSelf() {
+		SubobjectConstructorCall result = new SubobjectConstructorCall((SimpleReference)null);
+		//FIXME This is a hack iirc. Remove it!
 		result.setOrigin(this);
 		return result;
 	}

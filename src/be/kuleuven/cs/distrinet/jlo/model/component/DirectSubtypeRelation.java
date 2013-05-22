@@ -25,7 +25,7 @@ public class DirectSubtypeRelation extends IncorporatingSubtypeRelation {
 		throw new ChameleonProgrammerException();
 	}
 
-	protected SubtypeRelation cloneThis() {
+	protected SubtypeRelation cloneSelf() {
 		return new DirectSubtypeRelation(superClass());
 	}
 

@@ -79,7 +79,7 @@ public class ComponentSubtypeRelation extends IncorporatingSubtypeRelation {
 		return new ArrayList<D>();
 	}
 	
-	protected SubtypeRelation cloneThis() {
+	protected SubtypeRelation cloneSelf() {
 		return new ComponentSubtypeRelation();
 	}
 
