@@ -41,7 +41,7 @@ public class JLoProjectConfig extends JavaProjectConfig {
 					JarURLConnection connection = (JarURLConnection) url.openConnection();
 					view.addBinary(new ZipLoader(connection.getJarFile(), sourceFileFilter));
 				} else {
-					file = new File(file.getParentFile(),JLO_BASE_LIBRARY_DIRECTORY);
+					file = new File(file,JLO_BASE_LIBRARY_DIRECTORY);
 					view.addBinary(new BaseDirectoryLoader(file.getAbsolutePath(), fileInputSourceFactory(), sourceFileFilter));
 				}
 			} catch (Exception e) {
@@ -55,11 +55,13 @@ public class JLoProjectConfig extends JavaProjectConfig {
 		try {
 			File file = new File(url.toURI());
 			String path = file.getAbsolutePath();
+			File result;
 			if(path.endsWith(".jar")) {
-				return new File(path);
+				result = new File(path);
 			} else {
-				return new File(file,JLO_BASE_LIBRARY_DIRECTORY);
+				result = new File(file,JLO_BASE_LIBRARY_DIRECTORY);
 			}
+			return result;
 		} catch (Exception e) {
 			throw new IllegalStateException(e);
 		}
