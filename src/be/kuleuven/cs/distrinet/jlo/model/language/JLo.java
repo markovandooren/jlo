@@ -18,9 +18,11 @@ import be.kuleuven.cs.distrinet.chameleon.oo.type.generics.ActualTypeArgument;
 public class JLo extends Java {
 
 	public JLo() {
-		this("JLo");
+		this(NAME);
 	}
 
+	public final static String NAME = "JLo";
+	
 	protected JLo(String name) {
 		super(name, new BasicRevision(0,1,0));
 	}
