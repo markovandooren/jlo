@@ -8,13 +8,16 @@ options {
 
 import JLoP,JLoL;
 @header {
-package jlo.input;
+package be.kuleuven.cs.distrinet.jlo.input;
 
 import be.kuleuven.cs.distrinet.chameleon.workspace.*;
+import be.kuleuven.cs.distrinet.chameleon.core.declaration.*;
+import be.kuleuven.cs.distrinet.jnome.core.imports.*;
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
 
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupStrategyFactory;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.*;
+import be.kuleuven.cs.distrinet.chameleon.core.reference.*;
 
 import be.kuleuven.cs.distrinet.chameleon.core.document.Document;
 

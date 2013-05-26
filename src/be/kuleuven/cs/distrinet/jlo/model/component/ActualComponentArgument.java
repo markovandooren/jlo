@@ -14,8 +14,6 @@ public abstract class ActualComponentArgument extends ElementImpl {
 		return nearestAncestor(ComponentArgumentContainer.class).formalParameter(this);
 	}
 	
-	public abstract ActualComponentArgument clone();
-	
 	protected Type containerType() throws LookupException {
 		return nearestAncestor(ComponentArgumentContainer.class).containerType(this);
 	}

@@ -30,12 +30,8 @@ public class MultiActualComponentArgument extends ActualComponentArgument implem
 	}
 
 	@Override
-	public MultiActualComponentArgument clone() {
-		MultiActualComponentArgument result = new MultiActualComponentArgument();
-		for(SingleActualComponentArgument arg:arguments()) {
-			result.add(arg.clone());
-		}
-		return result;
+	protected MultiActualComponentArgument cloneSelf() {
+		return new MultiActualComponentArgument();
 	}
 
 	@Override

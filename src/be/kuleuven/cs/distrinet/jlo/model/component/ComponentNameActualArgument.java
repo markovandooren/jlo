@@ -37,7 +37,7 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument {
 
 
 	@Override
-	public ComponentNameActualArgument clone() {
+	protected ComponentNameActualArgument cloneSelf() {
 		return new ComponentNameActualArgument(name());
 	}
 

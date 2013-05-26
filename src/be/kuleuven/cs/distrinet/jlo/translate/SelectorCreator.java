@@ -4,22 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import be.kuleuven.cs.distrinet.jlo.model.component.AbstractInstantiatedComponentParameter;
-import be.kuleuven.cs.distrinet.jlo.model.component.ActualComponentArgument;
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentNameActualArgument;
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentParameter;
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelationSet;
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentType;
-import be.kuleuven.cs.distrinet.jlo.model.component.FormalComponentParameter;
-import be.kuleuven.cs.distrinet.jlo.model.component.MultiActualComponentArgument;
-import be.kuleuven.cs.distrinet.jlo.model.component.MultiFormalComponentParameter;
-import be.kuleuven.cs.distrinet.jlo.model.component.ParameterReferenceActualArgument;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.language.Java;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
-import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.Expression;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.NamedTargetExpression;
@@ -40,6 +24,23 @@ import be.kuleuven.cs.distrinet.chameleon.support.statement.ReturnStatement;
 import be.kuleuven.cs.distrinet.chameleon.support.statement.StatementExpression;
 import be.kuleuven.cs.distrinet.chameleon.support.statement.ThrowStatement;
 import be.kuleuven.cs.distrinet.chameleon.support.variable.LocalVariableDeclarator;
+import be.kuleuven.cs.distrinet.chameleon.util.Util;
+import be.kuleuven.cs.distrinet.jlo.model.component.AbstractInstantiatedComponentParameter;
+import be.kuleuven.cs.distrinet.jlo.model.component.ActualComponentArgument;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentNameActualArgument;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentParameter;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelationSet;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentType;
+import be.kuleuven.cs.distrinet.jlo.model.component.FormalComponentParameter;
+import be.kuleuven.cs.distrinet.jlo.model.component.MultiActualComponentArgument;
+import be.kuleuven.cs.distrinet.jlo.model.component.MultiFormalComponentParameter;
+import be.kuleuven.cs.distrinet.jlo.model.component.ParameterReferenceActualArgument;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
+import be.kuleuven.cs.distrinet.jnome.core.language.Java;
+import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
+import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
 
 public class SelectorCreator extends AbstractTranslator {
 
@@ -97,7 +98,7 @@ public class SelectorCreator extends AbstractTranslator {
 		Method result = par.language(Java.class).createNormalMethod(header);
 		result.addModifier(new Public());
 //		result.addModifier(new Abstract());
-		header.addFormalParameter(new FormalParameter("argument", formal.containerTypeReference().clone()));
+		header.addFormalParameter(new FormalParameter("argument", Util.clone(formal.containerTypeReference())));
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
 		ActualComponentArgument arg = par.argument();
@@ -123,7 +124,7 @@ public class SelectorCreator extends AbstractTranslator {
 //			BasicTypeArgument targ = language.createBasicTypeArgument(componentType);
 //			arrayList.addArgument(targ);
 			
-			LocalVariableDeclarator varDecl = new LocalVariableDeclarator(arrayList.clone());
+			LocalVariableDeclarator varDecl = new LocalVariableDeclarator(Util.clone(arrayList));
 
 			Expression init = new ConstructorInvocation(arrayList, null);
 			declaration.setInitialization(init);
@@ -189,7 +190,7 @@ public class SelectorCreator extends AbstractTranslator {
 		MethodHeader header = new SimpleNameMethodHeader(selectorName(par),reference);
 		Method result = par.language(Java.class).createNormalMethod(header);
 		result.addModifier(new Public());
-		header.addFormalParameter(new FormalParameter("argument", par.containerTypeReference().clone()));
+		header.addFormalParameter(new FormalParameter("argument", Util.clone(par.containerTypeReference())));
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
 		ConstructorInvocation cons = new ConstructorInvocation((BasicJavaTypeReference) par.language(Java.class).createTypeReference("java.lang.Error"), null);

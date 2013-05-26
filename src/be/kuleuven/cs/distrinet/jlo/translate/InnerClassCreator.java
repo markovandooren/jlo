@@ -55,7 +55,7 @@ public class InnerClassCreator extends AbstractTranslator {
 		String className = innerClassName(relationBeingTranslated);
 		Type result = new RegularJLoType(className);
 		for(Modifier mod: relationBeingTranslated.modifiers()) {
-			result.addModifier(mod.clone());
+			result.addModifier(Util.clone(mod));
 		}
 		
 		for(TypeReference superReference : superClassReferences(relationBeingTranslated,result)) {
@@ -78,7 +78,7 @@ public class InnerClassCreator extends AbstractTranslator {
 		View view = relation.view();
 		Java language = view.language(Java.class);
 		List<TypeReference> result = new ArrayList<TypeReference>();
-		TypeReference superReference = relation.componentTypeReference().clone();
+		TypeReference superReference = Util.clone(relation.componentTypeReference());
 		superReference.setUniParent(relation);
 		substituteTypeParameters(superReference);
 		Type parent = relation.nearestAncestor(Type.class);

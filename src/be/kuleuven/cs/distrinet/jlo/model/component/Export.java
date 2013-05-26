@@ -52,12 +52,8 @@ public class Export extends TypeElementImpl {
 	}
 
 	@Override
-	public Export clone() {
-		Export result = new Export();
-		for(RenamingClause clause: clauses()) {
-			result.add(clause.clone());
-		}
-		return result;
+	protected Export cloneSelf() {
+		return new Export();
 	}
 
 	@Override

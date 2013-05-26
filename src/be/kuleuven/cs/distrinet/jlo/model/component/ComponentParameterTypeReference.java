@@ -83,7 +83,7 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 		Iterator<ComponentParameter> formals = formalParameters.iterator();
 		while(arguments.hasNext()) {
 			ActualComponentArgument arg = arguments.next();
-			Signature sig = formals.next().signature().clone();
+			Signature sig = clone(formals.next().signature());
 			parameters.add(new InstantiatedComponentParameter((SimpleNameSignature) sig, arg));
 		}
 		DerivedType result = language(ObjectOrientedLanguage.class).createDerivedType(ComponentParameter.class, parameters, componentType);
@@ -96,13 +96,13 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 	}
 
 	public TypeReference intersectionDoubleDispatch(TypeReference other) {
-		IntersectionTypeReference intersectionTypeReference = language(Java.class).createIntersectionReference(clone(), other.clone());
+		IntersectionTypeReference intersectionTypeReference = language(Java.class).createIntersectionReference(clone(this), clone(other));
 		return intersectionTypeReference;
 	}
 
 	public TypeReference intersectionDoubleDispatch(IntersectionTypeReference other) {
-		IntersectionTypeReference result = other.clone();
-		result.add(clone());
+		IntersectionTypeReference result = clone(other);
+		result.add(clone(this));
 		return result;
 	}
 
@@ -113,7 +113,7 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 	public JavaTypeReference toArray(int dimension) {
   	JavaTypeReference result;
   	if(dimension > 0) {
-  	  result = new ArrayTypeReference(clone(), dimension);
+  	  result = new ArrayTypeReference(clone(this), dimension);
   	} else {
   		result = this;
   	}
@@ -131,14 +131,8 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 	}
 
 	@Override
-	public ComponentParameterTypeReference clone() {
-		JavaTypeReference target = target();
-		JavaTypeReference clone = target == null ? null : target.clone();
-		ComponentParameterTypeReference result = new ComponentParameterTypeReference(clone);
-		for(ActualComponentArgument arg: componentArguments()) {
-			result.addArgument(arg.clone());
-		}
-		return result;
+	protected ComponentParameterTypeReference cloneSelf() {
+		return new ComponentParameterTypeReference(null);
 	}
 
 	@Override

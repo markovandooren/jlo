@@ -3,17 +3,6 @@ package be.kuleuven.cs.distrinet.jlo.translate;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentType;
-import be.kuleuven.cs.distrinet.jlo.model.component.ConfigurationBlock;
-import be.kuleuven.cs.distrinet.jlo.model.component.ConfigurationClause;
-import be.kuleuven.cs.distrinet.jlo.model.component.Export;
-import be.kuleuven.cs.distrinet.jlo.model.component.RenamingClause;
-import be.kuleuven.cs.distrinet.jlo.model.expression.AbstractTarget;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.language.Java;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
-import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
@@ -31,6 +20,18 @@ import be.kuleuven.cs.distrinet.chameleon.oo.type.TypeReference;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.inheritance.InheritanceRelation;
 import be.kuleuven.cs.distrinet.chameleon.support.expression.ThisLiteral;
 import be.kuleuven.cs.distrinet.chameleon.support.member.simplename.method.NormalMethod;
+import be.kuleuven.cs.distrinet.chameleon.util.Util;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentType;
+import be.kuleuven.cs.distrinet.jlo.model.component.ConfigurationBlock;
+import be.kuleuven.cs.distrinet.jlo.model.component.ConfigurationClause;
+import be.kuleuven.cs.distrinet.jlo.model.component.Export;
+import be.kuleuven.cs.distrinet.jlo.model.component.RenamingClause;
+import be.kuleuven.cs.distrinet.jlo.model.expression.AbstractTarget;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
+import be.kuleuven.cs.distrinet.jnome.core.language.Java;
+import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
+import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
 
 public class SubobjectToClassTransformer extends AbstractTranslator {
 	
@@ -70,7 +71,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 				originalNestedRelation = originalRelations.get(i);
 			}
 			// subst parameters
-			ComponentRelation clonedNestedRelation = nestedRelation.clone();
+			ComponentRelation clonedNestedRelation = Util.clone(nestedRelation);
 			clonedNestedRelation.setUniParent(nestedRelation.parent());
 			try {
 			  substituteTypeParameters(clonedNestedRelation);
@@ -184,7 +185,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 				for(Member typeElement:clonedType.body().members()) {
 					if((PROCESS_NESTED_CONSTRUCTORS || ! (typeElement instanceof ComponentRelation)) && (! (typeElement instanceof Export))) {
 						if(! alreadyContains(members,typeElement)) {
-							Member toAdd = typeElement.clone();
+							Member toAdd = Util.clone(typeElement);
 							toAdd.setUniParent(typeElement.parent());
 							expandReferences(toAdd);
 							rewriteAllThis(toAdd,unused, original);

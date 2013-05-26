@@ -59,8 +59,8 @@ public class Overrides extends TypeElementImpl {
 	}
 
 	@Override
-	public Overrides clone() {
-		return new Overrides(newSignature().clone(), oldFQN().clone());
+	protected Overrides cloneSelf() {
+		return new Overrides(null,null);
 	}
 
 	@Override

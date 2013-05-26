@@ -28,8 +28,6 @@ import be.kuleuven.cs.distrinet.chameleon.util.Util;
 
 public abstract class ComponentParameter extends Parameter implements DeclarationWithType, Member {
 
-	public abstract ComponentParameter clone();
-	
 	public ComponentParameter(SimpleNameSignature sig) {
 		super(sig);
 	}

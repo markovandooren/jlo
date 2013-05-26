@@ -74,8 +74,8 @@ public class InstantiatedComponentParameter extends ComponentParameter implement
 	}
 
 	@Override
-	public InstantiatedComponentParameter clone() {
-		return new InstantiatedComponentParameter(signature().clone(),argument());
+	protected InstantiatedComponentParameter cloneSelf() {
+		return new InstantiatedComponentParameter(null,argument());
 	}
 
 	@Override

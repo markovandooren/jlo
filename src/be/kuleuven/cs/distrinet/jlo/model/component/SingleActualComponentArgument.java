@@ -10,8 +10,6 @@ public abstract class SingleActualComponentArgument extends ActualComponentArgum
 		setSignature(new SimpleNameSignature(name));
 	}
 	
-	public abstract SingleActualComponentArgument clone();
-	
 	private Single<Signature> _signature = new Single<Signature>(this);
 	
 	public String name() {

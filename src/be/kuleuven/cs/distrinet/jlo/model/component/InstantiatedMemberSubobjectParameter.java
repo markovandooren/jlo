@@ -73,8 +73,8 @@ public class InstantiatedMemberSubobjectParameter extends ComponentParameter imp
 	}
 
 	@Override
-	public InstantiatedMemberSubobjectParameter clone() {
-		return new InstantiatedMemberSubobjectParameter(signature().clone(),argument().clone());
+	protected InstantiatedMemberSubobjectParameter cloneSelf() {
+		return new InstantiatedMemberSubobjectParameter(null,null);
 	}
 
 	@Override

@@ -15,12 +15,8 @@ import be.kuleuven.cs.distrinet.chameleon.util.association.Multi;
 public class ConfigurationBlock extends ElementImpl {
 
 	@Override
-	public ConfigurationBlock clone() {
-		ConfigurationBlock result = new ConfigurationBlock();
-		for(ConfigurationClause clause:localClauses()) {
-			result.add(clause.clone());
-		}
-		return result;
+protected ConfigurationBlock cloneSelf() {
+		return new ConfigurationBlock();
 	}
 
 	@Override

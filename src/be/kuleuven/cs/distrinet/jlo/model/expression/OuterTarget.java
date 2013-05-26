@@ -17,7 +17,7 @@ public class OuterTarget extends AbstractTarget {
     return nearestAncestor(ComponentRelation.class).nearestAncestor(Type.class);
   }
 
-	public OuterTarget clone() {
+  protected OuterTarget cloneSelf() {
 	  return new OuterTarget();
 	}
 

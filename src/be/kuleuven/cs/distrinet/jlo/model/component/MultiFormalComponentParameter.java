@@ -16,13 +16,13 @@ public class MultiFormalComponentParameter extends FormalComponentParameter {
 	}
 
 	@Override
-	public MultiFormalComponentParameter clone() {
-		return new MultiFormalComponentParameter(signature().clone(), containerTypeReference().clone(), componentTypeReference().clone());
+	protected MultiFormalComponentParameter cloneSelf() {
+		return new MultiFormalComponentParameter(null,null,null);
 	}
 
 	public Type declarationType() throws LookupException {
 		BasicJavaTypeReference list = (BasicJavaTypeReference) language(Java.class).createTypeReference("java.util.List");
-		TypeReference clone = componentTypeReference().clone();
+		TypeReference clone = clone(componentTypeReference());
 		ActualTypeArgument arg = language(Java.class).createExtendsWildcard(clone);
 		list.addArgument(arg);
 		list.setUniParent(this);

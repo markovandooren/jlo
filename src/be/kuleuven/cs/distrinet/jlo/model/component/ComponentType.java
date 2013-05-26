@@ -27,6 +27,10 @@ public class ComponentType extends AnonymousType {
 		addInheritanceRelation(new ComponentSubtypeRelation());
 	}
 	
+	private ComponentType(boolean bogus) {
+		super("");
+	}
+	
 	public List<Member> processedMembers() throws LookupException {
 		List<Member> result = new ArrayList<Member>();
 			for(Export exp: directlyDeclaredElements(Export.class)) {
@@ -74,7 +78,7 @@ public class ComponentType extends AnonymousType {
 	}
 	
 	public SimpleNameSignature signature() {
-		SimpleNameSignature clone = nearestAncestor(ComponentRelation.class).signature().clone();
+		SimpleNameSignature clone = clone(nearestAncestor(ComponentRelation.class).signature());
 		clone.setUniParent(this);
 		return clone;
 	}
@@ -83,9 +87,11 @@ public class ComponentType extends AnonymousType {
 		return nearestAncestor(ComponentRelation.class).componentTypeReference();
 	}
 
+	//FIXME: This can probably be done with cloneSelf() but I'll look 
+	//       at it after clone is refactored.
 	@Override
 	public ComponentType clone() {
-		ComponentType result = new ComponentType();
+		ComponentType result = new ComponentType(false);
 		result.copyEverythingExceptInheritanceRelations(this, false);
 		return result;
 	}

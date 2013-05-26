@@ -6,17 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
-import be.kuleuven.cs.distrinet.jlo.model.expression.SubobjectConstructorCall;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorDelegation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.SuperConstructorDelegation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ThisConstructorDelegation;
-import be.kuleuven.cs.distrinet.jnome.core.language.Java;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
-import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
-import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
@@ -52,6 +41,18 @@ import be.kuleuven.cs.distrinet.chameleon.support.modifier.Static;
 import be.kuleuven.cs.distrinet.chameleon.support.statement.IfThenElseStatement;
 import be.kuleuven.cs.distrinet.chameleon.support.statement.ReturnStatement;
 import be.kuleuven.cs.distrinet.chameleon.support.statement.StatementExpression;
+import be.kuleuven.cs.distrinet.chameleon.util.Util;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
+import be.kuleuven.cs.distrinet.jlo.model.expression.SubobjectConstructorCall;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorDelegation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.SuperConstructorDelegation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ThisConstructorDelegation;
+import be.kuleuven.cs.distrinet.jnome.core.language.Java;
+import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
+import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
+import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 
 public class SubobjectConstructorTransformer extends AbstractTranslator {
 
@@ -69,7 +70,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		MethodInvocation superCall = superDelegation(constructor);
 		Java language = constructor.language(Java.class);
 	  Type container = constructor.nearestAncestor(Type.class);
-	  Method clone = constructor.clone();
+	  Method clone = Util.clone(constructor);
 	  DeclarationWithParametersHeader header = clone.header();
 	  boolean added = false;
 	  for(ComponentRelation relation: container.members(ComponentRelation.class)) {
@@ -85,7 +86,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			  for(SubobjectConstructorCall call: constructor.descendants(SubobjectConstructorCall.class)) {
 			  	if(call.getTarget().getElement() == relation) {
 			  		Method originalCons = call.getElement();
-			  		cons = originalCons.clone();
+			  		cons = Util.clone(originalCons);
 			  		cons.setUniParent(originalCons.parent());
 			  		substituteTypeParameters(cons);
 			  		cons.setUniParent(relation.nearestAncestor(Type.class));
@@ -167,7 +168,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			TypeReference typeRef = language.createTypeReference("java.lang.Object");
 			header.addFormalParameter(new FormalParameter(new SimpleNameSignature("objectafrkuscggfjsdk"), typeRef));
 			for(FormalParameter param: constructor.formalParameters()) {
-				factoryMethod.header().addFormalParameter(param.clone());
+				factoryMethod.header().addFormalParameter(Util.clone(param));
 			}
 			factoryMethod.setImplementation(null);
 			factoryMethod.addModifier(new Abstract());
@@ -175,7 +176,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			strategy.addModifier(new Abstract());
 			strategy.addModifier(new Static());
 			for(TypeParameter parameter: constructor.nearestAncestor(Type.class).parameters(TypeParameter.class)) {
-				strategy.addParameter(TypeParameter.class, parameter.clone());
+				strategy.addParameter(TypeParameter.class, Util.clone(parameter));
 			}
 			type.farthestAncestorOrSelf(Type.class).add(strategy);
 		}
@@ -216,7 +217,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 				// instead of its erasure ????
 				if(originalOuter.subTypeOf(erasedTypeOfOriginalSubobject)) {
 					Method originalCons = cons;
-					cons = originalCons.clone();
+					cons = Util.clone(originalCons);
 					Element parent = originalCons.parent();//.origin();
 					cons.setUniParent(parent);
 					substituteTypeParameters(cons);
@@ -396,10 +397,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
 
 							Expression arg = new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName());
-							MethodInvocation conditionRight = new InfixOperatorInvocation("==", arg.clone());
+							MethodInvocation conditionRight = new InfixOperatorInvocation("==", Util.clone(arg));
 							conditionRight.addArgument(new NullLiteral());
 							Expression explicitArg = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
-							MethodInvocation conditionLeft = new InfixOperatorInvocation("==", explicitArg.clone());
+							MethodInvocation conditionLeft = new InfixOperatorInvocation("==", Util.clone(explicitArg));
 							conditionLeft.addArgument(new NullLiteral());
 							MethodInvocation condition = new InfixOperatorInvocation("&&", conditionLeft);
 							condition.addArgument(conditionRight);
@@ -438,20 +439,20 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							Block nestedIfBlock = new Block();
 							nestedIfBlock.addStatement(new StatementExpression(setterCall));
 							Block nestedElseBlock = new Block();
-							MethodInvocation<?> defaultStrategyCall = setterCall.clone();
+							MethodInvocation<?> defaultStrategyCall = Util.clone(setterCall);
 							defaultStrategyCall.getActualParameters().get(0).disconnect();
 							nestedElseBlock.addStatement(new StatementExpression(defaultStrategyCall));
 							MethodInvocation defaultStrategyInvocation = new JavaMethodInvocation(CONSTRUCT, new NamedTargetExpression(defaultConstructorArgumentName(relation)));
 							defaultStrategyInvocation.addArgument(new ThisLiteral());
 							defaultStrategyCall.addArgument(defaultStrategyInvocation);
 							for(Expression arg: inv.getActualParameters()) {
-								defaultStrategyInvocation.addArgument(arg.clone());
+								defaultStrategyInvocation.addArgument(Util.clone(arg));
 							}
 							Statement ifthenelseDefault = new IfThenElseStatement(nestedExpression, nestedIfBlock, nestedElseBlock);
 							
 							ifBlock.addStatement(ifthenelseDefault);
 							Block elseBlock = new Block();
-							MethodInvocation<?> strategyCall = setterCall.clone();
+							MethodInvocation<?> strategyCall = Util.clone(setterCall);
 							strategyCall.getActualParameters().get(0).disconnect();
 							elseBlock.addStatement(new StatementExpression(strategyCall));
 							MethodInvocation strategyInvocation = new JavaMethodInvocation(CONSTRUCT, new NamedTargetExpression(constructorArgumentName(relation)));
@@ -617,7 +618,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			Method subobjectConstructor = subobjectConstructor(relation,
 					superCall);
 			for(FormalParameter param: subobjectConstructor.formalParameters()) {
-				FormalParameter clone = param.clone();
+				FormalParameter clone = Util.clone(param);
 				clone.setUniParent(param.parent());
 				substituteTypeParameters(clone);
 				clone.setUniParent(null);

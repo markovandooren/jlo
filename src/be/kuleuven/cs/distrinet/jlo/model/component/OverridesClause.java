@@ -53,8 +53,8 @@ public class OverridesClause extends AbstractClause {
 	}
 
 	@Override
-	public OverridesClause clone() {
-		return new OverridesClause(newSignature().clone(), oldFQN().clone());
+	protected OverridesClause cloneSelf() {
+		return new OverridesClause(null,null);
 	}
 
 	@Override

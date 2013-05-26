@@ -10,7 +10,7 @@ public class RootTarget extends AbstractTarget {
 	}
 
 	@Override
-	public RootTarget clone() {
+	protected RootTarget cloneSelf() {
 		return new RootTarget();
 	}
 

@@ -74,17 +74,8 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	}
 	
 	@Override
-	public ComponentRelation clone() {
-		ComponentRelation result = new ComponentRelation(signature().clone(), componentTypeReference().clone());
-		ConfigurationBlock configurationBlock = configurationBlock();
-		if(configurationBlock != null) {
-		  result.setConfigurationBlock(configurationBlock.clone());
-		}
-		ComponentType t = componentTypeDeclaration();
-		if(t != null) {
-			result.setComponentTypeDeclaration(t.clone());
-		}
-		return result;
+	protected ComponentRelation cloneSelf() {
+		return new ComponentRelation(null,null);
 	}
 
 	public String toString() {

@@ -39,8 +39,8 @@ public class ComponentStub extends ElementImpl implements TypeElementStub {
 	}
 
 	@Override
-	public ComponentStub clone() {
-		return new ComponentStub(generator(),child().clone());
+	protected ComponentStub cloneSelf() {
+		return new ComponentStub(generator(),null);
 	}
 
 	@Override

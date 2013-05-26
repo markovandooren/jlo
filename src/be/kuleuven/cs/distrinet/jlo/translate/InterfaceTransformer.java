@@ -2,10 +2,6 @@ package be.kuleuven.cs.distrinet.jlo.translate;
 
 import java.util.List;
 
-import be.kuleuven.cs.distrinet.jnome.core.language.Java;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
-import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
-import be.kuleuven.cs.distrinet.rejuse.property.Property;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.document.Document;
 import be.kuleuven.cs.distrinet.chameleon.core.modifier.Modifier;
@@ -25,6 +21,11 @@ import be.kuleuven.cs.distrinet.chameleon.oo.type.inheritance.InheritanceRelatio
 import be.kuleuven.cs.distrinet.chameleon.oo.type.inheritance.SubtypeRelation;
 import be.kuleuven.cs.distrinet.chameleon.oo.variable.VariableDeclarator;
 import be.kuleuven.cs.distrinet.chameleon.support.modifier.Interface;
+import be.kuleuven.cs.distrinet.chameleon.util.Util;
+import be.kuleuven.cs.distrinet.jnome.core.language.Java;
+import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
+import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
+import be.kuleuven.cs.distrinet.rejuse.property.Property;
 
 public class InterfaceTransformer extends AbstractTranslator {
 
@@ -149,7 +150,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 				type.addParameterBlock(new TypeParameterBlock());
 			}
 			for(TypeParameter typeParameter:typeParameters) {
-				type.addParameter(TypeParameter.class, typeParameter.clone());
+				type.addParameter(TypeParameter.class, Util.clone(typeParameter));
 			}
 		}
 	}

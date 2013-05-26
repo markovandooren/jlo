@@ -16,6 +16,7 @@ import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.DeclarationWithType;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
+import be.kuleuven.cs.distrinet.chameleon.util.Util;
 import be.kuleuven.cs.distrinet.chameleon.util.association.Single;
 
 public class ComponentRelationSet extends ElementImpl implements DeclarationWithType{
@@ -23,7 +24,7 @@ public class ComponentRelationSet extends ElementImpl implements DeclarationWith
 	
 	public ComponentRelationSet(List<DeclarationWithType> relations, FormalComponentParameter formal) {
 		_relations = new ArrayList<DeclarationWithType>(relations);
-		setSignature(formal.signature().clone());
+		setSignature(Util.clone(formal.signature()));
 		_formal = formal;
 	}
 	
@@ -40,7 +41,7 @@ public class ComponentRelationSet extends ElementImpl implements DeclarationWith
 	private List<DeclarationWithType> _relations;
 	
 	@Override
-	public ComponentRelationSet clone() {
+	public ComponentRelationSet cloneSelf() {
 		return new ComponentRelationSet(relations(),formalParameter());
 	}
 

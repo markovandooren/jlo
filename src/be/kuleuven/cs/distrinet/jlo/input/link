@@ -2,6 +2,6 @@ rm JavaL.g
 rm JavaL.g~
 rm JavaP.g
 rm JavaP.g~
-ln -s ~/git/jnome/src/jnome/input/parser/JavaL.g
-ln -s ~/git/jnome/src/jnome/input/parser/JavaP.g
+ln -s ~/git/jnome/src/be/kuleuven/cs/distrinet/jnome/input/parser/JavaL.g
+ln -s ~/git/jnome/src/be/kuleuven/cs/distrinet/jnome/input/parser/JavaP.g
 

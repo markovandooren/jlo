@@ -248,7 +248,7 @@ public class AbstractTranslator {
 		Type baseT = relationBeingTranslated.referencedComponentType().baseType();
 		NamespaceDeclaration originalNsp = baseT.farthestAncestor(NamespaceDeclaration.class);
 		for(Import imp: originalNsp.imports()) {
-			target.addImport(imp.clone());
+			target.addImport(Util.clone(imp));
 		}
 	}
 
@@ -307,7 +307,7 @@ public class AbstractTranslator {
 		result = method.language(Java.class).createNormalMethod((MethodHeader)method.header().clone());
 		((SimpleNameMethodHeader)result.header()).setName(original);
 		ExceptionClause exceptionClause = method.getExceptionClause();
-		ExceptionClause clone = (exceptionClause != null ? exceptionClause.clone(): null);
+		ExceptionClause clone = (exceptionClause != null ? Util.clone(exceptionClause): null);
 		result.setExceptionClause(clone);
 		result.addModifier(new Public());
 		return result;

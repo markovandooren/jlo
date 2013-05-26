@@ -15,8 +15,6 @@ public abstract class AbstractTarget extends ElementImpl implements CrossReferen
 		super();
 	}
 	
-	public abstract AbstractTarget clone();
-
 	public CheckedExceptionList getCEL() {
 	  return new CheckedExceptionList();
 	}

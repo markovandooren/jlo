@@ -11,8 +11,6 @@ import be.kuleuven.cs.distrinet.chameleon.oo.member.MemberRelationSelector;
 
 public abstract class ConfigurationClause extends ElementImpl {
 
-	public abstract ConfigurationClause clone();
-	
 	/**
 	 * Return a list of members that are inherited from the given type because of the current
 	 * configuration clause.

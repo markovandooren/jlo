@@ -60,8 +60,8 @@ public class ComponentParameterCall extends Expression implements CrossReference
 	}
 
 	@Override
-	public ComponentParameterCall clone() {
-		return new ComponentParameterCall(target().clone(),signature().clone());
+	protected ComponentParameterCall cloneSelf() {
+		return new ComponentParameterCall(null,(SimpleNameSignature)null);
 	}
 
 	@Override

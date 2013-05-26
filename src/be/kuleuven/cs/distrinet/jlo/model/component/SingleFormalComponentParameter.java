@@ -12,8 +12,8 @@ public class SingleFormalComponentParameter extends FormalComponentParameter {
 	}
 
 	@Override
-	public SingleFormalComponentParameter clone() {
-		return new SingleFormalComponentParameter(signature().clone(), containerTypeReference().clone(), componentTypeReference().clone());
+	protected SingleFormalComponentParameter cloneSelf() {
+		return new SingleFormalComponentParameter(null,null,null);
 	}
 
 	public Type declarationType() throws LookupException {

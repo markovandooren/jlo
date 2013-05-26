@@ -53,7 +53,7 @@ public class RegularJLoType extends RegularJavaType {
 	}
 	
 	protected RegularJLoType cloneThis() {
-		return new RegularJLoType(signature().clone());
+		return new RegularJLoType(clone(signature()));
 	}
 	
 	@Override

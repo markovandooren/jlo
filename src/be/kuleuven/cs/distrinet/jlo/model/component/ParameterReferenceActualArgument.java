@@ -15,7 +15,7 @@ public class ParameterReferenceActualArgument extends SingleActualComponentArgum
 	}
 
 	@Override
-	public ParameterReferenceActualArgument clone() {
+	protected ParameterReferenceActualArgument cloneSelf() {
 		return new ParameterReferenceActualArgument(name());
 	}
 

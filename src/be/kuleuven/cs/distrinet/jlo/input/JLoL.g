@@ -1,6 +1,6 @@
 lexer grammar JLoL;
 @header {
-  package jlo.input;
+  package be.kuleuven.cs.distrinet.jlo.input;
 }
 @members {
   protected boolean enumIsKeyword = true;

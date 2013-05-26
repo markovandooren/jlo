@@ -7,28 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentParameter;
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentParameterTypeReference;
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentType;
-import be.kuleuven.cs.distrinet.jlo.model.component.FormalComponentParameter;
-import be.kuleuven.cs.distrinet.jlo.model.component.Overrides;
-import be.kuleuven.cs.distrinet.jlo.model.expression.ComponentParameterCall;
-import be.kuleuven.cs.distrinet.jlo.model.expression.SubobjectConstructorCall;
-import be.kuleuven.cs.distrinet.jlo.model.language.JLo;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.NonLocalJavaTypeReference;
-import be.kuleuven.cs.distrinet.jnome.core.language.Java;
-import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;
-import be.kuleuven.cs.distrinet.jnome.core.type.AnonymousInnerClass;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
-import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
-import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
-import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
-import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
-import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
-import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
@@ -87,7 +65,30 @@ import be.kuleuven.cs.distrinet.chameleon.support.modifier.Constructor;
 import be.kuleuven.cs.distrinet.chameleon.support.modifier.Public;
 import be.kuleuven.cs.distrinet.chameleon.support.statement.ReturnStatement;
 import be.kuleuven.cs.distrinet.chameleon.support.statement.StatementExpression;
+import be.kuleuven.cs.distrinet.chameleon.util.Util;
 import be.kuleuven.cs.distrinet.chameleon.workspace.View;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentParameter;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentParameterTypeReference;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentType;
+import be.kuleuven.cs.distrinet.jlo.model.component.FormalComponentParameter;
+import be.kuleuven.cs.distrinet.jlo.model.component.Overrides;
+import be.kuleuven.cs.distrinet.jlo.model.expression.ComponentParameterCall;
+import be.kuleuven.cs.distrinet.jlo.model.expression.SubobjectConstructorCall;
+import be.kuleuven.cs.distrinet.jlo.model.language.JLo;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.NonLocalJavaTypeReference;
+import be.kuleuven.cs.distrinet.jnome.core.language.Java;
+import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;
+import be.kuleuven.cs.distrinet.jnome.core.type.AnonymousInnerClass;
+import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
+import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
+import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
+import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
+import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
+import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
+import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 
 public class JavaTranslator extends AbstractTranslator {
 	
@@ -144,7 +145,7 @@ public class JavaTranslator extends AbstractTranslator {
 //  			}
 //  		}
 //  		if(add) {
-  			newNamespacePart.addImport(imp.clone());
+  			newNamespacePart.addImport(Util.clone(imp));
 //  		}
   	}
   	implementationCompilationUnit.flushCache();
@@ -340,7 +341,7 @@ public class JavaTranslator extends AbstractTranslator {
 //		for(ComponentRelation r: rs) {
 //			r.parentLink().lock();
 //		}
-		Type result = original.clone();
+		Type result = Util.clone(original);
 //		result.setUniParent(original.parent());
 		Java lang = original.language(Java.class);
 		if(! original.isTrue(lang.INTERFACE)) {
@@ -562,7 +563,7 @@ public class JavaTranslator extends AbstractTranslator {
 		Java language = method.language(Java.class);
 		if(! overridden.isEmpty()) {
 			if(! method.isTrue(language.CONSTRUCTOR) && (method.implementation()!=null)) {
-				final Method tmp = method.clone();
+				final Method tmp = Util.clone(method);
 				Type containerOfNewDefinition = typeOfDefinition(result,original, method); // OK: SUBOBJECT
 				if(containerOfNewDefinition != null) {
 					tmp.setUniParent(containerOfNewDefinition);
@@ -573,7 +574,7 @@ public class JavaTranslator extends AbstractTranslator {
 						}
 					};
 					Method newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
-					Method stat = newDefinitionInResult.clone();
+					Method stat = Util.clone(newDefinitionInResult);
 					String name = staticMethodName(method, containerOfNewDefinition);
 					stat.setName(name);
 					containerOfNewDefinition.add(stat);
@@ -636,7 +637,7 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	private Method staticMethod(Type containerOfToBebound, Method reboundMethod) throws ModelException {
-		Method staticReboundMethod = reboundMethod.clone();
+		Method staticReboundMethod = Util.clone(reboundMethod);
 		staticReboundMethod.setOrigin(reboundMethod);
 		String newName = staticMethodName(reboundMethod,containerOfToBebound);
 //		staticReboundMethod.addModifier(new Final());
@@ -707,7 +708,7 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 		}
 		if((result == null) || (result.nearestAncestor(Type.class) != container)){
-			result = originalRelation.clone();
+			result = Util.clone(originalRelation);
 			result.setOrigin(originalRelation);
 			result.setBody(new ClassBody());
 			result.setConfigurationBlock(null);
@@ -731,7 +732,7 @@ public class JavaTranslator extends AbstractTranslator {
 
 	private Type createOrGetInnerTypeForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
 //			Signature innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
-			Signature innerName = current.signature().clone();
+			Signature innerName = Util.clone(current.signature());
 			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
 			tref.setUniParent(container);
 			Type result;
@@ -753,7 +754,7 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	private Type createOrGetSubobjectForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
-	Signature innerName = current.signature().clone();
+	Signature innerName = Util.clone(current.signature());
 	SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
 	tref.setUniParent(container);
 	Type result = tref.getElement();
