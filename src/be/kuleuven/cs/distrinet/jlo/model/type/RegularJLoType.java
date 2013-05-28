@@ -10,6 +10,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.MemberRelationSelector;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
+import be.kuleuven.cs.distrinet.chameleon.oo.type.generics.TypeParameter;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.inheritance.InheritanceRelation;
 
 public class RegularJLoType extends RegularJavaType {
@@ -52,8 +53,14 @@ public class RegularJLoType extends RegularJavaType {
 		return result;
 	}
 	
-	protected RegularJLoType cloneThis() {
-		return new RegularJLoType(clone(signature()));
+	@Override
+	protected RegularJLoType cloneSelf() {
+		//FIXME use lazy instantiation of parameter blocks to avoid this hack
+		//FIXME do something about the need to clone the signature.
+		RegularJLoType regularJLoType = new RegularJLoType(clone(signature()));
+		regularJLoType.setSignature(null);
+		regularJLoType.parameterBlock(TypeParameter.class).disconnect();
+		return regularJLoType;
 	}
 	
 	@Override

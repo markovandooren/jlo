@@ -27,6 +27,7 @@ public class ComponentType extends AnonymousType {
 		addInheritanceRelation(new ComponentSubtypeRelation());
 	}
 	
+	// Should be used for cloneSelf() refactoring
 	private ComponentType(boolean bogus) {
 		super("");
 	}
@@ -91,7 +92,7 @@ public class ComponentType extends AnonymousType {
 	//       at it after clone is refactored.
 	@Override
 	public ComponentType clone() {
-		ComponentType result = new ComponentType(false);
+		ComponentType result = new ComponentType();
 		result.copyEverythingExceptInheritanceRelations(this, false);
 		return result;
 	}

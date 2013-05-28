@@ -22,6 +22,11 @@ public class RenamingClause extends AbstractClause {
 		return Util.createNonNullList(introducedMember());
 	}
 	
+	@Override
+	public String toString() {
+		return oldFQN().toString() +" as "+newSignature().toString();
+	}
+	
 	public Member introducedMember() throws LookupException {
 		Member result = null;
 		Member member = (Member) oldDeclaration();
