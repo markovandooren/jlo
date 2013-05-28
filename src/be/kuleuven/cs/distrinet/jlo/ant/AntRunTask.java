@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.Java;
+import org.apache.tools.ant.types.Assertions;
 import org.apache.tools.ant.types.Path;
 import org.apache.tools.ant.types.Path.PathElement;
 
@@ -18,6 +19,9 @@ public class AntRunTask extends AbstractTask {
 		Java java = new Java(this);
 		java.setFork(true);
 		java.setClassname(getClassname()+AbstractTranslator.IMPL);
+		if(assertions() != null) {
+			java.addAssertions(assertions());
+		}
 		Path path = getClasspath();
 		PathElement jlo_base = path.createPathElement();
 		File loc = JLoProjectConfigurator.jloBase().getAbsoluteFile().getAbsoluteFile();
@@ -32,6 +36,10 @@ public class AntRunTask extends AbstractTask {
 	}
 	
 	public void addClasspath(Path path) {
+		setClasspath(path);
+	}
+	
+	public void setClasspath(Path path) {
 		_path = path;
 	}
 	
@@ -46,6 +54,16 @@ public class AntRunTask extends AbstractTask {
 	public String getClassname() {
 		return _className;
 	}
+	
+	public Assertions assertions() {
+		return _assertions;
+	}
+	
+	public void addAssertions(Assertions asserts) {
+		_assertions = asserts;
+	}
+	
+	private Assertions _assertions;
 	
 	public void setClassname(String name) {
 		_className = name;
