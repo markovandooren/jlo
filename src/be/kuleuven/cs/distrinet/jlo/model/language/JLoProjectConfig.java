@@ -9,9 +9,9 @@ import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfig;
 
 public class JLoProjectConfig extends JavaProjectConfig {
 
-	public JLoProjectConfig(View view, Workspace workspace, FileInputSourceFactory inputSourceFactory)
+	public JLoProjectConfig(View view, FileInputSourceFactory inputSourceFactory)
 			throws ConfigException {
-		super(view, workspace, inputSourceFactory);
+		super(view, inputSourceFactory);
 	}
 
 	protected Language jlo() {

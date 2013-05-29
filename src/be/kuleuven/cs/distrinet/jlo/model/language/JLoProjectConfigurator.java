@@ -27,12 +27,13 @@ public class JLoProjectConfigurator extends JavaProjectConfigurator {
 	}
 
 	@Override
-	protected JavaProjectConfig createProjectConfig(View view, Workspace workspace) throws ConfigException {
-		return new JLoProjectConfig(view, workspace, new LazyJavaFileInputSourceFactory());
+	protected JavaProjectConfig createProjectConfig(View view) throws ConfigException {
+		return new JLoProjectConfig(view, new LazyJavaFileInputSourceFactory());
 	}
 
-	protected void processBaseLibraries(View view, Workspace workspace, BaseLibraryConfiguration baseLibraryConfiguration) {
-		super.processBaseLibraries(view, workspace, baseLibraryConfiguration);
+	@Override
+	protected void addBaseLibraries(View view, BaseLibraryConfiguration baseLibraryConfiguration) {
+		super.addBaseLibraries(view, baseLibraryConfiguration);
 
 		JLoBaseLibraryConfigurator jLoBaseLibraryConfigurator = new JLoBaseLibraryConfigurator(language());
 		jLoBaseLibraryConfigurator.process(view, baseLibraryConfiguration);
