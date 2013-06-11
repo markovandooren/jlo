@@ -42,6 +42,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 				NamespaceDeclaration interfaceNamespacePart = interfaceCompilationUnit.namespaceDeclaration(1);
 				Type interfaceType = interfaceNamespacePart.declarations(Type.class).get(0);
 				interfaceType.addModifier(new Interface());
+				interfaceType.flushCache();
 				transformToInterfaceDeep(interfaceType);
 				for(BasicJavaTypeReference tref: interfaceType.descendants(BasicJavaTypeReference.class)) {
 					String name = tref.signature().name();
@@ -98,6 +99,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 			type.signature().setName(interfaceName(name));
 			if(! (type.is(language.INTERFACE) == Ternary.TRUE)) {
 				type.addModifier(new Interface());
+				type.flushCache();
 			} 
 		}
 	}

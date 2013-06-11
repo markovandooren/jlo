@@ -21,7 +21,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 public class JLoSyntax extends JavaCodeWriter {
 
 	@Override
-	public String toCode(Element element) throws LookupException {
+	public String toCode(Element element) {
 		String result;
 		if(isSubobject(element)) {
 			result = toCodeComponentRelation((ComponentRelation) element);
@@ -51,7 +51,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		return element instanceof InstantiatedMemberSubobjectParameter;
 	}
 	
-	public String toCodeInstantiatedMemberSubobjectParameter(InstantiatedMemberSubobjectParameter element) throws LookupException {
+	public String toCodeInstantiatedMemberSubobjectParameter(InstantiatedMemberSubobjectParameter element) {
 		return "connect " + element.signature() +" to " +toCode(element.argument());
 	}
 	
@@ -59,7 +59,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		return element instanceof SingleFormalComponentParameter;
 	}
 	
-	public String toCodeSingleFormalComponentParameter(SingleFormalComponentParameter element) throws LookupException {
+	public String toCodeSingleFormalComponentParameter(SingleFormalComponentParameter element) {
 		return "connector " +element.signature().name() +" "+ toCode(element.containerTypeReference()) + " -> " + toCode(element.componentTypeReference());
 	}
 	
@@ -67,7 +67,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		return element instanceof SingleFormalComponentParameter;
 	}
 	
-	public String toCodeMultiFormalComponentParameter(MultiFormalComponentParameter element) throws LookupException {
+	public String toCodeMultiFormalComponentParameter(MultiFormalComponentParameter element) {
 		return "connector " +element.signature().name() +" "+ toCode(element.containerTypeReference()) + " -> [" + toCode(element.componentTypeReference())+"]";
 	}
 	
@@ -75,7 +75,7 @@ public class JLoSyntax extends JavaCodeWriter {
   	return element instanceof RenamingClause;
   }
   
-  public String toCodeRenamingClause(RenamingClause element) throws LookupException {
+  public String toCodeRenamingClause(RenamingClause element) {
   	return toCode(element.oldFQN()) +" as " + toCode(element.newSignature());
   }
 	
@@ -106,7 +106,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		return element instanceof ComponentParameterTypeReference;
 	}
 	
-	public String toCodeComponentParameterTypeReference(ComponentParameterTypeReference reference) throws LookupException {
+	public String toCodeComponentParameterTypeReference(ComponentParameterTypeReference reference)  {
 		StringBuffer result = new StringBuffer();
 		result.append(toCode(reference.componentTypeReference()));
 		result.append("##");
@@ -122,7 +122,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		return result.toString();
 	}
 	
-	public String toCodeComponentRelation(ComponentRelation relation) throws LookupException {
+	public String toCodeComponentRelation(ComponentRelation relation)  {
 		StringBuffer result = new StringBuffer();
 		addModifiers(relation, result);
 		result.append( "subobject ");
@@ -144,7 +144,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		return element instanceof MultiActualComponentArgument;
 	}
 
-	public String toCodeMultiActualComponentArgument(MultiActualComponentArgument argument) throws LookupException {
+	public String toCodeMultiActualComponentArgument(MultiActualComponentArgument argument)  {
 		StringBuffer result = new StringBuffer();
 		List<SingleActualComponentArgument> componentArguments = argument.arguments();
 		int size = componentArguments.size();
@@ -161,7 +161,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		return element instanceof SubobjectConstructorCall;
 	}
 	
-	public String toCodeSubobjectConstructorCall(SubobjectConstructorCall argument) throws LookupException {
+	public String toCodeSubobjectConstructorCall(SubobjectConstructorCall argument) {
 		return "subobject."+toCode(argument.getTarget())+getActualArgs(argument);
 	}
 
@@ -169,7 +169,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		return element instanceof ComponentParameterCall;
 	}
 	
-	public String toCodeComponentParameterCall(ComponentParameterCall argument) throws LookupException {
+	public String toCodeComponentParameterCall(ComponentParameterCall argument) {
 		return "#"+ argument.name() + "(" + toCode(argument.target()) + ")";
 	}
 
