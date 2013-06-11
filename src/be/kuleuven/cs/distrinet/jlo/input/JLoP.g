@@ -92,8 +92,8 @@ memberDecl returns [TypeElement element]
     |   mem=memberDeclaration {retval.element = mem.element;}
     |   vmd=voidMethodDeclaration {retval.element = vmd.element;}
     |   cs=constructorDeclaration {retval.element = cs.element;}
-    |   id=interfaceDeclaration {retval.element=id.element; gJavaP.addNonTopLevelObjectInheritance(id.element);}
-    |   cd=classDeclaration {retval.element=cd.element; gJavaP.addNonTopLevelObjectInheritance(cd.element);}
+    |   id=interfaceDeclaration {retval.element=id.element; }
+    |   cd=classDeclaration {retval.element=cd.element;}
     |   comp=subobjectDeclaration {retval.element=comp.element;}
     |   exp=exportDeclaration {retval.element=exp.element;}
     |   ov=overridesClause {retval.element=ov.element;}

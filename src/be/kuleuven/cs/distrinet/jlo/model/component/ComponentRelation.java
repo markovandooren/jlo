@@ -262,7 +262,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 		return this;
 	}
 
-	private Single<ComponentType> _componentType = new Single<ComponentType>(this);
+	private Single<ComponentType> _componentType = new Single<ComponentType>(this, ComponentType.class);
 	
 	/**
 	 * Set the body of this component relation.
