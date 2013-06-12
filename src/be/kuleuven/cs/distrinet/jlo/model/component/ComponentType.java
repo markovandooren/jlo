@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
+
 import be.kuleuven.cs.distrinet.jnome.core.language.Java;
 import be.kuleuven.cs.distrinet.jnome.core.type.AnonymousType;
 import be.kuleuven.cs.distrinet.jnome.core.type.JavaType;
@@ -42,14 +45,15 @@ public class ComponentType extends AnonymousType {
 	}
 	@Override
 	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
-		List<InheritanceRelation> result = super.inheritanceRelations();
+		Builder<InheritanceRelation> builder = ImmutableList.<InheritanceRelation>builder();
+		builder.addAll(super.inheritanceRelations());
 		List<Type> superTypes = typesOfOverriddenSubobjects();
 		for(Type superType:superTypes) {
 			InheritanceRelation relation = new DirectSubtypeRelation(superType);
 			relation.setUniParent(this);
-			result.add(relation);
+			builder.add(relation);
 		}
-		return result;
+		return builder.build();
 	}
 
 	private List<Type> typesOfOverriddenSubobjects() throws LookupException {
