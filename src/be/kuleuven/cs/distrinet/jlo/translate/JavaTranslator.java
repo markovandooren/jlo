@@ -180,7 +180,7 @@ public class JavaTranslator extends AbstractTranslator {
    */
   private void removeDuplicateImports(NamespaceDeclaration nsp) throws ModelException {
   	Syntax syntax = nsp.language(Java.class).plugin(Syntax.class);
-  	List<? extends Import> imports = nsp.imports();
+  	List<? extends Import> imports = nsp.explicitImports();
   	Set<String> importStrings = new HashSet<String>();
   	for(Import imp: imports) {
   		String code = syntax.toCode(imp);

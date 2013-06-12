@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
+
 import be.kuleuven.cs.distrinet.jnome.core.language.Java;
 import be.kuleuven.cs.distrinet.jnome.core.type.AnonymousType;
 import be.kuleuven.cs.distrinet.jnome.core.type.JavaType;
@@ -42,14 +45,15 @@ public class ComponentType extends AnonymousType {
 	}
 	@Override
 	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
-		List<InheritanceRelation> result = super.inheritanceRelations();
+		Builder<InheritanceRelation> builder = ImmutableList.<InheritanceRelation>builder();
+		builder.addAll(super.inheritanceRelations());
 		List<Type> superTypes = typesOfOverriddenSubobjects();
 		for(Type superType:superTypes) {
 			InheritanceRelation relation = new DirectSubtypeRelation(superType);
 			relation.setUniParent(this);
-			result.add(relation);
+			builder.add(relation);
 		}
-		return result;
+		return builder.build();
 	}
 
 	private List<Type> typesOfOverriddenSubobjects() throws LookupException {
@@ -112,34 +116,32 @@ public class ComponentType extends AnonymousType {
 			return ((JavaType)el).erasure();
 		}
 		// I am not sure whether this is correct. The memberInheritanceRelations are not erased in RawType.
-		Java language = language(Java.class);
-					Type outmostType = farthestAncestor(Type.class);
-					if(outmostType == null) {
-						outmostType = this;
-					}
-					RawType outer;
-					if(outmostType instanceof RawType) {
-						outer = (RawType) outmostType;
-					} else {
-						outer = new RawType(outmostType);
-					}
-					RawType current = outer;
-					List<Type> outerTypes = ancestors(Type.class);
-					outerTypes.add(0, this);
+		Type outmostType = farthestAncestor(Type.class);
+		if(outmostType == null) {
+			outmostType = this;
+		}
+		RawType outer;
+		if(outmostType instanceof RawType) {
+			outer = (RawType) outmostType;
+		} else {
+			outer = new RawType(outmostType);
+		}
+		RawType current = outer;
+		List<Type> outerTypes = ancestors(Type.class);
+		outerTypes.add(0, this);
 
-					int size = outerTypes.size();
-					for(int i = size - 2; i>=0;i--) {
-						SimpleReference<RawType> simpleRef = new SimpleReference<RawType>(outerTypes.get(i).signature().name(), RawType.class);
-						simpleRef.setUniParent(current);
-						try {
-							current = simpleRef.getElement();
-						} catch (LookupException e) {
-							e.printStackTrace();
-							throw new ChameleonProgrammerException("An inner type of a newly created outer raw type cannot be found",e);
-						}
-					}
-					RawType result = current;
-		  return result;	
+		int size = outerTypes.size();
+		for(int i = size - 2; i>=0;i--) {
+			SimpleReference<RawType> simpleRef = new SimpleReference<RawType>(outerTypes.get(i).signature().name(), RawType.class);
+			simpleRef.setUniParent(current);
+			try {
+				current = simpleRef.getElement();
+			} catch (LookupException e) {
+				e.printStackTrace();
+				throw new ChameleonProgrammerException("An inner type of a newly created outer raw type cannot be found",e);
+			}
+		}
+		return current;	
 	}
 	
 //	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {

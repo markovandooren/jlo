@@ -2,6 +2,8 @@ package be.kuleuven.cs.distrinet.jlo.model.type;
 
 import java.util.List;
 
+import com.google.common.collect.ImmutableList;
+
 import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
 import be.kuleuven.cs.distrinet.jnome.core.type.CapturedType;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
@@ -30,13 +32,10 @@ public class JLoCapturedType extends CapturedType {
 	}
 
 	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
-		// first take the subtype relations
-		List<InheritanceRelation> result = super.inheritanceRelations();
-		// then add the component relations
-		List<ComponentRelation> components;
-			components = body().members(ComponentRelation.class);
-			result.addAll(components);
-		return result;
+		return ImmutableList.<InheritanceRelation>builder()
+		.addAll(super.inheritanceRelations())
+		.addAll(body().members(ComponentRelation.class))
+		.build();
 	}
 	
 	
