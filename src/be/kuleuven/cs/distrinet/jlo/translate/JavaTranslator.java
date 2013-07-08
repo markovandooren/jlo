@@ -26,7 +26,6 @@ import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceWithArgum
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceWithName;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceWithTarget;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.SimpleReference;
-import be.kuleuven.cs.distrinet.chameleon.core.reference.SpecificReference;
 import be.kuleuven.cs.distrinet.chameleon.core.tag.TagImpl;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
@@ -317,8 +316,8 @@ public class JavaTranslator extends AbstractTranslator {
 	}	
 
 
-	private void transformToInterfaceReference(SpecificReference ref) {
-		SpecificReference target = (SpecificReference) ref.getTarget();
+	private void transformToInterfaceReference(SimpleReference ref) {
+		SimpleReference target = (SimpleReference) ref.getTarget();
 		if(target != null) {
 			transformToInterfaceReference(target);
 		}
