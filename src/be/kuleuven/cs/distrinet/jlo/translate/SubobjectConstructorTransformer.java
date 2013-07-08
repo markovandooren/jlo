@@ -129,7 +129,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			MethodHeader header = new SimpleNameMethodHeader(CONSTRUCT, language.createTypeReference(componentTypeName));
 			TypeReference typeRef = language.createTypeReference("java.lang.Object");
 			header.addFormalParameter(new FormalParameter(new SimpleNameSignature("object"), typeRef));
-			Method constructor = language.createNormalMethod(header);
+			Method constructor = language.plugin(ObjectOrientedFactory.class).createNormalMethod(header);
 			constructor.setImplementation(null);
 			constructor.addModifier(new Abstract());
 			strategy.add(constructor);
@@ -164,7 +164,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			Java language = type.language(Java.class);
 			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(new SimpleNameSignature(name));
 			MethodHeader header = new SimpleNameMethodHeader(CONSTRUCT, language.createTypeReference(componentTypeName));
-			Method factoryMethod = language.createNormalMethod(header);
+			Method factoryMethod = language.plugin(ObjectOrientedFactory.class).createNormalMethod(header);
 			TypeReference typeRef = language.createTypeReference("java.lang.Object");
 			header.addFormalParameter(new FormalParameter(new SimpleNameSignature("objectafrkuscggfjsdk"), typeRef));
 			for(FormalParameter param: constructor.formalParameters()) {
@@ -562,7 +562,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			addParametersToConstructMethod(header,relation,superCall);
 			
 			// Create the constructor method using the previously constructed header
-			Method method = language.createNormalMethod(header);
+			Method method = language.plugin(ObjectOrientedFactory.class).createNormalMethod(header);
 			method.addModifier(new Public());
 			// -> public SubobjectType construct(Object o, ..., Type_i parameter_i, ...)
 			return method;
