@@ -4,7 +4,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationCollector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectorWithoutOrder;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
@@ -19,7 +19,7 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument {
 	@Override
 	public ComponentRelation declaration() throws LookupException {
 		Type enclosing = containerType();
-		DeclarationSelector<ComponentRelation> selector = new SelectorWithoutOrder<ComponentRelation>(ComponentRelation.class) {
+		DeclarationSelector<ComponentRelation> selector = new SimpleSelector<ComponentRelation>(ComponentRelation.class) {
 			@Override
 			public Signature signature() {
 				return ComponentNameActualArgument.this.signature();

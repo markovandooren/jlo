@@ -9,7 +9,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.declaration.TargetDeclaration;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationCollector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectorWithoutOrder;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
@@ -78,7 +78,7 @@ public abstract class AbstractClause extends ConfigurationClause {
 		int size = signatures.size();
 		for(int i = 0; i< size; i++) {
 			final Signature sig = signatures.get(i);
-			DeclarationSelector<Declaration> selector = new SelectorWithoutOrder<Declaration>(Declaration.class) {
+			DeclarationSelector<Declaration> selector = new SimpleSelector<Declaration>(Declaration.class) {
 				public Signature signature() {
 					return sig;
 				}
@@ -117,8 +117,8 @@ public abstract class AbstractClause extends ConfigurationClause {
 		TargetDeclaration container = nearestAncestor(ComponentRelation.class).componentType();
 		for(int i = 1; i<= size; i++) {
 			final int x = i;
-			SelectorWithoutOrder<Declaration> selector = 
-				new SelectorWithoutOrder<Declaration>(Declaration.class) {
+			SimpleSelector<Declaration> selector = 
+				new SimpleSelector<Declaration>(Declaration.class) {
 					public Signature signature() {
 						return poppedName.signatureAt(x);
 					}};
@@ -130,8 +130,8 @@ public abstract class AbstractClause extends ConfigurationClause {
 			container = (TargetDeclaration) collector.result();//x ref.getElement();
 		}
 		final Signature lastSignature = qn.lastSignature();
-		SelectorWithoutOrder<Declaration> selector = 
-			new SelectorWithoutOrder<Declaration>(Declaration.class) {
+		SimpleSelector<Declaration> selector = 
+			new SimpleSelector<Declaration>(Declaration.class) {
 				public Signature signature() {
 					return lastSignature;
 				}};

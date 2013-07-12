@@ -15,7 +15,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.document.Document;
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectorWithoutOrder;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.modifier.Modifier;
 import be.kuleuven.cs.distrinet.chameleon.core.namespacedeclaration.Import;
 import be.kuleuven.cs.distrinet.chameleon.core.namespacedeclaration.NamespaceDeclaration;
@@ -567,7 +567,7 @@ public class JavaTranslator extends AbstractTranslator {
 				Type containerOfNewDefinition = typeOfDefinition(result,original, method); // OK: SUBOBJECT
 				if(containerOfNewDefinition != null) {
 					tmp.setUniParent(containerOfNewDefinition);
-					DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
+					DeclarationSelector<Method> selector = new SimpleSelector<Method>(Method.class) {
 						@Override
 						public Signature signature() {
 							return tmp.signature();
