@@ -1,0 +1,47 @@
+package jlo.transaction.property;
+
+import jlo.association.Property;
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.Transaction;
+import jlo.transaction.memory.TransactionManager;
+import jlo.transaction.memory.TState;
+
+public class TransactionalProperty<T> extends Property<T> implements TState {	
+  /**
+   * Create a new property with its value set to the given value.
+   */     
+  public TransactionalProperty(T value) {
+    super(value);
+  }
+
+  /**
+   * Constructor for setting the value directly instead of using the setter.
+   * Only use if you ensure that the additionaly actions of the setter are performed
+   * as well.
+   */
+  protected TransactionalProperty(T value, boolean notUsed) {
+    super(value, notUsed);
+  }
+  
+  public T getValue() {
+    Transaction t = TransactionManager.instance().read(this);
+    if(t != null) {      return ((PropertyTransaction<T>)t).newValue();    } else {  	  return super.getValue();    }  }
+  
+  protected void register(T value) {
+    TransactionManager.instance().recordWrite(new PropertyTransaction<T>(this,super.getValue(), value));  }
+  
+  private void doRegister(T value) {  	super.register(value);  }
+  
+  private TransactionRegistry _registry;
+
+  void register(BasicTransaction t) {
+    if(_registry == null) {
+      _registry  = new TransactionRegistry();
+    }
+  	_registry.register(t);
+  } 
+  
+  void unregister(BasicTransaction t) {
+  	_registry.unregister(t);
+  }
+   }

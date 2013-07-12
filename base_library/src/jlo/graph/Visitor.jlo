@@ -1,0 +1,15 @@
+package jlo.graph;
+
+import java.util.Set;
+import java.util.HashSet;
+
+/**
+ * A class of visitor objects to visit nodes of a graph. A visitor
+ * chooses its own strategy for visiting node. The standard visitor
+ * classes have been designed such that basic building blocks can
+ * be combined to form a complex visiting strategy.
+ */
+public abstract class Visitor<E extends Exception> {	
+	public abstract void visit(DigraphNode<?> node) throws E;
+	
+}

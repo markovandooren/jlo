@@ -1,0 +1,27 @@
+package jlo.graph;
+
+import jlo.association.Property;
+import jlo.association.AssociationEnd;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+ * <V> The type of the objects in the graph.
+ * <O> The type of the object connected to this node. This must be a subtype of V.
+ */
+public abstract class WiredDigraphNode<V,O extends V> extends AbstractDigraphNode<V> {
+	connector edges O -> [AssociationEnd<? extends DigraphNode<? extends V>>];
+	
+	public WiredDigraphNode(O object) {		subobject.object(object);	}
+
+	public subobject object Property<O>;
+
+	public O object() {		return object.target();	}
+
+	public List<DigraphNode<? extends V>> directSuccessorNodes() {
+	    List result = new ArrayList();
+	    List<? extends AssociationEnd<? extends DigraphNode<? extends V>>> associations = #edges(object());
+	    for(AssociationEnd<? extends DigraphNode<? extends V>> association: associations) {	    	result.addAll(association.targets());	    }
+		return (List<DigraphNode<? extends V>>)result; //workaround incomplete return statement check	}}

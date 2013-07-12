@@ -1,0 +1,123 @@
+package jlo.association;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Iterator;
+import jlo.function.Function;
+import java.util.Set;
+import java.util.HashSet;
+
+public class MultiAssociationEndSet<FROM,TO> extends AbstractMultiAssociationEnd<FROM,TO> {
+
+  public MultiAssociationEndSet(FROM object) { 
+    super(object);
+    subobject.elements();
+    //_elements = new HashSet<BidiAssociationEnd<? extends TO,? super FROM>>();
+  }
+
+  public void remove(BidiAssociationEnd<? extends TO,? super FROM> other) {
+  	checkLock();
+  	checkLock(other);
+    if (contains(other)) {
+      other.unregister(this);
+      unregister(other);
+    }
+  }
+
+  public void add(BidiAssociationEnd<? extends TO,? super FROM> element) {
+  	checkLock();
+  	checkLock(element);
+  	if(element != null) {
+      element.register(this);
+      register(element);
+  	}
+  }
+
+  public List<TO> targets() {
+    Set<TO> result = new HashSet<TO>();
+    for(BidiAssociationEnd<? extends TO,? super FROM> element: elements.targets()) {      result.add(element.object());
+    }
+    return new ArrayList<TO>(result);
+  }
+
+  public List<BidiAssociationEnd<? extends TO,? super FROM>> getOtherAssociations() {
+    return elements.targets();
+  }
+
+  public void unregister(BidiAssociationEnd<? extends TO,? super FROM> element) {
+    boolean removed = elements.contains(element);
+    elements.remove(element);
+    if(removed) {
+    	fireElementRemoved(element.object());
+    }
+  }
+
+  public void register(BidiAssociationEnd<? extends TO,? super FROM> element) {
+    boolean added = elements.contains(element);
+    elements.add(element);
+    if(added) {
+    	fireElementAdded(element.object());
+    }
+  }
+
+  public boolean registered(List<BidiAssociationEnd<? extends TO,? super FROM>> oldConnections, BidiAssociationEnd<? extends TO,? super FROM> registered) {
+    boolean contains = true;
+    Iterator<BidiAssociationEnd<? extends TO,? super FROM>> iter = elements.targets().iterator(); //INEFFICIENT
+    while(contains && iter.hasNext()) {    	contains = contains(iter.next());
+    }
+    return (oldConnections != null) &&
+           (contains(registered)) && contains;
+  }
+
+  public boolean unregistered(List<BidiAssociationEnd<? extends TO,? super FROM>> oldConnections, BidiAssociationEnd<? extends TO,? super FROM> unregistered) {
+    // FIXME : implementation is not correct
+    boolean contains = true;
+    Iterator<BidiAssociationEnd<? extends TO,? super FROM>> iter = oldConnections.iterator();
+    while(contains && iter.hasNext()) {
+    BidiAssociationEnd<? extends TO,? super FROM> o = iter.next();
+    	contains = (o == unregistered) || contains(o);
+    }
+   return (oldConnections != null) &&
+          (oldConnections.contains(unregistered)) &&
+          (! contains(unregistered)) && contains;
+  }
+
+	public int size() {
+		return elements.size();
+  }
+
+  public boolean contains(BidiAssociationEnd<? extends TO,? super FROM> element) {
+    return elements.contains(element);
+  }
+
+
+  protected subobject elements SetProperty<BidiAssociationEnd<? extends TO,? super FROM>>;
+  
+  	public void replace(BidiAssociationEnd<? extends TO, ? super FROM> element, BidiAssociationEnd<? extends TO, ? super FROM> newElement) {
+		if(contains(element)) {
+	  	checkLock();
+	  	checkLock(element);
+	  	checkLock(newElement);
+	  	disableEvents();
+		  remove(element);
+		  add(newElement);
+		  enableEvents();
+		  fireElementReplaced(element.object(), newElement.object());
+		}
+	}
+  
+  public void clear() {
+  	checkLock();
+  	Collection<BidiAssociationEnd<? extends TO,? super FROM>> rels = elements.targets(); 
+  	//new ArrayList<BidiAssociationEnd<? extends TO,? super FROM>>(_elements);
+  	for(BidiAssociationEnd<? extends TO,? super FROM> rel : rels) {
+  		checkLock(rel);
+  	}
+  	for(BidiAssociationEnd<? extends TO,? super FROM> rel : rels) {
+  		remove(rel);
+  	}
+  }
+  
+}

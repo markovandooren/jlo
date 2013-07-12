@@ -1,0 +1,297 @@
+package jlo.transaction.memory;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+import java.util.WeakHashMap;
+import java.util.Collections;
+import java.util.Iterator;
+import jlo.association.ListProperty;
+import jlo.association.MapProperty;
+import jlo.association.SetProperty;
+import jlo.association.Property;
+import java.lang.ref.WeakReference;
+
+public class CompositeTransaction implements Transaction {
+
+    // Must run inside lock	public CompositeTransaction(TransactionManager manager, String name, CompositeTransaction parent) {		//subobject.readSet();
+		//subobject.transactionList();
+		//subobject.transactionMap();
+		subobject.manager(manager);
+		subobject.successors();
+		subobject.predecessors();
+		subobject.name(name);
+		_parent = parent;
+		if(parent != null) {		  _parent.addNestedTransaction(this);
+		}
+	}
+	
+	private Set<CompositeTransaction> _nestedTransactions = new HashSet<CompositeTransaction>();
+	
+	Set<CompositeTransaction> nestedTransactions() {		return new HashSet<CompositeTransaction>(_nestedTransactions);	}
+	
+	private void addNestedTransaction(CompositeTransaction nested) {		if(! isAlive()) {			throw new Error();		}
+		// Only called in the constructor of CompositeTransaction, so no
+		// synching of the associations is required.
+		_nestedTransactions.add(nested);
+		waitFor(nested);	}
+	
+	private void removeNestedTransaction(CompositeTransaction nested) {
+		if(! isAlive()) {
+			throw new Error();
+		}
+		// Only called in abort, so no
+		// synching of the associations is required.
+		_nestedTransactions.remove(nested);
+	}
+
+	public subobject name Property<String>{		export getValue() as name();	}
+	
+	public BasicTransaction read(TState property) {
+	    logRead(property);
+    	return readWithoutLogging(property);
+    }
+    
+    protected void logRead(TState property) {    	_readSet.add(property);
+    }
+    
+    private void logReads(Collection<TState> properties) {    	for(TState property: properties) {    		logRead(property);    	}    }
+    
+    private BasicTransaction transaction(TState property) {
+      WeakReference<BasicTransaction> ref = _transactionMap.get(property);      return (ref == null ? null : ref.get());    }
+    
+    private void storeTransaction(TState property, BasicTransaction transaction) {
+    	_transactionMap.put(property,new WeakReference<BasicTransaction>(transaction));
+    }
+    
+	public BasicTransaction readWithoutLogging(TState property) {
+    	BasicTransaction result = transaction(property);
+    	if(result == null && _parent != null) {
+    		result = _parent.readWithoutLogging(property);
+    	}
+    	return result;
+    }
+
+    public void absorb(BasicTransaction basic) {
+      TState property = basic.property();
+      Transaction previous = transaction(property);
+      if(previous != null) {
+      	previous.absorb(basic);
+      } else {
+      	storeTransaction(property, basic);
+        addTransactionToList(basic);
+        basic.setParent(this);
+        synchronized(TransactionManager._allManagers) {
+          basic.registerWithProperty();
+        }
+      }
+    }
+  
+  public boolean hasPredecessor(CompositeTransaction transaction) {    synchronized(TransactionManager._allManagers) {
+      Set<CompositeTransaction> done = new HashSet<CompositeTransaction>();
+      done.add(this);
+      List<TransactionSemaphore> todo = predecessors.targets();
+  	  while(! todo.isEmpty()) {
+  	    TransactionSemaphore semaphore = todo.get(0);  	    CompositeTransaction t = semaphore.predecessor();  		if(t == transaction) {  			return true;  		}
+  	    todo.remove(0);
+  		if(done.add(t)) {
+  			todo.addAll(t.predecessors.targets());  		}  	  }
+  	  return false;
+  	}  }
+  
+  public boolean hasSuccessor(CompositeTransaction transaction) {
+    synchronized(TransactionManager._allManagers) {
+      Set<CompositeTransaction> done = new HashSet<CompositeTransaction>();
+      done.add(this);
+      List<TransactionSemaphore> todo = successors.targets();
+  	  while(! todo.isEmpty()) {
+  	    TransactionSemaphore semaphore = todo.get(0);
+  	    CompositeTransaction t = semaphore.successor();
+  		if(t == transaction) {
+  			return true;
+  		}
+  	    todo.remove(0);
+  		if(done.add(t)) {
+  			todo.addAll(t.successors.targets());
+  		}
+  	  }
+  	  return false;
+  	}
+  }
+  
+  public void commit() {
+    try {
+    List<TransactionSemaphore> pred = null;    while(true) {
+      synchronized(TransactionManager._allManagers) {
+        //checkForLivingNestedTransactions();      	List<Object> writeSet = writeList();
+        List<CompositeTransaction> active = manager().activeTransactions();
+        for(CompositeTransaction transaction: active) {
+          if(transaction != this) {
+      	    Set<TState> readSet = transaction.readSet();
+      	    for(Object written: writeSet) {
+      	    	if(readSet.contains(written)) {
+      	    	    // This must be have predecessortransaction
+      	    	    // Transaction must have successor this.
+      	    	    // Check if the opposite is true to detect a loop
+      	    	    if(transaction.hasPredecessor(this) || this.hasSuccessor(transaction)) {
+      	    	      // Waiting for 'transaction' would cause a loop
+      	    	      // in the waits-for graph, so we abort
+      	    	      abort("Transaction "+name()+" needs to wait for transaction "+transaction.name()+" but the latter was already waiting for the former.\n");
+      	    	    } else {
+      	    	      waitFor(transaction);
+      	    	    }
+      	    		break;
+      	    	} //if
+      	    } // for
+          } // if
+        } // for
+        // There should not be any reads between detecting that there are no predecessors and performing the commit.
+        // Otherwise, another transaction might perform a conflicting read between the check and performing the commit. 
+        if(predecessors.isEmpty()) {
+          doCommit();
+          return;
+        }
+        // We must release the lock while waiting for the predecessor transactions to finish.
+        pred = predecessors.targets(); 
+      } // synchronized      for(TransactionSemaphore semaphore: pred) {
+        semaphore.acquire();
+        // The transaction that release a metaphore removes it from its
+        // successor list, so we do not have to do that.
+        
+        // The predecessors are removed within a locked region.
+        synchronized(TransactionManager._allManagers) {          predecessors.remove(semaphore);        }
+      }
+      // After waiting for the predecessors, the loop starts again and a new check for conflicts is done.
+    } //while
+    } catch(InterruptedException exc) {    	abort(exc,"Transaction aborted due to InterruptedException:\n");    }
+  }
+  
+  // Must run inside the lock.
+  private void waitFor(CompositeTransaction transaction) {    TransactionSemaphore semaphore = new TransactionSemaphore(0,transaction,this);
+    transaction.addSuccessor(semaphore);
+    addPredecessor(semaphore);
+  }
+    
+    private void releaseSuccessors() {       synchronized(TransactionManager._allManagers) {
+          for(TransactionSemaphore semaphore: successors.targets()) {
+            semaphore.release();
+            // The transaction that acquired the metaphore removes it from its
+            // predecessor list, so we do not have to do that.
+              successors.remove(semaphore);
+          }
+       }
+    }
+    
+    public boolean isAborted() {    	return _isAborted;    }
+    
+    private boolean _isAborted=false;
+    
+    public boolean isCommitted() {
+    	return _isCommitted;
+    }
+    
+    private boolean _isCommitted=false;
+    
+    public boolean isAlive() {      synchronized(TransactionManager._allManagers) {
+    	return ! (isAborted() || isCommitted());
+      }    }
+    
+    public subobject successors SetProperty<TransactionSemaphore>{    	export add(TransactionSemaphore) as addSuccessor(TransactionSemaphore);    }
+   
+    public subobject predecessors SetProperty<TransactionSemaphore>{
+    	export add(TransactionSemaphore) as addPredecessor(TransactionSemaphore);
+    }
+    
+    protected void userAbort() {
+      // not synchronized here because internally the lock is already obtained.
+      // TransactionManager must obtain its own lock.      _isAborted = true;
+      releaseSuccessors();
+      disconnectBasicTransactionsFromProperties();
+      manager().popTransaction();
+      if(_parent != null) {        _parent.removeNestedTransaction(this);
+      }
+    }
+    
+    private void disconnectBasicTransactionsFromProperties() {    	for(BasicTransaction transaction: transactionList()) {
+    		transaction.unregisterWithProperty();
+    	}
+    }
+    
+    private void checkForLivingNestedTransactions() {    	for(CompositeTransaction transaction: _nestedTransactions) {    		if(!transaction.isCommitted()) {    			abort("One of the nested transactions was not committed.");    		}    	}    }
+    
+    private void abort(String message) {
+      userAbort();      throw new TransactionAbortedException(message);
+    }
+    
+    private void abort(Throwable t, String message) {
+      userAbort();
+      throw new TransactionAbortedException(message,t);
+    }
+    
+    // Must run in synchronized block TransactionManager._allManagers
+    private void doCommit() {
+      if(_parent == null) {    	for(BasicTransaction transaction: transactionList()) {
+    		transaction.commit();
+    		transaction.unregisterWithProperty();
+    	}
+      } else {    	for(Transaction transaction: transactionList()) {
+    	  _parent.absorb((BasicTransaction)transaction); 
+        }
+        _parent.logReads(readSet());   	      }
+      _isCommitted = true;
+      releaseSuccessors();
+      manager().popTransaction();
+    }
+    
+    private List<BasicTransaction> transactionList() {      List<BasicTransaction> result = new ArrayList<BasicTransaction>();
+      Iterator<WeakReference<BasicTransaction>> iter = _transList.iterator();
+      while(iter.hasNext()) {
+        WeakReference<BasicTransaction> ref = iter.next();      	BasicTransaction t = ref.get();
+      	if(t != null) {
+      		result.add(t);
+      		iter.remove();
+      	}
+      }
+      return result;    }
+    
+    private void addTransactionToList(BasicTransaction transaction) {    	_transList.add(new WeakReference<BasicTransaction>(transaction));    }
+    
+    private List<WeakReference<BasicTransaction>> _transList = new ArrayList<WeakReference<BasicTransaction>>();
+    
+    public void rollback() {
+    	for(Transaction transaction: transactionList()) {
+    		transaction.rollback();
+    	}
+    }
+    
+    public Set<TState> properties() {    	return writeSet();    }
+    
+    //private subobject readSet SetProperty<Object>;
+    private Set<TState> _readSet = Collections.newSetFromMap(
+        new WeakHashMap<TState, Boolean>());
+        
+    public Set<TState> readSet() {
+      Set<TState> result = new HashSet<TState>(_readSet);
+      for(CompositeTransaction nested: nestedTransactions()) {      	result.addAll(nested.readSet());      }
+      return result;    	    }
+    
+	//private subobject transactionList ListProperty<BasicTransaction>;
+	
+	public subobject manager Property<TransactionManager>{		export getValue() as manager();	}
+	
+	CompositeTransaction parent() {		return _parent;	}
+	
+	private CompositeTransaction _parent;
+
+    private Map<TState, WeakReference<BasicTransaction>> _transactionMap = new WeakHashMap<TState, WeakReference<BasicTransaction>>();
+	
+	public Set<TState> writeSet() {		return _transactionMap.keySet();	}
+	
+	public List<Object> writeList() {		return new ArrayList<Object>(writeSet());	}
+	
+	public int size() {		return _transactionMap.size();	}
+	
+}

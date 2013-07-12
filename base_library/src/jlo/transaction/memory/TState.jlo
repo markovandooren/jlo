@@ -1,0 +1,7 @@
+package jlo.transaction.memory;
+
+public interface TState {	
+	public void register(BasicTransaction transaction);
+		public void unregister(BasicTransaction transaction);
+	
+}

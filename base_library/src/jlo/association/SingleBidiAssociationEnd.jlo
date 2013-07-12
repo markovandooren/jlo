@@ -1,0 +1,134 @@
+package jlo.association;
+
+import java.util.List;
+import java.util.ArrayList;
+import jlo.function.Function;
+
+public class SingleBidiAssociationEnd<FROM,TO> extends AbstractAssociationEnd<FROM,TO> implements SingleAssociationEnd<TO> {
+
+  public SingleBidiAssociationEnd(FROM object) {
+    super(object);
+    subobject.other(null);
+  }
+
+  public TO target() {
+    if (getOtherAssociation() == null) {
+        return null;
+    }
+    return getOtherAssociation().object();
+  }
+  
+  public int size() {  	if(getOtherAssociation() == null) {  		return 0;  	} else {  		return 1;  	}  }
+
+  public List<TO> targets() {
+    ArrayList<TO> result = new ArrayList<TO>();
+    BidiAssociationEnd<? extends TO,? super FROM> other = getOtherAssociation();
+    if (other == null) {
+        return result;
+    }
+    result.add(other.object());
+    return result;
+  }
+  
+  public void connectTo(BidiAssociationEnd<? extends TO,? super FROM> other) {
+  	checkLock();
+    BidiAssociationEnd<? extends TO,? super FROM> _other = getOtherAssociation();
+  	checkLock(_other);
+  	checkLock(other);
+    if (other != _other) {
+      register(other);
+      if (other != null) {
+          other.register(this);
+      }
+    }
+  }
+
+  public boolean registered(List<BidiAssociationEnd<? extends TO,? super FROM>> oldConnections, BidiAssociationEnd<? extends TO,? super FROM> registered) {
+    return (oldConnections != null) &&
+           (contains(registered)) &&
+           (
+             (
+               (oldConnections.size() == 0)
+             )
+             ||
+             (
+               (oldConnections.size() == 1) &&
+               (
+                 (oldConnections.get(1) == registered)
+                 ||
+                 (
+                   (! contains(oldConnections.get(1)))
+                 )
+               )
+             )
+           );
+  }
+
+  public boolean unregistered(List<BidiAssociationEnd<? extends TO,? super FROM>> oldConnections, BidiAssociationEnd<? extends TO,? super FROM> unregistered) {
+    return (oldConnections != null) &&
+           (targets().isEmpty()) &&
+           (
+             (
+               (oldConnections.size() == 1) &&
+               (oldConnections.get(1) == unregistered)
+             )
+             ||
+             (oldConnections.size() == 0)
+           );
+  }
+
+  public boolean isValidElement(BidiAssociationEnd<? extends TO,? super FROM> relation) {
+    return true;
+  }
+
+  public void unregister(BidiAssociationEnd<? extends TO,? super FROM> o) {
+    BidiAssociationEnd<? extends TO,? super FROM> _other = getOtherAssociation();
+  	if(_other != null) {
+  	  TO old = _other.object();
+      other.setValue(null);
+      fireElementRemoved(old);
+  	}
+  }
+
+  public void register(BidiAssociationEnd<? extends TO,? super FROM> other) {
+    BidiAssociationEnd<? extends TO,? super FROM> _other = getOtherAssociation();
+    if(_other != null) {
+  	  TO old = _other.object();
+      _other.unregister(this);
+      this.other.setValue(other);
+      TO newObject = (other != null ? other.object() : null);
+      fireElementReplaced(old, newObject);
+    }
+    // _other == null
+    else if(other != null){
+      this.other.setValue(other);
+      fireElementAdded(other.object());
+    }
+  }
+
+//  public BidiAssociationEnd<? extends TO,? super FROM> getOtherAssociation() {
+//    return _other;
+//  }
+
+  public List<BidiAssociationEnd<? extends TO,? super FROM>> getOtherAssociations() {
+    ArrayList<BidiAssociationEnd<? extends TO,? super FROM>> result = new ArrayList<BidiAssociationEnd<? extends TO,? super FROM>>();
+    BidiAssociationEnd<? extends TO,? super FROM> _other = getOtherAssociation();
+    if(_other != null) {
+      result.add(_other);
+    }
+    return result;
+  }
+  
+  protected subobject other Property<BidiAssociationEnd<? extends TO,? super FROM>> {  	export getValue() as getOtherAssociation();  }
+
+	public void replace(BidiAssociationEnd<? extends TO, ? super FROM> element, BidiAssociationEnd<? extends TO, ? super FROM> newElement) {
+		if(contains(element)) {
+			connectTo(newElement);
+		}
+	}
+
+  public void clear() {
+	connectTo(null);
+  }
+
+}

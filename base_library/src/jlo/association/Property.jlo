@@ -1,0 +1,66 @@
+package jlo.association;
+
+import java.util.List;
+import java.util.ArrayList;
+
+public class Property<T extends Object> implements SingleAssociationEnd<T> {  
+  /**
+   * Create a new property with its value set to the given value.
+   */     
+  public Property(T value) {
+    setValue(value);
+  }
+  
+  public Property() {  	this(null);  }
+
+  /**
+   * Constructor for setting the value directly instead of using the setter.
+   * Only use if you ensure that the additionaly actions of the setter are performed
+   * as well.
+   */
+  protected Property(T value, boolean notUsed) {
+    register(value);
+  }
+        
+  private T _value;
+
+  /**
+   * Set the value of this property.
+   */	
+  public void setValue(T value) {
+    if(isValid(value)) {
+      register(value);    } else {    	throw new IllegalArgumentException();    }  }
+  
+  protected void register(T value) {    _value = value;
+  }
+  
+  public boolean isValid(T value) {  	return true;  }
+  
+  /**
+   * Return the value of this property.
+   */
+  public T getValue() {
+	return _value; 
+  }
+  
+  /**
+   * Return the size of this propery. The size is 0 if the target is null, and 1 if it is non-null.
+   *
+   * @post target() == null ==> \result == 0;
+   * @post target() != null ==> \result == 1;
+   */
+  public int size() {  	if(getValue() == null) {  		return 0;  	} else {  		return 1;  	}  }
+  
+  /**
+   * The other end of the unidirectional association represented by a property is
+   * its value.
+   */
+  public T target() {
+	return getValue(); 
+  }
+  
+  public List<T> targets() {  	List<T> result = new ArrayList<T>();
+  	T value = getValue();
+  	if(value != null) {  		result.add(value);  	}
+  	return result;  }
+}

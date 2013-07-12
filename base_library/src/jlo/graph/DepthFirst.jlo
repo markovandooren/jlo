@@ -1,0 +1,5 @@
+package jlo.graph;
+
+public class DepthFirst<E extends Exception> extends Sequence<E> {	
+	public DepthFirst(Visitor visitor) {		super(visitor,null);
+		second.setValue(new Recurse<E>(this));	}}

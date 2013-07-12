@@ -1,0 +1,22 @@
+package jlo.transaction.memory;
+
+import java.util.Set;
+
+public interface Transaction {	
+	/**
+	 * Commit this transaction.
+	 */
+	public void commit();
+	
+	/**
+	 * Roll back this transaction.
+	 */
+	public void rollback();
+	
+	public Set<TState> properties();
+	// Absorb can come in handy in the following situation:
+	// Suppose a property has value 'a'.
+	// setValue(b) (old: a, new: b)
+	// setValue(c) (old: b, new: c) 
+	public void absorb(BasicTransaction transaction);
+}

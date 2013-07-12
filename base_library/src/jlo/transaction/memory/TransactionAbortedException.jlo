@@ -1,0 +1,11 @@
+package jlo.transaction.memory;
+
+public class TransactionAbortedException extends RuntimeException {	
+	public TransactionAbortedException() {			}
+	
+	public TransactionAbortedException(String message) {		super(message);	}
+		public TransactionAbortedException(String message, Throwable t) {
+		super(message,t);
+	}
+	
+}

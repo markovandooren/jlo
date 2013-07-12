@@ -1,0 +1,13 @@
+package jlo.graph;
+
+import jlo.action.Action;
+import jlo.association.Property;
+import java.util.Set;
+import jlo.lang.Safe;
+
+public class ActionVisitor<E extends Exception> extends Visitor<E> {	
+	public ActionVisitor(Action<?,E> action) {		subobject.action(action);	}
+
+	public subobject action Property<Action<?,E>> {		export target() as action();	}
+	
+	protected void visit(DigraphNode<?> node) throws E {		action().execute(node.object());	}}

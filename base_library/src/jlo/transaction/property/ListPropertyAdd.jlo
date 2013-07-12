@@ -1,0 +1,25 @@
+package jlo.transaction.property;
+
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.Transaction;
+import jlo.association.Property;
+import java.util.List;
+
+class ListPropertyAdd<T> extends IndexedValueListTransaction<T> {
+
+  	public ListPropertyAdd(TransactionalListProperty<T> property, T value, int baseOneIndex) {
+  	    super(property,value,baseOneIndex);
+  	}
+
+  	protected void applySelfTo(List<T> list) {  		list.add(index()-1,value());  	}
+  	
+  	public void commit() {  		property().protectedAdd(index(),value());
+  		if(next() != null) {  		  next().commit();
+  		}  	}
+  	
+  	public void rollback() {  		if(next() != null) {
+  		  next().rollback();
+  		}
+  		property().protectedRemove(index());  	}
+
+}

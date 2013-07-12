@@ -1,0 +1,4 @@
+package jlo.association;
+
+public interface SingleAssociationEnd<TO> extends AssociationEnd<TO> {	
+	public TO target();}

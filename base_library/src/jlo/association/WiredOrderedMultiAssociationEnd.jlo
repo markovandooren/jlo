@@ -1,0 +1,20 @@
+package jlo.association;
+
+public abstract class WiredOrderedMultiAssociationEnd<FROM,TO> extends OrderedMultiAssociationEnd<FROM,TO> {
+
+  connector otherEnd TO -> BidiAssociationEnd<TO,FROM>;	
+
+  public WiredOrderedMultiAssociationEnd(FROM object) {
+  	super(object);
+  }
+	
+  public void remove(TO to) {
+  	remove(#otherEnd(to)); 
+  }
+
+  public void add(TO to) {
+  	add(#otherEnd(to));
+  }
+
+	
+}

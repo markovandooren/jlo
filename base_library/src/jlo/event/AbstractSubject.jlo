@@ -1,0 +1,15 @@
+package jlo.event;
+
+import java.util.List;
+import jlo.association.ListProperty;
+
+public abstract class AbstractSubject<O> implements Subject<O> {
+	public AbstractSubject() {	}
+
+	private subobject observers ListProperty<O>{	}
+ 
+	public List<O> observers() { 		return observers.targets();	}
+	
+	public synchronized void notifyObservers() {		for(O observer: observers()) {			notifyObserver(observer);		}	}
+
+	public abstract void notifyObserver(O observer);}

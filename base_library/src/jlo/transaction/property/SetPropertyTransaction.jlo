@@ -1,0 +1,82 @@
+package jlo.transaction.property;
+
+import jlo.transaction.memory.Transaction;
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.CompositeTransaction;
+import java.util.Set;
+import java.util.HashSet;
+import java.lang.ref.WeakReference;
+
+public abstract class SetPropertyTransaction<T> extends BasicTransaction {
+	
+	public SetPropertyTransaction(TransactionalSetProperty<T> property) {
+	  _property = property;
+	}
+	
+  	private TransactionalSetProperty<T> _property;
+  	  	
+  	public TransactionalSetProperty<T> property() {
+  		return _property;
+  	}
+  	
+	private SetPropertyTransaction<T> _next;
+	
+  	public SetPropertyTransaction<T> next() {
+  		return _next;
+  	}
+	
+	protected void add(SetPropertyTransaction<T> next) {
+	  if(next() == null) {
+		_next = next;
+	  } else {
+	  	next().add(next);
+	  }
+	}
+	
+  	private Set<T> _cache;
+  	
+	protected Set<T> newValue() {
+		if(_cache == null) {
+		  Set<T> original = null;
+		  CompositeTransaction composite = _parent;
+		  CompositeTransaction parentComposite = composite.parent();
+		  if(parentComposite == null) {
+		    original = property().protectedField();
+		  } else {
+		  	SetPropertyTransaction<T> parentTrans = (SetPropertyTransaction<T>)parentComposite.read(property());
+		  	if(parentTrans != null) {
+		  		original = parentTrans.newValue();
+		  	}
+		  }
+		  Set<T> tmp = original == null ? new HashSet<T>() : new HashSet<T>(original);
+		  applyTo(tmp);
+		  _cache = tmp;
+		}
+		return _cache;
+	}
+	
+	protected void applyTo(Set<T> set) {
+		applySelfTo(set);
+		if(next() != null) {
+			next().applyTo(set);
+		}
+	}
+	
+	protected abstract void applySelfTo(Set<T> set);
+	
+	protected void doAbsorb(BasicTransaction transaction) {
+	  if(_cache != null) {
+	  	((SetPropertyTransaction<T>)transaction).applySelfTo(_cache);
+	  }
+      add((SetPropertyTransaction<T>)transaction);
+  	}
+  	
+	public void registerWithProperty() {
+  		property().register(this);
+  	}
+	
+	public void unregisterWithProperty() {
+		property().unregister(this);
+	}
+	
+}

@@ -1,0 +1,33 @@
+package jlo.graph;
+
+import jlo.association.Property;
+import java.util.Set;
+import java.util.HashSet;
+
+/**
+ * A class of visitors that apply another visitor to the children of a node.
+ * A Recurse visitor keeps track of the nodes that have been visited, so
+ * it can be used recursively without entering an infinite loop.
+ */
+public class Recurse<E extends Exception> extends Visitor<E> {	
+	public Recurse(Visitor<E> visitor) {
+	  subobject.visitor(visitor);
+  	  _visitedNodes = new HashSet<DigraphNode<?>>();
+	}
+
+	public Recurse(Visitor<E> visitor, boolean enableLoopDetection) {	  subobject.visitor(visitor);
+	  if(enableLoopDetection) {		_visitedNodes = new HashSet<DigraphNode<?>>();
+	  }
+	}
+	
+	public boolean detectsLoops() {		return _visitedNodes != null;	}
+	
+	public subobject visitor Property<Visitor<E>> {		export target() as visitor();	}
+	
+	private Set<DigraphNode<?>> _visitedNodes;
+	
+	protected void visit(DigraphNode<?> node) throws E {		for(DigraphNode rec: node.directSuccessorNodes()){
+		  if(_visitedNodes == null || _visitedNodes.add(rec)) {			visitor().visit(rec);
+		  }
+		}
+	}	}

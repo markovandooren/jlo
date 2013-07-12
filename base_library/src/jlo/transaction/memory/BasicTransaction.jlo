@@ -1,0 +1,34 @@
+package jlo.transaction.memory;
+
+import java.util.Set;
+import java.util.HashSet;
+
+public abstract class BasicTransaction implements Transaction {	
+	public Set<TState> properties() {		Set<TState> result = new HashSet<TState>();
+		result.add(property());
+		return result;	}
+	
+	public abstract TState property();
+	
+	public boolean conflictsWith(Transaction transaction) {
+	  if(transaction instanceof BasicTransaction) {	  	return property().equals(((BasicTransaction)transaction).property());	  } else {		return transaction.properties().contains(property());	  }	}
+	
+	protected CompositeTransaction _parent;
+	
+	protected CompositeTransaction parent() {		return _parent;	}
+	
+	void setParent(CompositeTransaction parent) {		_parent = parent;	}
+	
+	void logRead(TState property) {		parent().logRead(property);	}
+	
+	public void absorb(BasicTransaction transaction) {		doAbsorb(transaction);
+		transaction.beAbsorbedBy(this);	}
+	
+	protected abstract void doAbsorb(BasicTransaction transaction);
+	
+	protected void beAbsorbedBy(BasicTransaction transaction) {			}
+	
+	public abstract void registerWithProperty();
+	
+	public abstract void unregisterWithProperty();
+}

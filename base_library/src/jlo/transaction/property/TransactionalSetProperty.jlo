@@ -1,0 +1,73 @@
+package jlo.transaction.property;
+
+import jlo.association.SetProperty;
+import jlo.transaction.memory.Transaction;
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.TransactionManager;
+import java.util.Set;
+import jlo.transaction.memory.TState;
+
+/**
+ * TODO add clear()
+ */
+public class TransactionalSetProperty<T> extends SetProperty<T> implements TState {
+	
+  /**
+   * Create a new empty list property. The created list property is frugal.
+   *
+   * @post size() == 0;
+   */
+  public TransactionalSetProperty() {
+  }
+
+  /**
+   * Create a new empty multiproperty with the given setting for the frugalness.
+   *
+   * @post size() == 0;
+   * @post isFrugal() == frugal;
+   */
+  public TransactionalSetProperty(boolean frugal) {
+    super(frugal);
+  }
+	
+  protected Set<T> field() {
+    Transaction t = TransactionManager.instance().read(this);
+    if(t != null) {
+      return ((SetPropertyTransaction<T>)t).newValue();
+    } else {
+  	  return super.field();
+    }
+  }
+
+  protected Set<T> protectedField() {
+  	  return super.field();
+  }
+
+  protected void doAdd(T value) {
+    TransactionManager.instance().recordWrite(new SetAdd<T>(this, value));
+  }
+  
+  protected void protectedAdd(T value) {
+  	super.doAdd(value);
+  }
+  
+  public synchronized void remove(T value) {
+    TransactionManager.instance().recordWrite(new SetRemove<T>(this, value));
+  }
+  
+  protected void protectedRemove(T value) {
+  	super.remove(value);
+  }
+  
+  private TransactionRegistry _registry;
+
+  void register(BasicTransaction t) {
+    if(_registry == null) {      _registry  = new TransactionRegistry();    }
+  	_registry.register(t);
+  }
+  
+  void unregister(BasicTransaction t) {
+  	_registry.unregister(t);
+  }
+  
+}

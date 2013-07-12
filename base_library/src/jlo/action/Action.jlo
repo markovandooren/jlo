@@ -1,0 +1,13 @@
+package jlo.action;
+
+import jlo.association.Property;
+
+public abstract class Action<T, E extends Exception> {	
+	public Action(Class<T> kind) {		subobject.kind(kind);	}
+	
+	public subobject kind Property<Class<T>> {		export target() as kind();	} 
+	
+	public void execute(Object o) throws E {		if(kind().isInstance(o)) {			perform((T)o);		}	}
+	
+	protected abstract void perform(T t) throws E;
+	}

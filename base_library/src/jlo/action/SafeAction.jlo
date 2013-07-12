@@ -1,0 +1,7 @@
+package jlo.action;
+
+public abstract class SafeAction<T> extends Action<T, IllegalArgumentException> {
+	public SafeAction(Class<T> kind) {		super(kind);	} 
+	
+	public abstract void perform(T t);
+}

@@ -1,0 +1,8 @@
+package jlo.graph;
+
+public class BottomUp<E extends Exception> extends Sequence<E> {
+	public BottomUp(Visitor visitor) {
+		super(null,visitor);
+		first.setValue(new Recurse<E>(this));
+	}
+}

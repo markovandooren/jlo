@@ -1,0 +1,121 @@
+package jlo.graph;
+
+import java.util.TreeSet;
+import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import jlo.tuple.Pair;
+import java.util.PriorityQueue;
+import jlo.association.AssociationEnd;
+
+/**
+ * @param V The type of the vertices (nodes) of the graph.
+ * @param E The type of the edges of the graph.
+ * @param O The type of the object to which this node is connected.
+ */
+public abstract class WeightedNode<V,O extends V> extends BasicDigraphNode<V,O> {
+
+	public WeightedNode(O o) {
+	  super(o);
+	}
+
+	public List<DigraphNode<? extends V>> directSuccessorNodes() {
+	    List<DigraphNode<? extends V>> result = new ArrayList<DigraphNode<? extends V>>();
+	    List<? extends WeightedAssociationEnd<V,?>> edges = edges();
+	    for(WeightedAssociationEnd<V,?> edge: edges) {
+	    	result.addAll(edge.targets());
+	    }
+		return (List<DigraphNode<? extends V>>)result; //workaround incomplete return statement check
+	}
+	
+	public abstract List<? extends WeightedAssociationEnd<V,?>> edges();
+	
+	public double shortestDistanceTo(V v) {
+	   Set<WeightedNode<? extends V,?>> done = new HashSet<WeightedNode<? extends V,?>>();
+	   // The 'distances' queue keeps track of the nodes that must still be processed.
+	   // The elements in the queue are pairs (double,V) where the double represents the current
+	   // shortest distance to node v.
+	   PriorityQueue<MyPair<WeightedNode<V,?>>> distances = new PriorityQueue<MyPair<WeightedNode<V,?>>>();
+	   MyPair<WeightedNode<V,?>> uPair = new MyPair<WeightedNode<V,?>>(0d,this);
+	   while(uPair!=null) {
+	    WeightedNode<V,? extends V> u = uPair.right();
+	    if(u.object().equals(v)) {
+	      return uPair.left();
+	    }
+	    if(! done.contains(u)) {
+	     done.add(u);
+	     double distance = uPair.left();
+	     u.update(v,done,distances,distance);
+	   }//if
+	   uPair = distances.poll();
+	  }
+	  return -1d;
+	}
+	
+	public void update(V v,Set<WeightedNode<? extends V,?>> done,PriorityQueue<MyPair<WeightedNode<V,?>>> distances,double distance) {
+	  // The 'distances' queue keeps track of the nodes that must still be processed.
+	  // The elements in the queue are pairs (double,V) where the double represents the current
+	  // shortest distance to node v.
+	  List<? extends WeightedAssociationEnd<V,?>> as = edges();
+	  for(WeightedAssociationEnd<V,?> a: as) {
+	    for(WeightedEdge<V> edge:a.weightedEdges()) {	      V tmp = edge.otherEnd(object());
+	      WeightedNode<V,?> target = a.node(tmp);
+	      if(! done.contains(target)) {
+	        double newDistance = distance + (double)edge.weight();
+	        MyPair newPair = new MyPair(newDistance,target);
+	        distances.add(newPair);
+	      }
+        }
+	  }
+	}
+
+	private static class MyPair<T> implements Comparable<MyPair> {
+	
+		public MyPair(double d, T v) {
+			_d=d;
+			_v=v;
+		}
+	
+	    public double left() {
+	    	return _d;
+	    }
+	    
+	    private double _d;
+	    
+	    public T right() {
+	    	return _v;
+	    }
+	    
+	    private T _v;
+	
+		public int hashCode() {
+		    return (int)_d;
+		}
+		
+		public boolean equals(Object other) {
+			if(other instanceof MyPair) {
+				return ((MyPair)other).left() == left(); 
+			} else {
+				return false;
+			}
+			
+		}
+		
+		/**
+		 * Reverse the sort because we use a priority queue
+		 */
+		public int compareTo(MyPair other) {
+			double first = left();
+			double second = other.left();
+			if(first<second) {
+				return -1;
+			} else if (first == second) {
+				return 0;
+			} else {
+				return 1;
+			}
+		}
+	}
+	
+}

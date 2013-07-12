@@ -1,0 +1,26 @@
+package jlo.association;
+
+import java.util.List;
+
+public interface BidiAssociationEnd<FROM,TO> extends AssociationEnd<TO> {	
+  public List<BidiAssociationEnd<? extends TO,? super FROM>> getOtherAssociations();
+  
+  public boolean contains(BidiAssociationEnd<? extends TO,? super FROM> association);
+  
+  public void register(BidiAssociationEnd<? extends TO,? super FROM> other);
+  
+  public void unregister(BidiAssociationEnd<? extends TO,? super FROM> other);
+  
+  public boolean isValidElement(BidiAssociationEnd<? extends TO,? super FROM> association);
+  
+  public void replace(BidiAssociationEnd<? extends TO,? super FROM> element, BidiAssociationEnd<? extends TO,? super FROM> newElement);
+  
+  public void lock();
+  
+  public void unlock();
+  
+  public boolean isLocked();
+  
+  public FROM object();
+	
+}

@@ -1,0 +1,9 @@
+package jlo.action;
+
+public abstract class UnsafeAction<T, E extends Exception> extends Action<T,E> {	
+	public UnsafeAction(Class<T> kind) {
+		super(kind);
+	} 
+
+	public abstract void perform(T t) throws E;
+}

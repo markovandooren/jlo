@@ -1,0 +1,41 @@
+package jlo.graph;
+
+import jlo.association.TransitiveAssociationEnd;
+import jlo.association.SingleAssociationEnd;
+import jlo.association.AssociationEnd;
+import jlo.association.Property;
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+ * <V> The type of the node objects between which there is an association.
+ * <E> The type of the edge object.
+ */
+public abstract class WeightedAssociationEnd<V,E> implements AssociationEnd<WeightedNode<V,?>> {
+  
+   public WeightedAssociationEnd(V object) {   	 subobject.object(object);   }
+   
+   public WeightedNode<V,?> otherEnd(V vertex,E edge) {   	 WeightedEdge<V> e = weight(edge);
+     return node(e.otherEnd(vertex));   }
+   
+   public abstract WeightedNode<V,?> node(V v);
+   
+   public abstract List<E> edges();
+   
+   public List<WeightedEdge<V>> weightedEdges() {   	List<E> edges = edges();
+   	List<WeightedEdge<V>> result = new ArrayList<WeightedEdge<V>>();
+   	for(E edge:edges){   		result.add(weight(edge));   	}
+   	return result;   }
+   
+   public List<WeightedNode<V,?>> targets() {   	 List<WeightedNode<V,?>> result = new ArrayList<WeightedNode<V,?>>();
+   	 for(E edge: edges()) {   	 	result.add(otherEnd(object(),edge));   	 }
+   	 return result;   }
+   
+   public subobject object Property<V>{   	 export target() as object();   }
+   
+   public abstract WeightedEdge<V> weight(E e);
+   
+   public int size() {
+   	 return edges().size();
+   }
+}

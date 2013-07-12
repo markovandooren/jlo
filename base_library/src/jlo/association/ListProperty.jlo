@@ -1,0 +1,144 @@
+package jlo.association;
+
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+ * A ListProperty is an object that keeps references to a collection of other objects.
+ *
+ * To reduce memory consumption, a frugal list property will never store an internal
+ * collection if it is empty. This can be a disadvantage when the list property will
+ * often switch between being empty and non-empty. If that is the case, then frugalness
+ * can be disabled to reduced the number of internal collection objects that is created.
+ */
+public class ListProperty<T extends Object> implements AssociationEnd<T>{	
+        
+  /**
+   * Create a new empty list property. The created list property is frugal.
+   *
+   * @post size() == 0;
+   */
+  public ListProperty() {
+  }
+
+  /**
+   * Create a new empty multiproperty with the given setting for the frugalness.
+   *
+   * @post size() == 0;
+   * @post isFrugal() == frugal;
+   */
+  public ListProperty(boolean frugal) {
+    _frugal = frugal;
+  }
+
+  private boolean _frugal;
+ 
+  /**
+   * Check whether this multiproperty is frugal. A frugal multiproperty removes its
+   * internal collection whenever it becomes empty. If this happens alot, it may be better
+   * to disabled frugalness.
+   */
+  public boolean isFrugal() {  	return _frugal;  }
+ 
+  public int size() {
+    if(field() == null) {  	  return 0;    } else {  	  return field().size();    }  }
+ 
+  private List<T> _value;
+  
+  /**
+   * Add the given value to this multiproperty.
+   *
+   * @param value The value to be added.
+   * @post objects().contains(value);
+   * @throws IllegalArgumentException: ! isValidValue(value); 
+   */
+  public synchronized void add(T value) {
+    add(size()+1,value);
+  }
+  
+  public synchronized void set(int baseOneIndex, T value) {
+    if(isValid(value)) {      doSet(baseOneIndex-1,value);    }  }
+  
+  protected void doSet(int baseOneIndex, T value) {  	_value.set(baseOneIndex-1,value);
+  }
+  
+  /**
+   * Return the base-1 index of the given value.
+   */
+  public int indexOf(T value) {  	int result = field().indexOf(value);
+  	if(result != -1) {  		result++;  	}
+  	return result;  }
+  
+  /**
+   * Check whether the given value is valid for this multiproperty.
+   *
+   * By default, any non-null value is allowed.
+   */
+  public boolean isValid(T value) {  	return value != null;  }
+  
+  /**
+   * Remove the given value from this multiproperty.
+   */
+  public synchronized boolean remove(T value) {
+    boolean result = false;    if(_value != null) {
+      result = _value.remove(value);
+      if(_frugal && field().isEmpty()) {      	_value = null;      }
+    }
+    return result;
+  }
+  
+  public synchronized void remove(int baseOneIndex) {    if(_value != null) {
+      _value.remove(baseOneIndex);
+      if(_frugal && field().isEmpty()) {
+      	_value = null;
+      }
+    }
+  }
+  
+  public synchronized List<T> targets() {
+    List<T> val = field();
+    if(val != null) {  	  return new ArrayList<T>(val);     } else {      return new ArrayList<T>();
+    }
+  }
+  
+  public boolean isEmpty() {    List<T> val = field();
+  	return val == null || val.isEmpty();  }
+
+  public T get(int baseOneIndex) {
+  	if(baseOneIndex < 1 || baseOneIndex > size()) {
+  		throw new IllegalArgumentException();
+  	}
+  	return field().get(baseOneIndex-1);
+  }
+  
+  public boolean contains(T t) {
+    List<T> val = field();
+    if(val == null) {    	return false;    } else {  	  return val.contains(t);
+    }  }
+  
+  protected List<T> field() {  	return _value;  }
+
+  public T lastElement() {
+    List<T> val = field();
+  	int size = val.size();
+  	if(size > 0) {
+      return val.get(size-1);
+  	} else {
+      return null;
+  	}
+  }
+  
+  public synchronized void add(int baseOneIndex, T value) {    if(isValid(value)) {
+      doAdd(baseOneIndex, value);
+    } else {
+    	throw new IllegalArgumentException();
+    }
+  }
+  
+  protected void doAdd(int baseOneIndex, T value) {
+    if(_value == null) {
+  	  _value = new ArrayList<T>();
+    }
+	_value.add(baseOneIndex-1,value);
+  }
+}

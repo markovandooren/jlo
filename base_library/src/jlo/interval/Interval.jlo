@@ -1,0 +1,50 @@
+package jlo.interval;
+
+import java.util.Comparator;
+
+import jlo.association.Property;
+
+public class Interval<T extends Comparable<T>> {	
+   
+    public Interval(T lower, T value, T upper) {
+      if(
+         (value.compareTo(lower) < 0) ||
+         (value.compareTo(upper) > 0) || 
+         (lower.compareTo(upper) > 0)
+        )
+      {
+         throw new IllegalArgumentException();
+      }
+      subobject.lowerBound(lower, false);
+      subobject.upperBound(upper, false);
+      subobject.value(value, false);
+    }
+
+	public subobject upperBound Property<T>{	  public void setValue(T upper){
+	    if(upper.compareTo(outer.value()) >= 0) {
+	      super.setValue(upper);
+	    }
+	  }
+	  export setValue(T) as setUpperBound(T),
+	         getValue() as upperBound();  
+	}
+	
+	public subobject value Property<T>{	  public void setValue(T val){
+	    if((val.compareTo(outer.upperBound()) <= 0) && (val.compareTo(outer.lowerBound())>=0)) {
+	      super.setValue(val);
+	    }
+	  }
+	  export setValue(T) as setValue(T),
+	         getValue() as value();  
+	}
+
+	public subobject lowerBound Property<T>{	  public void setValue(T lower){
+	    if(lower.compareTo(outer.value()) <= 0) {
+	      super.setValue(lower);
+	    }
+	  }
+	  export setValue(T) as setLowerBound(T),
+	         getValue() as lowerBound();  
+	}
+
+}

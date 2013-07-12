@@ -1,0 +1,21 @@
+package jlo.transaction.memory;
+
+public abstract class UserTransaction<E extends Exception> {	
+	public UserTransaction() {		this("");	}
+	
+	public UserTransaction(String name) {		_name = name;	}
+	
+	public String name() {		return _name;	}
+	
+	private String _name;
+	
+	public void commit() throws E {		TransactionManager manager = TransactionManager.instance();
+		try {
+		    manager.startTransaction(name());			execute();
+			manager.commit();
+		} catch(TransactionAbortedException a) {			throw a;		} catch(RuntimeException rte) {		    manager.abort(rte);
+			throw rte;		} catch(Error err) {		    manager.abort(err);
+			throw err;		} catch(Exception e) {
+		    manager.abort(e);			throw (E)e;		}	}
+	
+	protected abstract void execute() throws E;}

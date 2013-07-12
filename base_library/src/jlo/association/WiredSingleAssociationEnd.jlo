@@ -1,0 +1,18 @@
+package jlo.association;
+
+public abstract class WiredSingleAssociationEnd<FROM,TO> extends SingleBidiAssociationEnd<FROM,TO> {  
+  connector otherEnd TO -> BidiAssociationEnd<TO,FROM>;
+  
+  public WiredSingleAssociationEnd(FROM object) {
+    super(object);
+  }
+
+  public WiredSingleAssociationEnd(FROM object, TO to) {
+    this(object);
+    connect(to);
+  }
+
+  public void connect(TO to) {
+  	connectTo(#otherEnd(to));
+  }
+}

@@ -1,0 +1,32 @@
+package jlo.graph;
+
+import jlo.association.Property;
+import jlo.association.AssociationEnd;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+
+public abstract class BasicWiredDigraphNode<T,O extends T, M extends T> extends AbstractDigraphNode<T> {
+	
+	connector association O -> AssociationEnd<M>;
+	connector node M -> DigraphNode<? extends T>;
+	
+	public BasicWiredDigraphNode(O object) {
+		subobject.object(object);
+	}
+
+	public subobject object Property<O>;
+
+	public O object() {
+		return object.target();
+	}
+
+	protected List<DigraphNode<? extends T>> directSuccessorNodes() {
+	    List result = new ArrayList();
+	    List<? extends M> middles = #association(object()).targets();
+	    for(M middle:middles) {	      result.add(#node(middle));
+	    }
+		return (List<DigraphNode<? extends T>>)result; //workaround incomplete return statement check
+	}
+}

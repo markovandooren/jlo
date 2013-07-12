@@ -1,0 +1,75 @@
+package jlo.transaction.property;
+
+import jlo.association.ListProperty;
+import jlo.transaction.memory.Transaction;
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.TransactionManager;
+import java.util.List;
+import jlo.transaction.memory.TState;
+
+public class TransactionalListProperty<T> extends ListProperty<T> implements TState {	
+  /**
+   * Create a new empty list property. The created list property is frugal.
+   *
+   * @post size() == 0;
+   */
+  public TransactionalListProperty() {
+  }
+
+  /**
+   * Create a new empty multiproperty with the given setting for the frugalness.
+   *
+   * @post size() == 0;
+   * @post isFrugal() == frugal;
+   */
+  public TransactionalListProperty(boolean frugal) {
+    super(frugal);
+  }
+	
+  protected List<T> field() {
+    Transaction t = TransactionManager.instance().read(this);
+    if(t != null) {
+      return ((ListPropertyTransaction<T>)t).newValue();
+    } else {
+  	  return super.field();
+    }
+  }
+
+  protected List<T> protectedList() {
+  	  return super.field();
+  }
+    
+  protected void doAdd(int baseOneIndex, T value) {    TransactionManager.instance().recordWrite(new ListPropertyAdd<T>(this, value, baseOneIndex ));
+  }
+  
+  protected void protectedAdd(int baseOneIndex, T value) {  	super.doAdd(baseOneIndex,value);
+  }
+  
+  protected void doSet(int baseOneIndex, T value) {
+    TransactionManager.instance().recordWrite(new ListSet<T>(this, value, baseOneIndex));
+  }
+  
+  protected void protectedSet(int baseOneIndex, T value) {
+  	super.doSet(baseOneIndex,value);
+  }
+
+  
+  public synchronized void remove(int baseOneIndex) {    TransactionManager.instance().recordWrite(new ListRemoveAt<T>(this, baseOneIndex));
+  }
+  
+  protected void protectedRemove(int index) {  	super.remove(index);  }
+  
+  private TransactionRegistry _registry;
+
+  void register(BasicTransaction t) {
+    if(_registry == null) {
+      _registry  = new TransactionRegistry();
+    }
+  	_registry.register(t);
+  } 
+  
+  void unregister(BasicTransaction t) {
+  	_registry.unregister(t);
+  }
+  
+}
