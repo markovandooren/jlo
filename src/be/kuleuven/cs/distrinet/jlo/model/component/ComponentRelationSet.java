@@ -101,5 +101,10 @@ public class ComponentRelationSet extends ElementImpl implements DeclarationWith
 	public boolean complete() throws LookupException {
 		return true;
 	}
+	
+	@Override
+	public Declaration finalDeclaration() {
+		return this;
+	}
 
 }
