@@ -1,0 +1,73 @@
+package jlo.transaction.property;
+
+import jlo.transaction.memory.Transaction;
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.CompositeTransaction;
+import java.util.List;
+import java.util.ArrayList;
+import java.lang.ref.WeakReference;
+
+public abstract class ListPropertyTransaction<T> extends BasicTransaction {	
+	public ListPropertyTransaction(TransactionalListProperty<T> property) {	  _property = property;	}
+	
+  	private TransactionalListProperty<T> _property;
+  	  	
+  	public TransactionalListProperty<T> property() {
+  		return _property;
+  	}
+  	
+	private ListPropertyTransaction<T> _next;
+	
+	private ListPropertyTransaction<T> _last;
+	
+  	public ListPropertyTransaction<T> next() {  		return _next;  	}
+  	
+  	public ListPropertyTransaction<T> last() {
+  		return _last;
+  	}
+	
+	protected void add(ListPropertyTransaction<T> next) {	  if(last() == null) {
+		_next = next;
+	  } else {
+	  	last().add(next);
+	  }
+	  _last = next;
+	}
+	
+  	private List<T> _cache;
+  	
+	protected List<T> newValue() {		if(_cache == null) {
+		  List<T> original = null;
+		  CompositeTransaction composite = _parent;
+		  CompositeTransaction parentComposite = composite.parent();
+		  if(parentComposite == null) {		    original = property().protectedList();
+		  } else {		  	ListPropertyTransaction<T> parentTrans = (ListPropertyTransaction<T>)parentComposite.read(property());
+		  	if(parentTrans != null) {		  		original = parentTrans.newValue();		  	}		  }
+		  // We must always clone the original because we might otherwise modify the list value of the
+		  // parent transaction directly.
+		  List<T> tmp = original == null ? new ArrayList<T>() : new ArrayList<T>(original);
+		  applyTo(tmp);
+		  _cache = tmp;
+		  // reset list of transactions
+		  _next = null;
+		  _last = null;
+		}		return _cache;
+	}
+	
+	protected void applyTo(List<T> list) {		applySelfTo(list);
+		if(next() != null) {			next().applyTo(list);		}	}
+	
+	protected abstract void applySelfTo(List<T> list);
+	
+	protected void doAbsorb(BasicTransaction transaction) {
+	  if(_cache != null) {	  	((ListPropertyTransaction<T>)transaction).applySelfTo(_cache);	  }       add((ListPropertyTransaction<T>)transaction);
+  	}
+  	
+	public void registerWithProperty() {
+  		property().register(this);
+  	}
+	
+	public void unregisterWithProperty() {
+		property().unregister(this);
+	}
+	}

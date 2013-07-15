@@ -75,13 +75,7 @@ import be.kuleuven.cs.distrinet.chameleon.oo.namespacedeclaration.TypeImport;
 
 import be.kuleuven.cs.distrinet.chameleon.oo.plugin.ObjectOrientedFactory;
 
-import be.kuleuven.cs.distrinet.chameleon.oo.type.ClassBody;
-import be.kuleuven.cs.distrinet.chameleon.oo.type.RegularType;
-import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
-import be.kuleuven.cs.distrinet.chameleon.oo.type.TypeReference;
-import be.kuleuven.cs.distrinet.chameleon.oo.type.TypeElement;
-import be.kuleuven.cs.distrinet.chameleon.oo.type.ClassWithBody;
-import be.kuleuven.cs.distrinet.chameleon.oo.type.ParameterBlock;
+import be.kuleuven.cs.distrinet.chameleon.oo.type.*;
 
 import be.kuleuven.cs.distrinet.chameleon.oo.type.generics.TypeParameter;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.generics.FormalTypeParameter;
@@ -191,11 +185,9 @@ import be.kuleuven.cs.distrinet.jnome.core.modifier.JavaConstructor;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.AnnotationType;
 
-import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
-import be.kuleuven.cs.distrinet.jnome.core.type.ArrayTypeReference;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
-import be.kuleuven.cs.distrinet.jnome.core.type.JavaIntersectionTypeReference;
-import be.kuleuven.cs.distrinet.jnome.core.type.PureWildcard;
+import be.kuleuven.cs.distrinet.jnome.core.type.*;
+import be.kuleuven.cs.distrinet.jnome.core.statement.*;
+
 
 import be.kuleuven.cs.distrinet.jnome.core.enumeration.EnumConstant;
 

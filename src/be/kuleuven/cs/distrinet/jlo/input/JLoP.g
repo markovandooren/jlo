@@ -191,6 +191,9 @@ fqn returns [QualifiedName element]
         ;
         
 expression returns [Expression element]
+@after{
+  check_null(retval.element);
+}
     :   ex=conditionalExpression {retval.element=ex.element;} (op=assignmentOperator exx=expression 
         {String txt = $op.text; 
          if(txt.equals("=")) {
@@ -212,6 +215,9 @@ expression returns [Expression element]
     
 
 nonTargetPrimary returns [Expression element]
+@after{
+  check_null(retval.element);
+}
   	:
   	lit=literal {retval.element = lit.element;}
   	| at='#' id=identifierRule '(' ex=expression {retval.element = ex.element;} stop=')'

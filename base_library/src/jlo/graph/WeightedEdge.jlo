@@ -1,0 +1,11 @@
+package jlo.graph;
+
+public abstract class WeightedEdge<V> {
+
+  public abstract Double weight();
+  public abstract V first();
+  public abstract V second();  public V otherEnd(V v) {  	V f = first();
+    if(f == v) {return second();} 
+    else {return f;}
+  }
+  }

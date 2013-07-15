@@ -1,0 +1,109 @@
+package jlo.graph;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+import jlo.action.Action;
+
+/**
+ * <T> The type of the objects in the graph.
+ */
+public abstract class AbstractDigraphNode<T> implements DigraphNode<T> {
+
+  public List<T> directSuccessors() {  	List<T> result = new ArrayList<T>();
+  	for(DigraphNode<? extends T> succ: directSuccessorNodes()) {  		result.add(succ.object());  	}
+  	return result;  }
+
+  public List<T> successors() {
+  	List<T> result = new ArrayList<T>();
+  	Set<T> resultSet = new HashSet<T>();
+  	accumulateSuccessors(this, result, resultSet, new HashSet<DigraphNode<T>>());
+    return result;
+  }
+  
+  public int nbSuccessors() {  	return successors().size();  }
+  
+  public <N extends T> List<N> successors(Class<N> kind) {
+    List<N> result = new ArrayList<N>();
+    Set<N> resultSet = new HashSet<N>();
+  	accumulateSuccessors(this, result, resultSet, new HashSet(),kind);
+    return result;
+  }
+ 
+  public <N extends T> int nbSuccessors(Class<N> kind) {
+  	return successors(kind).size();
+  }
+  
+  public List<DigraphNode<? extends T>> successorNodes() {
+    List<DigraphNode<? extends T>> result = new ArrayList<DigraphNode<? extends T>>();
+    Set<DigraphNode<? extends T>> resultSet = new HashSet<DigraphNode<? extends T>>();
+  	accumulateSuccessorNodes(this, result, resultSet, new HashSet<DigraphNode<T>>());
+    return result; 
+  }
+ 
+  private static <T> void accumulateSuccessors(DigraphNode<? extends T> thiz, List<? super T> accumulatedObjects, Set<? super T> accumulatedObjectsSet, Set visitedNodes) {
+    if(! visitedNodes.contains(thiz)) {
+	  visitedNodes.add(thiz);
+      List<? extends DigraphNode<? extends T>> outs = thiz.directSuccessorNodes();
+      for(DigraphNode<? extends T> newT: outs) {
+        T t = newT.object();
+        if(accumulatedObjectsSet.add(t)) {	      accumulatedObjects.add(t);
+        }
+  	    accumulateSuccessors(newT,accumulatedObjects, accumulatedObjectsSet, visitedNodes);
+      }
+    }
+  }
+
+  private static <T> void accumulateSuccessorNodes(DigraphNode<? extends T> thiz, List accumulatedNodes, Set accumulateNodesSet, Set visitedNodes) {
+    if(! visitedNodes.contains(thiz)) {
+	  visitedNodes.add(thiz);
+      List<? extends DigraphNode<? extends T>> outs = thiz.directSuccessorNodes();
+      for(DigraphNode<? extends T> newT: outs) {
+        if(accumulateNodesSet.add(newT)) {	      accumulatedNodes.add(newT);
+        }
+  	    accumulateSuccessorNodes(newT,accumulatedNodes, accumulateNodesSet, visitedNodes);
+      }
+    }
+  }
+
+  private static <T,X> void accumulateSuccessors(DigraphNode<? extends T> thiz, List<X> visitedObjects, Set<X> visitedObjectsSet, Set visitedNodes, Class<X> kind) {
+    if(! visitedNodes.contains(thiz)) {
+	  visitedNodes.add(thiz);
+      List<? extends DigraphNode<? extends T>> outs = thiz.directSuccessorNodes();
+      for(DigraphNode<? extends T> newT: outs) {
+        Object object = newT.object();
+        if(kind.isInstance(object) && visitedObjectsSet.add((X)object)) {
+	      visitedObjects.add((X)object);
+        }
+  	    accumulateSuccessors(newT, visitedObjects, visitedObjectsSet, visitedNodes, kind);
+      }
+    }
+  }
+
+  public <X> void f(List<X> x) {  	f(x);  }
+
+  public boolean predecessorOf(T t) {
+  	return successors().contains(t);
+  }
+  
+  public boolean predecessorNodeOf(DigraphNode<T> node) {  	return successorNodes().contains(node);   }
+
+
+  // VISITORS
+  
+  public <E extends Exception> void depthFirst(Action<?,E> action) throws E {  	new DepthFirst<E>(new ActionVisitor<E>(action)).visit(this);  }
+    
+  public <E extends Exception> void depthFirst(Visitor<E> visitor) throws E {
+  	new DepthFirst<E>(visitor).visit(this);
+  }
+    
+  public <E extends Exception> void breadthFirst(Action<?,E> action) throws E {
+  	new BreadthFirst<E>(new ActionVisitor<E>(action)).visit(this);
+  }
+    
+  public <E extends Exception> void breadthFirst(Visitor<E> visitor) throws E {
+  	new BreadthFirst<E>(visitor).visit(this);
+  }
+    
+  }

@@ -1,0 +1,25 @@
+package jlo.association;
+
+import java.util.List;
+import java.util.ArrayList;
+
+/**
+ * A class of association ends that point to a subobject.
+ *
+ * @param S The type of the subobject to which this association end refers.
+ */
+public abstract class SubobjectAssociationEnd<O,M,S> implements AssociationEnd<S> {
+	connector association O -> AssociationEnd<M>;
+	connector sub M -> S;
+
+	public SubobjectAssociationEnd(O object) {		subobject.object(object);	}
+	
+	public subobject object Property<O>{		export target() as object();	}
+	
+	public List<S> targets() {		AssociationEnd<M> m = #association(object());
+		List<M> middles = m.targets();
+		List<S> result = new ArrayList<S>();
+		for(M middle: middles) {		  result.add(#sub(middle));		}
+		return result;	}
+	
+	public int size() {		return #association(object()).size();	}}

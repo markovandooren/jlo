@@ -1,0 +1,57 @@
+package jlo.transaction.property;
+
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.Transaction;
+import jlo.association.Property;
+import java.lang.ref.WeakReference;
+
+class PropertyTransaction<T> extends BasicTransaction {
+  	
+  	public PropertyTransaction(TransactionalProperty<T> property, T oldValue, T newValue) {
+  	    _property = property;
+  		_oldValue = oldValue;
+  		_newValue = newValue;
+  	}
+  	
+  	private T _oldValue;
+  	
+  	private T _newValue;
+  	
+  	private TransactionalProperty<T> _property;
+  	
+  	protected T newValue() {
+  		return _newValue;
+  	}
+  	
+  	protected T oldValue() {
+  		return _oldValue;
+  	}
+
+  	public void commit() {
+  	  property().doRegister(_newValue);
+  	}
+  	public void rollback() {
+  	  property().doRegister(_oldValue);
+  	}
+  	
+  	public TransactionalProperty<T> property() {
+  		return _property;
+  	}
+  	
+  	protected void doAbsorb(BasicTransaction transaction) {
+  	    if((transaction).property() != property()) {
+  	    	throw new IllegalArgumentException("Trying to absorb a transaction from a different property.");
+  	    } else if(transaction instanceof PropertyTransaction) {
+  			PropertyTransaction<T> pt = (PropertyTransaction<T>)transaction;
+  			_newValue = pt.newValue();
+  		} else if (transaction != null){
+  			throw new IllegalArgumentException("Failed to absorb transaction of type "+transaction.getClass().getName());
+  		} else {
+  			throw new IllegalArgumentException();
+  		}
+  	}
+  	
+  	public void registerWithProperty() {  		property().register(this);  	}
+	
+	public void unregisterWithProperty() {		property().unregister(this);	}
+}

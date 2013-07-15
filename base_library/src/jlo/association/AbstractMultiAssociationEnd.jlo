@@ -1,0 +1,20 @@
+package jlo.association;
+
+
+public abstract class AbstractMultiAssociationEnd<FROM,TO> extends AbstractAssociationEnd<FROM,TO> {
+
+	public AbstractMultiAssociationEnd(FROM object) { 
+		super(object);
+	}
+
+  public abstract void remove(BidiAssociationEnd<? extends TO,? super FROM> other);
+
+  public abstract void add(BidiAssociationEnd<? extends TO,? super FROM> element);
+  
+  public boolean isValidElement(BidiAssociationEnd<? extends TO,? super FROM> relation) {
+    return (relation != null);
+  }
+  
+  
+
+}

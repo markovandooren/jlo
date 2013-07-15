@@ -1,0 +1,20 @@
+package jlo.graph;
+
+import jlo.association.Property;
+import jlo.association.AssociationEnd;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.List;
+import java.util.ArrayList;
+
+public abstract class BasicDigraphNode<T,O extends T> extends AbstractDigraphNode<T> {
+	
+	public BasicDigraphNode(O object) {
+		subobject.object(object);
+	}
+	public subobject object Property<O>;
+
+	public O object() {
+		return object.target();
+	}
+}

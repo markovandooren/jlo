@@ -3,35 +3,175 @@ lexer grammar JLoL;
   package be.kuleuven.cs.distrinet.jlo.input;
 }
 @members {
+  public final static int JAVADOC_CHANNEL=1;
   protected boolean enumIsKeyword = true;
   protected boolean assertIsKeyword = true;
 }
 
 
-HexLiteral : '0' ('x'|'X') HexDigit+ IntegerTypeSuffix? ;
+IntegerLiteral
+: DecimalIntegerLiteral
+| HexIntegerLiteral
+| OctalIntegerLiteral
+| BinaryIntegerLiteral
+;
 
-DecimalLiteral : ('0' | '1'..'9' '0'..'9'*) IntegerTypeSuffix? ;
+fragment
+DecimalIntegerLiteral
+: DecimalNumeral IntegerTypeSuffix?
+;
 
-OctalLiteral : '0' ('0'..'7')+ IntegerTypeSuffix? ;
+
+fragment
+DecimalNumeral
+: '0'
+| NonZeroDigit (Digits? | ('_')+ Digits)
+;
+
+fragment
+Digits
+: Digit ((Digit | '_')* Digit)?
+;
+
+fragment
+Digit
+: '0'
+| NonZeroDigit
+;
+
+fragment
+NonZeroDigit
+: ('1'..'9')
+;
+
+
+
+fragment
+OctalIntegerLiteral
+: OctalNumeral IntegerTypeSuffix?
+;
+
+fragment
+OctalNumeral
+: '0' '_'* OctalDigits
+;
+
+fragment
+OctalDigits
+: OctalDigit ((OctalDigit | '_')* OctalDigit)?
+;
+
+fragment
+OctalDigit
+: ('0'..'7')
+;
+
+
+
+
+fragment
+HexIntegerLiteral
+: HexNumeral IntegerTypeSuffix?
+;
+
+fragment
+HexNumeral
+: '0' ('x' | 'X') HexDigits
+;
+
+fragment
+HexDigits
+: HexDigit ((HexDigit | '_') * HexDigit)?
+;
 
 fragment
 HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
 
+
+
+fragment
+BinaryIntegerLiteral
+: BinaryNumeral IntegerTypeSuffix?
+;
+
+
+fragment
+BinaryNumeral
+: '0' ('b' | 'B') BinaryDigits
+;
+
+fragment
+BinaryDigits
+: BinaryDigit ((BinaryDigit | '_')* BinaryDigit)?
+;
+
+fragment
+BinaryDigit
+: ('0'|'1')
+;
+
+
 fragment
 IntegerTypeSuffix : ('l'|'L') ;
 
+//Floating point
+
 FloatingPointLiteral
-    :   ('0'..'9')+ '.' ('0'..'9')* Exponent? FloatTypeSuffix?
-    |   '.' ('0'..'9')+ Exponent? FloatTypeSuffix?
-    |   ('0'..'9')+ Exponent FloatTypeSuffix?
-    |   ('0'..'9')+ FloatTypeSuffix
-    ;
+: DecimalFloatingPointLiteral
+| HexadecimalFloatingPointLiteral
+;
 
 fragment
-Exponent : ('e'|'E') ('+'|'-')? ('0'..'9')+ ;
+DecimalFloatingPointLiteral
+: Digits '.' Digits? ExponentPart? FloatTypeSuffix?
+| '.' Digits ExponentPart? FloatTypeSuffix?
+| Digits ExponentPart FloatTypeSuffix?
+| Digits FloatTypeSuffix
+;
+
+fragment
+ExponentPart
+: ExponentIndicator SignedInteger
+;
+
+fragment
+ExponentIndicator
+: ('e'|'E')
+;
+
+fragment
+SignedInteger
+: Sign? Digits
+;
+
+fragment
+Sign
+: ('+'|'-')
+;
 
 fragment
 FloatTypeSuffix : ('f'|'F'|'d'|'D') ;
+
+fragment
+HexadecimalFloatingPointLiteral
+: HexSignificand BinaryExponent FloatTypeSuffix?
+;
+
+fragment
+HexSignificand
+: HexNumeral '.'?
+| '0' ('x'|'X') HexDigits? '.' HexDigits
+;
+
+fragment
+BinaryExponent
+: BinaryExponentIndicator SignedInteger
+;
+
+fragment
+BinaryExponentIndicator
+: ('p'|'P')
+;
 
 CharacterLiteral
     :   '\'' ( EscapeSequence | ~('\''|'\\') ) '\''
@@ -66,7 +206,7 @@ ENUM:   'enum' {if (!enumIsKeyword) $type=Identifier;}
 ASSERT
     :   'assert' {if (!assertIsKeyword) $type=Identifier;}
     ;
-    
+
 Export
     	:	'export'
     	;
@@ -87,11 +227,11 @@ Overrides
     	:	'overrides'
     	;
 
+    
 Identifier 
     :   Letter (Letter|JavaIDDigit)*
     ;
 
-/* Export | Connector | To | Connect | Name | Overrides | As |  */
 /**I found this char range in JavaCC's grammar, but Letter and Digit overlap.
    Still works, but...
  */

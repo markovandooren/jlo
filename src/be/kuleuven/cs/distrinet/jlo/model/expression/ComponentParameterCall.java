@@ -8,7 +8,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationCollector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclaratorSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectorWithoutOrder;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReference;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceTarget;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.UnresolvableCrossReference;
@@ -105,7 +105,7 @@ public class ComponentParameterCall extends Expression implements CrossReference
   }
 
 	public DeclarationSelector<FormalComponentParameter> selector() {
-		return new SelectorWithoutOrder<FormalComponentParameter>(FormalComponentParameter.class) {
+		return new SimpleSelector<FormalComponentParameter>(FormalComponentParameter.class) {
 			public Signature signature() {
 				return ComponentParameterCall.this.signature();
 			}

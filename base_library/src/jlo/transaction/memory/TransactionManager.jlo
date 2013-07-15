@@ -1,0 +1,123 @@
+package jlo.transaction.memory;
+
+import java.util.List;
+import java.util.ArrayList;
+import jlo.association.ListProperty;
+import jlo.association.Property;
+import jlo.association.SetProperty;
+import java.util.Set;
+
+/**
+ * <p>A class for providing in-memory transactions in combination with the transactional property classes.
+ * Instead of using the standard classes for property subobjects, the classes in jlo.transaction.property
+ * should be used.</p>
+ *
+ * <p><i>The current version of JLo does not yet allow transactions to be transparent. If an existing class uses
+ * a regular property as a subobject, a new subclass should be created to refine that subobject  atotransactional
+ * property. We need support for higher-order hierarchies or classboxes to enable this. This feature is planned for a later
+ * version of JLo. Currently, development focusses on subobjects.</i></p> 
+ */
+public class TransactionManager {	
+    private static List<TransactionManager> _allManagers = new ArrayList<TransactionManager>();
+    
+	//private static final ThreadLocal<TransactionManager> _manager = 
+    //     new ThreadLocal<TransactionManager>() {
+    //       @Override protected TransactionManager initialValue() {
+    //         TransactionManager result = new TransactionManager(null);
+    //         return result;
+    //       }
+    //     };
+    
+	private static final InheritableThreadLocal<TransactionManager> _manager = 
+         new InheritableThreadLocal<TransactionManager>() {
+           @Override protected TransactionManager initialValue() {
+             TransactionManager result = new TransactionManager(null);
+             return result;
+           }
+           @Override protected TransactionManager childValue(TransactionManager parent) {
+             TransactionManager result = new TransactionManager(parent);
+             return result;
+           }
+         };
+    
+    private TransactionManager(TransactionManager parent) {		subobject.transactionArchive();
+		subobject.transaction(null);
+		synchronized(_allManagers) {
+		  _parent = parent;
+		  if(parent != null) {		    _initialTransaction = parent.transaction();
+		  }
+		  _allManagers.add(this);
+		}
+    }
+    
+    private CompositeTransaction _initialTransaction;
+    
+    private CompositeTransaction initialTransaction() {    	return _initialTransaction;    }
+    
+	private TransactionManager _parent;
+	
+	private TransactionManager parent() {
+		return _parent;
+	}
+ 
+    /**
+     * Return the transaction manager of this thread.
+     */
+    public static TransactionManager instance() {    	return _manager.get();    }
+    
+    public void startTransaction(String name) {      synchronized(_allManagers) {
+        CompositeTransaction parentTransaction = transaction();
+        if(parentTransaction == null) {          parentTransaction = initialTransaction();        }
+    	transaction.setValue(new CompositeTransaction(this, name, parentTransaction));
+      }    }
+    
+    public Transaction read(TState property) {
+      synchronized(_allManagers) {        if(transaction() == null) {      	  return null;        }
+        return this.transaction().read(property);      }
+    }
+    
+    public void recordWrite(Transaction transaction) {
+      if(transaction() == null) {
+        // If we are not in a transaction, we write immediately.
+        transaction.commit();
+      } else {        // Writes do not have to be synchronized because there cannot
+        // be a write-write conflict, and any conflicts with the writes
+        // of the current transaction are checked when the current transaction is committed.
+        this.transaction().absorb((BasicTransaction)transaction);
+      }
+    }
+    
+     public List<CompositeTransaction> activeTransactions() {
+      synchronized(_allManagers) {        List<CompositeTransaction> result = new ArrayList<CompositeTransaction>();
+        CompositeTransaction parentTransaction = transaction().parent();
+        if(parentTransaction == null) {    	  for(TransactionManager manager: _allManagers) {
+    	    CompositeTransaction transaction = manager.transaction();
+    	    if(transaction != null) {
+    		  result.add(transaction);
+    	    }
+    	  }
+        } else {
+    	  result.addAll(parentTransaction.nestedTransactions());
+    	}
+        return result;
+      }
+    }
+ 
+    public void commit() {
+      transaction().commit();
+    }
+    
+    protected void popTransaction() {      synchronized(_allManagers) {
+        // Don't support rollback of committed transactions for now.
+        transaction.setValue(transaction().parent());
+      }
+    }
+    
+    public void abort(Throwable t) {
+      synchronized(_allManagers) {        transaction().userAbort();      }
+    }
+    
+	private subobject transactionArchive SetProperty<Transaction>;
+	
+	private subobject transaction Property<CompositeTransaction>{		export getValue() as transaction();	}
+	}

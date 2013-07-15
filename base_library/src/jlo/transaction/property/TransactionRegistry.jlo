@@ -1,0 +1,41 @@
+package jlo.transaction.property;
+
+import java.util.Set;
+import java.util.HashSet;
+import jlo.transaction.memory.BasicTransaction;
+
+public class TransactionRegistry {	void register(BasicTransaction transaction) {
+  	if(_registeredTransaction == null) {
+  	  if(_registeredTransactions == null) {
+  	    _registeredTransaction = transaction;
+  	  } else {
+  	  	_registeredTransactions.add(transaction);
+  	  }
+  	} else {
+  		_registeredTransactions = new HashSet<BasicTransaction>();
+  		_registeredTransactions.add(_registeredTransaction);
+  		_registeredTransactions.add(transaction);
+  		_registeredTransaction = null;
+  	}
+  }
+  
+  void unregister(BasicTransaction transaction) {
+  	if(_registeredTransaction == transaction) {
+  		_registeredTransaction = null;
+  	} else {
+  		_registeredTransactions.remove(transaction);
+  	}
+  }
+  
+  /** 
+   * Used in case there is only 1 transaction that has modified
+   * this property
+   */
+  private BasicTransaction _registeredTransaction;
+  
+  /** 
+   * Used in case there are multiple transactions that have modified
+   * this property
+   */
+  private Set<BasicTransaction> _registeredTransactions;
+	}

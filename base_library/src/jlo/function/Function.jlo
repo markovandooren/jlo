@@ -1,0 +1,5 @@
+package jlo.function;
+
+public interface Function<A,R> {	
+	public R eval(A arg);
+	}

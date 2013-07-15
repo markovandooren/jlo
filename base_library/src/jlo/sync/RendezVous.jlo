@@ -1,0 +1,25 @@
+package jlo.sync;
+
+import java.util.concurrent.Semaphore;
+
+public abstract class RendezVous {	
+	//connector others T -> [RendezVous];
+	
+	public RendezVous() {		_semaphore = new Semaphore(0);	}
+	
+	protected Semaphore semaphore() {		return _semaphore;	}
+	
+	private Semaphore _semaphore;
+	
+	private void acquire() throws InterruptedException {		_semaphore.acquire();	}
+	
+	protected abstract RendezVous other();
+		
+	public void execute() throws InterruptedException {		before();
+		semaphore().release();
+		other().acquire();
+		after();	}
+	
+	public abstract void before();
+	
+	public abstract void after();}

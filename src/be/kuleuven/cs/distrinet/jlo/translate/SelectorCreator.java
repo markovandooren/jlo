@@ -12,6 +12,7 @@ import be.kuleuven.cs.distrinet.chameleon.oo.method.Method;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.MethodHeader;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.RegularImplementation;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.SimpleNameMethodHeader;
+import be.kuleuven.cs.distrinet.chameleon.oo.plugin.ObjectOrientedFactory;
 import be.kuleuven.cs.distrinet.chameleon.oo.statement.Block;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.DeclarationWithType;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.ParameterBlock;
@@ -95,7 +96,7 @@ public class SelectorCreator extends AbstractTranslator {
 		JavaTypeReference reference = language.reference(declarationType);
 		reference.setUniParent(null);
 		MethodHeader header = new SimpleNameMethodHeader(selectorName((ComponentParameter) par),reference);
-		Method result = par.language(Java.class).createNormalMethod(header);
+		Method result = par.language(Java.class).plugin(ObjectOrientedFactory.class).createNormalMethod(header);
 		result.addModifier(new Public());
 //		result.addModifier(new Abstract());
 		header.addFormalParameter(new FormalParameter("argument", Util.clone(formal.containerTypeReference())));
@@ -188,7 +189,7 @@ public class SelectorCreator extends AbstractTranslator {
 		JavaTypeReference reference = language.reference(par.declarationType());
 		reference.setUniParent(null);
 		MethodHeader header = new SimpleNameMethodHeader(selectorName(par),reference);
-		Method result = par.language(Java.class).createNormalMethod(header);
+		Method result = par.language(Java.class).plugin(ObjectOrientedFactory.class).createNormalMethod(header);
 		result.addModifier(new Public());
 		header.addFormalParameter(new FormalParameter("argument", Util.clone(par.containerTypeReference())));
 		Block body = new Block();

@@ -1,0 +1,15 @@
+package jlo.graph;
+
+import jlo.association.AssociationEnd;
+import jlo.association.SingleAssociationEnd;
+
+public abstract class WiredWeightedEdge<V,E> {
+     
+    connector start E -> SingleAssociationEnd<V>;    connector end E -> SingleAssociationEnd<V>;
+    connector weight E -> SingleAssociationEnd<Double>;
+	
+	public Double weight(E edge) {		return #weight(edge).target();	}
+	 
+	public V otherEnd(V v, E edge) {		V result = #start(edge).target();
+		if(result == v) {			return #end(edge).target();		} else {			return result;		}
+	}}

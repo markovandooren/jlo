@@ -1,0 +1,19 @@
+package jlo.graph;
+
+import jlo.association.Property;
+import java.util.Set;
+import java.util.HashSet;
+
+public class Sequence<E extends Exception> extends Visitor<E> {	
+	public Sequence(Visitor<E> first, Visitor<E> second) {		subobject.first(first);
+		subobject.second(second);	}
+	
+	public subobject first Property<Visitor<E>> {		export target() as first();	}
+	
+	public subobject second Property<Visitor<E>> {
+		export target() as second();
+	}
+	
+	protected void visit(DigraphNode<?> node) throws E {
+		first().visit(node);
+		second().visit(node);	}}

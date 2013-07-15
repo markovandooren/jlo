@@ -1,0 +1,13 @@
+package jlo.event;
+
+import java.util.List;
+
+public interface Subject<O> {	
+	public void addObserver(O observer);
+	
+	public void removeObserver(O observer);
+	
+	public List<O> observers();
+	
+	public void notifyObservers();
+}

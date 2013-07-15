@@ -1,0 +1,33 @@
+package jlo.transaction.property;
+
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.Transaction;
+import jlo.association.Property;
+import java.util.List;
+
+class ListRemoveAt<T> extends IndexedListPropertyTransaction<T> {
+  	
+  	public ListRemoveAt(TransactionalListProperty<T> property, int baseOneIndex) {
+  	    super(property,baseOneIndex);
+  	}
+
+  	protected void applySelfTo(List<T> list) {
+  		list.remove(index()-1);
+  	}
+  	
+  	public void commit() {
+  		property().protectedRemove(index());
+  		if(next() != null) {
+  		  next().commit();
+  		}
+  	}
+  	
+  	public void rollback() {
+  		if(next() != null) {
+  		  next().rollback();
+  		}
+  		property().protectedAdd(index(), _backup);
+  	}
+  	
+  	private T _backup;
+}

@@ -1,0 +1,16 @@
+package jlo.transaction.memory;
+
+import java.util.concurrent.Semaphore;
+import jlo.association.Property;
+
+public class TransactionSemaphore extends Semaphore {	
+	public TransactionSemaphore(int count, CompositeTransaction predecessor, CompositeTransaction successor) {		super(count);
+		subobject.predecessor(predecessor);		subobject.successor(successor);
+	}
+	
+	public subobject predecessor Property<CompositeTransaction>{		export getValue() as predecessor();	}
+	
+	public subobject successor Property<CompositeTransaction>{
+		export getValue() as successor();
+	}
+}

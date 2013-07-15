@@ -83,7 +83,6 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
       return result;
 		}
 
-    @Override
     public WeakPartialOrder<NormalMethod> order() {
       return new WeakPartialOrder<NormalMethod>() {
         @Override
@@ -106,121 +105,9 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 			return getTarget().getElement().componentType().signature().name();
 		}
 
+		@Override
+		protected void applyOrder(List<NormalMethod> tmp) throws LookupException {
+			order().removeBiggerElements(tmp);
+		}
   }
-
-//	@Override
-//	public void setName(String name) {
-//		getTarget().setName(name);
-//	}
-//
-//	@Override
-//	public String name() {
-//		return getTarget().name();
-//	}
-
 }
-
-
-/*
-  
-public class SubobjectConstructorCall extends Invocation<SubobjectConstructorCall, NormalMethod> {
-
-  public SubobjectConstructorCall(CrossReferenceTarget<ComponentRelation> subobjectTarget, String name) {
-  	super(subobjectTarget);
-  	_name = name;
-  }
-
-  public SubobjectConstructorCall(CrossReferenceTarget<ComponentRelation> subobjectTarget, List<ActualArgument> arguments, String name) {
-  	super(subobjectTarget);
-  	addAllArguments(arguments);
-  	_name = name;
-  }
-
-  public SubobjectConstructorCall(String subobjectName, String name) {
-  	super(new CrossReferenceTarget<ComponentRelation>(subobjectName, ComponentRelation.class));
-  	_name = name;
-  }
-
-  public SubobjectConstructorCall(String subobjectName, List<ActualArgument> arguments, String name) {
-  	super(new CrossReferenceTarget<ComponentRelation>(subobjectName, ComponentRelation.class));
-  	addAllArguments(arguments);
-  	_name = name;
-  }
-  
-  @Override
-  public CrossReferenceTarget<ComponentRelation> getTarget() {
-  	return (CrossReferenceTarget<ComponentRelation>) super.getTarget();
-  }
-  
-  private String _name;
-  
-  public String name() {
-  	return _name;
-  }
-	
-	@Override
-	protected SubobjectConstructorCall cloneInvocation(InvocationTarget target) {
-		List<ActualArgument> arguments = new ArrayList<ActualArgument>();
-		return new SubobjectConstructorCall((CrossReferenceTarget<ComponentRelation>)getTarget().clone(), arguments,name());
-	}
-
-	@Override
-	public DeclarationSelector<NormalMethod> createSelector() {
-		return new ConstructorSelector();
-	}
-
-	@Override
-	protected Type actualType() throws LookupException {
-		return language(ObjectOrientedLanguage.class).voidType();
-	}
-	
-  public class ConstructorSelector extends DeclarationSelector<NormalMethod> {
-    
-    public boolean selectedRegardlessOfName(NormalMethod declaration) throws LookupException {
-    	return declaration.is(language(ObjectOrientedLanguage.class).CONSTRUCTOR)==Ternary.TRUE;
-    }
-    
-		@Override
-		public boolean selectedBasedOnName(Signature signature) throws LookupException {
-    	boolean result = false;
-			if(signature instanceof MethodSignature) {
-				MethodSignature<?,?> sig = (MethodSignature<?,?>)signature;
-				List<Type> actuals = getActualParameterTypes();
-				List<Type> formals = ((MethodSignature)signature).parameterTypes();
-				if (new MoreSpecificTypesOrder().contains(actuals, formals)) {
-						result = true;
-				}
-			}
-      return result;
-		}
-
-    @Override
-    public WeakPartialOrder<NormalMethod> order() {
-      return new WeakPartialOrder<NormalMethod>() {
-        @Override
-        public boolean contains(NormalMethod first, NormalMethod second)
-            throws LookupException {
-          return new MoreSpecificTypesOrder().contains(first.header().getParameterTypes(), second.header().getParameterTypes());
-        }
-      };
-    }
-
-		@Override
-		public Class<NormalMethod> selectedClass() {
-			return NormalMethod.class;
-		}
-
-		@Override
-		public String selectionName() {
-			return name();
-		}
-
-
-
-  }
-
-
-}
-
- 
- */

@@ -1,0 +1,5 @@
+package jlo.lang;
+
+public final class Safe extends RuntimeException {
+
+	private Safe() {	}}

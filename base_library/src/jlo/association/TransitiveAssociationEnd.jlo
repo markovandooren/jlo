@@ -1,0 +1,29 @@
+package jlo.association;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.HashSet;
+import jlo.association.Property;
+
+public abstract class TransitiveAssociationEnd<FROM,MIDDLE,TO> implements AssociationEnd<TO> {	
+	connector first FROM->AssociationEnd<MIDDLE>;
+	connector second MIDDLE -> AssociationEnd<TO>;
+	
+	public TransitiveAssociationEnd(FROM object) {	  subobject.object(object);	}
+	
+	public subobject object Property<FROM>{		export getValue() as object();	};
+	
+	public List<TO> targets() {		List<MIDDLE> middles = edges();
+		HashSet<TO> result = new HashSet<TO>();
+		for(MIDDLE middle:middles) {
+			result.addAll(#second(middle).targets());
+		}
+		return new ArrayList<TO>(result);
+	}
+	
+	public List<MIDDLE> edges() {		return #first(object()).targets();	}
+	
+	public List<TO> otherEnds(MIDDLE middle) {		return #second(middle).targets();	}
+	
+	public int size() {		return targets().size();	}
+}

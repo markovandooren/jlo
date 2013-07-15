@@ -1,0 +1,37 @@
+package jlo.transaction.property;
+
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.Transaction;
+import jlo.association.Property;
+import java.util.List;
+
+class ListSet<T> extends IndexedValueListTransaction<T> {
+  	
+  	public ListSet(TransactionalListProperty<T> property, T value, int baseOneIndex) {
+  	    super(property,value,baseOneIndex);
+  	}
+
+  	protected void applySelfTo(List<T> list) {
+  		list.set(index()-1,value());
+  	}
+  	
+  	public void commit() {
+  	    // make a backup of the previous value
+  	    _backup = property().protectedList().get(index()-1);
+  	    // set the new value
+  		property().protectedSet(index(),value());
+  		// perform any subsequent list operations
+  		if(next() != null) {
+  		  next().commit();
+  		}
+  	}
+  	
+  	public void rollback() {
+  		if(next() != null) {
+  		  next().rollback();
+  		}
+  		property().protectedSet(index(), _backup);
+  	}
+  	
+  	private T _backup;
+}

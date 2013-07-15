@@ -1,0 +1,12 @@
+package jlo.association;
+
+import java.util.List;
+
+public interface AssociationEnd<TO> {	
+	/**
+	 * Return the objects at the other end of this association.
+	 */
+	public List<TO> targets();
+	
+	public int size();
+}

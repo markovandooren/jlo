@@ -1,0 +1,34 @@
+package jlo.transaction.property;
+
+import jlo.transaction.memory.BasicTransaction;
+import jlo.transaction.memory.Transaction;
+import jlo.association.Property;
+import java.util.Set;
+
+class SetRemove<T> extends SetPropertyTransaction<T> {
+  	
+  	public SetRemove(TransactionalSetProperty<T> property, T value) {
+  	    super(property);
+  	    _value = value;
+  	}
+  	
+  	private T _value;
+
+  	protected void applySelfTo(Set<T> set) {
+  		set.remove(_value);
+  	}
+  	
+  	public void commit() {
+  		property().protectedRemove(_value);
+  		if(next() != null) {
+  		  next().commit();
+  		}
+  	}
+  	
+  	public void rollback() {
+  		if(next() != null) {
+  		  next().rollback();
+  		}
+  		property().protectedAdd(_value);
+  	}
+}

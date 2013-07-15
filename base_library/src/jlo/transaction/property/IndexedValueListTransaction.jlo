@@ -1,0 +1,20 @@
+package jlo.transaction.property;
+
+import jlo.transaction.memory.BasicTransaction;
+
+public abstract class IndexedValueListTransaction<T> extends IndexedListPropertyTransaction<T> {
+  	public IndexedValueListTransaction(TransactionalListProperty<T> property, T value, int baseOneIndex) {
+  	    super(property,baseOneIndex);
+  		_value = value;
+  	}
+  	
+  	private T _value;
+  	
+  	public T value() {
+  		return _value;
+  	}
+  	
+  	protected void beAbsorbedBy(BasicTransaction transaction) {
+  		transaction.logRead(property());
+  	} 	
+}

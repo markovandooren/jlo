@@ -1,0 +1,14 @@
+package jlo.graph;
+
+import java.util.List;
+
+/**
+ * <T> The type of the objects in the graph.
+ */
+public interface DigraphNode<T> {
+
+  public T object();
+	
+  public List<DigraphNode<? extends T>> directSuccessorNodes();
+  
+}

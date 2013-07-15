@@ -15,7 +15,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.document.Document;
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectorWithoutOrder;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.modifier.Modifier;
 import be.kuleuven.cs.distrinet.chameleon.core.namespacedeclaration.Import;
 import be.kuleuven.cs.distrinet.chameleon.core.namespacedeclaration.NamespaceDeclaration;
@@ -25,8 +25,8 @@ import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceTarget;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceWithArguments;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceWithName;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceWithTarget;
+import be.kuleuven.cs.distrinet.chameleon.core.reference.ElementReference;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.SimpleReference;
-import be.kuleuven.cs.distrinet.chameleon.core.reference.SpecificReference;
 import be.kuleuven.cs.distrinet.chameleon.core.tag.TagImpl;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
@@ -41,6 +41,7 @@ import be.kuleuven.cs.distrinet.chameleon.oo.method.RegularImplementation;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.RegularMethod;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.SimpleNameMethodHeader;
 import be.kuleuven.cs.distrinet.chameleon.oo.namespacedeclaration.TypeImport;
+import be.kuleuven.cs.distrinet.chameleon.oo.plugin.ObjectOrientedFactory;
 import be.kuleuven.cs.distrinet.chameleon.oo.statement.Block;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.ClassBody;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.RegularType;
@@ -316,8 +317,8 @@ public class JavaTranslator extends AbstractTranslator {
 	}	
 
 
-	private void transformToInterfaceReference(SpecificReference ref) {
-		SpecificReference target = (SpecificReference) ref.getTarget();
+	private void transformToInterfaceReference(ElementReference ref) {
+		ElementReference target = (ElementReference) ref.getTarget();
 		if(target != null) {
 			transformToInterfaceReference(target);
 		}
@@ -480,7 +481,7 @@ public class JavaTranslator extends AbstractTranslator {
 			}
 			if(! hasConstructor) {
 				MethodHeader header = new SimpleNameMethodHeader(result.name(), language.createTypeReference(result.name()));
-				Method method = language.createNormalMethod(header);
+				Method method = language.plugin(ObjectOrientedFactory.class).createNormalMethod(header);
 				method.addModifier(new Constructor());
 				method.setImplementation(new RegularImplementation(new Block()));
 				result.add(method);
@@ -567,7 +568,7 @@ public class JavaTranslator extends AbstractTranslator {
 				Type containerOfNewDefinition = typeOfDefinition(result,original, method); // OK: SUBOBJECT
 				if(containerOfNewDefinition != null) {
 					tmp.setUniParent(containerOfNewDefinition);
-					DeclarationSelector<Method> selector = new SelectorWithoutOrder<Method>(Method.class) {
+					DeclarationSelector<Method> selector = new SimpleSelector<Method>(Method.class) {
 						@Override
 						public Signature signature() {
 							return tmp.signature();
@@ -1024,7 +1025,7 @@ public class JavaTranslator extends AbstractTranslator {
 	private Method getterForSubobject(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {
 			JavaTypeReference returnTypeReference = componentTypeReference(relation, outer);
-			RegularMethod result = relation.language(Java.class).createNormalMethod(new SimpleNameMethodHeader(getterName(relation), returnTypeReference));
+			RegularMethod result = relation.language(Java.class).plugin(ObjectOrientedFactory.class).createNormalMethod(new SimpleNameMethodHeader(getterName(relation), returnTypeReference));
 			result.addModifier(new Public());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
@@ -1040,7 +1041,7 @@ public class JavaTranslator extends AbstractTranslator {
 	private Method setterForSubobject(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {
 			String name = relation.signature().name();
-			RegularMethod result = relation.language(Java.class).createNormalMethod(new SimpleNameMethodHeader(setterName(relation), relation.language(Java.class).createTypeReference("void")));
+			RegularMethod result = relation.language(Java.class).plugin(ObjectOrientedFactory.class).createNormalMethod(new SimpleNameMethodHeader(setterName(relation), relation.language(Java.class).createTypeReference("void")));
 			BasicJavaTypeReference tref = componentTypeReference(relation, outer);
 			result.header().addFormalParameter(new FormalParameter(name, tref));
 			result.addModifier(new Public());

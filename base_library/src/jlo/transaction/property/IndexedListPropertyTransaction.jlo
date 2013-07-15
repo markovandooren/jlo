@@ -1,0 +1,13 @@
+package jlo.transaction.property;
+
+public abstract class IndexedListPropertyTransaction<T> extends ListPropertyTransaction<T> {	
+	public IndexedListPropertyTransaction(TransactionalListProperty<T> property, int baseOneIndex) {
+	  super(property);  	  _index = baseOneIndex;	}
+	
+	private int _index;
+  	
+  	public int index() {
+  		return _index;
+  	}
+
+	}

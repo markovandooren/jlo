@@ -35,6 +35,7 @@ public class AntCompileTask extends AbstractTask {
 			// build!
 			try {
 				builder.buildAll(getDestDir(),null);
+				System.out.println("Done building.");
 			} catch (be.kuleuven.cs.distrinet.chameleon.plugin.build.BuildException e) {
 				throw new BuildException(e);
 			}

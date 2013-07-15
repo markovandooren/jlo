@@ -34,6 +34,7 @@ import be.kuleuven.cs.distrinet.chameleon.oo.method.Method;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.MethodHeader;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.SimpleNameMethodHeader;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.exception.ExceptionClause;
+import be.kuleuven.cs.distrinet.chameleon.oo.plugin.ObjectOrientedFactory;
 import be.kuleuven.cs.distrinet.chameleon.oo.statement.Block;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.NonLocalTypeReference;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
@@ -304,7 +305,7 @@ public class AbstractTranslator {
 
 	protected NormalMethod innerMethod(Method method, String original) throws LookupException {
 		NormalMethod result;
-		result = method.language(Java.class).createNormalMethod((MethodHeader)method.header().clone());
+		result = method.language(Java.class).plugin(ObjectOrientedFactory.class).createNormalMethod((MethodHeader)method.header().clone());
 		((SimpleNameMethodHeader)result.header()).setName(original);
 		ExceptionClause exceptionClause = method.getExceptionClause();
 		ExceptionClause clone = (exceptionClause != null ? Util.clone(exceptionClause): null);

@@ -1,0 +1,126 @@
+package jlo.association;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+
+/**
+ * A SetProperty is an object that keeps references to a collection of other objects.
+ *
+ * To reduce memory consumption, a frugal list property will never store an internal
+ * collection if it is empty. This can be a disadvantage when the list property will
+ * often switch between being empty and non-empty. If that is the case, then frugalness
+ * can be disabled to reduced the number of internal collection objects that is created.
+ */
+public class SetProperty<T extends Object> implements AssociationEnd<T>{	
+        
+  /**
+   * Create a new empty set property. The created multiproperty is frugal.
+   *
+   * @post size() == 0;
+   */
+  public SetProperty() {
+  }
+
+  /**
+   * Create a new empty multiproperty with the given setting for the frugalness.
+   *
+   * @post size() == 0;
+   * @post isFrugal() == frugal;
+   */
+  public SetProperty(boolean frugal) {
+    _frugal = frugal;
+  }
+
+  private boolean _frugal;
+ 
+  /**
+   * Check whether this set property is frugal. A frugal multiproperty removes its
+   * internal collection whenever it becomes empty. If this happens alot, it may be better
+   * to disabled frugalness.
+   */
+  public boolean isFrugal() {
+  	return _frugal;
+  }
+ 
+  public int size() {
+  	return field().size();
+  }
+ 
+  private Set<T> _value;
+  
+  protected Set<T> field() {  	return _value;  }
+  
+  /**
+   * Add the given value to this multiproperty.
+   *
+   * @param value The value to be added.
+   * @post objects().contains(value);
+   * @throws IllegalArgumentException: ! isValidValue(value); 
+   */
+  public synchronized void add(T value) {
+    if(isValid(value)) {
+      doAdd(value);
+    } else {
+    	throw new IllegalArgumentException();
+    }
+  }
+  
+  protected void doAdd(T value) {    if(_value == null) {
+      _value = new HashSet<T>();
+    }
+    _value.add(value);
+  }
+  
+  /**
+   * Check whether the given value is valid for this multiproperty.
+   *
+   * By default, any non-null value is allowed.
+   */
+  public boolean isValid(T value) {
+  	return value != null;
+  }
+  
+  /**
+   * Remove the given value from this multiproperty.
+   */
+  public synchronized void remove(T value) {
+    if(_value != null) {
+      _value.remove(value);
+      if(_frugal && _value.isEmpty()) {
+      	_value = null;
+      }
+    }
+  }
+  
+  public synchronized List<T> targets() {
+    if(field() != null) {
+  	  return new ArrayList<T>(field()); 
+    } else {
+      return new ArrayList<T>();
+    }
+  }
+  
+  
+  public synchronized Set<T> set() {
+    if(field() != null) {
+  	  return new HashSet<T>(field()); 
+    } else {
+      return new HashSet<T>();
+    }
+  }
+  
+  public boolean isEmpty() {
+  	return field() == null || field().isEmpty();
+  }
+
+  public boolean contains(T t) {
+    if(field() == null) {
+    	return false;
+    } else {
+  	  return field().contains(t);
+    }
+  }
+
+}

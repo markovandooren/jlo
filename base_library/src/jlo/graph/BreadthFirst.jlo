@@ -1,0 +1,33 @@
+package jlo.graph;
+
+import jlo.association.Property;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
+
+public class BreadthFirst<E extends Exception> extends Visitor<E> {
+	
+	public BreadthFirst(Visitor<E> visitor) {
+		subobject.visitor(visitor);
+  	  _visitedNodes = new HashSet<DigraphNode<?>>();
+	}
+	
+	private Set<DigraphNode<?>> _visitedNodes;
+
+	public subobject visitor Property<Visitor<E>> {
+		export target() as visitor();
+	}
+	
+	public void visit(DigraphNode<?> node) throws E {
+	    List<DigraphNode<?>> list = new ArrayList<DigraphNode<?>>();
+	    list.add(node);		visitAux(list);	}
+	
+	private void visitAux(List<DigraphNode<?>> nodes) throws E {		DigraphNode<?> current = nodes.get(0);
+		nodes.remove(0);
+		if(_visitedNodes.add(current)) {
+		  nodes.addAll(current.directSuccessorNodes());
+		  visitor().visit(current);
+		}
+	}
+}

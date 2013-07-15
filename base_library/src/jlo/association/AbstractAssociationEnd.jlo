@@ -1,0 +1,121 @@
+package jlo.association;
+
+import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
+
+public abstract class AbstractAssociationEnd<FROM, TO> implements BidiAssociationEnd<FROM,TO> {
+	
+	public AbstractAssociationEnd(FROM object) {
+		subobject.object(object);
+		subobject.locked(Boolean.FALSE);
+		subobject.eventsBlocked(Boolean.FALSE);
+		subobject.listeners();
+	}	
+    public boolean contains(BidiAssociationEnd<? extends TO,? super FROM> association) {
+      return getOtherAssociations().contains(association);
+    } 
+     
+    public boolean equals(Object other) {
+      return other == this;
+    }
+ 
+  protected void checkLock() {
+  	checkLock(this);
+  }
+      
+  protected void checkLock(BidiAssociationEnd<?,?> association) {
+    if(association != null && association.isLocked()) {
+  	  throw new IllegalArgumentException("Trying to modify locked reference. Locked object: "+association.object().getClass().getName());
+    }
+  }
+
+  public abstract boolean registered(List<BidiAssociationEnd<? extends TO,? super FROM>> oldConnections, BidiAssociationEnd<? extends TO,? super FROM> registered);
+  
+  public abstract boolean unregistered(List<BidiAssociationEnd<? extends TO,? super FROM>> oldConnections, BidiAssociationEnd<? extends TO,? super FROM> unregistered);
+  
+  public subobject object Property<FROM>{  	  }
+	public FROM object() {
+	  return object.getValue();
+	}
+  
+  public subobject locked Property<Boolean>{  	  }
+  
+  public void lock() {
+  	locked.setValue(Boolean.TRUE);
+  }
+
+  public void unlock() {
+  	locked.setValue(Boolean.FALSE);
+  }
+
+  public boolean isLocked() {
+  	return locked.getValue().booleanValue(); // this is stupid, must support exporting
+  } 
+
+//  public void addListener(AssociationListener<? super TO> listener) {
+//  	if(listener == null) {
+//  		throw new IllegalArgumentException("An association listener cannot be null.");
+//  	}
+//  	if(_listeners == null) {
+//  		_listeners = new HashSet<AssociationListener<? super TO>>();
+//  	}
+//  	_listeners.add(listener);
+//  }
+ 
+//  public void removeListener(AssociationListener<? super TO> listener) {
+//  	if(! listeners.isEmpty()) {
+//  		listeners.remove(listener);
+//  	}
+//  }
+
+//  public Set<AssociationListener<? super TO>> listeners() {
+//  	return new HashSet<AssociationListener<? super TO>>(_listeners);
+//  }
+  
+  //private Set<AssociationListener<? super TO>> _listeners;
+  
+  public subobject listeners ListProperty<AssociationListener<? super TO>> {  	export targets() as listeners(), remove(AssociationListener<? super TO>) as remove(AssociationListener<? super TO>);  }
+  
+  protected void fireElementAdded(TO addedElement) {
+  	if(! eventsBlocked() && ! listeners.isEmpty()) {
+  		for(AssociationListener<? super TO> listener: listeners()) {
+  			listener.notifyElementAdded(addedElement);
+  		}
+  	}
+  }
+
+  protected void fireElementRemoved(TO addedElement) {
+  	if(! eventsBlocked() && ! listeners.isEmpty()) {
+  		for(AssociationListener<? super TO> listener: listeners()) {
+  			listener.notifyElementRemoved(addedElement);
+  		}
+  	}
+  }
+
+  protected void fireElementReplaced(TO oldElement, TO newElement) {
+  	if(! eventsBlocked() && ! listeners.isEmpty()) {
+  		for(AssociationListener<? super TO> listener: listeners()) {
+  			listener.notifyElementReplaced(oldElement, newElement);
+  		}
+  	}
+  }
+  
+  public int size() {  	return targets().size();  }
+  
+  public subobject eventsBlocked Property<Boolean>{  	  }
+  
+  protected void disableEvents() {
+  	eventsBlocked.setValue(Boolean.TRUE);
+  }
+
+  protected void enableEvents() {
+  	eventsBlocked.setValue(Boolean.FALSE);
+  }
+  
+  protected boolean eventsBlocked() {
+  	return eventsBlocked.getValue().booleanValue();
+  }
+
+  public abstract void clear();
+} 
