@@ -1,16 +1,13 @@
 package be.kuleuven.cs.distrinet.jlo.model.expression;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
-import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.DeclarationContainer;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectionResult;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.TwoPhaseDeclarationSelector;
-import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceTarget;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.SimpleReference;
 import be.kuleuven.cs.distrinet.chameleon.core.relation.WeakPartialOrder;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.Expression;
@@ -18,8 +15,12 @@ import be.kuleuven.cs.distrinet.chameleon.oo.expression.MethodInvocation;
 import be.kuleuven.cs.distrinet.chameleon.oo.language.ObjectOrientedLanguage;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.DeclarationWithParametersSignature;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.MoreSpecificTypesOrder;
+import be.kuleuven.cs.distrinet.chameleon.oo.method.Method;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
 import be.kuleuven.cs.distrinet.chameleon.support.member.simplename.method.NormalMethod;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.AbstractJavaMethodSelector.MethodSelectionResult;
+import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
 
 public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 
@@ -83,12 +84,12 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
       return result;
 		}
 
-    public WeakPartialOrder<NormalMethod> order() {
-      return new WeakPartialOrder<NormalMethod>() {
+    public WeakPartialOrder<MethodSelectionResult> order() {
+      return new WeakPartialOrder<MethodSelectionResult>() {
         @Override
-        public boolean contains(NormalMethod first, NormalMethod second)
+        public boolean contains(MethodSelectionResult first, MethodSelectionResult second)
             throws LookupException {
-          return MoreSpecificTypesOrder.create().contains(first.header().formalParameterTypes(), second.header().formalParameterTypes());
+          return MoreSpecificTypesOrder.create().contains(((Method)first.finalDeclaration()).header().formalParameterTypes(), ((Method)second.finalDeclaration()).header().formalParameterTypes());
         }
       };
     }
@@ -106,8 +107,8 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 		}
 
 		@Override
-		protected void applyOrder(List<NormalMethod> tmp) throws LookupException {
-			order().removeBiggerElements(tmp);
+		protected void applyOrder(List<SelectionResult> tmp) throws LookupException {
+			order().removeBiggerElements((List)tmp);
 		}
   }
 }
