@@ -1,7 +1,9 @@
 package be.kuleuven.cs.distrinet.jlo.model.expression;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.DeclarationContainer;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
@@ -65,14 +67,64 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 		return language(ObjectOrientedLanguage.class).voidType(view().namespace());
 	}
 	
-  public class ConstructorSelector extends TwoPhaseDeclarationSelector<NormalMethod> {
+  public class ConstructorSelector extends DeclarationSelector<NormalMethod> {
     
-    public boolean selectedRegardlessOfName(NormalMethod declaration) throws LookupException {
+  	//must create method selection result.
+  	
+    protected class SubobjectConstructorSelectionResult implements SelectionResult {
+			private final Declaration _declaration;
+
+			protected SubobjectConstructorSelectionResult(Declaration declaration) {
+				this._declaration = declaration;
+			}
+
+			@Override
+			public Declaration finalDeclaration() throws LookupException {
+				return _declaration;
+			}
+
+			@Override
+			public SelectionResult updatedTo(Declaration declaration) {
+				return new SubobjectConstructorSelectionResult(declaration);
+			}
+		}
+
+		public boolean selectedRegardlessOfName(NormalMethod declaration) throws LookupException {
     	return declaration.is(language(ObjectOrientedLanguage.class).CONSTRUCTOR)==Ternary.TRUE;
     }
     
-		@Override
-		public boolean selectedBasedOnName(Signature signature) throws LookupException {
+    public List<? extends SelectionResult> selection(List<? extends Declaration> declarators) throws LookupException {
+    	List<SelectionResult> tmp = new ArrayList<SelectionResult>();
+    	for(Declaration decl: declarators) {
+    		SelectionResult e = selection(decl);
+    		if(e != null) {
+    			tmp.add(e);
+    		}
+    	}
+    	applyOrder(tmp);
+      return tmp;
+    }
+    
+    protected SelectionResult selection(Declaration declarator) throws LookupException {
+    	// We first perform the checks on the selectionDeclaration, since a signature check may be
+    	// very expensive.
+    	SelectionResult result = null;
+    	if(selectedBasedOnName(declarator.signature())) {
+    		Declaration selectionDeclaration = declarator.selectionDeclaration();
+    		if(canSelect(selectionDeclaration.getClass())) {
+    			if(selectedRegardlessOfName((NormalMethod)selectionDeclaration)) {
+    				result = createSelectionResult(selectionDeclaration.actualDeclaration());
+    			}
+    		}
+    	}
+    	return result;
+    }
+    
+    protected SelectionResult createSelectionResult(final Declaration declaration) {
+    	return new SubobjectConstructorSelectionResult(declaration);
+    }
+
+		private boolean selectedBasedOnName(Signature signature) throws LookupException {
     	boolean result = false;
 			if(signature instanceof DeclarationWithParametersSignature) {
 				List<Type> actuals = getActualParameterTypes();
@@ -84,20 +136,15 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
       return result;
 		}
 
-    public WeakPartialOrder<MethodSelectionResult> order() {
-      return new WeakPartialOrder<MethodSelectionResult>() {
+    public WeakPartialOrder<SelectionResult> order() {
+      return new WeakPartialOrder<SelectionResult>() {
         @Override
-        public boolean contains(MethodSelectionResult first, MethodSelectionResult second)
+        public boolean contains(SelectionResult first, SelectionResult second)
             throws LookupException {
           return MoreSpecificTypesOrder.create().contains(((Method)first.finalDeclaration()).header().formalParameterTypes(), ((Method)second.finalDeclaration()).header().formalParameterTypes());
         }
       };
     }
-
-		@Override
-		public Class<NormalMethod> selectedClass() {
-			return NormalMethod.class;
-		}
 
 		@Override
 		public String selectionName(DeclarationContainer container) throws LookupException {
@@ -106,9 +153,22 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 			return getTarget().getElement().componentType().signature().name();
 		}
 
-		@Override
 		protected void applyOrder(List<SelectionResult> tmp) throws LookupException {
 			order().removeBiggerElements((List)tmp);
+		}
+
+		@Override
+		public boolean canSelect(Class<? extends Declaration> type) {
+			return NormalMethod.class.isAssignableFrom(type);
+		}
+
+		@Override
+		public List<? extends SelectionResult> declarators(List<? extends Declaration> selectionCandidates) throws LookupException {
+			List<SelectionResult> result = new ArrayList<>();
+			for(SelectionResult r: selection(selectionCandidates)) {
+				result.add(((MethodSelectionResult)r).method().declarator());
+			}
+			return result;
 		}
   }
 }

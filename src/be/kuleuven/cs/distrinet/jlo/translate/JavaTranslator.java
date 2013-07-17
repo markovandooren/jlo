@@ -574,7 +574,7 @@ public class JavaTranslator extends AbstractTranslator {
 							return tmp.signature();
 						}
 					};
-					Method newDefinitionInResult = containerOfNewDefinition.members(selector).get(0);
+					Method newDefinitionInResult = (Method) containerOfNewDefinition.members(selector).get(0).finalDeclaration();
 					Method stat = Util.clone(newDefinitionInResult);
 					String name = staticMethodName(method, containerOfNewDefinition);
 					stat.setName(name);
