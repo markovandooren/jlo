@@ -64,7 +64,7 @@ public class JLoProjectConfigurator extends JavaProjectConfigurator {
 					JarFile jarFile = new JarFile(path);
 					view.addBinary(new ZipLoader(jarFile, sourceFileFilter));
 				} else {
-					File root = new File(url.toURI());
+					File root = new File(url.toURI()).getParentFile();
 					File file = new File(root,JLO_BASE_LIBRARY_DIRECTORY);
 					view.addBinary(new BaseDirectoryLoader(file.getAbsolutePath(), new LazyJavaFileInputSourceFactory(), sourceFileFilter));
 				}

@@ -6,8 +6,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import be.kuleuven.cs.distrinet.rejuse.association.Association;
-import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
@@ -15,8 +13,9 @@ import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.Collector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupContext;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupContext;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectionResult;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.Skipper;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.Stub;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
@@ -37,6 +36,8 @@ import be.kuleuven.cs.distrinet.chameleon.oo.type.TypeReference;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.inheritance.InheritanceRelation;
 import be.kuleuven.cs.distrinet.chameleon.util.Util;
 import be.kuleuven.cs.distrinet.chameleon.util.association.Single;
+import be.kuleuven.cs.distrinet.rejuse.association.Association;
+import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
 
 public class ComponentRelation extends MemberImpl implements DeclarationWithType, InheritanceRelation {
 
@@ -313,9 +314,9 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	}
 
 	@Override
-	public <X extends Member> void accumulateInheritedMembers(DeclarationSelector<X> selector, List<X> current) throws LookupException {
+	public <X extends Member> void accumulateInheritedMembers(DeclarationSelector<X> selector, List<SelectionResult> current) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
-		final List<X> potential = selector.selection(componentType().processedMembers());
+		final List<SelectionResult> potential = (List)selector.selection(componentType().processedMembers());
 		if(configurationBlock != null) {
 		  potential.addAll(selector.selection(configurationBlock.processedMembers()));
 		}
@@ -323,13 +324,14 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	}
 
 	protected <M extends Member>
-  void removeNonMostSpecificMembers(List<M> current, final List<M> potential) throws LookupException {
-	final List<M> toAdd = new ArrayList<M>();
-	for(M m: potential) {
+  void removeNonMostSpecificMembers(List<SelectionResult> current, final List<? extends SelectionResult> potential) throws LookupException {
+	final List<SelectionResult> toAdd = new ArrayList<SelectionResult>();
+	for(SelectionResult mm: potential) {
+		Member m = (Member) mm.finalDeclaration();
 		boolean add = true;
-		Iterator<M> iterCurrent = current.iterator();
+		Iterator<SelectionResult> iterCurrent = current.iterator();
 		while(add && iterCurrent.hasNext()) {
-			M alreadyInherited = iterCurrent.next();
+			M alreadyInherited = (M) iterCurrent.next().finalDeclaration();
 			// Remove the already inherited member if potentially inherited member m overrides or hides it.
 			if((alreadyInherited.sameAs(m) || alreadyInherited.overrides(m) || alreadyInherited.canImplement(m) || alreadyInherited.hides(m))) {
 				add = false;
@@ -338,7 +340,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 			}
 		}
 		if(add == true) {
-			toAdd.add(m);
+			toAdd.add(mm);
 		}
 	}
 	current.addAll(toAdd);
