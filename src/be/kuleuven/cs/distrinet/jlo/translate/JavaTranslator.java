@@ -135,19 +135,14 @@ public class JavaTranslator extends AbstractTranslator {
   	Iterator<Type> newTypes = newNamespacePart.children(Type.class).iterator();
   	while(originalTypes.hasNext()) {
   		SingleAssociation newParentLink = newTypes.next().parentLink();
-  		Type translated = translatedImplementation(originalTypes.next());
+  		Type next = originalTypes.next();
+			Type translated = translatedImplementation(next);
   		newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
   	}
-  	for(Import imp: originalNamespacePart.imports()) {
-//  		boolean add = true;
-//  		if(imp instanceof TypeImport) {
-//  			if(((TypeImport)imp).getTypeReference().getElement().isTrue(imp.language(Java.class).PRIMITIVE_TYPE)) {
-//  				add = false;
-//  			}
-//  		}
-//  		if(add) {
-  			newNamespacePart.addImport(Util.clone(imp));
-//  		}
+  	List<? extends Import> explicitImports = originalNamespacePart.explicitImports();
+		for(Import imp: explicitImports) {
+  		Import clone = Util.clone(imp);
+			newNamespacePart.addImport(clone);
   	}
   	implementationCompilationUnit.flushCache();
   	result.add(implementationCompilationUnit);
@@ -185,6 +180,7 @@ public class JavaTranslator extends AbstractTranslator {
   	Set<String> importStrings = new HashSet<String>();
   	for(Import imp: imports) {
   		String code = syntax.toCode(imp);
+  		Util.debug(code.equals("import ;"));
   		if(! importStrings.add(code)) {
   			imp.disconnect();
   		}
@@ -924,34 +920,6 @@ public class JavaTranslator extends AbstractTranslator {
 		}
 		return result;
 	}
-	
-//	private void replaceSuperCalls(Type type) throws LookupException {
-//		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
-//			@Override
-//			public boolean eval(SuperTarget superTarget) throws LookupException {
-//				try {
-//					return superTarget.getTargetDeclaration() instanceof ComponentRelation;
-//				} catch(LookupException exc) {
-//					throw exc;
-//				}
-//			}
-//		}
-//		);
-//		for(SuperTarget superTarget: superTargets) {
-//			Element<?> cr = superTarget.parent();
-//			if(cr instanceof CrossReferenceWithArguments) {
-//				Element<?> inv = cr.parent();
-//				if(inv instanceof RegularMethodInvocation) {
-//					RegularMethodInvocation call = (RegularMethodInvocation) inv;
-//					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
-//					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName(targetComponent), null);
-//					call.setTarget(subObjectSelection);
-//					String name = staticMethodName(call.name(), targetComponent.componentType());
-//					call.setName(name);
-//				}
-//			}
-//		}
-//	}
 	
 	private void replaceSuperCalls(Type type) throws LookupException {
 		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
