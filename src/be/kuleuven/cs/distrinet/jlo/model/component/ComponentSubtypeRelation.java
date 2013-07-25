@@ -48,7 +48,7 @@ public class ComponentSubtypeRelation extends IncorporatingSubtypeRelation {
 		ComponentRelation componentRelation = componentType().nearestAncestor(ComponentRelation.class);
 		List<SelectionResult> result = new ArrayList<SelectionResult>();
 		for(SelectionResult r:tmp) {
-			Declaration decl = r.finalDeclaration();
+			Declaration decl = r.template();
 			SelectionResult inc = r.updatedTo(componentRelation.incorporatedIntoComponentType((Member)decl));
 			result.add(inc);
 		}
