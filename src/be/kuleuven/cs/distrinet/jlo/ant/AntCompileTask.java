@@ -3,7 +3,9 @@ package be.kuleuven.cs.distrinet.jlo.ant;
 import java.io.File;
 
 import be.kuleuven.cs.distrinet.jlo.build.JLoBuilder;
+import be.kuleuven.cs.distrinet.jlo.model.language.JLo;
 import be.kuleuven.cs.distrinet.jlo.model.language.JLoLanguageFactory;
+import be.kuleuven.cs.distrinet.jlo.model.language.JLoProjectConfigurator;
 import be.kuleuven.cs.distrinet.jnome.core.language.JavaLanguageFactory;
 
 import org.apache.tools.ant.BuildException;
@@ -13,6 +15,7 @@ import be.kuleuven.cs.distrinet.chameleon.workspace.BootstrapProjectConfig;
 import be.kuleuven.cs.distrinet.chameleon.workspace.ConfigException;
 import be.kuleuven.cs.distrinet.chameleon.workspace.LanguageRepository;
 import be.kuleuven.cs.distrinet.chameleon.workspace.Project;
+import be.kuleuven.cs.distrinet.chameleon.workspace.ProjectConfigurator;
 import be.kuleuven.cs.distrinet.chameleon.workspace.Workspace;
 
 public class AntCompileTask extends AbstractTask {
@@ -24,7 +27,9 @@ public class AntCompileTask extends AbstractTask {
 		Workspace workspace = new Workspace(repository);
 
 		repository.add(new JavaLanguageFactory().create());
-		repository.add(new JLoLanguageFactory().create());
+		JLo jlo = new JLoLanguageFactory().create();
+		repository.add(jlo);
+		((JLoProjectConfigurator)jlo.plugin(ProjectConfigurator.class)).searchInParent();
 		File configFile = getConfig();
 		File root = configFile.getParentFile();
 		BootstrapProjectConfig config = new BootstrapProjectConfig(root, workspace);
