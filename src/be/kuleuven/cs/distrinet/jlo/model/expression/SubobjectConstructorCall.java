@@ -79,13 +79,18 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 			}
 
 			@Override
-			public Declaration finalDeclaration() throws LookupException {
+			public Declaration finalDeclaration() {
 				return _declaration;
 			}
 
 			@Override
 			public SelectionResult updatedTo(Declaration declaration) {
 				return new SubobjectConstructorSelectionResult(declaration);
+			}
+
+			@Override
+			public Declaration template() {
+				return finalDeclaration();
 			}
 		}
 
