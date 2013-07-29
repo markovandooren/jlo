@@ -17,7 +17,7 @@ import be.kuleuven.cs.distrinet.chameleon.workspace.Workspace;
 import be.kuleuven.cs.distrinet.chameleon.workspace.ZipLoader;
 import be.kuleuven.cs.distrinet.jnome.core.language.JavaLanguageFactory;
 import be.kuleuven.cs.distrinet.jnome.input.LazyJavaFileInputSourceFactory;
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfig;
+import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfiguration;
 import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfigurator;
 import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
 
@@ -41,8 +41,8 @@ public class JLoProjectConfigurator extends JavaProjectConfigurator {
 	}
 
 	@Override
-	protected JavaProjectConfig createProjectConfig(View view) throws ConfigException {
-		return new JLoProjectConfig(view, new LazyJavaFileInputSourceFactory());
+	protected JavaProjectConfiguration createProjectConfig(View view) throws ConfigException {
+		return new JLoProjectConfiguration(view, new LazyJavaFileInputSourceFactory());
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class JLoProjectConfigurator extends JavaProjectConfigurator {
 	}
 
 	public static File jloBase() {
-		URL url = JLoProjectConfig.class.getProtectionDomain().getCodeSource().getLocation();
+		URL url = JLoProjectConfiguration.class.getProtectionDomain().getCodeSource().getLocation();
 		try {
 			File file = new File(url.toURI());
 			String path = file.getAbsolutePath();

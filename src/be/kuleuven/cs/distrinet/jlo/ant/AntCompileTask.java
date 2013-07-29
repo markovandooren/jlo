@@ -31,8 +31,7 @@ public class AntCompileTask extends AbstractTask {
 		repository.add(jlo);
 		((JLoProjectConfigurator)jlo.plugin(ProjectConfigurator.class)).searchInParent();
 		File configFile = getConfig();
-		File root = configFile.getParentFile();
-		BootstrapProjectConfig config = new BootstrapProjectConfig(root, workspace);
+		BootstrapProjectConfig config = new BootstrapProjectConfig(workspace);
 		try {
 			Project project = config.project(configFile, null);
 			// Attach the builder
