@@ -87,9 +87,9 @@ import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
 import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
 import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
+import be.kuleuven.cs.distrinet.rejuse.predicate.AbstractPredicate;
 import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
 import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
-import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 
 public class JavaTranslator extends AbstractTranslator {
 	
@@ -954,7 +954,7 @@ public class JavaTranslator extends AbstractTranslator {
 //	}
 	
 	private void replaceSuperCalls(Type type) throws LookupException {
-		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
+		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new AbstractPredicate<SuperTarget,LookupException>() {
 			@Override
 			public boolean eval(SuperTarget superTarget) throws LookupException {
 				try {

@@ -304,12 +304,12 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	public <X extends Member> void accumulateInheritedMembers(Class<X> kind, List<X> current) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
 		if(configurationBlock != null) {
-			List<Member> members = configurationBlock.processedMembers();
-			new TypePredicate(kind).filter(members);
+			List members = configurationBlock.processedMembers();
+			new TypePredicate<>(kind).filter(members);
 		  current.addAll((Collection<? extends X>) members);
 		}
-		List<Member> members = componentType().processedMembers();
-		new TypePredicate(kind).filter(members);
+		List members = componentType().processedMembers();
+		new TypePredicate<>(kind).filter(members);
 	  current.addAll((Collection<? extends X>) members);
 	}
 
