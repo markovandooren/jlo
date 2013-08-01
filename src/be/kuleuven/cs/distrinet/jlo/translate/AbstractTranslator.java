@@ -3,14 +3,6 @@ package be.kuleuven.cs.distrinet.jlo.translate;
 import java.util.List;
 import java.util.Set;
 
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.language.Java;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
-import be.kuleuven.cs.distrinet.rejuse.association.Association;
-import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
-import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
-import be.kuleuven.cs.distrinet.rejuse.property.Property;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.QualifiedName;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
@@ -49,6 +41,14 @@ import be.kuleuven.cs.distrinet.chameleon.support.statement.ReturnStatement;
 import be.kuleuven.cs.distrinet.chameleon.support.statement.StatementExpression;
 import be.kuleuven.cs.distrinet.chameleon.util.Util;
 import be.kuleuven.cs.distrinet.chameleon.workspace.View;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
+import be.kuleuven.cs.distrinet.jnome.core.language.Java;
+import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
+import be.kuleuven.cs.distrinet.rejuse.association.Association;
+import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
+import be.kuleuven.cs.distrinet.rejuse.predicate.AbstractPredicate;
+import be.kuleuven.cs.distrinet.rejuse.property.Property;
 
 public class AbstractTranslator {
 
@@ -126,7 +126,7 @@ public class AbstractTranslator {
 	protected void substituteTypeParameters(Element element) throws LookupException {
 		List<TypeReference> crossReferences = 
 			element.descendants(TypeReference.class, 
-					new UnsafePredicate<TypeReference,LookupException>() {
+					new AbstractPredicate<TypeReference,LookupException>() {
 				public boolean eval(TypeReference object) throws LookupException {
 					try {
 						return object.getDeclarator() instanceof InstantiatedTypeParameter;
