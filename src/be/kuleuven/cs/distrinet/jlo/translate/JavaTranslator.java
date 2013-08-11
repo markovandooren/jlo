@@ -662,7 +662,7 @@ public class JavaTranslator extends AbstractTranslator {
     	ancestors.remove(ancestors.size()-1);
     }
     ancestors.remove(ancestors.size()-1);
-    new TypePredicate<Element,ComponentRelation>(ComponentRelation.class).filter(ancestors);
+    new TypePredicate<ComponentRelation>(ComponentRelation.class).filter(ancestors);
 		int size = ancestors.size();
 		for(int i=0; i< size; i++) {
 			ComponentRelation originalRelation = (ComponentRelation) ancestors.get(size-1-i);
