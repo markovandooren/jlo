@@ -1,2 +1,3 @@
 api
 /bin
+src/be/kuleuven/cs/distrinet/jlo/input/*.java
