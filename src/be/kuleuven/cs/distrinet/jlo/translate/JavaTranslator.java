@@ -180,7 +180,6 @@ public class JavaTranslator extends AbstractTranslator {
   	Set<String> importStrings = new HashSet<String>();
   	for(Import imp: imports) {
   		String code = syntax.toCode(imp);
-  		Util.debug(code.equals("import ;"));
   		if(! importStrings.add(code)) {
   			imp.disconnect();
   		}
