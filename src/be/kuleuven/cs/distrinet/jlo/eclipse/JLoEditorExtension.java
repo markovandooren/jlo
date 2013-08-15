@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import org.eclipse.core.resources.IProject;
+
 import be.kuleuven.cs.distrinet.jlo.build.JLoBuilder;
 import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
 import be.kuleuven.cs.distrinet.jlo.model.component.InstantiatedMemberSubobjectParameter;
@@ -86,5 +88,11 @@ public class JLoEditorExtension extends JavaEditorExtension {
 	@Override
 	public void initialize(View view) {
 		new JLoBuilder(view);
+	}
+	
+	@Override
+	public boolean canLoad(IProject project) {
+		//FIXME This is cheating!
+		return false;
 	}
 }
