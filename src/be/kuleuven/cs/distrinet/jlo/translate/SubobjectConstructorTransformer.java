@@ -52,7 +52,7 @@ import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ThisConstructor
 import be.kuleuven.cs.distrinet.jnome.core.language.Java;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
-import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
+import be.kuleuven.cs.distrinet.rejuse.predicate.AbstractPredicate;
 
 public class SubobjectConstructorTransformer extends AbstractTranslator {
 
@@ -643,7 +643,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	private List<SubobjectConstructorCall> constructorCallsOfRelation(
 			final ComponentRelation relation, Method constructor)
 			throws LookupException {
-		List<SubobjectConstructorCall> constructorCalls = constructor.descendants(SubobjectConstructorCall.class, new UnsafePredicate<SubobjectConstructorCall,LookupException>() {
+		List<SubobjectConstructorCall> constructorCalls = constructor.descendants(SubobjectConstructorCall.class, new AbstractPredicate<SubobjectConstructorCall,LookupException>() {
 			@Override
 			public boolean eval(SubobjectConstructorCall constructorCall) throws LookupException {
 				return constructorCall.getTarget().getElement().equals(relation);

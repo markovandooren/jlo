@@ -1,1 +1,8 @@
+.classpath
+.project
 api
+bin
+src/be/kuleuven/cs/distrinet/jlo/input/*.java
+dist
+lib
+publish

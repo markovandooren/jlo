@@ -15,20 +15,34 @@ import be.kuleuven.cs.distrinet.chameleon.workspace.FileInputSourceFactory;
 import be.kuleuven.cs.distrinet.chameleon.workspace.View;
 import be.kuleuven.cs.distrinet.chameleon.workspace.Workspace;
 import be.kuleuven.cs.distrinet.chameleon.workspace.ZipLoader;
+import be.kuleuven.cs.distrinet.jnome.core.language.JavaLanguageFactory;
 import be.kuleuven.cs.distrinet.jnome.input.LazyJavaFileInputSourceFactory;
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfig;
+import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfiguration;
 import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfigurator;
 import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
 
 public class JLoProjectConfigurator extends JavaProjectConfigurator {
 
+	/**
+	 * Set baseLibraryInParent to true when running from class files outside eclipse.
+	 * Set baseLibraryInParent to false when running from class files inside eclipse.
+	 * When run from a jar, the base library is located correctly.
+	 * 
+	 * @param javaBaseJarPath
+	 * @param baseLibraryInParent
+	 */
 	public JLoProjectConfigurator(JarFile javaBaseJarPath) {
-		super(javaBaseJarPath);
+		super(JavaLanguageFactory.javaBaseJar());
+//		_baseLibraryInParent =  baseLibraryInParent;
+	}
+	
+	public void searchInParent() {
+		_baseLibraryInParent = true;
 	}
 
 	@Override
-	protected JavaProjectConfig createProjectConfig(View view) throws ConfigException {
-		return new JLoProjectConfig(view, new LazyJavaFileInputSourceFactory());
+	protected JavaProjectConfiguration createProjectConfig(View view) throws ConfigException {
+		return new JLoProjectConfiguration(view, new LazyJavaFileInputSourceFactory());
 	}
 
 	@Override
@@ -38,12 +52,14 @@ public class JLoProjectConfigurator extends JavaProjectConfigurator {
 		JLoBaseLibraryConfigurator jLoBaseLibraryConfigurator = new JLoBaseLibraryConfigurator(language());
 		jLoBaseLibraryConfigurator.process(view, baseLibraryConfiguration);
 	}
+	private boolean _baseLibraryInParent = false;
 
 	public class JLoBaseLibraryConfigurator extends BaseLibraryConfigurator {
 
 		public JLoBaseLibraryConfigurator(Language language) {
 			super(language);
 		}
+		
 
 		@Override
 		protected void addBaseLoader(View view) {
@@ -64,7 +80,10 @@ public class JLoProjectConfigurator extends JavaProjectConfigurator {
 					JarFile jarFile = new JarFile(path);
 					view.addBinary(new ZipLoader(jarFile, sourceFileFilter));
 				} else {
-					File root = new File(url.toURI()).getParentFile();
+					File root = new File(url.toURI());
+					if(_baseLibraryInParent) {
+						root = root.getParentFile();
+					}
 					File file = new File(root,JLO_BASE_LIBRARY_DIRECTORY);
 					view.addBinary(new BaseDirectoryLoader(file.getAbsolutePath(), new LazyJavaFileInputSourceFactory(), sourceFileFilter));
 				}
@@ -80,7 +99,7 @@ public class JLoProjectConfigurator extends JavaProjectConfigurator {
 	}
 
 	public static File jloBase() {
-		URL url = JLoProjectConfig.class.getProtectionDomain().getCodeSource().getLocation();
+		URL url = JLoProjectConfiguration.class.getProtectionDomain().getCodeSource().getLocation();
 		try {
 			File file = new File(url.toURI());
 			String path = file.getAbsolutePath();

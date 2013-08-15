@@ -3,7 +3,6 @@ package be.kuleuven.cs.distrinet.jlo.model.component;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.QualifiedName;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
@@ -12,6 +11,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.MemberRelationSelector;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
+import be.kuleuven.cs.distrinet.rejuse.predicate.AbstractPredicate;
 
 public class OverridesClause extends AbstractClause {
 
@@ -36,7 +36,7 @@ public class OverridesClause extends AbstractClause {
 			List<Member> members = nearestAncestor(Type.class).directlyDeclaredMembers();
 			boolean overridden;
 			try {
-			overridden = new UnsafePredicate<Member, LookupException>() {
+			overridden = new AbstractPredicate<Member, LookupException>() {
 				@Override
 				public boolean eval(Member object) throws LookupException {
 					return object.signature().sameAs(newSignature);

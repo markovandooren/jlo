@@ -4,12 +4,11 @@ import be.kuleuven.cs.distrinet.chameleon.core.language.Language;
 import be.kuleuven.cs.distrinet.chameleon.workspace.ConfigException;
 import be.kuleuven.cs.distrinet.chameleon.workspace.FileInputSourceFactory;
 import be.kuleuven.cs.distrinet.chameleon.workspace.View;
-import be.kuleuven.cs.distrinet.chameleon.workspace.Workspace;
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfig;
+import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfiguration;
 
-public class JLoProjectConfig extends JavaProjectConfig {
+public class JLoProjectConfiguration extends JavaProjectConfiguration {
 
-	public JLoProjectConfig(View view, FileInputSourceFactory inputSourceFactory)
+	public JLoProjectConfiguration(View view, FileInputSourceFactory inputSourceFactory)
 			throws ConfigException {
 		super(view, inputSourceFactory);
 	}

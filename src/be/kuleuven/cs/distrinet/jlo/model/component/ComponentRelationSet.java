@@ -107,6 +107,11 @@ public class ComponentRelationSet extends ElementImpl implements DeclarationWith
 	public Declaration finalDeclaration() {
 		return this;
 	}
+	
+	@Override
+	public Declaration template() {
+		return finalDeclaration();
+	}
 
 	@Override
 	public SelectionResult updatedTo(Declaration declaration) {

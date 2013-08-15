@@ -79,13 +79,18 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 			}
 
 			@Override
-			public Declaration finalDeclaration() throws LookupException {
+			public Declaration finalDeclaration() {
 				return _declaration;
 			}
 
 			@Override
 			public SelectionResult updatedTo(Declaration declaration) {
 				return new SubobjectConstructorSelectionResult(declaration);
+			}
+
+			@Override
+			public Declaration template() {
+				return finalDeclaration();
 			}
 		}
 
@@ -166,7 +171,7 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 		public List<? extends SelectionResult> declarators(List<? extends Declaration> selectionCandidates) throws LookupException {
 			List<SelectionResult> result = new ArrayList<>();
 			for(SelectionResult r: selection(selectionCandidates)) {
-				result.add(((MethodSelectionResult)r).method().declarator());
+				result.add(((SubobjectConstructorSelectionResult)r).template().declarator());
 			}
 			return result;
 		}

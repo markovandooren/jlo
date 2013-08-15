@@ -87,9 +87,9 @@ import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
 import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
 import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
+import be.kuleuven.cs.distrinet.rejuse.predicate.AbstractPredicate;
 import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
 import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
-import be.kuleuven.cs.distrinet.rejuse.predicate.UnsafePredicate;
 
 public class JavaTranslator extends AbstractTranslator {
 	
@@ -135,19 +135,14 @@ public class JavaTranslator extends AbstractTranslator {
   	Iterator<Type> newTypes = newNamespacePart.children(Type.class).iterator();
   	while(originalTypes.hasNext()) {
   		SingleAssociation newParentLink = newTypes.next().parentLink();
-  		Type translated = translatedImplementation(originalTypes.next());
+  		Type next = originalTypes.next();
+			Type translated = translatedImplementation(next);
   		newParentLink.getOtherRelation().replace(newParentLink, translated.parentLink());
   	}
-  	for(Import imp: originalNamespacePart.imports()) {
-//  		boolean add = true;
-//  		if(imp instanceof TypeImport) {
-//  			if(((TypeImport)imp).getTypeReference().getElement().isTrue(imp.language(Java.class).PRIMITIVE_TYPE)) {
-//  				add = false;
-//  			}
-//  		}
-//  		if(add) {
-  			newNamespacePart.addImport(Util.clone(imp));
-//  		}
+  	List<? extends Import> explicitImports = originalNamespacePart.explicitImports();
+		for(Import imp: explicitImports) {
+  		Import clone = Util.clone(imp);
+			newNamespacePart.addImport(clone);
   	}
   	implementationCompilationUnit.flushCache();
   	result.add(implementationCompilationUnit);
@@ -666,7 +661,7 @@ public class JavaTranslator extends AbstractTranslator {
     	ancestors.remove(ancestors.size()-1);
     }
     ancestors.remove(ancestors.size()-1);
-    new TypePredicate<Element,ComponentRelation>(ComponentRelation.class).filter(ancestors);
+    new TypePredicate<ComponentRelation>(ComponentRelation.class).filter(ancestors);
 		int size = ancestors.size();
 		for(int i=0; i< size; i++) {
 			ComponentRelation originalRelation = (ComponentRelation) ancestors.get(size-1-i);
@@ -925,36 +920,8 @@ public class JavaTranslator extends AbstractTranslator {
 		return result;
 	}
 	
-//	private void replaceSuperCalls(Type type) throws LookupException {
-//		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
-//			@Override
-//			public boolean eval(SuperTarget superTarget) throws LookupException {
-//				try {
-//					return superTarget.getTargetDeclaration() instanceof ComponentRelation;
-//				} catch(LookupException exc) {
-//					throw exc;
-//				}
-//			}
-//		}
-//		);
-//		for(SuperTarget superTarget: superTargets) {
-//			Element<?> cr = superTarget.parent();
-//			if(cr instanceof CrossReferenceWithArguments) {
-//				Element<?> inv = cr.parent();
-//				if(inv instanceof RegularMethodInvocation) {
-//					RegularMethodInvocation call = (RegularMethodInvocation) inv;
-//					ComponentRelation targetComponent = (ComponentRelation) superTarget.getTargetDeclaration();
-//					MethodInvocation subObjectSelection = new JavaMethodInvocation(getterName(targetComponent), null);
-//					call.setTarget(subObjectSelection);
-//					String name = staticMethodName(call.name(), targetComponent.componentType());
-//					call.setName(name);
-//				}
-//			}
-//		}
-//	}
-	
 	private void replaceSuperCalls(Type type) throws LookupException {
-		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new UnsafePredicate<SuperTarget,LookupException>() {
+		List<SuperTarget> superTargets = type.descendants(SuperTarget.class, new AbstractPredicate<SuperTarget,LookupException>() {
 			@Override
 			public boolean eval(SuperTarget superTarget) throws LookupException {
 				try {
