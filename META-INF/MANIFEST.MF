@@ -22,5 +22,6 @@ Require-Bundle: be.chameleon.eclipse;bundle-version="1.0.7",
  org.eclipse.jface;bundle-version="3.7.0",
  org.eclipse.jface.text;bundle-version="3.8.1",
  rejuse.distrinet.cs.kuleuven.be;bundle-version="1.0.12",
- org.junit;bundle-version="4.10.0"
+ org.junit;bundle-version="4.10.0",
+ org.eclipse.core.resources;bundle-version="3.8.100"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
