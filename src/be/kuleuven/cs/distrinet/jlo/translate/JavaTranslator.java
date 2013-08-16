@@ -85,9 +85,11 @@ import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;
 import be.kuleuven.cs.distrinet.jnome.core.type.AnonymousInnerClass;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
+import be.kuleuven.cs.distrinet.rejuse.action.Nothing;
 import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
 import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
 import be.kuleuven.cs.distrinet.rejuse.predicate.AbstractPredicate;
+import be.kuleuven.cs.distrinet.rejuse.predicate.Predicate;
 import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
 import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
 
@@ -775,7 +777,7 @@ public class JavaTranslator extends AbstractTranslator {
 }
 	private List<Element> filterAncestors(Element element) {
 		SafePredicate<Element> predicate = componentRelationOrNonComponentTypePredicate();
-		return element.ancestors(Element.class, predicate);
+		return element.<Element,Nothing>ancestors(predicate.makeUniversal(Element.class));
 	}
 
 	private SafePredicate<Element> componentRelationOrNonComponentTypePredicate() {
