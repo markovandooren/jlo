@@ -89,10 +89,4 @@ public class JLoEditorExtension extends JavaEditorExtension {
 	public void initialize(View view) {
 		new JLoBuilder(view);
 	}
-	
-	@Override
-	public boolean canLoad(IProject project) {
-		//FIXME This is cheating!
-		return false;
-	}
 }
