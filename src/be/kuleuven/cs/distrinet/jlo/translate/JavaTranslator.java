@@ -89,9 +89,9 @@ import be.kuleuven.cs.distrinet.rejuse.action.Nothing;
 import be.kuleuven.cs.distrinet.rejuse.association.SingleAssociation;
 import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
 import be.kuleuven.cs.distrinet.rejuse.predicate.AbstractPredicate;
-import be.kuleuven.cs.distrinet.rejuse.predicate.Predicate;
 import be.kuleuven.cs.distrinet.rejuse.predicate.SafePredicate;
 import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
+import be.kuleuven.cs.distrinet.rejuse.predicate.UniversalPredicate;
 
 public class JavaTranslator extends AbstractTranslator {
 	
@@ -720,9 +720,9 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 	
 	private Type levelOfDefinition(Element element) {
-		Type result = element.nearestAncestor(Type.class, new SafePredicate<Type>(){
+		Type result = element.nearestAncestor(new UniversalPredicate<Type,Nothing>(Type.class){
 			@Override
-			public boolean eval(Type object) {
+			public boolean uncheckedEval(Type object) {
 				return ! (object instanceof ComponentType);
 			}});
 		return result;
