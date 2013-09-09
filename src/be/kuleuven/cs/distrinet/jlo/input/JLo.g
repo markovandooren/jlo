@@ -31,15 +31,8 @@ import be.kuleuven.cs.distrinet.chameleon.core.declaration.TargetDeclaration;
 
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
 
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.Expression;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.MethodInvocation;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.Literal;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.Assignable;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.NamedTarget;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.NamedTargetExpression;
-import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceTarget;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.TargetedExpression;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.VariableReference;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.*;
+import be.kuleuven.cs.distrinet.chameleon.core.reference.*;
 
 import be.kuleuven.cs.distrinet.chameleon.core.language.Language;
 
@@ -95,19 +88,7 @@ import be.kuleuven.cs.distrinet.chameleon.oo.variable.VariableDeclarator;
 import be.kuleuven.cs.distrinet.chameleon.input.InputProcessor;
 import be.kuleuven.cs.distrinet.chameleon.input.Position2D;
 
-import be.kuleuven.cs.distrinet.chameleon.support.expression.RegularLiteral;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.NullLiteral;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.AssignmentExpression;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.ConditionalExpression;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.ConditionalAndExpression;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.ConditionalOrExpression;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.InstanceofExpression;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.ThisLiteral;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.FilledArrayIndex;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.EmptyArrayIndex;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.ArrayIndex;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.ClassCastExpression;
-import be.kuleuven.cs.distrinet.chameleon.support.expression.SuperTarget;
+import be.kuleuven.cs.distrinet.chameleon.support.expression.*;
 
 import be.kuleuven.cs.distrinet.chameleon.support.member.simplename.method.NormalMethod;
 import be.kuleuven.cs.distrinet.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
@@ -164,14 +145,8 @@ import be.kuleuven.cs.distrinet.chameleon.support.input.ChameleonParser;
 
 import be.kuleuven.cs.distrinet.chameleon.util.Util;
 
-import be.kuleuven.cs.distrinet.jnome.core.expression.ArrayInitializer;
-import be.kuleuven.cs.distrinet.jnome.core.expression.ClassLiteral;
-import be.kuleuven.cs.distrinet.jnome.core.expression.ArrayAccessExpression;
-import be.kuleuven.cs.distrinet.jnome.core.expression.ArrayCreationExpression;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.JavaMethodInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ThisConstructorDelegation;
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.SuperConstructorDelegation;
+import be.kuleuven.cs.distrinet.jnome.core.expression.*;
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.*;
 
 import be.kuleuven.cs.distrinet.jnome.core.imports.SingleStaticImport;
 
@@ -194,7 +169,7 @@ import be.kuleuven.cs.distrinet.jnome.core.enumeration.EnumConstant;
 import be.kuleuven.cs.distrinet.jnome.core.variable.JavaVariableDeclaration;
 import be.kuleuven.cs.distrinet.jnome.core.variable.MultiFormalParameter;
 
-import be.kuleuven.cs.distrinet.jnome.input.JavaFactory;
+import be.kuleuven.cs.distrinet.jnome.input.*;
 
 import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
 import be.kuleuven.cs.distrinet.jlo.model.component.ConfigurationBlock;
