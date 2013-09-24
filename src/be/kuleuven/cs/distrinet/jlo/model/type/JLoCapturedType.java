@@ -2,21 +2,20 @@ package be.kuleuven.cs.distrinet.jlo.model.type;
 
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
-import be.kuleuven.cs.distrinet.jnome.core.type.CapturedType;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.ParameterSubstitution;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
-import be.kuleuven.cs.distrinet.chameleon.oo.type.generics.ActualTypeArgument;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.inheritance.InheritanceRelation;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
+import be.kuleuven.cs.distrinet.jnome.core.type.CapturedType;
+
+import com.google.common.collect.ImmutableList;
 
 public class JLoCapturedType extends CapturedType {
 
-	public JLoCapturedType(Type baseType, List<ActualTypeArgument> typeParameters) throws LookupException {
-		super(baseType,typeParameters);
-	}
+//	public JLoCapturedType(Type baseType, List<ActualTypeArgument> typeParameters) throws LookupException {
+//		super(baseType,typeParameters);
+//	}
 
 	public JLoCapturedType(List<ParameterSubstitution> parameters, Type baseType) {
 		super(parameters,baseType);

@@ -43,6 +43,9 @@ import be.kuleuven.cs.distrinet.jnome.core.language.Java;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
+
 public class SelectorCreator extends AbstractTranslator {
 
 	public List<Method> selectorsFor(ComponentRelation rel) throws LookupException {
@@ -66,10 +69,12 @@ public class SelectorCreator extends AbstractTranslator {
 	
 	public List<Method> selectorsForComponent(Type t) throws LookupException {
 		List<Method> result = new ArrayList<Method>();
-		List<ComponentParameter> parameters = t.parameters(ComponentParameter.class);
-		parameters.addAll(t.members(ComponentParameter.class));
+		Builder<ComponentParameter> builder = ImmutableList.<ComponentParameter>builder();
+		builder.addAll(t.parameters(ComponentParameter.class));
+		builder.addAll(t.members(ComponentParameter.class));
 		// HACK that must be removed (as in "always used" so no if statement) when functional
 		// style parameters are removed.
+		List<ComponentParameter> parameters = builder.build();
 		for(ComponentParameter par: parameters) {
 			AbstractInstantiatedComponentParameter instantiatedPar = (AbstractInstantiatedComponentParameter) par;
 			FormalComponentParameter formalParameter = instantiatedPar.formalParameter();
