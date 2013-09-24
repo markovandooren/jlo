@@ -6,7 +6,8 @@ import java.util.Set;
 
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.Expression;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.NamedTargetExpression;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.ExpressionFactory;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.NameExpression;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.Method;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.MethodHeader;
@@ -96,12 +97,13 @@ public class SelectorCreator extends AbstractTranslator {
 	private Method realSelectorFor(AbstractInstantiatedComponentParameter par) throws LookupException {
 		FormalComponentParameter formal = par.formalParameter();
 		Java language = par.language(Java.class);
+		ExpressionFactory expressionFactory = language.plugin(ExpressionFactory.class);
 //		Method result = new NormalMethod(header,formal.componentTypeReference().clone());
 		Type declarationType = formal.declarationType();
 		JavaTypeReference reference = language.reference(declarationType);
 		reference.setUniParent(null);
 		MethodHeader header = new SimpleNameMethodHeader(selectorName((ComponentParameter) par),reference);
-		Method result = par.language(Java.class).plugin(ObjectOrientedFactory.class).createNormalMethod(header);
+		Method result = language.plugin(ObjectOrientedFactory.class).createNormalMethod(header);
 		result.addModifier(new Public());
 //		result.addModifier(new Abstract());
 		header.addFormalParameter(new FormalParameter("argument", Util.clone(formal.containerTypeReference())));
@@ -111,13 +113,13 @@ public class SelectorCreator extends AbstractTranslator {
 		Expression expr;
 		if(arg instanceof ComponentNameActualArgument) {
 			ComponentNameActualArgument singarg = (ComponentNameActualArgument) arg;
-			expr = new JavaMethodInvocation(getterName(singarg.declaration()),new NamedTargetExpression("argument", null));
+			expr = new JavaMethodInvocation(getterName(singarg.declaration()),expressionFactory.createNameExpression("argument", null));
 			body.addStatement(new ReturnStatement(expr));
 		} else if(arg instanceof ParameterReferenceActualArgument) {
 			ParameterReferenceActualArgument ref = (ParameterReferenceActualArgument) arg;
 			ComponentParameter p = ref.declaration();
 			expr = new JavaMethodInvocation(selectorName(p), null);
-			((JavaMethodInvocation)expr).addArgument(new NamedTargetExpression("argument",null));
+			((JavaMethodInvocation)expr).addArgument(expressionFactory.createNameExpression("argument",null));
 			body.addStatement(new ReturnStatement(expr));
 		}
 		 else {
@@ -140,7 +142,7 @@ public class SelectorCreator extends AbstractTranslator {
 			// add all components
 			ComponentRelationSet componentRelations = ((MultiActualComponentArgument)arg).declaration();
 			for(DeclarationWithType rel: componentRelations.relations()) {
-				Expression t = new NamedTargetExpression("result", null);
+				Expression t = expressionFactory.createNameExpression("result");
 				SimpleNameMethodInvocation inv = new JavaMethodInvocation("add", t);
 				Expression componentSelector;
 				if(rel instanceof ComponentParameter) {
@@ -148,16 +150,16 @@ public class SelectorCreator extends AbstractTranslator {
 						inv.setName("addAll");
 					}
 					componentSelector = new JavaMethodInvocation(selectorName((ComponentParameter)rel), null);
-					((JavaMethodInvocation)componentSelector).addArgument(new NamedTargetExpression("argument",null));
+					((JavaMethodInvocation)componentSelector).addArgument(expressionFactory.createNameExpression("argument"));
 				} else {
-				  componentSelector = new NamedTargetExpression(rel.signature().name(), new NamedTargetExpression("argument",null));
+				  componentSelector = expressionFactory.createNameExpression(rel.signature().name(), expressionFactory.createNameExpression("argument"));
 				}
 				inv.addArgument(componentSelector);
 				body.addStatement(new StatementExpression(inv));
 			}
 			
 			// return statement
-			expr = new NamedTargetExpression("result",null);
+			expr = expressionFactory.createNameExpression("result");
 			body.addStatement(new ReturnStatement(expr));
 		}
     return result;		
