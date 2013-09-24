@@ -18,9 +18,10 @@ import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceTarget;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceWithName;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceWithTarget;
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.ExpressionFactory;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.MethodInvocation;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.NamedTarget;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.NamedTargetExpression;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.NameExpression;
 import be.kuleuven.cs.distrinet.chameleon.oo.language.ObjectOrientedLanguage;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.Method;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.MethodHeader;
@@ -260,8 +261,9 @@ public class AbstractTranslator {
 	}
 
 	protected void useParametersInInvocation(Method method, MethodInvocation invocation) {
+		ExpressionFactory expressionFactory = method.language().plugin(ExpressionFactory.class);
 		for(FormalParameter param: method.formalParameters()) {
-			invocation.addArgument(new NamedTargetExpression(param.signature().name(), null));
+			invocation.addArgument(expressionFactory.createNameExpression(param.signature().name(), null));
 		}
 	}
 	

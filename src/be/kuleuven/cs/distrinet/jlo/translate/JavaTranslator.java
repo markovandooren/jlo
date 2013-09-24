@@ -31,8 +31,9 @@ import be.kuleuven.cs.distrinet.chameleon.core.tag.TagImpl;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.Expression;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.ExpressionFactory;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.MethodInvocation;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.NamedTargetExpression;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.NameExpression;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.Implementation;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.Method;
@@ -194,8 +195,8 @@ public class JavaTranslator extends AbstractTranslator {
 		for(MethodInvocation invocation: invocations) {
 			transformToImplReference(invocation);
 		}
-		List<NamedTargetExpression> tes = element.descendants(NamedTargetExpression.class);
-		for(NamedTargetExpression nte: tes) {
+		List<NameExpression> tes = element.descendants(NameExpression.class);
+		for(NameExpression nte: tes) {
 			if(nte.getElement() instanceof MemberVariable) {
 				transformToImplReference(nte);
 			}
@@ -998,7 +999,8 @@ public class JavaTranslator extends AbstractTranslator {
 			result.addModifier(new Public());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			NamedTargetExpression fieldAccessor = new NamedTargetExpression(fieldName(relation), null);
+			ExpressionFactory expressionFactory = relation.language().plugin(ExpressionFactory.class);
+			NameExpression fieldAccessor = expressionFactory.createNameExpression(fieldName(relation), null);
 			fieldAccessor.setMetadata(new TagImpl(), NO_SUBOBJECT_READ);
 			body.addStatement(new ReturnStatement(fieldAccessor));
 			return result;
@@ -1010,15 +1012,17 @@ public class JavaTranslator extends AbstractTranslator {
 	private Method setterForSubobject(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {
 			String name = relation.signature().name();
-			RegularMethod result = relation.language(Java.class).plugin(ObjectOrientedFactory.class).createNormalMethod(new SimpleNameMethodHeader(setterName(relation), relation.language(Java.class).createTypeReference("void")));
+			Java language = relation.language(Java.class);
+			RegularMethod result = language.plugin(ObjectOrientedFactory.class).createNormalMethod(new SimpleNameMethodHeader(setterName(relation), relation.language(Java.class).createTypeReference("void")));
 			BasicJavaTypeReference tref = componentTypeReference(relation, outer);
 			result.header().addFormalParameter(new FormalParameter(name, tref));
 			result.addModifier(new Public());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			NamedTargetExpression componentFieldRef = new NamedTargetExpression(fieldName(relation), null);
+			ExpressionFactory expressionFactory = language.plugin(ExpressionFactory.class);
+			NameExpression componentFieldRef = expressionFactory.createNameExpression(fieldName(relation));
 			componentFieldRef.setTarget(new ThisLiteral());
-			body.addStatement(new StatementExpression(new AssignmentExpression(componentFieldRef, new NamedTargetExpression(name, null))));
+			body.addStatement(new StatementExpression(new AssignmentExpression(componentFieldRef, expressionFactory.createNameExpression(name))));
 			return result;
 		} else {
 			return null;

@@ -13,8 +13,9 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.Expression;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.ExpressionFactory;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.MethodInvocation;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.NamedTargetExpression;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.NameExpression;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.DeclarationWithParametersHeader;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.Method;
@@ -345,6 +346,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	
 	private void replaceSubobjectConstructorCalls(Method constructor, boolean clonedConstructor)
 	throws ModelException {
+		ExpressionFactory expressionFactory = constructor.language().plugin(ExpressionFactory.class);
 		SuperConstructorDelegation superCall = superDelegation(constructor);
 		// The method invocation above will guarantee that there is an explicit constructor delegation.
 		ConstructorDelegation callToBeModified = (ConstructorDelegation) ((StatementExpression)constructor.body().statement(1)).getExpression();
@@ -378,8 +380,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 					}
 					if(subCalls.isEmpty() && clonedConstructor) {
 						// Neither strategy is set.
-							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
-							arguments[relativeIndexInSuper+1] = new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName());
+						
+							arguments[relativeIndexInSuper] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).getName());
+							arguments[relativeIndexInSuper+1] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent+1).getName());
 					} else {
 						arguments[relativeIndexInSuper] = new NullLiteral();
 						arguments[relativeIndexInSuper+1] = new NullLiteral();
@@ -394,12 +397,12 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							// add default strategy
 							arguments[relativeIndexInSuper+1] = strategy;
 						} else {
-							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
+							arguments[relativeIndexInSuper] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).getName());
 
-							Expression arg = new NamedTargetExpression(formalParameters.get(indexInCurrent+1).getName());
+							Expression arg = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent+1).getName());
 							MethodInvocation conditionRight = new InfixOperatorInvocation("==", Util.clone(arg));
 							conditionRight.addArgument(new NullLiteral());
-							Expression explicitArg = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
+							Expression explicitArg = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).getName());
 							MethodInvocation conditionLeft = new InfixOperatorInvocation("==", Util.clone(explicitArg));
 							conditionLeft.addArgument(new NullLiteral());
 							MethodInvocation condition = new InfixOperatorInvocation("&&", conditionLeft);
@@ -417,7 +420,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 						subCalls.get(0).parent().disconnect();
 						
 						} else {
-							arguments[relativeIndexInSuper] = new NamedTargetExpression(formalParameters.get(indexInCurrent).getName());
+							arguments[relativeIndexInSuper] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).getName());
 							// default is to propagate the argument.
 							arguments[relativeIndexInSuper+1] = new NullLiteral();
 						}
@@ -430,11 +433,11 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 						MethodInvocation setterCall = new JavaMethodInvocation(setterName(relation), null);
 						setterCall.addArgument(inv);
 						if(clonedConstructor) {
-							MethodInvocation expression = new InfixOperatorInvocation("==", new NamedTargetExpression(constructorArgumentName(relation)));
+							MethodInvocation expression = new InfixOperatorInvocation("==", expressionFactory.createNameExpression(constructorArgumentName(relation)));
 							expression.addArgument(new NullLiteral());
 							Block ifBlock = new Block();
 							
-							MethodInvocation nestedExpression = new InfixOperatorInvocation("==", new NamedTargetExpression(defaultConstructorArgumentName(relation)));
+							MethodInvocation nestedExpression = new InfixOperatorInvocation("==", expressionFactory.createNameExpression(defaultConstructorArgumentName(relation)));
 							nestedExpression.addArgument(new NullLiteral());
 							Block nestedIfBlock = new Block();
 							nestedIfBlock.addStatement(new StatementExpression(setterCall));
@@ -442,7 +445,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							MethodInvocation<?> defaultStrategyCall = Util.clone(setterCall);
 							defaultStrategyCall.getActualParameters().get(0).disconnect();
 							nestedElseBlock.addStatement(new StatementExpression(defaultStrategyCall));
-							MethodInvocation defaultStrategyInvocation = new JavaMethodInvocation(CONSTRUCT, new NamedTargetExpression(defaultConstructorArgumentName(relation)));
+							MethodInvocation defaultStrategyInvocation = new JavaMethodInvocation(CONSTRUCT, expressionFactory.createNameExpression(defaultConstructorArgumentName(relation)));
 							defaultStrategyInvocation.addArgument(new ThisLiteral());
 							defaultStrategyCall.addArgument(defaultStrategyInvocation);
 							for(Expression arg: inv.getActualParameters()) {
@@ -455,7 +458,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							MethodInvocation<?> strategyCall = Util.clone(setterCall);
 							strategyCall.getActualParameters().get(0).disconnect();
 							elseBlock.addStatement(new StatementExpression(strategyCall));
-							MethodInvocation strategyInvocation = new JavaMethodInvocation(CONSTRUCT, new NamedTargetExpression(constructorArgumentName(relation)));
+							MethodInvocation strategyInvocation = new JavaMethodInvocation(CONSTRUCT, expressionFactory.createNameExpression(constructorArgumentName(relation)));
 							strategyInvocation.addArgument(new ThisLiteral());
 							strategyCall.addArgument(strategyInvocation);
 							Statement ifthenelse = new IfThenElseStatement(expression, ifBlock, elseBlock);
@@ -491,7 +494,8 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 			// Cast the first parameter to the type of the outer class.
 			BasicJavaTypeReference castTypeReference = language.createTypeReference(toImplName(constructor.nearestAncestor(Type.class).name()));
-			ClassCastExpression cast = new ClassCastExpression(castTypeReference, new NamedTargetExpression("o"));
+			ExpressionFactory expressionFactory = language.plugin(ExpressionFactory.class);
+			ClassCastExpression cast = new ClassCastExpression(castTypeReference, expressionFactory.createNameExpression("o"));
 			// -> ((OuterType)o)
 
 			BasicJavaTypeReference subobjectTypeReference = language.createTypeReference(toImplName(relation.componentType().name()));
@@ -631,8 +635,9 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		protected void addArguments(SubobjectConstructorCall constructorCall, SuperConstructorDelegation superCall, ComponentRelation relation, ConstructorInvocation constructorInvocation)
 				throws LookupException {
 			Method subobjectConstructor = subobjectConstructor(relation,	superCall);
+			ExpressionFactory expressionFactory = constructorCall.language().plugin(ExpressionFactory.class);
 			for(FormalParameter param: subobjectConstructor.formalParameters()) {
-				NamedTargetExpression constructorArgument = new NamedTargetExpression(param.getName());
+				NameExpression constructorArgument = expressionFactory.createNameExpression(param.getName());
 				constructorInvocation.addArgument(constructorArgument);
 			}
 		}
