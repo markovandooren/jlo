@@ -95,7 +95,7 @@ public class AbstractTranslator {
 							String fullyQualifiedName = element.getFullyQualifiedName();
 							String predecessor = Util.getAllButLastPart(fullyQualifiedName);
 							if(predecessor != null) {
-								CrossReference target = new NamedTarget(predecessor);
+								CrossReference target = language.plugin(ExpressionFactory.class).createNamedTarget(predecessor);
 								tref.setTarget(target);
 								if(implClass) {
 									transformToImplReference(target);
