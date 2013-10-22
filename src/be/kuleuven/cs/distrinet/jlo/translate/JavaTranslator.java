@@ -541,7 +541,7 @@ public class JavaTranslator extends AbstractTranslator {
   private void createSuperImplementation(Method method, Method original) throws LookupException {
   	Block body = new Block();
   	method.setImplementation(new RegularImplementation(body));
-  	MethodInvocation invocation = invocation(method, original.signature().name());
+  	MethodInvocation invocation = invocation(method, original.signature().name(),original.language());
   	invocation.setTarget(new SuperTarget());
   	addImplementation(original, body, invocation);
 }
@@ -910,7 +910,7 @@ public class JavaTranslator extends AbstractTranslator {
 			result = innerMethod(method, method.name());
 			Block body = new Block();
 			result.setImplementation(new RegularImplementation(body));
-			MethodInvocation invocation = invocation(result, newName);
+			MethodInvocation invocation = invocation(result, newName,java);
 			TypeReference ref = java.createTypeReference(className);
 			ref = java.createNonLocalTypeReference(ref, view.namespace());
 			ThisLiteral target = new ThisLiteral(ref);

@@ -9,6 +9,7 @@ import java.util.Set;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
+import be.kuleuven.cs.distrinet.chameleon.core.language.Language;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
@@ -67,6 +68,13 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		}
 	}
 	
+	/**
+	 * Create a clone of the constructor and add parameters for the strategies for subobject construction
+	 * such that subclasses can override construction of subobjects.
+	 * 
+	 * Any subobject constructor calls are replaced with expressions that first check whether a strategy
+	 * is present, and use that to initialize the subobject.
+	 */
 	private void createStrategyCloneOfConstructor(Method constructor) throws ModelException {
 		MethodInvocation superCall = superDelegation(constructor);
 		Java language = constructor.language(Java.class);
@@ -76,9 +84,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	  boolean added = false;
 	  for(ComponentRelation relation: container.members(ComponentRelation.class)) {
 		  ClassBody body = relation.nearestAncestor(ClassBody.class);
-		  if((body != null) && 
-		  		container.subTypeOf(body.nearestAncestor(Type.class))
-      ) {
+		  if((body != null) && container.subTypeOf(body.nearestAncestor(Type.class))) {
+		  	/*
+		  	 * If the relation is defined locally, we must create a strategy interface.
+		  	 */
 			  if(body.nearestAncestor(Type.class) == container) {
 				  createStrategy(relation);
 			  }
@@ -93,6 +102,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			  		cons.setUniParent(relation.nearestAncestor(Type.class));
 			  	}
 			  }
+			  // Add a strategy parameter for the explicit initialization. 
 			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(constructorArgumentName(relation)), language.createTypeReference(interfaceName(strategyName(relation)))));
 			  String interfaceName;
 			  if(cons != null) {
@@ -101,12 +111,16 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			  } else {
 			  	interfaceName = interfaceName(defaultStrategyNameWhenNoLocalSubobjectConstruction(relation, superCall));
 			  }
+			  // Add the default strategy parameter whic is used when its subclass does not
+			  // have an explicit constructor call. In this case, the arguments of the local subobject
+			  // constructor call are passed to the default strategy.
 			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(interfaceName)));
 			  added = true;
 		  }
 	  }
 	  if(added) {
 	  	container.add(clone);
+	  	// Replace the subobject constructor calls
 	  	replaceSubobjectConstructorCalls(clone, true);
 	  }
   }
@@ -198,6 +212,13 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		}
 	}
 
+	/**
+	 * Return the name of the default strategy if there is no local subobject constructor call.
+	 * @param relation
+	 * @param superCall
+	 * @return
+	 * @throws LookupException
+	 */
 	@SuppressWarnings("unchecked")
 	private String defaultStrategyNameWhenNoLocalSubobjectConstruction(ComponentRelation relation,	MethodInvocation<?> superCall) throws LookupException {
 		Java lang = relation.language(Java.class);
@@ -248,7 +269,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		  	ComponentRelation subobject = call.getTarget().getElement();
 		  	boolean contains = false;
 		  	for(ComponentRelation sub: allRelatedSubobjects) {
-		  		if((subobject.signature().sameAs(sub.signature())) && (subobject.nearestAncestor(Type.class).sameAs(sub.nearestAncestor(Type.class)))) {
+		  		if((subobject.signature().sameAs(sub.signature())) && (subobject.nearestAncestor(Type.class).baseType().sameAs(sub.nearestAncestor(Type.class).baseType()))) {
 		  			contains = true;
 		  			break;
 		  		}
@@ -261,7 +282,8 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		  // If we haven't found the appropriate constructor yet, we continue searching in the super class hierarchy by following
 		  // the super constructor delegations.
 			if(subobjectConstructorCall == null) {
-				constructor = superDelegation(constructor).getElement();
+				SuperConstructorDelegation superDelegation = superDelegation(constructor);
+				constructor = (superDelegation == null ? null : superDelegation.getElement());
 			}
 		}
 		return subobjectConstructorCall;
@@ -287,6 +309,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			if(superCall == null) {
 				ConstructorDelegation thisDelegation = delegation(consch,ThisConstructorDelegation.class);
 				if(thisDelegation == null) {
+					Type type = constructor.nearestAncestor(Type.class);
+					if(type.getDirectSuperTypes().isEmpty()) {
+						return null;
+					}
 					superCall = new SuperConstructorDelegation();
 					Block body = ((RegularImplementation)consch.implementation()).getBody();
 					body.addInFront(new StatementExpression(superCall));
@@ -332,7 +358,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	protected static <C extends ConstructorDelegation> C delegation(Method constructor, Class<C> kind) {
 		C result = null;
 		Block body = constructor.body();
-		if(body.nbStatements() > 0) {
+		if(body != null && body.nbStatements() > 0) {
 			Statement first = body.statement(1);
 			if(first instanceof StatementExpression) {
 				Expression expression = ((StatementExpression) first).getExpression();
@@ -635,7 +661,8 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		protected void addArguments(SubobjectConstructorCall constructorCall, SuperConstructorDelegation superCall, ComponentRelation relation, ConstructorInvocation constructorInvocation)
 				throws LookupException {
 			Method subobjectConstructor = subobjectConstructor(relation,	superCall);
-			ExpressionFactory expressionFactory = constructorCall.language().plugin(ExpressionFactory.class);
+			Language language = relation.language();
+			ExpressionFactory expressionFactory = language.plugin(ExpressionFactory.class);
 			for(FormalParameter param: subobjectConstructor.formalParameters()) {
 				NameExpression constructorArgument = expressionFactory.createNameExpression(param.getName());
 				constructorInvocation.addArgument(constructorArgument);

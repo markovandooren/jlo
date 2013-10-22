@@ -173,7 +173,7 @@ private void processInnerClassMethod(ComponentRelation relationBeingTranslated, 
 			// may not have a constructor with the same signature as the current constructor.
 			substituteTypeParameters(method, clone);
 			MethodInvocation inv = new SuperConstructorDelegation();
-			useParametersInInvocation(clone, inv);
+			useParametersInInvocation(clone, inv,relationBeingTranslated.language());
 			block.addStatement(new StatementExpression(inv));
 			clone.setReturnTypeReference(relationBeingTranslated.language(Java.class).createTypeReference(name));
 			((SimpleNameMethodHeader)clone.header()).setName(name);

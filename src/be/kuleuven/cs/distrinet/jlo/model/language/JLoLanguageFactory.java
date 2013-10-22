@@ -2,6 +2,7 @@ package be.kuleuven.cs.distrinet.jlo.model.language;
 
 import be.kuleuven.cs.distrinet.chameleon.core.factory.Factory;
 import be.kuleuven.cs.distrinet.chameleon.input.ModelFactory;
+import be.kuleuven.cs.distrinet.chameleon.oo.expression.ExpressionFactory;
 import be.kuleuven.cs.distrinet.chameleon.oo.plugin.ObjectOrientedFactory;
 import be.kuleuven.cs.distrinet.chameleon.plugin.output.Syntax;
 import be.kuleuven.cs.distrinet.chameleon.workspace.ProjectConfigurator;
@@ -9,6 +10,7 @@ import be.kuleuven.cs.distrinet.jlo.input.JLoFactory;
 import be.kuleuven.cs.distrinet.jlo.input.JLoModelFactory;
 import be.kuleuven.cs.distrinet.jlo.output.JLoSyntax;
 import be.kuleuven.cs.distrinet.jnome.core.language.JavaLanguageFactory;
+import be.kuleuven.cs.distrinet.jnome.input.JavaExpressionFactory;
 
 /**
  * A convenience class for creating an object that represents the JLo language.
@@ -33,6 +35,7 @@ public class JLoLanguageFactory {
 		result.setPlugin(Syntax.class, new JLoSyntax());
 		result.setPlugin(Factory.class, new JLoFactory());
 		result.setPlugin(ObjectOrientedFactory.class, new JLoFactory());
+		result.setPlugin(ExpressionFactory.class, new JavaExpressionFactory());
 		result.setPlugin(ProjectConfigurator.class, new JLoProjectConfigurator(JavaLanguageFactory.javaBaseJar()));
 		return result;
 	}

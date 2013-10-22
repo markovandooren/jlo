@@ -8,6 +8,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.declaration.QualifiedName;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
+import be.kuleuven.cs.distrinet.chameleon.core.language.Language;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.modifier.ElementWithModifiers;
 import be.kuleuven.cs.distrinet.chameleon.core.modifier.Modifier;
@@ -20,8 +21,6 @@ import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceWithTarge
 import be.kuleuven.cs.distrinet.chameleon.exception.ModelException;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.ExpressionFactory;
 import be.kuleuven.cs.distrinet.chameleon.oo.expression.MethodInvocation;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.NamedTarget;
-import be.kuleuven.cs.distrinet.chameleon.oo.expression.NameExpression;
 import be.kuleuven.cs.distrinet.chameleon.oo.language.ObjectOrientedLanguage;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.Method;
 import be.kuleuven.cs.distrinet.chameleon.oo.method.MethodHeader;
@@ -260,8 +259,8 @@ public class AbstractTranslator {
 		methodWhereActualTypeParametersMustBeFilledIn.setUniParent(null);
 	}
 
-	protected void useParametersInInvocation(Method method, MethodInvocation invocation) {
-		ExpressionFactory expressionFactory = method.language().plugin(ExpressionFactory.class);
+	protected void useParametersInInvocation(Method method, MethodInvocation invocation, Language language) {
+		ExpressionFactory expressionFactory = language.plugin(ExpressionFactory.class);
 		for(FormalParameter param: method.formalParameters()) {
 			invocation.addArgument(expressionFactory.createNameExpression(param.signature().name(), null));
 		}
@@ -289,10 +288,11 @@ public class AbstractTranslator {
 		return componentName+COMPONENT;
 	}
 	
-	protected MethodInvocation invocation(Method method, String origin) {
+	@SuppressWarnings("rawtypes")
+	protected MethodInvocation invocation(Method method, String origin, Language language) {
 		MethodInvocation invocation = new JavaMethodInvocation(origin, null);
 		// pass parameters.
-		useParametersInInvocation(method, invocation);
+		useParametersInInvocation(method, invocation, language);
 		return invocation;
 	}
 

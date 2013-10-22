@@ -112,7 +112,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 		result = innerMethod(method, newName);
 		Block body = new Block();
 		result.setImplementation(new RegularImplementation(body));
-		MethodInvocation invocation = invocation(result, method.name());
+		MethodInvocation invocation = invocation(result, method.name(),method.language());
 		Expression target = new JavaMethodInvocation(getterName(relation), null);
 		invocation.setTarget(target);
 		substituteTypeParameters(method, result);
