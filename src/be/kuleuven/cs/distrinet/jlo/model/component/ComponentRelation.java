@@ -491,7 +491,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 
 		@Override
 		public boolean containsBasedOnName(Signature first, Signature second) throws LookupException {
-			return first.sameAs(second);
+			return first.name().equals(second.name());
 		}
 	};
 	

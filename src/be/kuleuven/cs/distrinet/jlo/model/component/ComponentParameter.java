@@ -185,7 +185,7 @@ public abstract class ComponentParameter extends Parameter implements Declaratio
 	  Set<Member> result = new HashSet<Member>();
 	  while(! todo.isEmpty()) {
 		  Member m = todo.get(0);
-		  System.out.println(m.nearestAncestor(Type.class).getFullyQualifiedName()+"."+m.signature().name());
+		  System.out.println(m.nearestAncestor(Type.class).getFullyQualifiedName()+"."+m.name());
 		  todo.remove(0);
 		  if(result.add(m)) {
 			  todo.addAll(m.directlyAliasedMembers());

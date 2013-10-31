@@ -2,11 +2,6 @@ package be.kuleuven.cs.distrinet.jlo.model.type;
 
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-
-import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
-import be.kuleuven.cs.distrinet.jlo.model.component.Overrides;
-import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
@@ -14,6 +9,11 @@ import be.kuleuven.cs.distrinet.chameleon.oo.member.MemberRelationSelector;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.generics.TypeParameter;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.inheritance.InheritanceRelation;
+import be.kuleuven.cs.distrinet.jlo.model.component.ComponentRelation;
+import be.kuleuven.cs.distrinet.jlo.model.component.Overrides;
+import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
+
+import com.google.common.collect.ImmutableList;
 
 public class RegularJLoType extends RegularJavaType {
 	
