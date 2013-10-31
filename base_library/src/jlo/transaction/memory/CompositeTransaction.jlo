@@ -61,6 +61,16 @@ public class CompositeTransaction implements Transaction {
     private void logReads(Collection<TState> properties) {    	for(TState property: properties) {    		logRead(property);    	}    }
     
     private BasicTransaction transaction(TState property) {
+      // BUG if another transaction commits, it is stored in the transaction map
+      // that means that two consecutive reads from the current transaction
+      // could return different values.
+      //
+      // To solve this, the set of all committed nested transactions should be
+      // recorded when the current transaction is started. Only the writes
+      // performance by those transactions are visible to the current transaction.
+      // A consequence of this, however, is that we can no longer simply
+      // let basic transactions absorb committed basic transactions until 
+      // this composite commits.
       WeakReference<BasicTransaction> ref = _transactionMap.get(property);      return (ref == null ? null : ref.get());    }
     
     private void storeTransaction(TState property, BasicTransaction transaction) {
