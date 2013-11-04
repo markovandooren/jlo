@@ -9,7 +9,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.declaration.TargetDeclaration;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationCollector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.NameSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
@@ -78,9 +78,14 @@ public abstract class AbstractClause extends ConfigurationClause {
 		int size = signatures.size();
 		for(int i = 0; i< size; i++) {
 			final Signature sig = signatures.get(i);
-			DeclarationSelector<Declaration> selector = new SimpleSelector<Declaration>(Declaration.class) {
-				public Signature signature() {
-					return sig;
+			DeclarationSelector<Declaration> selector = new NameSelector<Declaration>(Declaration.class) {
+				@Override
+				protected boolean correctSignature(Declaration declaration)
+						throws LookupException {
+					return declaration.signature().sameAs(sig);
+				}
+				public String name() {
+					return sig.name();
 				}
 			};
 			DeclarationCollector<Declaration> collector = new DeclarationCollector<Declaration>(selector);
@@ -117,10 +122,16 @@ public abstract class AbstractClause extends ConfigurationClause {
 		TargetDeclaration container = nearestAncestor(ComponentRelation.class).componentType();
 		for(int i = 1; i<= size; i++) {
 			final int x = i;
-			SimpleSelector<Declaration> selector = 
-				new SimpleSelector<Declaration>(Declaration.class) {
-					public Signature signature() {
-						return poppedName.signatureAt(x);
+			NameSelector<Declaration> selector = 
+				
+				new NameSelector<Declaration>(Declaration.class) {
+				@Override
+				protected boolean correctSignature(Declaration declaration)
+						throws LookupException {
+					return declaration.signature().sameAs(poppedName.signatureAt(x));
+				}
+					public String name() {
+						return poppedName.signatureAt(x).name();
 					}};
 
 			//SimpleReference<Declaration> ref = new SimpleReference<Declaration>(poppedName, Declaration.class);
@@ -130,10 +141,17 @@ public abstract class AbstractClause extends ConfigurationClause {
 			container = (TargetDeclaration) collector.result();//x ref.getElement();
 		}
 		final Signature lastSignature = qn.lastSignature();
-		SimpleSelector<Declaration> selector = 
-			new SimpleSelector<Declaration>(Declaration.class) {
-				public Signature signature() {
-					return lastSignature;
+		NameSelector<Declaration> selector = 
+			new NameSelector<Declaration>(Declaration.class) {
+			
+				@Override
+				protected boolean correctSignature(Declaration declaration)
+						throws LookupException {
+					return declaration.signature().sameAs(lastSignature);
+				}
+			
+				public String name() {
+					return lastSignature.name();
 				}};
 
 		//				SimpleReference<Declaration> ref = new SimpleReference<Declaration>(null, lastSignature.clone(), Declaration.class);

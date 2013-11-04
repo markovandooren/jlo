@@ -1,9 +1,8 @@
 package be.kuleuven.cs.distrinet.jlo.input;
 
+import be.kuleuven.cs.distrinet.chameleon.oo.type.RegularType;
 import be.kuleuven.cs.distrinet.jlo.model.type.RegularJLoType;
 import be.kuleuven.cs.distrinet.jnome.input.JavaFactory;
-import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
-import be.kuleuven.cs.distrinet.chameleon.oo.type.RegularType;
 
 public class JLoFactory extends JavaFactory {
 
@@ -11,8 +10,8 @@ public class JLoFactory extends JavaFactory {
 		
 	}
 	@Override
-	public RegularType createRegularType(SimpleNameSignature signature) {
-		return new RegularJLoType(signature);
+	public RegularType createRegularType(String name) {
+		return new RegularJLoType(name);
 	}
 	
 }

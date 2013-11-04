@@ -17,7 +17,7 @@ public class SubobjectJavaImplementsRelation extends StrictPartialOrder<Member> 
 			boolean defined1 = _wrapped.checkDefined(first);
 			if(defined1) {
 				boolean defined2 = _wrapped.checkDefined(second);
-				return (!defined2) && first.signature().sameAs(second.signature());
+				return (!defined2) && first.sameSignatureAs(second);
 			} else {
 			  result = false;
 			}

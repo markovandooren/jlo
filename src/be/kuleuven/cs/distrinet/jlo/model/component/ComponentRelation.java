@@ -8,6 +8,7 @@ import java.util.Set;
 
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
+import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameDeclaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.Collector;
@@ -39,7 +40,7 @@ import be.kuleuven.cs.distrinet.chameleon.util.association.Single;
 import be.kuleuven.cs.distrinet.rejuse.association.Association;
 import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
 
-public class ComponentRelation extends MemberImpl implements DeclarationWithType, InheritanceRelation {
+public class ComponentRelation extends MemberImpl implements DeclarationWithType, InheritanceRelation, SimpleNameDeclaration {
 
 //	private CreationStackTrace _trace;
 	
@@ -482,30 +483,13 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
   	return _overridesSelector;
   }
   
-	private static OverridesRelation<ComponentRelation> _overridesSelector = new OverridesRelation<ComponentRelation>(ComponentRelation.class) {
-		
-		@Override
-		public boolean containsBasedOnRest(ComponentRelation first, ComponentRelation second) throws LookupException {
-			return true;
-		}
-
-		@Override
-		public boolean containsBasedOnName(Signature first, Signature second) throws LookupException {
-			return first.name().equals(second.name());
-		}
-	};
+	private static OverridesRelation<ComponentRelation> _overridesSelector = new OverridesRelation<ComponentRelation>(ComponentRelation.class);
 	
   public HidesRelation<? extends ComponentRelation> hidesRelation() {
 		return _hidesSelector;
   }
   
-  private static HidesRelation<ComponentRelation> _hidesSelector = new HidesRelation<ComponentRelation>(ComponentRelation.class) {
-		
-		public boolean containsBasedOnRest(ComponentRelation first, ComponentRelation second) throws LookupException {
-			return true;
-		}
-
-	};
+  private static HidesRelation<ComponentRelation> _hidesSelector = new HidesRelation<ComponentRelation>(ComponentRelation.class);
 
 	 /*@
 	   @ public behavior

@@ -7,10 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import be.kuleuven.cs.distrinet.rejuse.property.Property;
-import be.kuleuven.cs.distrinet.rejuse.property.PropertyMutex;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
-import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.modifier.Modifier;
 import be.kuleuven.cs.distrinet.chameleon.exception.ChameleonProgrammerException;
@@ -25,11 +22,13 @@ import be.kuleuven.cs.distrinet.chameleon.oo.type.DeclarationWithType;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Parameter;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
 import be.kuleuven.cs.distrinet.chameleon.util.Util;
+import be.kuleuven.cs.distrinet.rejuse.property.Property;
+import be.kuleuven.cs.distrinet.rejuse.property.PropertyMutex;
 
 public abstract class ComponentParameter extends Parameter implements DeclarationWithType, Member {
 
-	public ComponentParameter(SimpleNameSignature sig) {
-		super(sig);
+	public ComponentParameter(String name) {
+		super(name);
 	}
 
 	@Override
@@ -89,32 +88,12 @@ public abstract class ComponentParameter extends Parameter implements Declaratio
   	return _overridesRelation;
   }
   
-  private static OverridesRelation<Member> _overridesRelation = new OverridesRelation<Member>(Member.class) {
-		
-		public boolean containsBasedOnRest(Member first, Member second) throws LookupException {
-			return first.signature().sameAs(second.signature());
-		}
-
-		@Override
-		public boolean containsBasedOnName(Signature first, Signature second) {
-			return first.name().equals(second.name());
-		}
-	};
+  private static OverridesRelation<Member> _overridesRelation = new OverridesRelation<Member>(Member.class);
   public MemberRelationSelector<? extends Member> aliasSelector() {
 		return new MemberRelationSelector<Member>(Member.class,this,_aliasSelector);
   }
 	
-  private static DeclarationComparator<Member> _aliasSelector = new DeclarationComparator<Member>(Member.class) {
-		
-		public boolean containsBasedOnRest(Member first, Member second) throws LookupException {
-			return first.signature().sameAs(second.signature());
-		}
-
-		@Override
-		public boolean containsBasedOnName(Signature first, Signature second) {
-			return true;
-		}
-	};
+  private static DeclarationComparator<Member> _aliasSelector = new DeclarationComparator<Member>(Member.class);
 
   public final boolean hides(Member other) throws LookupException {
 	  return ((HidesRelation)hidesRelation()).contains(this,other);
@@ -123,13 +102,7 @@ public abstract class ComponentParameter extends Parameter implements Declaratio
 		return _hidesSelector;
   }
   
-  private static HidesRelation<Member> _hidesSelector = new HidesRelation<Member>(Member.class) {
-		
-		public boolean containsBasedOnRest(Member first, Member second) throws LookupException {
-			return true;
-		}
-
-	};
+  private static HidesRelation<Member> _hidesSelector = new HidesRelation<Member>(Member.class);
 
 
   public final boolean canImplement(Member other) throws LookupException {

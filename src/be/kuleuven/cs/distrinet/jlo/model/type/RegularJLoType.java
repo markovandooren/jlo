@@ -19,8 +19,8 @@ public class RegularJLoType extends RegularJavaType {
 	
 //	private CreationStackTrace _trace;
 
-	public RegularJLoType(SimpleNameSignature sig) {
-		super(sig);
+	public RegularJLoType(String name) {
+		super(name);
 //		sig.parentLink().addListener(new AssociationListener() {
 //
 //			@Override
@@ -41,10 +41,6 @@ public class RegularJLoType extends RegularJavaType {
 //		});
 	}
 
-	public RegularJLoType(String name) {
-		super(name);
-	}
-	
 	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
 		return ImmutableList.<InheritanceRelation>builder().addAll(super.inheritanceRelations())
 		.addAll(body().members(ComponentRelation.class)).build();
@@ -54,7 +50,7 @@ public class RegularJLoType extends RegularJavaType {
 	protected RegularJLoType cloneSelf() {
 		//FIXME use lazy instantiation of parameter blocks to avoid this hack
 		//FIXME do something about the need to clone the signature.
-		RegularJLoType regularJLoType = new RegularJLoType(clone(signature()));
+		RegularJLoType regularJLoType = new RegularJLoType(name());
 		regularJLoType.setSignature(null);
 		regularJLoType.parameterBlock(TypeParameter.class).disconnect();
 		return regularJLoType;

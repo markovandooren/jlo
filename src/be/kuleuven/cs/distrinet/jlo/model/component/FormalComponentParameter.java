@@ -1,7 +1,6 @@
 package be.kuleuven.cs.distrinet.jlo.model.component;
 
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
-import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.TargetDeclaration;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
@@ -15,8 +14,8 @@ import be.kuleuven.cs.distrinet.chameleon.util.association.Single;
 
 public abstract class FormalComponentParameter extends ComponentParameter {
 
-	public FormalComponentParameter(SimpleNameSignature signature, TypeReference containerTypeReference, TypeReference componentTypeReference) {
-		super(signature);
+	public FormalComponentParameter(String name, TypeReference containerTypeReference, TypeReference componentTypeReference) {
+		super(name);
 		setContainerType(containerTypeReference);
 		setComponentType(componentTypeReference);
 	}

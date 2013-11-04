@@ -54,10 +54,6 @@ import JavaP;
     return gJavaP.createTypeReference(target,name);
   }
   
-  public JavaTypeReference createTypeReference(CrossReference<? extends TargetDeclaration> target, SimpleNameSignature signature) {
-    return gJavaP.createTypeReference(target,signature);
-  }
-
   public JavaTypeReference createTypeReference(NamedTarget target) {
     return gJavaP.createTypeReference(target);
   }
@@ -108,7 +104,7 @@ connector returns [TypeElement element]
 
 connection returns [TypeElement element]
  	: ctkw=Connect name=identifierRule tokw=identifierRule arg=subobjectArgument cl=';'
- 	  {retval.element = new InstantiatedMemberSubobjectParameter(new SimpleNameSignature($name.text),arg.element);
+ 	  {retval.element = new InstantiatedMemberSubobjectParameter($name.text,arg.element);
  	   setKeyword(retval.element,ctkw);
 	   setName(retval.element,name.start);
  	   if($tokw.text.equals("to")) {setKeyword(arg.element,tokw.start);}
@@ -249,7 +245,7 @@ subobjectParameter returns [ComponentParameter element]
 
 singleSubobjectParameter returns [ComponentParameter element]
 	: id=identifierRule tcontainer=type arrow='->' tcomp=type 
-	  {retval.element = new SingleFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
+	  {retval.element = new SingleFormalComponentParameter($id.text,tcontainer.element,tcomp.element);
 	   setLocation(retval.element,id.start,tcomp.stop);
 	   setKeyword(tcontainer.element,arrow);
 	   setName(retval.element,id.start);
@@ -258,7 +254,7 @@ singleSubobjectParameter returns [ComponentParameter element]
 
 multiSubobjectParameter returns [ComponentParameter element]
 	:  id=identifierRule tcontainer=type arrow='->' '[' tcomp=type fin=']'
-	  {retval.element = new MultiFormalComponentParameter(new SimpleNameSignature($id.text),tcontainer.element,tcomp.element);
+	  {retval.element = new MultiFormalComponentParameter($id.text,tcontainer.element,tcomp.element);
 	   setLocation(retval.element,id.start,fin);
 	   setKeyword(tcontainer.element,arrow);
 	   setName(retval.element,id.start);

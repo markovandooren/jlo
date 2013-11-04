@@ -45,15 +45,15 @@ public class InterfaceTransformer extends AbstractTranslator {
 				interfaceType.flushCache();
 				transformToInterfaceDeep(interfaceType);
 				for(BasicJavaTypeReference tref: interfaceType.descendants(BasicJavaTypeReference.class)) {
-					String name = tref.signature().name();
+					String name = tref.name();
 					if(name.endsWith(IMPL)) {
-						tref.setSignature(new SimpleNameSignature(interfaceName(name)));
+						tref.setName(interfaceName(name));
 					}
 				}
 				for(SimpleReference tref: interfaceType.descendants(SimpleReference.class)) {
-					String name = tref.signature().name();
+					String name = tref.name();
 					if(name.endsWith(IMPL)) {
-						tref.setSignature(new SimpleNameSignature(interfaceName(name)));
+						tref.setName(interfaceName(name));
 					}
 				}
 				interfaceCompilationUnit.flushCache();

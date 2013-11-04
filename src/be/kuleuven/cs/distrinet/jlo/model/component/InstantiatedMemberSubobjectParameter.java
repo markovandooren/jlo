@@ -4,10 +4,9 @@ package be.kuleuven.cs.distrinet.jlo.model.component;
 import java.util.Set;
 
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
-import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.TargetDeclaration;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupContext;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.scope.Scope;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
@@ -21,8 +20,8 @@ import be.kuleuven.cs.distrinet.chameleon.util.association.Single;
 public class InstantiatedMemberSubobjectParameter extends ComponentParameter implements ComponentArgumentContainer, AbstractInstantiatedComponentParameter {
 
 
-	public InstantiatedMemberSubobjectParameter(SimpleNameSignature sig, ActualComponentArgument argument) {
-		super(sig);
+	public InstantiatedMemberSubobjectParameter(String name, ActualComponentArgument argument) {
+		super(name);
 		setArgument(argument);
 	}
 
@@ -74,7 +73,7 @@ public class InstantiatedMemberSubobjectParameter extends ComponentParameter imp
 
 	@Override
 	protected InstantiatedMemberSubobjectParameter cloneSelf() {
-		return new InstantiatedMemberSubobjectParameter(null,null);
+		return new InstantiatedMemberSubobjectParameter(name(),null);
 	}
 
 	@Override

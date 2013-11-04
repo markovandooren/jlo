@@ -83,8 +83,7 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 		Iterator<ComponentParameter> formals = formalParameters.iterator();
 		while(arguments.hasNext()) {
 			ActualComponentArgument arg = arguments.next();
-			Signature sig = clone(formals.next().signature());
-			parameters.add(new InstantiatedComponentParameter((SimpleNameSignature) sig, arg));
+			parameters.add(new InstantiatedComponentParameter(formals.next().name(), arg));
 		}
 		DerivedType result = language(ObjectOrientedLanguage.class).createDerivedType(ComponentParameter.class, parameters, componentType);
 		result.setUniParent(componentType.parent());

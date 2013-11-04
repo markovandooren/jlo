@@ -15,7 +15,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.document.Document;
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.NameSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.modifier.Modifier;
 import be.kuleuven.cs.distrinet.chameleon.core.namespacedeclaration.Import;
 import be.kuleuven.cs.distrinet.chameleon.core.namespacedeclaration.NamespaceDeclaration;
@@ -287,7 +287,7 @@ public class JavaTranslator extends AbstractTranslator {
 		boolean c = nearestInheritanceRelation != null || (nearestClassBody != null && nearestClassBody.nearestAncestor(InheritanceRelation.class) == nearestInheritanceRelation);
 		SubobjectConstructorCall nearestAncestor = cwt.nearestAncestor(SubobjectConstructorCall.class);
 		boolean d = nearestAncestor == null;
-		boolean e = nearestAncestor != null && ! nearestAncestor.crossReference().descendants().contains(cwt);
+		boolean e = nearestAncestor != null && ! nearestAncestor.descendants().contains(cwt);
 		boolean f = d || e;
 		return a && b && c && f;
 	}	
@@ -320,9 +320,9 @@ public class JavaTranslator extends AbstractTranslator {
 		if(target != null) {
 			transformToInterfaceReference(target);
 		}
-		String name = ref.signature().name();
+		String name = ref.name();
 		if(name.endsWith(IMPL)) {
-			ref.setSignature(new SimpleNameSignature(interfaceName(name)));
+			ref.setName(interfaceName(name));
 		}
 	}
 	
@@ -566,10 +566,15 @@ public class JavaTranslator extends AbstractTranslator {
 				Type containerOfNewDefinition = typeOfDefinition(result,original, method); // OK: SUBOBJECT
 				if(containerOfNewDefinition != null) {
 					tmp.setUniParent(containerOfNewDefinition);
-					DeclarationSelector<Method> selector = new SimpleSelector<Method>(Method.class) {
+					DeclarationSelector<Method> selector = new NameSelector<Method>(Method.class) {
 						@Override
-						public Signature signature() {
-							return tmp.signature();
+						protected boolean correctSignature(Declaration declaration)
+								throws LookupException {
+							return declaration.signature().sameAs(tmp);
+						}
+						@Override
+						public String name() {
+							return tmp.name();
 						}
 					};
 					Method newDefinitionInResult = (Method) containerOfNewDefinition.members(selector).get(0).finalDeclaration();
@@ -731,8 +736,7 @@ public class JavaTranslator extends AbstractTranslator {
 
 	private Type createOrGetInnerTypeForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
 //			Signature innerName = (new SimpleNameSignature(innerClassName(relationBeingTranslated, original)));
-			Signature innerName = Util.clone(current.signature());
-			SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
+			SimpleReference<Type> tref = new SimpleReference<Type>(current.name(), Type.class);
 			tref.setUniParent(container);
 			Type result;
 //			try { 
@@ -753,8 +757,7 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 
 	private Type createOrGetSubobjectForType(Type container, Type original, Type current, List<Element> elements, int baseOneIndex) throws LookupException {
-	Signature innerName = Util.clone(current.signature());
-	SimpleReference<Type> tref = new SimpleReference<Type>(innerName, Type.class);
+	SimpleReference<Type> tref = new SimpleReference<Type>(current.name(), Type.class);
 	tref.setUniParent(container);
 	Type result = tref.getElement();
 	return createOrGetSubobject(result, original, elements, baseOneIndex + 1);
@@ -764,7 +767,7 @@ public class JavaTranslator extends AbstractTranslator {
 			Type result = null;
 			List<Type> types = container.directlyDeclaredElements(Type.class);
 			for(Type type: types) {
-				if(type.signature().name().equals(innerName)) {
+				if(type.name().equals(innerName)) {
 					result = type;
 				}
 			}

@@ -1,9 +1,8 @@
 package be.kuleuven.cs.distrinet.jlo.model.component;
 
-import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationCollector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.NameSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
@@ -22,9 +21,9 @@ public class ParameterReferenceActualArgument extends SingleActualComponentArgum
 	@Override
 	public ComponentParameter declaration() throws LookupException {
 		DeclarationCollector<ComponentParameter> collector = new DeclarationCollector<ComponentParameter>(
-			new SimpleSelector<ComponentParameter>(ComponentParameter.class){
-			  public Signature signature() {
-				  return ParameterReferenceActualArgument.this.signature();
+			new NameSelector<ComponentParameter>(ComponentParameter.class){
+			  public String name() {
+				  return ParameterReferenceActualArgument.this.name();
 			  }
 		  });
 		lexicalContext().lookUp(collector);

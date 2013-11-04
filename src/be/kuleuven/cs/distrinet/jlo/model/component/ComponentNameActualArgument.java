@@ -1,10 +1,9 @@
 package be.kuleuven.cs.distrinet.jlo.model.component;
 
-import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationCollector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.NameSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.BasicProblem;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
@@ -19,10 +18,10 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument {
 	@Override
 	public ComponentRelation declaration() throws LookupException {
 		Type enclosing = containerType();
-		DeclarationSelector<ComponentRelation> selector = new SimpleSelector<ComponentRelation>(ComponentRelation.class) {
+		DeclarationSelector<ComponentRelation> selector = new NameSelector<ComponentRelation>(ComponentRelation.class) {
 			@Override
-			public Signature signature() {
-				return ComponentNameActualArgument.this.signature();
+			public String name() {
+				return ComponentNameActualArgument.this.name();
 			}
 		 };
 		 DeclarationCollector<ComponentRelation> collector = new DeclarationCollector<ComponentRelation>(selector);
@@ -62,7 +61,7 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument {
 				try {
 					rel = declaration();
 				} catch (LookupException e) {
-					result = result.and(new BasicProblem(this, "The container type ("+typeName+") of subobject parameter "+formal.signature()+" has no subobject with name "+signature().name()));
+					result = result.and(new BasicProblem(this, "The container type ("+typeName+") of subobject parameter "+formal.signature()+" has no subobject with name "+name()));
 				}
 				if(rel != null) {
 					try {

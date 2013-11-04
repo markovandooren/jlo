@@ -8,7 +8,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationCollector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclaratorSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.NameSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReference;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.CrossReferenceTarget;
 import be.kuleuven.cs.distrinet.chameleon.core.reference.UnresolvableCrossReference;
@@ -20,39 +20,23 @@ import be.kuleuven.cs.distrinet.chameleon.util.association.Single;
 
 public class ComponentParameterCall extends Expression implements CrossReference<FormalComponentParameter> {
 
-	public ComponentParameterCall(CrossReferenceTarget target, SimpleNameSignature signature) {
-		setSignature(signature);
+	public ComponentParameterCall(CrossReferenceTarget target, String name) {
+		setName(name);
 		setTarget(target);
 	}
-	public ComponentParameterCall(SimpleNameSignature signature) {
-		this(null,signature);
-	}
-	
-	public ComponentParameterCall(CrossReferenceTarget target, String name) {
-		this(target,new SimpleNameSignature(name));
-	}
-
 	public ComponentParameterCall(String name) {
 		this(null,name);
 	}
-
+	
 	public String name() {
-		return signature().name();
-	}
-	
-	public void setSignature(SimpleNameSignature signature) {
-		set(_signature, signature);
-	}
-	
-	public SimpleNameSignature signature() {
-		return _signature.getOtherEnd();
+		return _name;
 	}
 	
 	public void setName(String name) {
-		signature().setName(name);
+		_name = name;
 	}
 	
-	private Single<SimpleNameSignature> _signature = new Single<SimpleNameSignature>(this);
+	private String _name;
 
 	@Override
 	protected Type actualType() throws LookupException {
@@ -61,7 +45,7 @@ public class ComponentParameterCall extends Expression implements CrossReference
 
 	@Override
 	protected ComponentParameterCall cloneSelf() {
-		return new ComponentParameterCall(null,(SimpleNameSignature)null);
+		return new ComponentParameterCall(null,name());
 	}
 
 	@Override
@@ -105,9 +89,9 @@ public class ComponentParameterCall extends Expression implements CrossReference
   }
 
 	public DeclarationSelector<FormalComponentParameter> selector() {
-		return new SimpleSelector<FormalComponentParameter>(FormalComponentParameter.class) {
-			public Signature signature() {
-				return ComponentParameterCall.this.signature();
+		return new NameSelector<FormalComponentParameter>(FormalComponentParameter.class) {
+			public String name() {
+				return ComponentParameterCall.this.name();
 			}
 		};
 	}

@@ -79,7 +79,7 @@ public class AbstractTranslator {
 			if(tref.getTarget() == null) {
 				try {
 					// Filthy hack, should add meta information to such references, and use that instead.
-					String name = tref.signature().name();
+					String name = tref.name();
 					if(! name.contains(SHADOW)) {
 						Type element = null;
 						boolean implClass = name.contains(IMPL);
@@ -322,7 +322,7 @@ public class AbstractTranslator {
 		while(ancestor != null) {
 			List<TypeParameter> tpars = ancestor.parameters(TypeParameter.class);
 			for(TypeParameter parameter:tpars) {
-				createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.signature().name())));
+				createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.name())));
 			}
 			if(type.isTrue(language.CLASS)) {
 				ancestor = null;

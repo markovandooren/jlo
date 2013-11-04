@@ -226,7 +226,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	
   private boolean alreadyContains(List<Member> members, Member member) throws LookupException {
   	for(Member m: members) {
-  		if(member.signature().sameAs(m.signature())) {
+  		if(member.sameSignatureAs(m)) {
   			return true;
   		}
   	}

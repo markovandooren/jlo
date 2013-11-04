@@ -243,10 +243,6 @@ import java.util.ArrayList;
     return gJLoP.createTypeReference(target,name);
   }
   
-  public JavaTypeReference createTypeReference(CrossReference<? extends TargetDeclaration> target, SimpleNameSignature signature) {
-    return gJLoP.createTypeReference(target,signature);
-  }
-
   public JavaTypeReference createTypeReference(NamedTarget target) {
     return gJLoP.createTypeReference(target);
   }

@@ -103,7 +103,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			  	}
 			  }
 			  // Add a strategy parameter for the explicit initialization. 
-			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(constructorArgumentName(relation)), language.createTypeReference(interfaceName(strategyName(relation)))));
+			  header.addFormalParameter(new FormalParameter(constructorArgumentName(relation), language.createTypeReference(interfaceName(strategyName(relation)))));
 			  String interfaceName;
 			  if(cons != null) {
 			  	createSpecificStrategy(relation,cons);
@@ -114,7 +114,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			  // Add the default strategy parameter whic is used when its subclass does not
 			  // have an explicit constructor call. In this case, the arguments of the local subobject
 			  // constructor call are passed to the default strategy.
-			  header.addFormalParameter(new FormalParameter(new SimpleNameSignature(defaultConstructorArgumentName(relation)), language.createTypeReference(interfaceName)));
+			  header.addFormalParameter(new FormalParameter(defaultConstructorArgumentName(relation), language.createTypeReference(interfaceName)));
 			  added = true;
 		  }
 	  }
@@ -140,10 +140,10 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 		if(strategyDoesNotExistFor(relation,strategyName(relation))) {
 			String componentTypeName = interfaceName(relation.componentType().getFullyQualifiedName());
 			Java language = type.language(Java.class);
-			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(new SimpleNameSignature(name));
+			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(name);
 			MethodHeader header = new SimpleNameMethodHeader(CONSTRUCT, language.createTypeReference(componentTypeName));
 			TypeReference typeRef = language.createTypeReference("java.lang.Object");
-			header.addFormalParameter(new FormalParameter(new SimpleNameSignature("object"), typeRef));
+			header.addFormalParameter(new FormalParameter("object", typeRef));
 			Method constructor = language.plugin(ObjectOrientedFactory.class).createNormalMethod(header);
 			constructor.setImplementation(null);
 			constructor.addModifier(new Abstract());
@@ -177,11 +177,11 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 
 		if(strategyDoesNotExistFor(relation,name)) {
 			Java language = type.language(Java.class);
-			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(new SimpleNameSignature(name));
+			Type strategy = language.plugin(ObjectOrientedFactory.class).createRegularType(name);
 			MethodHeader header = new SimpleNameMethodHeader(CONSTRUCT, language.createTypeReference(componentTypeName));
 			Method factoryMethod = language.plugin(ObjectOrientedFactory.class).createNormalMethod(header);
 			TypeReference typeRef = language.createTypeReference("java.lang.Object");
-			header.addFormalParameter(new FormalParameter(new SimpleNameSignature("objectafrkuscggfjsdk"), typeRef));
+			header.addFormalParameter(new FormalParameter("objectafrkuscggfjsdk", typeRef));
 			for(FormalParameter param: constructor.formalParameters()) {
 				factoryMethod.header().addFormalParameter(Util.clone(param));
 			}
@@ -407,8 +407,8 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 					if(subCalls.isEmpty() && clonedConstructor) {
 						// Neither strategy is set.
 						
-							arguments[relativeIndexInSuper] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).getName());
-							arguments[relativeIndexInSuper+1] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent+1).getName());
+							arguments[relativeIndexInSuper] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).name());
+							arguments[relativeIndexInSuper+1] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent+1).name());
 					} else {
 						arguments[relativeIndexInSuper] = new NullLiteral();
 						arguments[relativeIndexInSuper+1] = new NullLiteral();
@@ -423,12 +423,12 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 							// add default strategy
 							arguments[relativeIndexInSuper+1] = strategy;
 						} else {
-							arguments[relativeIndexInSuper] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).getName());
+							arguments[relativeIndexInSuper] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).name());
 
-							Expression arg = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent+1).getName());
+							Expression arg = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent+1).name());
 							MethodInvocation conditionRight = new InfixOperatorInvocation("==", Util.clone(arg));
 							conditionRight.addArgument(new NullLiteral());
-							Expression explicitArg = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).getName());
+							Expression explicitArg = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).name());
 							MethodInvocation conditionLeft = new InfixOperatorInvocation("==", Util.clone(explicitArg));
 							conditionLeft.addArgument(new NullLiteral());
 							MethodInvocation condition = new InfixOperatorInvocation("&&", conditionLeft);
@@ -446,7 +446,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 						subCalls.get(0).parent().disconnect();
 						
 						} else {
-							arguments[relativeIndexInSuper] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).getName());
+							arguments[relativeIndexInSuper] = expressionFactory.createNameExpression(formalParameters.get(indexInCurrent).name());
 							// default is to propagate the argument.
 							arguments[relativeIndexInSuper+1] = new NullLiteral();
 						}
@@ -627,7 +627,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	@Override
 	protected void addArguments(SubobjectConstructorCall constructorCall, SuperConstructorDelegation superCall, ComponentRelation relation, ConstructorInvocation constructorInvocation)
 			throws LookupException {
-		for(Expression e : constructorCall.crossReference().getActualParameters()) {
+		for(Expression e : constructorCall.getActualParameters()) {
 			constructorInvocation.addArgument(e);
 		}
 	}
@@ -664,7 +664,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			Language language = relation.language();
 			ExpressionFactory expressionFactory = language.plugin(ExpressionFactory.class);
 			for(FormalParameter param: subobjectConstructor.formalParameters()) {
-				NameExpression constructorArgument = expressionFactory.createNameExpression(param.getName());
+				NameExpression constructorArgument = expressionFactory.createNameExpression(param.name());
 				constructorInvocation.addArgument(constructorArgument);
 			}
 		}

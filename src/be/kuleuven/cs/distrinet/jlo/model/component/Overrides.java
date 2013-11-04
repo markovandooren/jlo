@@ -10,7 +10,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.declaration.TargetDeclaration;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationCollector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.DeclarationSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
-import be.kuleuven.cs.distrinet.chameleon.core.lookup.SimpleSelector;
+import be.kuleuven.cs.distrinet.chameleon.core.lookup.NameSelector;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Valid;
 import be.kuleuven.cs.distrinet.chameleon.core.validation.Verification;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
@@ -75,9 +75,14 @@ public class Overrides extends TypeElementImpl {
 		int size = signatures.size();
 		for(int i = 0; i< size; i++) {
 			final Signature sig = signatures.get(i);
-			DeclarationSelector<Declaration> selector = new SimpleSelector<Declaration>(Declaration.class) {
-				public Signature signature() {
-					return sig;
+			DeclarationSelector<Declaration> selector = new NameSelector<Declaration>(Declaration.class) {
+				@Override
+				protected boolean correctSignature(Declaration declaration)
+						throws LookupException {
+					return declaration.signature().sameAs(sig);
+				}
+				public String name() {
+					return sig.name();
 				}
 			};
 			if(i < size - 1) {

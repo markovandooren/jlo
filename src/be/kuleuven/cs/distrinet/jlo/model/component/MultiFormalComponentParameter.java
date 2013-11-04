@@ -1,23 +1,22 @@
 package be.kuleuven.cs.distrinet.jlo.model.component;
 
-import be.kuleuven.cs.distrinet.jnome.core.language.Java;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
-import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.TypeReference;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.generics.ActualTypeArgument;
+import be.kuleuven.cs.distrinet.jnome.core.language.Java;
+import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 
 public class MultiFormalComponentParameter extends FormalComponentParameter {
 
-	public MultiFormalComponentParameter(SimpleNameSignature signature, TypeReference containerTypeReference,
+	public MultiFormalComponentParameter(String name, TypeReference containerTypeReference,
 			TypeReference componentTypeReference) {
-		super(signature,containerTypeReference,componentTypeReference);
+		super(name,containerTypeReference,componentTypeReference);
 	}
 
 	@Override
 	protected MultiFormalComponentParameter cloneSelf() {
-		return new MultiFormalComponentParameter(null,null,null);
+		return new MultiFormalComponentParameter(name(),null,null);
 	}
 
 	public Type declarationType() throws LookupException {

@@ -5,8 +5,8 @@ import java.util.List;
 
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Declaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.Signature;
+import be.kuleuven.cs.distrinet.chameleon.core.declaration.BasicDeclaration;
 import be.kuleuven.cs.distrinet.chameleon.core.declaration.SimpleNameSignature;
-import be.kuleuven.cs.distrinet.chameleon.core.element.ElementImpl;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LocalLookupContext;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectionResult;
@@ -20,17 +20,23 @@ import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
 import be.kuleuven.cs.distrinet.chameleon.util.Util;
 import be.kuleuven.cs.distrinet.chameleon.util.association.Single;
 
-public class ComponentRelationSet extends ElementImpl implements DeclarationWithType{
+public class ComponentRelationSet extends BasicDeclaration implements DeclarationWithType{
 
 	
 	public ComponentRelationSet(List<DeclarationWithType> relations, FormalComponentParameter formal) {
+		super(formal.name());
 		_relations = new ArrayList<DeclarationWithType>(relations);
-		setSignature(Util.clone(formal.signature()));
 		_formal = formal;
 	}
 	
 	public FormalComponentParameter formalParameter() {
 		return _formal;
+	}
+	
+	@Override
+	public boolean sameSignatureAs(Declaration declaration)
+			throws LookupException {
+		return signature().sameAs(declaration.signature());
 	}
 	
 	private FormalComponentParameter _formal;
@@ -53,29 +59,6 @@ public class ComponentRelationSet extends ElementImpl implements DeclarationWith
 
 	public LocalLookupContext<?> targetContext() throws LookupException {
 		return declarationType().targetContext();
-	}
-
-	public SimpleNameSignature signature() {
-		return _signature.getOtherEnd();
-	}
-	
-	@Override
-	public String name() {
-		return signature().name();
-	}
-
-	private Single<SimpleNameSignature> _signature = new Single<SimpleNameSignature>(this); 
-
-	public void setSignature(Signature signature) {
-		if(signature instanceof SimpleNameSignature) {
-			set(_signature,(SimpleNameSignature) signature);
-		} else {
-			throw new ChameleonProgrammerException("Not a valid signature type for a component parameter set: "+ signature == null ? "" : signature.getClass().getName());
-		}
-	}
-
-	public void setName(String name) {
-		setSignature(new SimpleNameSignature(name));
 	}
 
 	public Declaration selectionDeclaration() throws LookupException {

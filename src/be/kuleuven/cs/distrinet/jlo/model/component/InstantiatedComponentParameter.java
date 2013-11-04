@@ -19,8 +19,8 @@ import be.kuleuven.cs.distrinet.chameleon.oo.type.Type;
 public class InstantiatedComponentParameter extends ComponentParameter implements AbstractInstantiatedComponentParameter {
 
 	
-	public InstantiatedComponentParameter(SimpleNameSignature sig, ActualComponentArgument argument) {
-		super(sig);
+	public InstantiatedComponentParameter(String name, ActualComponentArgument argument) {
+		super(name);
 		_argument = argument;
 	}
 
@@ -75,7 +75,7 @@ public class InstantiatedComponentParameter extends ComponentParameter implement
 
 	@Override
 	protected InstantiatedComponentParameter cloneSelf() {
-		return new InstantiatedComponentParameter(null,argument());
+		return new InstantiatedComponentParameter(name(),argument());
 	}
 
 	@Override
