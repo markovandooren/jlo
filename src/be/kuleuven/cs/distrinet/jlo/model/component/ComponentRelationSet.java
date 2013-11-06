@@ -33,12 +33,6 @@ public class ComponentRelationSet extends BasicDeclaration implements Declaratio
 		return _formal;
 	}
 	
-	@Override
-	public boolean sameSignatureAs(Declaration declaration)
-			throws LookupException {
-		return signature().sameAs(declaration.signature());
-	}
-	
 	private FormalComponentParameter _formal;
 	
 	public List<DeclarationWithType> relations() {

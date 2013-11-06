@@ -52,7 +52,7 @@ public class JLoSyntax extends JavaCodeWriter {
 	}
 	
 	public String toCodeInstantiatedMemberSubobjectParameter(InstantiatedMemberSubobjectParameter element) {
-		return "connect " + element.signature() +" to " +toCode(element.argument());
+		return "connect " + element.name() +" to " +toCode(element.argument());
 	}
 	
 	public boolean isSingleFormalComponentParameter(Element element) {
@@ -60,7 +60,7 @@ public class JLoSyntax extends JavaCodeWriter {
 	}
 	
 	public String toCodeSingleFormalComponentParameter(SingleFormalComponentParameter element) {
-		return "connector " +element.signature().name() +" "+ toCode(element.containerTypeReference()) + " -> " + toCode(element.componentTypeReference());
+		return "connector " +element.name() +" "+ toCode(element.containerTypeReference()) + " -> " + toCode(element.componentTypeReference());
 	}
 	
 	public boolean isMultiFormalComponentParameter(Element element) {
@@ -68,7 +68,7 @@ public class JLoSyntax extends JavaCodeWriter {
 	}
 	
 	public String toCodeMultiFormalComponentParameter(MultiFormalComponentParameter element) {
-		return "connector " +element.signature().name() +" "+ toCode(element.containerTypeReference()) + " -> [" + toCode(element.componentTypeReference())+"]";
+		return "connector " +element.name() +" "+ toCode(element.containerTypeReference()) + " -> [" + toCode(element.componentTypeReference())+"]";
 	}
 	
   public boolean isRenamingClause(Element element) {
@@ -126,7 +126,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		StringBuffer result = new StringBuffer();
 		addModifiers(relation, result);
 		result.append( "subobject ");
-		result.append(relation.signature());
+		result.append(relation.name());
 		result.append(" ");
 		result.append(toCode(relation.componentTypeReference()));
 		return result.toString();

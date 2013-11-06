@@ -570,7 +570,7 @@ public class JavaTranslator extends AbstractTranslator {
 						@Override
 						protected boolean correctSignature(Declaration declaration)
 								throws LookupException {
-							return declaration.signature().sameAs(tmp);
+							return declaration.signature().sameAs(tmp.signature());
 						}
 						@Override
 						public String name() {
@@ -843,7 +843,7 @@ public class JavaTranslator extends AbstractTranslator {
 			String name = oldName;
 			if(! name.endsWith(IMPL)) {
 				name = name +IMPL;
-				type.signature().setName(name);
+				type.setName(name);
 			}
 			for(SubtypeRelation relation: type.nonMemberInheritanceRelations(SubtypeRelation.class)) {
 				transformToImplReference(relation.superClassReference());
@@ -1014,7 +1014,7 @@ public class JavaTranslator extends AbstractTranslator {
 	
 	private Method setterForSubobject(ComponentRelation relation, Type outer) throws LookupException {
 		if(relation.overriddenMembers().isEmpty()) {
-			String name = relation.signature().name();
+			String name = relation.name();
 			Java language = relation.language(Java.class);
 			RegularMethod result = language.plugin(ObjectOrientedFactory.class).createNormalMethod(new SimpleNameMethodHeader(setterName(relation), relation.language(Java.class).createTypeReference("void")));
 			BasicJavaTypeReference tref = componentTypeReference(relation, outer);
@@ -1040,6 +1040,6 @@ public class JavaTranslator extends AbstractTranslator {
 	}
 	
 	private String fieldName(ComponentRelation relation) {
-		return relation.signature().name();
+		return relation.name();
 	}
 }

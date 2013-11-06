@@ -85,7 +85,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 			try {
 				return componentType().toString();
 			} catch (LookupException e) {
-				return signature().name();
+				return name();
 			}
 		} catch(NullPointerException exc) {
 			return "";

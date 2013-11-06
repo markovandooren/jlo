@@ -61,7 +61,7 @@ public class ComponentNameActualArgument extends SingleActualComponentArgument {
 				try {
 					rel = declaration();
 				} catch (LookupException e) {
-					result = result.and(new BasicProblem(this, "The container type ("+typeName+") of subobject parameter "+formal.signature()+" has no subobject with name "+name()));
+					result = result.and(new BasicProblem(this, "The container type ("+typeName+") of subobject parameter "+formal.name()+" has no subobject with name "+name()));
 				}
 				if(rel != null) {
 					try {

@@ -43,12 +43,11 @@ public class InstantiatedComponentParameter extends ComponentParameter implement
 		if(enclosing == null) {
 			throw new LookupException("The instantiated single component parameter is not in a derived type.");
 		} else {
-			ComponentRelation result = null;
 			Type original = (Type) enclosing.origin();
 			ParameterBlock<?> block = original.parameterBlock(ComponentParameter.class);
 			FormalComponentParameter p = null;
 			for(Parameter param: block.parameters()) {
-				if(param.signature().sameAs(signature())) {
+				if(param.sameSignatureAs(this)) {
 					p = (FormalComponentParameter) param;
 				}
 			}

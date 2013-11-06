@@ -51,7 +51,6 @@ public class RegularJLoType extends RegularJavaType {
 		//FIXME use lazy instantiation of parameter blocks to avoid this hack
 		//FIXME do something about the need to clone the signature.
 		RegularJLoType regularJLoType = new RegularJLoType(name());
-		regularJLoType.setSignature(null);
 		regularJLoType.parameterBlock(TypeParameter.class).disconnect();
 		return regularJLoType;
 	}

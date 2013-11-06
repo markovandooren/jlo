@@ -96,7 +96,7 @@ public class InterfaceTransformer extends AbstractTranslator {
 			for(TypeElement decl: type.directlyDeclaredElements()) {
 				transform(language, decl);
 			}
-			type.signature().setName(interfaceName(name));
+			type.setName(interfaceName(name));
 			if(! (type.is(language.INTERFACE) == Ternary.TRUE)) {
 				type.addModifier(new Interface());
 				type.flushCache();

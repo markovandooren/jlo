@@ -135,7 +135,7 @@ public class ComponentType extends AnonymousType {
 		int size = outerTypes.size();
 		ExpressionFactory expressionFactory = language(ObjectOrientedLanguage.class).plugin(ExpressionFactory.class);
 		for(int i = size - 2; i>=0;i--) {
-			SimpleReference<RawType> simpleRef = expressionFactory.createSimpleReference(outerTypes.get(i).signature().name(), RawType.class);
+			SimpleReference<RawType> simpleRef = expressionFactory.createSimpleReference(outerTypes.get(i).name(), RawType.class);
 			simpleRef.setUniParent(current);
 			try {
 				current = simpleRef.getElement();

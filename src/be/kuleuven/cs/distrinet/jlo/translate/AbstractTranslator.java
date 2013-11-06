@@ -227,7 +227,7 @@ public class AbstractTranslator {
 	}
 
 	protected String setterName(ComponentRelation relation) {
-		return "set"+COMPONENT+"__"+relation.signature().name();
+		return "set"+COMPONENT+"__"+relation.name();
 	}
 	
 	public final static String COMPONENT = "__component__lkjkberfuncye__";
@@ -262,7 +262,7 @@ public class AbstractTranslator {
 	protected void useParametersInInvocation(Method method, MethodInvocation invocation, Language language) {
 		ExpressionFactory expressionFactory = language.plugin(ExpressionFactory.class);
 		for(FormalParameter param: method.formalParameters()) {
-			invocation.addArgument(expressionFactory.createNameExpression(param.signature().name(), null));
+			invocation.addArgument(expressionFactory.createNameExpression(param.name(), null));
 		}
 	}
 	
@@ -281,7 +281,7 @@ public class AbstractTranslator {
 	}
 	
 	protected String getterName(ComponentRelation relation) {
-		return getterName(relation.signature().name());
+		return getterName(relation.name());
 	}
 	
 	public String getterName(String componentName) {
