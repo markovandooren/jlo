@@ -302,7 +302,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 	}
 
 	@Override
-	public <X extends Member> void accumulateInheritedMembers(Class<X> kind, List<X> current) throws LookupException {
+	public <X extends Member> List<X> accumulateInheritedMembers(Class<X> kind, List<X> current) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
 		if(configurationBlock != null) {
 			List members = configurationBlock.processedMembers();
@@ -312,27 +312,28 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 		List members = componentType().processedMembers();
 		new TypePredicate<>(kind).filter(members);
 	  current.addAll((Collection<? extends X>) members);
+	  return current;
 	}
 
 	@Override
-	public <X extends Member> void accumulateInheritedMembers(DeclarationSelector<X> selector, List<SelectionResult> current) throws LookupException {
+	public <X extends Member> List<SelectionResult> accumulateInheritedMembers(DeclarationSelector<X> selector, List<SelectionResult> current) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
 		final List<SelectionResult> potential = (List)selector.selection(componentType().processedMembers());
 		if(configurationBlock != null) {
 		  potential.addAll(selector.selection(configurationBlock.processedMembers()));
 		}
-		removeNonMostSpecificMembers(current, potential);
+		return removeNonMostSpecificMembers(current, potential);
 	}
 
-	protected <M extends Member>
-  void removeNonMostSpecificMembers(List<SelectionResult> current, final List<? extends SelectionResult> potential) throws LookupException {
+	protected 
+	List<SelectionResult> removeNonMostSpecificMembers(List<SelectionResult> current, final List<? extends SelectionResult> potential) throws LookupException {
 	final List<SelectionResult> toAdd = new ArrayList<SelectionResult>();
 	for(SelectionResult mm: potential) {
 		Member m = (Member) mm.finalDeclaration();
 		boolean add = true;
 		Iterator<SelectionResult> iterCurrent = current.iterator();
 		while(add && iterCurrent.hasNext()) {
-			M alreadyInherited = (M) iterCurrent.next().finalDeclaration();
+			Member alreadyInherited = (Member) iterCurrent.next().finalDeclaration();
 			// Remove the already inherited member if potentially inherited member m overrides or hides it.
 			if((alreadyInherited.sameAs(m) || alreadyInherited.overrides(m) || alreadyInherited.canImplement(m) || alreadyInherited.hides(m))) {
 				add = false;
@@ -345,6 +346,7 @@ public class ComponentRelation extends MemberImpl implements DeclarationWithType
 		}
 	}
 	current.addAll(toAdd);
+	return current;
 }
 
 	public List<? extends Member> getIntroducedMembers() throws LookupException {

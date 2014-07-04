@@ -1,6 +1,7 @@
 package be.kuleuven.cs.distrinet.jlo.model.component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.SelectionResult;
 import be.kuleuven.cs.distrinet.chameleon.oo.member.Member;
 import be.kuleuven.cs.distrinet.chameleon.oo.type.inheritance.SubtypeRelation;
+import be.kuleuven.cs.distrinet.chameleon.util.Lists;
 
 public abstract class IncorporatingSubtypeRelation extends SubtypeRelation {
 	
@@ -20,20 +22,23 @@ public abstract class IncorporatingSubtypeRelation extends SubtypeRelation {
 	/**
 	 * The members in both lists are either incorporated, or not generated (those that are defined in the subobject itself). 
 	 */
-	protected <M extends Member> void removeNonMostSpecificMembers(List<SelectionResult> current, final List<? extends SelectionResult> potential) throws LookupException {
-		final List<SelectionResult> toAdd = new ArrayList<SelectionResult>();
+	protected List<SelectionResult> removeNonMostSpecificMembers(List<SelectionResult> current, final List<? extends SelectionResult> potential) throws LookupException {
+		if(current == Collections.EMPTY_LIST) {
+			return (List)potential; 
+		}
+		final List<SelectionResult> toAdd = Lists.create(potential.size());
 		for(SelectionResult mm: potential) {
 			Member m = (Member)mm.finalDeclaration();
-			M originOfM = (M) m.origin();
+			Member originOfM = (Member) m.origin();
 			boolean add = true;
 			Iterator<SelectionResult> iterCurrent = current.iterator();
 			while(add && iterCurrent.hasNext()) {
-				M next = (M) iterCurrent.next().finalDeclaration();
+				Member next = (Member) iterCurrent.next().finalDeclaration();
 				Element origin = next.origin();
-				M alreadyInherited = next;
+				Member alreadyInherited = next;
 				//FIXME BAD DESIGN! 'origin()' seems overloaded need methods similar to nearestAncestor(Class) and nearestAncestorOrSelf.....???
 				if(origin instanceof Member) {
-					alreadyInherited = (M) origin;
+					alreadyInherited = (Member) origin;
 				}
 				// Remove the already inherited member if potentially inherited member m overrides or hides it.
 				if((alreadyInherited.sameAs(originOfM) || alreadyInherited.overrides(originOfM) || alreadyInherited.canImplement(originOfM) || alreadyInherited.hides(originOfM))) {
@@ -46,7 +51,13 @@ public abstract class IncorporatingSubtypeRelation extends SubtypeRelation {
 				toAdd.add(mm);
 			}
 		}
-		current.addAll(toAdd);
+		if(current.size() > toAdd.size()) {
+			current.addAll(toAdd);
+			return current;
+		} else {
+			toAdd.addAll(current);
+			return toAdd;
+		}
 	}
 
 }

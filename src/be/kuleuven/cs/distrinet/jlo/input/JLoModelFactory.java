@@ -7,7 +7,7 @@ import java.util.Collection;
 
 import be.kuleuven.cs.distrinet.jlo.model.language.JLo;
 import be.kuleuven.cs.distrinet.jnome.input.JavaModelFactory;
-import be.kuleuven.cs.distrinet.jnome.output.JavaCodeWriter;
+import be.kuleuven.cs.distrinet.jnome.output.JavaSyntax;
 
 import org.antlr.runtime.ANTLRInputStream;
 import org.antlr.runtime.CommonTokenStream;
@@ -38,7 +38,7 @@ public class JLoModelFactory extends JavaModelFactory {
 	 */
 	public JLoModelFactory() {
 		JLo lang = new JLo();
-		lang.setPlugin(Syntax.class, new JavaCodeWriter());
+		lang.setPlugin(Syntax.class, new JavaSyntax());
 		lang.setPlugin(ObjectOrientedFactory.class, new JLoFactory());
 		setLanguage(lang, ModelFactory.class);
 	}

@@ -14,17 +14,17 @@ import be.kuleuven.cs.distrinet.jlo.model.component.SingleActualComponentArgumen
 import be.kuleuven.cs.distrinet.jlo.model.component.SingleFormalComponentParameter;
 import be.kuleuven.cs.distrinet.jlo.model.expression.ComponentParameterCall;
 import be.kuleuven.cs.distrinet.jlo.model.expression.SubobjectConstructorCall;
-import be.kuleuven.cs.distrinet.jnome.output.JavaCodeWriter;
+import be.kuleuven.cs.distrinet.jnome.output.JavaSyntax;
 import be.kuleuven.cs.distrinet.chameleon.core.element.Element;
 import be.kuleuven.cs.distrinet.chameleon.core.lookup.LookupException;
 
-public class JLoSyntax extends JavaCodeWriter {
+public class JLoSyntax extends JavaSyntax {
 
 	@Override
 	public String toCode(Element element) {
 		String result;
 		if(isSubobject(element)) {
-			result = toCodeComponentRelation((ComponentRelation) element);
+			result = toCodeSubobject((ComponentRelation) element);
 		} else if(isComponentParameterTypeReference(element)) {
 			result = toCodeComponentParameterTypeReference((ComponentParameterTypeReference) element);
 		} else if(isMultiActualComponentArgument(element)) {
@@ -122,7 +122,7 @@ public class JLoSyntax extends JavaCodeWriter {
 		return result.toString();
 	}
 	
-	public String toCodeComponentRelation(ComponentRelation relation)  {
+	public String toCodeSubobject(ComponentRelation relation)  {
 		StringBuffer result = new StringBuffer();
 		addModifiers(relation, result);
 		result.append( "subobject ");

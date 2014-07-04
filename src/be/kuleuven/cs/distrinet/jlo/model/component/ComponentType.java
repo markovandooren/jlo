@@ -32,6 +32,16 @@ public class ComponentType extends AnonymousType {
 		addInheritanceRelation(new ComponentSubtypeRelation());
 	}
 	
+	@Override
+	public void setName(String name) {
+		//Ugly hack
+	}
+	
+	@Override
+	public String name() {
+		return nearestAncestor(ComponentRelation.class).name();
+	}
+	
 	// Should be used for cloneSelf() refactoring
 	private ComponentType(boolean bogus) {
 		super("");

@@ -53,7 +53,7 @@ public class ComponentStub extends ElementImpl implements TypeElementStub {
 		if(child.origin() == child) {
 			throw new ChameleonProgrammerException("A child of a component stub has itself as origin.");
 		}
-		return child.origin().lexicalContext();
+		return child.origin().lexicalContext(); // this is wrong. It should behave like a subclass: look for inheritable declarations,
 	}
 
 
