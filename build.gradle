@@ -1,0 +1,75 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'me.champeau.gradle.antlr4'
+
+// antlr 4 plugin
+buildscript {
+    repositories {
+        //maven {
+        //    name 'JFrog OSS snapshot repo'
+        //    url  'https://oss.jfrog.org/oss-snapshot-local/'
+        //}
+        //jcenter()
+  maven {
+    url 'http://users.ugent.be/~mcvdoore/repository'
+  }
+    }
+
+    dependencies {
+        classpath 'by.github.frenchie16:antlr4-gradle-plugin:0.1.2'
+    }
+}
+
+repositories {
+  mavenCentral()
+  maven {
+    url 'http://users.ugent.be/~mcvdoore/repository'
+  }
+}
+
+
+// end antlr 4 plugin
+
+sourceSets {
+  main {
+    java {
+      srcDir 'src'
+      srcDir 'testsrc'
+    }
+    //antlr {
+    //  srcDir 'src'
+    //}
+  }
+}
+
+
+dependencies {
+   //compile project(':rejuse')
+   //compile project(':chameleon')
+   //compile project(':jnome')
+   compile group: 'markovandooren', name: 'rejuse', version: '1.1.0'
+   compile group: 'markovandooren', name: 'chameleon', version: '1.1.5'
+   compile group: 'markovandooren', name: 'jnome', version: '1.1.0'
+
+  
+   compile 'org.ow2.asm:asm:5.0.3'
+   compile 'com.lexicalscope.jewelcli:jewelcli:0.8.5'
+   compile 'org.antlr:antlr4:4.5'
+   compile 'org.apache.ant:ant:1.9.4'
+}
+
+compileJava.dependsOn antlr4
+
+configurations {
+  compile.extendsFrom antlr4
+}
+
+antlr4 {
+   source = file('src/org/aikodi/jlo/input')
+   output = file('src/org/aikodi/jlo/input')
+   extraArgs = ['-package', 'org.aikodi.jlo.input']
+}
+
+antlr4Options {
+  antlr4Version = '4.5'
+}

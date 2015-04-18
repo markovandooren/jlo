@@ -4,18 +4,20 @@ Bundle-Name: JLo Eclipse
 Bundle-SymbolicName: be.chameleon.eclipse.jlo;singleton:=true
 Bundle-Version: 1.0.7
 Bundle-ClassPath: bin/.,
- .
+ .,
+ lib/antlr-runtime-3.2.jar,
+ lib/stringtemplate-3.2.jar
 Bundle-Vendor: KU Leuven
-Export-Package: be.kuleuven.cs.distrinet.jlo.ant,
- be.kuleuven.cs.distrinet.jlo.build,
- be.kuleuven.cs.distrinet.jlo.eclipse,
- be.kuleuven.cs.distrinet.jlo.input,
- be.kuleuven.cs.distrinet.jlo.model.component,
- be.kuleuven.cs.distrinet.jlo.model.expression,
- be.kuleuven.cs.distrinet.jlo.model.language,
- be.kuleuven.cs.distrinet.jlo.model.type,
- be.kuleuven.cs.distrinet.jlo.output,
- be.kuleuven.cs.distrinet.jlo.translate
+Export-Package: org.aikodi.jlo.ant,
+ org.aikodi.jlo.build,
+ org.aikodi.jlo.eclipse,
+ org.aikodi.jlo.input,
+ org.aikodi.jlo.model.component,
+ org.aikodi.jlo.model.expression,
+ org.aikodi.jlo.model.language,
+ org.aikodi.jlo.model.type,
+ org.aikodi.jlo.output,
+ org.aikodi.jlo.translate
 Require-Bundle: be.chameleon.eclipse;bundle-version="1.0.7",
  be.chameleon.eclipse.java;bundle-version="1.0.7",
  org.eclipse.swt;bundle-version="3.7.0",
