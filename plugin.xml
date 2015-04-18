@@ -6,7 +6,7 @@
          name="JLo Eclipse"
          point="chameleon.eclipse.language">
          <bootstrapper
-          class="be.kuleuven.cs.distrinet.jlo.eclipse.Bootstrapper">
+          class="org.aikodi.jlo.eclipse.Bootstrapper">
          </bootstrapper>
    </extension>
  
