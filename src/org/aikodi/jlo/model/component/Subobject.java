@@ -71,11 +71,7 @@ public class Subobject extends MemberImpl implements DeclarationWithType, Inheri
 
 	public String toString() {
 		try {
-			try {
 				return componentType().toString();
-			} catch (LookupException e) {
-				return name();
-			}
 		} catch(NullPointerException exc) {
 			return "";
 		}
@@ -174,7 +170,7 @@ public class Subobject extends MemberImpl implements DeclarationWithType, Inheri
 		return componentTypeReference().getElement();
 	}
 	
-	public SubobjectType componentType() throws LookupException {
+	public SubobjectType componentType() {
 		return componentTypeDeclaration();
 	}
 

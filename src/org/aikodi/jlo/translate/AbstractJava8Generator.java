@@ -23,6 +23,8 @@ import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 
 public abstract class AbstractJava8Generator {
 
+	protected final String IMPLEMENTATION_SUFFIX = "Impl";
+	
 	protected String subobjectGetterName(Subobject subobject) {
 		return subobject.name();
 	}
@@ -44,7 +46,7 @@ public abstract class AbstractJava8Generator {
   }
 
   protected String implementationName(Type t) {
-    return t.name() + "Impl";
+    return t.name() + IMPLEMENTATION_SUFFIX;
   }
 
   protected JLo jlo(Element element) {
