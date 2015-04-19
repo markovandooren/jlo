@@ -41,7 +41,11 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
       MemberVariableDeclarator field = new MemberVariableDeclarator(s.clone(s.superClassReference()));
       field.add(new VariableDeclaration(subobjectFieldName(s)));
       field.addModifier(new Private());
-      s.nearestAncestor(Type.class).add(field);
+      Type type = s.nearestAncestor(Type.class);
+			type.add(field);
+      Method getter = createSubobjectGetterTemplate(s);
+      createGetterImplementation(subobjectFieldName(s), getter);
+      type.add(getter);
     	s.disconnect();
     });
   }
@@ -97,20 +101,18 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
           MemberVariableDeclarator decl = v.nearestAncestor(MemberVariableDeclarator.class);
           MemberVariableDeclarator f = new MemberVariableDeclarator(decl.clone(decl.typeReference()));
           VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin();
-          f.add(new VariableDeclaration(fieldName(variableDeclaration)));
+          String fieldName = fieldName(variableDeclaration);
+					f.add(new VariableDeclaration(fieldName));
           f.addModifier(new Private());
           t.add(f);
           Method getter = createGetterTemplate(decl);
-          getter.addModifier(new Public());
-          Block getterBody = new Block();
-          getter.setImplementation(new RegularImplementation(getterBody));
-          getterBody.addStatement(new ReturnStatement(new NameExpression(fieldName(variableDeclaration))));
+          createGetterImplementation(fieldName, getter);
           t.add(getter);
           Method setter = createSetterTemplate(decl);
           setter.addModifier(new Public());
           Block setterBody = new Block();
           setter.setImplementation(new RegularImplementation(setterBody));
-          setterBody.addStatement(new StatementExpression(new AssignmentExpression(new NameExpression(fieldName(variableDeclaration)), new NameExpression("value"))));
+          setterBody.addStatement(new StatementExpression(new AssignmentExpression(new NameExpression(fieldName), new NameExpression("value"))));
           t.add(setter);
         });
       } catch (Exception e) {
@@ -119,6 +121,13 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
       }
     });
   }
+
+	private void createGetterImplementation(String fieldName, Method getter) {
+		getter.addModifier(new Public());
+		Block getterBody = new Block();
+		getter.setImplementation(new RegularImplementation(getterBody));
+		getterBody.addStatement(new ReturnStatement(new NameExpression(fieldName)));
+	}
 
 
 }
