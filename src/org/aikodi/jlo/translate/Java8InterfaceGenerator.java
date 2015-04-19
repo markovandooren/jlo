@@ -86,7 +86,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     ExpressionFactory expressionFactory = java(variableDeclaration).plugin(ExpressionFactory.class);
     target.apply(CrossReference.class, ref -> {
       CrossReference<?> origin = (CrossReference<?>) ref.origin();
-      if(origin != ref) {
+      if(! isGenerated(ref)) {
         try {
           if(origin.getElement().nearestAncestor(MemberVariableDeclarator.class) == variableDeclaration.nearestAncestor(MemberVariableDeclarator.class).origin()) {
             if(! (origin.parent() instanceof AssignmentExpression)) {
@@ -109,7 +109,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   protected void makeNonPrivateMethodsPublic(Document target) {
     target.apply(Method.class, m -> {
       Method origin = (Method) m.origin();
-      if(origin != m) {
+      if(! isGenerated(m)) {
         StaticChameleonProperty priv = jlo(origin).PRIVATE;
         if (!origin.isTrue(priv)) {
           try {

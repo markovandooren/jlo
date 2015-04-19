@@ -209,5 +209,9 @@ public abstract class AbstractJava8Generator {
     return result;
   }
 
+	protected boolean isGenerated(Element element) {
+		return element.origin() == element;
+	}
+
 
 }

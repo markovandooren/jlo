@@ -30,8 +30,8 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
   protected Document createImplementation(Document result) {
     implementOwnInterfaces(result);
     removeNormalMethods(result);
-    addFields(result);
     replaceSubobjects(result);
+    addFields(result);
     renameConstructorCalls(result);
     return result;
   }
@@ -65,7 +65,11 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
   }
 
   protected void addFields(Document target) {
-    target.apply(MemberVariableDeclarator.class, m -> m.disconnect());
+    target.apply(MemberVariableDeclarator.class, m -> {
+			if(! isGenerated(m)) {
+    		m.disconnect();
+    	}
+    });
     target.apply(Type.class, t -> {
     	Type originalType;
     	if(t instanceof SubobjectType) {
