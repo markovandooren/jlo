@@ -165,18 +165,18 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 				throw new ChameleonProgrammerException(e);
 			}
 		}).forEach(v -> {
-			MemberVariableDeclarator decl = v.nearestAncestor(MemberVariableDeclarator.class);
-			MemberVariableDeclarator f = new MemberVariableDeclarator(decl.clone(decl.typeReference()));
+			MemberVariableDeclarator jloMemberVariableDeclarator = v.nearestAncestor(MemberVariableDeclarator.class);
+			MemberVariableDeclarator f = new MemberVariableDeclarator(jloMemberVariableDeclarator.clone(jloMemberVariableDeclarator.typeReference()));
 			VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin();
 			String fieldName = fieldName(variableDeclaration);
 			Util.debug(fieldName.contains(IMPLEMENTATION_SUFFIX));
 			f.add(new VariableDeclaration(fieldName));
 			f.addModifier(new Private());
 			to.add(f);
-			Method getter = createGetterTemplate(decl);
+			Method getter = createGetterTemplate(jloMemberVariableDeclarator);
 			createGetterImplementation(fieldName, getter);
 			to.add(getter);
-			Method setter = createSetterTemplate(decl);
+			Method setter = createSetterTemplate(jloMemberVariableDeclarator);
 			setter.addModifier(new Public());
 			Block setterBody = new Block();
 			setter.setImplementation(new RegularImplementation(setterBody));

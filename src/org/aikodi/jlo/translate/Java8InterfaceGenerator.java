@@ -69,14 +69,14 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
 
   protected void replaceFields(Document target) {
-    target.apply(MemberVariableDeclarator.class, d -> {
-      VariableDeclaration variableDeclaration = d.variableDeclarations().get(0);
+    target.apply(MemberVariableDeclarator.class, javaMemberVariableDeclarator -> {
+      VariableDeclaration variableDeclaration = javaMemberVariableDeclarator.variableDeclarations().get(0);
       replaceFieldReferences(target, variableDeclaration);
-      Method getter = createGetterTemplate(d);
+      Method getter = createGetterTemplate(javaMemberVariableDeclarator);
       getter.addModifier(new Abstract());
       getter.addModifier(new Public());
-      d.replaceWith(getter);
-      Method setter = createSetterTemplate(d);
+      javaMemberVariableDeclarator.replaceWith(getter);
+      Method setter = createSetterTemplate(javaMemberVariableDeclarator);
       setter.addModifier(new Abstract());
       setter.addModifier(new Public());
       getter.nearestAncestor(Type.class).add(setter);
