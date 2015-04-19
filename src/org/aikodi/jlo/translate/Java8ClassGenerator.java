@@ -38,29 +38,29 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		implementOwnInterfaces(result);
 		removeNormalMethods(result);
 		//    replaceSubobjects(result);
-		replaceSubobjects2(result);
+		replaceSubobjects(result);
 		addFields(result);
 		renameConstructorCalls(result);
 		return result;
 	}
 
+//	protected void replaceSubobjects(Document result) {
+//		result.apply(Subobject.class, s -> {
+//			MemberVariableDeclarator field = new MemberVariableDeclarator(s.clone(s.superClassReference()));
+//			field.add(new VariableDeclaration(subobjectFieldName(s)));
+//			field.addModifier(new Private());
+//			Type type = s.nearestAncestor(Type.class);
+//			type.add(field);
+//			Method getter = createSubobjectGetterTemplate(s);
+//			createGetterImplementation(subobjectFieldName(s), getter);
+//			type.add(getter);
+//			createSubobjectImplementation(s, type);
+//
+//			s.disconnect();
+//		});
+//	}
+
 	protected void replaceSubobjects(Document result) {
-		result.apply(Subobject.class, s -> {
-			MemberVariableDeclarator field = new MemberVariableDeclarator(s.clone(s.superClassReference()));
-			field.add(new VariableDeclaration(subobjectFieldName(s)));
-			field.addModifier(new Private());
-			Type type = s.nearestAncestor(Type.class);
-			type.add(field);
-			Method getter = createSubobjectGetterTemplate(s);
-			createGetterImplementation(subobjectFieldName(s), getter);
-			type.add(getter);
-			createSubobjectImplementation(s, type);
-
-			s.disconnect();
-		});
-	}
-
-	protected void replaceSubobjects2(Document result) {
 		result.apply(Subobject.class, s -> s.disconnect());
 		result.apply(Type.class, t -> {
 			if(! isGenerated(t)) {
