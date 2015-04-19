@@ -36,7 +36,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     replaceFields(result);
     makeNonPrivateMethodsPublic(result);
     renameConstructorCalls(result);
-    createSubobjectInterfaces(result);
+    replaceSubobjects(result);
     inferMissingReturnTypes(result);
     replaceExpressionImplementations(result);
     // makeImplicitlyAbstractMethodsAbstract(result);
@@ -145,17 +145,20 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     }   );
   }
 
-  protected void createSubobjectInterfaces(Document target) {
+  protected void replaceSubobjects(Document target) {
     target.apply(Subobject.class, s -> {
       JLo jlo = jlo(s.origin());
       ObjectOrientedFactory factory = jlo.plugin(ObjectOrientedFactory.class);
       Type subobjectInterface = factory.createRegularType(s.name());
       subobjectInterface.addModifier(new Interface());
-      // We strip the superclass reference from the subobject relation
-      subobjectInterface.addInheritanceRelation(new SubtypeRelation(s.superClassReference()));
+      subobjectInterface.addInheritanceRelation(new SubtypeRelation(s.clone(s.superClassReference())));
+      Method getter = createSubobjectGetterTemplate(s);
+      getter.addModifier(new Abstract());
+      getter.addModifier(new Public());
+      Type nearestAncestor = s.nearestAncestor(Type.class);
+			nearestAncestor.add(getter);
       s.replaceWith(subobjectInterface);
     });
   }
-
 
 }

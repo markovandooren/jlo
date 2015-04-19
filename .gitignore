@@ -1,5 +1,7 @@
 .classpath
 .project
+.gradle
+.settings
 api
 bin
 src/be/kuleuven/cs/distrinet/jlo/input/*.java

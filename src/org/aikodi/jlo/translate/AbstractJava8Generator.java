@@ -16,12 +16,21 @@ import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
+import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 
 public abstract class AbstractJava8Generator {
 
+	protected String subobjectGetterName(Subobject subobject) {
+		return subobject.name();
+	}
+	
+	protected String subobjectFieldName(Subobject subobject) {
+		return "subobject$"+subobject.origin().nearestAncestor(Type.class).name()+"$"+subobject.name();
+	}
+	
   protected String fieldName(VariableDeclaration variableDeclaration) {
     return "field$"+variableDeclaration.origin().nearestAncestor(Type.class).name()+"$"+variableDeclaration.name();
   }
@@ -174,9 +183,22 @@ public abstract class AbstractJava8Generator {
 
   protected Method createGetterTemplate(MemberVariableDeclarator d) {
     VariableDeclaration variableDeclaration = d.variableDeclarations().get(0);
-    ObjectOrientedFactory factory = java(d).plugin(ObjectOrientedFactory.class);
-    return factory.createNormalMethod(getterName(variableDeclaration), d.clone(d.typeReference()));
+    return ooFactory(d).createNormalMethod(getterName(variableDeclaration), d.clone(d.typeReference()));
   }
+
+  /**
+   * @param subobject The subobject for which the getter template must be created.
+   * @return a template for the getter of the given subobject. The resulting method
+   * has a header, but not a body. It must be finished by the caller depending on whether
+   * an interface or class is being created.
+   */
+  protected Method createSubobjectGetterTemplate(Subobject subobject) {
+    return ooFactory(subobject).createNormalMethod(subobjectGetterName(subobject), subobject.clone(subobject.superClassReference()));
+  }
+
+	private ObjectOrientedFactory ooFactory(Element element) {
+		return java(element).plugin(ObjectOrientedFactory.class);
+	}
 
   protected Method createSetterTemplate(MemberVariableDeclarator d) {
     VariableDeclaration variableDeclaration = d.variableDeclarations().get(0);

@@ -20,6 +20,7 @@ import org.aikodi.chameleon.support.modifier.Public;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.jlo.model.component.Subobject;
+import org.aikodi.jlo.model.component.SubobjectType;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;
@@ -29,15 +30,20 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
   protected Document createImplementation(Document result) {
     implementOwnInterfaces(result);
     removeNormalMethods(result);
-    removeSubobjects(result);
-    renameConstructorCalls(result);
-    //    makeFieldsPrivate(result);
     addFields(result);
+    replaceSubobjects(result);
+    renameConstructorCalls(result);
     return result;
   }
 
-  protected void removeSubobjects(Document result) {
-    result.apply(Subobject.class, s -> s.disconnect());
+  protected void replaceSubobjects(Document result) {
+    result.apply(Subobject.class, s -> {
+      MemberVariableDeclarator field = new MemberVariableDeclarator(s.clone(s.superClassReference()));
+      field.add(new VariableDeclaration(subobjectFieldName(s)));
+      field.addModifier(new Private());
+      s.nearestAncestor(Type.class).add(field);
+    	s.disconnect();
+    });
   }
 
   protected void removeNormalMethods(Document result) {
@@ -61,7 +67,17 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
   protected void addFields(Document target) {
     target.apply(MemberVariableDeclarator.class, m -> m.disconnect());
     target.apply(Type.class, t -> {
-      Type originalType = (Type) t.origin();
+    	Type originalType;
+    	if(t instanceof SubobjectType) {
+    		Subobject originalSubobect = (Subobject) t.nearestAncestor(Subobject.class).origin();
+    		try {
+					originalType = originalSubobect.componentType();
+				} catch (Exception e) {
+					throw new ChameleonProgrammerException(e);
+				}
+    	} else {
+    		originalType = (Type) t.origin();
+    	}
       try {
         Set<Type> allSuperTypes = originalType.getAllSuperTypes();
         allSuperTypes.add((Type) t.origin());
