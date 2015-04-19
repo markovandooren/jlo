@@ -1,5 +1,6 @@
 package org.aikodi.jlo.translate;
 
+import org.aikodi.chameleon.aspect.oo.weave.factory.OOFactory;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.property.StaticChameleonProperty;
 import org.aikodi.chameleon.core.reference.CrossReference;
@@ -147,9 +148,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
 
   protected void replaceSubobjects(Document target) {
     target.apply(Subobject.class, s -> {
-      JLo jlo = jlo(s.origin());
-      ObjectOrientedFactory factory = jlo.plugin(ObjectOrientedFactory.class);
-      Type subobjectInterface = factory.createRegularType(s.name());
+      Type subobjectInterface = ooFactory(target).createRegularType(subobjectInterfaceName(s));
       subobjectInterface.addModifier(new Interface());
       subobjectInterface.addInheritanceRelation(new SubtypeRelation(s.clone(s.superClassReference())));
       Method getter = createSubobjectGetterTemplate(s);
@@ -160,5 +159,9 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
       s.replaceWith(subobjectInterface);
     });
   }
+
+	protected String subobjectInterfaceName(Subobject s) {
+		return s.name();
+	}
 
 }

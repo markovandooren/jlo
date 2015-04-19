@@ -196,7 +196,7 @@ public abstract class AbstractJava8Generator {
     return ooFactory(subobject).createNormalMethod(subobjectGetterName(subobject), subobject.clone(subobject.superClassReference()));
   }
 
-	private ObjectOrientedFactory ooFactory(Element element) {
+	protected ObjectOrientedFactory ooFactory(Element element) {
 		return java(element).plugin(ObjectOrientedFactory.class);
 	}
 
