@@ -1,9 +1,10 @@
 package org.aikodi.jlo.build;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+
+import java.io.File;
+import java.io.IOException;
 
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -16,21 +17,13 @@ import org.aikodi.chameleon.plugin.build.BuildException;
 import org.aikodi.chameleon.plugin.build.BuildProgressHelper;
 import org.aikodi.chameleon.plugin.build.Builder;
 import org.aikodi.chameleon.plugin.build.DocumentWriter;
-import org.aikodi.chameleon.plugin.output.Syntax;
-import org.aikodi.chameleon.workspace.DocumentScanner;
-import org.aikodi.chameleon.workspace.DocumentScannerContainer;
-import org.aikodi.chameleon.workspace.DocumentScannerImpl;
 import org.aikodi.chameleon.workspace.InputException;
-import org.aikodi.chameleon.workspace.ProjectException;
 import org.aikodi.chameleon.workspace.View;
 import org.aikodi.jlo.model.language.JLo;
-import org.aikodi.jlo.output.JLoSyntax;
-import org.aikodi.jlo.translate.IncrementalJavaTranslator;
-import org.aikodi.jlo.translate.NewIncrementalJavaTranslator;
+import org.aikodi.jlo.translate.JLoToJava8Translator;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7LanguageFactory;
-import be.kuleuven.cs.distrinet.jnome.input.PredefinedElementsFactory;
 import be.kuleuven.cs.distrinet.jnome.output.JavaDocumentWriter;
 import be.kuleuven.cs.distrinet.jnome.workspace.JavaView;
 
@@ -52,7 +45,7 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 		Java7 target = new Java7LanguageFactory().create();
 		JavaView targetView = new JavaView(new LazyRootNamespace(), target);
 //		target.setPlugin(Syntax.class, new JLoSyntax()); // DEBUG for viewing the intermediate steps, we attach the JLo syntax.
-		_translator = new NewIncrementalJavaTranslator(view(), targetView);
+		_translator = new JLoToJava8Translator(view(), targetView);
 	}
 
 	public void build(Document compilationUnit, File outputDir) throws BuildException {
@@ -92,7 +85,7 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 		return _translator.source();
 	}
 
-	private NewIncrementalJavaTranslator _translator;
+	private JLoToJava8Translator _translator;
 
 	@Override
 	public JLoBuilder clone() {

@@ -2,8 +2,6 @@ package org.aikodi.jlo.translate;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.aikodi.chameleon.core.Config;
 import org.aikodi.chameleon.core.document.Document;
@@ -11,7 +9,6 @@ import org.aikodi.chameleon.core.namespace.Namespace;
 import org.aikodi.chameleon.input.ParseException;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.plugin.build.BuildException;
-import org.aikodi.chameleon.support.tool.ModelBuilder;
 import org.aikodi.chameleon.test.provider.BasicDescendantProvider;
 import org.aikodi.chameleon.test.provider.ElementProvider;
 import org.aikodi.chameleon.workspace.ConfigException;

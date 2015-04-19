@@ -1,9 +1,10 @@
 package org.aikodi.jlo.model.language;
 
+import java.util.jar.JarFile;
+
 import java.io.File;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.jar.JarFile;
 
 import org.aikodi.chameleon.core.language.Language;
 import org.aikodi.chameleon.workspace.BaseLibraryConfiguration;

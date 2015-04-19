@@ -3,12 +3,12 @@ package org.aikodi.jlo.ant;
 import java.io.File;
 
 import org.aikodi.chameleon.core.Config;
-import org.aikodi.chameleon.workspace.XMLProjectLoader;
 import org.aikodi.chameleon.workspace.ConfigException;
 import org.aikodi.chameleon.workspace.LanguageRepository;
 import org.aikodi.chameleon.workspace.Project;
 import org.aikodi.chameleon.workspace.ProjectConfigurator;
 import org.aikodi.chameleon.workspace.Workspace;
+import org.aikodi.chameleon.workspace.XMLProjectLoader;
 import org.aikodi.jlo.build.JLoBuilder;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.language.JLoLanguageFactory;

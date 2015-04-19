@@ -6,3 +6,4 @@ src/be/kuleuven/cs/distrinet/jlo/input/*.java
 dist
 lib
 publish
+/bin/

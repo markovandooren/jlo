@@ -4,18 +4,14 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.aikodi.chameleon.core.document.Document;
-import org.aikodi.chameleon.input.ParseException;
 import org.aikodi.chameleon.input.ModelFactory;
-import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
+import org.aikodi.chameleon.input.ParseException;
 import org.aikodi.chameleon.plugin.LanguagePluginImpl;
-import org.aikodi.chameleon.plugin.output.Syntax;
 import org.aikodi.chameleon.workspace.View;
 import org.aikodi.jlo.input.JLoParser.CompilationUnitContext;
-import org.aikodi.jlo.model.language.JLo;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 
-import be.kuleuven.cs.distrinet.jnome.output.Java7Syntax;
 import be.kuleuven.cs.distrinet.jnome.workspace.JavaView;
 
 public class JLoModelFactory extends LanguagePluginImpl implements ModelFactory {

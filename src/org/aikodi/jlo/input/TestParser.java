@@ -5,14 +5,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import org.aikodi.chameleon.core.declaration.CommonDeclaration;
 import org.aikodi.chameleon.core.document.Document;
-import org.aikodi.chameleon.core.element.Element;
-import org.aikodi.chameleon.core.event.association.ChildRemoved;
-import org.aikodi.chameleon.core.event.association.Removed;
-import org.aikodi.chameleon.core.factory.Factory;
 import org.aikodi.chameleon.core.namespace.LazyRootNamespace;
-import org.aikodi.chameleon.core.namespacedeclaration.NamespaceDeclaration;
 import org.aikodi.chameleon.exception.ModelException;
 import org.aikodi.chameleon.input.ModelFactory;
 import org.aikodi.chameleon.input.ParseException;
