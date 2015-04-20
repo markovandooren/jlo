@@ -50,33 +50,37 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
     javaDocument.apply(Type.class, javaType -> {
       if(! isGenerated(javaType)) {
         Type jloType = (Type) javaType.origin();
+        expandSubobjects(javaType, jloType);
+      }
+    });
+  }
+
+  protected void expandSubobjects(Type javaType, Type jloType) {
+    try {
+      List<Subobject> jloSubobjects = jloType.members(Subobject.class);
+      jloSubobjects.forEach(jloSubobject -> {
+        //TypeReference subobjectTypeReference = jloSubobject.clone(jloSubobject.superClassReference());
         try {
-          List<Subobject> jloSubobjects = jloType.members(Subobject.class);
-          jloSubobjects.forEach(jloSubobject -> {
-            //TypeReference subobjectTypeReference = jloSubobject.clone(jloSubobject.superClassReference());
-            try {
-              TypeReference subobjectTypeReference = expandedTypeReference(jloSubobject.superClassReference(), java(javaDocument));
-              MemberVariableDeclarator field = new MemberVariableDeclarator(subobjectTypeReference);
-              field.add(new VariableDeclaration(subobjectFieldName(jloSubobject)));
-              field.addModifier(new Private());
-              javaType.add(field);
-              Method getter = createSubobjectGetterTemplate(jloSubobject,java(javaDocument));
-              createGetterImplementation(subobjectFieldName(jloSubobject), getter);
-              javaType.add(getter);
-              createSubobjectImplementation(jloSubobject, javaType);
-            } catch (Exception e) {
-              throw new ChameleonProgrammerException(e);
-            }
-          });
+          TypeReference subobjectTypeReference = expandedTypeReference(jloSubobject.superClassReference(), java(javaType));
+          MemberVariableDeclarator field = new MemberVariableDeclarator(subobjectTypeReference);
+          field.add(new VariableDeclaration(subobjectFieldName(jloSubobject)));
+          field.addModifier(new Private());
+          javaType.add(field);
+          Method getter = createSubobjectGetterTemplate(jloSubobject,java(javaType));
+          createGetterImplementation(subobjectFieldName(jloSubobject), getter);
+          javaType.add(getter);
+          RegularJavaType subobjectImplementation = createSubobjectImplementation(jloSubobject, javaType);
+          expandSubobjects(subobjectImplementation, jloSubobject.componentType());
         } catch (LookupException e) {
           throw new ChameleonProgrammerException(e);
         }
-      }
-    });
-
+      });
+    } catch (LookupException e) {
+      throw new ChameleonProgrammerException(e);
+    }
   }
 
-  protected void createSubobjectImplementation(Subobject subobject, Type parent) {
+  protected RegularJavaType createSubobjectImplementation(Subobject subobject, Type parent) {
     RegularJavaType subobjectImplementation = (RegularJavaType) ooFactory(subobject).createRegularType(subobjectImplementationName(subobject));
     subobjectImplementation.setBody(new ClassBody());
     subobjectImplementation.addModifier(new Public());
@@ -90,6 +94,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
     SubtypeRelation implementsRelation = new SubtypeRelation(java(subobject).createTypeReference(originalSubobject.componentType().getFullyQualifiedName()));
     implementsRelation.addModifier(new Implements());
     subobjectImplementation.addInheritanceRelation(implementsRelation);
+    return subobjectImplementation;
   }
 
   private String subobjectImplementationName(Subobject subobject) {
