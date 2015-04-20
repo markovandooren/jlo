@@ -5,10 +5,12 @@ import java.util.function.Predicate;
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.element.Element;
+import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.modifier.ElementWithModifiers;
 import org.aikodi.chameleon.core.modifier.Modifier;
 import org.aikodi.chameleon.core.property.ChameleonProperty;
 import org.aikodi.chameleon.core.reference.CrossReferenceWithName;
+import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
 import org.aikodi.chameleon.oo.method.Method;
 import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
 import org.aikodi.chameleon.oo.type.Type;
@@ -193,9 +195,12 @@ public abstract class AbstractJava8Generator {
    * @return a template for the getter of the given subobject. The resulting method
    * has a header, but not a body. It must be finished by the caller depending on whether
    * an interface or class is being created.
+   * @throws LookupException 
    */
-  protected Method createSubobjectGetterTemplate(Subobject subobject) {
-    return ooFactory(subobject).createNormalMethod(subobjectGetterName(subobject), subobject.clone(subobject.superClassReference()));
+  protected Method createSubobjectGetterTemplate(Subobject subobject, ObjectOrientedLanguage targetLanguage) throws LookupException {
+    //TypeReference subobjectTypeReference = subobject.clone(subobject.superClassReference());
+    TypeReference subobjectTypeReference = expandedTypeReference(subobject.superClassReference(),targetLanguage);
+    return ooFactory(subobject).createNormalMethod(subobjectGetterName(subobject), subobjectTypeReference);
   }
 
 	protected ObjectOrientedFactory ooFactory(Element element) {
@@ -215,5 +220,11 @@ public abstract class AbstractJava8Generator {
 		return element.origin() == element;
 	}
 
+	protected TypeReference expandedTypeReference(TypeReference element, ObjectOrientedLanguage targetLanguage) throws LookupException {
+	  TypeReference result = targetLanguage.reference(element.getElement());
+	  //disconnect the type reference. Note that this might give problems inside anonymous inner classes/
+	  result.setUniParent(null);
+    return result;
+	}
 
 }

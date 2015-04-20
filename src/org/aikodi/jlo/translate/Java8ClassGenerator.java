@@ -15,6 +15,7 @@ import org.aikodi.chameleon.oo.method.RegularImplementation;
 import org.aikodi.chameleon.oo.statement.Block;
 import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.Type;
+import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.MemberVariable;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
@@ -34,163 +35,157 @@ import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
 
 public class Java8ClassGenerator extends AbstractJava8Generator {
 
-	protected Document createImplementation(Document result) {
-		implementOwnInterfaces(result);
-		removeNormalMethods(result);
-		//    replaceSubobjects(result);
-		replaceSubobjects(result);
-		addFields(result);
-		renameConstructorCalls(result);
-		return result;
-	}
+  protected Document createImplementation(Document javaDocument) {
+    implementOwnInterfaces(javaDocument);
+    removeNormalMethods(javaDocument);
+    //    replaceSubobjects(result);
+    replaceSubobjects(javaDocument);
+    addFields(javaDocument);
+    renameConstructorCalls(javaDocument);
+    return javaDocument;
+  }
 
-//	protected void replaceSubobjects(Document result) {
-//		result.apply(Subobject.class, s -> {
-//			MemberVariableDeclarator field = new MemberVariableDeclarator(s.clone(s.superClassReference()));
-//			field.add(new VariableDeclaration(subobjectFieldName(s)));
-//			field.addModifier(new Private());
-//			Type type = s.nearestAncestor(Type.class);
-//			type.add(field);
-//			Method getter = createSubobjectGetterTemplate(s);
-//			createGetterImplementation(subobjectFieldName(s), getter);
-//			type.add(getter);
-//			createSubobjectImplementation(s, type);
-//
-//			s.disconnect();
-//		});
-//	}
+  protected void replaceSubobjects(Document javaDocument) {
+    javaDocument.apply(Subobject.class, javaSubobject -> javaSubobject.disconnect());
+    javaDocument.apply(Type.class, javaType -> {
+      if(! isGenerated(javaType)) {
+        Type jloType = (Type) javaType.origin();
+        try {
+          List<Subobject> jloSubobjects = jloType.members(Subobject.class);
+          jloSubobjects.forEach(jloSubobject -> {
+            //TypeReference subobjectTypeReference = jloSubobject.clone(jloSubobject.superClassReference());
+            try {
+              TypeReference subobjectTypeReference = expandedTypeReference(jloSubobject.superClassReference(), java(javaDocument));
+              MemberVariableDeclarator field = new MemberVariableDeclarator(subobjectTypeReference);
+              field.add(new VariableDeclaration(subobjectFieldName(jloSubobject)));
+              field.addModifier(new Private());
+              javaType.add(field);
+              Method getter = createSubobjectGetterTemplate(jloSubobject,java(javaDocument));
+              createGetterImplementation(subobjectFieldName(jloSubobject), getter);
+              javaType.add(getter);
+              createSubobjectImplementation(jloSubobject, javaType);
+            } catch (Exception e) {
+              throw new ChameleonProgrammerException(e);
+            }
+          });
+        } catch (LookupException e) {
+          throw new ChameleonProgrammerException(e);
+        }
+      }
+    });
 
-	protected void replaceSubobjects(Document result) {
-		result.apply(Subobject.class, s -> s.disconnect());
-		result.apply(Type.class, t -> {
-			if(! isGenerated(t)) {
-				Type jloType = (Type) t.origin();
-				try {
-					List<Subobject> jloSubobjects = jloType.members(Subobject.class);
-					jloSubobjects.forEach(s -> {
-						MemberVariableDeclarator field = new MemberVariableDeclarator(s.clone(s.superClassReference()));
-						field.add(new VariableDeclaration(subobjectFieldName(s)));
-						field.addModifier(new Private());
-						t.add(field);
-						Method getter = createSubobjectGetterTemplate(s);
-						createGetterImplementation(subobjectFieldName(s), getter);
-						t.add(getter);
-						createSubobjectImplementation(s, t);
-					});
-				} catch (Exception e) {
-					throw new ChameleonProgrammerException(e);
-				}
-			}
-		});
+  }
 
-	}
+  protected void createSubobjectImplementation(Subobject subobject, Type parent) {
+    RegularJavaType subobjectImplementation = (RegularJavaType) ooFactory(subobject).createRegularType(subobjectImplementationName(subobject));
+    subobjectImplementation.setBody(new ClassBody());
+    subobjectImplementation.addModifier(new Public());
+    parent.add(subobjectImplementation);
+    Subobject originalSubobject = (Subobject)subobject.origin();
+    try {
+      addFields(subobjectImplementation, originalSubobject.componentType());
+    } catch (LookupException e) {
+      throw new ChameleonProgrammerException(e);
+    }
+    SubtypeRelation implementsRelation = new SubtypeRelation(java(subobject).createTypeReference(originalSubobject.componentType().getFullyQualifiedName()));
+    implementsRelation.addModifier(new Implements());
+    subobjectImplementation.addInheritanceRelation(implementsRelation);
+  }
 
-	protected void createSubobjectImplementation(Subobject subobject, Type parent) {
-		RegularJavaType subobjectImplementation = (RegularJavaType) ooFactory(subobject).createRegularType(subobjectImplementationName(subobject));
-		subobjectImplementation.setBody(new ClassBody());
-		subobjectImplementation.addModifier(new Public());
-		parent.add(subobjectImplementation);
-		Subobject originalSubobject = (Subobject)subobject.origin();
-		try {
-			addFields(subobjectImplementation, originalSubobject.componentType());
-		} catch (LookupException e) {
-			throw new ChameleonProgrammerException(e);
-		}
-		SubtypeRelation implementsRelation = new SubtypeRelation(java(subobject).createTypeReference(originalSubobject.componentType().getFullyQualifiedName()));
-		implementsRelation.addModifier(new Implements());
-		subobjectImplementation.addInheritanceRelation(implementsRelation);
-	}
+  private String subobjectImplementationName(Subobject subobject) {
+    return subobject.name()+IMPLEMENTATION_SUFFIX;
+  }
 
-	private String subobjectImplementationName(Subobject subobject) {
-		return subobject.name()+IMPLEMENTATION_SUFFIX;
-	}
+  protected void removeNormalMethods(Document result) {
+    result.apply(Method.class, m -> {
+      Member origin = (Member) m.origin();
+      if (!origin.isTrue(jlo(origin).CONSTRUCTOR)) {
+        m.disconnect();
+      }
+    });
+  }
 
-	protected void removeNormalMethods(Document result) {
-		result.apply(Method.class, m -> {
-			Member origin = (Member) m.origin();
-			if (!origin.isTrue(jlo(origin).CONSTRUCTOR)) {
-				m.disconnect();
-			}
-		});
-	}
+  protected void implementOwnInterfaces(Document javaDocument) {
+    javaDocument.apply(Type.class, javaType -> {
+      try {
+        Java7 java = java(javaDocument);
+        // Only disconnect inheritance relations that are explicit, and
+        // that are no subobjects
+        javaType.explicitNonMemberInheritanceRelations().forEach(javaInheritanceRelation -> javaInheritanceRelation.disconnect());
+        SubtypeRelation relation = new SubtypeRelation(java.createTypeReference(javaType.name()));
+        relation.addModifier(new Implements());
+        javaType.addInheritanceRelation(relation);
+        javaType.setName(implementationName(javaType));
+        javaType.modifiers(java.SCOPE_MUTEX).forEach(m -> m.disconnect());
+      } catch (ModelException e) {
+        throw new ChameleonProgrammerException(e);
+      }
+      javaType.addModifier(new Public());
+    });
+  }
 
-	protected void implementOwnInterfaces(Document result) {
-		result.apply(Type.class, t -> {
-			SubtypeRelation relation = new SubtypeRelation(t.language(Java7.class).createTypeReference(t.name()));
-			relation.addModifier(new Implements());
-			t.addInheritanceRelation(relation);
-			t.setName(implementationName(t));
-			try {
-				t.modifiers(java(result).SCOPE_MUTEX).forEach(m -> m.disconnect());
-			} catch (ModelException e) {
-				throw new ChameleonProgrammerException(e);
-			}
-			t.addModifier(new Public());
-		});
-	}
+  protected void addFields(Document javaDocument) {
+    javaDocument.apply(MemberVariableDeclarator.class, javaMethod -> {
+      if(! isGenerated(javaMethod)) {
+        javaMethod.disconnect();
+      }
+    });
+    javaDocument.apply(Type.class, t -> {
+      if(! (t instanceof SubobjectType) && ! isGenerated(t)) {
+        Type originalType = (Type) t.origin();
+        try {
+          addFields(t, originalType);
+        } catch (Exception e) {
+          throw new ChameleonProgrammerException(e);
+        }
+        //    		Subobject originalSubobect = (Subobject) t.nearestAncestor(Subobject.class).origin();
+        //    		try {
+        //					originalType = originalSubobect.componentType();
+        //				} catch (Exception e) {
+        //					throw new ChameleonProgrammerException(e);
+        //				}
+      } 
+    });
+  }
 
-	protected void addFields(Document target) {
-		target.apply(MemberVariableDeclarator.class, m -> {
-			if(! isGenerated(m)) {
-				m.disconnect();
-			}
-		});
-		target.apply(Type.class, t -> {
-			if(! (t instanceof SubobjectType) && ! isGenerated(t)) {
-				Type originalType = (Type) t.origin();
-				try {
-					addFields(t, originalType);
-				} catch (Exception e) {
-					throw new ChameleonProgrammerException(e);
-				}
-				//    		Subobject originalSubobect = (Subobject) t.nearestAncestor(Subobject.class).origin();
-				//    		try {
-				//					originalType = originalSubobect.componentType();
-				//				} catch (Exception e) {
-				//					throw new ChameleonProgrammerException(e);
-				//				}
-			} 
-		});
-	}
+  private void addFields(Type to, Type from) throws LookupException {
+    Set<Type> allSuperTypes = from.getAllSuperTypes();
+    allSuperTypes.add(from);
+    allSuperTypes.stream().<MemberVariable>flatMap(x -> {
+      try {
+        return x.localMembers(MemberVariable.class).stream();
+      } catch (Exception e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+        throw new ChameleonProgrammerException(e);
+      }
+    }).forEach(v -> {
+      MemberVariableDeclarator jloMemberVariableDeclarator = v.nearestAncestor(MemberVariableDeclarator.class);
+      MemberVariableDeclarator f = new MemberVariableDeclarator(jloMemberVariableDeclarator.clone(jloMemberVariableDeclarator.typeReference()));
+      VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin();
+      String fieldName = fieldName(variableDeclaration);
+      Util.debug(fieldName.contains(IMPLEMENTATION_SUFFIX));
+      f.add(new VariableDeclaration(fieldName));
+      f.addModifier(new Private());
+      to.add(f);
+      Method getter = createGetterTemplate(jloMemberVariableDeclarator);
+      createGetterImplementation(fieldName, getter);
+      to.add(getter);
+      Method setter = createSetterTemplate(jloMemberVariableDeclarator);
+      setter.addModifier(new Public());
+      Block setterBody = new Block();
+      setter.setImplementation(new RegularImplementation(setterBody));
+      setterBody.addStatement(new StatementExpression(new AssignmentExpression(new NameExpression(fieldName), new NameExpression("value"))));
+      to.add(setter);
+    });
+  }
 
-	private void addFields(Type to, Type from) throws LookupException {
-		Set<Type> allSuperTypes = from.getAllSuperTypes();
-		allSuperTypes.add(from);
-		allSuperTypes.stream().<MemberVariable>flatMap(x -> {
-			try {
-				return x.localMembers(MemberVariable.class).stream();
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				throw new ChameleonProgrammerException(e);
-			}
-		}).forEach(v -> {
-			MemberVariableDeclarator jloMemberVariableDeclarator = v.nearestAncestor(MemberVariableDeclarator.class);
-			MemberVariableDeclarator f = new MemberVariableDeclarator(jloMemberVariableDeclarator.clone(jloMemberVariableDeclarator.typeReference()));
-			VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin();
-			String fieldName = fieldName(variableDeclaration);
-			Util.debug(fieldName.contains(IMPLEMENTATION_SUFFIX));
-			f.add(new VariableDeclaration(fieldName));
-			f.addModifier(new Private());
-			to.add(f);
-			Method getter = createGetterTemplate(jloMemberVariableDeclarator);
-			createGetterImplementation(fieldName, getter);
-			to.add(getter);
-			Method setter = createSetterTemplate(jloMemberVariableDeclarator);
-			setter.addModifier(new Public());
-			Block setterBody = new Block();
-			setter.setImplementation(new RegularImplementation(setterBody));
-			setterBody.addStatement(new StatementExpression(new AssignmentExpression(new NameExpression(fieldName), new NameExpression("value"))));
-			to.add(setter);
-		});
-	}
-
-	private void createGetterImplementation(String fieldName, Method getter) {
-		getter.addModifier(new Public());
-		Block getterBody = new Block();
-		getter.setImplementation(new RegularImplementation(getterBody));
-		getterBody.addStatement(new ReturnStatement(new NameExpression(fieldName)));
-	}
+  private void createGetterImplementation(String fieldName, Method getter) {
+    getter.addModifier(new Public());
+    Block getterBody = new Block();
+    getter.setImplementation(new RegularImplementation(getterBody));
+    getterBody.addStatement(new ReturnStatement(new NameExpression(fieldName)));
+  }
 
 
 }

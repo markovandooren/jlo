@@ -1,9 +1,10 @@
 package org.aikodi.jlo.translate;
 
-import org.aikodi.chameleon.aspect.oo.weave.factory.OOFactory;
 import org.aikodi.chameleon.core.document.Document;
+import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.property.StaticChameleonProperty;
 import org.aikodi.chameleon.core.reference.CrossReference;
+import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.expression.Expression;
 import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.expression.MethodInvocation;
@@ -12,7 +13,6 @@ import org.aikodi.chameleon.oo.method.Implementation;
 import org.aikodi.chameleon.oo.method.Method;
 import org.aikodi.chameleon.oo.method.MethodHeader;
 import org.aikodi.chameleon.oo.method.RegularImplementation;
-import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
 import org.aikodi.chameleon.oo.statement.Block;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
@@ -24,7 +24,6 @@ import org.aikodi.chameleon.support.modifier.Interface;
 import org.aikodi.chameleon.support.modifier.Public;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.jlo.model.component.Subobject;
-import org.aikodi.jlo.model.language.JLo;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Default;
@@ -146,22 +145,27 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     }   );
   }
 
-  protected void replaceSubobjects(Document target) {
-    target.apply(Subobject.class, s -> {
-      Type subobjectInterface = ooFactory(target).createRegularType(subobjectInterfaceName(s));
-      subobjectInterface.addModifier(new Interface());
-      subobjectInterface.addInheritanceRelation(new SubtypeRelation(s.clone(s.superClassReference())));
-      Method getter = createSubobjectGetterTemplate(s);
-      getter.addModifier(new Abstract());
-      getter.addModifier(new Public());
-      Type nearestAncestor = s.nearestAncestor(Type.class);
-			nearestAncestor.add(getter);
-      s.replaceWith(subobjectInterface);
+  protected void replaceSubobjects(Document javaDocument) {
+    javaDocument.apply(Subobject.class, javaSubobject -> {
+      try {
+        Type subobjectInterface = ooFactory(javaDocument).createRegularType(subobjectInterfaceName(javaSubobject));
+        subobjectInterface.addModifier(new Interface());
+        subobjectInterface.addInheritanceRelation(new SubtypeRelation(javaSubobject.clone(javaSubobject.superClassReference())));
+        Subobject jloSubobject = (Subobject) javaSubobject.origin();
+        Method getter = createSubobjectGetterTemplate(jloSubobject,java(javaDocument));
+        getter.addModifier(new Abstract());
+        getter.addModifier(new Public());
+        Type nearestAncestor = javaSubobject.nearestAncestor(Type.class);
+        nearestAncestor.add(getter);
+        javaSubobject.replaceWith(subobjectInterface);
+      } catch (LookupException e) {
+        throw new ChameleonProgrammerException(e);
+      }
     });
   }
 
-	protected String subobjectInterfaceName(Subobject s) {
-		return s.name();
-	}
+  protected String subobjectInterfaceName(Subobject s) {
+    return s.name();
+  }
 
 }
