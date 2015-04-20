@@ -104,9 +104,9 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
   protected void removeNormalMethods(Document result) {
     result.apply(Method.class, m -> {
       Member origin = (Member) m.origin();
-      if (!origin.isTrue(jlo(origin).CONSTRUCTOR)) {
+//      if (!origin.isTrue(jlo(origin).CONSTRUCTOR)) {
         m.disconnect();
-      }
+//      }
     });
   }
 
@@ -166,7 +166,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
       }
     }).forEach(v -> {
       MemberVariableDeclarator jloMemberVariableDeclarator = v.nearestAncestor(MemberVariableDeclarator.class);
-      MemberVariableDeclarator f = new MemberVariableDeclarator(jloMemberVariableDeclarator.clone(jloMemberVariableDeclarator.typeReference()));
+      MemberVariableDeclarator f = new MemberVariableDeclarator(clone(jloMemberVariableDeclarator.typeReference()));
       VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin();
       String fieldName = fieldName(variableDeclaration);
       Util.debug(fieldName.contains(IMPLEMENTATION_SUFFIX));

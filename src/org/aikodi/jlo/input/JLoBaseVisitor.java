@@ -1,5 +1,6 @@
-// Generated from /home/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
+// Generated from /Users/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
 package org.aikodi.jlo.input;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
 /**
@@ -116,6 +117,13 @@ public class JLoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements JL
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitAbstractModifier(JLoParser.AbstractModifierContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitInitModifier(JLoParser.InitModifierContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

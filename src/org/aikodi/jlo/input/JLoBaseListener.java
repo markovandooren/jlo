@@ -1,7 +1,8 @@
-// Generated from /home/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
+// Generated from /Users/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
 package org.aikodi.jlo.input;
 
 import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -191,6 +192,18 @@ public class JLoBaseListener implements JLoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAbstractModifier(JLoParser.AbstractModifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInitModifier(JLoParser.InitModifierContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInitModifier(JLoParser.InitModifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -10,6 +10,7 @@ import org.aikodi.chameleon.core.modifier.ElementWithModifiers;
 import org.aikodi.chameleon.core.modifier.Modifier;
 import org.aikodi.chameleon.core.property.ChameleonProperty;
 import org.aikodi.chameleon.core.reference.CrossReferenceWithName;
+import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
 import org.aikodi.chameleon.oo.method.Method;
 import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
@@ -207,6 +208,10 @@ public abstract class AbstractJava8Generator {
 		return java(element).plugin(ObjectOrientedFactory.class);
 	}
 
+  protected ExpressionFactory expressionFactory(Element element) {
+    return java(element).plugin(ExpressionFactory.class);
+  }
+
   protected Method createSetterTemplate(MemberVariableDeclarator d) {
     VariableDeclaration variableDeclaration = d.variableDeclarations().get(0);
     ObjectOrientedFactory factory = java(d).plugin(ObjectOrientedFactory.class);
@@ -226,5 +231,9 @@ public abstract class AbstractJava8Generator {
 	  result.setUniParent(null);
     return result;
 	}
+
+  protected <E extends Element> E clone(E element) {
+    return element.clone(element);
+  }
 
 }

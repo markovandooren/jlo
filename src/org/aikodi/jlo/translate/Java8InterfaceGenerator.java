@@ -8,6 +8,7 @@ import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.expression.Expression;
 import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.expression.MethodInvocation;
+import org.aikodi.chameleon.oo.expression.NameExpression;
 import org.aikodi.chameleon.oo.method.ExpressionImplementation;
 import org.aikodi.chameleon.oo.method.Implementation;
 import org.aikodi.chameleon.oo.method.Method;
@@ -16,49 +17,109 @@ import org.aikodi.chameleon.oo.method.RegularImplementation;
 import org.aikodi.chameleon.oo.statement.Block;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
+import org.aikodi.chameleon.oo.variable.FormalParameter;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.expression.AssignmentExpression;
+import org.aikodi.chameleon.support.member.simplename.method.NormalMethod;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import org.aikodi.chameleon.support.modifier.Abstract;
+import org.aikodi.chameleon.support.modifier.Constructor;
 import org.aikodi.chameleon.support.modifier.Interface;
 import org.aikodi.chameleon.support.modifier.Public;
+import org.aikodi.chameleon.support.modifier.Static;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
+import org.aikodi.chameleon.support.statement.StatementExpression;
+import org.aikodi.chameleon.support.variable.LocalVariableDeclarator;
+import org.aikodi.chameleon.util.Util;
 import org.aikodi.jlo.model.component.Subobject;
 
+import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Default;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 
+
+
+
+
 public class Java8InterfaceGenerator extends AbstractJava8Generator {
 
-  public Document createInterface(Document result) {
-    changeClassesToInterfaces(result);
-    replaceFields(result);
-    makeNonPrivateMethodsPublic(result);
-    renameConstructorCalls(result);
-    replaceSubobjects(result);
-    inferMissingReturnTypes(result);
-    replaceExpressionImplementations(result);
+  public Document createInterface(Document javaDocument) {
+    changeClassesToInterfaces(javaDocument);
+    replaceFields(javaDocument);
+    makeNonPrivateMethodsPublic(javaDocument);
+    renameConstructorCalls(javaDocument);
+    replaceSubobjects(javaDocument);
+    inferMissingReturnTypes(javaDocument);
+    replaceExpressionImplementations(javaDocument);
     // makeImplicitlyAbstractMethodsAbstract(result);
-    makeMethodsDefault(result);
-    return result;
+    makeMethodsDefault(javaDocument);
+    createConstructors(javaDocument);
+    return javaDocument;
   }
 
-  protected void changeClassesToInterfaces(Document target) {
-    add(new Interface()).to(Type.class).in(target).whenOrigin(t -> !t.isTrue(java(t).INTERFACE));
-    strip(Abstract.class).from(Type.class).in(target);
-    strip(java(target).PUBLIC).from(Type.class).in(target);
-    add(new Public()).to(Type.class).in(target).whenOrigin(t -> true);
+  protected void createConstructors(Document javaDocument) {
+    javaDocument.apply(Method.class, javaMethod -> {
+      Method jloMethod = (Method) javaMethod.origin();
+      Util.debug(javaMethod.name().equals("with"));
+      if(!isGenerated(javaMethod) && jloMethod.isTrue(jlo(jloMethod).CONSTRUCTOR)) {
+        Java7 java = java(javaDocument);
+        Type javaParentType = javaMethod.nearestAncestor(Type.class);
+        BasicJavaTypeReference typeRef = java.createTypeReference(javaParentType.name());
+        strip(Constructor.class).from(Method.class).in(javaMethod);
+        Method javaInstanceMethod = clone(javaMethod);
+        javaParentType.add(javaInstanceMethod);
+        javaInstanceMethod.setName(constructorName(javaMethod));
+        javaInstanceMethod.addModifier(new Default());
+        javaInstanceMethod.setReturnTypeReference(java.createTypeReference("void"));
+        javaMethod.setReturnTypeReference(clone(typeRef));
+        javaMethod.addModifier(new Static());
+        /** Overwrite body:
+         *
+         * T result = new T();
+         * result.init$...
+         * return result;
+         */
+        Block javaBody = new Block();
+        LocalVariableDeclarator localVariableDeclarator = new LocalVariableDeclarator(typeRef);
+        VariableDeclaration declaration = new VariableDeclaration(resultVariableName());
+        declaration.setInitialization(new ConstructorInvocation(java.createTypeReference(implementationName(javaParentType)), null));
+        localVariableDeclarator.add(declaration);
+        javaBody.addStatement(localVariableDeclarator);
+        MethodInvocation invocation = expressionFactory(javaMethod).createInvocation(constructorName(javaMethod), new NameExpression(resultVariableName()));
+        for(FormalParameter parameter: javaMethod.formalParameters()) {
+          invocation.addArgument(new NameExpression(parameter.name()));
+        }
+        javaBody.addStatement(new StatementExpression(invocation));
+        javaBody.addStatement(new ReturnStatement(new NameExpression(resultVariableName())));
+        ((RegularImplementation)((NormalMethod)javaMethod).implementation()).setBody(javaBody);
+      }
+    });
   }
 
-  protected void makeMethodsDefault(Document target) {
-    add(new Default()).to(Method.class).in(target).whenTranslated(m -> {
+  protected String resultVariableName() {
+    return "$result";
+  }
+  
+  protected String constructorName(Method method) {
+    return "init$"+method.name();
+  }
+
+  protected void changeClassesToInterfaces(Document javaDocument) {
+    add(new Interface()).to(Type.class).in(javaDocument).whenOrigin(t -> !t.isTrue(java(t).INTERFACE));
+    strip(Abstract.class).from(Type.class).in(javaDocument);
+    strip(java(javaDocument).PUBLIC).from(Type.class).in(javaDocument);
+    add(new Public()).to(Type.class).in(javaDocument).whenOrigin(t -> true);
+  }
+
+  protected void makeMethodsDefault(Document javaDocument) {
+    add(new Default()).to(Method.class).in(javaDocument).whenTranslated(m -> {
       return !m.isTrue(java(m).CONSTRUCTOR) && !m.isTrue(java(m).ABSTRACT);
     });
   }
 
-  protected void replaceExpressionImplementations(Document targetDocument) {
-    targetDocument.apply(ExpressionImplementation.class, implementation -> {
+  protected void replaceExpressionImplementations(Document javaDocument) {
+    javaDocument.apply(ExpressionImplementation.class, implementation -> {
       Block body = new Block();
       // We move the expression instead of cloning it
       body.addStatement(new ReturnStatement(implementation.expression()));
@@ -67,10 +128,10 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     });
   }
 
-  protected void replaceFields(Document target) {
-    target.apply(MemberVariableDeclarator.class, javaMemberVariableDeclarator -> {
+  protected void replaceFields(Document javaDocument) {
+    javaDocument.apply(MemberVariableDeclarator.class, javaMemberVariableDeclarator -> {
       VariableDeclaration variableDeclaration = javaMemberVariableDeclarator.variableDeclarations().get(0);
-      replaceFieldReferences(target, variableDeclaration);
+      replaceFieldReferences(javaDocument, variableDeclaration);
       Method getter = createGetterTemplate(javaMemberVariableDeclarator);
       getter.addModifier(new Abstract());
       getter.addModifier(new Public());
@@ -82,9 +143,9 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     });
   }
 
-  protected void replaceFieldReferences(Document target, VariableDeclaration variableDeclaration) {
+  protected void replaceFieldReferences(Document javaDocument, VariableDeclaration variableDeclaration) {
     ExpressionFactory expressionFactory = java(variableDeclaration).plugin(ExpressionFactory.class);
-    target.apply(CrossReference.class, ref -> {
+    javaDocument.apply(CrossReference.class, ref -> {
       CrossReference<?> origin = (CrossReference<?>) ref.origin();
       if(! isGenerated(ref)) {
         try {
@@ -106,8 +167,8 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     });
   }
 
-  protected void makeNonPrivateMethodsPublic(Document target) {
-    target.apply(Method.class, m -> {
+  protected void makeNonPrivateMethodsPublic(Document javaDocument) {
+    javaDocument.apply(Method.class, m -> {
       Method origin = (Method) m.origin();
       if(! isGenerated(m)) {
         StaticChameleonProperty priv = jlo(origin).PRIVATE;
@@ -124,8 +185,8 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     });
   }
 
-  protected void inferMissingReturnTypes(Document target) {
-    target.apply(MethodHeader.class, h -> {
+  protected void inferMissingReturnTypes(Document javaDocument) {
+    javaDocument.apply(MethodHeader.class, h -> {
       if (h.returnTypeReference() == null) {
         Implementation implementation = h.nearestAncestor(Method.class).implementation();
         if (implementation instanceof ExpressionImplementation) {
@@ -139,7 +200,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
             e.printStackTrace();
           }
         } else {
-          h.setReturnTypeReference(java(target).createTypeReference("void"));
+          h.setReturnTypeReference(java(javaDocument).createTypeReference("void"));
         }
       }
     }   );
@@ -150,7 +211,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
       try {
         Type subobjectInterface = ooFactory(javaDocument).createRegularType(subobjectInterfaceName(javaSubobject));
         subobjectInterface.addModifier(new Interface());
-        subobjectInterface.addInheritanceRelation(new SubtypeRelation(javaSubobject.clone(javaSubobject.superClassReference())));
+        subobjectInterface.addInheritanceRelation(new SubtypeRelation(clone(javaSubobject.superClassReference())));
         Subobject jloSubobject = (Subobject) javaSubobject.origin();
         Method getter = createSubobjectGetterTemplate(jloSubobject,java(javaDocument));
         getter.addModifier(new Abstract());
@@ -164,8 +225,8 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     });
   }
 
-  protected String subobjectInterfaceName(Subobject s) {
-    return s.name();
+  protected String subobjectInterfaceName(Subobject subobject) {
+    return subobject.name();
   }
 
 }

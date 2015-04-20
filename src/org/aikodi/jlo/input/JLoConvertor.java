@@ -42,6 +42,7 @@ import org.aikodi.chameleon.support.expression.ThisLiteral;
 import org.aikodi.chameleon.support.member.simplename.method.NormalMethod;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import org.aikodi.chameleon.support.modifier.Abstract;
+import org.aikodi.chameleon.support.modifier.Constructor;
 import org.aikodi.chameleon.support.modifier.Native;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
@@ -67,6 +68,7 @@ import org.aikodi.jlo.input.JLoParser.IdentifierExpressionContext;
 import org.aikodi.jlo.input.JLoParser.ImplementationContext;
 import org.aikodi.jlo.input.JLoParser.ImportDeclarationContext;
 import org.aikodi.jlo.input.JLoParser.InheritanceRelationContext;
+import org.aikodi.jlo.input.JLoParser.InitModifierContext;
 import org.aikodi.jlo.input.JLoParser.IntegerLiteralContext;
 import org.aikodi.jlo.input.JLoParser.IntegerNumberLiteralContext;
 import org.aikodi.jlo.input.JLoParser.KeywordBlockContext;
@@ -225,6 +227,10 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
     ImplementationContext implementation = ctx.implementation();
     if(implementation != null) {
       ((Consumer<NormalMethod>) visit(implementation)).accept(result);
+    }
+    for(ModifierContext mctx: ctx.modifier()) {
+      Modifier modifier = (Modifier) visit(mctx);
+      result.addModifier(modifier);
     }
     return result;
   }
@@ -520,5 +526,10 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
   @Override
   public Object visitAssignmentStatement(AssignmentStatementContext ctx) {
     return new StatementExpression(new AssignmentExpression((Expression)visit(ctx.var), (Expression) visit(ctx.val)));
+  }
+  
+  @Override
+  public Modifier visitInitModifier(InitModifierContext ctx) {
+    return new Constructor();
   }
 }

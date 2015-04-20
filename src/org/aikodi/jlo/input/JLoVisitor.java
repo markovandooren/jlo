@@ -1,5 +1,6 @@
-// Generated from /home/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
+// Generated from /Users/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
 package org.aikodi.jlo.input;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -104,6 +105,13 @@ public interface JLoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAbstractModifier(JLoParser.AbstractModifierContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code initModifier}
+	 * labeled alternative in {@link JLoParser#modifier}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInitModifier(JLoParser.InitModifierContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JLoParser#parameters}.
 	 * @param ctx the parse tree

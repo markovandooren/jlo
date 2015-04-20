@@ -49,11 +49,11 @@ member
   ;
 
 method
-  : methodHeader implementation
+  : modifier* methodHeader implementation
   ;
 
 methodHeader
-  : modifier* keywordBlock returnType?
+  : keywordBlock returnType?
   ;
   
 returnType
@@ -66,6 +66,7 @@ keywordBlock
 
 modifier
   : ABSTRACT #abstractModifier
+  | INIT #initModifier
   ;
 
 parameters
@@ -162,6 +163,8 @@ booleanLiteral
 NAMESPACE : 'namespace' ;
 
 ABSTRACT: 'abstract';
+
+INIT: 'init';
 
 NATIVE: 'native';
 

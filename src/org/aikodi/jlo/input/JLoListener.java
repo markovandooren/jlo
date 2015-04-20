@@ -1,5 +1,6 @@
-// Generated from /home/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
+// Generated from /Users/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
 package org.aikodi.jlo.input;
+import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -165,6 +166,18 @@ public interface JLoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAbstractModifier(JLoParser.AbstractModifierContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code initModifier}
+	 * labeled alternative in {@link JLoParser#modifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterInitModifier(JLoParser.InitModifierContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code initModifier}
+	 * labeled alternative in {@link JLoParser#modifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitInitModifier(JLoParser.InitModifierContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JLoParser#parameters}.
 	 * @param ctx the parse tree
