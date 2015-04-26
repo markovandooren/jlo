@@ -7,7 +7,7 @@ import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
 import org.aikodi.chameleon.plugin.output.Syntax;
 import org.aikodi.chameleon.workspace.ProjectConfigurator;
 import org.aikodi.jlo.input.JLoFactory;
-import org.aikodi.jlo.input.JLoModelFactory;
+import org.aikodi.jlo.input.OldJLoModelFactory;
 import org.aikodi.jlo.output.JLoSyntax;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7LanguageFactory;
@@ -33,7 +33,8 @@ public class JLoLanguageFactory {
 	 */
 	public JLo create() {
 		JLo result = new JLo();
-		result.setPlugin(ModelFactory.class, new JLoModelFactory());
+//		result.setPlugin(ModelFactory.class, new JLoModelFactory());
+    result.setPlugin(ModelFactory.class, new OldJLoModelFactory());
 		result.setPlugin(Syntax.class, new JLoSyntax());
 		JLoFactory factory = new JLoFactory();
       result.setPlugin(Factory.class, factory);

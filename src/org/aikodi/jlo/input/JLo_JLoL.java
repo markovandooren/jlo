@@ -168,14 +168,14 @@ public class JLo_JLoL extends Lexer {
 
     // delegates
     // delegators
-    public JLoLexer gJLo;
-    public JLoLexer gParent;
+    public OldJLoLexer gJLo;
+    public OldJLoLexer gParent;
 
     public JLo_JLoL() {;} 
-    public JLo_JLoL(CharStream input, JLoLexer gJLo) {
+    public JLo_JLoL(CharStream input, OldJLoLexer gJLo) {
         this(input, new RecognizerSharedState(), gJLo);
     }
-    public JLo_JLoL(CharStream input, RecognizerSharedState state, JLoLexer gJLo) {
+    public JLo_JLoL(CharStream input, RecognizerSharedState state, OldJLoLexer gJLo) {
         super(input,state);
 
         this.gJLo = gJLo;

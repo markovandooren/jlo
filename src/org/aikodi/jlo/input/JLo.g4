@@ -8,7 +8,7 @@ grammar JLo;
 
 compilationUnit 
   :
-    namespace
+    namespace?
     importDeclaration*
     klass*
     EOF

@@ -29,12 +29,14 @@ repositories {
 
 
 // end antlr 4 plugin
+def eclipsePlugin = 'org/aikodi/jlo/eclipse/**'
 
 sourceSets {
   main {
     java {
       srcDir 'src'
       srcDir 'testsrc'
+      exclude eclipsePlugin
     }
     //antlr {
     //  srcDir 'src'
@@ -73,3 +75,7 @@ antlr4 {
 antlr4Options {
   antlr4Version = '4.5'
 }
+task copyRuntimeLibs(type: Copy) {
+    into "lib"
+    from configurations.runtime
+  }

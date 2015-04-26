@@ -106,26 +106,6 @@ public class BatchTranslator {
     } catch (ConfigException e) {
       throw new BuildException(e);
     }
-//
-//
-//    
-//    File outputDir = new File(args[1]);
-//    
-//    List<String> list = new ArrayList<String>();
-//    for(int i=0; i<args.length;i++){list.add(args[i]);}
-//    // remove the output directory
-//    list.remove(1);
-//    // create a new arguments array
-//    // FIXME this is stupid. Arrays are stupid
-//    String[] arguments = new String[list.size()];
-//    for(int i=0; i<arguments.length;i++){arguments[i]=list.get(i);}
-//    ModelBuilder provider = new ModelBuilder(arguments,workspace);
-//    Project project = provider.project();
-//		View view = project.views().get(0);
-//    long start = System.currentTimeMillis();
-//    new BatchTranslator(view, provider.namespaceProvider(),outputDir).translate();
-//    long stop = System.currentTimeMillis();
-//    System.out.println("Translation took "+(stop - start) + " milliseconds.");
   }
 
 }
