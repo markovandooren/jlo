@@ -31,6 +31,7 @@ import org.aikodi.jlo.model.component.SubobjectType;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;
+import be.kuleuven.cs.distrinet.jnome.core.modifier.JavaConstructor;
 import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
 
 public class Java8ClassGenerator extends AbstractJava8Generator {
@@ -191,6 +192,5 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
     getter.setImplementation(new RegularImplementation(getterBody));
     getterBody.addStatement(new ReturnStatement(new NameExpression(fieldName)));
   }
-
 
 }

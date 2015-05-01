@@ -26,6 +26,11 @@ import org.aikodi.jlo.model.type.RegularJLoType;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7LanguageFactory;
 
+/**
+ * A class for building all classes in a project.
+ * 
+ * @author Marko van Dooren
+ */
 public class BatchTranslator {
 
 	public BatchTranslator(View view, ElementProvider<Namespace> namespaceProvider, File outputDir) throws ParseException, IOException {
