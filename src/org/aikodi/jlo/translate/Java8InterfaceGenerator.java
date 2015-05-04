@@ -40,7 +40,6 @@ import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvo
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.method.JavaMethod;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Default;
-import be.kuleuven.cs.distrinet.jnome.core.modifier.JavaConstructor;
 import be.kuleuven.cs.distrinet.jnome.core.type.ArrayTypeReference;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 
@@ -58,6 +57,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     makeMethodsDefault(javaDocument);
     createConstructors(javaDocument);
     createDefaultConstructor(javaDocument);
+    convertTypeMembers(javaDocument);
     return javaDocument;
   }
 

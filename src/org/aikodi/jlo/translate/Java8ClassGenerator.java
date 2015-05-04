@@ -43,6 +43,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
     replaceSubobjects(javaDocument);
     addFields(javaDocument);
     renameConstructorCalls(javaDocument);
+    convertTypeMembers(javaDocument);
     return javaDocument;
   }
 

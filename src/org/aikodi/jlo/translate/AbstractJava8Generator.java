@@ -16,11 +16,14 @@ import org.aikodi.chameleon.oo.method.Method;
 import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
+import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
+import org.aikodi.chameleon.oo.type.generics.TypeParameter;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
+import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 
@@ -234,6 +237,14 @@ public abstract class AbstractJava8Generator {
 
   protected <E extends Element> E clone(E element) {
     return element.clone(element);
+  }
+
+  protected void convertTypeMembers(Document javaDocument) {
+    javaDocument.apply(TypeMemberDeclarator.class, d -> {
+      Type type = d.nearestAncestor(Type.class);
+      type.addParameter(TypeParameter.class, new FormalTypeParameter(d.name()));
+      d.disconnect();
+    });
   }
 
 }
