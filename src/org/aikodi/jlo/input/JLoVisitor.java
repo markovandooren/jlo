@@ -1,4 +1,4 @@
-// Generated from /Users/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
+// Generated from /home/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
 package org.aikodi.jlo.input;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
@@ -74,6 +74,13 @@ public interface JLoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMemberField(JLoParser.MemberFieldContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code memberType}
+	 * labeled alternative in {@link JLoParser#member}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMemberType(JLoParser.MemberTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JLoParser#method}.
 	 * @param ctx the parse tree
@@ -171,11 +178,26 @@ public interface JLoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInheritanceRelation(JLoParser.InheritanceRelationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link JLoParser#type}.
+	 * Visit a parse tree produced by the {@code qualifiedType}
+	 * labeled alternative in {@link JLoParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitType(JLoParser.TypeContext ctx);
+	T visitQualifiedType(JLoParser.QualifiedTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code parenthesisType}
+	 * labeled alternative in {@link JLoParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParenthesisType(JLoParser.ParenthesisTypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code keywordType}
+	 * labeled alternative in {@link JLoParser#type}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitKeywordType(JLoParser.KeywordTypeContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link JLoParser#qualifiedName}.
 	 * @param ctx the parse tree

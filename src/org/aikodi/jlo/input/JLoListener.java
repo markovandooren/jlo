@@ -1,4 +1,4 @@
-// Generated from /Users/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
+// Generated from /home/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
 package org.aikodi.jlo.input;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
@@ -114,6 +114,18 @@ public interface JLoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMemberField(JLoParser.MemberFieldContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code memberType}
+	 * labeled alternative in {@link JLoParser#member}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberType(JLoParser.MemberTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code memberType}
+	 * labeled alternative in {@link JLoParser#member}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberType(JLoParser.MemberTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JLoParser#method}.
 	 * @param ctx the parse tree
@@ -277,15 +289,41 @@ public interface JLoListener extends ParseTreeListener {
 	 */
 	void exitInheritanceRelation(JLoParser.InheritanceRelationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JLoParser#type}.
+	 * Enter a parse tree produced by the {@code qualifiedType}
+	 * labeled alternative in {@link JLoParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void enterType(JLoParser.TypeContext ctx);
+	void enterQualifiedType(JLoParser.QualifiedTypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link JLoParser#type}.
+	 * Exit a parse tree produced by the {@code qualifiedType}
+	 * labeled alternative in {@link JLoParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void exitType(JLoParser.TypeContext ctx);
+	void exitQualifiedType(JLoParser.QualifiedTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code parenthesisType}
+	 * labeled alternative in {@link JLoParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterParenthesisType(JLoParser.ParenthesisTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code parenthesisType}
+	 * labeled alternative in {@link JLoParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitParenthesisType(JLoParser.ParenthesisTypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code keywordType}
+	 * labeled alternative in {@link JLoParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterKeywordType(JLoParser.KeywordTypeContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code keywordType}
+	 * labeled alternative in {@link JLoParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitKeywordType(JLoParser.KeywordTypeContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link JLoParser#qualifiedName}.
 	 * @param ctx the parse tree

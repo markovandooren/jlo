@@ -1,4 +1,4 @@
-// Generated from /Users/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
+// Generated from /home/marko/git/workspace/jlo/src/org/aikodi/jlo/input/JLo.g4 by ANTLR 4.5
 package org.aikodi.jlo.input;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -132,6 +132,18 @@ public class JLoBaseListener implements JLoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitMemberField(JLoParser.MemberFieldContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMemberType(JLoParser.MemberTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMemberType(JLoParser.MemberTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -317,13 +329,37 @@ public class JLoBaseListener implements JLoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(JLoParser.TypeContext ctx) { }
+	@Override public void enterQualifiedType(JLoParser.QualifiedTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(JLoParser.TypeContext ctx) { }
+	@Override public void exitQualifiedType(JLoParser.QualifiedTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParenthesisType(JLoParser.ParenthesisTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParenthesisType(JLoParser.ParenthesisTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterKeywordType(JLoParser.KeywordTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitKeywordType(JLoParser.KeywordTypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

@@ -89,7 +89,9 @@ import org.aikodi.jlo.input.JLoParser.ParExpressionContext;
 import org.aikodi.jlo.input.JLoParser.ParameterContext;
 import org.aikodi.jlo.input.JLoParser.ParameterListContext;
 import org.aikodi.jlo.input.JLoParser.ParametersContext;
+import org.aikodi.jlo.input.JLoParser.ParenthesisTypeContext;
 import org.aikodi.jlo.input.JLoParser.QualifiedCallExpressionContext;
+import org.aikodi.jlo.input.JLoParser.QualifiedTypeContext;
 import org.aikodi.jlo.input.JLoParser.ReturnStatementContext;
 import org.aikodi.jlo.input.JLoParser.ReturnTypeContext;
 import org.aikodi.jlo.input.JLoParser.SelfCallExpressionContext;
@@ -100,7 +102,6 @@ import org.aikodi.jlo.input.JLoParser.StringLiteralContext;
 import org.aikodi.jlo.input.JLoParser.SubobjectContext;
 import org.aikodi.jlo.input.JLoParser.SuperExpressionContext;
 import org.aikodi.jlo.input.JLoParser.TrueLiteralContext;
-import org.aikodi.jlo.input.JLoParser.TypeContext;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -177,7 +178,7 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public Import visitImportDeclaration(ImportDeclarationContext ctx) {
-    return new TypeImport(visitType(ctx.type()));
+    return new TypeImport((TypeReference)visit(ctx.type()));
   }
 
   @Override
@@ -210,12 +211,17 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public InheritanceRelation visitInheritanceRelation(InheritanceRelationContext ctx) {
-    return processLayout(new SubtypeRelation(visitType(ctx.type())),ctx);
+    return processLayout(new SubtypeRelation((TypeReference)visit(ctx.type())),ctx);
   }
 
   @Override
-  public TypeReference visitType(TypeContext ctx) {
+  public TypeReference visitQualifiedType(QualifiedTypeContext ctx) {
     return processLayout(jlo().createTypeReference(ctx.getText()),ctx);
+  }
+  
+  @Override
+  public TypeReference visitParenthesisType(ParenthesisTypeContext ctx) {
+  	return (TypeReference) visit(ctx.type());
   }
 
   @Override
@@ -278,12 +284,12 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public FormalParameter visitParameter(ParameterContext ctx) {
-    return new FormalParameter(ctx.Identifier().getText(), visitType(ctx.type()));
+    return new FormalParameter(ctx.Identifier().getText(), (TypeReference)visit(ctx.type()));
   }
 
   @Override
   public TypeReference visitReturnType(ReturnTypeContext ctx) {
-    return visitType(ctx.type());
+    return (TypeReference)visit(ctx.type());
   }
 
   @Override
@@ -504,7 +510,7 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public Subobject visitSubobject(SubobjectContext ctx) {
-    Subobject result = new Subobject(ctx.Identifier().getText(), visitType(ctx.type()));
+    Subobject result = new Subobject(ctx.Identifier().getText(), (TypeReference)visit(ctx.type()));
     ClassBody body = new ClassBody();
     ClassBodyContext subobjectBody = ctx.classBody();
     if(subobjectBody != null) {
@@ -516,7 +522,7 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public MemberVariableDeclarator visitMemberField(MemberFieldContext ctx) {
-    MemberVariableDeclarator result = new MemberVariableDeclarator(visitType(ctx.type()));
+    MemberVariableDeclarator result = new MemberVariableDeclarator((TypeReference)visit(ctx.type()));
     result.add(new VariableDeclaration(ctx.Identifier().getText()));
     return result;
   }

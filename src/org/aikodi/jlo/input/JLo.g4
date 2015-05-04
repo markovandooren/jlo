@@ -46,6 +46,7 @@ member
     method #memberMethod
   | subobject #memberSubobject
   | FIELD Identifier TYPEANNOTATION type #memberField
+  | TYPE Identifier #memberType
   ;
 
 method
@@ -97,7 +98,9 @@ inheritanceRelation
   ;
 
 type
-  : qualifiedName
+  : qualifiedName # qualifiedType
+  | LPAR type RPAR # parenthesisType
+  | qualifiedName (Identifier type)+ #keywordType
   ;
 
 qualifiedName
@@ -169,6 +172,8 @@ INIT: 'init';
 NATIVE: 'native';
 
 FIELD: 'field' ;
+
+TYPE: 'type' ;
 
 BLOCKING: 'blocking' ;
 
