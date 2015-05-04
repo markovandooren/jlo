@@ -83,7 +83,7 @@ public class InnerClassCreator extends AbstractTranslator {
 		superReference.setUniParent(relation);
 		substituteTypeParameters(superReference);
 		Type parent = relation.nearestAncestor(Type.class);
-		Type type = superReference.getType();
+		Type type = superReference.getElement();
 		String superTypeName = type.getFullyQualifiedName();
 		RootNamespace namespace = view.namespace();
 		boolean toImpl = false;

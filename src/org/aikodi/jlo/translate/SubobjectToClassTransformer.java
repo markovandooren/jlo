@@ -209,7 +209,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 	private void rewriteThis(ThisLiteral literal, Subobject relation, Subobject original) throws LookupException {
 		TypeReference tref = literal.getTypeReference();
 		if(tref != null) {
-			Type t = tref.getType();
+			Type t = tref.getElement();
 //			Type type = original.nearestAncestor(Type.class);
 			Type literalAncestor = relation.nearestAncestor(Type.class);
 			Type lit = null;

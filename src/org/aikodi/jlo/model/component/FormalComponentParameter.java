@@ -26,7 +26,7 @@ public abstract class FormalComponentParameter extends ComponentParameter {
 	}
 	
 	public Type containerType() throws LookupException {
-		return containerTypeReference().getType();
+		return containerTypeReference().getElement();
 	}
 
 	public void setContainerType(TypeReference type) {

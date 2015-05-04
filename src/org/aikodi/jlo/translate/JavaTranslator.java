@@ -892,7 +892,7 @@ public class JavaTranslator extends AbstractTranslator {
 		Type type = relation.nearestAncestor(Type.class);
 		if(tref instanceof ComponentParameterTypeReference) {
 			ComponentParameterTypeReference ctref = (ComponentParameterTypeReference) tref;
-			Type ctype = tref.getType();
+			Type ctype = tref.getElement();
 			type.addAll(selectorCreator().selectorsForComponent(ctype));
 			relation.setSuperClassReference(ctref.componentTypeReference());
 		}
