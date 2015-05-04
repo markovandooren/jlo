@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.declaration.Signature;
+import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.lookup.LookupContext;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -39,6 +40,14 @@ public class TypeMemberDeclarator extends MemberImpl {
 		}
 	}
 
+	public TypeMemberDeclarator(String name) {
+	  setSignature(new SimpleNameSignature(name));
+	}
+	
+  public TypeMemberDeclarator(SimpleNameSignature signature) {
+    setSignature(signature);
+  }
+  
 	/**
 	 * A type variable introduces a type parameter.
 	 */
@@ -91,7 +100,7 @@ private FormalTypeParameter createParameter() {
 
 	@Override
 	protected Element cloneSelf() {
-		return new TypeMemberDeclarator();
+		return new TypeMemberDeclarator((SimpleNameSignature)null);
 	}
 
 	@Override
