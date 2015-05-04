@@ -66,10 +66,6 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
   
   private Multi<ActualComponentArgument> _genericParameters = new Multi<ActualComponentArgument>(this);
 
-	public Type getType() throws LookupException {
-		return getElement();
-	}
-
 	public Type getElement() throws LookupException {
 		Type componentType = target().getElement();
 		List<ComponentParameter> parameters = new ArrayList<ComponentParameter>();
@@ -87,11 +83,6 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 		DerivedType result = language(ObjectOrientedLanguage.class).createDerivedType(ComponentParameter.class, parameters, componentType);
 		result.setUniParent(componentType.parent());
 		return result;
-	}
-
-	public TypeReference intersectionDoubleDispatch(TypeReference other) {
-		IntersectionTypeReference intersectionTypeReference = language(Java7.class).createIntersectionReference(clone(this), clone(other));
-		return intersectionTypeReference;
 	}
 
 	public Declaration getDeclarator() throws LookupException {

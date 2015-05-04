@@ -29,18 +29,8 @@ public class ParenthesisTypeReference extends ElementImpl implements TypeReferen
 	}
 
 	@Override
-	public Type getType() throws LookupException {
-		return typeReference().getType();
-	}
-
-	@Override
 	public Type getElement() throws LookupException {
 		return typeReference().getElement();
-	}
-
-	@Override
-	public TypeReference intersectionDoubleDispatch(TypeReference other) {
-		
 	}
 
 	@Override
