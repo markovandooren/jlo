@@ -76,6 +76,7 @@ import org.aikodi.jlo.input.JLoParser.KlassContext;
 import org.aikodi.jlo.input.JLoParser.LiteralExpressionContext;
 import org.aikodi.jlo.input.JLoParser.LowPriorityNumbericalExpressionContext;
 import org.aikodi.jlo.input.JLoParser.MemberFieldContext;
+import org.aikodi.jlo.input.JLoParser.MemberTypeContext;
 import org.aikodi.jlo.input.JLoParser.MethodContext;
 import org.aikodi.jlo.input.JLoParser.MethodHeaderContext;
 import org.aikodi.jlo.input.JLoParser.ModifierContext;
@@ -104,6 +105,7 @@ import org.aikodi.jlo.input.JLoParser.SuperExpressionContext;
 import org.aikodi.jlo.input.JLoParser.TrueLiteralContext;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
+import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -524,6 +526,12 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
   public MemberVariableDeclarator visitMemberField(MemberFieldContext ctx) {
     MemberVariableDeclarator result = new MemberVariableDeclarator((TypeReference)visit(ctx.type()));
     result.add(new VariableDeclaration(ctx.Identifier().getText()));
+    return result;
+  }
+  
+  @Override
+  public TypeMemberDeclarator visitMemberType(MemberTypeContext ctx) {
+    TypeMemberDeclarator result = new TypeMemberDeclarator(ctx.Identifier().getText());
     return result;
   }
 
