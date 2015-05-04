@@ -89,19 +89,9 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 		return result;
 	}
 
-	public TypeReference intersection(TypeReference other) {
-		return other.intersectionDoubleDispatch(this);
-	}
-
 	public TypeReference intersectionDoubleDispatch(TypeReference other) {
 		IntersectionTypeReference intersectionTypeReference = language(Java7.class).createIntersectionReference(clone(this), clone(other));
 		return intersectionTypeReference;
-	}
-
-	public TypeReference intersectionDoubleDispatch(IntersectionTypeReference other) {
-		IntersectionTypeReference result = clone(other);
-		result.add(clone(this));
-		return result;
 	}
 
 	public Declaration getDeclarator() throws LookupException {
