@@ -131,7 +131,9 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
           method.addModifier(new Static());
           method.addModifier(new Public());
           t.add(method);
-          method.setImplementation(new RegularImplementation(new Block()));
+          Block body = new Block();
+          method.setImplementation(new RegularImplementation(body));
+          body.addStatement(new ReturnStatement(new ConstructorInvocation(java(javaDocument).createTypeReference(implementationName(t)), null)));
         }
       }
     } );
