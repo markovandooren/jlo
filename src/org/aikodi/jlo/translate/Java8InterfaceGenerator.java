@@ -64,7 +64,6 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   protected void createConstructors(Document javaDocument) {
     javaDocument.apply(Method.class, javaMethod -> {
       Method jloMethod = (Method) javaMethod.origin();
-      Util.debug(javaMethod.name().equals("with"));
       if (!isGenerated(javaMethod) && jloMethod.isTrue(jlo(jloMethod).CONSTRUCTOR)) {
         Java7 java = java(javaDocument);
         Type javaParentType = javaMethod.nearestAncestor(Type.class);
