@@ -5,6 +5,7 @@ import java.util.List;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.modifier.Modifier;
 import org.aikodi.chameleon.core.namespacedeclaration.NamespaceDeclaration;
+import org.aikodi.chameleon.core.property.ChameleonProperty;
 import org.aikodi.chameleon.core.reference.NameReference;
 import org.aikodi.chameleon.exception.ModelException;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
@@ -130,14 +131,14 @@ public class InterfaceTransformer extends AbstractTranslator {
 	}
 
 	private void removeSynchronized(TypeElement element) throws ModelException {
-		Property property = element.language(Java7.class).SYNCHRONIZED;
+		ChameleonProperty property = element.language(Java7.class).SYNCHRONIZED;
 		for(Modifier modifier: element.modifiers(property)) {
 			element.removeModifier(modifier);
 		}
 	}
 	
 	private void removeFinal(TypeElement element) throws ModelException {
-		Property property = element.language(ObjectOrientedLanguage.class).OVERRIDABLE.inverse();
+	  ChameleonProperty property = element.language(ObjectOrientedLanguage.class).OVERRIDABLE.inverse();
 		for(Modifier modifier: element.modifiers(property)) {
 			element.removeModifier(modifier);
 		}
