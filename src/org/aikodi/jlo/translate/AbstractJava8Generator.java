@@ -10,6 +10,7 @@ import org.aikodi.chameleon.core.modifier.ElementWithModifiers;
 import org.aikodi.chameleon.core.modifier.Modifier;
 import org.aikodi.chameleon.core.property.ChameleonProperty;
 import org.aikodi.chameleon.core.reference.CrossReferenceWithName;
+import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
 import org.aikodi.chameleon.oo.method.Method;
@@ -241,10 +242,23 @@ public abstract class AbstractJava8Generator {
 
   protected void convertTypeMembers(Document javaDocument) {
     javaDocument.apply(TypeMemberDeclarator.class, d -> {
-      Type type = d.nearestAncestor(Type.class);
-      type.addParameter(TypeParameter.class, new FormalTypeParameter(d.name()));
+//      Type type = d.nearestAncestor(Type.class);
+//      type.addParameter(TypeParameter.class, new FormalTypeParameter(d.name()));
       d.disconnect();
     });
+    javaDocument.apply(Type.class, t-> {
+      if(! isGenerated(t)) {
+        Type jloType = (Type) t.origin();
+        try {
+          jloType.members(TypeMemberDeclarator.class).forEach(m -> {
+            t.addParameter(TypeParameter.class, new FormalTypeParameter(m.name()));
+          });
+        } catch (LookupException e) {
+          throw new ChameleonProgrammerException(e);
+        }
+      }
+    });
   }
+
 
 }
