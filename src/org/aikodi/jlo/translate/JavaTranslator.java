@@ -936,7 +936,7 @@ public class JavaTranslator extends AbstractTranslator {
 			@Override
 			public boolean eval(SuperTarget superTarget) throws LookupException {
 				try {
-					return superTarget.getTargetDeclaration() instanceof Subobject;
+					return superTarget.getElement() instanceof Subobject;
 				} catch(LookupException exc) {
 					throw exc;
 				}
@@ -947,7 +947,7 @@ public class JavaTranslator extends AbstractTranslator {
 			Element cr = superTarget.parent();
 			if(cr instanceof RegularMethodInvocation) {
 					RegularMethodInvocation call = (RegularMethodInvocation) cr;
-					Subobject targetComponent = (Subobject) superTarget.getTargetDeclaration();
+					Subobject targetComponent = (Subobject) superTarget.getElement();
 					Method invoked = call.getElement();
 					List<Subobject> trail = new ArrayList<Subobject>();
 					trail.add(targetComponent);
