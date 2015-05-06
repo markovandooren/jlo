@@ -15,14 +15,6 @@ public abstract class AbstractTarget extends ElementImpl implements CrossReferen
 		super();
 	}
 	
-	public CheckedExceptionList getCEL() {
-	  return new CheckedExceptionList();
-	}
-
-	public CheckedExceptionList getAbsCEL() {
-	  return new CheckedExceptionList();
-	}
-
 	public abstract Type getTargetDeclaration();
 	
 	public LocalLookupContext<?> targetContext() throws LookupException {

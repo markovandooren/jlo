@@ -25,6 +25,7 @@ import org.aikodi.chameleon.util.Util;
 import be.kuleuven.cs.distrinet.rejuse.property.Property;
 import be.kuleuven.cs.distrinet.rejuse.property.PropertyMutex;
 
+@Deprecated
 public abstract class ComponentParameter extends Parameter implements DeclarationWithType, Member {
 
 	public ComponentParameter(String name) {
@@ -63,16 +64,6 @@ public abstract class ComponentParameter extends Parameter implements Declaratio
 	@Override
 	public void addModifiers(List<Modifier> modifiers) {
 		if(! modifiers.isEmpty()) {throw new ChameleonProgrammerException();};
-	}
-
-	@Override
-	public List<Modifier> modifiers(PropertyMutex mutex) throws ModelException {
-		return new ArrayList<Modifier>();
-	}
-
-	@Override
-	public List<Modifier> modifiers(Property property) throws ModelException {
-		return new ArrayList<Modifier>();
 	}
 
   public MemberRelationSelector<? extends Member> overridesSelector() {

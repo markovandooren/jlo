@@ -138,9 +138,4 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 		return "";
 	}
 
-	@Override
-	public LookupContext targetContext() throws LookupException {
-		return getElement().targetContext();
-	}
-
 }
