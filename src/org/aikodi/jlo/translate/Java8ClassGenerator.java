@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.aikodi.chameleon.core.document.Document;
-import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.exception.ModelException;
@@ -16,6 +15,8 @@ import org.aikodi.chameleon.oo.statement.Block;
 import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
+import org.aikodi.chameleon.oo.type.generics.BasicTypeArgument;
+import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.MemberVariable;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
@@ -28,18 +29,19 @@ import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.util.Util;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.component.SubobjectType;
+import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;
-import be.kuleuven.cs.distrinet.jnome.core.modifier.JavaConstructor;
+import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
 
 public class Java8ClassGenerator extends AbstractJava8Generator {
 
-  protected Document createImplementation(Document javaDocument) {
-    implementOwnInterfaces(javaDocument);
+  public Document createImplementation(Document javaDocument) {
     removeNormalMethods(javaDocument);
     //    replaceSubobjects(result);
+    implementOwnInterfaces(javaDocument);
     replaceSubobjects(javaDocument);
     addFields(javaDocument);
     renameConstructorCalls(javaDocument);
@@ -118,12 +120,21 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
         Java7 java = java(javaDocument);
         // Only disconnect inheritance relations that are explicit, and
         // that are no subobjects
-        javaType.explicitNonMemberInheritanceRelations().forEach(javaInheritanceRelation -> javaInheritanceRelation.disconnect());
-        SubtypeRelation relation = new SubtypeRelation(java.createTypeReference(javaType.name()));
-        relation.addModifier(new Implements());
-        javaType.addInheritanceRelation(relation);
-        javaType.setName(implementationName(javaType));
-        javaType.modifiers(java.SCOPE_MUTEX).forEach(m -> m.disconnect());
+        if(!isGenerated(javaType)) {
+          Type jloType = (Type) javaType.origin();
+          javaType.explicitNonMemberInheritanceRelations().forEach(javaInheritanceRelation -> javaInheritanceRelation.disconnect());
+          BasicJavaTypeReference superTypeReference = java.createTypeReference(javaType.name());
+          //        jloType.members(TypeMemberDeclarator.class).stream().sorted((m1,m2)-> m1.name().compareTo(m2.name())).
+          //        forEachOrdered(m -> {
+          //          superTypeReference.addArgument(new BasicTypeArgument(java.createTypeReference(m.name())));
+          //        });
+          SubtypeRelation relation = new SubtypeRelation(superTypeReference);
+          relation.addModifier(new Implements());
+          javaType.addInheritanceRelation(relation);
+          addTypeParameters(relation,jloType);
+          javaType.setName(implementationName(javaType));
+          javaType.modifiers(java.SCOPE_MUTEX).forEach(m -> m.disconnect());
+        }
       } catch (ModelException e) {
         throw new ChameleonProgrammerException(e);
       }
@@ -193,5 +204,12 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
     getter.setImplementation(new RegularImplementation(getterBody));
     getterBody.addStatement(new ReturnStatement(new NameExpression(fieldName)));
   }
+
+  protected void addTypeParameters(InheritanceRelation relation, Type jloType) throws LookupException {
+    jloType.members(TypeMemberDeclarator.class).forEach(d -> {
+      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new BasicTypeArgument(java(relation).createTypeReference(d.name())));
+    });
+  }
+  
 
 }
