@@ -15,10 +15,14 @@ import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
 import org.aikodi.chameleon.oo.method.Method;
 import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
+import org.aikodi.chameleon.oo.type.BasicTypeReference;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
+import org.aikodi.chameleon.oo.type.generics.BasicTypeArgument;
 import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
+import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
+import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
@@ -27,6 +31,7 @@ import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
+import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 
 public abstract class AbstractJava8Generator {
 
@@ -240,10 +245,8 @@ public abstract class AbstractJava8Generator {
     return element.clone(element);
   }
 
-  protected void convertTypeMembers(Document javaDocument) {
+  protected void addTypeParameterToOwnClass(Document javaDocument) {
     javaDocument.apply(TypeMemberDeclarator.class, d -> {
-//      Type type = d.nearestAncestor(Type.class);
-//      type.addParameter(TypeParameter.class, new FormalTypeParameter(d.name()));
       d.disconnect();
     });
     javaDocument.apply(Type.class, t-> {
@@ -258,7 +261,26 @@ public abstract class AbstractJava8Generator {
         }
       }
     });
+    javaDocument.apply(SubtypeRelation.class, javaSubtypeRelation -> {
+      if(! isGenerated(javaSubtypeRelation)) {
+        SubtypeRelation jloInheritanceRelation = (SubtypeRelation) javaSubtypeRelation.origin();
+        Type superClass;
+        try {
+          superClass = jloInheritanceRelation.superClass();
+          addTypeParameters(javaSubtypeRelation, superClass);
+        } catch (LookupException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
+    });
   }
 
+  protected void addTypeParameters(InheritanceRelation relation, Type jloType) throws LookupException {
+    jloType.members(TypeMemberDeclarator.class).forEach(d -> {
+      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new BasicTypeArgument(java(relation).createTypeReference(d.name())));
+    });
+  }
+  
 
 }

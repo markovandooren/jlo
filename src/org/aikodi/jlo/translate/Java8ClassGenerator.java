@@ -45,7 +45,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
     replaceSubobjects(javaDocument);
     addFields(javaDocument);
     renameConstructorCalls(javaDocument);
-    convertTypeMembers(javaDocument);
+    addTypeParameterToOwnClass(javaDocument);
     return javaDocument;
   }
 
@@ -205,11 +205,5 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
     getterBody.addStatement(new ReturnStatement(new NameExpression(fieldName)));
   }
 
-  protected void addTypeParameters(InheritanceRelation relation, Type jloType) throws LookupException {
-    jloType.members(TypeMemberDeclarator.class).forEach(d -> {
-      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new BasicTypeArgument(java(relation).createTypeReference(d.name())));
-    });
-  }
-  
 
 }
