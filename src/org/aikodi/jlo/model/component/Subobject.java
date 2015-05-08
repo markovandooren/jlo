@@ -18,6 +18,7 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.lookup.SelectionResult;
 import org.aikodi.chameleon.core.lookup.Skipper;
 import org.aikodi.chameleon.core.lookup.Stub;
+import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
 import org.aikodi.chameleon.core.validation.BasicProblem;
 import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
@@ -25,7 +26,6 @@ import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.member.DeclarationComparator;
 import org.aikodi.chameleon.oo.member.HidesRelation;
 import org.aikodi.chameleon.oo.member.Member;
-import org.aikodi.chameleon.oo.member.MemberImpl;
 import org.aikodi.chameleon.oo.member.MemberRelationSelector;
 import org.aikodi.chameleon.oo.member.OverridesRelation;
 import org.aikodi.chameleon.oo.type.ClassBody;
@@ -46,7 +46,7 @@ import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
  * 
  * @author Marko van Dooren
  */
-public class Subobject extends MemberImpl implements DeclarationWithType, InheritanceRelation {
+public class Subobject extends ElementWithModifiersImpl implements Member, DeclarationWithType, InheritanceRelation {
 
   /**
    * Create a new subobject with the given name and type reference.

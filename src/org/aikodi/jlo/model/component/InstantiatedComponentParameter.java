@@ -8,7 +8,7 @@ import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
 import org.aikodi.chameleon.exception.ModelException;
 import org.aikodi.chameleon.oo.type.DeclarationWithType;
-import org.aikodi.chameleon.oo.type.DerivedType;
+import org.aikodi.chameleon.oo.type.TypeInstantiation;
 import org.aikodi.chameleon.oo.type.Parameter;
 import org.aikodi.chameleon.oo.type.ParameterBlock;
 import org.aikodi.chameleon.oo.type.Type;
@@ -37,7 +37,7 @@ public class InstantiatedComponentParameter extends ComponentParameter implement
 	}
 	
 	public FormalComponentParameter formalParameter() throws LookupException {
-		Type enclosing = nearestAncestor(DerivedType.class);
+		Type enclosing = nearestAncestor(TypeInstantiation.class);
 		if(enclosing == null) {
 			throw new LookupException("The instantiated single component parameter is not in a derived type.");
 		} else {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.relation.StrictPartialOrder;
 import org.aikodi.chameleon.oo.member.Member;
-import org.aikodi.chameleon.oo.type.DerivedType;
+import org.aikodi.chameleon.oo.type.TypeInstantiation;
 import org.aikodi.chameleon.oo.type.Parameter;
 import org.aikodi.chameleon.oo.type.ParameterSubstitution;
 import org.aikodi.chameleon.oo.type.Type;
@@ -38,11 +38,11 @@ public class JLo extends Java7 {
 		return new SubobjectJavaImplementsRelation();
 	}
 	
-	public <P extends Parameter> DerivedType createDerivedType(Class<P> kind, List<P> parameters, Type baseType) {
+	public <P extends Parameter> TypeInstantiation createDerivedType(Class<P> kind, List<P> parameters, Type baseType) {
 		return new JLoDerivedType(kind, parameters, baseType);
 	}
 
-	public DerivedType createDerivedType(Type baseType, List<ActualTypeArgument> typeArguments) throws LookupException {
+	public TypeInstantiation createDerivedType(Type baseType, List<ActualTypeArgument> typeArguments) throws LookupException {
 		return new JLoDerivedType(baseType,typeArguments);
 	}
 

@@ -8,8 +8,8 @@ import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.lookup.LookupContext;
 import org.aikodi.chameleon.core.lookup.LookupException;
+import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
 import org.aikodi.chameleon.oo.member.Member;
-import org.aikodi.chameleon.oo.member.MemberImpl;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
@@ -17,7 +17,7 @@ import org.aikodi.chameleon.oo.type.generics.TypeParameterFixer;
 import org.aikodi.chameleon.util.Lists;
 import org.aikodi.chameleon.util.association.Single;
 
-public class TypeMemberDeclarator extends MemberImpl {
+public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Member {
 
 	private final class TypeMemberParameterFixer extends
 			TypeParameterFixer {

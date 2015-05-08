@@ -20,7 +20,7 @@ public class JLoDerivedType extends JavaDerivedType {
 		super(kind,parameters,baseType);
 	}
 
-	public JLoDerivedType(List<ParameterSubstitution> parameters, Type baseType) {
+	public JLoDerivedType(List<ParameterSubstitution<?>> parameters, Type baseType) {
 		super(parameters,baseType);
 	}
 
@@ -33,7 +33,7 @@ public class JLoDerivedType extends JavaDerivedType {
 	}
 	
 	public JLoDerivedType clone() {
-		List<ParameterSubstitution> args = clonedParameters();
+		List<ParameterSubstitution<?>> args = clonedParameters();
 		return new JLoDerivedType(args,baseType());
 	}
 

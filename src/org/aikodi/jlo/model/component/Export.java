@@ -5,14 +5,15 @@ import java.util.Collection;
 import java.util.List;
 
 import org.aikodi.chameleon.core.lookup.LookupException;
+import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
 import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
 import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.member.MemberRelationSelector;
-import org.aikodi.chameleon.oo.type.TypeElementImpl;
+import org.aikodi.chameleon.oo.type.TypeElement;
 import org.aikodi.chameleon.util.association.Multi;
 
-public class Export extends TypeElementImpl {
+public class Export extends ElementWithModifiersImpl implements TypeElement {
 
 	private Multi<RenamingClause> _clauses = new Multi<RenamingClause>(this);
 	

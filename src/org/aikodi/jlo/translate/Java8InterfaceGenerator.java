@@ -254,7 +254,8 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
       try {
         Type subobjectInterface = ooFactory(javaDocument).createRegularType(subobjectInterfaceName(javaSubobject));
         subobjectInterface.addModifier(new Interface());
-        subobjectInterface.addInheritanceRelation(new SubtypeRelation(clone(javaSubobject.superClassReference())));
+        SubtypeRelation javaSubtypeRelation = new SubtypeRelation(clone(javaSubobject.superClassReference()));
+        subobjectInterface.addInheritanceRelation(javaSubtypeRelation);
         Subobject jloSubobject = (Subobject) javaSubobject.origin();
         Method getter = createSubobjectGetterTemplate(jloSubobject, java(javaDocument));
         getter.addModifier(new Abstract());
@@ -262,6 +263,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
         Type nearestAncestor = javaSubobject.nearestAncestor(Type.class);
         nearestAncestor.add(getter);
         javaSubobject.replaceWith(subobjectInterface);
+//        addTypeParameters(javaSubtypeRelation, jloSubobject.componentType());
       } catch (LookupException e) {
         throw new ChameleonProgrammerException(e);
       }

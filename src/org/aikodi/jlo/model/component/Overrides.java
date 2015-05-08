@@ -10,14 +10,15 @@ import org.aikodi.chameleon.core.lookup.DeclarationCollector;
 import org.aikodi.chameleon.core.lookup.DeclarationSelector;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.lookup.NameSelector;
+import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
 import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
 import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.type.Type;
-import org.aikodi.chameleon.oo.type.TypeElementImpl;
+import org.aikodi.chameleon.oo.type.TypeElement;
 import org.aikodi.chameleon.util.association.Single;
 
-public class Overrides extends TypeElementImpl {
+public class Overrides extends ElementWithModifiersImpl implements TypeElement {
 
 	public Overrides(Signature newSignature, QualifiedName oldFqn) {
 		setNewSignature(newSignature);

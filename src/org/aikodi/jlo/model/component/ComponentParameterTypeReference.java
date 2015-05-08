@@ -11,7 +11,7 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
-import org.aikodi.chameleon.oo.type.DerivedType;
+import org.aikodi.chameleon.oo.type.TypeInstantiation;
 import org.aikodi.chameleon.oo.type.IntersectionTypeReference;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
@@ -80,7 +80,7 @@ public class ComponentParameterTypeReference extends ElementImpl implements Java
 			ActualComponentArgument arg = arguments.next();
 			parameters.add(new InstantiatedComponentParameter(formals.next().name(), arg));
 		}
-		DerivedType result = language(ObjectOrientedLanguage.class).createDerivedType(ComponentParameter.class, parameters, componentType);
+		TypeInstantiation result = language(ObjectOrientedLanguage.class).createDerivedType(ComponentParameter.class, parameters, componentType);
 		result.setUniParent(componentType.parent());
 		return result;
 	}

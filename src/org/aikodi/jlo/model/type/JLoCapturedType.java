@@ -14,11 +14,7 @@ import com.google.common.collect.ImmutableList;
 
 public class JLoCapturedType extends CapturedType {
 
-//	public JLoCapturedType(Type baseType, List<ActualTypeArgument> typeParameters) throws LookupException {
-//		super(baseType,typeParameters);
-//	}
-
-	public JLoCapturedType(List<ParameterSubstitution> parameters, Type baseType) {
+	public JLoCapturedType(List<ParameterSubstitution<?>> parameters, Type baseType) {
 		super(parameters,baseType);
 	}
 
