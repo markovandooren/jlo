@@ -52,7 +52,7 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
 	 * A type variable introduces a type parameter.
 	 */
 	@Override
-	public List<? extends Member> getIntroducedMembers() throws LookupException {
+	public List<? extends Member> getIntroducedMembers() {
 		return Lists.create(this);
 //		TypeParameter param = null;
 //		TypeParameter cloneForStub = param.cloneForStub();

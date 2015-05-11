@@ -48,7 +48,7 @@ public class Export extends ElementWithModifiersImpl implements TypeElement {
 	 * A renaming member does not introduce members into its directly enclosing class, which is the subobject type.
 	 */
 	@Override
-	public List<? extends Member> getIntroducedMembers() throws LookupException {
+	public List<? extends Member> getIntroducedMembers() {
 		return new ArrayList<Member>();
 	}
 

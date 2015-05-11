@@ -33,17 +33,13 @@ public abstract class ComponentParameter extends Parameter implements Declaratio
 	}
 
 	@Override
-	public List<? extends Member> getIntroducedMembers() throws LookupException {
+	public List<? extends Member> getIntroducedMembers() {
 		return Util.createNonNullList(this);
 	}
 
 	@Override
 	public List<? extends Member> declaredMembers() {
-    try {
-			return getIntroducedMembers();
-		} catch (LookupException e) {
-			throw new ChameleonProgrammerException("This should not happen. Element of class "+this.getClass().getName()+" threw a lookup exception in getIntroducedMembers. This exception ended up in declaredMembers. But if that is the case, then declaredMembers must be overridden to provide a proper definition.", e);
-		}
+		return getIntroducedMembers();
 	}
 
 	@Override

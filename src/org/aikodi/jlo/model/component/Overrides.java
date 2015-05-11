@@ -54,7 +54,7 @@ public class Overrides extends ElementWithModifiersImpl implements TypeElement {
 	}
 
 	@Override
-	public List<? extends Member> getIntroducedMembers() throws LookupException {
+	public List<? extends Member> getIntroducedMembers() {
 		return new ArrayList<Member>();
 	}
 

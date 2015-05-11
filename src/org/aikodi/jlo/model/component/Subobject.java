@@ -330,7 +330,7 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 	return current;
 }
 
-	public List<? extends Member> getIntroducedMembers() throws LookupException {
+	public List<? extends Member> getIntroducedMembers() {
 		List<Member> result = new ArrayList<Member>();
 		result.add(this);
 		return result;
