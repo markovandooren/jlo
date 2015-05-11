@@ -3,7 +3,6 @@ package org.aikodi.jlo.model.expression;
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.lookup.DeclarationCollector;
 import org.aikodi.chameleon.core.lookup.DeclarationSelector;
-import org.aikodi.chameleon.core.lookup.DeclaratorSelector;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.lookup.NameSelector;
 import org.aikodi.chameleon.core.reference.CrossReference;
@@ -62,39 +61,27 @@ public class ComponentParameterCall extends Expression implements CrossReference
 	}
 
   public FormalComponentParameter getElement() throws LookupException {
-  	return getElement(selector());
-  }
-  
-	public Declaration getDeclarator() throws LookupException {
-		return getElement(new DeclaratorSelector(selector()));
-	}
-  
-  @SuppressWarnings("unchecked")
-  public <X extends Declaration> X getElement(DeclarationSelector<X> selector) throws LookupException {
-    X result;
-    DeclarationCollector<X> collector = new DeclarationCollector<X>(selector);
+  	DeclarationSelector<FormalComponentParameter> selector = new NameSelector<FormalComponentParameter>(FormalComponentParameter.class) {
+    	public String name() {
+    		return ComponentParameterCall.this.name();
+    	}
+    };
+    FormalComponentParameter result;
+    DeclarationCollector<FormalComponentParameter> collector = new DeclarationCollector<FormalComponentParameter>(selector);
     lexicalContext().lookUp(collector);
     result = collector.result();//findElement(getName());
     if(result != null) {
       return result;
     } else {
     	// repeat for debugging purposes
-    	collector = new DeclarationCollector<X>(selector);
+    	collector = new DeclarationCollector<FormalComponentParameter>(selector);
     	lexicalContext().lookUp(collector);//findElement(getName());
     	result = collector.result(); 
     	throw new LookupException("Lookup of component parameter with name: "+name()+" returned null.");
     }
   }
-
-	public DeclarationSelector<FormalComponentParameter> selector() {
-		return new NameSelector<FormalComponentParameter>(FormalComponentParameter.class) {
-			public String name() {
-				return ComponentParameterCall.this.name();
-			}
-		};
-	}
-
-	/**
+  
+  /**
 	 * TARGET
 	 */
 	private Single<CrossReferenceTarget> _target = new Single<CrossReferenceTarget>(this);
