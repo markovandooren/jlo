@@ -12,7 +12,7 @@ import be.kuleuven.cs.distrinet.jnome.core.type.CapturedType;
 
 import com.google.common.collect.ImmutableList;
 
-public class JLoCapturedType extends CapturedType {
+public class JLoCapturedType extends CapturedType implements JLoType {
 
 	public JLoCapturedType(List<ParameterSubstitution<?>> parameters, Type baseType) {
 		super(parameters,baseType);

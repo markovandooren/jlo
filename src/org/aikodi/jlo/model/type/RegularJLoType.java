@@ -15,7 +15,7 @@ import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
 
 import com.google.common.collect.ImmutableList;
 
-public class RegularJLoType extends RegularJavaType {
+public class RegularJLoType extends RegularJavaType implements JLoType {
 	
 //	private CreationStackTrace _trace;
 

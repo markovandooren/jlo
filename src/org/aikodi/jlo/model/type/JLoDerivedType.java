@@ -14,7 +14,7 @@ import be.kuleuven.cs.distrinet.jnome.core.type.JavaDerivedType;
 
 import com.google.common.collect.ImmutableList;
 
-public class JLoDerivedType extends JavaDerivedType {
+public class JLoDerivedType extends JavaDerivedType implements JLoType {
 
 	public <P extends Parameter> JLoDerivedType(Class<P> kind, List<P> parameters, Type baseType) {
 		super(kind,parameters,baseType);
