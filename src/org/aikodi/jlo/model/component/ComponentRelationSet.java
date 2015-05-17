@@ -50,44 +50,12 @@ public class ComponentRelationSet extends BasicDeclaration implements Declaratio
 		return declarationType().targetContext();
 	}
 
-	public Declaration selectionDeclaration() throws LookupException {
-		return this;
-	}
-
-	public ComponentRelationSet actualDeclaration() throws LookupException {
-		return this;
-	}
-
-	public Declaration declarator() {
-		return this;
-	}
-
 	public Scope scope() throws ModelException {
 		return nearestAncestor(Type.class).scope();
 	}
 
 	public Type declarationType() throws LookupException {
 		return formalParameter().declarationType();
-	}
-
-	@Override
-	public boolean complete() throws LookupException {
-		return true;
-	}
-	
-	@Override
-	public Declaration finalDeclaration() {
-		return this;
-	}
-	
-	@Override
-	public Declaration template() {
-		return finalDeclaration();
-	}
-
-	@Override
-	public SelectionResult updatedTo(Declaration declaration) {
-		return declaration;
 	}
 
 }
