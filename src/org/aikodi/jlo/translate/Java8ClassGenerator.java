@@ -15,8 +15,6 @@ import org.aikodi.chameleon.oo.statement.Block;
 import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
-import org.aikodi.chameleon.oo.type.generics.BasicTypeArgument;
-import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.MemberVariable;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
@@ -29,12 +27,13 @@ import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.util.Util;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.component.SubobjectType;
-import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
+
+import com.google.common.collect.ImmutableSet;
 
 public class Java8ClassGenerator extends AbstractJava8Generator {
 
@@ -167,8 +166,10 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
   }
 
   private void addFields(Type to, Type from) throws LookupException {
-    Set<Type> allSuperTypes = from.getAllSuperTypes();
-    allSuperTypes.add(from);
+//    Set<Type> allSuperTypes = ImmutableSet.<Type>builder()
+//    		.addAll(from.getAllSuperTypes())
+//    		.add(from).build();
+    Set<Type> allSuperTypes = from.getSelfAndAllSuperTypesView();
     allSuperTypes.stream().<MemberVariable>flatMap(x -> {
       try {
         return x.localMembers(MemberVariable.class).stream();
