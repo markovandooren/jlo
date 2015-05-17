@@ -123,10 +123,6 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
           Type jloType = (Type) javaType.origin();
           javaType.explicitNonMemberInheritanceRelations().forEach(javaInheritanceRelation -> javaInheritanceRelation.disconnect());
           BasicJavaTypeReference superTypeReference = java.createTypeReference(javaType.name());
-          //        jloType.members(TypeMemberDeclarator.class).stream().sorted((m1,m2)-> m1.name().compareTo(m2.name())).
-          //        forEachOrdered(m -> {
-          //          superTypeReference.addArgument(new BasicTypeArgument(java.createTypeReference(m.name())));
-          //        });
           SubtypeRelation relation = new SubtypeRelation(superTypeReference);
           relation.addModifier(new Implements());
           javaType.addInheritanceRelation(relation);
@@ -155,20 +151,11 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
         } catch (Exception e) {
           throw new ChameleonProgrammerException(e);
         }
-        //    		Subobject originalSubobect = (Subobject) t.nearestAncestor(Subobject.class).origin();
-        //    		try {
-        //					originalType = originalSubobect.componentType();
-        //				} catch (Exception e) {
-        //					throw new ChameleonProgrammerException(e);
-        //				}
       } 
     });
   }
 
   private void addFields(Type to, Type from) throws LookupException {
-//    Set<Type> allSuperTypes = ImmutableSet.<Type>builder()
-//    		.addAll(from.getAllSuperTypes())
-//    		.add(from).build();
     Set<Type> allSuperTypes = from.getSelfAndAllSuperTypesView();
     allSuperTypes.stream().<MemberVariable>flatMap(x -> {
       try {

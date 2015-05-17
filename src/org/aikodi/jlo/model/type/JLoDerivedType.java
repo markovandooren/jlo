@@ -10,11 +10,11 @@ import org.aikodi.chameleon.oo.type.generics.ActualTypeArgument;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
 import org.aikodi.jlo.model.component.Subobject;
 
-import be.kuleuven.cs.distrinet.jnome.core.type.JavaDerivedType;
+import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeInstantiation;
 
 import com.google.common.collect.ImmutableList;
 
-public class JLoDerivedType extends JavaDerivedType implements JLoType {
+public class JLoDerivedType extends JavaTypeInstantiation implements JLoType {
 
 	public <P extends Parameter> JLoDerivedType(Class<P> kind, List<P> parameters, Type baseType) {
 		super(kind,parameters,baseType);

@@ -11,6 +11,7 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
 import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.type.Type;
+import org.aikodi.chameleon.oo.type.TypeFixer;
 import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
 import org.aikodi.chameleon.oo.type.generics.TypeParameterFixer;
@@ -76,7 +77,7 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
 	}
 
 	@Override
-	public Declaration selectionDeclaration() throws LookupException {
+	public FormalTypeParameter selectionDeclaration() throws LookupException {
 		FormalTypeParameter result = createParameter();
 		TypeMemberParameterFixer fixer = new TypeMemberParameterFixer();
 		result.setUniParent(fixer);
@@ -101,6 +102,10 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
 	@Override
 	protected Element cloneSelf() {
 		return new TypeMemberDeclarator((SimpleNameSignature)null);
+	}
+
+	public boolean compatibleWith(TypeMemberDeclarator s, TypeFixer trace) throws LookupException {
+		return selectionDeclaration().compatibleWith(s.selectionDeclaration(), trace);
 	}
 
 }
