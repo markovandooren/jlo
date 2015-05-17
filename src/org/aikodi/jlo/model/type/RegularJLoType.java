@@ -41,11 +41,6 @@ public class RegularJLoType extends RegularJavaType implements JLoType {
 //		});
 	}
 
-	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
-		return ImmutableList.<InheritanceRelation>builder().addAll(super.inheritanceRelations())
-		.addAll(body().members(Subobject.class)).build();
-	}
-	
 	@Override
 	protected RegularJLoType cloneSelf() {
 		//FIXME use lazy instantiation of parameter blocks to avoid this hack

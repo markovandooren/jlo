@@ -27,12 +27,4 @@ public class JLoCapturedType extends CapturedType implements JLoType {
 		return new JLoCapturedType(clonedParameters(),baseType());
 	}
 
-	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
-		return ImmutableList.<InheritanceRelation>builder()
-		.addAll(super.inheritanceRelations())
-		.addAll(body().members(Subobject.class))
-		.build();
-	}
-	
-	
 }

@@ -37,13 +37,4 @@ public class JLoDerivedType extends JavaDerivedType implements JLoType {
 		return new JLoDerivedType(args,baseType());
 	}
 
-	@Override
-	public List<InheritanceRelation> inheritanceRelations() throws LookupException {
-		return ImmutableList.<InheritanceRelation>builder()
-		// first take the subtype relations
-		.addAll(super.inheritanceRelations())
-		.addAll(body().members(Subobject.class))
-		.build();
-	}
-	
 }
