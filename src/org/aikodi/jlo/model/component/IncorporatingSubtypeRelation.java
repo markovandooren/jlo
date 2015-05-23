@@ -21,16 +21,16 @@ public abstract class IncorporatingSubtypeRelation extends SubtypeRelation {
 	/**
 	 * The members in both lists are either incorporated, or not generated (those that are defined in the subobject itself). 
 	 */
-	protected List<SelectionResult> removeNonMostSpecificMembers(List<SelectionResult> current, final List<? extends SelectionResult> potential) throws LookupException {
+	protected <X extends Member> List<SelectionResult<X>> removeNonMostSpecificMembers(List<SelectionResult<X>> current, final List<SelectionResult<X>> potential) throws LookupException {
 		if(current == Collections.EMPTY_LIST) {
 			return (List)potential; 
 		}
-		final List<SelectionResult> toAdd = Lists.create(potential.size());
-		for(SelectionResult mm: potential) {
+		final List<SelectionResult<X>> toAdd = Lists.create(potential.size());
+		for(SelectionResult<X> mm: potential) {
 			Member m = (Member)mm.finalDeclaration();
 			Member originOfM = (Member) m.origin();
 			boolean add = true;
-			Iterator<SelectionResult> iterCurrent = current.iterator();
+			Iterator<SelectionResult<X>> iterCurrent = current.iterator();
 			while(add && iterCurrent.hasNext()) {
 				Member next = (Member) iterCurrent.next().finalDeclaration();
 				Element origin = next.origin();

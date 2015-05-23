@@ -97,10 +97,10 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
     	return declaration.is(language(ObjectOrientedLanguage.class).CONSTRUCTOR)==Ternary.TRUE;
     }
     
-    public List<? extends SelectionResult> selection(List<? extends Declaration> declarators) throws LookupException {
-    	List<SelectionResult> tmp = new ArrayList<SelectionResult>();
+    public List<? extends SelectionResult<NormalMethod>> selection(List<? extends Declaration> declarators) throws LookupException {
+    	List<SelectionResult<NormalMethod>> tmp = new ArrayList<SelectionResult<NormalMethod>>();
     	for(Declaration decl: declarators) {
-    		SelectionResult e = selection(decl);
+    		SelectionResult<NormalMethod> e = selection(decl);
     		if(e != null) {
     			tmp.add(e);
     		}
@@ -157,7 +157,7 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 			return getTarget().getElement().componentType().signature().name();
 		}
 
-		protected void applyOrder(List<SelectionResult> tmp) throws LookupException {
+		protected void applyOrder(List<SelectionResult<NormalMethod>> tmp) throws LookupException {
 			order().removeBiggerElements((List)tmp);
 		}
 

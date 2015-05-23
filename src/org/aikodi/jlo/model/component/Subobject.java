@@ -297,9 +297,9 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 	}
 
 	@Override
-	public <X extends Member> List<SelectionResult> accumulateInheritedMembers(DeclarationSelector<X> selector, List<SelectionResult> current) throws LookupException {
+	public <X extends Member> List<SelectionResult<X>> accumulateInheritedMembers(DeclarationSelector<X> selector, List<SelectionResult<X>> current) throws LookupException {
 		ConfigurationBlock configurationBlock = configurationBlock();
-		final List<SelectionResult> potential = (List)selector.selection(componentType().processedMembers());
+		final List<SelectionResult<X>> potential = (List)selector.selection(componentType().processedMembers());
 		if(configurationBlock != null) {
 		  potential.addAll(selector.selection(configurationBlock.processedMembers()));
 		}
@@ -307,12 +307,12 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 	}
 
 	protected 
-	List<SelectionResult> removeNonMostSpecificMembers(List<SelectionResult> current, final List<? extends SelectionResult> potential) throws LookupException {
-	final List<SelectionResult> toAdd = new ArrayList<SelectionResult>();
-	for(SelectionResult mm: potential) {
+	<X extends Member> List<SelectionResult<X>> removeNonMostSpecificMembers(List<SelectionResult<X>> current, final List<SelectionResult<X>> potential) throws LookupException {
+	final List<SelectionResult<X>> toAdd = new ArrayList<SelectionResult<X>>();
+	for(SelectionResult<X> mm: potential) {
 		Member m = (Member) mm.finalDeclaration();
 		boolean add = true;
-		Iterator<SelectionResult> iterCurrent = current.iterator();
+		Iterator<SelectionResult<X>> iterCurrent = current.iterator();
 		while(add && iterCurrent.hasNext()) {
 			Member alreadyInherited = (Member) iterCurrent.next().finalDeclaration();
 			// Remove the already inherited member if potentially inherited member m overrides or hides it.

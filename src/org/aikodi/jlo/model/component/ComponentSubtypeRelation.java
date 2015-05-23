@@ -44,12 +44,12 @@ public class ComponentSubtypeRelation extends IncorporatingSubtypeRelation {
 		return other instanceof SubtypeRelation && other.parent() == componentType();
 	}
 
-	private List<SelectionResult> incorporated(List<? extends SelectionResult> tmp) throws LookupException {
+	private <M extends Member> List<SelectionResult<M>> incorporated(List<? extends SelectionResult<M>> tmp) throws LookupException {
 		Subobject componentRelation = componentType().nearestAncestor(Subobject.class);
-		List<SelectionResult> result = new ArrayList<SelectionResult>();
-		for(SelectionResult r:tmp) {
+		List<SelectionResult<M>> result = new ArrayList<>();
+		for(SelectionResult<M> r:tmp) {
 			Declaration decl = r.template();
-			SelectionResult inc = r.updatedTo(componentRelation.incorporatedIntoComponentType((Member)decl));
+			SelectionResult<M> inc = r.updatedTo(componentRelation.incorporatedIntoComponentType((Member)decl));
 			result.add(inc);
 		}
 		return result;
@@ -57,26 +57,26 @@ public class ComponentSubtypeRelation extends IncorporatingSubtypeRelation {
 	
 
 	@Override
-	public <M extends Member> List<? extends SelectionResult> potentiallyInheritedMembers(DeclarationSelector<M> selector) throws LookupException {
-		List<? extends SelectionResult> potentiallyInheritedMembers = super.potentiallyInheritedMembers(selector);
+	public <M extends Member> List<SelectionResult<M>> potentiallyInheritedMembers(DeclarationSelector<M> selector) throws LookupException {
+		List<? extends SelectionResult<M>> potentiallyInheritedMembers = super.potentiallyInheritedMembers(selector);
 		return incorporated(potentiallyInheritedMembers);
 	}
 
 	@Override
 	public <M extends Member> List<M> potentiallyInheritedMembers(Class<M> kind) throws LookupException {
 		List<M> potentiallyInheritedMembers = super.potentiallyInheritedMembers(kind);
-		return (List)incorporated(potentiallyInheritedMembers);
+		return (List)incorporated((List)potentiallyInheritedMembers);
 	}
 
 	@Override
 	public List<Member> potentiallyInheritedMembers() throws LookupException {
 		List<Member> potentiallyInheritedMembers = super.potentiallyInheritedMembers();
-		return (List)incorporated(potentiallyInheritedMembers);
+		return (List)incorporated((List)potentiallyInheritedMembers);
 	}
 
 	@Override
 	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
-		return (List)incorporated(super.membersDirectlyOverriddenBy(selector));
+		return (List)incorporated((List)super.membersDirectlyOverriddenBy(selector));
 	}
 
 	@Override
