@@ -47,8 +47,10 @@ public class KeywordTypeReference extends ElementImpl implements TypeReference {
 
   @Override
   public Type getElement() throws LookupException {
-    Type typeConstructor = typeConstructorReference().getElement();
-    return todo;
+    JLoType typeConstructor = (JLoType) typeConstructorReference().getElement();
+    Type result = new JLoTypeRefinement(typeConstructor);
+    result.add(new TypeMemberDeclarator(name()));
+    return result;
   }
 
   @Override
