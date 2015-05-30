@@ -276,8 +276,8 @@ public class JavaTranslator extends AbstractTranslator {
 		boolean fieldIsCreatedForSubobject = decl.origin().parent().hasMetadata(SUBOBJECT_READ);
 		AssignmentExpression assignment = cref.nearestAncestor(AssignmentExpression.class);
 		boolean isRead = (assignment == null) || 
-				             (assignment.getVariableExpression() != cref &&
-				            	! assignment.getVariableExpression().descendants().contains(cref)); 
+				             (assignment.variableExpression() != cref &&
+				            	! assignment.variableExpression().descendants().contains(cref)); 
 		return fieldIsCreatedForSubobject && isRead;
 	}
 

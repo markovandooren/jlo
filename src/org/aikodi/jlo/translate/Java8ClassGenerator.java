@@ -170,7 +170,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
       MemberVariableDeclarator f = new MemberVariableDeclarator(clone(jloMemberVariableDeclarator.typeReference()));
       VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin();
       String fieldName = fieldName(variableDeclaration);
-      Util.debug(fieldName.contains(IMPLEMENTATION_SUFFIX));
+//      Util.debug(fieldName.contains(IMPLEMENTATION_SUFFIX));
       f.add(new VariableDeclaration(fieldName));
       f.addModifier(new Private());
       to.add(f);
