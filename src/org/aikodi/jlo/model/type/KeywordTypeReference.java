@@ -1,5 +1,7 @@
 package org.aikodi.jlo.model.type;
 
+import java.util.Set;
+
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.element.ElementImpl;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -65,4 +67,10 @@ public class KeywordTypeReference extends ElementImpl implements TypeReference {
   public void setTypeConstructorReference(TypeReference typeReference) {
     set(_typeConstructorReference,typeReference);
   }
+  
+  @Override
+  public String toString(Set<Element> visited) {
+      return name();
+  }
+
 }

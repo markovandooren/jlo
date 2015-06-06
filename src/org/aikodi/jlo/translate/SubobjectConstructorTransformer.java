@@ -84,7 +84,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 	  boolean added = false;
 	  for(Subobject relation: container.members(Subobject.class)) {
 		  ClassBody body = relation.nearestAncestor(ClassBody.class);
-		  if((body != null) && container.subTypeOf(body.nearestAncestor(Type.class))) {
+		  if((body != null) && container.subtypeOf(body.nearestAncestor(Type.class))) {
 		  	/*
 		  	 * If the relation is defined locally, we must create a strategy interface.
 		  	 */
@@ -151,7 +151,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			strategy.addModifier(new Abstract());
 			strategy.addModifier(new Static());
 			for(Member member: relation.directlyOverriddenMembers()) {
-				if(type.subTypeOf(member.nearestAncestor(Type.class))) {
+				if(type.subtypeOf(member.nearestAncestor(Type.class))) {
 					strategy.addInheritanceRelation(new SubtypeRelation(language.createTypeReference(strategyNameFQN((Subobject) member))));
 				}
 			}
@@ -237,7 +237,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 				Type erasedTypeOfOriginalSubobject = lang.erasure(subobjectConstructorCall.nearestAncestor(Type.class));
 				// do we need to do the actual substitution with subobjectConstructorCall.nearestAncestor(Type.class)
 				// instead of its erasure ????
-				if(originalOuter.subTypeOf(erasedTypeOfOriginalSubobject)) {
+				if(originalOuter.subtypeOf(erasedTypeOfOriginalSubobject)) {
 					Method originalCons = cons;
 					cons = Util.clone(originalCons);
 					Element parent = originalCons.parent();//.origin();
@@ -398,7 +398,7 @@ public class SubobjectConstructorTransformer extends AbstractTranslator {
 			}
 			ClassBody body = relation.nearestAncestor(ClassBody.class);
 			int levelOfRelation = relation.ancestors(Type.class).size();
-			if(body != null && type.subTypeOf(body.nearestAncestor(Type.class))) {
+			if(body != null && type.subtypeOf(body.nearestAncestor(Type.class))) {
 				List<SubobjectConstructorCall> subCalls = constructorCallsOfRelation(relation, constructor);
 				if(!isLocallyDefined(relation,type)) {
 					if(relativeIndexInSuper == -1) {

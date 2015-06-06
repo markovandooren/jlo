@@ -42,7 +42,7 @@ import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeElement;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.UnionTypeReference;
-import org.aikodi.chameleon.oo.type.generics.ActualTypeArgument;
+import org.aikodi.chameleon.oo.type.generics.TypeArgument;
 import org.aikodi.chameleon.oo.type.generics.ExtendsConstraint;
 import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
@@ -8106,13 +8106,13 @@ public class JLo_JLoP_JavaP extends ChameleonANTLR3Parser {
     // $ANTLR end "variableModifier"
 
     public static class typeArguments_return extends ParserRuleReturnScope {
-        public List<ActualTypeArgument> element;
+        public List<TypeArgument> element;
         Object tree;
         public Object getTree() { return tree; }
     };
 
     // $ANTLR start "typeArguments"
-    // JavaP.g:1026:1: typeArguments returns [List<ActualTypeArgument> element] : '<' arg= typeArgument ( ',' argx= typeArgument )* '>' ;
+    // JavaP.g:1026:1: typeArguments returns [List<TypeArgument> element] : '<' arg= typeArgument ( ',' argx= typeArgument )* '>' ;
     public final JLo_JLoP_JavaP.typeArguments_return typeArguments() throws RecognitionException {
         JLo_JLoP_JavaP.typeArguments_return retval = new JLo_JLoP_JavaP.typeArguments_return();
         retval.start = input.LT(1);
@@ -8131,7 +8131,7 @@ public class JLo_JLoP_JavaP extends ChameleonANTLR3Parser {
         Object char_literal90_tree=null;
         Object char_literal91_tree=null;
 
-        retval.element = new ArrayList<ActualTypeArgument>();
+    retval.element = new ArrayList<TypeArgument>();
         try {
             if ( state.backtracking>0 && alreadyParsedRule(input, 63) ) { return retval; }
             // JavaP.g:1028:5: ( '<' arg= typeArgument ( ',' argx= typeArgument )* '>' )
@@ -8221,13 +8221,13 @@ public class JLo_JLoP_JavaP extends ChameleonANTLR3Parser {
     // $ANTLR end "typeArguments"
 
     public static class typeArgument_return extends ParserRuleReturnScope {
-        public ActualTypeArgument element;
+        public TypeArgument element;
         Object tree;
         public Object getTree() { return tree; }
     };
 
     // $ANTLR start "typeArgument"
-    // JavaP.g:1034:1: typeArgument returns [ActualTypeArgument element] : (t= type | '?' ( ( 'extends' | 'super' ) t= type )? );
+    // JavaP.g:1034:1: typeArgument returns [TypeArgument element] : (t= type | '?' ( ( 'extends' | 'super' ) t= type )? );
     public final JLo_JLoP_JavaP.typeArgument_return typeArgument() throws RecognitionException {
         JLo_JLoP_JavaP.typeArgument_return retval = new JLo_JLoP_JavaP.typeArgument_return();
         retval.start = input.LT(1);
@@ -8280,7 +8280,7 @@ public class JLo_JLoP_JavaP extends ChameleonANTLR3Parser {
                     if (state.failed) return retval;
                     if ( state.backtracking==0 ) adaptor.addChild(root_0, t.getTree());
                     if ( state.backtracking==0 ) {
-                      retval.element = java().createBasicTypeArgument(t.element);
+                      retval.element = java().createEqualityTypeArgument(t.element);
                     }
 
                     }
@@ -19006,13 +19006,13 @@ public class JLo_JLoP_JavaP extends ChameleonANTLR3Parser {
     // $ANTLR end "explicitGenericInvocation"
 
     public static class nonWildcardTypeArguments_return extends ParserRuleReturnScope {
-        public List<ActualTypeArgument> element;
+        public List<TypeArgument> element;
         Object tree;
         public Object getTree() { return tree; }
     };
 
     // $ANTLR start "nonWildcardTypeArguments"
-    // JavaP.g:1978:1: nonWildcardTypeArguments returns [List<ActualTypeArgument> element] : '<' list= typeList '>' ;
+    // JavaP.g:1978:1: nonWildcardTypeArguments returns [List<TypeArgument> element] : '<' list= typeList '>' ;
     public final JLo_JLoP_JavaP.nonWildcardTypeArguments_return nonWildcardTypeArguments() throws RecognitionException {
         JLo_JLoP_JavaP.nonWildcardTypeArguments_return retval = new JLo_JLoP_JavaP.nonWildcardTypeArguments_return();
         retval.start = input.LT(1);
@@ -19046,7 +19046,7 @@ public class JLo_JLoP_JavaP extends ChameleonANTLR3Parser {
             if (state.failed) return retval;
             if ( state.backtracking==0 ) adaptor.addChild(root_0, list.getTree());
             if ( state.backtracking==0 ) {
-              retval.element = new ArrayList<ActualTypeArgument>();for(TypeReference tref:list.element){retval.element.add(java().createBasicTypeArgument(tref));}
+              retval.element = new ArrayList<TypeArgument>();for(TypeReference tref:list.element){retval.element.add(java().createEqualityTypeArgument(tref));}
             }
             char_literal253=(Token)match(input,70,FOLLOW_70_in_nonWildcardTypeArguments10395); if (state.failed) return retval;
             if ( state.backtracking==0 ) {

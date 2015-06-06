@@ -214,7 +214,7 @@ public class SubobjectToClassTransformer extends AbstractTranslator {
 			Type literalAncestor = relation.nearestAncestor(Type.class);
 			Type lit = null;
 			while(literalAncestor != null && lit == null) {
-				if(literalAncestor.subTypeOf(t)) {
+				if(literalAncestor.subtypeOf(t)) {
 					lit = literalAncestor;
 				} else {
 					literalAncestor = relation.nearestAncestor(Type.class);

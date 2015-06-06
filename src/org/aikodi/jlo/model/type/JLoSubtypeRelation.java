@@ -2,6 +2,7 @@ package org.aikodi.jlo.model.type;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.aikodi.chameleon.core.element.Element;
@@ -39,6 +40,12 @@ public class JLoSubtypeRelation extends SubtypeRelation {
 		protected Element cloneSelf() {
 			return new DirectTypeReference(_type);
 		}
+		
+		  @Override
+		    public String toString(Set<Element> visited) {
+		        return getElement().name();
+		    }
+
 	}
 	
 	public <M extends Member> List<M> potentiallyInheritedMembers(final Class<M> kind) throws LookupException {

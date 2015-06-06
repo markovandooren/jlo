@@ -1,5 +1,7 @@
 package org.aikodi.jlo.model.type;
 
+import java.util.Set;
+
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.element.ElementImpl;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -49,5 +51,11 @@ public class ParenthesisTypeReference extends ElementImpl implements TypeReferen
 	protected Element cloneSelf() {
 		return new ParenthesisTypeReference(null);
 	}
+	
+	   @Override
+	    public String toString(Set<Element> visited) {
+	        return "("+wrappedReference().toString(visited)+")";
+	    }
+
 
 }

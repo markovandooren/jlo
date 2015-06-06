@@ -23,8 +23,8 @@ import org.aikodi.chameleon.oo.type.BasicTypeReference;
 import org.aikodi.chameleon.oo.type.RegularType;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
-import org.aikodi.chameleon.oo.type.generics.ActualTypeArgument;
 import org.aikodi.chameleon.oo.type.generics.InstantiatedParameterType;
+import org.aikodi.chameleon.oo.type.generics.TypeArgument;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.support.member.simplename.method.NormalMethod;
 import org.aikodi.chameleon.support.statement.StatementExpression;
@@ -91,8 +91,8 @@ public class InnerClassCreator extends AbstractTranslator {
 			toImpl = true;
 		}
 		BasicJavaTypeReference expandedSuperTypeReference = language.createTypeReference(superTypeName);
-		List<ActualTypeArgument> typeArguments = ((BasicJavaTypeReference)superReference).typeArguments();
-		for(ActualTypeArgument arg: typeArguments) {
+		List<TypeArgument> typeArguments = ((BasicJavaTypeReference)superReference).typeArguments();
+		for(TypeArgument arg: typeArguments) {
 			TypeReference tref = arg.substitutionReference();
 			Type trefType = tref.getElement();
 			BasicJavaTypeReference expandedTrefTypeReference = language.createExpandedTypeReference(trefType);

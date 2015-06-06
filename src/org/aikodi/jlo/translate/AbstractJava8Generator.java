@@ -15,10 +15,9 @@ import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
 import org.aikodi.chameleon.oo.method.Method;
 import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
-import org.aikodi.chameleon.oo.type.BasicTypeReference;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
-import org.aikodi.chameleon.oo.type.generics.BasicTypeArgument;
+import org.aikodi.chameleon.oo.type.generics.EqualityTypeArgument;
 import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
@@ -278,7 +277,7 @@ public abstract class AbstractJava8Generator {
 
   protected void addTypeParameters(InheritanceRelation relation, Type jloType) throws LookupException {
     jloType.members(TypeMemberDeclarator.class).forEach(d -> {
-      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new BasicTypeArgument(java(relation).createTypeReference(d.name())));
+      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.name())));
     });
   }
   

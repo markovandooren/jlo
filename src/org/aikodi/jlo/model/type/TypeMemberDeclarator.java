@@ -118,8 +118,8 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
 		return new TypeMemberDeclarator((SimpleNameSignature)null);
 	}
 
-	public boolean compatibleWith(TypeMemberDeclarator s, TypeFixer trace) throws LookupException {
-		return selectionDeclaration().compatibleWith(s.selectionDeclaration(), trace);
+	public boolean contains(TypeMemberDeclarator s, TypeFixer trace) throws LookupException {
+		return selectionDeclaration().contains(s.selectionDeclaration(), trace);
 	}
 
 }

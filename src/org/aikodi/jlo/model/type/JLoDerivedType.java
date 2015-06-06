@@ -6,13 +6,9 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.oo.type.Parameter;
 import org.aikodi.chameleon.oo.type.ParameterSubstitution;
 import org.aikodi.chameleon.oo.type.Type;
-import org.aikodi.chameleon.oo.type.generics.ActualTypeArgument;
-import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
-import org.aikodi.jlo.model.component.Subobject;
+import org.aikodi.chameleon.oo.type.generics.TypeArgument;
 
 import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeInstantiation;
-
-import com.google.common.collect.ImmutableList;
 
 public class JLoDerivedType extends JavaTypeInstantiation implements JLoType {
 
@@ -28,7 +24,7 @@ public class JLoDerivedType extends JavaTypeInstantiation implements JLoType {
 		super(substitution,baseType);
 	}
 
-	public JLoDerivedType(Type baseType, List<ActualTypeArgument> typeArguments) throws LookupException {
+	public JLoDerivedType(Type baseType, List<TypeArgument> typeArguments) throws LookupException {
 		super(baseType, typeArguments);
 	}
 	

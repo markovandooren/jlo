@@ -33,6 +33,6 @@ public interface JLoType extends JavaType {
 		Comparator<? super TypeMemberDeclarator> c = (d1,d2) -> d1.name().compareTo(d2.name());
 		members.sort(c);
 		otherMembers.sort(c);
-		return forAll(members, otherMembers, (f,s) -> f.compatibleWith(s, trace));
+		return forAll(members, otherMembers, (f,s) -> f.contains(s, trace));
 	}
 }

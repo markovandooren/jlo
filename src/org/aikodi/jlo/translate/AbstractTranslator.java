@@ -323,7 +323,7 @@ public class AbstractTranslator {
 		while(ancestor != null) {
 			List<TypeParameter> tpars = ancestor.parameters(TypeParameter.class);
 			for(TypeParameter parameter:tpars) {
-				createTypeReference.addArgument(language.createBasicTypeArgument(language.createTypeReference(parameter.name())));
+				createTypeReference.addArgument(language.createEqualityTypeArgument(language.createTypeReference(parameter.name())));
 			}
 			if(type.isTrue(language.CLASS)) {
 				ancestor = null;

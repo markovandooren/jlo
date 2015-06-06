@@ -83,7 +83,7 @@ public class SubobjectType extends AnonymousType {
 		for(Subobject overriddenRelation: overridden) {
 			Subobject sup;
 //			if(overriddenRelation.farthestAncestor(Type.class) != outer) {
-			if(!outer.subTypeOf(overriddenRelation.farthestAncestor(Type.class))) {
+			if(!outer.subtypeOf(overriddenRelation.farthestAncestor(Type.class))) {
 				sup = nearestAncestor(Subobject.class).incorporatedIntoComponentType(overriddenRelation);
 			} else {
 				sup = overriddenRelation;
