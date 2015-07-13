@@ -45,8 +45,20 @@ member
   :
     method #memberMethod
   | subobject #memberSubobject
-  | FIELD Identifier TYPEANNOTATION type #memberField
-  | TYPE Identifier #memberType
+  | FIELD Identifier COLON type #memberField
+  | TYPE Identifier typeConstraint? #memberType
+  ;
+
+typeConstraint
+  : SMALLER COLON type # subtypeConstraint
+  | BIGGER COLON type # superTypeConstraint
+  | type # equalityTypeConstraint
+  ;
+
+typeArgument
+  : SMALLER COLON type # subtypeArgument
+  | BIGGER COLON type # superTypeArgument
+  | type # equalityTypeArgument
   ;
 
 method
@@ -58,7 +70,7 @@ methodHeader
   ;
   
 returnType
-  : TYPEANNOTATION type
+  : COLON type
   ;
   
 keywordBlock
@@ -90,7 +102,7 @@ implementation
   ;
 
 subobject
-  : Identifier TYPEANNOTATION type classBody?
+  : Identifier COLON type classBody?
   ;
 
 inheritanceRelation
@@ -100,11 +112,26 @@ inheritanceRelation
 type
   : qualifiedName # qualifiedType
   | LPAR type RPAR # parenthesisType
-  | qualifiedName (Identifier type)+ #keywordType
+  | qualifiedName (Identifier typeArgument)+ #keywordType
   ;
 
 qualifiedName
   : Identifier ( DOT Identifier)*
+  ;
+
+block
+    : LBRACE statement* RBRACE
+    ;
+
+arguments
+  : LPAR f=expression (COMMA s=expression)* RPAR
+  ;
+  
+statement
+  : expression SEMI #expressionStatement
+  | RETURN expression SEMI #returnStatement
+  | var=expression ASSIGN val=expression SEMI #assignmentStatement
+  | VAR Identifier COLON type ( ASSIGN expression)? SEMI # varDeclaration
   ;
 
 expression
@@ -125,21 +152,6 @@ expression
   | left=expression op=AMPERSAND right=expression #andExpression
   | left=expression op=PIPE right=expression #orExpression
   ;
-
-block
-    : LBRACE statement* RBRACE
-    ;
-
-arguments
-  : LPAR f=expression (COMMA s=expression)* RPAR
-  ;
-  
-statement
-  : expression SEMI #expressionStatement
-  | RETURN expression SEMI #returnStatement
-  | var=expression ASSIGN val=expression SEMI #assignmentStatement
-  ;
-
 
 literal
   : booleanLiteral #boolLiteral
@@ -164,6 +176,8 @@ booleanLiteral
 // LEXER 
 
 NAMESPACE : 'namespace' ;
+
+VAR : 'var' ;
 
 ABSTRACT: 'abstract';
 
@@ -239,7 +253,7 @@ EXPONENTIATION: '^' ;
 
 AMPERSAND: '&' ;
 
-TYPEANNOTATION: ':' ;
+COLON: ':' ;
 
 SMALLER: '<' ;
 

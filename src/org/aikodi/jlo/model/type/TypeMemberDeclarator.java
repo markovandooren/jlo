@@ -21,105 +21,110 @@ import org.aikodi.chameleon.util.association.Single;
 
 public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Member {
 
-	private final class TypeMemberParameterFixer extends
-	TypeParameterFixer {
-		@Override
-		protected List<TypeParameter> parameters() throws LookupException {
-			List<TypeMemberDeclarator> members = nearestAncestor(Type.class).members(TypeMemberDeclarator.class);
-			List<TypeParameter> result = Lists.create(members.size());
-			// FIXME inefficient. Just store an immutable list.
-			members.forEach(m -> {
-				FormalTypeParameter parameter = m.createParameter();
-				parameter.setUniParent(this);
-				result.add(parameter);
-			});
-			return result;
-		}
+  private final class TypeMemberParameterFixer extends
+  TypeParameterFixer {
 
-		@Override
-		protected Element cloneSelf() {
-			return new TypeMemberParameterFixer();
-		}
-	}
+    private Single<TypeParameter> _parameter = new Single<>(this);
 
-	public TypeMemberDeclarator(String name) {
-		setSignature(new SimpleNameSignature(name));
-	}
+    public TypeMemberParameterFixer(TypeParameter parameter) {
+      set(_parameter,parameter);
+    }
 
-	public TypeMemberDeclarator(SimpleNameSignature signature) {
-		setSignature(signature);
-	}
+    @Override
+    protected List<TypeParameter> parameters() throws LookupException {
+      List<TypeMemberDeclarator> members = nearestAncestor(Type.class).members(TypeMemberDeclarator.class);
+      List<TypeParameter> result = Lists.create(members.size());
+      result.add(parameter());
+      // FIXME inefficient. Just store an immutable list.
+      members.forEach(m -> {
+        if(m != TypeMemberDeclarator.this) {
+          TypeParameter parameter = clone(m.parameter());
+          parameter.setUniParent(this);
+          result.add(parameter);
+        }
+      });
+      return result;
+    }
 
-	/**
-	 * A type variable introduces a type parameter.
-	 */
-	@Override
-	public List<? extends Member> getIntroducedMembers() {
-		return Lists.create(this);
-		//		TypeParameter param = null;
-		//		TypeParameter cloneForStub = param.cloneForStub();
-		//		new TypeParameterFixer(){
-		//		
-		//			@Override
-		//			protected Element cloneSelf() {
-		//				todo
-		//			}
-		//		
-		//			@Override
-		//			protected List<TypeParameter> parameters() {
-		//				return nearestAncestor(Type.class).members(TypePar)
-		//			}
-		//		};
-	}
+    /**
+     * @return
+     */
+    private TypeParameter parameter() {
+      return _parameter.getOtherEnd();
+    }
 
-	@Override
-	public LookupContext targetContext() throws LookupException {
-		return selectionDeclaration().targetContext();
-	}
+    @Override
+    protected Element cloneSelf() {
+      return new TypeMemberParameterFixer(null);
+    }
+  }
 
-	@Override
-	public FormalTypeParameter selectionDeclaration() throws LookupException {
-		FormalTypeParameter result = createParameter();
-		TypeMemberParameterFixer fixer = new TypeMemberParameterFixer();
-		result.setUniParent(fixer);
-		return result;
-	}
-	
-	private FormalTypeParameter createParameter() {
-		FormalTypeParameter formalTypeParameter = new FormalTypeParameter(signature().name());
-		formalTypeParameter.addConstraint(clone(constraint()));
-		return formalTypeParameter;
-	}
+  public TypeMemberDeclarator(TypeParameter parameter) {
+    set(_fixer, new TypeMemberParameterFixer(parameter));
+  }
 
-	@Override
-	public Signature signature() {
-		return _signature.getOtherEnd();
-	}
+//  public TypeMemberDeclarator(SimpleNameSignature signature) {
+//    setSignature(signature);
+//  }
+//
+  /**
+   * A type variable introduces a type parameter.
+   */
+  @Override
+  public List<? extends Member> getIntroducedMembers() {
+    return Lists.create(this);
+  }
 
-	@Override
-	public void setSignature(Signature signature) {
-		set(_signature,signature);
-	}
+  @Override
+  public LookupContext targetContext() throws LookupException {
+    return selectionDeclaration().targetContext();
+  }
 
-	private Single<Signature> _signature = new Single<>(this);
+  @Override
+  public Type selectionDeclaration() throws LookupException {
+    //		TypeParameter parameter = createParameter();
+    //		TypeMemberParameterFixer fixer = new TypeMemberParameterFixer();
+    //		parameter.setUniParent(fixer);
+    return parameter().selectionDeclaration();
+  }
 
-	private Single<TypeConstraint> _constraint = new Single<>(this);
+  private Single<TypeMemberParameterFixer> _fixer = new Single(this);
 
-	public TypeConstraint constraint() {
-		return _constraint.getOtherEnd();
-	}
-	
-	public void setConstraint(TypeConstraint constraint) {
-		set(_constraint, constraint);
-	}
-	
-	@Override
-	protected Element cloneSelf() {
-		return new TypeMemberDeclarator((SimpleNameSignature)null);
-	}
+  private TypeParameter parameter() {
+    return _fixer.getOtherEnd().parameter();
+  }
 
-	public boolean contains(TypeMemberDeclarator s, TypeFixer trace) throws LookupException {
-		return selectionDeclaration().contains(s.selectionDeclaration(), trace);
-	}
+  @Override
+  public Signature signature() {
+    return parameter().signature();
+  }
+  
+  @Override
+  public void setSignature(Signature signature) {
+    parameter().setSignature(signature);
+  }
+
+//  private Single<Signature> _signature = new Single<>(this);
+//
+//  private Single<TypeConstraint> _constraint = new Single<>(this);
+//
+//  public TypeConstraint constraint() {
+//    return _constraint.getOtherEnd();
+//  }
+//
+//  public void setConstraint(TypeConstraint constraint) {
+//    set(_constraint, constraint);
+//  }
+
+  @Override
+  protected Element cloneSelf() {
+    return new TypeMemberDeclarator(null);
+  }
+
+  public boolean contains(TypeMemberDeclarator s, TypeFixer trace) throws LookupException {
+    return selectionDeclaration().contains(s.selectionDeclaration(), trace);
+  }
+
+
 
 }

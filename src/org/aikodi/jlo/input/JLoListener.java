@@ -127,6 +127,78 @@ public interface JLoListener extends ParseTreeListener {
 	 */
 	void exitMemberType(JLoParser.MemberTypeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code subtypeConstraint}
+	 * labeled alternative in {@link JLoParser#typeConstraint}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubtypeConstraint(JLoParser.SubtypeConstraintContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code subtypeConstraint}
+	 * labeled alternative in {@link JLoParser#typeConstraint}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubtypeConstraint(JLoParser.SubtypeConstraintContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code superTypeConstraint}
+	 * labeled alternative in {@link JLoParser#typeConstraint}.
+	 * @param ctx the parse tree
+	 */
+	void enterSuperTypeConstraint(JLoParser.SuperTypeConstraintContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code superTypeConstraint}
+	 * labeled alternative in {@link JLoParser#typeConstraint}.
+	 * @param ctx the parse tree
+	 */
+	void exitSuperTypeConstraint(JLoParser.SuperTypeConstraintContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code equalityTypeConstraint}
+	 * labeled alternative in {@link JLoParser#typeConstraint}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualityTypeConstraint(JLoParser.EqualityTypeConstraintContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code equalityTypeConstraint}
+	 * labeled alternative in {@link JLoParser#typeConstraint}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualityTypeConstraint(JLoParser.EqualityTypeConstraintContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code subtypeArgument}
+	 * labeled alternative in {@link JLoParser#typeArgument}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubtypeArgument(JLoParser.SubtypeArgumentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code subtypeArgument}
+	 * labeled alternative in {@link JLoParser#typeArgument}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubtypeArgument(JLoParser.SubtypeArgumentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code superTypeArgument}
+	 * labeled alternative in {@link JLoParser#typeArgument}.
+	 * @param ctx the parse tree
+	 */
+	void enterSuperTypeArgument(JLoParser.SuperTypeArgumentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code superTypeArgument}
+	 * labeled alternative in {@link JLoParser#typeArgument}.
+	 * @param ctx the parse tree
+	 */
+	void exitSuperTypeArgument(JLoParser.SuperTypeArgumentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code equalityTypeArgument}
+	 * labeled alternative in {@link JLoParser#typeArgument}.
+	 * @param ctx the parse tree
+	 */
+	void enterEqualityTypeArgument(JLoParser.EqualityTypeArgumentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code equalityTypeArgument}
+	 * labeled alternative in {@link JLoParser#typeArgument}.
+	 * @param ctx the parse tree
+	 */
+	void exitEqualityTypeArgument(JLoParser.EqualityTypeArgumentContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JLoParser#method}.
 	 * @param ctx the parse tree
 	 */
@@ -335,6 +407,74 @@ public interface JLoListener extends ParseTreeListener {
 	 */
 	void exitQualifiedName(JLoParser.QualifiedNameContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JLoParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void enterBlock(JLoParser.BlockContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JLoParser#block}.
+	 * @param ctx the parse tree
+	 */
+	void exitBlock(JLoParser.BlockContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JLoParser#arguments}.
+	 * @param ctx the parse tree
+	 */
+	void enterArguments(JLoParser.ArgumentsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JLoParser#arguments}.
+	 * @param ctx the parse tree
+	 */
+	void exitArguments(JLoParser.ArgumentsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code expressionStatement}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpressionStatement(JLoParser.ExpressionStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code expressionStatement}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpressionStatement(JLoParser.ExpressionStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code returnStatement}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnStatement(JLoParser.ReturnStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code returnStatement}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnStatement(JLoParser.ReturnStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code assignmentStatement}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignmentStatement(JLoParser.AssignmentStatementContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code assignmentStatement}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignmentStatement(JLoParser.AssignmentStatementContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code varDeclaration}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void enterVarDeclaration(JLoParser.VarDeclarationContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code varDeclaration}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 */
+	void exitVarDeclaration(JLoParser.VarDeclarationContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code shiftExpression}
 	 * labeled alternative in {@link JLoParser#expression}.
 	 * @param ctx the parse tree
@@ -526,62 +666,6 @@ public interface JLoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParExpression(JLoParser.ParExpressionContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JLoParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void enterBlock(JLoParser.BlockContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JLoParser#block}.
-	 * @param ctx the parse tree
-	 */
-	void exitBlock(JLoParser.BlockContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link JLoParser#arguments}.
-	 * @param ctx the parse tree
-	 */
-	void enterArguments(JLoParser.ArgumentsContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JLoParser#arguments}.
-	 * @param ctx the parse tree
-	 */
-	void exitArguments(JLoParser.ArgumentsContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code expressionStatement}
-	 * labeled alternative in {@link JLoParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterExpressionStatement(JLoParser.ExpressionStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code expressionStatement}
-	 * labeled alternative in {@link JLoParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitExpressionStatement(JLoParser.ExpressionStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code returnStatement}
-	 * labeled alternative in {@link JLoParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterReturnStatement(JLoParser.ReturnStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code returnStatement}
-	 * labeled alternative in {@link JLoParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitReturnStatement(JLoParser.ReturnStatementContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code assignmentStatement}
-	 * labeled alternative in {@link JLoParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void enterAssignmentStatement(JLoParser.AssignmentStatementContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code assignmentStatement}
-	 * labeled alternative in {@link JLoParser#statement}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignmentStatement(JLoParser.AssignmentStatementContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code boolLiteral}
 	 * labeled alternative in {@link JLoParser#literal}.

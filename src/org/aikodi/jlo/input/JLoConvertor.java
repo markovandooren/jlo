@@ -30,6 +30,15 @@ import org.aikodi.chameleon.oo.type.ClassWithBody;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeElement;
 import org.aikodi.chameleon.oo.type.TypeReference;
+import org.aikodi.chameleon.oo.type.generics.EqualityConstraint;
+import org.aikodi.chameleon.oo.type.generics.EqualityTypeArgument;
+import org.aikodi.chameleon.oo.type.generics.ExtendsConstraint;
+import org.aikodi.chameleon.oo.type.generics.ExtendsWildcard;
+import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
+import org.aikodi.chameleon.oo.type.generics.SuperConstraint;
+import org.aikodi.chameleon.oo.type.generics.SuperWildcard;
+import org.aikodi.chameleon.oo.type.generics.TypeArgument;
+import org.aikodi.chameleon.oo.type.generics.TypeConstraint;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
@@ -46,6 +55,7 @@ import org.aikodi.chameleon.support.modifier.Constructor;
 import org.aikodi.chameleon.support.modifier.Native;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
+import org.aikodi.chameleon.support.variable.LocalVariableDeclarator;
 import org.aikodi.jlo.input.JLoParser.AbstractImplementationContext;
 import org.aikodi.jlo.input.JLoParser.AbstractModifierContext;
 import org.aikodi.jlo.input.JLoParser.AndExpressionContext;
@@ -57,6 +67,8 @@ import org.aikodi.jlo.input.JLoParser.CharacterLiteralContext;
 import org.aikodi.jlo.input.JLoParser.ClassBodyContext;
 import org.aikodi.jlo.input.JLoParser.CompilationUnitContext;
 import org.aikodi.jlo.input.JLoParser.EqualityExpressionContext;
+import org.aikodi.jlo.input.JLoParser.EqualityTypeArgumentContext;
+import org.aikodi.jlo.input.JLoParser.EqualityTypeConstraintContext;
 import org.aikodi.jlo.input.JLoParser.ExponentiationExpressionContext;
 import org.aikodi.jlo.input.JLoParser.ExprImplementationContext;
 import org.aikodi.jlo.input.JLoParser.ExpressionContext;
@@ -72,6 +84,7 @@ import org.aikodi.jlo.input.JLoParser.InitModifierContext;
 import org.aikodi.jlo.input.JLoParser.IntegerLiteralContext;
 import org.aikodi.jlo.input.JLoParser.IntegerNumberLiteralContext;
 import org.aikodi.jlo.input.JLoParser.KeywordBlockContext;
+import org.aikodi.jlo.input.JLoParser.KeywordTypeContext;
 import org.aikodi.jlo.input.JLoParser.KlassContext;
 import org.aikodi.jlo.input.JLoParser.LiteralExpressionContext;
 import org.aikodi.jlo.input.JLoParser.LowPriorityNumbericalExpressionContext;
@@ -101,14 +114,23 @@ import org.aikodi.jlo.input.JLoParser.ShiftExpressionContext;
 import org.aikodi.jlo.input.JLoParser.StatementContext;
 import org.aikodi.jlo.input.JLoParser.StringLiteralContext;
 import org.aikodi.jlo.input.JLoParser.SubobjectContext;
+import org.aikodi.jlo.input.JLoParser.SubtypeArgumentContext;
+import org.aikodi.jlo.input.JLoParser.SubtypeConstraintContext;
 import org.aikodi.jlo.input.JLoParser.SuperExpressionContext;
+import org.aikodi.jlo.input.JLoParser.SuperTypeArgumentContext;
+import org.aikodi.jlo.input.JLoParser.SuperTypeConstraintContext;
 import org.aikodi.jlo.input.JLoParser.TrueLiteralContext;
+import org.aikodi.jlo.input.JLoParser.TypeContext;
+import org.aikodi.jlo.input.JLoParser.VarDeclarationContext;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
+import org.aikodi.jlo.model.type.KeywordTypeArgument;
+import org.aikodi.jlo.model.type.KeywordTypeReference;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 
 import be.kuleuven.cs.distrinet.jnome.workspace.JavaView;
 
@@ -531,7 +553,38 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
   
   @Override
   public TypeMemberDeclarator visitMemberType(MemberTypeContext ctx) {
-    TypeMemberDeclarator result = new TypeMemberDeclarator(ctx.Identifier().getText());
+    FormalTypeParameter parameter = new FormalTypeParameter(ctx.Identifier().getText());
+    if(ctx.typeConstraint() != null) {
+      parameter.addConstraint((TypeConstraint) visit(ctx.typeConstraint()));
+    }
+    TypeMemberDeclarator result = new TypeMemberDeclarator(parameter);
+    return result;
+  }
+  
+  /**
+   * @{inheritDoc}
+   */
+  @Override
+  public TypeConstraint visitEqualityTypeConstraint(EqualityTypeConstraintContext ctx) {
+    EqualityConstraint result = new EqualityConstraint((TypeReference) visit(ctx.type()));
+    return result;
+  }
+  
+  /**
+   * @{inheritDoc}
+   */
+  @Override
+  public Object visitSuperTypeConstraint(SuperTypeConstraintContext ctx) {
+    SuperConstraint result = new SuperConstraint((TypeReference) visit(ctx.type()));
+    return result;
+  }
+  
+  /**
+   * @{inheritDoc}
+   */
+  @Override
+  public Object visitSubtypeConstraint(SubtypeConstraintContext ctx) {
+    ExtendsConstraint result = new ExtendsConstraint((TypeReference) visit(ctx.type()));
     return result;
   }
 
@@ -544,7 +597,68 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
   public Object visitAssignmentStatement(AssignmentStatementContext ctx) {
     return new StatementExpression(new AssignmentExpression((Expression)visit(ctx.var), (Expression) visit(ctx.val)));
   }
+  
+  /**
+   * @{inheritDoc}
+   */
+  @Override
+  public Object visitVarDeclaration(VarDeclarationContext ctx) {
+    LocalVariableDeclarator declarator = new LocalVariableDeclarator();
+    TypeContext typeContext = ctx.type();
+    TypeReference type = (TypeReference) visit(typeContext);
+    declarator.setTypeReference(type);
+    ExpressionContext expr = ctx.expression();
+    String name = ctx.Identifier().getText();
+    Expression expression = expr == null ? null : (Expression)visit(expr);
+    declarator.add(new VariableDeclaration(name, expression));
+    return declarator;
+  }
 
+  /**
+   * @{inheritDoc}
+   */
+  @Override
+  public Object visitKeywordType(KeywordTypeContext ctx) {
+    TypeReference result = processLayout(jlo().createTypeReference(ctx.qualifiedName().getText()),ctx);
+    List<TerminalNode> identifiers = ctx.Identifier();
+    int size = identifiers.size();
+    for(int i=0; i < size; i++) {
+      String name = identifiers.get(i).getText();
+      TypeArgument constraint = (TypeArgument) visit(ctx.typeArgument(i));
+//      TypeReference old = result;
+      KeywordTypeArgument argument = new KeywordTypeArgument(name, constraint);
+      ((KeywordTypeReference)result).add(argument);
+    }
+    return result;
+  }
+  
+  /**
+   * @{inheritDoc}
+   */
+  @Override
+  public TypeArgument visitSubtypeArgument(SubtypeArgumentContext ctx) {
+    ExtendsWildcard result = new ExtendsWildcard((TypeReference) visit(ctx.type()));
+    return result;
+  }
+  
+  /**
+   * @{inheritDoc}
+   */
+  @Override
+  public TypeArgument visitSuperTypeArgument(SuperTypeArgumentContext ctx) {
+    SuperWildcard result = new SuperWildcard((TypeReference) visit(ctx.type()));
+    return result;
+  }
+  
+  /**
+   * @{inheritDoc}
+   */
+  @Override
+  public TypeArgument visitEqualityTypeArgument(EqualityTypeArgumentContext ctx) {
+    EqualityTypeArgument result = new EqualityTypeArgument((TypeReference) visit(ctx.type()));
+    return result;
+  }
+  
   @Override
   public Modifier visitInitModifier(InitModifierContext ctx) {
     return new Constructor();

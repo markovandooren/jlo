@@ -82,6 +82,48 @@ public interface JLoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMemberType(JLoParser.MemberTypeContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code subtypeConstraint}
+	 * labeled alternative in {@link JLoParser#typeConstraint}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubtypeConstraint(JLoParser.SubtypeConstraintContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code superTypeConstraint}
+	 * labeled alternative in {@link JLoParser#typeConstraint}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSuperTypeConstraint(JLoParser.SuperTypeConstraintContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code equalityTypeConstraint}
+	 * labeled alternative in {@link JLoParser#typeConstraint}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualityTypeConstraint(JLoParser.EqualityTypeConstraintContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code subtypeArgument}
+	 * labeled alternative in {@link JLoParser#typeArgument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubtypeArgument(JLoParser.SubtypeArgumentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code superTypeArgument}
+	 * labeled alternative in {@link JLoParser#typeArgument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSuperTypeArgument(JLoParser.SuperTypeArgumentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code equalityTypeArgument}
+	 * labeled alternative in {@link JLoParser#typeArgument}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEqualityTypeArgument(JLoParser.EqualityTypeArgumentContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link JLoParser#method}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -205,6 +247,46 @@ public interface JLoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitQualifiedName(JLoParser.QualifiedNameContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link JLoParser#block}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBlock(JLoParser.BlockContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link JLoParser#arguments}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArguments(JLoParser.ArgumentsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code expressionStatement}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpressionStatement(JLoParser.ExpressionStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code returnStatement}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnStatement(JLoParser.ReturnStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code assignmentStatement}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssignmentStatement(JLoParser.AssignmentStatementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code varDeclaration}
+	 * labeled alternative in {@link JLoParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarDeclaration(JLoParser.VarDeclarationContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code shiftExpression}
 	 * labeled alternative in {@link JLoParser#expression}.
 	 * @param ctx the parse tree
@@ -316,39 +398,6 @@ public interface JLoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitParExpression(JLoParser.ParExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JLoParser#block}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBlock(JLoParser.BlockContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link JLoParser#arguments}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArguments(JLoParser.ArgumentsContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code expressionStatement}
-	 * labeled alternative in {@link JLoParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpressionStatement(JLoParser.ExpressionStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code returnStatement}
-	 * labeled alternative in {@link JLoParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitReturnStatement(JLoParser.ReturnStatementContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code assignmentStatement}
-	 * labeled alternative in {@link JLoParser#statement}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignmentStatement(JLoParser.AssignmentStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code boolLiteral}
 	 * labeled alternative in {@link JLoParser#literal}.
