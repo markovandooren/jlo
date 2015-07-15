@@ -58,6 +58,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     createConstructors(javaDocument);
     createDefaultConstructor(javaDocument);
     addTypeParameterToOwnClass(javaDocument);
+    transformKeywordTypeReferences(javaDocument);
     return javaDocument;
   }
 

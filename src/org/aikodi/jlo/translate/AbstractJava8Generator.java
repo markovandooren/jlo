@@ -27,23 +27,26 @@ import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
+import org.aikodi.jlo.model.type.KeywordTypeReference;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
+import be.kuleuven.cs.distrinet.rejuse.action.Action;
+import be.kuleuven.cs.distrinet.rejuse.action.Nothing;
 
 public abstract class AbstractJava8Generator {
 
-	protected final String IMPLEMENTATION_SUFFIX = "Impl";
-	
-	protected String subobjectGetterName(Subobject subobject) {
-		return subobject.name();
-	}
-	
-	protected String subobjectFieldName(Subobject subobject) {
-		return "subobject$"+subobject.origin().nearestAncestor(Type.class).name()+"$"+subobject.name();
-	}
-	
+  protected final String IMPLEMENTATION_SUFFIX = "Impl";
+
+  protected String subobjectGetterName(Subobject subobject) {
+    return subobject.name();
+  }
+
+  protected String subobjectFieldName(Subobject subobject) {
+    return "subobject$"+subobject.origin().nearestAncestor(Type.class).name()+"$"+subobject.name();
+  }
+
   protected String fieldName(VariableDeclaration variableDeclaration) {
     return "field$"+variableDeclaration.origin().nearestAncestor(Type.class).name()+"$"+variableDeclaration.name();
   }
@@ -142,7 +145,7 @@ public abstract class AbstractJava8Generator {
     }
   }
 
-  
+
   public ModifierStripper strip(ChameleonProperty property) {
     return new ModifierStripper(m -> m.impliesTrue(property));
   }
@@ -212,9 +215,9 @@ public abstract class AbstractJava8Generator {
     return ooFactory(subobject).createNormalMethod(subobjectGetterName(subobject), subobjectTypeReference);
   }
 
-	protected ObjectOrientedFactory ooFactory(Element element) {
-		return java(element).plugin(ObjectOrientedFactory.class);
-	}
+  protected ObjectOrientedFactory ooFactory(Element element) {
+    return java(element).plugin(ObjectOrientedFactory.class);
+  }
 
   protected ExpressionFactory expressionFactory(Element element) {
     return java(element).plugin(ExpressionFactory.class);
@@ -229,16 +232,16 @@ public abstract class AbstractJava8Generator {
     return result;
   }
 
-	protected boolean isGenerated(Element element) {
-		return element.origin() == element;
-	}
+  protected boolean isGenerated(Element element) {
+    return element.origin() == element;
+  }
 
-	protected TypeReference expandedTypeReference(TypeReference element, ObjectOrientedLanguage targetLanguage) throws LookupException {
-	  TypeReference result = targetLanguage.reference(element.getElement());
-	  //disconnect the type reference. Note that this might give problems inside anonymous inner classes/
-	  result.setUniParent(null);
+  protected TypeReference expandedTypeReference(TypeReference element, ObjectOrientedLanguage targetLanguage) throws LookupException {
+    TypeReference result = targetLanguage.reference(element.getElement());
+    //disconnect the type reference. Note that this might give problems inside anonymous inner classes/
+    result.setUniParent(null);
     return result;
-	}
+  }
 
   protected <E extends Element> E clone(E element) {
     return element.clone(element);
@@ -280,6 +283,22 @@ public abstract class AbstractJava8Generator {
       ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.name())));
     });
   }
-  
+
+
+  protected void transformKeywordTypeReferences(Document javaType) {
+    javaType.apply(KeywordTypeReference.class, k -> transformKeywordTypeReference(k));
+  }
+
+  protected void transformKeywordTypeReference(KeywordTypeReference javaKeywordTypeReference) {
+//    KeywordTypeReference original = (KeywordTypeReference) javaKeywordTypeReference.origin();
+    BasicJavaTypeReference javaTypeReference = (BasicJavaTypeReference) javaKeywordTypeReference.typeConstructorReference();
+    //    Type jloTypeConstructorInstantiation = original.getElement();
+    //    List<TypeMemberDeclarator> typeMemberDeclarators = jloTypeConstructorInstantiation.members(TypeMemberDeclarator.class);
+    javaKeywordTypeReference.arguments().stream().sorted((d1,d2) -> d1.name().compareTo(d2.name())).forEachOrdered(jloTypeArgument -> {
+      javaTypeReference.addArgument(jloTypeArgument.argument());
+    });
+    javaKeywordTypeReference.parentLink().getOtherRelation().replace(javaKeywordTypeReference.parentLink(), javaTypeReference.parentLink());
+    
+  }
 
 }
