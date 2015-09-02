@@ -553,7 +553,7 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
   
   @Override
   public TypeMemberDeclarator visitMemberType(MemberTypeContext ctx) {
-    FormalTypeParameter parameter = new FormalTypeParameter(ctx.Identifier().getText());
+    FormalTypeParameter parameter = new FormalTypeParameter(ctx.typeName.getText());
     if(ctx.typeConstraint() != null) {
       parameter.addConstraint((TypeConstraint) visit(ctx.typeConstraint()));
     }

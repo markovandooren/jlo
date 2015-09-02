@@ -2,6 +2,7 @@ package org.aikodi.jlo.translate;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -64,7 +65,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
       jloSubobjects.forEach(jloSubobject -> {
         //TypeReference subobjectTypeReference = jloSubobject.clone(jloSubobject.superClassReference());
         try {
-          TypeReference subobjectTypeReference = expandedTypeReference(jloSubobject.superClassReference(), java(javaType));
+          TypeReference subobjectTypeReference = subobjectTypeReference(jloSubobject, java(javaType));
           MemberVariableDeclarator field = new MemberVariableDeclarator(subobjectTypeReference);
           field.add(new VariableDeclaration(subobjectFieldName(jloSubobject)));
           field.addModifier(new Private());
@@ -83,20 +84,22 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
     }
   }
 
-  protected RegularJavaType createSubobjectImplementation(Subobject subobject, Type parent) {
-    RegularJavaType subobjectImplementation = (RegularJavaType) ooFactory(subobject).createRegularType(subobjectImplementationName(subobject));
+  protected RegularJavaType createSubobjectImplementation(Subobject jloSubobject, Type javaParentType) throws LookupException {
+    RegularJavaType subobjectImplementation = (RegularJavaType) ooFactory(jloSubobject).createRegularType(subobjectImplementationName(jloSubobject));
     subobjectImplementation.setBody(new ClassBody());
     subobjectImplementation.addModifier(new Public());
-    parent.add(subobjectImplementation);
-    Subobject originalSubobject = (Subobject)subobject.origin();
+    javaParentType.add(subobjectImplementation);
+//    Subobject jloSubobject = (Subobject)jloSsubobject.origin();
     try {
-      addFields(subobjectImplementation, originalSubobject.componentType());
+      addFields(subobjectImplementation, jloSubobject.componentType());
     } catch (LookupException e) {
       throw new ChameleonProgrammerException(e);
     }
-    SubtypeRelation implementsRelation = new SubtypeRelation(java(subobject).createTypeReference(originalSubobject.componentType().getFullyQualifiedName()));
+    SubtypeRelation implementsRelation = new SubtypeRelation(java(jloSubobject).createTypeReference(jloSubobject.componentType().getFullyQualifiedName()));
     implementsRelation.addModifier(new Implements());
     subobjectImplementation.addInheritanceRelation(implementsRelation);
+    Type jloParentType = jloSubobject.nearestAncestor(Type.class);
+    addTypeParameters(implementsRelation, jloParentType);
     return subobjectImplementation;
   }
 
@@ -157,7 +160,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 
   private void addFields(Type to, Type from) throws LookupException {
     Set<Type> allSuperTypes = from.getSelfAndAllSuperTypesView();
-    allSuperTypes.stream().<MemberVariable>flatMap(x -> {
+    List<MemberVariable> collect = allSuperTypes.stream().<MemberVariable>flatMap(x -> {
       try {
         return x.localMembers(MemberVariable.class).stream();
       } catch (Exception e) {
@@ -165,7 +168,9 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
         e.printStackTrace();
         throw new ChameleonProgrammerException(e);
       }
-    }).forEach(v -> {
+    }).collect(Collectors.toList());
+    
+    for(MemberVariable v : collect) {
       MemberVariableDeclarator jloMemberVariableDeclarator = v.nearestAncestor(MemberVariableDeclarator.class);
       MemberVariableDeclarator f = new MemberVariableDeclarator(clone(jloMemberVariableDeclarator.typeReference()));
       VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin();
@@ -183,7 +188,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
       setter.setImplementation(new RegularImplementation(setterBody));
       setterBody.addStatement(new StatementExpression(new AssignmentExpression(new NameExpression(fieldName), new NameExpression("value"))));
       to.add(setter);
-    });
+    }
   }
 
   private void createGetterImplementation(String fieldName, Method getter) {

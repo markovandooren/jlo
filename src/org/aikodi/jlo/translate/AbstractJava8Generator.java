@@ -1,5 +1,6 @@
 package org.aikodi.jlo.translate;
 
+import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
@@ -19,12 +20,16 @@ import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.generics.EqualityTypeArgument;
 import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
+import org.aikodi.chameleon.oo.type.generics.InstantiatedTypeParameter;
+import org.aikodi.chameleon.oo.type.generics.TypeArgument;
+import org.aikodi.chameleon.oo.type.generics.TypeConstraint;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
+import org.aikodi.chameleon.util.Util;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.type.KeywordTypeReference;
@@ -32,8 +37,6 @@ import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
-import be.kuleuven.cs.distrinet.rejuse.action.Action;
-import be.kuleuven.cs.distrinet.rejuse.action.Nothing;
 
 public abstract class AbstractJava8Generator {
 
@@ -197,11 +200,38 @@ public abstract class AbstractJava8Generator {
 
   }
 
-  protected Method createGetterTemplate(MemberVariableDeclarator d) {
+  protected Method createGetterTemplate(MemberVariableDeclarator d) throws LookupException {
     VariableDeclaration variableDeclaration = d.variableDeclarations().get(0);
-    return ooFactory(d).createNormalMethod(getterName(variableDeclaration), d.clone(d.typeReference()));
+    TypeReference tref = flattened(d.typeReference());
+    return ooFactory(d).createNormalMethod(getterName(variableDeclaration), clone(d.typeReference()));
   }
 
+  protected TypeReference flattened(TypeReference typeReference) throws LookupException {
+    TypeReference tref = (TypeReference)typeReference.origin();
+    Type tp = tref.nearestAncestor(Type.class);
+    Declaration decl = tref.getDeclarator();
+    if(decl instanceof FormalTypeParameter) {
+      FormalTypeParameter param = (FormalTypeParameter) decl;
+      TypeReference clone;
+      if(param.nbConstraints() > 0) {
+        TypeConstraint constraint = param.constraints().get(0);
+        clone = clone(constraint.typeReference());
+      } else {
+        ObjectOrientedLanguage language = tref.language(ObjectOrientedLanguage.class);
+        clone = language.createTypeReference(language.getDefaultSuperClassFQN());
+      }
+    } else if(decl instanceof InstantiatedTypeParameter) {
+      InstantiatedTypeParameter param = (InstantiatedTypeParameter) decl;
+      TypeArgument arg = param.argument();
+    }
+    
+//    Type type = tref.getElement();
+//    Type upperBound = type.upperBound();
+//    TypeReference reference = typeReference.language(ObjectOrientedLanguage.class).reference(type);
+//    Util.debug(typeReference.toString().equals("T"));
+    return typeReference;
+  }
+  
   /**
    * @param subobject The subobject for which the getter template must be created.
    * @return a template for the getter of the given subobject. The resulting method
@@ -211,8 +241,13 @@ public abstract class AbstractJava8Generator {
    */
   protected Method createSubobjectGetterTemplate(Subobject subobject, ObjectOrientedLanguage targetLanguage) throws LookupException {
     //TypeReference subobjectTypeReference = subobject.clone(subobject.superClassReference());
-    TypeReference subobjectTypeReference = expandedTypeReference(subobject.superClassReference(),targetLanguage);
+    TypeReference subobjectTypeReference = subobjectTypeReference(subobject, targetLanguage);
     return ooFactory(subobject).createNormalMethod(subobjectGetterName(subobject), subobjectTypeReference);
+  }
+  
+  protected TypeReference subobjectTypeReference(Subobject subobject, ObjectOrientedLanguage targetLanguage) throws LookupException {
+    return targetLanguage.createTypeReference(subobject.name());
+//    return expandedTypeReference(subobject.superClassReference(),targetLanguage);
   }
 
   protected ObjectOrientedFactory ooFactory(Element element) {
@@ -255,9 +290,10 @@ public abstract class AbstractJava8Generator {
       if(! isGenerated(t)) {
         Type jloType = (Type) t.origin();
         try {
-          jloType.members(TypeMemberDeclarator.class).forEach(m -> {
-            t.addParameter(TypeParameter.class, new FormalTypeParameter(m.name()));
-          });
+          Consumer<? super TypeMemberDeclarator> action = m -> {
+            t.addParameter(TypeParameter.class, m.clone(m.parameter()));
+          };
+          applyToSortedTypeMemberDeclarators(jloType, action);
         } catch (LookupException e) {
           throw new ChameleonProgrammerException(e);
         }
@@ -278,8 +314,18 @@ public abstract class AbstractJava8Generator {
     });
   }
 
+  /**
+   * @param jloType
+   * @param action
+   * @throws LookupException
+   */
+  protected void applyToSortedTypeMemberDeclarators(Type jloType, Consumer<? super TypeMemberDeclarator> action)
+      throws LookupException {
+    jloType.members(TypeMemberDeclarator.class).stream().sorted((d1,d2) -> d1.name().compareTo(d2.name())).forEachOrdered(action);
+  }
+
   protected void addTypeParameters(InheritanceRelation relation, Type jloType) throws LookupException {
-    jloType.members(TypeMemberDeclarator.class).forEach(d -> {
+    applyToSortedTypeMemberDeclarators(jloType, d -> {
       ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.name())));
     });
   }

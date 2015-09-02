@@ -29,6 +29,7 @@ public class JLoSubtypeRelation extends SubtypeRelation {
 		
 		public DirectTypeReference(Type type) {
 			Contracts.notNull(type);
+			_type = type;
 		}
 		
 		public Type getElement() {

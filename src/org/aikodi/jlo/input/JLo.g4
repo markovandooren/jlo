@@ -46,7 +46,7 @@ member
     method #memberMethod
   | subobject #memberSubobject
   | FIELD Identifier COLON type #memberField
-  | TYPE Identifier typeConstraint? #memberType
+  | TYPE key=Identifier typeName=Identifier typeConstraint? #memberType
   ;
 
 typeConstraint

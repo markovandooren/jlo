@@ -93,7 +93,7 @@ public class JLoToJava8Translator extends IncrementalTranslator<JLo, Java7> {
     target.apply(MemberVariableDeclarator.class, d -> d.addModifier(new Private()));
   }
 
-  protected Document createInterface(Document sourceDocument) {
+  protected Document createInterface(Document sourceDocument) throws LookupException {
     Document result = sourceDocument.cloneTo(target());
     return new Java8InterfaceGenerator().createInterface(result);
   }

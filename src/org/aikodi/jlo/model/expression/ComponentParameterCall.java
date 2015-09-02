@@ -1,6 +1,5 @@
 package org.aikodi.jlo.model.expression;
 
-import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.lookup.DeclarationCollector;
 import org.aikodi.chameleon.core.lookup.DeclarationSelector;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -35,6 +34,14 @@ public class ComponentParameterCall extends Expression implements CrossReference
 	
 	private String _name;
 
+	/**
+	* @{inheritDoc}
+	*/
+	@Override
+	public Class<FormalComponentParameter> referencedType() {
+	  return FormalComponentParameter.class;
+	}
+	
 	@Override
 	protected Type actualType() throws LookupException {
 		return getElement().declarationType();

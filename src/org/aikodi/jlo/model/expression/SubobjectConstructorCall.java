@@ -43,6 +43,14 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
   	addAllArguments(arguments);
   }
   
+  /**
+   * @{inheritDoc}
+   */
+  @Override
+  public Class<NormalMethod> referencedType() {
+    return NormalMethod.class;
+  }
+  
   @Override
   public NameReference<Subobject> getTarget() {
   	return (NameReference<Subobject>) super.getTarget();
