@@ -90,7 +90,7 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
 
   private Single<TypeMemberParameterFixer> _fixer = new Single(this);
 
-  private TypeParameter parameter() {
+  public TypeParameter parameter() {
     return _fixer.getOtherEnd().parameter();
   }
 

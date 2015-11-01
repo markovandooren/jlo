@@ -552,7 +552,7 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
   
   @Override
   public TypeMemberDeclarator visitMemberType(MemberTypeContext ctx) {
-    FormalTypeParameter parameter = new FormalTypeParameter(ctx.Identifier().getText());
+    FormalTypeParameter parameter = new FormalTypeParameter(ctx.typeName.getText());
     if(ctx.typeConstraint() != null) {
       parameter.addConstraint((TypeConstraint) visit(ctx.typeConstraint()));
     }
@@ -617,16 +617,16 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
    * @{inheritDoc}
    */
   @Override
-  public Object visitKeywordType(KeywordTypeContext ctx) {
-    TypeReference result = processLayout(jlo().createTypeReference(ctx.qualifiedName().getText()),ctx);
+  public TypeReference visitKeywordType(KeywordTypeContext ctx) {
+    TypeReference constructorReference = processLayout(jlo().createTypeReference(ctx.qualifiedName().getText()),ctx);
+    KeywordTypeReference result = new KeywordTypeReference(constructorReference);
     List<TerminalNode> identifiers = ctx.Identifier();
     int size = identifiers.size();
     for(int i=0; i < size; i++) {
       String name = identifiers.get(i).getText();
       TypeArgument constraint = (TypeArgument) visit(ctx.typeArgument(i));
-//      TypeReference old = result;
       KeywordTypeArgument argument = new KeywordTypeArgument(name, constraint);
-      ((KeywordTypeReference)result).add(argument);
+      result.add(argument);
     }
     return result;
   }

@@ -19,6 +19,7 @@ import org.aikodi.chameleon.oo.method.SimpleNameMethodHeader;
 import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
 import org.aikodi.chameleon.oo.statement.Block;
 import org.aikodi.chameleon.oo.type.Type;
+import org.aikodi.chameleon.oo.type.generics.TypeParameter;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
@@ -33,8 +34,8 @@ import org.aikodi.chameleon.support.modifier.Static;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.support.variable.LocalVariableDeclarator;
-import org.aikodi.chameleon.util.Util;
 import org.aikodi.jlo.model.component.Subobject;
+import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
@@ -42,10 +43,11 @@ import be.kuleuven.cs.distrinet.jnome.core.method.JavaMethod;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Default;
 import be.kuleuven.cs.distrinet.jnome.core.type.ArrayTypeReference;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
+import be.kuleuven.cs.distrinet.rejuse.action.Action;
 
 public class Java8InterfaceGenerator extends AbstractJava8Generator {
 
-  public Document createInterface(Document javaDocument) {
+  public Document createInterface(Document javaDocument) throws LookupException {
     changeClassesToInterfaces(javaDocument);
     replaceFields(javaDocument);
     makeNonPrivateMethodsPublic(javaDocument);
@@ -58,47 +60,62 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     createConstructors(javaDocument);
     createDefaultConstructor(javaDocument);
     addTypeParameterToOwnClass(javaDocument);
+    transformKeywordTypeReferences(javaDocument);
     return javaDocument;
   }
 
-  protected void createConstructors(Document javaDocument) {
-    javaDocument.apply(Method.class, javaMethod -> {
-      Method jloMethod = (Method) javaMethod.origin();
-      if (!isGenerated(javaMethod) && jloMethod.isTrue(jlo(jloMethod).CONSTRUCTOR)) {
-        Java7 java = java(javaDocument);
-        Type javaParentType = javaMethod.nearestAncestor(Type.class);
-        if (jloMethod.nbFormalParameters() == 0) {
-          createMainInterface(javaMethod);
+  protected void createConstructors(Document javaDocument) throws LookupException {
+    javaDocument.apply(new Action<Method,LookupException>(Method.class) {
+      /**
+       * @{inheritDoc}
+       */
+      @Override
+      public void doPerform(Method javaMethod) throws LookupException {
+        Method jloMethod = (Method) javaMethod.origin();
+        if (!isGenerated(javaMethod) && jloMethod.isTrue(jlo(jloMethod).CONSTRUCTOR)) {
+          Java7 java = java(javaDocument);
+          Type javaParentType = javaMethod.nearestAncestor(Type.class);
+          if (jloMethod.nbFormalParameters() == 0) {
+            createMainInterface(javaMethod);
+          }
+          BasicJavaTypeReference typeRef = java.createTypeReference(javaParentType.name());
+          strip(Constructor.class).from(Method.class).in(javaMethod);
+          Method javaInstanceMethod = Java8InterfaceGenerator.this.clone(javaMethod);
+          javaParentType.add(javaInstanceMethod);
+          javaInstanceMethod.setName(constructorName(javaMethod));
+          javaInstanceMethod.addModifier(new Default());
+          javaInstanceMethod.setReturnTypeReference(java.createTypeReference("void"));
+          javaMethod.setReturnTypeReference(Java8InterfaceGenerator.this.clone(typeRef));
+          javaMethod.addModifier(new Static());
+
+        ((Type)javaParentType.origin()).members(TypeMemberDeclarator.class).forEach(m -> {
+          //t.addParameter(TypeParameter.class, new FormalTypeParameter(m.name()));
+          javaMethod.header().addTypeParameter(m.clone(m.parameter()));
+        });
+
+          
+          
+          /**
+           * Overwrite body:
+           *
+           * T result = new T(); result.init$... return result;
+           */
+          Block javaBody = new Block();
+          LocalVariableDeclarator localVariableDeclarator = new LocalVariableDeclarator(typeRef);
+          VariableDeclaration declaration = new VariableDeclaration(resultVariableName());
+          declaration.setInitialization(
+              new ConstructorInvocation(java.createTypeReference(implementationName(javaParentType)), null));
+          localVariableDeclarator.add(declaration);
+          javaBody.addStatement(localVariableDeclarator);
+          MethodInvocation invocation = expressionFactory(javaMethod).createInvocation(constructorName(javaMethod),
+              new NameExpression(resultVariableName()));
+          for (FormalParameter parameter : javaMethod.formalParameters()) {
+            invocation.addArgument(new NameExpression(parameter.name()));
+          }
+          javaBody.addStatement(new StatementExpression(invocation));
+          javaBody.addStatement(new ReturnStatement(new NameExpression(resultVariableName())));
+          ((RegularImplementation) ((NormalMethod) javaMethod).implementation()).setBody(javaBody);
         }
-        BasicJavaTypeReference typeRef = java.createTypeReference(javaParentType.name());
-        strip(Constructor.class).from(Method.class).in(javaMethod);
-        Method javaInstanceMethod = clone(javaMethod);
-        javaParentType.add(javaInstanceMethod);
-        javaInstanceMethod.setName(constructorName(javaMethod));
-        javaInstanceMethod.addModifier(new Default());
-        javaInstanceMethod.setReturnTypeReference(java.createTypeReference("void"));
-        javaMethod.setReturnTypeReference(clone(typeRef));
-        javaMethod.addModifier(new Static());
-        /**
-         * Overwrite body:
-         *
-         * T result = new T(); result.init$... return result;
-         */
-        Block javaBody = new Block();
-        LocalVariableDeclarator localVariableDeclarator = new LocalVariableDeclarator(typeRef);
-        VariableDeclaration declaration = new VariableDeclaration(resultVariableName());
-        declaration.setInitialization(
-            new ConstructorInvocation(java.createTypeReference(implementationName(javaParentType)), null));
-        localVariableDeclarator.add(declaration);
-        javaBody.addStatement(localVariableDeclarator);
-        MethodInvocation invocation = expressionFactory(javaMethod).createInvocation(constructorName(javaMethod),
-            new NameExpression(resultVariableName()));
-        for (FormalParameter parameter : javaMethod.formalParameters()) {
-          invocation.addArgument(new NameExpression(parameter.name()));
-        }
-        javaBody.addStatement(new StatementExpression(invocation));
-        javaBody.addStatement(new ReturnStatement(new NameExpression(resultVariableName())));
-        ((RegularImplementation) ((NormalMethod) javaMethod).implementation()).setBody(javaBody);
       }
     } );
   }
@@ -170,18 +187,25 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     } );
   }
 
-  protected void replaceFields(Document javaDocument) {
-    javaDocument.apply(MemberVariableDeclarator.class, javaMemberVariableDeclarator -> {
-      VariableDeclaration variableDeclaration = javaMemberVariableDeclarator.variableDeclarations().get(0);
-      replaceFieldReferences(javaDocument, variableDeclaration);
-      Method getter = createGetterTemplate(javaMemberVariableDeclarator);
-      getter.addModifier(new Abstract());
-      getter.addModifier(new Public());
-      javaMemberVariableDeclarator.replaceWith(getter);
-      Method setter = createSetterTemplate(javaMemberVariableDeclarator);
-      setter.addModifier(new Abstract());
-      setter.addModifier(new Public());
-      getter.nearestAncestor(Type.class).add(setter);
+  protected void replaceFields(Document javaDocument) throws LookupException {
+    javaDocument.apply(new Action<MemberVariableDeclarator,LookupException>(MemberVariableDeclarator.class) {
+      /**
+       * @throws LookupException 
+       * @{inheritDoc}
+       */
+      @Override
+      public void doPerform(MemberVariableDeclarator javaMemberVariableDeclarator) throws LookupException {
+        VariableDeclaration variableDeclaration = javaMemberVariableDeclarator.variableDeclarations().get(0);
+        replaceFieldReferences(javaDocument, variableDeclaration);
+        Method getter = createGetterTemplate(javaMemberVariableDeclarator);
+        getter.addModifier(new Abstract());
+        getter.addModifier(new Public());
+        javaMemberVariableDeclarator.replaceWith(getter);
+        Method setter = createSetterTemplate(javaMemberVariableDeclarator);
+        setter.addModifier(new Abstract());
+        setter.addModifier(new Public());
+        getter.nearestAncestor(Type.class).add(setter);
+      }
     } );
   }
 
@@ -262,6 +286,9 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
         getter.addModifier(new Public());
         Type nearestAncestor = javaSubobject.nearestAncestor(Type.class);
         nearestAncestor.add(getter);
+        applyToSortedTypeMemberDeclarators(jloSubobject.nearestAncestor(Type.class), m -> {
+          subobjectInterface.addParameter(TypeParameter.class, clone(m.parameter()));
+        });
         javaSubobject.replaceWith(subobjectInterface);
 //        addTypeParameters(javaSubtypeRelation, jloSubobject.componentType());
       } catch (LookupException e) {
