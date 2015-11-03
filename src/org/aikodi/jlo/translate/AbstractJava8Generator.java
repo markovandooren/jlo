@@ -282,6 +282,12 @@ public abstract class AbstractJava8Generator {
     return element.clone(element);
   }
 
+  protected <E extends Element> E cloneAndSetOrigin(E element) {
+    E result = element.clone(element);
+    result.setOrigin(element);
+    return result;
+  }
+
   protected void addTypeParameterToOwnClass(Document javaDocument) {
     javaDocument.apply(TypeMemberDeclarator.class, d -> {
       d.disconnect();

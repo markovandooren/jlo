@@ -1,6 +1,9 @@
 package org.aikodi.jlo.translate;
 
+import java.util.List;
+
 import org.aikodi.chameleon.core.document.Document;
+import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.property.StaticChameleonProperty;
 import org.aikodi.chameleon.core.reference.CrossReference;
@@ -34,7 +37,9 @@ import org.aikodi.chameleon.support.modifier.Static;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.support.variable.LocalVariableDeclarator;
+import org.aikodi.chameleon.util.Util;
 import org.aikodi.jlo.model.component.Subobject;
+import org.aikodi.jlo.model.component.SubobjectType;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
@@ -49,10 +54,10 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
 
   public Document createInterface(Document javaDocument) throws LookupException {
     changeClassesToInterfaces(javaDocument);
+    replaceSubobjects(javaDocument);
     replaceFields(javaDocument);
     makeNonPrivateMethodsPublic(javaDocument);
     renameConstructorCalls(javaDocument);
-    replaceSubobjects(javaDocument);
     inferMissingReturnTypes(javaDocument);
     replaceExpressionImplementations(javaDocument);
     // makeImplicitlyAbstractMethodsAbstract(result);
@@ -273,15 +278,47 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     } );
   }
 
-  protected void replaceSubobjects(Document javaDocument) {
+  protected void replaceSubobjects(Element javaElement) {
+    List<Subobject> subobjects = javaElement.nearestDescendants(Subobject.class);
+    for(Subobject javaSubobject : subobjects) {
+      try {
+        Type javaSubobjectInterface = ooFactory(javaSubobject).createRegularType(subobjectInterfaceName(javaSubobject));
+        Subobject jloSubobject = (Subobject) javaSubobject.origin();
+        Util.debug(jloSubobject.componentType().getFullyQualifiedName().equals("example.Radio.volume.upperBound"));
+        javaSubobjectInterface.addModifier(new Interface());
+        SubtypeRelation javaSubtypeRelation = new SubtypeRelation(clone(javaSubobject.superClassReference()));
+        javaSubobjectInterface.addInheritanceRelation(javaSubtypeRelation);
+        Method getter = createSubobjectGetterTemplate(jloSubobject, java(javaSubobject));
+        getter.addModifier(new Abstract());
+        getter.addModifier(new Public());
+        Type nearestAncestor = javaSubobject.nearestAncestor(Type.class);
+        nearestAncestor.add(getter);
+        applyToSortedTypeMemberDeclarators(jloSubobject.nearestAncestor(Type.class), m -> {
+          javaSubobjectInterface.addParameter(TypeParameter.class, clone(m.parameter()));
+        });
+        javaSubobject.replaceWith(javaSubobjectInterface);
+        SubobjectType jloSubobjectType = jloSubobject.nearestDescendants(SubobjectType.class).get(0);
+        List<Member> jloSubobjectMembers = jloSubobjectType.directlyDeclaredMembers();
+        for(Member jloSubobjectMember: jloSubobjectMembers) {
+          Member member = cloneAndSetOrigin(jloSubobjectMember);
+          javaSubobjectInterface.add(member);
+        }
+        replaceSubobjects(javaSubobjectInterface);
+      } catch (LookupException e) {
+        throw new ChameleonProgrammerException(e);
+      }
+    }
+  }
+  
+  protected void replaceSubobjectsOld(Document javaDocument) {
     javaDocument.apply(Subobject.class, javaSubobject -> {
       try {
-        Type subobjectInterface = ooFactory(javaDocument).createRegularType(subobjectInterfaceName(javaSubobject));
+        Type subobjectInterface = ooFactory(javaSubobject).createRegularType(subobjectInterfaceName(javaSubobject));
+        Subobject jloSubobject = (Subobject) javaSubobject.origin();
         subobjectInterface.addModifier(new Interface());
         SubtypeRelation javaSubtypeRelation = new SubtypeRelation(clone(javaSubobject.superClassReference()));
         subobjectInterface.addInheritanceRelation(javaSubtypeRelation);
-        Subobject jloSubobject = (Subobject) javaSubobject.origin();
-        Method getter = createSubobjectGetterTemplate(jloSubobject, java(javaDocument));
+        Method getter = createSubobjectGetterTemplate(jloSubobject, java(javaSubobject));
         getter.addModifier(new Abstract());
         getter.addModifier(new Public());
         Type nearestAncestor = javaSubobject.nearestAncestor(Type.class);
@@ -290,7 +327,6 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
           subobjectInterface.addParameter(TypeParameter.class, clone(m.parameter()));
         });
         javaSubobject.replaceWith(subobjectInterface);
-//        addTypeParameters(javaSubtypeRelation, jloSubobject.componentType());
       } catch (LookupException e) {
         throw new ChameleonProgrammerException(e);
       }

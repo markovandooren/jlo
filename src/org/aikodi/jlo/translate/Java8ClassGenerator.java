@@ -58,8 +58,10 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
       }
     });
   }
-
+  private int nesting = 0;
   protected void expandSubobjects(Type javaType, Type jloType) {
+    nesting++;
+//    Util.debug(nesting == 2);
     try {
       List<Subobject> jloSubobjects = jloType.members(Subobject.class);
       jloSubobjects.forEach(jloSubobject -> {
@@ -82,6 +84,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
     } catch (LookupException e) {
       throw new ChameleonProgrammerException(e);
     }
+    nesting--;
   }
 
   protected RegularJavaType createSubobjectImplementation(Subobject jloSubobject, Type javaParentType) throws LookupException {
