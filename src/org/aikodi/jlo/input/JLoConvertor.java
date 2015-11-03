@@ -1,6 +1,7 @@
 package org.aikodi.jlo.input;
 
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -125,6 +126,7 @@ import org.aikodi.jlo.input.JLoParser.VarDeclarationContext;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.type.KeywordTypeArgument;
+import org.aikodi.jlo.model.type.KeywordTypeReference;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;

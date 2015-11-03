@@ -29,7 +29,6 @@ import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
-import org.aikodi.chameleon.util.Util;
 import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.type.KeywordTypeReference;
