@@ -1,0 +1,9 @@
+<project name="testrejuse">
+	<language name="jlo"/>
+    <baselibraries>
+      <library language="JLo" load="false"/>
+    </baselibraries>
+	<sourcepath>
+      <source root="src"/>
+	</sourcepath>
+</project>
