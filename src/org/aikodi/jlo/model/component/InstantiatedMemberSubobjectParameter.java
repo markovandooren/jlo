@@ -4,6 +4,7 @@ package org.aikodi.jlo.model.component;
 import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
+import org.aikodi.chameleon.core.lookup.LocalLookupContext;
 import org.aikodi.chameleon.core.lookup.LookupContext;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.scope.Scope;
@@ -53,7 +54,7 @@ public class InstantiatedMemberSubobjectParameter extends ComponentParameter imp
 		}
 	}
 
-	public LookupContext targetContext() throws LookupException {
+	public LocalLookupContext<?> targetContext() throws LookupException {
 		return declaration().targetContext();
 	}
 
