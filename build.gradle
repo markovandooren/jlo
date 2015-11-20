@@ -49,9 +49,9 @@ dependencies {
    //compile project(':rejuse')
    //compile project(':chameleon')
    //compile project(':jnome')
-   compile group: 'markovandooren', name: 'rejuse', version: '1.3.7'
-   compile group: 'markovandooren', name: 'chameleon', version: '1.2.1'
-   compile group: 'markovandooren', name: 'jnome', version: '1.2.1'
+   compile group: 'markovandooren', name: 'rejuse', version: '1.3.9'
+   compile group: 'markovandooren', name: 'chameleon', version: '1.2.8'
+   compile group: 'markovandooren', name: 'jnome', version: '1.2.10'
 
   
    compile 'org.ow2.asm:asm:5.0.3'
