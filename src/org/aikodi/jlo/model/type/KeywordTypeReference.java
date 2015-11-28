@@ -6,9 +6,12 @@ package org.aikodi.jlo.model.type;
 import java.util.List;
 import java.util.Set;
 
+import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.element.ElementImpl;
 import org.aikodi.chameleon.core.lookup.LookupException;
+import org.aikodi.chameleon.core.lookup.LookupRedirector;
+import org.aikodi.chameleon.core.reference.NameReference;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.generics.InstantiatedTypeParameter;
@@ -52,11 +55,15 @@ public class KeywordTypeReference extends ElementImpl implements JavaTypeReferen
   public Type getElement() throws LookupException {
     JLoType typeConstructor = (JLoType) typeConstructorReference().getElement();
     Type result = new JLoTypeRefinement(typeConstructor);
-    arguments().forEach(a -> {
-      TypeParameter parameter = new InstantiatedTypeParameter(a.name(), a.argument());
-      TypeMemberDeclarator declarator = new TypeMemberDeclarator(parameter);
+    for(KeywordTypeArgument a: arguments()) {
+    	// The name is wrong. It won't be found!
+    	NameReference<TypeMemberDeclarator> nameReference = new NameReference<>(a.name(), TypeMemberDeclarator.class);
+    	LookupRedirector redirector = new LookupRedirector(typeConstructor,nameReference);
+    	TypeMemberDeclarator element = nameReference.getElement();
+      TypeParameter typeArgument = new InstantiatedTypeParameter(element.parameter().name(), a.argument());
+      TypeMemberDeclarator declarator = new TypeMemberDeclarator(new SimpleNameSignature(a.name()), typeArgument);
       result.add(declarator);
-    });
+    }
     return result;
   }
 

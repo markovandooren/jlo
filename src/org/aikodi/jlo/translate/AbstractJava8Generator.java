@@ -331,7 +331,7 @@ public abstract class AbstractJava8Generator {
 
   protected void addTypeParameters(InheritanceRelation relation, Type jloType) throws LookupException {
     applyToSortedTypeMemberDeclarators(jloType, d -> {
-      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.name())));
+      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.parameter().name())));
     });
   }
 

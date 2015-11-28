@@ -22,8 +22,7 @@ import org.aikodi.chameleon.util.association.Single;
 
 public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Member {
 
-  private final class TypeMemberParameterFixer extends
-  TypeParameterFixer {
+  private final class TypeMemberParameterFixer extends  TypeParameterFixer {
 
     private Single<TypeParameter> _parameter = new Single<>(this);
 
@@ -60,7 +59,8 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
     }
   }
 
-  public TypeMemberDeclarator(TypeParameter parameter) {
+  public TypeMemberDeclarator(SimpleNameSignature signature, TypeParameter parameter) {
+  	set(_signature, signature);
     set(_fixer, new TypeMemberParameterFixer(parameter));
   }
 
@@ -97,12 +97,14 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
 
   @Override
   public Signature signature() {
-    return parameter().signature();
+    return _signature.getOtherEnd();
   }
+  
+  private Single<Signature> _signature = new Single<>(this);
   
   @Override
   public void setSignature(Signature signature) {
-    parameter().setSignature(signature);
+    set(_signature, signature);
   }
 
 //  private Single<Signature> _signature = new Single<>(this);
@@ -119,7 +121,7 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
 
   @Override
   protected Element cloneSelf() {
-    return new TypeMemberDeclarator(null);
+    return new TypeMemberDeclarator(null,null);
   }
 
   public boolean contains(TypeMemberDeclarator s, TypeFixer trace) throws LookupException {
