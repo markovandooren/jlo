@@ -1,7 +1,6 @@
 package org.aikodi.jlo.model.component;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
-import org.aikodi.chameleon.core.lookup.LocalLookupContext;
 import org.aikodi.chameleon.core.lookup.LookupContext;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.scope.Scope;
@@ -9,10 +8,10 @@ import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
 import org.aikodi.chameleon.exception.ModelException;
 import org.aikodi.chameleon.oo.type.DeclarationWithType;
-import org.aikodi.chameleon.oo.type.TypeInstantiation;
 import org.aikodi.chameleon.oo.type.Parameter;
 import org.aikodi.chameleon.oo.type.ParameterBlock;
 import org.aikodi.chameleon.oo.type.Type;
+import org.aikodi.chameleon.oo.type.TypeInstantiation;
 
 
 public class InstantiatedComponentParameter extends ComponentParameter implements AbstractInstantiatedComponentParameter {
@@ -54,7 +53,7 @@ public class InstantiatedComponentParameter extends ComponentParameter implement
 		}
 	}
 
-	public LocalLookupContext<?> targetContext() throws LookupException {
+	public LookupContext targetContext() throws LookupException {
 		return declaration().targetContext();
 	}
 
