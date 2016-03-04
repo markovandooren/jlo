@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.aikodi.chameleon.core.namespacedeclaration.NamespaceDeclaration;
 import org.aikodi.chameleon.exception.ModelException;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.plugin.output.Syntax;
@@ -47,7 +48,7 @@ public class TypeWriter {
     for(Type type:typeProvider().elements(view())) {
     	if(type.nearestAncestor(Type.class) == null) {
       String fileName = type.name()+".java";
-      String packageFQN = type.namespace().fullyQualifiedName();
+      String packageFQN = type.nearestAncestor(NamespaceDeclaration.class).namespace().fullyQualifiedName();
       String relDirName = packageFQN.replace('.', File.separatorChar);
       File out = new File(outputDirName()+File.separatorChar + relDirName + File.separatorChar + fileName);
       System.out.println(i + " Writing: "+out.getAbsolutePath());

@@ -1,7 +1,9 @@
 package org.aikodi.jlo.model.type;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.declaration.Signature;
 import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
 import org.aikodi.chameleon.core.element.Element;
@@ -74,6 +76,14 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
   @Override
   public List<? extends Member> getIntroducedMembers() {
     return Lists.create(this);
+  }
+  
+  @Override
+  public List<? extends Declaration> introducedDeclarations() {
+  	List<Declaration> result = new ArrayList<>();
+  	result.add(this);
+  	result.add(parameter());
+  	return result;
   }
 
   @Override

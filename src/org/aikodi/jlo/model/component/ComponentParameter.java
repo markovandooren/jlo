@@ -76,6 +76,7 @@ public abstract class ComponentParameter extends Parameter implements Declaratio
   }
   
   private static OverridesRelation<Member> _overridesRelation = new OverridesRelation<Member>(Member.class);
+  
   public MemberRelationSelector<? extends Member> aliasSelector() {
 		return new MemberRelationSelector<Member>(Member.class,this,_aliasSelector);
   }

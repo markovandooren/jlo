@@ -54,7 +54,7 @@ public class InstantiatedMemberSubobjectParameter extends ComponentParameter imp
 		}
 	}
 
-	public LookupContext targetContext() throws LookupException {
+	public LocalLookupContext<?> targetContext() throws LookupException {
 		return declaration().targetContext();
 	}
 
