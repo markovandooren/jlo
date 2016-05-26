@@ -1,4 +1,4 @@
-package org.aikodi.jlo.model.component;
+package org.aikodi.jlo.model.subobject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +82,6 @@ public class SubobjectType extends AnonymousType {
 		Type outer = farthestAncestor(Type.class);
 		for(Subobject overriddenRelation: overridden) {
 			Subobject sup;
-//			if(overriddenRelation.farthestAncestor(Type.class) != outer) {
 			if(!outer.subtypeOf(overriddenRelation.farthestAncestor(Type.class))) {
 				sup = nearestAncestor(Subobject.class).incorporatedIntoComponentType(overriddenRelation);
 			} else {

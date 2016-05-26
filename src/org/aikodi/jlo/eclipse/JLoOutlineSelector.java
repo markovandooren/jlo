@@ -5,8 +5,8 @@ import java.util.List;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.exception.ModelException;
 import org.aikodi.chameleon.oo.type.Type;
-import org.aikodi.jlo.model.component.Subobject;
-import org.aikodi.jlo.model.component.SubobjectType;
+import org.aikodi.jlo.model.subobject.Subobject;
+import org.aikodi.jlo.model.subobject.SubobjectType;
 
 import be.kuleuven.cs.distrinet.jnome.eclipse.JavaOutlineSelector;
 

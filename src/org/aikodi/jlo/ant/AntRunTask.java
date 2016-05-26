@@ -3,7 +3,6 @@ package org.aikodi.jlo.ant;
 import java.io.File;
 
 import org.aikodi.jlo.model.language.JLoProjectConfigurator;
-import org.aikodi.jlo.translate.AbstractTranslator;
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.taskdefs.Java;
 import org.apache.tools.ant.types.Assertions;
@@ -17,7 +16,7 @@ public class AntRunTask extends AbstractTask {
 	public void execute() throws BuildException {
 		Java java = new Java(this);
 		java.setFork(true);
-		java.setClassname(getClassname()+AbstractTranslator.IMPL);
+		java.setClassname(getClassname()+"_impl");
 		if(assertions() != null) {
 			java.addAssertions(assertions());
 		}

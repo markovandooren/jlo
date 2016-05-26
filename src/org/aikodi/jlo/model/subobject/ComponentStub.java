@@ -1,4 +1,4 @@
-package org.aikodi.jlo.model.component;
+package org.aikodi.jlo.model.subobject;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.element.Element;

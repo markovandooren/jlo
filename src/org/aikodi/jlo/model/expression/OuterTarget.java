@@ -2,7 +2,7 @@ package org.aikodi.jlo.model.expression;
 
 
 import org.aikodi.chameleon.oo.type.Type;
-import org.aikodi.jlo.model.component.Subobject;
+import org.aikodi.jlo.model.subobject.Subobject;
 
 /**
  * @author Marko van Dooren

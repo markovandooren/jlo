@@ -3,7 +3,7 @@ package org.aikodi.jlo.model.language;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.relation.StrictPartialOrder;
 import org.aikodi.chameleon.oo.member.Member;
-import org.aikodi.jlo.model.component.Subobject;
+import org.aikodi.jlo.model.subobject.Subobject;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.JavaImplementsRelation;
 

@@ -19,7 +19,7 @@ import org.aikodi.chameleon.oo.member.SignatureWithParameters;
 import org.aikodi.chameleon.oo.method.Method;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.support.member.simplename.method.NormalMethod;
-import org.aikodi.jlo.model.component.Subobject;
+import org.aikodi.jlo.model.subobject.Subobject;
 
 import be.kuleuven.cs.distrinet.rejuse.logic.ternary.Ternary;
 

@@ -48,8 +48,8 @@ import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.support.translate.IncrementalTranslator;
 import org.aikodi.chameleon.workspace.View;
-import org.aikodi.jlo.model.component.Subobject;
 import org.aikodi.jlo.model.language.JLo;
+import org.aikodi.jlo.model.subobject.Subobject;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Default;

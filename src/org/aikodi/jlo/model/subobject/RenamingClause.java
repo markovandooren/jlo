@@ -1,4 +1,4 @@
-package org.aikodi.jlo.model.component;
+package org.aikodi.jlo.model.subobject;
 
 import java.util.ArrayList;
 import java.util.List;

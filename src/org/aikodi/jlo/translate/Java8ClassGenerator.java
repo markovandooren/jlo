@@ -26,8 +26,8 @@ import org.aikodi.chameleon.support.modifier.Public;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.util.Util;
-import org.aikodi.jlo.model.component.Subobject;
-import org.aikodi.jlo.model.component.SubobjectType;
+import org.aikodi.jlo.model.subobject.Subobject;
+import org.aikodi.jlo.model.subobject.SubobjectType;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;

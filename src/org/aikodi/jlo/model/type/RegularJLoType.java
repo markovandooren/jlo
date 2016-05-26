@@ -8,8 +8,8 @@ import org.aikodi.chameleon.oo.member.MemberRelationSelector;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
-import org.aikodi.jlo.model.component.Overrides;
-import org.aikodi.jlo.model.component.Subobject;
+import org.aikodi.jlo.model.subobject.Overrides;
+import org.aikodi.jlo.model.subobject.Subobject;
 
 import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
 
@@ -63,5 +63,4 @@ public class RegularJLoType extends RegularJavaType implements JLoType {
 		}
 		return result;
 	}
-
 }

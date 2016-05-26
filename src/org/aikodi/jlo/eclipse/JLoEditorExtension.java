@@ -9,10 +9,7 @@ import org.aikodi.chameleon.eclipse.presentation.treeview.DefaultIconProvider;
 import org.aikodi.chameleon.eclipse.presentation.treeview.IconProvider;
 import org.aikodi.chameleon.workspace.View;
 import org.aikodi.jlo.build.JLoBuilder;
-import org.aikodi.jlo.model.component.InstantiatedMemberSubobjectParameter;
-import org.aikodi.jlo.model.component.MultiFormalComponentParameter;
-import org.aikodi.jlo.model.component.SingleFormalComponentParameter;
-import org.aikodi.jlo.model.component.Subobject;
+import org.aikodi.jlo.model.subobject.Subobject;
 
 import be.kuleuven.cs.distrinet.jnome.eclipse.JavaEditorExtension;
 
@@ -21,9 +18,9 @@ public class JLoEditorExtension extends JavaEditorExtension {
 
 	public JLoEditorExtension() {
 	  SUBOBJECT_ICON_PROVIDER = new DefaultIconProvider("subobject", Subobject.class);
-	  SINGLE_SUBOBJECT_PARAMETER_ICON_PROVIDER = new DefaultIconProvider("singleformalsubobjectparameter", SingleFormalComponentParameter.class);
-	  MULTI_SUBOBJECT_PARAMETER_ICON_PROVIDER = new DefaultIconProvider("multiformalsubobjectparameter", MultiFormalComponentParameter.class);
-	  ACTUAL_SUBOBJECT_ARGUMENT_ICON_PROVIDER = new DefaultIconProvider("actualsubobjectargument", InstantiatedMemberSubobjectParameter.class);
+//	  SINGLE_SUBOBJECT_PARAMETER_ICON_PROVIDER = new DefaultIconProvider("singleformalsubobjectparameter", SingleFormalComponentParameter.class);
+//	  MULTI_SUBOBJECT_PARAMETER_ICON_PROVIDER = new DefaultIconProvider("multiformalsubobjectparameter", MultiFormalComponentParameter.class);
+//	  ACTUAL_SUBOBJECT_ARGUMENT_ICON_PROVIDER = new DefaultIconProvider("actualsubobjectargument", InstantiatedMemberSubobjectParameter.class);
 	}
 	
 	@Override
@@ -51,17 +48,17 @@ public class JLoEditorExtension extends JavaEditorExtension {
   	// Members are treated last. Remove and add back at the end.
   	result.remove(MEMBER_ICON_PROVIDER);
   	result.add(SUBOBJECT_ICON_PROVIDER);
-  	result.add(SINGLE_SUBOBJECT_PARAMETER_ICON_PROVIDER);
-  	result.add(MULTI_SUBOBJECT_PARAMETER_ICON_PROVIDER);
-  	result.add(ACTUAL_SUBOBJECT_ARGUMENT_ICON_PROVIDER);
+//  	result.add(SINGLE_SUBOBJECT_PARAMETER_ICON_PROVIDER);
+//  	result.add(MULTI_SUBOBJECT_PARAMETER_ICON_PROVIDER);
+//  	result.add(ACTUAL_SUBOBJECT_ARGUMENT_ICON_PROVIDER);
   	result.add(MEMBER_ICON_PROVIDER);
   	return result;
 	}
 
   public final IconProvider SUBOBJECT_ICON_PROVIDER;
-  public final IconProvider SINGLE_SUBOBJECT_PARAMETER_ICON_PROVIDER;
-  public final IconProvider MULTI_SUBOBJECT_PARAMETER_ICON_PROVIDER;
-  public final IconProvider ACTUAL_SUBOBJECT_ARGUMENT_ICON_PROVIDER;
+//  public final IconProvider SINGLE_SUBOBJECT_PARAMETER_ICON_PROVIDER;
+//  public final IconProvider MULTI_SUBOBJECT_PARAMETER_ICON_PROVIDER;
+//  public final IconProvider ACTUAL_SUBOBJECT_ARGUMENT_ICON_PROVIDER;
   
   @Override
   public JLoOutlineSelector createOutlineSelector() {

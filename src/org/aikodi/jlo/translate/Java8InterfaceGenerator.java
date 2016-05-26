@@ -38,8 +38,8 @@ import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.support.variable.LocalVariableDeclarator;
 import org.aikodi.chameleon.util.Util;
-import org.aikodi.jlo.model.component.Subobject;
-import org.aikodi.jlo.model.component.SubobjectType;
+import org.aikodi.jlo.model.subobject.Subobject;
+import org.aikodi.jlo.model.subobject.SubobjectType;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
