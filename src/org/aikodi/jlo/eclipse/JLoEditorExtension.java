@@ -69,7 +69,6 @@ public class JLoEditorExtension extends JavaEditorExtension {
   }
 
 
-	@Override
 	public String pluginID() {
 		return Bootstrapper.PLUGIN_ID;
 	}
