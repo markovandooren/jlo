@@ -300,9 +300,9 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 			while(add && iterCurrent.hasNext()) {
 				Member alreadyInherited = (Member) iterCurrent.next().finalDeclaration();
 				// Remove the already inherited member if potentially inherited member m overrides or hides it.
-				if((alreadyInherited.sameAs(m) || alreadyInherited.overrides(m) || alreadyInherited.canImplement(m) || alreadyInherited.hides(m))) {
+				if((alreadyInherited.sameAs(m) || alreadyInherited.hasOverrideCompatibleSignature(m) || alreadyInherited.canImplement(m) || alreadyInherited.hides(m))) {
 					add = false;
-				} else if((!alreadyInherited.sameAs(m)) && (m.overrides(alreadyInherited) || m.canImplement(alreadyInherited) || m.hides(alreadyInherited))) {
+				} else if((!alreadyInherited.sameAs(m)) && (m.hasOverrideCompatibleSignature(alreadyInherited) || m.canImplement(alreadyInherited) || m.hides(alreadyInherited))) {
 					iterCurrent.remove();
 				}
 			}

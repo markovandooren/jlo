@@ -40,9 +40,9 @@ public abstract class IncorporatingSubtypeRelation extends SubtypeRelation {
 					alreadyInherited = (Member) origin;
 				}
 				// Remove the already inherited member if potentially inherited member m overrides or hides it.
-				if((alreadyInherited.sameAs(originOfM) || alreadyInherited.overrides(originOfM) || alreadyInherited.canImplement(originOfM) || alreadyInherited.hides(originOfM))) {
+				if((alreadyInherited.sameAs(originOfM) || alreadyInherited.hasOverrideCompatibleSignature(originOfM) || alreadyInherited.canImplement(originOfM) || alreadyInherited.hides(originOfM))) {
 					add = false;
-				} else if((!alreadyInherited.sameAs(originOfM)) && (originOfM.overrides(alreadyInherited) || originOfM.canImplement(alreadyInherited) || originOfM.hides(alreadyInherited))) {
+				} else if((!alreadyInherited.sameAs(originOfM)) && (originOfM.hasOverrideCompatibleSignature(alreadyInherited) || originOfM.canImplement(alreadyInherited) || originOfM.hides(alreadyInherited))) {
 					iterCurrent.remove();
 				}
 			}
