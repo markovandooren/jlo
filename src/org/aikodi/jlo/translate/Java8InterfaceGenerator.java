@@ -284,7 +284,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
       try {
         Type javaSubobjectInterface = ooFactory(javaSubobject).createRegularType(subobjectInterfaceName(javaSubobject));
         Subobject jloSubobject = (Subobject) javaSubobject.origin();
-        Util.debug(jloSubobject.componentType().getFullyQualifiedName().equals("example.Radio.volume.upperBound"));
+//        Util.debug(jloSubobject.componentType().getFullyQualifiedName().equals("example.Radio.volume.upperBound"));
         javaSubobjectInterface.addModifier(new Interface());
         SubtypeRelation javaSubtypeRelation = new SubtypeRelation(clone(javaSubobject.superClassReference()));
         javaSubobjectInterface.addInheritanceRelation(javaSubtypeRelation);
