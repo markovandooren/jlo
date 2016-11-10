@@ -9,15 +9,16 @@ buildscript {
         //    name 'JFrog OSS snapshot repo'
         //    url  'https://oss.jfrog.org/oss-snapshot-local/'
         //}
-        //jcenter()
-  maven {
-    url 'http://users.ugent.be/~mcvdoore/repository'
-  }
+        jcenter()
+        mavenCentral()
+//  maven {
+//    url 'http://users.ugent.be/~mcvdoore/repository'
+//  }
     }
 
     dependencies {
         classpath 'by.github.frenchie16:antlr4-gradle-plugin:0.1.2'
-    }
+   }
 }
 
 repositories {

@@ -77,7 +77,7 @@ public class SubobjectType extends AnonymousType {
 
 	private List<Type> typesOfOverriddenSubobjects() throws LookupException {
 		Subobject relation = (Subobject) nearestAncestor(Subobject.class).origin();
-		Set<Subobject> overridden = (Set<Subobject>)relation.overriddenMembers();
+		Set<Subobject> overridden = (Set<Subobject>)relation.overriddenDeclarations();
 		List<Subobject> superSubobjectRelations = new ArrayList<Subobject>();
 		Type outer = farthestAncestor(Type.class);
 		for(Subobject overriddenRelation: overridden) {

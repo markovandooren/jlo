@@ -7,9 +7,11 @@ import java.util.List;
 import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
+import org.aikodi.chameleon.core.declaration.DeclarationRelation;
 import org.aikodi.chameleon.core.declaration.Signature;
 import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
 import org.aikodi.chameleon.core.element.Element;
+import org.aikodi.chameleon.core.language.LanguageImpl;
 import org.aikodi.chameleon.core.lookup.Collector;
 import org.aikodi.chameleon.core.lookup.DeclarationSelector;
 import org.aikodi.chameleon.core.lookup.LocalLookupContext;
@@ -195,23 +197,10 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 	private Single<SimpleNameSignature> _signature = new Single<SimpleNameSignature>(this);
 
 
-//	public void setConfigurationBlock(ConfigurationBlock configurationBlock) {
-//		set(_configurationBlock, configurationBlock);
-//	}
-//
-//	/**
-//	 * Return the ConfigurationBlock of this member.
-//	 */
-//	public ConfigurationBlock configurationBlock() {
-//		return _configurationBlock.getOtherEnd();
-//	}
-
 	public List<ConfigurationClause> clauses() throws LookupException {
 		List<ConfigurationClause> result = new ArrayList<ConfigurationClause>();
 		return result;
 	}
-
-//	private Single<ConfigurationBlock> _configurationBlock = new Single<ConfigurationBlock>(this);
 
 	public LocalLookupContext<?> targetContext() throws LookupException {
 		return componentType().targetContext();
@@ -219,14 +208,6 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 
 	public Type declarationType() throws LookupException {
 		return componentType();
-	}
-
-	public boolean complete() {
-		return true;
-	}
-
-	public Declaration declarator() {
-		return this;
 	}
 
 	private Single<SubobjectType> _componentType = new Single<SubobjectType>(this, SubobjectType.class);
@@ -262,18 +243,12 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 	}
 
 	@Override
-	public Type superElement() throws LookupException {
+	public Type target() throws LookupException {
 		return referencedComponentType(); 
 	}
 
 	@Override
 	public <X extends Member> List<X> accumulateInheritedMembers(Class<X> kind, List<X> current) throws LookupException {
-//		ConfigurationBlock configurationBlock = configurationBlock();
-//		if(configurationBlock != null) {
-//			List members = configurationBlock.processedMembers();
-//			new TypePredicate<>(kind).filter(members);
-//			current.addAll((Collection<? extends X>) members);
-//		}
 		List members = componentType().processedMembers();
 		new TypePredicate<>(kind).filter(members);
 		current.addAll((Collection<? extends X>) members);
@@ -282,11 +257,7 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 
 	@Override
 	public <X extends Member> List<SelectionResult<X>> accumulateInheritedMembers(DeclarationSelector<X> selector, List<SelectionResult<X>> current) throws LookupException {
-//		ConfigurationBlock configurationBlock = configurationBlock();
 		final List<SelectionResult<X>> potential = (List)selector.selection(componentType().processedMembers());
-//		if(configurationBlock != null) {
-//			potential.addAll(selector.selection(configurationBlock.processedMembers()));
-//		}
 		return removeNonMostSpecificMembers(current, potential);
 	}
 
@@ -300,9 +271,9 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 			while(add && iterCurrent.hasNext()) {
 				Member alreadyInherited = (Member) iterCurrent.next().finalDeclaration();
 				// Remove the already inherited member if potentially inherited member m overrides or hides it.
-				if((alreadyInherited.sameAs(m) || alreadyInherited.hasOverrideCompatibleSignature(m) || alreadyInherited.canImplement(m) || alreadyInherited.hides(m))) {
+				if((alreadyInherited.sameAs(m) || alreadyInherited.compatibleSignature(m) || alreadyInherited.hides(m))) {
 					add = false;
-				} else if((!alreadyInherited.sameAs(m)) && (m.hasOverrideCompatibleSignature(alreadyInherited) || m.canImplement(alreadyInherited) || m.hides(alreadyInherited))) {
+				} else if((!alreadyInherited.sameAs(m)) && (m.compatibleSignature(alreadyInherited) || m.hides(alreadyInherited))) {
 					iterCurrent.remove();
 				}
 			}
@@ -338,10 +309,6 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 	@Override
 	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
 		List<D> result = new ArrayList<D>();
-		//		ConfigurationBlock configurationBlock = configurationBlock();
-		//		if(configurationBlock != null) {
-		//			result = configurationBlock.membersDirectlyAliasedBy(selector);
-		//		} 
 		for(Export member: componentType().directlyDeclaredElements(Export.class)) {
 			result.addAll(member.membersDirectlyAliasedBy(selector));
 		}
@@ -350,10 +317,6 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 
 	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
 		List<D> result = new ArrayList<D>();
-//		ConfigurationBlock configurationBlock = configurationBlock();
-//		if(configurationBlock != null) {
-//			result = configurationBlock.membersDirectlyAliasing(selector);
-//		}
 		for(Export member: componentType().directlyDeclaredElements(Export.class)) {
 			result.addAll(member.membersDirectlyAliasing(selector));
 		}
@@ -438,15 +401,24 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 	//		return (nearestAncestor != null ? nearestAncestor.getFullyQualifiedName() + "." + signature().name() : signature().name());
 	//	}
 
-	public MemberRelationSelector<Subobject> overridesSelector() {
-		return new MemberRelationSelector<Subobject>(Subobject.class,this,_overridesSelector);
+//	public MemberRelationSelector<Subobject> overridesSelector() {
+//		return new MemberRelationSelector<Subobject>(Subobject.class,this,_overridesSelector);
+//	}
+
+	/**
+	 * A subobject can override only other subobjects.
+	 */
+	public DeclarationRelation overridesRelation() {
+		return new DeclarationRelation(true){
+			@Override
+			public boolean contains(Declaration overriding, Declaration overridden) throws LookupException {
+	       return overridden instanceof Subobject && overridden.isTrue(overridden.language(LanguageImpl.class).OVERRIDABLE)
+			&& overridden.compatibleSignature(overriding);
+			}
+		};
 	}
 
-	public OverridesRelation<? extends Subobject> overridesRelation() {
-		return _overridesSelector;
-	}
-
-	private static OverridesRelation<Subobject> _overridesSelector = new OverridesRelation<Subobject>(Subobject.class);
+//	private static OverridesRelation<Subobject> _overridesSelector = new OverridesRelation<Subobject>(Subobject.class);
 
 	public HidesRelation<? extends Subobject> hidesRelation() {
 		return _hidesSelector;
