@@ -8,21 +8,16 @@ import org.aikodi.chameleon.core.declaration.Signature;
 import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.lookup.LocalLookupContext;
-import org.aikodi.chameleon.core.lookup.LookupContext;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
-import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeFixer;
-import org.aikodi.chameleon.oo.type.generics.EqualityConstraint;
-import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
-import org.aikodi.chameleon.oo.type.generics.TypeConstraint;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
 import org.aikodi.chameleon.oo.type.generics.TypeParameterFixer;
 import org.aikodi.chameleon.util.Lists;
 import org.aikodi.chameleon.util.association.Single;
 
-public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Member {
+public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Declaration {
 
   private final class TypeMemberParameterFixer extends  TypeParameterFixer {
 
@@ -66,20 +61,8 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Me
     set(_fixer, new TypeMemberParameterFixer(parameter));
   }
 
-//  public TypeMemberDeclarator(SimpleNameSignature signature) {
-//    setSignature(signature);
-//  }
-//
-  /**
-   * A type variable introduces a type parameter.
-   */
   @Override
-  public List<? extends Member> getIntroducedMembers() {
-    return Lists.create(this);
-  }
-  
-  @Override
-  public List<? extends Declaration> introducedDeclarations() {
+  public List<Declaration> declaredDeclarations() {
   	List<Declaration> result = new ArrayList<>();
   	result.add(this);
   	result.add(parameter());

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
+import org.aikodi.chameleon.core.declaration.Declarator;
 import org.aikodi.chameleon.core.declaration.QualifiedName;
 import org.aikodi.chameleon.core.declaration.Signature;
 import org.aikodi.chameleon.core.lookup.DeclarationCollector;
@@ -13,12 +14,10 @@ import org.aikodi.chameleon.core.lookup.NameSelector;
 import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
 import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
-import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.type.Type;
-import org.aikodi.chameleon.oo.type.TypeElement;
 import org.aikodi.chameleon.util.association.Single;
 
-public class Overrides extends ElementWithModifiersImpl implements TypeElement {
+public class Overrides extends ElementWithModifiersImpl implements Declarator {
 
 	public Overrides(Signature newSignature, QualifiedName oldFqn) {
 		setNewSignature(newSignature);
@@ -54,8 +53,8 @@ public class Overrides extends ElementWithModifiersImpl implements TypeElement {
 	}
 
 	@Override
-	public List<? extends Member> getIntroducedMembers() {
-		return new ArrayList<Member>();
+	public List<Declaration> declaredDeclarations() {
+		return new ArrayList<>();
 	}
 
 	@Override

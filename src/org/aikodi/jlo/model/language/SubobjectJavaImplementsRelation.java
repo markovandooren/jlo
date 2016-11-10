@@ -1,18 +1,18 @@
 package org.aikodi.jlo.model.language;
 
+import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.relation.StrictPartialOrder;
-import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.jlo.model.subobject.Subobject;
 
 import be.kuleuven.cs.distrinet.jnome.core.language.JavaImplementsRelation;
 
-public class SubobjectJavaImplementsRelation extends StrictPartialOrder<Member> {
+public class SubobjectJavaImplementsRelation extends StrictPartialOrder<Declaration> {
 
 	private JavaImplementsRelation _wrapped = new JavaImplementsRelation();
 	
 	@Override
-	public boolean contains(Member first, Member second) throws LookupException {
+	public boolean contains(Declaration first, Declaration second) throws LookupException {
 		boolean result;
 		if(first instanceof Subobject && second instanceof Subobject) {
 			boolean defined1 = _wrapped.checkDefined(first);
@@ -29,7 +29,7 @@ public class SubobjectJavaImplementsRelation extends StrictPartialOrder<Member> 
 	}
 
 	@Override
-	public boolean equal(Member first, Member second) throws LookupException {
+	public boolean equal(Declaration first, Declaration second) throws LookupException {
 		return _wrapped.equal(first, second);
 	}
 

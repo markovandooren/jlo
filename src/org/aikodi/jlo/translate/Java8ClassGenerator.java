@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import java.lang.reflect.Member;
+
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.exception.ModelException;
 import org.aikodi.chameleon.oo.expression.NameExpression;
-import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.method.Method;
 import org.aikodi.chameleon.oo.method.RegularImplementation;
 import org.aikodi.chameleon.oo.statement.Block;
@@ -17,7 +18,7 @@ import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
-import org.aikodi.chameleon.oo.variable.MemberVariable;
+import org.aikodi.chameleon.oo.variable.RegularMemberVariable;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.expression.AssignmentExpression;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
@@ -25,7 +26,6 @@ import org.aikodi.chameleon.support.modifier.Private;
 import org.aikodi.chameleon.support.modifier.Public;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
-import org.aikodi.chameleon.util.Util;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.subobject.SubobjectType;
 
@@ -33,8 +33,6 @@ import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 import be.kuleuven.cs.distrinet.jnome.core.modifier.Implements;
 import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
-
-import com.google.common.collect.ImmutableSet;
 
 public class Java8ClassGenerator extends AbstractJava8Generator {
 
@@ -163,9 +161,9 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 
   private void addFields(Type to, Type from) throws LookupException {
     Set<Type> allSuperTypes = from.getSelfAndAllSuperTypesView();
-    List<MemberVariable> collect = allSuperTypes.stream().<MemberVariable>flatMap(x -> {
+    List<RegularMemberVariable> collect = allSuperTypes.stream().<RegularMemberVariable>flatMap(x -> {
       try {
-        return x.localMembers(MemberVariable.class).stream();
+        return x.localMembers(RegularMemberVariable.class).stream();
       } catch (Exception e) {
         // TODO Auto-generated catch block
         e.printStackTrace();
@@ -173,7 +171,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
       }
     }).collect(Collectors.toList());
     
-    for(MemberVariable v : collect) {
+    for(RegularMemberVariable v : collect) {
       MemberVariableDeclarator jloMemberVariableDeclarator = v.nearestAncestor(MemberVariableDeclarator.class);
       MemberVariableDeclarator f = new MemberVariableDeclarator(clone(jloMemberVariableDeclarator.typeReference()));
       VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin();

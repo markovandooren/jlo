@@ -2,11 +2,11 @@ package org.aikodi.jlo.model.subobject;
 
 import java.util.List;
 
+import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.declaration.QualifiedName;
 import org.aikodi.chameleon.core.declaration.Signature;
 import org.aikodi.chameleon.core.element.ElementImpl;
 import org.aikodi.chameleon.core.lookup.LookupException;
-import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.member.MemberRelationSelector;
 
 public abstract class ConfigurationClause extends ElementImpl {
@@ -21,7 +21,7 @@ public abstract class ConfigurationClause extends ElementImpl {
    *
 	 * @throws LookupException
 	 */
-	public abstract List<Member> introducedMembers() throws LookupException;
+	public abstract List<Declaration> introducedMembers() throws LookupException;
 	
 	/**
 	 * Return the inverse mapping of the given signature. It does not matter whether or not the member of the
@@ -30,9 +30,9 @@ public abstract class ConfigurationClause extends ElementImpl {
 	 */
 	public abstract QualifiedName oldNameFor(Signature signature) throws LookupException;
 	
-	public abstract <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException;
-
-	public abstract <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException;
-	
-	public abstract <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException;
+//	public abstract <D extends Declaration> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException;
+//
+//	public abstract <D extends Declaration> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException;
+//	
+//	public abstract <D extends Declaration> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException;
 }

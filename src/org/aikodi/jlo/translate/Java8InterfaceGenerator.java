@@ -2,6 +2,7 @@ package org.aikodi.jlo.translate;
 
 import java.util.List;
 
+import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -12,7 +13,6 @@ import org.aikodi.chameleon.oo.expression.Expression;
 import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.expression.MethodInvocation;
 import org.aikodi.chameleon.oo.expression.NameExpression;
-import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.method.ExpressionImplementation;
 import org.aikodi.chameleon.oo.method.Implementation;
 import org.aikodi.chameleon.oo.method.Method;
@@ -37,7 +37,6 @@ import org.aikodi.chameleon.support.modifier.Static;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.support.variable.LocalVariableDeclarator;
-import org.aikodi.chameleon.util.Util;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.subobject.SubobjectType;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
@@ -145,7 +144,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     javaDocument.apply(Type.class, t -> {
       if (!isGenerated(t)) {
         boolean hasConstructor = t.directlyDeclaredMembers().stream().anyMatch(m -> {
-          Member jloMember = (Member) m.origin();
+        	Declaration jloMember = (Declaration) m.origin();
           return !isGenerated(m) && jloMember.isTrue(jlo(jloMember).CONSTRUCTOR);
         } );
         if (!hasConstructor) {
@@ -298,9 +297,9 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
         });
         javaSubobject.replaceWith(javaSubobjectInterface);
         SubobjectType jloSubobjectType = jloSubobject.nearestDescendants(SubobjectType.class).get(0);
-        List<Member> jloSubobjectMembers = jloSubobjectType.directlyDeclaredMembers();
-        for(Member jloSubobjectMember: jloSubobjectMembers) {
-          Member member = cloneAndSetOrigin(jloSubobjectMember);
+        List<Declaration> jloSubobjectMembers = jloSubobjectType.directlyDeclaredMembers();
+        for(Declaration jloSubobjectMember: jloSubobjectMembers) {
+        	Declaration member = cloneAndSetOrigin(jloSubobjectMember);
           javaSubobjectInterface.add(member);
         }
         replaceSubobjects(javaSubobjectInterface);

@@ -8,10 +8,10 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
-import org.aikodi.chameleon.oo.type.TypeElementStub;
+import org.aikodi.chameleon.oo.type.DeclaratorStub;
 import org.aikodi.chameleon.util.association.Single;
 
-public class ComponentStub extends ElementImpl implements TypeElementStub {
+public class ComponentStub extends ElementImpl implements DeclaratorStub {
 	
 	public ComponentStub(Subobject generator, Declaration child) {
 		setChild(child);

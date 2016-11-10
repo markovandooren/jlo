@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.factory.Factory;
@@ -11,19 +12,16 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.reference.NameReference;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
-import org.aikodi.chameleon.oo.member.Member;
-import org.aikodi.chameleon.oo.member.MemberRelationSelector;
-import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableList.Builder;
+
 import be.kuleuven.cs.distrinet.jnome.core.type.AnonymousType;
 import be.kuleuven.cs.distrinet.jnome.core.type.JavaType;
 import be.kuleuven.cs.distrinet.jnome.core.type.RawType;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableList.Builder;
 
 public class SubobjectType extends AnonymousType {
 
@@ -54,10 +52,10 @@ public class SubobjectType extends AnonymousType {
 		super("");
 	}
 	
-	public List<Member> processedMembers() throws LookupException {
-		List<Member> result = new ArrayList<Member>();
+	public List<Declaration> processedMembers() throws LookupException {
+		List<Declaration> result = new ArrayList<>();
 			for(Export exp: directlyDeclaredElements(Export.class)) {
-				List<Member> renamedMembers = exp.processedMembers();
+				List<Declaration> renamedMembers = exp.processedMembers();
 				result.addAll(renamedMembers);
 			}
 		return result;
@@ -120,13 +118,13 @@ public class SubobjectType extends AnonymousType {
 		return result;
 	}
 
-	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
-		if(selector.declaration().nearestAncestor(ClassBody.class) == body()) {
-			return nearestAncestor(Subobject.class).membersDirectlyAliasing(selector);
-		} else {
-			return new ArrayList<D>();//FIXME I think this is wrong and should look for deeper nested declarations.
-		}
-	}
+//	public <D extends Declaration> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+//		if(selector.declaration().nearestAncestor(ClassBody.class) == body()) {
+//			return nearestAncestor(Subobject.class).membersDirectlyAliasing(selector);
+//		} else {
+//			return new ArrayList<D>();//FIXME I think this is wrong and should look for deeper nested declarations.
+//		}
+//	}
 
 	@Override
 	public Type erasure() {

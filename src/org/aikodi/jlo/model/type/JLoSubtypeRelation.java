@@ -3,15 +3,14 @@ package org.aikodi.jlo.model.type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
+import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.element.ElementImpl;
 import org.aikodi.chameleon.core.lookup.DeclarationSelector;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.lookup.LookupRedirector;
 import org.aikodi.chameleon.core.lookup.SelectionResult;
-import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
@@ -49,25 +48,25 @@ public class JLoSubtypeRelation extends SubtypeRelation {
 
 	}
 	
-	public <M extends Member> List<M> potentiallyInheritedMembers(final Class<M> kind) throws LookupException {
+	public <M extends Declaration> List<M> potentiallyInheritedMembers(final Class<M> kind) throws LookupException {
 		List<M> superMembers = superClass().members(kind);
 		removeNonInheritableMembers((List)superMembers);
 		return incorporated((List)superMembers);
 	}
 	
-	public List<Member> potentiallyInheritedMembers() throws LookupException {
-		List<Member> superMembers = superClass().members();
+	public List<Declaration> potentiallyInheritedMembers() throws LookupException {
+		List<Declaration> superMembers = superClass().members();
 		removeNonInheritableMembers((List)superMembers);
 		return incorporated((List)superMembers);
 	}
 	
-	public <M extends Member> List<SelectionResult<M>> potentiallyInheritedMembers(
+	public <M extends Declaration> List<SelectionResult<M>> potentiallyInheritedMembers(
 			final DeclarationSelector<M> selector) throws LookupException {
 		List<SelectionResult<M>> superMembers = superClass().members(selector);
 		return incorporated(superMembers);
 	}
 
-	private <M extends Member> List<SelectionResult<M>> incorporated(
+	private <M extends Declaration> List<SelectionResult<M>> incorporated(
 			List<SelectionResult<M>> superMembers) throws LookupException {
 		List<SelectionResult<M>> result = new ArrayList<>(superMembers.size());
 		for(SelectionResult<M> m: superMembers) {
@@ -76,7 +75,7 @@ public class JLoSubtypeRelation extends SubtypeRelation {
 		return result;
 	}
 	
-	public <X extends Member> SelectionResult<X> incorporated(SelectionResult<X> selection) throws LookupException {
+	public <X extends Declaration> SelectionResult<X> incorporated(SelectionResult<X> selection) throws LookupException {
 		X cloned = (X) Util.clone(selection.template());
 		LookupRedirector redirector = new LookupRedirector(nearestAncestor(Type.class), cloned);
 		redirector.setUniParent(selection.finalDeclaration().parent());

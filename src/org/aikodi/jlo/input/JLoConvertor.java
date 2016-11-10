@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.aikodi.chameleon.core.declaration.Declarator;
 import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.element.Element;
@@ -29,7 +30,6 @@ import org.aikodi.chameleon.oo.statement.Statement;
 import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.ClassWithBody;
 import org.aikodi.chameleon.oo.type.Type;
-import org.aikodi.chameleon.oo.type.TypeElement;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.generics.EqualityConstraint;
 import org.aikodi.chameleon.oo.type.generics.EqualityTypeArgument;
@@ -251,7 +251,7 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public Consumer<ClassBody> visitClassBody(ClassBodyContext ctx) {
-    return b -> ctx.bodyElement().stream().forEach(e -> b.add((TypeElement)visitBodyElement(e)));
+    return b -> ctx.bodyElement().stream().forEach(e -> b.add((Declarator)visitBodyElement(e)));
   }
 
 

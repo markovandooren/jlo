@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.aikodi.chameleon.core.declaration.Declaration;
+import org.aikodi.chameleon.core.declaration.Declarator;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
 import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
-import org.aikodi.chameleon.oo.member.Member;
-import org.aikodi.chameleon.oo.member.MemberRelationSelector;
-import org.aikodi.chameleon.oo.type.TypeElement;
 import org.aikodi.chameleon.util.association.Multi;
 
-public class Export extends ElementWithModifiersImpl implements TypeElement {
+public class Export extends ElementWithModifiersImpl implements Declarator {
 
 	private Multi<RenamingClause> _clauses = new Multi<RenamingClause>(this);
 	
@@ -27,10 +26,10 @@ public class Export extends ElementWithModifiersImpl implements TypeElement {
 		}
 	}
 
-	public List<Member> processedMembers() throws LookupException {
-		List<Member> result = new ArrayList<Member>();
+	public List<Declaration> processedMembers() throws LookupException {
+		List<Declaration> result = new ArrayList<>();
 			for(ConfigurationClause clause: clauses()) {
-				List<Member> renamedMembers = clause.introducedMembers();
+				List<Declaration> renamedMembers = clause.introducedMembers();
 				result.addAll(renamedMembers);
 			}
 		return result;
@@ -48,8 +47,8 @@ public class Export extends ElementWithModifiersImpl implements TypeElement {
 	 * A renaming member does not introduce members into its directly enclosing class, which is the subobject type.
 	 */
 	@Override
-	public List<? extends Member> getIntroducedMembers() {
-		return new ArrayList<Member>();
+	public List<Declaration> declaredDeclarations() {
+		return new ArrayList<>();
 	}
 
 	@Override
@@ -62,28 +61,28 @@ public class Export extends ElementWithModifiersImpl implements TypeElement {
 		return Valid.create();
 	}
 	
-	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
-		List<D> result = new ArrayList<D>();
-		for(ConfigurationClause clause: clauses()) {
-			result.addAll(clause.membersDirectlyOverriddenBy(selector));
-		}
-		return result;
-	}
-
-	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
-		List<D> result = new ArrayList<D>();
-		for(ConfigurationClause clause: clauses()) {
-			result.addAll(clause.membersDirectlyAliasedBy(selector));
-		}
-		return result;
-	}
-
-	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
-		List<D> result = new ArrayList<D>();
-		for(ConfigurationClause clause: clauses()) {
-			result.addAll(clause.membersDirectlyAliasing(selector));
-		}
-		return result;
-	}
+//	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
+//		List<D> result = new ArrayList<D>();
+//		for(ConfigurationClause clause: clauses()) {
+//			result.addAll(clause.membersDirectlyOverriddenBy(selector));
+//		}
+//		return result;
+//	}
+//
+//	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+//		List<D> result = new ArrayList<D>();
+//		for(ConfigurationClause clause: clauses()) {
+//			result.addAll(clause.membersDirectlyAliasedBy(selector));
+//		}
+//		return result;
+//	}
+//
+//	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+//		List<D> result = new ArrayList<D>();
+//		for(ConfigurationClause clause: clauses()) {
+//			result.addAll(clause.membersDirectlyAliasing(selector));
+//		}
+//		return result;
+//	}
 
 }

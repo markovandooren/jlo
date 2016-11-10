@@ -2,9 +2,9 @@ package org.aikodi.jlo.model.language;
 
 import java.util.List;
 
+import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.relation.StrictPartialOrder;
-import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.type.Parameter;
 import org.aikodi.chameleon.oo.type.ParameterSubstitution;
 import org.aikodi.chameleon.oo.type.Type;
@@ -34,7 +34,7 @@ public class JLo extends Java7 {
 //	}
 
 	@Override
-	public StrictPartialOrder<Member> implementsRelation() {
+	public StrictPartialOrder<Declaration> implementsRelation() {
 		return new SubobjectJavaImplementsRelation();
 	}
 	

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.declaration.DeclarationRelation;
@@ -21,15 +20,10 @@ import org.aikodi.chameleon.core.lookup.SelectionResult;
 import org.aikodi.chameleon.core.lookup.Skipper;
 import org.aikodi.chameleon.core.lookup.Stub;
 import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
-import org.aikodi.chameleon.core.validation.BasicProblem;
-import org.aikodi.chameleon.core.validation.Valid;
-import org.aikodi.chameleon.core.validation.Verification;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.member.DeclarationComparator;
 import org.aikodi.chameleon.oo.member.HidesRelation;
-import org.aikodi.chameleon.oo.member.Member;
 import org.aikodi.chameleon.oo.member.MemberRelationSelector;
-import org.aikodi.chameleon.oo.member.OverridesRelation;
 import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.ClassWithBody;
 import org.aikodi.chameleon.oo.type.DeclarationWithType;
@@ -48,7 +42,7 @@ import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
  * 
  * @author Marko van Dooren
  */
-public class Subobject extends ElementWithModifiersImpl implements Member, DeclarationWithType, InheritanceRelation {
+public class Subobject extends ElementWithModifiersImpl implements DeclarationWithType, InheritanceRelation {
 
 	/**
 	 * Create a new subobject with the given name and type reference.
@@ -147,11 +141,6 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 
 	}
 
-	@Override
-	public List<? extends Member> declaredMembers() {
-		return Util.<Member>createSingletonList(this);
-	}
-
 	private Single<TypeReference> _typeReference = new Single<TypeReference>(this);
 
 	public TypeReference componentTypeReference() {
@@ -248,7 +237,7 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 	}
 
 	@Override
-	public <X extends Member> List<X> accumulateInheritedMembers(Class<X> kind, List<X> current) throws LookupException {
+	public <X extends Declaration> List<X> accumulateInheritedMembers(Class<X> kind, List<X> current) throws LookupException {
 		List members = componentType().processedMembers();
 		new TypePredicate<>(kind).filter(members);
 		current.addAll((Collection<? extends X>) members);
@@ -256,20 +245,20 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 	}
 
 	@Override
-	public <X extends Member> List<SelectionResult<X>> accumulateInheritedMembers(DeclarationSelector<X> selector, List<SelectionResult<X>> current) throws LookupException {
+	public <X extends Declaration> List<SelectionResult<X>> accumulateInheritedMembers(DeclarationSelector<X> selector, List<SelectionResult<X>> current) throws LookupException {
 		final List<SelectionResult<X>> potential = (List)selector.selection(componentType().processedMembers());
 		return removeNonMostSpecificMembers(current, potential);
 	}
 
 	protected 
-	<X extends Member> List<SelectionResult<X>> removeNonMostSpecificMembers(List<SelectionResult<X>> current, final List<SelectionResult<X>> potential) throws LookupException {
+	<X extends Declaration> List<SelectionResult<X>> removeNonMostSpecificMembers(List<SelectionResult<X>> current, final List<SelectionResult<X>> potential) throws LookupException {
 		final List<SelectionResult<X>> toAdd = new ArrayList<SelectionResult<X>>();
 		for(SelectionResult<X> mm: potential) {
-			Member m = (Member) mm.finalDeclaration();
+			Declaration m = (Declaration) mm.finalDeclaration();
 			boolean add = true;
 			Iterator<SelectionResult<X>> iterCurrent = current.iterator();
 			while(add && iterCurrent.hasNext()) {
-				Member alreadyInherited = (Member) iterCurrent.next().finalDeclaration();
+				Declaration alreadyInherited = (Declaration) iterCurrent.next().finalDeclaration();
 				// Remove the already inherited member if potentially inherited member m overrides or hides it.
 				if((alreadyInherited.sameAs(m) || alreadyInherited.compatibleSignature(m) || alreadyInherited.hides(m))) {
 					add = false;
@@ -285,43 +274,41 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 		return current;
 	}
 
-	public List<? extends Member> getIntroducedMembers() {
-		List<Member> result = new ArrayList<Member>();
-		result.add(this);
-		return result;
+	public List<? extends Declaration> getIntroducedMembers() {
+		return Util.createSingletonList(this);
 	}
 
-	public List<? extends Member> exportedMembers() throws LookupException {
+	public List<? extends Declaration> exportedMembers() throws LookupException {
 		return componentType().processedMembers();
 	}
 
-	@Override
-	public <D extends Member> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
-		List<D> result = new ArrayList<D>();
-		if(selector.declaration() != this) {
-			for(Export export: componentType().directlyDeclaredElements(Export.class)) {
-				result.addAll(export.membersDirectlyOverriddenBy(selector));
-			}
-		}
-		return result;
-	}
-
-	@Override
-	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
-		List<D> result = new ArrayList<D>();
-		for(Export member: componentType().directlyDeclaredElements(Export.class)) {
-			result.addAll(member.membersDirectlyAliasedBy(selector));
-		}
-		return result;
-	}
-
-	public <D extends Member> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
-		List<D> result = new ArrayList<D>();
-		for(Export member: componentType().directlyDeclaredElements(Export.class)) {
-			result.addAll(member.membersDirectlyAliasing(selector));
-		}
-		return result;
-	}
+//	@Override
+//	public <D extends Declaration> List<D> membersDirectlyOverriddenBy(MemberRelationSelector<D> selector) throws LookupException {
+//		List<D> result = new ArrayList<D>();
+//		if(selector.declaration() != this) {
+//			for(Export export: componentType().directlyDeclaredElements(Export.class)) {
+//				result.addAll(export.membersDirectlyOverriddenBy(selector));
+//			}
+//		}
+//		return result;
+//	}
+//
+//	@Override
+//	public <D extends Declaration> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
+//		List<D> result = new ArrayList<D>();
+//		for(Export member: componentType().directlyDeclaredElements(Export.class)) {
+//			result.addAll(member.membersDirectlyAliasedBy(selector));
+//		}
+//		return result;
+//	}
+//
+//	public <D extends Declaration> List<D> membersDirectlyAliasing(MemberRelationSelector<D> selector) throws LookupException {
+//		List<D> result = new ArrayList<D>();
+//		for(Export member: componentType().directlyDeclaredElements(Export.class)) {
+//			result.addAll(member.membersDirectlyAliasing(selector));
+//		}
+//		return result;
+//	}
 
 	/**
 	 * Return a clone of the given member that is 'incorporated' into the component type of this component
@@ -342,7 +329,7 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
    @ post ((ComponentStub)\result.parent()).parent() == componentType();
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
-	public <M extends Member> M incorporatedIntoComponentType(M toBeIncorporated) throws LookupException {
+	public <M extends Declaration> M incorporatedIntoComponentType(M toBeIncorporated) throws LookupException {
 		return incorporatedInto(toBeIncorporated, componentType());
 	}
 
@@ -365,7 +352,7 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
    @ post ((ComponentStub)\result.parent()).parent() == nearestAncestor(Type.class);
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
-	public <M extends Member> M incorporatedIntoContainerType(M toBeIncorporated) throws LookupException {
+	public <M extends Declaration> M incorporatedIntoContainerType(M toBeIncorporated) throws LookupException {
 		return incorporatedInto(toBeIncorporated, nearestAncestor(Type.class));
 	}
 
@@ -388,7 +375,7 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
    @ post ((ComponentStub)\result.parent()).parent() == type;
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
-	protected <M extends Member> M incorporatedInto(M toBeIncorporated, Type incorporatingType) throws LookupException {
+	protected <M extends Declaration> M incorporatedInto(M toBeIncorporated, Type incorporatingType) throws LookupException {
 		M result = (M) toBeIncorporated.clone();
 		result.setOrigin(toBeIncorporated);
 		Stub redirector = new ComponentStub(this, result);
@@ -426,7 +413,7 @@ public class Subobject extends ElementWithModifiersImpl implements Member, Decla
 
 	private static HidesRelation<Subobject> _hidesSelector = new HidesRelation<Subobject>(Subobject.class);
 
-	public MemberRelationSelector<? extends Member> aliasSelector() {
+	public MemberRelationSelector<? extends Declaration> aliasSelector() {
 		return new MemberRelationSelector<Subobject>(Subobject.class,this,_aliasRelation);
 	};
 
