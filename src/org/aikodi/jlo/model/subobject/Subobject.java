@@ -33,9 +33,8 @@ import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
 import org.aikodi.chameleon.util.Util;
 import org.aikodi.chameleon.util.association.Single;
-
-import be.kuleuven.cs.distrinet.rejuse.association.Association;
-import be.kuleuven.cs.distrinet.rejuse.predicate.TypePredicate;
+import org.aikodi.rejuse.association.Association;
+import org.aikodi.rejuse.predicate.TypePredicate;
 
 /**
  * A class of subobjects.
