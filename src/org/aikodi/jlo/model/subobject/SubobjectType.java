@@ -77,10 +77,10 @@ public class SubobjectType extends AnonymousType {
 		Subobject relation = (Subobject) nearestAncestor(Subobject.class).origin();
 		Set<Subobject> overridden = (Set<Subobject>)relation.overriddenDeclarations();
 		List<Subobject> superSubobjectRelations = new ArrayList<Subobject>();
-		Type outer = farthestAncestor(Type.class);
+		Type outer = lexical().farthestAncestor(Type.class);
 		for(Subobject overriddenRelation: overridden) {
 			Subobject sup;
-			if(!outer.subtypeOf(overriddenRelation.farthestAncestor(Type.class))) {
+			if(!outer.subtypeOf(overriddenRelation.lexical().farthestAncestor(Type.class))) {
 				sup = nearestAncestor(Subobject.class).incorporatedIntoComponentType(overriddenRelation);
 			} else {
 				sup = overriddenRelation;
@@ -133,7 +133,7 @@ public class SubobjectType extends AnonymousType {
 			return ((JavaType)el).erasure();
 		}
 		// I am not sure whether this is correct. The memberInheritanceRelations are not erased in RawType.
-		Type outmostType = farthestAncestor(Type.class);
+		Type outmostType = lexical().farthestAncestor(Type.class);
 		if(outmostType == null) {
 			outmostType = this;
 		}

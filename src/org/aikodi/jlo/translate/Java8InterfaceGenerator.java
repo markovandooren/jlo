@@ -278,7 +278,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
 
   protected void replaceSubobjects(Element javaElement) {
-    List<Subobject> subobjects = javaElement.nearestDescendants(Subobject.class);
+    List<Subobject> subobjects = javaElement.lexical().nearestDescendants(Subobject.class);
     for(Subobject javaSubobject : subobjects) {
       try {
         Type javaSubobjectInterface = ooFactory(javaSubobject).createRegularType(subobjectInterfaceName(javaSubobject));
@@ -296,7 +296,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
           javaSubobjectInterface.addParameter(TypeParameter.class, clone(m.parameter()));
         });
         javaSubobject.replaceWith(javaSubobjectInterface);
-        SubobjectType jloSubobjectType = jloSubobject.nearestDescendants(SubobjectType.class).get(0);
+        SubobjectType jloSubobjectType = jloSubobject.lexical().nearestDescendants(SubobjectType.class).get(0);
         List<Declaration> jloSubobjectMembers = jloSubobjectType.directlyDeclaredMembers();
         for(Declaration jloSubobjectMember: jloSubobjectMembers) {
         	Declaration member = cloneAndSetOrigin(jloSubobjectMember);

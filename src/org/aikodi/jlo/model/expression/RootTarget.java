@@ -6,7 +6,7 @@ public class RootTarget extends AbstractTarget {
 
 	@Override
 	public Type getTargetDeclaration() {
-		return farthestAncestor(Type.class);
+		return lexical().farthestAncestor(Type.class);
 	}
 
 	@Override
