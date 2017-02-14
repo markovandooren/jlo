@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.declaration.DeclarationRelation;
@@ -444,6 +445,18 @@ public class Subobject extends ElementWithModifiersImpl implements DeclarationWi
 	@Override
 	public Type superType() throws LookupException {
 		return null;
+	}
+
+	@Override
+	public void directlyAliasedDeclarations(Declaration declaration, Set<Declaration> accumulator)
+			throws LookupException {
+		throw new ChameleonProgrammerException("Not implemented yet.");
+	}
+
+	@Override
+	public void directlyAliasingDeclarations(Declaration declaration, Set<Declaration> accumulator)
+			throws LookupException {
+		throw new ChameleonProgrammerException("Not implemented yet.");
 	}
 
 }
