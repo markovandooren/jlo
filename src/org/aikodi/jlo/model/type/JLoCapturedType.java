@@ -6,9 +6,8 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.oo.type.ParameterSubstitution;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
+import org.aikodi.java.core.type.CapturedType;
 import org.aikodi.jlo.model.subobject.Subobject;
-
-import be.kuleuven.cs.distrinet.jnome.core.type.CapturedType;
 
 import com.google.common.collect.ImmutableList;
 

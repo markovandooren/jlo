@@ -13,9 +13,8 @@ import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDec
 import org.aikodi.chameleon.support.modifier.Private;
 import org.aikodi.chameleon.support.translate.IncrementalTranslator;
 import org.aikodi.chameleon.workspace.View;
+import org.aikodi.java.core.language.Java7;
 import org.aikodi.jlo.model.language.JLo;
-
-import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 
 public class JLoToJava8Translator extends IncrementalTranslator<JLo, Java7> {
 
@@ -45,7 +44,7 @@ public class JLoToJava8Translator extends IncrementalTranslator<JLo, Java7> {
     return result;
   }
 
-  protected Document createImplementation(Document sourceDocument) {
+  protected Document createImplementation(Document sourceDocument) throws LookupException {
     Document result = sourceDocument.cloneTo(target());
     return new Java8ClassGenerator().createImplementation(result);
   }

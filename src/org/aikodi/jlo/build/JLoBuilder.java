@@ -19,13 +19,12 @@ import org.aikodi.chameleon.plugin.build.Builder;
 import org.aikodi.chameleon.plugin.build.DocumentWriter;
 import org.aikodi.chameleon.workspace.InputException;
 import org.aikodi.chameleon.workspace.View;
+import org.aikodi.java.core.language.Java7;
+import org.aikodi.java.core.language.Java7LanguageFactory;
+import org.aikodi.java.output.JavaDocumentWriter;
+import org.aikodi.java.workspace.JavaView;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.translate.JLoToJava8Translator;
-
-import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
-import be.kuleuven.cs.distrinet.jnome.core.language.Java7LanguageFactory;
-import be.kuleuven.cs.distrinet.jnome.output.JavaDocumentWriter;
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaView;
 
 public class JLoBuilder extends ViewPluginImpl implements Builder {
 	

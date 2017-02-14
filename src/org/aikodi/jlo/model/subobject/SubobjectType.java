@@ -15,13 +15,12 @@ import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
+import org.aikodi.java.core.type.AnonymousType;
+import org.aikodi.java.core.type.JavaType;
+import org.aikodi.java.core.type.RawType;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
-
-import be.kuleuven.cs.distrinet.jnome.core.type.AnonymousType;
-import be.kuleuven.cs.distrinet.jnome.core.type.JavaType;
-import be.kuleuven.cs.distrinet.jnome.core.type.RawType;
 
 public class SubobjectType extends AnonymousType {
 

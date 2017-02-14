@@ -57,6 +57,7 @@ import org.aikodi.chameleon.support.modifier.Native;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.support.variable.LocalVariableDeclarator;
+import org.aikodi.java.workspace.JavaView;
 import org.aikodi.jlo.input.JLoParser.AbstractImplementationContext;
 import org.aikodi.jlo.input.JLoParser.AbstractModifierContext;
 import org.aikodi.jlo.input.JLoParser.AndExpressionContext;
@@ -132,8 +133,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
-
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaView;
 
 public class JLoConvertor extends JLoBaseVisitor<Object> {
 

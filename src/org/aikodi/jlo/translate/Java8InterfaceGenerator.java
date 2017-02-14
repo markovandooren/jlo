@@ -37,17 +37,17 @@ import org.aikodi.chameleon.support.modifier.Static;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.support.variable.LocalVariableDeclarator;
+import org.aikodi.chameleon.util.Util;
+import org.aikodi.java.core.expression.invocation.ConstructorInvocation;
+import org.aikodi.java.core.language.Java7;
+import org.aikodi.java.core.method.JavaMethod;
+import org.aikodi.java.core.modifier.Default;
+import org.aikodi.java.core.type.ArrayTypeReference;
+import org.aikodi.java.core.type.BasicJavaTypeReference;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.subobject.SubobjectType;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 import org.aikodi.rejuse.action.Action;
-
-import be.kuleuven.cs.distrinet.jnome.core.expression.invocation.ConstructorInvocation;
-import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
-import be.kuleuven.cs.distrinet.jnome.core.method.JavaMethod;
-import be.kuleuven.cs.distrinet.jnome.core.modifier.Default;
-import be.kuleuven.cs.distrinet.jnome.core.type.ArrayTypeReference;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 
 public class Java8InterfaceGenerator extends AbstractJava8Generator {
 
@@ -281,9 +281,10 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     List<Subobject> subobjects = javaElement.lexical().nearestDescendants(Subobject.class);
     for(Subobject javaSubobject : subobjects) {
       try {
-        Type javaSubobjectInterface = ooFactory(javaSubobject).createRegularType(subobjectInterfaceName(javaSubobject));
+        String subobjectInterfaceName = subobjectInterfaceName(javaSubobject);
+				Type javaSubobjectInterface = ooFactory(javaSubobject).createRegularType(subobjectInterfaceName);
         Subobject jloSubobject = (Subobject) javaSubobject.origin();
-//        Util.debug(jloSubobject.componentType().getFullyQualifiedName().equals("example.Radio.volume.upperBound"));
+        Util.debug(jloSubobject.componentType().getFullyQualifiedName().equals("example.Radio.volume.upperBound"));
         javaSubobjectInterface.addModifier(new Interface());
         SubtypeRelation javaSubtypeRelation = new SubtypeRelation(clone(javaSubobject.superClassReference()));
         javaSubobjectInterface.addInheritanceRelation(javaSubtypeRelation);

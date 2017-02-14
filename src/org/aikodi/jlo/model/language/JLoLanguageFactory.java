@@ -6,12 +6,11 @@ import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
 import org.aikodi.chameleon.plugin.output.Syntax;
 import org.aikodi.chameleon.workspace.ProjectConfigurator;
+import org.aikodi.java.core.language.Java7LanguageFactory;
+import org.aikodi.java.input.JavaExpressionFactory;
 import org.aikodi.jlo.input.JLoFactory;
 import org.aikodi.jlo.input.JLoModelFactory;
 import org.aikodi.jlo.output.JLoSyntax;
-
-import be.kuleuven.cs.distrinet.jnome.core.language.Java7LanguageFactory;
-import be.kuleuven.cs.distrinet.jnome.input.JavaExpressionFactory;
 
 /**
  * A convenience class for creating an object that represents the JLo language.

@@ -9,13 +9,12 @@ import org.aikodi.chameleon.workspace.Project;
 import org.aikodi.chameleon.workspace.ProjectConfigurator;
 import org.aikodi.chameleon.workspace.Workspace;
 import org.aikodi.chameleon.workspace.XMLProjectLoader;
+import org.aikodi.java.core.language.Java7LanguageFactory;
 import org.aikodi.jlo.build.JLoBuilder;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.language.JLoLanguageFactory;
 import org.aikodi.jlo.model.language.JLoProjectConfigurator;
 import org.apache.tools.ant.BuildException;
-
-import be.kuleuven.cs.distrinet.jnome.core.language.Java7LanguageFactory;
 
 public class AntCompileTask extends AbstractTask {
 

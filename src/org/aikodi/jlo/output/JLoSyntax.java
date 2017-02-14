@@ -5,12 +5,11 @@ import java.util.List;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.oo.method.ExpressionImplementation;
+import org.aikodi.java.output.Java7Syntax;
 import org.aikodi.jlo.model.expression.SubobjectConstructorCall;
 import org.aikodi.jlo.model.subobject.Export;
 import org.aikodi.jlo.model.subobject.RenamingClause;
 import org.aikodi.jlo.model.subobject.Subobject;
-
-import be.kuleuven.cs.distrinet.jnome.output.Java7Syntax;
 
 public class JLoSyntax extends Java7Syntax {
 

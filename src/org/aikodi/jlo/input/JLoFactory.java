@@ -1,9 +1,8 @@
 package org.aikodi.jlo.input;
 
 import org.aikodi.chameleon.oo.type.RegularType;
+import org.aikodi.java.input.Java7Factory;
 import org.aikodi.jlo.model.type.RegularJLoType;
-
-import be.kuleuven.cs.distrinet.jnome.input.Java7Factory;
 
 public class JLoFactory extends Java7Factory {
 

@@ -7,8 +7,7 @@ import org.aikodi.chameleon.oo.type.Parameter;
 import org.aikodi.chameleon.oo.type.ParameterSubstitution;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.generics.TypeArgument;
-
-import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeInstantiation;
+import org.aikodi.java.core.type.JavaTypeInstantiation;
 
 public class JLoDerivedType extends JavaTypeInstantiation implements JLoType {
 

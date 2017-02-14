@@ -10,11 +10,11 @@ import org.aikodi.chameleon.oo.type.ParameterSubstitution;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeInstantiation;
 import org.aikodi.chameleon.oo.type.generics.TypeArgument;
+import org.aikodi.java.core.language.Java7;
+import org.aikodi.java.core.type.JavaTypeReference;
 import org.aikodi.jlo.model.type.JLoCapturedType;
 import org.aikodi.jlo.model.type.JLoDerivedType;
 import org.aikodi.rejuse.junit.BasicRevision;
-
-import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
 
 public class JLo extends Java7 {
 
@@ -49,5 +49,5 @@ public class JLo extends Java7 {
 	public Type createdCapturedType(ParameterSubstitution parameterSubstitution, Type base) {
 		return new JLoCapturedType(parameterSubstitution, base);
 	}
-
+	
 }

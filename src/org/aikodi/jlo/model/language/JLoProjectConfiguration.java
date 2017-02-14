@@ -4,8 +4,7 @@ import org.aikodi.chameleon.core.language.Language;
 import org.aikodi.chameleon.workspace.ConfigException;
 import org.aikodi.chameleon.workspace.FileDocumentLoaderFactory;
 import org.aikodi.chameleon.workspace.View;
-
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfiguration;
+import org.aikodi.java.workspace.JavaProjectConfiguration;
 
 public class JLoProjectConfiguration extends JavaProjectConfiguration {
 

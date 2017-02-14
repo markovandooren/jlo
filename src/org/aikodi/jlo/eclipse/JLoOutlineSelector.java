@@ -5,10 +5,9 @@ import java.util.List;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.exception.ModelException;
 import org.aikodi.chameleon.oo.type.Type;
+import org.aikodi.java.eclipse.JavaOutlineSelector;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.subobject.SubobjectType;
-
-import be.kuleuven.cs.distrinet.jnome.eclipse.JavaOutlineSelector;
 
 public class JLoOutlineSelector extends JavaOutlineSelector {
 

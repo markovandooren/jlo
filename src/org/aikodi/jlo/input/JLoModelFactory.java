@@ -8,11 +8,10 @@ import org.aikodi.chameleon.input.ModelFactory;
 import org.aikodi.chameleon.input.ParseException;
 import org.aikodi.chameleon.plugin.LanguagePluginImpl;
 import org.aikodi.chameleon.workspace.View;
+import org.aikodi.java.workspace.JavaView;
 import org.aikodi.jlo.input.JLoParser.CompilationUnitContext;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
-
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaView;
 
 public class JLoModelFactory extends LanguagePluginImpl implements ModelFactory {
 

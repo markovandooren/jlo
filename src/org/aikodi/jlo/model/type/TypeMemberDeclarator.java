@@ -17,10 +17,19 @@ import org.aikodi.chameleon.oo.type.generics.TypeParameterFixer;
 import org.aikodi.chameleon.util.Lists;
 import org.aikodi.chameleon.util.association.Single;
 
+/**
+ * A class of elements that introduces a type member into a class.
+ * 
+ * @author Marko van Dooren
+ */
 public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Declaration {
 
+	/**
+	 * A class for providing the fixed point computation for type members.
+	 * 
+	 * @author Marko van Dooren
+	 */
   private final class TypeMemberParameterFixer extends  TypeParameterFixer {
-
     private Single<TypeParameter> _parameter = new Single<>(this);
 
     public TypeMemberParameterFixer(TypeParameter parameter) {
@@ -75,15 +84,20 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements De
   }
 
   @Override
-  public Type selectionDeclaration() throws LookupException {
+  public Declaration selectionDeclaration() throws LookupException {
     //		TypeParameter parameter = createParameter();
     //		TypeMemberParameterFixer fixer = new TypeMemberParameterFixer();
     //		parameter.setUniParent(fixer);
-    return parameter().selectionDeclaration();
+  	
+//    return parameter().selectionDeclaration();
+  	return this;
   }
 
   private Single<TypeMemberParameterFixer> _fixer = new Single(this);
 
+  /**
+   * @return The type parameter introduced by this type member declarator.
+   */
   public TypeParameter parameter() {
     return _fixer.getOtherEnd().parameter();
   }
@@ -100,27 +114,13 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements De
     set(_signature, signature);
   }
 
-//  private Single<Signature> _signature = new Single<>(this);
-//
-//  private Single<TypeConstraint> _constraint = new Single<>(this);
-//
-//  public TypeConstraint constraint() {
-//    return _constraint.getOtherEnd();
-//  }
-//
-//  public void setConstraint(TypeConstraint constraint) {
-//    set(_constraint, constraint);
-//  }
-
   @Override
   protected Element cloneSelf() {
     return new TypeMemberDeclarator(null,null);
   }
 
   public boolean contains(TypeMemberDeclarator s, TypeFixer trace) throws LookupException {
-    return selectionDeclaration().contains(s.selectionDeclaration(), trace);
+    return parameter().selectionDeclaration().contains(s.parameter().selectionDeclaration(), trace);
   }
-
-
 
 }

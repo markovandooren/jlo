@@ -1,8 +1,7 @@
 package org.aikodi.jlo.model.type;
 
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
-
-import be.kuleuven.cs.distrinet.jnome.core.type.RegularJavaType;
+import org.aikodi.java.core.type.RegularJavaType;
 
 public class RegularJLoType extends RegularJavaType implements JLoType {
 	

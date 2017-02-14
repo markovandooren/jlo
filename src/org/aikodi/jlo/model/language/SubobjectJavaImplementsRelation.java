@@ -3,9 +3,8 @@ package org.aikodi.jlo.model.language;
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.relation.StrictPartialOrder;
+import org.aikodi.java.core.language.JavaImplementsRelation;
 import org.aikodi.jlo.model.subobject.Subobject;
-
-import be.kuleuven.cs.distrinet.jnome.core.language.JavaImplementsRelation;
 
 public class SubobjectJavaImplementsRelation extends StrictPartialOrder<Declaration> {
 

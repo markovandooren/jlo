@@ -3,7 +3,9 @@
  */
 package org.aikodi.jlo.model.type;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
@@ -18,8 +20,7 @@ import org.aikodi.chameleon.oo.type.generics.InstantiatedTypeParameter;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
 import org.aikodi.chameleon.util.association.Multi;
 import org.aikodi.chameleon.util.association.Single;
-
-import be.kuleuven.cs.distrinet.jnome.core.type.JavaTypeReference;
+import org.aikodi.java.core.type.JavaTypeReference;
 
 /**
  * @author Marko van Dooren
@@ -32,6 +33,19 @@ public class KeywordTypeReference extends ElementImpl implements JavaTypeReferen
   }
   
   private final Multi<KeywordTypeArgument> _typeArguments = new Multi<>(this);
+  
+  public KeywordTypeArgument argument(String name) {
+  	Optional<KeywordTypeArgument> result = arguments().stream().filter(a -> a.name().equals(name)).findAny();
+  	if(result.isPresent()) {
+  		return result.get();
+  	} else {
+  		throw new IllegalArgumentException("There is no keyword type reference with the given name.");
+  	}
+  }
+  
+  public boolean hasArgument(String name) {
+  	return _typeArguments.size() > 0;
+  }
   
   public void add(KeywordTypeArgument argument) {
     add(_typeArguments, argument);
@@ -58,7 +72,8 @@ public class KeywordTypeReference extends ElementImpl implements JavaTypeReferen
     for(KeywordTypeArgument a: arguments()) {
     	// The name is wrong. It won't be found!
     	NameReference<TypeMemberDeclarator> nameReference = new NameReference<>(a.name(), TypeMemberDeclarator.class);
-    	LookupRedirector redirector = new LookupRedirector(typeConstructor,nameReference);
+    	// The constructor sets the unidirectional parent of the name reference.
+    	new LookupRedirector(typeConstructor,nameReference);
     	TypeMemberDeclarator element = nameReference.getElement();
       TypeParameter typeArgument = new InstantiatedTypeParameter(element.parameter().name(), a.argument());
       TypeMemberDeclarator declarator = new TypeMemberDeclarator(new SimpleNameSignature(a.name()), typeArgument);
@@ -67,14 +82,18 @@ public class KeywordTypeReference extends ElementImpl implements JavaTypeReferen
     return result;
   }
 
-
+	@Override
+	public String toString() {
+		return toString(new HashSet<>());
+	}
+	
   /**
    * @{inheritDoc}
    */
   @Override
   public String toString(Set<Element> visited) {
     StringBuilder builder = new StringBuilder();
-    builder.append(typeConstructorReference().toString(visited));
+    builder.append(typeConstructorReference().toString(visited)).append(' ');
     arguments().forEach(a -> builder.append(a.toString(visited)));
     return builder.toString();
   }

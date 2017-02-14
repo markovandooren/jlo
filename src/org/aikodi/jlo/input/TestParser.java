@@ -16,10 +16,9 @@ import org.aikodi.chameleon.workspace.FakeDocumentLoader;
 import org.aikodi.chameleon.workspace.FakeDocumentScanner;
 import org.aikodi.chameleon.workspace.Project;
 import org.aikodi.chameleon.workspace.ProjectException;
+import org.aikodi.java.workspace.JavaView;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.language.JLoLanguageFactory;
-
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaView;
 
 public class TestParser {
 

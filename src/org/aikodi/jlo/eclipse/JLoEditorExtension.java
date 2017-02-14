@@ -8,10 +8,9 @@ import org.aikodi.chameleon.eclipse.presentation.treeview.CompositeIconProvider;
 import org.aikodi.chameleon.eclipse.presentation.treeview.DefaultIconProvider;
 import org.aikodi.chameleon.eclipse.presentation.treeview.IconProvider;
 import org.aikodi.chameleon.workspace.View;
+import org.aikodi.java.eclipse.JavaEditorExtension;
 import org.aikodi.jlo.build.JLoBuilder;
 import org.aikodi.jlo.model.subobject.Subobject;
-
-import be.kuleuven.cs.distrinet.jnome.eclipse.JavaEditorExtension;
 
 public class JLoEditorExtension extends JavaEditorExtension {
 

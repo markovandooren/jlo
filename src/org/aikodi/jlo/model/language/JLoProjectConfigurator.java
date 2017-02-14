@@ -16,12 +16,11 @@ import org.aikodi.chameleon.workspace.FileDocumentLoaderFactory;
 import org.aikodi.chameleon.workspace.View;
 import org.aikodi.chameleon.workspace.Workspace;
 import org.aikodi.chameleon.workspace.ZipScanner;
+import org.aikodi.java.core.language.Java7LanguageFactory;
+import org.aikodi.java.input.LazyJavaFileInputSourceFactory;
+import org.aikodi.java.workspace.JavaProjectConfiguration;
+import org.aikodi.java.workspace.JavaProjectConfigurator;
 import org.aikodi.rejuse.predicate.SafePredicate;
-
-import be.kuleuven.cs.distrinet.jnome.core.language.Java7LanguageFactory;
-import be.kuleuven.cs.distrinet.jnome.input.LazyJavaFileInputSourceFactory;
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfiguration;
-import be.kuleuven.cs.distrinet.jnome.workspace.JavaProjectConfigurator;
 
 public class JLoProjectConfigurator extends JavaProjectConfigurator {
 

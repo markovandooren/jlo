@@ -29,13 +29,13 @@ import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
+import org.aikodi.chameleon.util.Util;
+import org.aikodi.java.core.language.Java7;
+import org.aikodi.java.core.type.BasicJavaTypeReference;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.type.KeywordTypeReference;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
-
-import be.kuleuven.cs.distrinet.jnome.core.language.Java7;
-import be.kuleuven.cs.distrinet.jnome.core.type.BasicJavaTypeReference;
 
 public abstract class AbstractJava8Generator {
 
@@ -50,15 +50,19 @@ public abstract class AbstractJava8Generator {
   }
 
   protected String fieldName(VariableDeclaration variableDeclaration) {
-    return "field$"+variableDeclaration.origin().nearestAncestor(Type.class).name()+"$"+variableDeclaration.name();
+    return "field$"+declarationName(variableDeclaration);
   }
 
+	private String declarationName(VariableDeclaration variableDeclaration) {
+		return variableDeclaration.origin().nearestAncestor(Type.class).name()+"$"+variableDeclaration.name();
+	}
+
   protected String getterName(VariableDeclaration variableDeclaration) {
-    return "get$"+variableDeclaration.origin().nearestAncestor(Type.class).name()+"$"+variableDeclaration.name();
+    return "get$"+declarationName(variableDeclaration);
   }
 
   protected String setterName(VariableDeclaration variableDeclaration) {
-    return "set$"+variableDeclaration.origin().nearestAncestor(Type.class).name()+"$"+variableDeclaration.name();
+    return "set$"+declarationName(variableDeclaration);
   }
 
   protected String implementationName(Type t) {
@@ -288,9 +292,7 @@ public abstract class AbstractJava8Generator {
   }
 
   protected void addTypeParameterToOwnClass(Document javaDocument) {
-    javaDocument.apply(TypeMemberDeclarator.class, d -> {
-      d.disconnect();
-    });
+    javaDocument.apply(TypeMemberDeclarator.class, d -> d.disconnect());
     javaDocument.apply(Type.class, t-> {
       if(! isGenerated(t)) {
         Type jloType = (Type) t.origin();
@@ -312,8 +314,7 @@ public abstract class AbstractJava8Generator {
           superClass = jloInheritanceRelation.superClass();
           addTypeParameters(javaSubtypeRelation, superClass);
         } catch (LookupException e) {
-          // TODO Auto-generated catch block
-          e.printStackTrace();
+          throw new ChameleonProgrammerException(e);
         }
       }
     });

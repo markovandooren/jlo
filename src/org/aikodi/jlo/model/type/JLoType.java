@@ -10,9 +10,8 @@ import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeFixer;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
+import org.aikodi.java.core.type.JavaType;
 import org.aikodi.jlo.model.subobject.Subobject;
-
-import be.kuleuven.cs.distrinet.jnome.core.type.JavaType;
 
 import com.google.common.collect.ImmutableList;
 
