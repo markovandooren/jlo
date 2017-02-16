@@ -333,8 +333,4 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     } );
   }
 
-  protected String subobjectInterfaceName(Subobject subobject) {
-    return subobject.name();
-  }
-
 }

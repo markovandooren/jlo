@@ -68,6 +68,15 @@ public abstract class AbstractJava8Generator {
   protected String implementationName(Type t) {
     return t.name() + IMPLEMENTATION_SUFFIX;
   }
+  
+  /**
+   * Return the name of the interface that represents the subobject.
+   * @param subobject
+   * @return
+   */
+  protected String subobjectInterfaceName(Subobject subobject) {
+    return subobject.name();
+  }
 
   protected JLo jlo(Element element) {
     return element.language(JLo.class);
@@ -331,8 +340,17 @@ public abstract class AbstractJava8Generator {
   }
 
   protected void addTypeParameters(InheritanceRelation relation, Type jloType) throws LookupException {
+//    applyToSortedTypeMemberDeclarators(jloType, d -> {
+//      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.parameter().name())));
+//    });
     applyToSortedTypeMemberDeclarators(jloType, d -> {
-      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.parameter().name())));
+      BasicJavaTypeReference basicJavaTypeReference = (BasicJavaTypeReference)relation.superClassReference();
+			TypeParameter parameter = d.parameter();
+			if(parameter instanceof InstantiatedTypeParameter) {
+			  basicJavaTypeReference.addArgument(d.clone(((InstantiatedTypeParameter)parameter).argument()));
+			} else if (parameter instanceof FormalTypeParameter) {
+				basicJavaTypeReference.addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.parameter().name())));
+			}
     });
   }
 
