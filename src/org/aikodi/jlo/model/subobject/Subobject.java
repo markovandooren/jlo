@@ -199,7 +199,7 @@ public class Subobject extends ElementWithModifiersImpl implements DeclarationWi
 		return componentType();
 	}
 
-	private Single<SubobjectType> _componentType = new Single<SubobjectType>(this, SubobjectType.class);
+	private Single<SubobjectType> _componentType = new Single<SubobjectType>(this, SubobjectType.class, "component type");
 
 	/**
 	 * Set the body of this component relation.
@@ -378,7 +378,7 @@ public class Subobject extends ElementWithModifiersImpl implements DeclarationWi
 	protected <M extends Declaration> M incorporatedInto(M toBeIncorporated, Type incorporatingType) throws LookupException {
 		M result = (M) toBeIncorporated.clone();
 		result.setOrigin(toBeIncorporated);
-		Stub redirector = new ComponentStub(this, result);
+		Stub redirector = new SubobjectMemberStub(this, result);
 		redirector.setUniParent(incorporatingType);
 		return result;
 	}

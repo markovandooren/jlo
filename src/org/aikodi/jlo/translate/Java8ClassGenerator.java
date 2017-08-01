@@ -137,7 +137,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		// 1. Compute the name of the class that will represent the subobject.
 		String subobjectImplementationName = subobjectImplementationName(jloSubobject);
 		// 2. Create a public class.
-		Util.debug(subobjectImplementationName.equals("upperBoundImpl") && jloSubobject.lexical().farthestAncestor(Type.class).name().equals("Radio"));
+//		Util.debug(subobjectImplementationName.equals("upperBoundImpl") && jloSubobject.lexical().farthestAncestor(Type.class).name().equals("Radio"));
 		RegularJavaType javaSubobjectImplementation = (RegularJavaType) ooFactory(jloSubobject).createRegularType(subobjectImplementationName);
 		javaSubobjectImplementation.setBody(new ClassBody());
 		javaSubobjectImplementation.addModifier(new Public());
@@ -258,9 +258,9 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		for(RegularMemberVariable v : collect) {
 			MemberVariableDeclarator jloMemberVariableDeclarator = v.nearestAncestor(MemberVariableDeclarator.class);
 			MemberVariableDeclarator f = new MemberVariableDeclarator(clone(jloMemberVariableDeclarator.typeReference()));
-			VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin();
+			VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin(); 
 			String fieldName = fieldName(variableDeclaration);
-			//      Util.debug(fieldName.contains(IMPLEMENTATION_SUFFIX));
+			Util.debug(fieldName.contains("field$Property$value"));
 			f.add(new VariableDeclaration(fieldName));
 			f.addModifier(new Private());
 			javaType.add(f);

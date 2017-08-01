@@ -38,7 +38,7 @@ public class JLo extends Java7 {
 		return new SubobjectJavaImplementsRelation();
 	}
 	
-	public <P extends Parameter> TypeInstantiation createDerivedType(Class<P> kind, List<P> parameters, Type baseType) {
+	public <P extends Parameter> TypeInstantiation instantiatedType(Class<P> kind, List<P> parameters, Type baseType) {
 		return new JLoDerivedType(kind, parameters, baseType);
 	}
 

@@ -11,9 +11,18 @@ import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.type.DeclaratorStub;
 import org.aikodi.chameleon.util.association.Single;
 
-public class ComponentStub extends ElementImpl implements DeclaratorStub {
+/**
+ * A stub for members of subobjects. Members of the formal type of
+ * a subobject are copied into the subobjects. Otherwise, there
+ * could be two members that override the same member. For example, a subobject
+ * named 's' will introduce member 's.equals(Object)'. Another subobject
+ * 't' introduces 't.equals(Object)'. 
+ * 
+ * @author Marko van Dooren
+ */
+public class SubobjectMemberStub extends ElementImpl implements DeclaratorStub {
 	
-	public ComponentStub(Subobject generator, Declaration child) {
+	public SubobjectMemberStub(Subobject generator, Declaration child) {
 		setChild(child);
 		setGenerator(generator);
 	}
@@ -23,14 +32,21 @@ public class ComponentStub extends ElementImpl implements DeclaratorStub {
 	private void setGenerator(Subobject generator) {
 		_generator = generator;
 	}
-	
+
+	/**
+	 * @return The subobject that generated the member.
+	 */
 	public Subobject generator() {
 		return _generator;
 	}
 
 	private Single<Declaration> _element = new Single<Declaration>(this);
 
-	public void setChild(Declaration element) {
+	/**
+	 * Set the child of this subobject member stub.
+	 * @param element
+	 */
+	private void setChild(Declaration element) {
 		set(_element, element);
 	}
 	
@@ -39,8 +55,8 @@ public class ComponentStub extends ElementImpl implements DeclaratorStub {
 	}
 
 	@Override
-	protected ComponentStub cloneSelf() {
-		return new ComponentStub(generator(),null);
+	protected SubobjectMemberStub cloneSelf() {
+		return new SubobjectMemberStub(generator(),null);
 	}
 
 	@Override
@@ -53,7 +69,8 @@ public class ComponentStub extends ElementImpl implements DeclaratorStub {
 		if(child.origin() == child) {
 			throw new ChameleonProgrammerException("A child of a component stub has itself as origin.");
 		}
-		return child.origin().lexicalContext(); // this is wrong. It should behave like a subclass: look for inheritable declarations,
+		// this is wrong. It should behave like a subclass: look for inheritable declarations
+		return child.origin().lexicalContext(); 
 	}
 
 
