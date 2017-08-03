@@ -46,7 +46,7 @@ public abstract class AbstractJava8Generator {
   }
 
   protected String subobjectFieldName(Subobject subobject) {
-    return "subobject$"+subobject.origin().nearestAncestor(Type.class).name()+"$"+subobject.name();
+    return "subobject$"+subobject.origin().lexical().nearestAncestor(Type.class).name()+"$"+subobject.name();
   }
 
   protected String fieldName(VariableDeclaration variableDeclaration) {
@@ -54,7 +54,7 @@ public abstract class AbstractJava8Generator {
   }
 
 	private String declarationName(VariableDeclaration variableDeclaration) {
-		return variableDeclaration.origin().nearestAncestor(Type.class).name()+"$"+variableDeclaration.name();
+		return variableDeclaration.origin().lexical().nearestAncestor(Type.class).name()+"$"+variableDeclaration.name();
 	}
 
   protected String getterName(VariableDeclaration variableDeclaration) {
@@ -220,7 +220,7 @@ public abstract class AbstractJava8Generator {
 
   protected TypeReference flattened(TypeReference typeReference) throws LookupException {
     TypeReference tref = (TypeReference)typeReference.origin();
-    Type tp = tref.nearestAncestor(Type.class);
+    Type tp = tref.lexical().nearestAncestor(Type.class);
     Declaration decl = tref.getDeclarator();
     if(decl instanceof FormalTypeParameter) {
       FormalTypeParameter param = (FormalTypeParameter) decl;

@@ -78,7 +78,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
         Method jloMethod = (Method) javaMethod.origin();
         if (!isGenerated(javaMethod) && jloMethod.isTrue(jlo(jloMethod).CONSTRUCTOR)) {
           Java7 java = java(javaDocument);
-          Type javaParentType = javaMethod.nearestAncestor(Type.class);
+          Type javaParentType = javaMethod.lexical().nearestAncestor(Type.class);
           if (jloMethod.nbFormalParameters() == 0) {
             createMainInterface(javaMethod);
           }
@@ -126,7 +126,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
 
   protected void createMainInterface(Method javaMethod) {
     Java7 java = java(javaMethod);
-    Type javaParentType = javaMethod.nearestAncestor(Type.class);
+    Type javaParentType = javaMethod.lexical().nearestAncestor(Type.class);
     ObjectOrientedFactory factory = java.plugin(ObjectOrientedFactory.class);
     Type javaMainType = factory.createRegularType(javaMethod.name());
     javaMainType.addModifier(new Interface());
@@ -208,7 +208,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
         Method setter = createSetterTemplate(javaMemberVariableDeclarator);
         setter.addModifier(new Abstract());
         setter.addModifier(new Public());
-        getter.nearestAncestor(Type.class).add(setter);
+        getter.lexical().nearestAncestor(Type.class).add(setter);
       }
     } );
   }
@@ -219,8 +219,8 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
       CrossReference<?> origin = (CrossReference<?>) ref.origin();
       if (!isGenerated(ref)) {
         try {
-          if (origin.getElement().nearestAncestor(MemberVariableDeclarator.class) == variableDeclaration
-              .nearestAncestor(MemberVariableDeclarator.class).origin()) {
+          if (origin.getElement().lexical().nearestAncestor(MemberVariableDeclarator.class) == variableDeclaration
+              .lexical().nearestAncestor(MemberVariableDeclarator.class).origin()) {
             if (!(origin.parent() instanceof AssignmentExpression)) {
               ref.replaceWith(expressionFactory.createInvocation(getterName(variableDeclaration), null));
             } else {
@@ -259,7 +259,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   protected void inferMissingReturnTypes(Document javaDocument) {
     javaDocument.apply(MethodHeader.class, h -> {
       if (h.returnTypeReference() == null) {
-        Implementation implementation = h.nearestAncestor(Method.class).implementation();
+        Implementation implementation = h.lexical().nearestAncestor(Method.class).implementation();
         if (implementation instanceof ExpressionImplementation) {
           Expression expression = ((ExpressionImplementation) implementation).expression();
           Expression origin = (Expression) expression.origin();
@@ -291,9 +291,9 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
         Method getter = createSubobjectGetterTemplate(jloSubobject, java(javaSubobject));
         getter.addModifier(new Abstract());
         getter.addModifier(new Public());
-        Type nearestAncestor = javaSubobject.nearestAncestor(Type.class);
+        Type nearestAncestor = javaSubobject.lexical().nearestAncestor(Type.class);
         nearestAncestor.add(getter);
-        applyToSortedTypeMemberDeclarators(jloSubobject.nearestAncestor(Type.class), m -> {
+        applyToSortedTypeMemberDeclarators(jloSubobject.lexical().nearestAncestor(Type.class), m -> {
           javaSubobjectInterface.addParameter(TypeParameter.class, clone(m.parameter()));
         });
         javaSubobject.replaceWith(javaSubobjectInterface);
@@ -321,9 +321,9 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
         Method getter = createSubobjectGetterTemplate(jloSubobject, java(javaSubobject));
         getter.addModifier(new Abstract());
         getter.addModifier(new Public());
-        Type nearestAncestor = javaSubobject.nearestAncestor(Type.class);
+        Type nearestAncestor = javaSubobject.lexical().nearestAncestor(Type.class);
         nearestAncestor.add(getter);
-        applyToSortedTypeMemberDeclarators(jloSubobject.nearestAncestor(Type.class), m -> {
+        applyToSortedTypeMemberDeclarators(jloSubobject.lexical().nearestAncestor(Type.class), m -> {
           subobjectInterface.addParameter(TypeParameter.class, clone(m.parameter()));
         });
         javaSubobject.replaceWith(subobjectInterface);

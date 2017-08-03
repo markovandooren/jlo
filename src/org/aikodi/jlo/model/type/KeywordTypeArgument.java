@@ -45,7 +45,7 @@ public class KeywordTypeArgument extends ElementImpl {
     _name = name;
   }
   
-  private final Single<TypeArgument> _argument = new Single<>(this);
+  private final Single<TypeArgument> _argument = new Single<>(this, "argument");
 
   @Override
   protected Element cloneSelf() {

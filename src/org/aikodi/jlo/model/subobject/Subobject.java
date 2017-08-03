@@ -114,7 +114,7 @@ public class Subobject extends ElementWithModifiersImpl implements DeclarationWi
 	@Override
 	public LookupContext lookupContext(Element child) throws LookupException {
 		LookupContext result = parent().lookupContext(this);
-		result = new ComponentTypeLookupStrategy(result, nearestAncestor(Type.class));
+		result = new ComponentTypeLookupStrategy(result, lexical().nearestAncestor(Type.class));
 		return result;
 	}
 
@@ -353,7 +353,7 @@ public class Subobject extends ElementWithModifiersImpl implements DeclarationWi
    @ post ((ComponentStub)\result.parent()).generator() == this;
    @*/
 	public <M extends Declaration> M incorporatedIntoContainerType(M toBeIncorporated) throws LookupException {
-		return incorporatedInto(toBeIncorporated, nearestAncestor(Type.class));
+		return incorporatedInto(toBeIncorporated, lexical().nearestAncestor(Type.class));
 	}
 
 	/**

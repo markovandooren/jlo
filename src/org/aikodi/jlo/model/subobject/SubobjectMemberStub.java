@@ -69,7 +69,7 @@ public class SubobjectMemberStub extends ElementImpl implements DeclaratorStub {
 		if(child.origin() == child) {
 			throw new ChameleonProgrammerException("A child of a component stub has itself as origin.");
 		}
-		// this is wrong. It should behave like a subclass: look for inheritable declarations
+		// FIXME TODO this is wrong. It should behave like a subclass: look for inheritable declarations
 		return child.origin().lexicalContext(); 
 	}
 

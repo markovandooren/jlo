@@ -14,7 +14,7 @@ public class OuterTarget extends AbstractTarget {
   
 
   public Type getTargetDeclaration() {
-    return nearestAncestor(Subobject.class).nearestAncestor(Type.class);
+    return lexical().nearestAncestor(Subobject.class).lexical().nearestAncestor(Type.class);
   }
 
   protected OuterTarget cloneSelf() {

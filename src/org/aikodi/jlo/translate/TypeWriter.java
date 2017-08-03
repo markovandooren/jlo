@@ -46,9 +46,9 @@ public class TypeWriter {
     Syntax writer = view().language().plugin(Syntax.class);
     int i = 1;
     for(Type type:typeProvider().elements(view())) {
-    	if(type.nearestAncestor(Type.class) == null) {
+    	if(type.lexical().nearestAncestor(Type.class) == null) {
       String fileName = type.name()+".java";
-      String packageFQN = type.nearestAncestor(NamespaceDeclaration.class).namespace().fullyQualifiedName();
+      String packageFQN = type.lexical().nearestAncestor(NamespaceDeclaration.class).namespace().fullyQualifiedName();
       String relDirName = packageFQN.replace('.', File.separatorChar);
       File out = new File(outputDirName()+File.separatorChar + relDirName + File.separatorChar + fileName);
       System.out.println(i + " Writing: "+out.getAbsolutePath());

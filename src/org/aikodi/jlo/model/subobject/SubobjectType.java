@@ -36,14 +36,14 @@ public class SubobjectType extends AnonymousType {
 	
 	@Override
 	public String name() {
-		return nearestAncestor(Subobject.class).name();
+		return lexical().nearestAncestor(Subobject.class).name();
 	}
 	
 	@Override
 	public boolean uniSameAs(Element other) throws LookupException {
 		return (other instanceof SubobjectType) &&
 				   ((SubobjectType)other).name().equals(name()) && 
-				   nearestAncestor(Type.class).sameAs(other.nearestAncestor(Type.class));
+				   lexical().nearestAncestor(Type.class).sameAs(other.lexical().nearestAncestor(Type.class));
 	}
 	
 	// Should be used for cloneSelf() refactoring
@@ -73,14 +73,14 @@ public class SubobjectType extends AnonymousType {
 	}
 
 	private List<Type> typesOfOverriddenSubobjects() throws LookupException {
-		Subobject relation = (Subobject) nearestAncestor(Subobject.class).origin();
+		Subobject relation = (Subobject) lexical().nearestAncestor(Subobject.class).origin();
 		Set<Subobject> overridden = (Set<Subobject>)relation.overriddenDeclarations();
 		List<Subobject> superSubobjectRelations = new ArrayList<Subobject>();
 		Type outer = lexical().farthestAncestor(Type.class);
 		for(Subobject overriddenRelation: overridden) {
 			Subobject sup;
 			if(!outer.subtypeOf(overriddenRelation.lexical().farthestAncestor(Type.class))) {
-				sup = nearestAncestor(Subobject.class).incorporatedIntoComponentType(overriddenRelation);
+				sup = lexical().nearestAncestor(Subobject.class).incorporatedIntoComponentType(overriddenRelation);
 			} else {
 				sup = overriddenRelation;
 			}
@@ -99,13 +99,13 @@ public class SubobjectType extends AnonymousType {
 	}
 	
 	public SimpleNameSignature signature() {
-		SimpleNameSignature clone = clone(nearestAncestor(Subobject.class).signature());
+		SimpleNameSignature clone = clone(lexical().nearestAncestor(Subobject.class).signature());
 		clone.setUniParent(this);
 		return clone;
 	}
 	
 	public TypeReference typeReference() {
-		return nearestAncestor(Subobject.class).componentTypeReference();
+		return lexical().nearestAncestor(Subobject.class).componentTypeReference();
 	}
 
 	//FIXME: This can probably be done with cloneSelf() but I'll look 
@@ -143,7 +143,7 @@ public class SubobjectType extends AnonymousType {
 			outer = new RawType(outmostType);
 		}
 		RawType current = outer;
-		List<Type> outerTypes = ancestors(Type.class);
+		List<Type> outerTypes = lexical().ancestors(Type.class);
 		outerTypes.add(0, this);
 
 		int size = outerTypes.size();

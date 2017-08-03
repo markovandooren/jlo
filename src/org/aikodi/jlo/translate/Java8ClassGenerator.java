@@ -150,7 +150,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 				.createTypeReference(subobjectInterfaceName(jloSubobject)));
 		javaImplementsRelation.addModifier(new Implements());
 		javaSubobjectImplementation.addInheritanceRelation(javaImplementsRelation);
-		Type jloParentType = jloSubobject.nearestAncestor(Type.class);
+		Type jloParentType = jloSubobject.lexical().nearestAncestor(Type.class);
 		addTypeParameters(javaImplementsRelation, jloParentType);
 		return javaSubobjectImplementation;
 	}
@@ -256,7 +256,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		}).collect(Collectors.toList());
 
 		for(RegularMemberVariable v : collect) {
-			MemberVariableDeclarator jloMemberVariableDeclarator = v.nearestAncestor(MemberVariableDeclarator.class);
+			MemberVariableDeclarator jloMemberVariableDeclarator = v.lexical().nearestAncestor(MemberVariableDeclarator.class);
 			MemberVariableDeclarator f = new MemberVariableDeclarator(clone(jloMemberVariableDeclarator.typeReference()));
 			VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin(); 
 			String fieldName = fieldName(variableDeclaration);

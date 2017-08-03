@@ -29,8 +29,8 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements De
 	 * 
 	 * @author Marko van Dooren
 	 */
-  private final class TypeMemberParameterFixer extends  TypeParameterFixer {
-    private Single<TypeParameter> _parameter = new Single<>(this);
+  private final class TypeMemberParameterFixer extends TypeParameterFixer {
+    private Single<TypeParameter> _parameter = new Single<>(this, "parameter");
 
     public TypeMemberParameterFixer(TypeParameter parameter) {
       set(_parameter,parameter);
@@ -38,7 +38,7 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements De
 
     @Override
     protected List<TypeParameter> parameters() throws LookupException {
-      List<TypeMemberDeclarator> members = nearestAncestor(Type.class).members(TypeMemberDeclarator.class);
+      List<TypeMemberDeclarator> members = lexical().nearestAncestor(Type.class).members(TypeMemberDeclarator.class);
       List<TypeParameter> result = Lists.create(members.size());
       result.add(parameter());
       // FIXME inefficient. Just store an immutable list.
@@ -93,7 +93,7 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements De
   	return this;
   }
 
-  private Single<TypeMemberParameterFixer> _fixer = new Single(this);
+  private Single<TypeMemberParameterFixer> _fixer = new Single<>(this, "fixer");
 
   /**
    * @return The type parameter introduced by this type member declarator.

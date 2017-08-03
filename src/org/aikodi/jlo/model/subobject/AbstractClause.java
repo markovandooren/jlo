@@ -71,7 +71,7 @@ public abstract class AbstractClause extends ConfigurationClause {
 	}
 	
 	public Declaration oldDeclaration() throws LookupException {
-		Declaration container = nearestAncestor(Subobject.class).componentType();
+		Declaration container = lexical().nearestAncestor(Subobject.class).componentType();
 		List<Signature> signatures = oldFQN().signatures();
 		Declaration result = null;
 		int size = signatures.size();
@@ -118,7 +118,7 @@ public abstract class AbstractClause extends ConfigurationClause {
 		QualifiedName qn = oldFQN();
 		final QualifiedName poppedName = qn.popped();
 		int size = poppedName.length();
-		Declaration container = nearestAncestor(Subobject.class).componentType();
+		Declaration container = lexical().nearestAncestor(Subobject.class).componentType();
 		for(int i = 0; i < size; i++) {
 			final int x = i;
 			NameSelector<Declaration> selector = 

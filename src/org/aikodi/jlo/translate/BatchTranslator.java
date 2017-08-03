@@ -63,7 +63,7 @@ public class BatchTranslator {
 		for(Type type: typeProvider().elements(sourceProject())) {
 			// The second argument is never used for the JLo translation, but for now it must be present because otherwise the
 			// aspect weaver does not know which compilation units are present in the project.
-			Document compilationUnit = type.nearestAncestor(Document.class);
+			Document compilationUnit = type.lexical().nearestAncestor(Document.class);
 			compilationUnit.verify();
 			_builder.build(compilationUnit, _outputDir);
 		}

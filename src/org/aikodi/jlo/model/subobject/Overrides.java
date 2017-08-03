@@ -68,7 +68,7 @@ public class Overrides extends ElementWithModifiersImpl implements Declarator {
 	}
 
 	public Declaration oldDeclaration() throws LookupException {
-		Declaration container = nearestAncestor(Type.class);
+		Declaration container = lexical().nearestAncestor(Type.class);
 		List<Signature> signatures = oldFQN().signatures();
 		Declaration result = null;
 		int size = signatures.size();

@@ -25,11 +25,11 @@ public class ComponentSubtypeRelation extends IncorporatingSubtypeRelation {
 	
 	@Override
 	public TypeReference superClassReference() {
-		return nearestAncestor(Subobject.class).componentTypeReference();
+		return lexical().nearestAncestor(Subobject.class).componentTypeReference();
 	}
 	
 	public Type componentType() {
-		return nearestAncestor(Type.class);
+		return lexical().nearestAncestor(Type.class);
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class ComponentSubtypeRelation extends IncorporatingSubtypeRelation {
 	}
 
 	private <M extends Declaration> List<SelectionResult<M>> incorporated(List<? extends SelectionResult<M>> tmp) throws LookupException {
-		Subobject componentRelation = componentType().nearestAncestor(Subobject.class);
+		Subobject componentRelation = componentType().lexical().nearestAncestor(Subobject.class);
 		List<SelectionResult<M>> result = new ArrayList<>();
 		for(SelectionResult<M> r:tmp) {
 			Declaration decl = r.template();

@@ -77,7 +77,7 @@ public class JLoSubtypeRelation extends SubtypeRelation {
 	
 	public <X extends Declaration> SelectionResult<X> incorporated(SelectionResult<X> selection) throws LookupException {
 		X cloned = (X) Util.clone(selection.template());
-		LookupRedirector redirector = new LookupRedirector(nearestAncestor(Type.class), cloned);
+		LookupRedirector redirector = new LookupRedirector(lexical().nearestAncestor(Type.class), cloned);
 		redirector.setUniParent(selection.finalDeclaration().parent());
 		SelectionResult<X> result = selection.updatedTo(cloned);
 		return result;
