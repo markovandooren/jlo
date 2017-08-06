@@ -88,13 +88,13 @@ public abstract class AbstractJava8Generator {
 
 
   protected void renameConstructorCalls(Document target) {
-    target.apply(CrossReferenceWithName.class, c -> {
+    target.lexical().apply(CrossReferenceWithName.class, c -> {
       CrossReferenceWithName origin = (CrossReferenceWithName) c.origin();
       if (origin != c.origin()) {
         Declaration element;
         try {
           element = origin.getElement();
-          if (element.isTrue(java(element).CONSTRUCTOR)) {
+          if (element.is(java(element).CONSTRUCTOR).isTrue()) {
             c.setName(implementationName((Type) element));
           }
         } catch (Exception e) {
@@ -139,7 +139,7 @@ public abstract class AbstractJava8Generator {
 
     public void whenOrigin(Predicate<T> predicate) {
       this.predicate = predicate;
-      element.apply(type, t -> {
+      element.lexical().apply(type, t -> {
         if (predicate.test((T) t.origin())) {
           t.addModifier(modifier.clone(modifier));
           t.flushCache();
@@ -150,12 +150,11 @@ public abstract class AbstractJava8Generator {
 
     public void whenTranslated(Predicate<T> predicate) {
       this.predicate = predicate;
-      element.apply(type, t -> {
+      element.lexical().apply(type, t -> {
         if (predicate.test((T) t)) {
           t.addModifier(modifier.clone(modifier));
           t.flushCache();
         }
-        ;
       });
     }
   }
@@ -198,7 +197,7 @@ public abstract class AbstractJava8Generator {
     }
 
     public void in(Element element) {
-      element.apply(elementType, e -> {
+      element.lexical().apply(elementType, e -> {
         if (predicate == null || predicate.test(e)) {
           try {
             e.modifiers().stream().filter(modifierPredicate).forEach(x -> x.disconnect());
@@ -301,8 +300,8 @@ public abstract class AbstractJava8Generator {
   }
 
   protected void addTypeParameterToOwnClass(Document javaDocument) {
-    javaDocument.apply(TypeMemberDeclarator.class, d -> d.disconnect());
-    javaDocument.apply(Type.class, t-> {
+    javaDocument.lexical().apply(TypeMemberDeclarator.class, d -> d.disconnect());
+    javaDocument.lexical().apply(Type.class, t-> {
       if(! isGenerated(t)) {
         Type jloType = (Type) t.origin();
         try {
@@ -315,7 +314,7 @@ public abstract class AbstractJava8Generator {
         }
       }
     });
-    javaDocument.apply(SubtypeRelation.class, javaSubtypeRelation -> {
+    javaDocument.lexical().apply(SubtypeRelation.class, javaSubtypeRelation -> {
       if(! isGenerated(javaSubtypeRelation)) {
         SubtypeRelation jloInheritanceRelation = (SubtypeRelation) javaSubtypeRelation.origin();
         Type superClass;
@@ -356,7 +355,7 @@ public abstract class AbstractJava8Generator {
 
 
   protected void transformKeywordTypeReferences(Document javaType) {
-    javaType.apply(KeywordTypeReference.class, k -> transformKeywordTypeReference(k));
+    javaType.lexical().apply(KeywordTypeReference.class, k -> transformKeywordTypeReference(k));
   }
 
   protected void transformKeywordTypeReference(KeywordTypeReference javaKeywordTypeReference) {

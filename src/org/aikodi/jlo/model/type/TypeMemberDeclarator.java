@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
+import org.aikodi.chameleon.core.declaration.DeclarationImpl;
 import org.aikodi.chameleon.core.declaration.Signature;
-import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
+import org.aikodi.chameleon.core.declaration.Name;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.lookup.LocalLookupContext;
 import org.aikodi.chameleon.core.lookup.LookupException;
-import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeFixer;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
@@ -22,7 +22,7 @@ import org.aikodi.chameleon.util.association.Single;
  * 
  * @author Marko van Dooren
  */
-public class TypeMemberDeclarator extends ElementWithModifiersImpl implements Declaration {
+public class TypeMemberDeclarator extends DeclarationImpl implements Declaration {
 
 	/**
 	 * A class for providing the fixed point computation for type members.
@@ -65,7 +65,7 @@ public class TypeMemberDeclarator extends ElementWithModifiersImpl implements De
     }
   }
 
-  public TypeMemberDeclarator(SimpleNameSignature signature, TypeParameter parameter) {
+  public TypeMemberDeclarator(Name signature, TypeParameter parameter) {
   	set(_signature, signature);
     set(_fixer, new TypeMemberParameterFixer(parameter));
   }

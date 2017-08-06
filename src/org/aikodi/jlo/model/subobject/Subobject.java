@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
+import org.aikodi.chameleon.core.declaration.DeclarationImpl;
 import org.aikodi.chameleon.core.declaration.DeclarationRelation;
 import org.aikodi.chameleon.core.declaration.Signature;
-import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
+import org.aikodi.chameleon.core.declaration.Name;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.language.LanguageImpl;
 import org.aikodi.chameleon.core.lookup.Collector;
@@ -20,7 +21,6 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.lookup.SelectionResult;
 import org.aikodi.chameleon.core.lookup.Skipper;
 import org.aikodi.chameleon.core.lookup.Stub;
-import org.aikodi.chameleon.core.modifier.ElementWithModifiersImpl;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.member.DeclarationComparator;
 import org.aikodi.chameleon.oo.member.HidesRelation;
@@ -42,7 +42,7 @@ import org.aikodi.rejuse.predicate.TypePredicate;
  * 
  * @author Marko van Dooren
  */
-public class Subobject extends ElementWithModifiersImpl implements DeclarationWithType, InheritanceRelation {
+public class Subobject extends DeclarationImpl implements DeclarationWithType, InheritanceRelation {
 
 	/**
 	 * Create a new subobject with the given name and type reference.
@@ -51,10 +51,10 @@ public class Subobject extends ElementWithModifiersImpl implements DeclarationWi
 	 * @param typeReference A reference to the type of the subobject.
 	 */
 	public Subobject(String name, TypeReference typeReference) {
-		this(new SimpleNameSignature(name), typeReference);
+		this(new Name(name), typeReference);
 	}
 
-	public Subobject(SimpleNameSignature signature, TypeReference type) {
+	public Subobject(Name signature, TypeReference type) {
 		setSignature(signature);
 		setComponentType(type);
 		setBody(new ClassBody());
@@ -62,7 +62,7 @@ public class Subobject extends ElementWithModifiersImpl implements DeclarationWi
 
 	@Override
 	protected Subobject cloneSelf() {
-		return new Subobject((SimpleNameSignature)null,null);
+		return new Subobject((Name)null,null);
 	}
 
 	public String toString() {
@@ -164,13 +164,13 @@ public class Subobject extends ElementWithModifiersImpl implements DeclarationWi
 	}
 
 	public void setName(String name) {
-		setSignature(new SimpleNameSignature(name));
+		setSignature(new Name(name));
 	}
 
 
 	public void setSignature(Signature signature) {
-		if(signature instanceof SimpleNameSignature || signature == null) {
-			set(_signature,(SimpleNameSignature)signature);
+		if(signature instanceof Name || signature == null) {
+			set(_signature,(Name)signature);
 		} else {
 			throw new ChameleonProgrammerException("Setting wrong type of signature. Provided: "+(signature == null ? null :signature.getClass().getName())+" Expected SimpleNameSignature");
 		}
@@ -179,11 +179,11 @@ public class Subobject extends ElementWithModifiersImpl implements DeclarationWi
 	/**
 	 * Return the signature of this member.
 	 */
-	public SimpleNameSignature signature() {
+	public Name signature() {
 		return _signature.getOtherEnd();
 	}
 
-	private Single<SimpleNameSignature> _signature = new Single<SimpleNameSignature>(this);
+	private Single<Name> _signature = new Single<Name>(this);
 
 
 	public List<ConfigurationClause> clauses() throws LookupException {

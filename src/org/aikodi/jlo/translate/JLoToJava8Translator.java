@@ -50,7 +50,7 @@ public class JLoToJava8Translator extends IncrementalTranslator<JLo, Java7> {
   }
 
   protected void makeFieldsPrivate(Document target) {
-    target.apply(MemberVariableDeclarator.class, d -> d.addModifier(new Private()));
+    target.lexical().apply(MemberVariableDeclarator.class, d -> d.addModifier(new Private()));
   }
 
   protected Document createInterface(Document sourceDocument) throws LookupException {

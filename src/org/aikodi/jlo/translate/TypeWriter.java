@@ -56,7 +56,7 @@ public class TypeWriter {
       parent.mkdirs();
       out.createNewFile();
       FileWriter fw = new FileWriter(out);
-      fw.write(writer.toCode(type.parent()));
+      fw.write(writer.toCode(type.lexical().parent()));
       fw.close();
       i++;
     	}

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
+import org.aikodi.chameleon.core.declaration.Name;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.element.ElementImpl;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -76,7 +76,7 @@ public class KeywordTypeReference extends ElementImpl implements JavaTypeReferen
     	new LookupRedirector(typeConstructor,nameReference);
     	TypeMemberDeclarator element = nameReference.getElement();
       TypeParameter typeArgument = new InstantiatedTypeParameter(element.parameter().name(), a.argument());
-      TypeMemberDeclarator declarator = new TypeMemberDeclarator(new SimpleNameSignature(a.name()), typeArgument);
+      TypeMemberDeclarator declarator = new TypeMemberDeclarator(new Name(a.name()), typeArgument);
       result.add(declarator);
     }
     return result;

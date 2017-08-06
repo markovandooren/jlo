@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import org.aikodi.chameleon.core.declaration.Declarator;
-import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
+import org.aikodi.chameleon.core.declaration.Name;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.factory.Factory;
@@ -557,7 +557,7 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
     if(ctx.typeConstraint() != null) {
       parameter.addConstraint((TypeConstraint) visit(ctx.typeConstraint()));
     }
-    TypeMemberDeclarator result = new TypeMemberDeclarator(new SimpleNameSignature(ctx.key.getText()),parameter);
+    TypeMemberDeclarator result = new TypeMemberDeclarator(new Name(ctx.key.getText()),parameter);
     return result;
   }
   

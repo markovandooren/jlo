@@ -39,7 +39,7 @@ public class ComponentSubtypeRelation extends IncorporatingSubtypeRelation {
 	@Override
 	public boolean uniSameAs(Element other) throws LookupException {
 		//FIXME: the type of the instanceof should probably be changed to ComponentSubtypeRelation.
-		return other instanceof SubtypeRelation && other.parent() == componentType();
+		return other instanceof SubtypeRelation && other.lexical().parent() == componentType();
 	}
 
 	private <M extends Declaration> List<SelectionResult<M>> incorporated(List<? extends SelectionResult<M>> tmp) throws LookupException {

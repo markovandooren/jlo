@@ -47,7 +47,7 @@ import org.aikodi.java.core.type.BasicJavaTypeReference;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.subobject.SubobjectType;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
-import org.aikodi.rejuse.action.Action;
+import org.aikodi.rejuse.action.UniversalConsumer;
 
 public class Java8InterfaceGenerator extends AbstractJava8Generator {
 
@@ -69,12 +69,12 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
 
   protected void createConstructors(Document javaDocument) throws LookupException {
-    javaDocument.apply(new Action<Method,LookupException>(Method.class) {
+    javaDocument.lexical().apply(new UniversalConsumer<Method,LookupException>(Method.class) {
       /**
        * @{inheritDoc}
        */
       @Override
-      public void doPerform(Method javaMethod) throws LookupException {
+      public void accept(Method javaMethod) throws LookupException {
         Method jloMethod = (Method) javaMethod.origin();
         if (!isGenerated(javaMethod) && jloMethod.isTrue(jlo(jloMethod).CONSTRUCTOR)) {
           Java7 java = java(javaDocument);
@@ -141,7 +141,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
 
   protected void createDefaultConstructor(Document javaDocument) {
-    javaDocument.apply(Type.class, t -> {
+    javaDocument.lexical().apply(Type.class, t -> {
       if (!isGenerated(t)) {
         boolean hasConstructor = t.directlyDeclaredMembers().stream().anyMatch(m -> {
         	Declaration jloMember = (Declaration) m.origin();
@@ -182,7 +182,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
 
   protected void replaceExpressionImplementations(Document javaDocument) {
-    javaDocument.apply(ExpressionImplementation.class, implementation -> {
+    javaDocument.lexical().apply(ExpressionImplementation.class, implementation -> {
       Block body = new Block();
       // We move the expression instead of cloning it
       body.addStatement(new ReturnStatement(implementation.expression()));
@@ -192,13 +192,13 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
 
   protected void replaceFields(Document javaDocument) throws LookupException {
-    javaDocument.apply(new Action<MemberVariableDeclarator,LookupException>(MemberVariableDeclarator.class) {
+    javaDocument.lexical().apply(new UniversalConsumer<MemberVariableDeclarator,LookupException>(MemberVariableDeclarator.class) {
       /**
        * @throws LookupException 
        * @{inheritDoc}
        */
       @Override
-      public void doPerform(MemberVariableDeclarator javaMemberVariableDeclarator) throws LookupException {
+      public void accept(MemberVariableDeclarator javaMemberVariableDeclarator) throws LookupException {
         VariableDeclaration variableDeclaration = javaMemberVariableDeclarator.variableDeclarations().get(0);
         replaceFieldReferences(javaDocument, variableDeclaration);
         Method getter = createGetterTemplate(javaMemberVariableDeclarator);
@@ -215,16 +215,16 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
 
   protected void replaceFieldReferences(Document javaDocument, VariableDeclaration variableDeclaration) {
     ExpressionFactory expressionFactory = java(variableDeclaration).plugin(ExpressionFactory.class);
-    javaDocument.apply(CrossReference.class, ref -> {
+    javaDocument.lexical().apply(CrossReference.class, ref -> {
       CrossReference<?> origin = (CrossReference<?>) ref.origin();
       if (!isGenerated(ref)) {
         try {
           if (origin.getElement().lexical().nearestAncestor(MemberVariableDeclarator.class) == variableDeclaration
               .lexical().nearestAncestor(MemberVariableDeclarator.class).origin()) {
-            if (!(origin.parent() instanceof AssignmentExpression)) {
+            if (!(origin.lexical().parent() instanceof AssignmentExpression)) {
               ref.replaceWith(expressionFactory.createInvocation(getterName(variableDeclaration), null));
             } else {
-              AssignmentExpression assignment = (AssignmentExpression) ref.parent();
+              AssignmentExpression assignment = (AssignmentExpression) ref.lexical().parent();
               MethodInvocation createInvocation = expressionFactory.createInvocation(setterName(variableDeclaration),
                   null);
               createInvocation.addArgument(assignment.getValue());
@@ -239,11 +239,11 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
 
   protected void makeNonPrivateMethodsPublic(Document javaDocument) {
-    javaDocument.apply(Method.class, m -> {
+    javaDocument.lexical().apply(Method.class, m -> {
       Method origin = (Method) m.origin();
       if (!isGenerated(m)) {
         StaticChameleonProperty priv = jlo(origin).PRIVATE;
-        if (!origin.isTrue(priv)) {
+        if (!origin.is(priv).isTrue()) {
           try {
             m.modifiers(m.language(Java7.class).SCOPE_MUTEX).forEach(e -> e.disconnect());
             m.addModifier(new Public());
@@ -257,7 +257,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
 
   protected void inferMissingReturnTypes(Document javaDocument) {
-    javaDocument.apply(MethodHeader.class, h -> {
+    javaDocument.lexical().apply(MethodHeader.class, h -> {
       if (h.returnTypeReference() == null) {
         Implementation implementation = h.lexical().nearestAncestor(Method.class).implementation();
         if (implementation instanceof ExpressionImplementation) {
@@ -311,7 +311,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
   
   protected void replaceSubobjectsOld(Document javaDocument) {
-    javaDocument.apply(Subobject.class, javaSubobject -> {
+    javaDocument.lexical().apply(Subobject.class, javaSubobject -> {
       try {
         Type subobjectInterface = ooFactory(javaSubobject).createRegularType(subobjectInterfaceName(javaSubobject));
         Subobject jloSubobject = (Subobject) javaSubobject.origin();

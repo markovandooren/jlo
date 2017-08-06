@@ -2,7 +2,6 @@ package org.aikodi.jlo.ant;
 
 import java.io.File;
 
-import org.aikodi.chameleon.core.Config;
 import org.aikodi.chameleon.workspace.ConfigException;
 import org.aikodi.chameleon.workspace.LanguageRepository;
 import org.aikodi.chameleon.workspace.Project;
@@ -20,7 +19,6 @@ public class AntCompileTask extends AbstractTask {
 
 	@Override
 	public void execute() throws BuildException {
-		Config.setCaching(true);
 		LanguageRepository repository = new LanguageRepository();
 		Workspace workspace = new Workspace(repository);
 

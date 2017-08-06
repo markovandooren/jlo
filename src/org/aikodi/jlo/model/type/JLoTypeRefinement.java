@@ -5,7 +5,7 @@ public class JLoTypeRefinement extends RegularJLoType {
 	public JLoTypeRefinement(JLoType type) {
 		super(type.name());
 		addInheritanceRelation(new JLoSubtypeRelation(type));
-		setUniParent(type.parent());
+		setUniParent(type.lexical().parent());
 	}
 
 }

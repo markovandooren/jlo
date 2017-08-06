@@ -3,7 +3,6 @@ package org.aikodi.jlo.translate;
 import java.io.File;
 import java.io.IOException;
 
-import org.aikodi.chameleon.core.Config;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.namespace.Namespace;
 import org.aikodi.chameleon.input.ParseException;
@@ -85,7 +84,6 @@ public class BatchTranslator {
     if(args.length < 2) {
       System.out.println("Usage: java .... JavaTranslator projectXML outputDir @recursivePackageFQN*"); // #packageFQN* $typeFQN*
     }
-    Config.setCaching(true);
 
     LanguageRepository repo = new LanguageRepository();
 		Workspace workspace = new Workspace(repo);

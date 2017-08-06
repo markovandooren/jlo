@@ -78,10 +78,10 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	protected void replaceSubobjects(Document javaDocument) throws LookupException {
 		// We remove the subobjects from the document, and work directly with
 		// the subobjects from the JLo document.
-		javaDocument.apply(Subobject.class, javaSubobject -> {
+		javaDocument.lexical().apply(Subobject.class, javaSubobject -> {
 			javaSubobject.disconnect();
 			});
-		javaDocument.apply(Type.class, javaType -> {
+		javaDocument.lexical().apply(Type.class, javaType -> {
 			if(! isGenerated(javaType)) {
 				Type jloType = (Type) javaType.origin();
 				expandSubobjects(javaType, jloType);
@@ -193,7 +193,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	}
 
 	protected void removeNormalMethods(Document result) {
-		result.apply(Method.class, m -> {
+		result.lexical().apply(Method.class, m -> {
 			Element origin = m.origin();
 			//      if (!origin.isTrue(jlo(origin).CONSTRUCTOR)) {
 			m.disconnect();
@@ -202,7 +202,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	}
 
 	protected void implementOwnInterfaces(Document javaDocument) {
-		javaDocument.apply(Type.class, javaType -> {
+		javaDocument.lexical().apply(Type.class, javaType -> {
 			try {
 				Java7 java = java(javaDocument);
 				// Only disconnect inheritance relations that are explicit, and
@@ -226,12 +226,12 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	}
 
 	protected void addFields(Document javaDocument) {
-		javaDocument.apply(MemberVariableDeclarator.class, javaMethod -> {
+		javaDocument.lexical().apply(MemberVariableDeclarator.class, javaMethod -> {
 			if(! isGenerated(javaMethod)) {
 				javaMethod.disconnect();
 			}
 		});
-		javaDocument.apply(Type.class, t -> {
+		javaDocument.lexical().apply(Type.class, t -> {
 			if(! (t instanceof SubobjectType) && ! isGenerated(t)) {
 				Type originalType = (Type) t.origin();
 				try {

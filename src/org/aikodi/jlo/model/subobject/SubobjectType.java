@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
-import org.aikodi.chameleon.core.declaration.SimpleNameSignature;
+import org.aikodi.chameleon.core.declaration.Name;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.factory.Factory;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -95,11 +95,11 @@ public class SubobjectType extends AnonymousType {
 	
 	@Override
 	public boolean hasInheritanceRelation(InheritanceRelation relation) {
-		return relation.parent() == this;
+		return relation.lexical().parent() == this;
 	}
 	
-	public SimpleNameSignature signature() {
-		SimpleNameSignature clone = clone(lexical().nearestAncestor(Subobject.class).signature());
+	public Name signature() {
+		Name clone = clone(lexical().nearestAncestor(Subobject.class).signature());
 		clone.setUniParent(this);
 		return clone;
 	}
