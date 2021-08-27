@@ -6,6 +6,7 @@ import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.declaration.Name;
+import org.aikodi.chameleon.core.declaration.Signature;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.factory.Factory;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -98,8 +99,8 @@ public class SubobjectType extends AnonymousType {
 		return relation.lexical().parent() == this;
 	}
 	
-	public Name signature() {
-		Name clone = clone(lexical().nearestAncestor(Subobject.class).signature());
+	public Signature signature() {
+		Signature clone = clone(lexical().nearestAncestor(Subobject.class).signature());
 		clone.setUniParent(this);
 		return clone;
 	}
@@ -161,13 +162,4 @@ public class SubobjectType extends AnonymousType {
 		return current;	
 	}
 	
-//	public <D extends Member> List<D> membersDirectlyAliasedBy(MemberRelationSelector<D> selector) throws LookupException {
-//		List<D> result = new ArrayList<D>();
-//		for(InheritanceRelation relation:inheritanceRelations()) {
-//			result.addAll(relation.membersDirectlyAliasedBy(selector));
-//		}
-//		return result;
-//	}
-
-
 }

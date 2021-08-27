@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.aikodi.chameleon.core.declaration.BasicDeclaration;
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.declaration.DeclarationImpl;
 import org.aikodi.chameleon.core.declaration.DeclarationRelation;
@@ -42,7 +43,7 @@ import org.aikodi.rejuse.predicate.TypePredicate;
  * 
  * @author Marko van Dooren
  */
-public class Subobject extends DeclarationImpl implements DeclarationWithType, InheritanceRelation {
+public class Subobject extends BasicDeclaration implements DeclarationWithType, InheritanceRelation {
 
 	/**
 	 * Create a new subobject with the given name and type reference.
@@ -163,32 +164,16 @@ public class Subobject extends DeclarationImpl implements DeclarationWithType, I
 		set(_typeReference,type);
 	}
 
-	public void setName(String name) {
-		setSignature(new Name(name));
-	}
-
-
 	public void setSignature(Signature signature) {
 		if(signature instanceof Name || signature == null) {
-			set(_signature,(Name)signature);
+			super.setSignature(signature);
 		} else {
 			throw new ChameleonProgrammerException("Setting wrong type of signature. Provided: "+(signature == null ? null :signature.getClass().getName())+" Expected SimpleNameSignature");
 		}
 	}
 
-	/**
-	 * Return the signature of this member.
-	 */
-	public Name signature() {
-		return _signature.getOtherEnd();
-	}
-
-	private Single<Name> _signature = new Single<Name>(this);
-
-
 	public List<ConfigurationClause> clauses() throws LookupException {
-		List<ConfigurationClause> result = new ArrayList<ConfigurationClause>();
-		return result;
+		return new ArrayList<ConfigurationClause>();
 	}
 
 	public LocalLookupContext<?> targetContext() throws LookupException {
@@ -222,14 +207,6 @@ public class Subobject extends DeclarationImpl implements DeclarationWithType, I
 		return _componentType.getOtherEnd();
 	}
 
-
-	private void setComponentTypeDeclaration(SubobjectType componentType) {
-		if(componentType == null) {
-			_componentType.connectTo(null);
-		} else {
-			_componentType.connectTo((Association) componentType.parentLink());
-		}
-	}
 
 	@Override
 	public Type target() throws LookupException {

@@ -6,7 +6,6 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.reference.CrossReferenceTarget;
 import org.aikodi.chameleon.core.validation.Valid;
 import org.aikodi.chameleon.core.validation.Verification;
-import org.aikodi.chameleon.oo.statement.CheckedExceptionList;
 import org.aikodi.chameleon.oo.type.Type;
 
 public abstract class AbstractTarget extends ElementImpl implements CrossReferenceTarget {

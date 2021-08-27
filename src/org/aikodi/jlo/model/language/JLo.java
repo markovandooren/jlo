@@ -28,24 +28,22 @@ public class JLo extends Java7 {
 		super(name, new BasicRevision(0,1,0));
 	}
 
-//	@Override
-//	protected Language cloneThis() {
-//		return new JLo(null);
-//	}
-
 	@Override
 	public StrictPartialOrder<Declaration> implementsRelation() {
 		return new SubobjectJavaImplementsRelation();
 	}
 	
+	@Override
 	public <P extends Parameter> TypeInstantiation instantiatedType(Class<P> kind, List<P> parameters, Type baseType) {
 		return new JLoDerivedType(kind, parameters, baseType);
 	}
 
+	@Override
 	public TypeInstantiation createDerivedType(Type baseType, List<TypeArgument> typeArguments) throws LookupException {
 		return new JLoDerivedType(baseType,typeArguments);
 	}
 
+	@Override
 	public Type createdCapturedType(ParameterSubstitution parameterSubstitution, Type base) {
 		return new JLoCapturedType(parameterSubstitution, base);
 	}

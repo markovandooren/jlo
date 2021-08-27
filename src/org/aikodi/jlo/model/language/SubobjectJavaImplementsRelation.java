@@ -6,7 +6,7 @@ import org.aikodi.chameleon.core.relation.StrictPartialOrder;
 import org.aikodi.java.core.language.JavaImplementsRelation;
 import org.aikodi.jlo.model.subobject.Subobject;
 
-public class SubobjectJavaImplementsRelation extends StrictPartialOrder<Declaration> {
+public class SubobjectJavaImplementsRelation implements StrictPartialOrder<Declaration> {
 
 	private JavaImplementsRelation _wrapped = new JavaImplementsRelation();
 	

@@ -15,7 +15,7 @@ import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.util.Util;
-import org.aikodi.contract.Contracts;
+import org.aikodi.contract.Contract;
 
 public class JLoSubtypeRelation extends SubtypeRelation {
 
@@ -27,7 +27,7 @@ public class JLoSubtypeRelation extends SubtypeRelation {
 		private Type _type;
 		
 		public DirectTypeReference(Type type) {
-			Contracts.notNull(type);
+			Contract.requireNotNull(type);
 			_type = type;
 		}
 		

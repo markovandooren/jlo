@@ -36,7 +36,7 @@ public class JLoLanguageFactory {
 //    result.setPlugin(ModelFactory.class, new OldJLoModelFactory());
 		result.setPlugin(Syntax.class, new JLoSyntax());
 		JLoFactory factory = new JLoFactory();
-      result.setPlugin(Factory.class, factory);
+		result.setPlugin(Factory.class, factory);
 		result.setPlugin(ObjectOrientedFactory.class, factory);
 		result.setPlugin(ExpressionFactory.class, new JavaExpressionFactory());
 		result.setPlugin(ProjectConfigurator.class, new JLoProjectConfigurator(Java7LanguageFactory.javaBaseJar()));
