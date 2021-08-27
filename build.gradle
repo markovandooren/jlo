@@ -6,15 +6,7 @@ apply plugin: 'antlr'
 // antlr 4 plugin
 buildscript {
     repositories {
-        //maven {
-        //    name 'JFrog OSS snapshot repo'
-        //    url  'https://oss.jfrog.org/oss-snapshot-local/'
-        //}
-        jcenter()
         mavenCentral()
-//  maven {
-//    url 'http://users.ugent.be/~mcvdoore/repository'
-//  }
     }
 
 //    dependencies {
@@ -24,9 +16,6 @@ buildscript {
 
 repositories {
   mavenCentral()
-  maven {
-    url 'http://users.ugent.be/~mcvdoore/repository'
-  }
 }
 
 
@@ -37,7 +26,6 @@ sourceSets {
   main {
     java {
       srcDir 'src'
-      srcDir 'testsrc'
       exclude eclipsePlugin
     }
     //antlr {
@@ -53,20 +41,20 @@ configurations {
 }
 
 dependencies {
-   local project(':rejuse')
-   local project(':chameleon')
-   local project(':jnome')
-   compile group: 'markovandooren', name: 'rejuse', version: '1.3.9'
-   compile group: 'markovandooren', name: 'chameleon', version: '1.2.8'
-   compile group: 'markovandooren', name: 'jnome', version: '1.2.10'
+   api project(':rejuse')
+   api project(':chameleon')
+   api project(':jnome')
+   //compile group: 'markovandooren', name: 'rejuse', version: '1.3.9'
+   //compile group: 'markovandooren', name: 'chameleon', version: '1.2.8'
+   //compile group: 'markovandooren', name: 'jnome', version: '1.2.10'
 
   
-   shared 'org.ow2.asm:asm:5.0.3'
-   shared 'com.lexicalscope.jewelcli:jewelcli:0.8.5'
-   shared 'org.antlr:antlr4-runtime:4.6'
-   shared 'org.apache.ant:ant:1.9.4'
+   implementation 'org.ow2.asm:asm:5.0.3'
+   implementation 'com.lexicalscope.jewelcli:jewelcli:0.8.5'
+   api 'org.antlr:antlr4-runtime:4.6'
+   implementation 'org.apache.ant:ant:1.9.4'
 
-   antlr 'org.antlr:antlr4:4.6'
+   api 'org.antlr:antlr4:4.6'
 }
 
 //compileJava.dependsOn antlr4
@@ -93,5 +81,5 @@ dependencies {
 
 task copyRuntimeLibs(type: Copy) {
     into "lib"
-    from configurations.runtime
+    from configurations.runtimeOnly
 }
