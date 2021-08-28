@@ -44,6 +44,7 @@ import org.aikodi.java.core.method.JavaMethod;
 import org.aikodi.java.core.modifier.Default;
 import org.aikodi.java.core.type.ArrayTypeReference;
 import org.aikodi.java.core.type.BasicJavaTypeReference;
+import org.aikodi.java.core.type.JavaEqualityTypeArgument;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.subobject.SubobjectType;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
@@ -82,22 +83,28 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
           if (jloMethod.nbFormalParameters() == 0) {
             createMainInterface(javaMethod);
           }
-          BasicJavaTypeReference typeRef = java.createTypeReference(javaParentType.name());
+
           strip(Constructor.class).from(Method.class).in(javaMethod);
           Method javaInstanceMethod = Java8InterfaceGenerator.this.clone(javaMethod);
           javaParentType.add(javaInstanceMethod);
           javaInstanceMethod.setName(constructorName(javaMethod));
           javaInstanceMethod.addModifier(new Default());
           javaInstanceMethod.setReturnTypeReference(java.createTypeReference("void"));
+
+          // The static method returns an object of the parent type.
+          // But we still need to add the type parameter to it.
+          BasicJavaTypeReference typeRef = java.createTypeReference(javaParentType.name());
+          BasicJavaTypeReference implementationTypeReference = java.createTypeReference(implementationName(javaParentType));
+
+          ((Type) javaParentType.origin()).members(TypeMemberDeclarator.class).forEach(m -> {
+            javaMethod.header().addTypeParameter(m.clone(m.parameter()));
+            typeRef.addArgument(new JavaEqualityTypeArgument(java.createTypeReference(m.parameter().name())));
+            implementationTypeReference.addArgument(new JavaEqualityTypeArgument(java.createTypeReference(m.parameter().name())));
+          });
+
           javaMethod.setReturnTypeReference(Java8InterfaceGenerator.this.clone(typeRef));
           javaMethod.addModifier(new Static());
 
-        ((Type)javaParentType.origin()).members(TypeMemberDeclarator.class).forEach(m -> {
-          //t.addParameter(TypeParameter.class, new FormalTypeParameter(m.name()));
-          javaMethod.header().addTypeParameter(m.clone(m.parameter()));
-        });
-
-          
           
           /**
            * Overwrite body:
@@ -107,8 +114,8 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
           Block javaBody = new Block();
           LocalVariableDeclarator localVariableDeclarator = new LocalVariableDeclarator(typeRef);
           VariableDeclaration declaration = new VariableDeclaration(resultVariableName());
-          declaration.setInitialization(
-              new ConstructorInvocation(java.createTypeReference(implementationName(javaParentType)), null));
+
+          declaration.setInitialization(new ConstructorInvocation(implementationTypeReference, null));
           localVariableDeclarator.add(declaration);
           javaBody.addStatement(localVariableDeclarator);
           MethodInvocation invocation = expressionFactory(javaMethod).createInvocation(constructorName(javaMethod),

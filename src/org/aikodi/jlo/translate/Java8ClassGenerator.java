@@ -27,6 +27,7 @@ import org.aikodi.chameleon.support.modifier.Public;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.util.Util;
+import org.aikodi.contract.Contract;
 import org.aikodi.java.core.language.Java7;
 import org.aikodi.java.core.modifier.Implements;
 import org.aikodi.java.core.type.BasicJavaTypeReference;
@@ -61,7 +62,8 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		// implements the interface, and contains the fields.
 		// The class must implement the interface.
 		implementOwnInterfaces(javaDocument);
-		replaceSubobjects(javaDocument);
+		replaceSubobjectsWithEquivalentJavaClasses(javaDocument);
+		// The fields for the subobjects have to be in the implementation class.
 		addFields(javaDocument);
 		renameConstructorCalls(javaDocument);
 		addTypeParameterToOwnClass(javaDocument);
@@ -75,7 +77,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	 * 
 	 * @param javaDocument The document in which the subobjects must be replaced.
 	 */
-	protected void replaceSubobjects(Document javaDocument) throws LookupException {
+	protected void replaceSubobjectsWithEquivalentJavaClasses(Document javaDocument) throws LookupException {
 		// We remove the subobjects from the document, and work directly with
 		// the subobjects from the JLo document.
 		javaDocument.lexical().apply(Subobject.class, javaSubobject -> {
@@ -188,12 +190,27 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		}
 	}
 
+	/**
+	 * Return the name of the subobject implementation class.
+	 *
+	 * @param subobject The subobject for which the implementation name is requested. Cannot be null.
+	 *
+	 * @return A non-null name that contains at least the name of the subobject but it different from the subobject name
+	 * in order to avoid name conflicts.
+	 */
 	private String subobjectImplementationName(Subobject subobject) {
+		Contract.requireNotNull(subobject);
+
 		return subobject.name()+IMPLEMENTATION_SUFFIX;
 	}
 
-	protected void removeNormalMethods(Document result) {
-		result.lexical().apply(Method.class, m -> {
+	/**
+	 * Remove all the normal methods. They will be part of the interface as a default implementation.
+	 *
+	 * @param javaDocument The Java documents from which to remove the normal methods.
+	 */
+	protected void removeNormalMethods(Document javaDocument) {
+		javaDocument.lexical().apply(Method.class, m -> {
 			Element origin = m.origin();
 			//      if (!origin.isTrue(jlo(origin).CONSTRUCTOR)) {
 			m.disconnect();

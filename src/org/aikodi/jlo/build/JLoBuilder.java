@@ -19,6 +19,7 @@ import org.aikodi.chameleon.plugin.build.Builder;
 import org.aikodi.chameleon.plugin.build.DocumentWriter;
 import org.aikodi.chameleon.workspace.InputException;
 import org.aikodi.chameleon.workspace.View;
+import org.aikodi.contract.Contract;
 import org.aikodi.java.core.language.Java7;
 import org.aikodi.java.core.language.Java7LanguageFactory;
 import org.aikodi.java.output.JavaDocumentWriter;
@@ -26,9 +27,24 @@ import org.aikodi.java.workspace.JavaView;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.translate.JLoToJava8Translator;
 
+import static org.aikodi.contract.Contract.require;
+import static org.aikodi.contract.Contract.requireNotNull;
+
+/**
+ * A class to translate JLo source code into Java source code.
+ */
 public class JLoBuilder extends ViewPluginImpl implements Builder {
-	
+
+	/**
+	 * Create a new builder to translate code in the given view.
+	 *
+	 * @param view The view that contains the code to be translated. Cannot be null.
+	 *             The language must be JLo.
+	 */
 	public JLoBuilder(View view) {
+		requireNotNull(view);
+		require(view.language() instanceof JLo, "The language of the view is not JLo.");
+
 		setContainer(view, Builder.class);
 	}
 	
@@ -37,9 +53,6 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 	
 	@Override
 	public <T extends ViewPlugin> void setContainer(View view, Class<T> pluginInterface) {
-		if(! (view.language() instanceof JLo)) {
-			throw new ChameleonProgrammerException();
-		}
 		super.setContainer(view, pluginInterface);
 		Java7 target = new Java7LanguageFactory().create();
 		JavaView targetView = new JavaView(new LazyRootNamespace(), target);
@@ -61,17 +74,10 @@ public class JLoBuilder extends ViewPluginImpl implements Builder {
 				translated.flushCache();
 				writer.write(translated,outputDir);
 			}
-		} catch(Error e) {
+		} catch(Error | RuntimeException e) {
 			e.printStackTrace();
 			throw e;
-		} catch(RuntimeException e) {
-			e.printStackTrace();
-			throw e;
-		} catch (LookupException e) {
-			throw new BuildException(e);
-		} catch (ModelException e) {
-			throw new BuildException(e);
-		} catch (IOException e) {
+		} catch (ModelException | IOException e) {
 			throw new BuildException(e);
 		}
 	}

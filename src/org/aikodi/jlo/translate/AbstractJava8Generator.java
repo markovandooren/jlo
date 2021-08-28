@@ -168,6 +168,9 @@ public abstract class AbstractJava8Generator {
     return new ModifierStripper(m -> type.isInstance(m));
   }
 
+  /**
+   * A fluent API for removing modifiers from elements.
+   */
   public static class ModifierStripper {
     private Predicate<Modifier> predicate;
 

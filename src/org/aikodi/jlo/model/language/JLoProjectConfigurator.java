@@ -29,11 +29,10 @@ public class JLoProjectConfigurator extends JavaProjectConfigurator {
 	 * Set baseLibraryInParent to false when running from class files inside eclipse.
 	 * When run from a jar, the base library is located correctly.
 	 * 
-	 * @param javaBaseJarPath
-	 * @param baseLibraryInParent
+	 * @param javaBaseJarPath The path of the base jar.
 	 */
 	public JLoProjectConfigurator(JarFile javaBaseJarPath) {
-		super(Java7LanguageFactory.javaBaseJar());
+		super(javaBaseJarPath);
 	}
 	
 	public void searchInParent() {
@@ -59,7 +58,11 @@ public class JLoProjectConfigurator extends JavaProjectConfigurator {
 		public JLoBaseLibraryConfigurator(Language language) {
 			super(language);
 		}
-		
+
+		@Override
+		protected String languageName() {
+			return "JLo";
+		}
 
 		@Override
 		protected void addBaseScanner(View view) {

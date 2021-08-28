@@ -57,6 +57,9 @@ public class BatchTranslator {
 
 	private ElementProvider<RegularJLoType> _typeProvider;
 
+	private static File javaSourceOutputDirectory(File outputDir) {
+		return new File(outputDir, "src/main/java/");
+	}
 
 	public void translate() throws BuildException {
 		for(Type type: typeProvider().elements(sourceProject())) {
@@ -64,25 +67,21 @@ public class BatchTranslator {
 			// aspect weaver does not know which compilation units are present in the project.
 			Document compilationUnit = type.lexical().nearestAncestor(Document.class);
 			compilationUnit.verify();
-			_builder.build(compilationUnit, _outputDir);
+			_builder.build(compilationUnit, javaSourceOutputDirectory(_outputDir));
 		}
 	}
-	
+
   /**
-   * args[0] = path for the directory to write output
-   * args[1] = path to read input files
-   * ...1 or more input paths possible...
-   * args[i] = fqn of package to read, let this start with "@" to read the package recursively
-   *...1 or more packageFqns possible...
-   * args[n] = fqn of package to read, let this start with "#" to NOT read the package recursively.
-   *...1 or more packageFqns possible...
+   * args[0] = path of the project.xml file
+   * args[1] = path to write the translated files to
    *
-   * Example 
-   * java Copy outputDir apiInputDir customInputDir1 customInputDir2 @myPackage.subPackage 
+   * Example
+   * java BatchTranslator outputDir inputDir
    */
   public static void main(String[] args) throws Exception {
     if(args.length < 2) {
-      System.out.println("Usage: java .... JavaTranslator projectXML outputDir @recursivePackageFQN*"); // #packageFQN* $typeFQN*
+      	System.out.println("Usage: java .... BatchTranslator projectXML outputDir"); // #packageFQN* $typeFQN*
+		System.exit(1);
     }
 
     LanguageRepository repo = new LanguageRepository();
@@ -100,7 +99,7 @@ public class BatchTranslator {
       JLoBuilder builder = new JLoBuilder(project.views().get(0));
       // build!
       try {
-        builder.buildAll(new File(args[1]), null);
+        builder.buildAll(javaSourceOutputDirectory(new File(args[1])), null);
         System.out.println("Done building.");
       } catch (org.aikodi.chameleon.plugin.build.BuildException e) {
         throw new BuildException(e);
