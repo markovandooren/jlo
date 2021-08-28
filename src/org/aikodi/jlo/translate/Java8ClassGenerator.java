@@ -39,6 +39,8 @@ import org.aikodi.jlo.model.type.KeywordTypeArgument;
 import org.aikodi.jlo.model.type.KeywordTypeReference;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
+import static org.aikodi.contract.Contract.requireNotNull;
+
 public class Java8ClassGenerator extends AbstractJava8Generator {
 
 	/**
@@ -130,12 +132,15 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	/**
 	 * Create a class for the given subobject, and add it to the given Java parent type.
 	 * 
-	 * @param jloSubobject
-	 * @param javaParentType
+	 * @param jloSubobject The subobject for which to create the class. Cannot be null.
+	 * @param javaTypeThatMustContainTheSubobject The Java type in which to place the created subobject class.
 	 * @return
 	 * @throws LookupException
 	 */
-	protected RegularJavaType createSubobjectImplementation(Subobject jloSubobject, Type javaParentType) throws LookupException {
+	protected RegularJavaType createSubobjectImplementation(Subobject jloSubobject, Type javaTypeThatMustContainTheSubobject) throws LookupException {
+		requireNotNull(jloSubobject);
+		requireNotNull(javaTypeThatMustContainTheSubobject);
+
 		// 1. Compute the name of the class that will represent the subobject.
 		String subobjectImplementationName = subobjectImplementationName(jloSubobject);
 		// 2. Create a public class.
@@ -144,11 +149,11 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		javaSubobjectImplementation.setBody(new ClassBody());
 		javaSubobjectImplementation.addModifier(new Public());
 		// 3. Add the class to the given parent type.
-		javaParentType.add(javaSubobjectImplementation);
+		javaTypeThatMustContainTheSubobject.add(javaSubobjectImplementation);
 		// 4. Add the fields to the class that represents the subobject.
 		addFields(javaSubobjectImplementation, jloSubobject.componentType());
 		// 5. Add the 'implements' relation.
-		SubtypeRelation javaImplementsRelation = new SubtypeRelation(java(javaParentType)
+		SubtypeRelation javaImplementsRelation = new SubtypeRelation(java(javaTypeThatMustContainTheSubobject)
 				.createTypeReference(subobjectInterfaceName(jloSubobject)));
 		javaImplementsRelation.addModifier(new Implements());
 		javaSubobjectImplementation.addInheritanceRelation(javaImplementsRelation);
@@ -163,9 +168,10 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	 *   <li>Keyword references are replaced by generic type references.</li>
 	 * </ul>
 	 * 
-	 * @param jloReference
+	 * @param jloReference The type reference to convert. Cannot be null.
 	 * @return
-	 * @throws LookupException
+	 * @throws LookupException The JLo reference could not be resolved in the JLo model.
+	 * The members of the type constructor could not be resolved in the JLo model.
 	 */
 	protected TypeReference convertToJavaReference(TypeReference jloReference) throws LookupException {
 		if(jloReference instanceof KeywordTypeReference) {
@@ -199,7 +205,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	 * in order to avoid name conflicts.
 	 */
 	private String subobjectImplementationName(Subobject subobject) {
-		Contract.requireNotNull(subobject);
+		requireNotNull(subobject);
 
 		return subobject.name()+IMPLEMENTATION_SUFFIX;
 	}
@@ -218,7 +224,15 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		});
 	}
 
+	/**
+	 * Add an implements relation to the interface that corresponds with the class.
+	 * Make the classes public.
+	 *
+	 * @param javaDocument The document in which to make classes implement their corresponding interface.
+	 *                     Cannot be null.
+	 */
 	protected void implementOwnInterfaces(Document javaDocument) {
+		requireNotNull(javaDocument);
 		javaDocument.lexical().apply(Type.class, javaType -> {
 			try {
 				Java7 java = java(javaDocument);
@@ -231,9 +245,9 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 					SubtypeRelation relation = new SubtypeRelation(superTypeReference);
 					relation.addModifier(new Implements());
 					javaType.addInheritanceRelation(relation);
-					addTypeParameters(relation,jloType);
+					addTypeParameters(relation, jloType);
 					javaType.setName(implementationName(javaType));
-					javaType.modifiers(java.SCOPE_MUTEX).forEach(m -> m.disconnect());
+					javaType.modifiers(java.SCOPE_MUTEX).forEach(Element::disconnect);
 				}
 			} catch (ModelException e) {
 				throw new ChameleonProgrammerException(e);
