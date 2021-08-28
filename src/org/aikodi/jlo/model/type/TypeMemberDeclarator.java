@@ -71,6 +71,11 @@ public class TypeMemberDeclarator extends DeclarationImpl implements Declaration
   }
 
   @Override
+  public String toString() {
+    return signature().toString() + " " + parameter().toString();
+  }
+
+  @Override
   public List<Declaration> declaredDeclarations() {
   	List<Declaration> result = new ArrayList<>();
   	result.add(this);
