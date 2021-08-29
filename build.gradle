@@ -21,20 +21,10 @@ def eclipsePlugin = 'org/aikodi/jlo/eclipse/**'
 sourceSets {
   main {
     java {
-      srcDir 'src'
       exclude eclipsePlugin
     }
-//    antlr {
-//      srcDir 'src'
-//    }
   }
 }
-
-//configurations {
-//  shared
-//  compile.extendsFrom shared
-//  local.extendsFrom shared
-//}
 
 dependencies {
    antlr "org.antlr:antlr4:4.6"
