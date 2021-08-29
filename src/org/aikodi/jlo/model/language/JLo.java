@@ -5,15 +5,11 @@ import java.util.List;
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.relation.StrictPartialOrder;
-import org.aikodi.chameleon.oo.type.Parameter;
-import org.aikodi.chameleon.oo.type.ParameterSubstitution;
-import org.aikodi.chameleon.oo.type.Type;
-import org.aikodi.chameleon.oo.type.TypeInstantiation;
+import org.aikodi.chameleon.oo.type.*;
 import org.aikodi.chameleon.oo.type.generics.TypeArgument;
 import org.aikodi.java.core.language.Java7;
-import org.aikodi.java.core.type.JavaTypeReference;
 import org.aikodi.jlo.model.type.JLoCapturedType;
-import org.aikodi.jlo.model.type.JLoDerivedType;
+import org.aikodi.jlo.model.type.JLoTypeInstantiation;
 import org.aikodi.rejuse.junit.BasicRevision;
 
 public class JLo extends Java7 {
@@ -35,16 +31,16 @@ public class JLo extends Java7 {
 	
 	@Override
 	public <P extends Parameter> TypeInstantiation instantiatedType(Class<P> kind, List<P> parameters, Type baseType) {
-		return new JLoDerivedType(kind, parameters, baseType);
+		return new JLoTypeInstantiation(new FunctionalParameterSubstitution<P>(kind, parameters), baseType);
 	}
 
 	@Override
 	public TypeInstantiation createDerivedType(Type baseType, List<TypeArgument> typeArguments) throws LookupException {
-		return new JLoDerivedType(baseType,typeArguments);
+		return new JLoTypeInstantiation(baseType,typeArguments);
 	}
 
 	@Override
-	public Type createdCapturedType(ParameterSubstitution parameterSubstitution, Type base) {
+	public Type createdCapturedType(ParameterSubstitution<?> parameterSubstitution, Type base) {
 		return new JLoCapturedType(parameterSubstitution, base);
 	}
 	

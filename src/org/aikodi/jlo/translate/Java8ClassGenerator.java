@@ -1,9 +1,9 @@
 package org.aikodi.jlo.translate;
 
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.lookup.LookupException;
@@ -27,7 +27,6 @@ import org.aikodi.chameleon.support.modifier.Public;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.util.Util;
-import org.aikodi.contract.Contract;
 import org.aikodi.java.core.language.Java7;
 import org.aikodi.java.core.modifier.Implements;
 import org.aikodi.java.core.type.BasicJavaTypeReference;
@@ -276,7 +275,12 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 
 	private void addFields(Type javaType, Type jloType) throws LookupException {
 		Set<Type> allSuperTypes = jloType.getSelfAndAllSuperTypesView();
-		List<RegularMemberVariable> collect = allSuperTypes.stream().<RegularMemberVariable>flatMap(x -> {
+		List<? extends Declaration> declarations = jloType.declarations();
+		Map<Type, Collection<Declaration>> map = new HashMap<>();
+		for (Type superType: allSuperTypes) {
+			map.put(superType, superType.localMembers());
+		}
+		List<RegularMemberVariable> jloMemberVariablesOfAllSuperclasses = allSuperTypes.stream().<RegularMemberVariable>flatMap(x -> {
 			try {
 				return x.localMembers(RegularMemberVariable.class).stream();
 			} catch (Exception e) {
@@ -286,23 +290,25 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 			}
 		}).collect(Collectors.toList());
 
-		for(RegularMemberVariable v : collect) {
-			MemberVariableDeclarator jloMemberVariableDeclarator = v.lexical().nearestAncestor(MemberVariableDeclarator.class);
-			MemberVariableDeclarator f = new MemberVariableDeclarator(clone(jloMemberVariableDeclarator.typeReference()));
-			VariableDeclaration variableDeclaration = (VariableDeclaration) v.origin(); 
-			String fieldName = fieldName(variableDeclaration);
-			Util.debug(fieldName.contains("field$Property$value"));
-			f.add(new VariableDeclaration(fieldName));
-			f.addModifier(new Private());
-			javaType.add(f);
+		for(RegularMemberVariable jloMemberVariableOfASuperclass : jloMemberVariablesOfAllSuperclasses) {
+			MemberVariableDeclarator jloMemberVariableDeclarator = jloMemberVariableOfASuperclass.lexical().nearestAncestor(MemberVariableDeclarator.class);
+			Type type = jloMemberVariableOfASuperclass.getType();
+			MemberVariableDeclarator createdJavaMemberVariableDeclarator = new MemberVariableDeclarator(clone(jloMemberVariableDeclarator.typeReference()));
+			VariableDeclaration jloVariableDeclaration = (VariableDeclaration) jloMemberVariableOfASuperclass.origin();
+			String javaFieldName = fieldName(jloVariableDeclaration);
+			Util.debug(javaFieldName.contains("field$Property$value"));
+			List<? extends Declaration> list = jloMemberVariableDeclarator.declarations();
+			createdJavaMemberVariableDeclarator.add(new VariableDeclaration(javaFieldName));
+			createdJavaMemberVariableDeclarator.addModifier(new Private());
+			javaType.add(createdJavaMemberVariableDeclarator);
 			Method getter = createGetterTemplate(jloMemberVariableDeclarator);
-			createGetterImplementation(fieldName, getter);
+			createGetterImplementation(javaFieldName, getter);
 			javaType.add(getter);
 			Method setter = createSetterTemplate(jloMemberVariableDeclarator);
 			setter.addModifier(new Public());
 			Block setterBody = new Block();
 			setter.setImplementation(new RegularImplementation(setterBody));
-			setterBody.addStatement(new StatementExpression(new AssignmentExpression(new NameExpression(fieldName), new NameExpression("value"))));
+			setterBody.addStatement(new StatementExpression(new AssignmentExpression(new NameExpression(javaFieldName), new NameExpression("value"))));
 			javaType.add(setter);
 		}
 	}

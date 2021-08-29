@@ -8,10 +8,6 @@ buildscript {
     repositories {
         mavenCentral()
     }
-
-//    dependencies {
-//        classpath 'by.github.frenchie16:antlr4-gradle-plugin:0.1.2'
-//   }
 }
 
 repositories {
@@ -28,19 +24,20 @@ sourceSets {
       srcDir 'src'
       exclude eclipsePlugin
     }
-    //antlr {
-    //  srcDir 'src'
-    //}
+//    antlr {
+//      srcDir 'src'
+//    }
   }
 }
 
-configurations {
-  shared
-  compile.extendsFrom shared
-  local.extendsFrom shared
-}
+//configurations {
+//  shared
+//  compile.extendsFrom shared
+//  local.extendsFrom shared
+//}
 
 dependencies {
+   antlr "org.antlr:antlr4:4.6"
    api project(':rejuse')
    api project(':chameleon')
    api project(':jnome')
@@ -73,11 +70,11 @@ dependencies {
 //}
 
 
-//generateGrammarSource {
-//    antlr.srcDirs = file('src/org/aikodi/jlo/input')
-//    maxHeapSize = "64m"
-//    arguments += ["-visitor", "-long-messages"]
-//}
+generateGrammarSource {
+    //antlr.srcDirs = file('src/org/aikodi/jlo/input')
+    maxHeapSize = "64m"
+    arguments += ["-visitor", "-long-messages", "-package", "org.aikodi.jlo.input"]
+}
 
 task copyRuntimeLibs(type: Copy) {
     into "lib"
