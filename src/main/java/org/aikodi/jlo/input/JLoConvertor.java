@@ -31,15 +31,7 @@ import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.ClassWithBody;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
-import org.aikodi.chameleon.oo.type.generics.EqualityConstraint;
-import org.aikodi.chameleon.oo.type.generics.EqualityTypeArgument;
-import org.aikodi.chameleon.oo.type.generics.ExtendsConstraint;
-import org.aikodi.chameleon.oo.type.generics.ExtendsWildcard;
-import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
-import org.aikodi.chameleon.oo.type.generics.SuperConstraint;
-import org.aikodi.chameleon.oo.type.generics.SuperWildcard;
-import org.aikodi.chameleon.oo.type.generics.TypeArgument;
-import org.aikodi.chameleon.oo.type.generics.TypeConstraint;
+import org.aikodi.chameleon.oo.type.generics.*;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
@@ -50,6 +42,7 @@ import org.aikodi.chameleon.support.expression.RegularLiteral;
 import org.aikodi.chameleon.support.expression.SuperTarget;
 import org.aikodi.chameleon.support.expression.ThisLiteral;
 import org.aikodi.chameleon.support.member.simplename.method.NormalMethod;
+import org.aikodi.chameleon.support.member.simplename.operator.infix.InfixOperatorInvocation;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import org.aikodi.chameleon.support.modifier.Abstract;
 import org.aikodi.chameleon.support.modifier.Constructor;
@@ -57,6 +50,7 @@ import org.aikodi.chameleon.support.modifier.Native;
 import org.aikodi.chameleon.support.statement.ReturnStatement;
 import org.aikodi.chameleon.support.statement.StatementExpression;
 import org.aikodi.chameleon.support.variable.LocalVariableDeclarator;
+import org.aikodi.java.core.type.BasicJavaTypeReference;
 import org.aikodi.java.workspace.JavaView;
 import org.aikodi.jlo.input.JLoParser.AbstractImplementationContext;
 import org.aikodi.jlo.input.JLoParser.AbstractModifierContext;
@@ -86,7 +80,6 @@ import org.aikodi.jlo.input.JLoParser.InitModifierContext;
 import org.aikodi.jlo.input.JLoParser.IntegerLiteralContext;
 import org.aikodi.jlo.input.JLoParser.IntegerNumberLiteralContext;
 import org.aikodi.jlo.input.JLoParser.KeywordBlockContext;
-import org.aikodi.jlo.input.JLoParser.KeywordTypeContext;
 import org.aikodi.jlo.input.JLoParser.KlassContext;
 import org.aikodi.jlo.input.JLoParser.LiteralExpressionContext;
 import org.aikodi.jlo.input.JLoParser.LowPriorityNumbericalExpressionContext;
@@ -126,8 +119,6 @@ import org.aikodi.jlo.input.JLoParser.TypeContext;
 import org.aikodi.jlo.input.JLoParser.VarDeclarationContext;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.subobject.Subobject;
-import org.aikodi.jlo.model.type.KeywordTypeArgument;
-import org.aikodi.jlo.model.type.KeywordTypeReference;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -226,11 +217,21 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
     if(inheritanceCtx != null) {
       result.addInheritanceRelation(visitInheritanceRelation(inheritanceCtx));
     }
+
+    for (JLoParser.TypeParameterContext tpar: ctx.typeParameter()) {
+      result.addParameter(TypeParameter.class, visitTypeParameter(tpar));
+    }
+
     visitClassBody(ctx.classBody()).accept(((ClassWithBody)result).body());
     for(ModifierContext m: ctx.modifier()) {
       result.addModifier((Modifier)visit(m));
     }
     return processLayout(result,ctx);
+  }
+
+  @Override
+  public TypeParameter visitTypeParameter(JLoParser.TypeParameterContext ctx) {
+    return new FormalTypeParameter(ctx.getText());
   }
 
   @Override
@@ -250,7 +251,8 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public Consumer<ClassBody> visitClassBody(ClassBodyContext ctx) {
-    return b -> ctx.bodyElement().stream().forEach(e -> b.add((Declarator)visitBodyElement(e)));
+    List<JLoParser.BodyElementContext> elements = ctx.bodyElement();
+    return b -> elements.stream().forEach(e -> b.add((Declarator)visitBodyElement(e)));
   }
 
 
@@ -274,6 +276,8 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
     ReturnTypeContext returnType = ctx.returnType();
     if(returnType != null) {
       result.setReturnTypeReference(visitReturnType(returnType));
+    } else {
+      result.setReturnTypeReference(jlo().createTypeReference("void"));
     }
     return result;
   }
@@ -440,7 +444,7 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public Expression visitSelfCallExpression(SelfCallExpressionContext ctx) {
-    MethodInvocation result = jlo().plugin(ExpressionFactory.class).createInvocation(ctx.name.getText(), null);
+    MethodInvocation<?> result = jlo().plugin(ExpressionFactory.class).createInvocation(ctx.name.getText(), null);
     for(Expression argument: visitArguments(ctx.args)) {
       result.addArgument(argument);
     }
@@ -478,56 +482,56 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public Expression visitExponentiationExpression(ExponentiationExpressionContext ctx) {
-    MethodInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
 
   @Override
   public Expression visitHighPriorityNumbericalExpression(HighPriorityNumbericalExpressionContext ctx) {
-    MethodInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
 
   @Override
   public Expression visitLowPriorityNumbericalExpression(LowPriorityNumbericalExpressionContext ctx) {
-    MethodInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
 
   @Override
   public Expression visitShiftExpression(ShiftExpressionContext ctx) {
-    MethodInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
 
   @Override
   public Expression visitEqualityExpression(EqualityExpressionContext ctx) {
-    MethodInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
 
   @Override
   public Expression visitOrderExpression(OrderExpressionContext ctx) {
-    MethodInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
 
   @Override
   public Expression visitAndExpression(AndExpressionContext ctx) {
-    MethodInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
 
   @Override
   public Expression visitOrExpression(OrExpressionContext ctx) {
-    MethodInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
@@ -614,24 +618,21 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
     return declarator;
   }
 
-  /**
-   * @{inheritDoc}
-   */
   @Override
-  public TypeReference visitKeywordType(KeywordTypeContext ctx) {
-    TypeReference constructorReference = processLayout(jlo().createTypeReference(ctx.qualifiedName().getText()),ctx);
-    KeywordTypeReference result = new KeywordTypeReference(constructorReference);
-    List<TerminalNode> identifiers = ctx.Identifier();
-    int size = identifiers.size();
-    for(int i=0; i < size; i++) {
-      String name = identifiers.get(i).getText();
-      TypeArgument constraint = (TypeArgument) visit(ctx.typeArgument(i));
-      KeywordTypeArgument argument = new KeywordTypeArgument(name, constraint);
-      result.add(argument);
+  public Object visitQualifiedName(JLoParser.QualifiedNameContext ctx) {
+    return super.visitQualifiedName(ctx);
+  }
+
+  @Override
+  public BasicJavaTypeReference visitFunctionalTypeInstantiation(JLoParser.FunctionalTypeInstantiationContext ctx) {
+    BasicJavaTypeReference result = processLayout(jlo().createTypeReference(ctx.qualifiedName().getText()),ctx);
+    for (JLoParser.TypeArgumentContext typeArgument: ctx.typeArgument()) {
+      TypeArgument argument = (TypeArgument) visit(typeArgument);
+      result.addArgument(argument);
     }
     return result;
   }
-  
+
   /**
    * @{inheritDoc}
    */

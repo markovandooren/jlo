@@ -14,6 +14,7 @@ import org.aikodi.chameleon.core.relation.WeakPartialOrder;
 import org.aikodi.chameleon.oo.expression.Expression;
 import org.aikodi.chameleon.oo.expression.MethodInvocation;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
+import org.aikodi.chameleon.oo.language.ObjectOrientedLanguageImpl;
 import org.aikodi.chameleon.oo.member.MoreSpecificTypesOrder;
 import org.aikodi.chameleon.oo.member.SignatureWithParameters;
 import org.aikodi.chameleon.oo.method.Method;
@@ -101,7 +102,7 @@ public class SubobjectConstructorCall extends MethodInvocation<NormalMethod> {
 		}
 
 		public boolean selectedRegardlessOfName(NormalMethod declaration) throws LookupException {
-    	return declaration.is(language(ObjectOrientedLanguage.class).CONSTRUCTOR)==Ternary.TRUE;
+    	return declaration.isTrue(language(ObjectOrientedLanguage.class).CONSTRUCTOR());
     }
     
     public List<? extends SelectionResult<NormalMethod>> selection(List<? extends Declaration> declarators) throws LookupException {

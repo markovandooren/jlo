@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.BasicDeclaration;
 import org.aikodi.chameleon.core.declaration.Declaration;
-import org.aikodi.chameleon.core.declaration.DeclarationImpl;
 import org.aikodi.chameleon.core.declaration.DeclarationRelation;
 import org.aikodi.chameleon.core.declaration.Signature;
 import org.aikodi.chameleon.core.declaration.Name;
@@ -376,7 +375,7 @@ public class Subobject extends BasicDeclaration implements DeclarationWithType, 
 		return new DeclarationRelation(true){
 			@Override
 			public boolean contains(Declaration overriding, Declaration overridden) throws LookupException {
-	       return overridden instanceof Subobject && overridden.isTrue(overridden.language(LanguageImpl.class).OVERRIDABLE)
+	       return overridden instanceof Subobject && overridden.isTrue(overridden.language(LanguageImpl.class).OVERRIDABLE())
 			&& overridden.compatibleSignature(overriding);
 			}
 		};

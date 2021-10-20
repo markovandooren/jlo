@@ -20,10 +20,11 @@ public class JLoCapturedType extends CapturedType implements JLoType {
 	public JLoCapturedType(ParameterSubstitution substitution, Type baseType) {
 		super(substitution, baseType);
 	}
-	
+
 	@Override
 	public JLoCapturedType clone() {
 		return new JLoCapturedType(clonedParameters(),baseType());
 	}
 
 }
+

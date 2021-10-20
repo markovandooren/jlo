@@ -16,7 +16,6 @@ import org.aikodi.chameleon.oo.statement.Block;
 import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
-import org.aikodi.chameleon.oo.type.generics.TypeArgument;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.RegularMemberVariable;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
@@ -30,13 +29,10 @@ import org.aikodi.chameleon.util.Util;
 import org.aikodi.java.core.language.Java7;
 import org.aikodi.java.core.modifier.Implements;
 import org.aikodi.java.core.type.BasicJavaTypeReference;
-import org.aikodi.java.core.type.JavaPureWildcard;
+import org.aikodi.java.core.type.JavaInstantiatedParameterType;
 import org.aikodi.java.core.type.RegularJavaType;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.subobject.SubobjectType;
-import org.aikodi.jlo.model.type.KeywordTypeArgument;
-import org.aikodi.jlo.model.type.KeywordTypeReference;
-import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 import static org.aikodi.contract.Contract.requireNotNull;
 
@@ -105,13 +101,13 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 				//TypeReference subobjectTypeReference = jloSubobject.clone(jloSubobject.superClassReference());
 				try {
 					// 1. Add a field to store the subobject.
-					TypeReference subobjectTypeReference = subobjectTypeReference(jloSubobject, java(javaType));
+					TypeReference subobjectTypeReference = subobjectTypeReference(jloSubobject, javaType);
 					MemberVariableDeclarator field = new MemberVariableDeclarator(subobjectTypeReference);
 					field.add(new VariableDeclaration(subobjectFieldName(jloSubobject)));
 					field.addModifier(new Private());
 					javaType.add(field);
 					// 2. Add a getter for the subobject.
-					Method getter = createSubobjectGetterTemplate(jloSubobject,java(javaType));
+					Method getter = createSubobjectGetterTemplate(jloSubobject, javaType);
 					createGetterImplementation(subobjectFieldName(jloSubobject), getter);
 					javaType.add(getter);
 					// 3. Create a class for the subobject. It contains the fields of the
@@ -173,26 +169,26 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	 * The members of the type constructor could not be resolved in the JLo model.
 	 */
 	protected TypeReference convertToJavaReference(TypeReference jloReference) throws LookupException {
-		if(jloReference instanceof KeywordTypeReference) {
-			KeywordTypeReference keywordReference = (KeywordTypeReference) jloReference;
-			BasicJavaTypeReference result = (BasicJavaTypeReference) keywordReference.clone(keywordReference.typeConstructorReference());
-			Type jloTypeConstructor = keywordReference.typeConstructorReference().getElement();
-			List<TypeMemberDeclarator> jloTypeMembersInAlphabeticOrder = jloTypeConstructor.members(TypeMemberDeclarator.class).stream().sorted((d1,d2) -> d1.name().compareTo(d2.name())).collect(Collectors.toList());
-			for(TypeMemberDeclarator jloTypeMember: jloTypeMembersInAlphabeticOrder) {
-				String name = jloTypeMember.name();
-				KeywordTypeArgument keyword = keywordReference.argument(name);
-				if(keyword != null) {
-				  TypeArgument argument = keyword.argument();
-				  result.addArgument(argument.clone(argument));
-				} else {
-					result.addArgument(new JavaPureWildcard());
-				}
-			};
-			Util.debug(result.typeArguments().size() == 2);
-			return result;
-		} else {
+//		if(jloReference instanceof KeywordTypeReference) {
+//			KeywordTypeReference keywordReference = (KeywordTypeReference) jloReference;
+//			BasicJavaTypeReference result = (BasicJavaTypeReference) keywordReference.clone(keywordReference.typeConstructorReference());
+//			Type jloTypeConstructor = keywordReference.typeConstructorReference().getElement();
+//			List<TypeMemberDeclarator> jloTypeMembersInAlphabeticOrder = jloTypeConstructor.members(TypeMemberDeclarator.class).stream().sorted((d1,d2) -> d1.name().compareTo(d2.name())).collect(Collectors.toList());
+//			for(TypeMemberDeclarator jloTypeMember: jloTypeMembersInAlphabeticOrder) {
+//				String name = jloTypeMember.name();
+//				KeywordTypeArgument keyword = keywordReference.argument(name);
+//				if(keyword != null) {
+//				  TypeArgument argument = keyword.argument();
+//				  result.addArgument(argument.clone(argument));
+//				} else {
+//					result.addArgument(new JavaPureWildcard());
+//				}
+//			};
+//			Util.debug(result.typeArguments().size() == 2);
+//			return result;
+//		} else {
 			return jloReference.clone(jloReference);
-		}
+//		}
 	}
 
 	/**
@@ -292,8 +288,9 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 
 		for(RegularMemberVariable jloMemberVariableOfASuperclass : jloMemberVariablesOfAllSuperclasses) {
 			MemberVariableDeclarator jloMemberVariableDeclarator = jloMemberVariableOfASuperclass.lexical().nearestAncestor(MemberVariableDeclarator.class);
-			Type type = jloMemberVariableOfASuperclass.getType();
-			MemberVariableDeclarator createdJavaMemberVariableDeclarator = new MemberVariableDeclarator(clone(jloMemberVariableDeclarator.typeReference()));
+			TypeReference typeReference = convertToContext(jloMemberVariableDeclarator.typeReference(), javaType);
+
+			MemberVariableDeclarator createdJavaMemberVariableDeclarator = new MemberVariableDeclarator(typeReference);
 			VariableDeclaration jloVariableDeclaration = (VariableDeclaration) jloMemberVariableOfASuperclass.origin();
 			String javaFieldName = fieldName(jloVariableDeclaration);
 			Util.debug(javaFieldName.contains("field$Property$value"));
@@ -301,10 +298,10 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 			createdJavaMemberVariableDeclarator.add(new VariableDeclaration(javaFieldName));
 			createdJavaMemberVariableDeclarator.addModifier(new Private());
 			javaType.add(createdJavaMemberVariableDeclarator);
-			Method getter = createGetterTemplate(jloMemberVariableDeclarator);
+			Method getter = createGetterTemplate(jloMemberVariableDeclarator, javaType);
 			createGetterImplementation(javaFieldName, getter);
 			javaType.add(getter);
-			Method setter = createSetterTemplate(jloMemberVariableDeclarator);
+			Method setter = createSetterTemplate(jloMemberVariableDeclarator, javaType);
 			setter.addModifier(new Public());
 			Block setterBody = new Block();
 			setter.setImplementation(new RegularImplementation(setterBody));

@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import org.aikodi.chameleon.core.declaration.Declaration;
-import org.aikodi.chameleon.core.declaration.Name;
 import org.aikodi.chameleon.core.declaration.Signature;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.factory.Factory;
@@ -13,6 +12,7 @@ import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.core.reference.NameReference;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
+import org.aikodi.chameleon.oo.language.ObjectOrientedLanguageImpl;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;

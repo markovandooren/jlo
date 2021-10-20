@@ -74,7 +74,20 @@ public class JLoSubtypeRelation extends SubtypeRelation {
 		}
 		return result;
 	}
-	
+
+	/**
+	 * Return a clone of the given selection in the context of this type.
+	 * For now, we do not consider private members.
+	 *
+	 * @param selection The selecion result that must be incorporated into this type.
+	 * @param <X> The type of the declaration.
+	 *
+	 * @return Lexically, the returned selection result has the parent of the given selection result
+	 * as one of its ancestors. In between, however, is an element that redirects the lookup to
+	 * the parent type of this subtype relation.
+	 *
+	 * @throws LookupException The final declaration of the given selection result cannot be computed.
+	 */
 	public <X extends Declaration> SelectionResult<X> incorporated(SelectionResult<X> selection) throws LookupException {
 		X cloned = (X) Util.clone(selection.template());
 		LookupRedirector redirector = new LookupRedirector(lexical().nearestAncestor(Type.class), cloned);

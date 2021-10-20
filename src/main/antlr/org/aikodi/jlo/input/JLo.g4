@@ -27,7 +27,11 @@ namespaceReference
   ;
 
 klass
-  : modifier* KLASS Identifier inheritanceRelation? classBody
+  : modifier* KLASS Identifier (SMALLER typeParameter (COMMA typeParameter)* BIGGER)? inheritanceRelation? classBody
+  ;
+
+typeParameter
+  : Identifier
   ;
 
 classBody
@@ -112,7 +116,7 @@ inheritanceRelation
 type
   : qualifiedName # qualifiedType
   | LPAR type RPAR # parenthesisType
-  | qualifiedName (Identifier typeArgument)+ #keywordType
+  | qualifiedName SMALLER f=typeArgument (COMMA s=typeArgument)* BIGGER #functionalTypeInstantiation
   ;
 
 qualifiedName

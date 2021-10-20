@@ -39,6 +39,7 @@ dependencies {
    implementation 'org.ow2.asm:asm:5.0.3'
    implementation 'com.lexicalscope.jewelcli:jewelcli:0.8.5'
    api 'org.antlr:antlr4-runtime:4.6'
+   implementation 'org.antlr:antlr4-runtime:4.6'
    implementation 'org.apache.ant:ant:1.9.4'
 
    api 'org.antlr:antlr4:4.6'

@@ -3,10 +3,14 @@ package org.aikodi.jlo.model.type;
 import java.util.List;
 
 import org.aikodi.chameleon.core.lookup.LookupException;
+import org.aikodi.chameleon.oo.type.FunctionalParameterSubstitution;
 import org.aikodi.chameleon.oo.type.ParameterSubstitution;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.generics.TypeArgument;
+import org.aikodi.chameleon.oo.type.generics.TypeParameter;
+import org.aikodi.java.core.language.Java7;
 import org.aikodi.java.core.type.JavaTypeInstantiation;
+import org.aikodi.jlo.model.language.JLo;
 
 public class JLoTypeInstantiation extends JavaTypeInstantiation implements JLoType {
 
@@ -25,6 +29,10 @@ public class JLoTypeInstantiation extends JavaTypeInstantiation implements JLoTy
 	public JLoTypeInstantiation clone() {
 		List<ParameterSubstitution<?>> args = clonedParameters();
 		return new JLoTypeInstantiation(args,baseType());
+	}
+
+	protected Type createCapturedType(List<TypeParameter> typeParameters, Type base) {
+		return language(JLo.class).createdCapturedType(new FunctionalParameterSubstitution<>(TypeParameter.class,typeParameters), base);
 	}
 
 }

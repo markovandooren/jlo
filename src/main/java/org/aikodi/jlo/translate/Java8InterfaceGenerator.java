@@ -65,7 +65,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     createConstructors(javaDocument);
     createDefaultConstructor(javaDocument);
     addTypeParameterToOwnClass(javaDocument);
-    transformKeywordTypeReferences(javaDocument);
+//    transformKeywordTypeReferences(javaDocument);
     return javaDocument;
   }
 
@@ -77,7 +77,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
       @Override
       public void accept(Method javaMethod) throws LookupException {
         Method jloMethod = (Method) javaMethod.origin();
-        if (!isGenerated(javaMethod) && jloMethod.isTrue(jlo(jloMethod).CONSTRUCTOR)) {
+        if (!isGenerated(javaMethod) && jloMethod.isTrue(jlo(jloMethod).CONSTRUCTOR())) {
           Java7 java = java(javaDocument);
           Type javaParentType = javaMethod.lexical().nearestAncestor(Type.class);
           if (jloMethod.nbFormalParameters() == 0) {
@@ -94,15 +94,20 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
           // The static method returns an object of the parent type.
           // But we still need to add the type parameter to it.
           BasicJavaTypeReference typeRef = java.createTypeReference(javaParentType.name());
+          javaMethod.setReturnTypeReference(typeRef);
+
           BasicJavaTypeReference implementationTypeReference = java.createTypeReference(implementationName(javaParentType));
 
-          ((Type) javaParentType.origin()).members(TypeMemberDeclarator.class).forEach(m -> {
-            javaMethod.header().addTypeParameter(m.clone(m.parameter()));
-            typeRef.addArgument(new JavaEqualityTypeArgument(java.createTypeReference(m.parameter().name())));
-            implementationTypeReference.addArgument(new JavaEqualityTypeArgument(java.createTypeReference(m.parameter().name())));
-          });
+          addTypeParameters(java, typeRef, (Type)javaParentType.origin());
+          addTypeParameters(java, implementationTypeReference, (Type)javaParentType.origin());
+          addTypeParameters(java, javaMethod.header(), (Type)javaParentType.origin());
 
-          javaMethod.setReturnTypeReference(Java8InterfaceGenerator.this.clone(typeRef));
+//          ((Type) javaParentType.origin()).members(TypeMemberDeclarator.class).forEach(m -> {
+//            javaMethod.header().addTypeParameter(m.clone(m.parameter()));
+//            typeRef.addArgument(new JavaEqualityTypeArgument(java.createTypeReference(m.parameter().name())));
+//            implementationTypeReference.addArgument(new JavaEqualityTypeArgument(java.createTypeReference(m.parameter().name())));
+//          });
+
           javaMethod.addModifier(new Static());
 
           
@@ -112,7 +117,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
            * T result = new T(); result.init$... return result;
            */
           Block javaBody = new Block();
-          LocalVariableDeclarator localVariableDeclarator = new LocalVariableDeclarator(typeRef);
+          LocalVariableDeclarator localVariableDeclarator = new LocalVariableDeclarator(typeRef.clone(typeRef));
           VariableDeclaration declaration = new VariableDeclaration(resultVariableName());
 
           declaration.setInitialization(new ConstructorInvocation(implementationTypeReference, null));
@@ -152,7 +157,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
       if (!isGenerated(t)) {
         boolean hasConstructor = t.directlyDeclaredMembers().stream().anyMatch(m -> {
         	Declaration jloMember = (Declaration) m.origin();
-          return !isGenerated(m) && jloMember.isTrue(jlo(jloMember).CONSTRUCTOR);
+          return !isGenerated(m) && jloMember.isTrue(jlo(jloMember).CONSTRUCTOR());
         } );
         if (!hasConstructor) {
           Method method = new JavaMethod(new SimpleNameMethodHeader("init$new", java(t).createTypeReference(t)));
@@ -176,7 +181,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
   }
 
   protected void changeClassesToInterfaces(Document javaDocument) {
-    add(new Interface()).to(Type.class).in(javaDocument).whenOrigin(t -> !t.isTrue(java(t).INTERFACE));
+    add(new Interface()).to(Type.class).in(javaDocument).whenOrigin(t -> !t.isTrue(java(t).INTERFACE()));
     strip(Abstract.class).from(Type.class).in(javaDocument);
     strip(java(javaDocument).PUBLIC).from(Type.class).in(javaDocument);
     add(new Public()).to(Type.class).in(javaDocument).whenOrigin(t -> true);
@@ -184,7 +189,7 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
 
   protected void makeMethodsDefault(Document javaDocument) {
     add(new Default()).to(Method.class).in(javaDocument).whenTranslated(m -> {
-      return !m.isTrue(java(m).CONSTRUCTOR) && !m.isTrue(java(m).ABSTRACT);
+      return !m.isTrue(java(m).CONSTRUCTOR()) && !m.isTrue(java(m).ABSTRACT());
     } );
   }
 
@@ -208,11 +213,13 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
       public void accept(MemberVariableDeclarator javaMemberVariableDeclarator) throws LookupException {
         VariableDeclaration variableDeclaration = javaMemberVariableDeclarator.variableDeclarations().get(0);
         replaceFieldReferences(javaDocument, variableDeclaration);
-        Method getter = createGetterTemplate(javaMemberVariableDeclarator);
+        MemberVariableDeclarator jloMemberVariableDeclarator = (MemberVariableDeclarator) javaMemberVariableDeclarator.origin();
+        Type javaContextType = javaMemberVariableDeclarator.lexical().nearestAncestor(Type.class);
+        Method getter = createGetterTemplate(jloMemberVariableDeclarator, javaContextType);
         getter.addModifier(new Abstract());
         getter.addModifier(new Public());
         javaMemberVariableDeclarator.replaceWith(getter);
-        Method setter = createSetterTemplate(javaMemberVariableDeclarator);
+        Method setter = createSetterTemplate(jloMemberVariableDeclarator, javaContextType);
         setter.addModifier(new Abstract());
         setter.addModifier(new Public());
         getter.lexical().nearestAncestor(Type.class).add(setter);
@@ -289,25 +296,31 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
     for(Subobject javaSubobject : subobjects) {
       try {
         String subobjectInterfaceName = subobjectInterfaceName(javaSubobject);
-				Type javaSubobjectInterface = ooFactory(javaSubobject).createRegularType(subobjectInterfaceName);
+		Type javaSubobjectInterface = ooFactory(javaSubobject).createRegularType(subobjectInterfaceName);
         Subobject jloSubobject = (Subobject) javaSubobject.origin();
         Util.debug(jloSubobject.componentType().getFullyQualifiedName().equals("example.Radio.volume.upperBound"));
         javaSubobjectInterface.addModifier(new Interface());
         SubtypeRelation javaSubtypeRelation = new SubtypeRelation(clone(javaSubobject.superClassReference()));
         javaSubobjectInterface.addInheritanceRelation(javaSubtypeRelation);
-        Method getter = createSubobjectGetterTemplate(jloSubobject, java(javaSubobject));
+        Type javaParentType = javaSubobject.lexical().nearestAncestor(Type.class);
+        Method getter = createSubobjectGetterTemplate(jloSubobject, javaParentType);
         getter.addModifier(new Abstract());
         getter.addModifier(new Public());
-        Type nearestAncestor = javaSubobject.lexical().nearestAncestor(Type.class);
-        nearestAncestor.add(getter);
+        javaParentType.add(getter);
+
+        // The inner interface is static and must have its own set of type parameters.
+        for (TypeParameter javaTypeParameter: javaParentType.parameters(TypeParameter.class)) {
+          javaSubobjectInterface.addParameter(TypeParameter.class, javaTypeParameter.clone(javaTypeParameter));
+        }
         applyToSortedTypeMemberDeclarators(jloSubobject.lexical().nearestAncestor(Type.class), m -> {
           javaSubobjectInterface.addParameter(TypeParameter.class, clone(m.parameter()));
         });
+
         javaSubobject.replaceWith(javaSubobjectInterface);
         SubobjectType jloSubobjectType = jloSubobject.lexical().nearestDescendants(SubobjectType.class).get(0);
         List<Declaration> jloSubobjectMembers = jloSubobjectType.directlyDeclaredMembers();
         for(Declaration jloSubobjectMember: jloSubobjectMembers) {
-        	Declaration member = cloneAndSetOrigin(jloSubobjectMember);
+          Declaration member = cloneAndSetOrigin(jloSubobjectMember);
           javaSubobjectInterface.add(member);
         }
         replaceSubobjects(javaSubobjectInterface);
@@ -325,11 +338,11 @@ public class Java8InterfaceGenerator extends AbstractJava8Generator {
         subobjectInterface.addModifier(new Interface());
         SubtypeRelation javaSubtypeRelation = new SubtypeRelation(clone(javaSubobject.superClassReference()));
         subobjectInterface.addInheritanceRelation(javaSubtypeRelation);
-        Method getter = createSubobjectGetterTemplate(jloSubobject, java(javaSubobject));
+        Type javaParentType = javaSubobject.lexical().nearestAncestor(Type.class);
+        Method getter = createSubobjectGetterTemplate(jloSubobject, javaParentType);
         getter.addModifier(new Abstract());
         getter.addModifier(new Public());
-        Type nearestAncestor = javaSubobject.lexical().nearestAncestor(Type.class);
-        nearestAncestor.add(getter);
+        javaParentType.add(getter);
         applyToSortedTypeMemberDeclarators(jloSubobject.lexical().nearestAncestor(Type.class), m -> {
           subobjectInterface.addParameter(TypeParameter.class, clone(m.parameter()));
         });

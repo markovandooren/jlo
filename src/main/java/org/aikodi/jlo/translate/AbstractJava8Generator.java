@@ -15,10 +15,10 @@ import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
 import org.aikodi.chameleon.oo.method.Method;
+import org.aikodi.chameleon.oo.method.MethodHeader;
 import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
-import org.aikodi.chameleon.oo.type.generics.EqualityTypeArgument;
 import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
 import org.aikodi.chameleon.oo.type.generics.InstantiatedTypeParameter;
 import org.aikodi.chameleon.oo.type.generics.TypeArgument;
@@ -29,12 +29,11 @@ import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
-import org.aikodi.chameleon.util.Util;
 import org.aikodi.java.core.language.Java7;
 import org.aikodi.java.core.type.BasicJavaTypeReference;
+import org.aikodi.java.core.type.JavaInstantiatedParameterType;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.subobject.Subobject;
-import org.aikodi.jlo.model.type.KeywordTypeReference;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
 
 public abstract class AbstractJava8Generator {
@@ -94,7 +93,7 @@ public abstract class AbstractJava8Generator {
         Declaration element;
         try {
           element = origin.getElement();
-          if (element.is(java(element).CONSTRUCTOR).isTrue()) {
+          if (element.isTrue(java(element).CONSTRUCTOR())) {
             c.setName(implementationName((Type) element));
           }
         } catch (Exception e) {
@@ -214,11 +213,26 @@ public abstract class AbstractJava8Generator {
 
   }
 
-  protected Method createGetterTemplate(MemberVariableDeclarator d) throws LookupException {
+  protected Method createGetterTemplate(MemberVariableDeclarator d, Type javaContextType) throws LookupException {
     VariableDeclaration variableDeclaration = d.variableDeclarations().get(0);
-    TypeReference tref = flattened(d.typeReference());
-    return ooFactory(d).createNormalMethod(getterName(variableDeclaration), clone(d.typeReference()));
+    TypeReference tref = convertToContext(d.typeReference(), javaContextType);
+    return ooFactory(d).createNormalMethod(getterName(variableDeclaration), tref);
   }
+
+  protected TypeReference convertToContext(TypeReference typeReference, Type javaContextType) throws LookupException {
+    Type type = typeReference.getElement();
+    TypeReference result;
+    if (type instanceof JavaInstantiatedParameterType) {
+      JavaInstantiatedParameterType instantiated = (JavaInstantiatedParameterType) type;
+      Type aliased = instantiated.aliasedType();
+      result = java(javaContextType).reference(aliased);
+      result.setUniParent(null);
+    } else {
+      result = clone(typeReference);
+    }
+    return result;
+  }
+
 
   protected TypeReference flattened(TypeReference typeReference) throws LookupException {
     TypeReference tref = (TypeReference)typeReference.origin();
@@ -239,29 +253,28 @@ public abstract class AbstractJava8Generator {
       TypeArgument arg = param.argument();
     }
     
-//    Type type = tref.getElement();
-//    Type upperBound = type.upperBound();
-//    TypeReference reference = typeReference.language(ObjectOrientedLanguage.class).reference(type);
-//    Util.debug(typeReference.toString().equals("T"));
     return typeReference;
   }
   
   /**
-   * @param subobject The subobject for which the getter template must be created.
+   * @param jloSubobject The subobject for which the getter template must be created.
    * @return a template for the getter of the given subobject. The resulting method
    * has a header, but not a body. It must be finished by the caller depending on whether
    * an interface or class is being created.
    * @throws LookupException 
    */
-  protected Method createSubobjectGetterTemplate(Subobject subobject, ObjectOrientedLanguage targetLanguage) throws LookupException {
-    //TypeReference subobjectTypeReference = subobject.clone(subobject.superClassReference());
-    TypeReference subobjectTypeReference = subobjectTypeReference(subobject, targetLanguage);
-    return ooFactory(subobject).createNormalMethod(subobjectGetterName(subobject), subobjectTypeReference);
+  protected Method createSubobjectGetterTemplate(Subobject jloSubobject, Type javaType) throws LookupException {
+    TypeReference subobjectTypeReference = subobjectTypeReference(jloSubobject, javaType);
+    return ooFactory(jloSubobject).createNormalMethod(subobjectGetterName(jloSubobject), subobjectTypeReference);
   }
   
-  protected TypeReference subobjectTypeReference(Subobject subobject, ObjectOrientedLanguage targetLanguage) throws LookupException {
-    return targetLanguage.createTypeReference(subobject.name());
-//    return expandedTypeReference(subobject.superClassReference(),targetLanguage);
+  protected TypeReference subobjectTypeReference(Subobject subobject, Type javaType) throws LookupException {
+    Java7 java = java(javaType);
+    BasicJavaTypeReference result = java.createTypeReference(subobject.name());
+    for (TypeParameter typeParameter: javaType.parameters(TypeParameter.class)) {
+      result.addArgument(java.createEqualityTypeArgument(java.createTypeReference(typeParameter.name())));
+    }
+    return result;
   }
 
   protected ObjectOrientedFactory ooFactory(Element element) {
@@ -272,10 +285,11 @@ public abstract class AbstractJava8Generator {
     return java(element).plugin(ExpressionFactory.class);
   }
 
-  protected Method createSetterTemplate(MemberVariableDeclarator d) {
+  protected Method createSetterTemplate(MemberVariableDeclarator d, Type javaContextType) throws LookupException {
     VariableDeclaration variableDeclaration = d.variableDeclarations().get(0);
     ObjectOrientedFactory factory = java(d).plugin(ObjectOrientedFactory.class);
-    TypeReference fieldType = d.clone(d.typeReference());
+//    TypeReference fieldType = d.clone(d.typeReference());
+    TypeReference fieldType = convertToContext(d.typeReference(), javaContextType);
     Method result = factory.createNormalMethod(setterName(variableDeclaration), java(d).createTypeReference("void"));
     result.header().addFormalParameter(new FormalParameter("value", fieldType));
     return result;
@@ -341,36 +355,50 @@ public abstract class AbstractJava8Generator {
     jloType.members(TypeMemberDeclarator.class).stream().sorted((d1,d2) -> d1.name().compareTo(d2.name())).forEachOrdered(action);
   }
 
+  protected void addTypeParameters(BasicJavaTypeReference tref, Type jloType) throws LookupException {
+    Java7 java = java(tref);
+    addTypeParameters(java, tref, jloType);
+  }
+  protected void addTypeParameters(Java7 java, BasicJavaTypeReference tref, Type jloType) throws LookupException {
+    jloType.parameters(TypeParameter.class).forEach(p -> tref.addArgument(java.createEqualityTypeArgument(java.createTypeReference(p.name()))));
+  }
+
+  protected void addTypeParameters(Java7 java, MethodHeader header, Type jloType) throws LookupException {
+    jloType.parameters(TypeParameter.class).forEach(p -> header.addTypeParameter(p.clone(p)));
+  }
+
   protected void addTypeParameters(InheritanceRelation relation, Type jloType) throws LookupException {
 //    applyToSortedTypeMemberDeclarators(jloType, d -> {
 //      ((BasicJavaTypeReference)relation.superClassReference()).addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.parameter().name())));
 //    });
-    applyToSortedTypeMemberDeclarators(jloType, d -> {
-      BasicJavaTypeReference basicJavaTypeReference = (BasicJavaTypeReference)relation.superClassReference();
-			TypeParameter parameter = d.parameter();
-			if(parameter instanceof InstantiatedTypeParameter) {
-			  basicJavaTypeReference.addArgument(d.clone(((InstantiatedTypeParameter)parameter).argument()));
-			} else if (parameter instanceof FormalTypeParameter) {
-				basicJavaTypeReference.addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.parameter().name())));
-			}
-    });
+    addTypeParameters(((BasicJavaTypeReference)relation.superClassReference()), jloType);
+
+//    applyToSortedTypeMemberDeclarators(jloType, d -> {
+//      BasicJavaTypeReference basicJavaTypeReference = (BasicJavaTypeReference)relation.superClassReference();
+//			TypeParameter parameter = d.parameter();
+//			if(parameter instanceof InstantiatedTypeParameter) {
+//			  basicJavaTypeReference.addArgument(d.clone(((InstantiatedTypeParameter)parameter).argument()));
+//			} else if (parameter instanceof FormalTypeParameter) {
+//				basicJavaTypeReference.addArgument(new EqualityTypeArgument(java(relation).createTypeReference(d.parameter().name())));
+//			}
+//    });
   }
 
 
-  protected void transformKeywordTypeReferences(Document javaType) {
-    javaType.lexical().apply(KeywordTypeReference.class, k -> transformKeywordTypeReference(k));
-  }
-
-  protected void transformKeywordTypeReference(KeywordTypeReference javaKeywordTypeReference) {
-//    KeywordTypeReference original = (KeywordTypeReference) javaKeywordTypeReference.origin();
-    BasicJavaTypeReference javaTypeReference = (BasicJavaTypeReference) javaKeywordTypeReference.typeConstructorReference();
-    //    Type jloTypeConstructorInstantiation = original.getElement();
-    //    List<TypeMemberDeclarator> typeMemberDeclarators = jloTypeConstructorInstantiation.members(TypeMemberDeclarator.class);
-    javaKeywordTypeReference.arguments().stream().sorted((d1,d2) -> d1.name().compareTo(d2.name())).forEachOrdered(jloTypeArgument -> {
-      javaTypeReference.addArgument(jloTypeArgument.argument());
-    });
-    javaKeywordTypeReference.parentLink().getOtherRelation().replace(javaKeywordTypeReference.parentLink(), javaTypeReference.parentLink());
-    
-  }
+//  protected void transformKeywordTypeReferences(Document javaType) {
+//    javaType.lexical().apply(KeywordTypeReference.class, k -> transformKeywordTypeReference(k));
+//  }
+//
+//  protected void transformKeywordTypeReference(KeywordTypeReference javaKeywordTypeReference) {
+////    KeywordTypeReference original = (KeywordTypeReference) javaKeywordTypeReference.origin();
+//    BasicJavaTypeReference javaTypeReference = (BasicJavaTypeReference) javaKeywordTypeReference.typeConstructorReference();
+//    //    Type jloTypeConstructorInstantiation = original.getElement();
+//    //    List<TypeMemberDeclarator> typeMemberDeclarators = jloTypeConstructorInstantiation.members(TypeMemberDeclarator.class);
+//    javaKeywordTypeReference.explicitTypeArguments().stream().sorted((d1, d2) -> d1.keyword().compareTo(d2.keyword())).forEachOrdered(jloTypeArgument -> {
+//      javaTypeReference.addArgument(jloTypeArgument.argument());
+//    });
+//    javaKeywordTypeReference.parentLink().getOtherRelation().replace(javaKeywordTypeReference.parentLink(), javaTypeReference.parentLink());
+//
+//  }
 
 }
