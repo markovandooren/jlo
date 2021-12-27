@@ -8,7 +8,6 @@ import org.aikodi.chameleon.oo.type.ParameterSubstitution;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.generics.TypeArgument;
 import org.aikodi.chameleon.oo.type.generics.TypeParameter;
-import org.aikodi.java.core.language.Java7;
 import org.aikodi.java.core.type.JavaTypeInstantiation;
 import org.aikodi.jlo.model.language.JLo;
 
