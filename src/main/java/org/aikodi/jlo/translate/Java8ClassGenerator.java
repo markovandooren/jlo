@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.element.Element;
+import org.aikodi.chameleon.core.element.ElementImpl;
 import org.aikodi.chameleon.core.lookup.LookupException;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.exception.ModelException;
@@ -75,11 +76,9 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 	 * @param javaDocument The document in which the subobjects must be replaced.
 	 */
 	protected void replaceSubobjectsWithEquivalentJavaClasses(Document javaDocument) throws LookupException {
-		// We remove the subobjects from the document, and work directly with
+		// We remove the subobjects from the Java document, and work directly with
 		// the subobjects from the JLo document.
-		javaDocument.lexical().apply(Subobject.class, javaSubobject -> {
-			javaSubobject.disconnect();
-			});
+		javaDocument.lexical().apply(Subobject.class, ElementImpl::disconnect);
 		javaDocument.lexical().apply(Type.class, javaType -> {
 			if(! isGenerated(javaType)) {
 				Type jloType = (Type) javaType.origin();
@@ -114,6 +113,9 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 					//    subobject and implements the subobject interface.
 					//    FIXME The constructors should also be added.
 					RegularJavaType subobjectImplementation = createSubobjectImplementation(jloSubobject, javaType);
+					// 4. Copy the elements in the subobject body.
+					jloSubobject.componentType().body().elements().forEach(m -> subobjectImplementation.body().add(m.clone(m)));
+
 					expandSubobjects(subobjectImplementation, jloSubobject.componentType());
 				} catch (LookupException e) {
 					throw new ChameleonProgrammerException(e);
