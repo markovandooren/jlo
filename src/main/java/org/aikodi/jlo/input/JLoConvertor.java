@@ -231,7 +231,12 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public TypeParameter visitTypeParameter(JLoParser.TypeParameterContext ctx) {
-    return new FormalTypeParameter(ctx.getText());
+     FormalTypeParameter result = new FormalTypeParameter(ctx.Identifier().getText());
+     if (ctx.typeConstraint() != null) {
+        TypeConstraint constraint = (TypeConstraint) visit(ctx.typeConstraint());
+        result.addConstraint(constraint);
+     }
+     return result;
   }
 
   @Override
@@ -445,8 +450,10 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
   @Override
   public Expression visitSelfCallExpression(SelfCallExpressionContext ctx) {
     MethodInvocation<?> result = jlo().plugin(ExpressionFactory.class).createInvocation(ctx.name.getText(), null);
-    for(Expression argument: visitArguments(ctx.args)) {
-      result.addArgument(argument);
+    if (ctx.args != null) {
+      for (Expression argument : visitArguments(ctx.args)) {
+        result.addArgument(argument);
+      }
     }
     return result;
   }
@@ -460,14 +467,22 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
   public Expression visitQualifiedCallExpression(QualifiedCallExpressionContext ctx) {
     Expression target = (Expression) visit(ctx.expression());
     Expression result;
+    result = expressionFactory().createInvocation(ctx.name.getText(), target);
     if(ctx.args != null) {
-      result = expressionFactory().createInvocation(ctx.name.getText(), target);
       for(Expression argument: visitArguments(ctx.args)) {
         ((MethodInvocation)result).addArgument(argument);
       }
-    } else {
-      result = new NameExpression(ctx.name.getText(),target);
     }
+//    else {
+//      result = new NameExpression(ctx.name.getText(),target);
+//    }
+    return result;
+  }
+
+  @Override
+  public Expression visitQualifiedNameExpression(JLoParser.QualifiedNameExpressionContext ctx) {
+    Expression target = (Expression) visit(ctx.expression());
+    Expression result = new NameExpression(ctx.name.getText(),target);
     return result;
   }
 
@@ -524,14 +539,14 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public Expression visitAndExpression(AndExpressionContext ctx) {
-    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation("&&", (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
 
   @Override
   public Expression visitOrExpression(OrExpressionContext ctx) {
-    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation(ctx.op.getText(), (CrossReferenceTarget) visit(ctx.left));
+    InfixOperatorInvocation result = expressionFactory().createInfixOperatorInvocation("||", (CrossReferenceTarget) visit(ctx.left));
     result.addArgument((Expression) visit(ctx.right));
     return result;
   }
