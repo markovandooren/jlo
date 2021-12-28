@@ -1,8 +1,5 @@
 package org.aikodi.jlo.translate;
 
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-
 import org.aikodi.chameleon.core.declaration.Declaration;
 import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.element.Element;
@@ -11,6 +8,8 @@ import org.aikodi.chameleon.core.modifier.ElementWithModifiers;
 import org.aikodi.chameleon.core.modifier.Modifier;
 import org.aikodi.chameleon.core.property.ChameleonProperty;
 import org.aikodi.chameleon.core.reference.CrossReferenceWithName;
+import org.aikodi.chameleon.core.tag.Metadata;
+import org.aikodi.chameleon.core.tag.TagImpl;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.oo.expression.ExpressionFactory;
 import org.aikodi.chameleon.oo.language.ObjectOrientedLanguage;
@@ -19,11 +18,7 @@ import org.aikodi.chameleon.oo.method.MethodHeader;
 import org.aikodi.chameleon.oo.plugin.ObjectOrientedFactory;
 import org.aikodi.chameleon.oo.type.Type;
 import org.aikodi.chameleon.oo.type.TypeReference;
-import org.aikodi.chameleon.oo.type.generics.FormalTypeParameter;
-import org.aikodi.chameleon.oo.type.generics.InstantiatedTypeParameter;
-import org.aikodi.chameleon.oo.type.generics.TypeArgument;
-import org.aikodi.chameleon.oo.type.generics.TypeConstraint;
-import org.aikodi.chameleon.oo.type.generics.TypeParameter;
+import org.aikodi.chameleon.oo.type.generics.*;
 import org.aikodi.chameleon.oo.type.inheritance.InheritanceRelation;
 import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.FormalParameter;
@@ -35,10 +30,18 @@ import org.aikodi.java.core.type.JavaInstantiatedParameterType;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
+import org.aikodi.rejuse.action.Action;
+import org.aikodi.rejuse.action.Nothing;
+import org.aikodi.rejuse.function.Consumer;
+import org.aikodi.rejuse.function.Function;
+import org.aikodi.rejuse.predicate.Predicate;
+
+import java.util.function.BiConsumer;
 
 public abstract class AbstractJava8Generator {
 
   protected final String IMPLEMENTATION_SUFFIX = "Impl";
+  protected final String IMPLEMENTATION_MARKER_NAME = "ImplementationClass";
 
   protected String subobjectGetterName(Subobject subobject) {
     return subobject.name();
@@ -64,10 +67,22 @@ public abstract class AbstractJava8Generator {
     return "set$"+declarationName(variableDeclaration);
   }
 
+  public static class GeneratedClassMarker extends TagImpl {
+  }
+
   protected String implementationName(Type t) {
     return t.name() + IMPLEMENTATION_SUFFIX;
   }
-  
+
+  protected String interfaceName(Type t) {
+    if (t.hasMetadata(IMPLEMENTATION_MARKER_NAME)) {
+      return t.name().substring(0, t.name().length() - IMPLEMENTATION_SUFFIX.length());
+    }
+    else {
+      return t.name();
+    }
+  }
+
   /**
    * Return the name of the interface that represents the subobject.
    * @param subobject
@@ -101,63 +116,74 @@ public abstract class AbstractJava8Generator {
         }
       }
     });
-
   }
 
-  protected ModifierAdder add(Modifier modifier) {
-    return new ModifierAdder(modifier);
+  protected Adder<Modifier, ElementWithModifiers, Nothing> add(Modifier modifier) {
+    return new Adder<>(container -> modifier.clone(modifier), ElementWithModifiers::addModifier);
   }
 
-  public static class ModifierAdder {
-    private Modifier modifier;
+  protected Adder<Declaration, Type, LookupException> add(org.aikodi.rejuse.function.Function<Type, Declaration, LookupException> declaration) {
+    return new Adder<>(declaration, Type::add);
+  }
 
-    public ModifierAdder(Modifier modifier) {
-      this.modifier = modifier;
+  public static class Adder<E extends Element, C extends Element, EX extends Exception> {
+    private Function<C, E, EX> _supplier;
+    private BiConsumer<C, E> _action;
+
+    public Adder(Function<C, E, EX> element, BiConsumer<C, E> action) {
+      _supplier = element;
+      _action = action;
     }
 
-    public <T extends ElementWithModifiers> ModifierConfiguration<T> to(Class<T> type) {
-      return new ModifierConfiguration<>(modifier, type);
+    public <X extends C> Transformer<X, EX> to(Class<X> type) throws EX {
+      return new Transformer<X, EX>(type, t -> _action.accept(t, _supplier.apply(t)));
     }
   }
 
-  public static class ModifierConfiguration<T extends ElementWithModifiers> {
-    private Predicate<T> predicate;
-    private Element element;
-    private Class<T> type;
-    private Modifier modifier;
+  public static class Transformer<T extends Element, E extends Exception> {
+    private Element _element;
+    private Class<T> _type;
+    private Consumer<T, E> _action;
 
-    public ModifierConfiguration(Modifier modifier, Class<T> type) {
-      this.type = type;
-      this.modifier = modifier;
+    public Transformer(Class<T> type, Consumer<T, E> action) {
+      _type = type;
+      _action = action;
     }
 
-    public ModifierConfiguration<T> in(Element element) {
-      this.element = element;
+    public Transformer<T, E> in(Element element) {
+      this._element = element;
       return this;
     }
 
-    public void whenOrigin(Predicate<T> predicate) {
-      this.predicate = predicate;
-      element.lexical().apply(type, t -> {
-        if (predicate.test((T) t.origin())) {
-          t.addModifier(modifier.clone(modifier));
+    protected Element element() {
+      return _element;
+    }
+
+    public void always() throws E {
+      element().lexical().apply(_type, t -> {
+          _action.accept(t);
           t.flushCache();
-        }
-        ;
       });
     }
 
-    public void whenTranslated(Predicate<T> predicate) {
-      this.predicate = predicate;
-      element.lexical().apply(type, t -> {
-        if (predicate.test((T) t)) {
-          t.addModifier(modifier.clone(modifier));
-          t.flushCache();
-        }
-      });
+    public void whenOrigin(Predicate<T, Nothing> predicate) throws E {
+        element().lexical().apply(_type, t -> {
+            if (predicate.eval((T) t.origin())) {
+                _action.accept(t);
+                t.flushCache();
+            }
+        });
+    }
+
+    public void whenTranslated(Predicate<T, Nothing> predicate) throws E {
+        element().lexical().apply(_type, t -> {
+            if (predicate.eval((T) t)) {
+                _action.accept(t);
+                t.flushCache();
+            }
+        });
     }
   }
-
 
   public ModifierStripper strip(ChameleonProperty property) {
     return new ModifierStripper(m -> m.impliesTrue(property));
@@ -171,9 +197,9 @@ public abstract class AbstractJava8Generator {
    * A fluent API for removing modifiers from elements.
    */
   public static class ModifierStripper {
-    private Predicate<Modifier> predicate;
+    private Predicate<Modifier, Nothing> predicate;
 
-    public ModifierStripper(Predicate<Modifier> predicate) {
+    public ModifierStripper(Predicate<Modifier, Nothing> predicate) {
       this.predicate = predicate;
     }
 
@@ -183,26 +209,26 @@ public abstract class AbstractJava8Generator {
   }
 
   public static class ModifierStripperConfiguration<T extends ElementWithModifiers> {
-    private Predicate<Modifier> modifierPredicate;
+    private Predicate<Modifier, Nothing> modifierPredicate;
     private Class<T> elementType;
-    private Predicate<T> predicate;
+    private Predicate<T, Nothing> predicate;
 
-    public ModifierStripperConfiguration(Predicate<Modifier> modifierPredicate, Class<T> elementType) {
+    public ModifierStripperConfiguration(Predicate<Modifier, Nothing> modifierPredicate, Class<T> elementType) {
       super();
       this.modifierPredicate = modifierPredicate;
       this.elementType = elementType;
     }
 
-    public ModifierStripperConfiguration<T> when(Predicate<T> predicate) {
+    public ModifierStripperConfiguration<T> when(Predicate<T, Nothing> predicate) {
       this.predicate = predicate;
       return this;
     }
 
     public void in(Element element) {
       element.lexical().apply(elementType, e -> {
-        if (predicate == null || predicate.test(e)) {
+        if (predicate == null || predicate.eval(e)) {
           try {
-            e.modifiers().stream().filter(modifierPredicate).forEach(x -> x.disconnect());
+            e.modifiers().stream().filter(t -> modifierPredicate.eval(t)).forEach(x -> x.disconnect());
           } catch (Exception e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -252,22 +278,22 @@ public abstract class AbstractJava8Generator {
       InstantiatedTypeParameter param = (InstantiatedTypeParameter) decl;
       TypeArgument arg = param.argument();
     }
-    
+
     return typeReference;
   }
-  
+
   /**
    * @param jloSubobject The subobject for which the getter template must be created.
    * @return a template for the getter of the given subobject. The resulting method
    * has a header, but not a body. It must be finished by the caller depending on whether
    * an interface or class is being created.
-   * @throws LookupException 
+   * @throws LookupException
    */
   protected Method createSubobjectGetterTemplate(Subobject jloSubobject, Type javaType) throws LookupException {
     TypeReference subobjectTypeReference = subobjectTypeReference(jloSubobject, javaType);
     return ooFactory(jloSubobject).createNormalMethod(subobjectGetterName(jloSubobject), subobjectTypeReference);
   }
-  
+
   protected TypeReference subobjectTypeReference(Subobject subobject, Type javaType) throws LookupException {
     Java7 java = java(javaType);
     BasicJavaTypeReference result = java.createTypeReference(subobject.name());
@@ -311,8 +337,7 @@ public abstract class AbstractJava8Generator {
   }
 
   protected <E extends Element> E cloneAndSetOrigin(E element) {
-    E result = element.clone(element);
-    result.setOrigin(element);
+    E result = (E)element.clone((original, clone) -> clone.setOrigin(original), Element.class);
     return result;
   }
 
@@ -322,7 +347,7 @@ public abstract class AbstractJava8Generator {
       if(! isGenerated(t)) {
         Type jloType = (Type) t.origin();
         try {
-          Consumer<? super TypeMemberDeclarator> action = m -> {
+          Consumer<? super TypeMemberDeclarator, Nothing> action = m -> {
             t.addParameter(TypeParameter.class, m.clone(m.parameter()));
           };
           applyToSortedTypeMemberDeclarators(jloType, action);
@@ -350,9 +375,9 @@ public abstract class AbstractJava8Generator {
    * @param action
    * @throws LookupException
    */
-  protected void applyToSortedTypeMemberDeclarators(Type jloType, Consumer<? super TypeMemberDeclarator> action)
+  protected void applyToSortedTypeMemberDeclarators(Type jloType, Consumer<? super TypeMemberDeclarator, Nothing> action)
       throws LookupException {
-    jloType.members(TypeMemberDeclarator.class).stream().sorted((d1,d2) -> d1.name().compareTo(d2.name())).forEachOrdered(action);
+    jloType.members(TypeMemberDeclarator.class).stream().sorted((d1,d2) -> d1.name().compareTo(d2.name())).forEachOrdered(action::accept);
   }
 
   protected void addTypeParameters(BasicJavaTypeReference tref, Type jloType) throws LookupException {
@@ -363,8 +388,12 @@ public abstract class AbstractJava8Generator {
     jloType.parameters(TypeParameter.class).forEach(p -> tref.addArgument(java.createEqualityTypeArgument(java.createTypeReference(p.name()))));
   }
 
-  protected void addTypeParameters(Java7 java, MethodHeader header, Type jloType) throws LookupException {
+  protected void addTypeParameters(Java7 java, MethodHeader header, Type jloType) {
     jloType.parameters(TypeParameter.class).forEach(p -> header.addTypeParameter(p.clone(p)));
+  }
+
+  protected void addTypeArguments(Java7 java, BasicJavaTypeReference javaTypeReference, Type jloType) {
+    jloType.parameters(TypeParameter.class).forEach(p -> javaTypeReference.addArgument(new EqualityTypeArgument(java.createTypeReference(p.name()))));
   }
 
   protected void addTypeParameters(InheritanceRelation relation, Type jloType) throws LookupException {

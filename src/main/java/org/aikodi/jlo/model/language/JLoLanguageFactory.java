@@ -33,7 +33,6 @@ public class JLoLanguageFactory {
 	public JLo create() {
 		JLo result = new JLo();
 		result.setPlugin(ModelFactory.class, new JLoModelFactory());
-//    result.setPlugin(ModelFactory.class, new OldJLoModelFactory());
 		result.setPlugin(Syntax.class, new JLoSyntax());
 		JLoFactory factory = new JLoFactory();
 		result.setPlugin(Factory.class, factory);

@@ -31,7 +31,7 @@ klass
   ;
 
 typeParameter
-  : Identifier
+  : Identifier typeConstraint?
   ;
 
 classBody
@@ -54,9 +54,15 @@ member
   ;
 
 typeConstraint
-  : SMALLER COLON type # subtypeConstraint
-  | BIGGER COLON type # superTypeConstraint
-  | type # equalityTypeConstraint
+  : SMALLERCOLON type # subtypeConstraint
+  | BIGGERCOLON type # superTypeConstraint
+  | ASSIGN type # equalityTypeConstraint
+  ;
+
+type
+  : qualifiedName # qualifiedType
+  | LPAR type RPAR # parenthesisType
+  | qualifiedName SMALLER f=typeArgument (COMMA s=typeArgument)* BIGGER #functionalTypeInstantiation
   ;
 
 typeArgument
@@ -113,12 +119,6 @@ inheritanceRelation
   : EXTENDS type
   ;
 
-type
-  : qualifiedName # qualifiedType
-  | LPAR type RPAR # parenthesisType
-  | qualifiedName SMALLER f=typeArgument (COMMA s=typeArgument)* BIGGER #functionalTypeInstantiation
-  ;
-
 qualifiedName
   : Identifier ( DOT Identifier)*
   ;
@@ -128,7 +128,7 @@ block
     ;
 
 arguments
-  : LPAR f=expression (COMMA s=expression)* RPAR
+  : f=expression (COMMA s=expression)*
   ;
   
 statement
@@ -141,20 +141,22 @@ statement
 expression
   : literal #literalExpression
   | NULL #nullExpression
-  | '(' e=expression ')' #parExpression
+  | LPAR e=expression RPAR #parExpression
   | SELF #selfExpression
   | 'super' #superExpression
+  | 'outer' #outerExpression
   | Identifier #identifierExpression
-  | expression DOT name=Identifier args=arguments? #qualifiedCallExpression
-  | name=Identifier args=arguments #selfCallExpression
+  | expression DOT name=Identifier #qualifiedNameExpression
+  | expression DOT name=Identifier LPAR args=arguments? RPAR #qualifiedCallExpression
+  | name=Identifier LPAR args=arguments? RPAR #selfCallExpression
   | left=expression op=EXPONENTIATION right=expression #exponentiationExpression
   | left=expression op=(STAR|'/'|'%') right=expression #highPriorityNumbericalExpression
   | left=expression op=(PLUS|MINUS) right=expression #lowPriorityNumbericalExpression
   | left=expression op=(LEFTSHIFT | RIGHTRIGHTSHIFT | RIGHTSHIFT) right=expression #shiftExpression
   | left=expression op=('<=' | '>=' | '>' | '<') right=expression #orderExpression
   | left=expression op=(EQUAL | NOTEQUAL) right=expression #equalityExpression
-  | left=expression op=AMPERSAND right=expression #andExpression
-  | left=expression op=PIPE right=expression #orExpression
+  | left=expression op=AND right=expression #andExpression
+  | left=expression op=OR right=expression #orExpression
   ;
 
 literal
@@ -257,17 +259,27 @@ EXPONENTIATION: '^' ;
 
 AMPERSAND: '&' ;
 
+AND: 'and' ;
+
+OR: 'or' ;
+
+NOT: 'not' ;
+
 COLON: ':' ;
 
 SMALLER: '<' ;
 
+SMALLERCOLON: '<:' ;
+
 BIGGER: '>' ;
 
-LEFTSHIFT: '<<' ;
+BIGGERCOLON: '>:' ;
 
-RIGHTSHIFT: '>>' ;
+//LEFTSHIFT: '<<' ;
 
-RIGHTRIGHTSHIFT: '>>>' ;
+//RIGHTSHIFT: '>>' ;
+
+//RIGHTRIGHTSHIFT: '>>>' ;
 
 HexLiteral
   // underscores may be freely inserted after first hex digit and before last

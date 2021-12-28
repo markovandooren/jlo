@@ -8,11 +8,14 @@ import org.aikodi.chameleon.core.document.Document;
 import org.aikodi.chameleon.core.element.Element;
 import org.aikodi.chameleon.core.element.ElementImpl;
 import org.aikodi.chameleon.core.lookup.LookupException;
+import org.aikodi.chameleon.core.tag.Metadata;
 import org.aikodi.chameleon.exception.ChameleonProgrammerException;
 import org.aikodi.chameleon.exception.ModelException;
 import org.aikodi.chameleon.oo.expression.NameExpression;
+import org.aikodi.chameleon.oo.method.Implementation;
 import org.aikodi.chameleon.oo.method.Method;
 import org.aikodi.chameleon.oo.method.RegularImplementation;
+import org.aikodi.chameleon.oo.method.SimpleNameMethodHeader;
 import org.aikodi.chameleon.oo.statement.Block;
 import org.aikodi.chameleon.oo.type.ClassBody;
 import org.aikodi.chameleon.oo.type.Type;
@@ -21,6 +24,8 @@ import org.aikodi.chameleon.oo.type.inheritance.SubtypeRelation;
 import org.aikodi.chameleon.oo.variable.RegularMemberVariable;
 import org.aikodi.chameleon.oo.variable.VariableDeclaration;
 import org.aikodi.chameleon.support.expression.AssignmentExpression;
+import org.aikodi.chameleon.support.expression.ThisLiteral;
+import org.aikodi.chameleon.support.member.simplename.method.NormalMethod;
 import org.aikodi.chameleon.support.member.simplename.variable.MemberVariableDeclarator;
 import org.aikodi.chameleon.support.modifier.Private;
 import org.aikodi.chameleon.support.modifier.Public;
@@ -65,6 +70,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		addFields(javaDocument);
 		renameConstructorCalls(javaDocument);
 		addTypeParameterToOwnClass(javaDocument);
+		addOuterMethods(javaDocument);
 		return javaDocument;
 	}
 
@@ -113,8 +119,6 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 					//    subobject and implements the subobject interface.
 					//    FIXME The constructors should also be added.
 					RegularJavaType subobjectImplementation = createSubobjectImplementation(jloSubobject, javaType);
-					// 4. Copy the elements in the subobject body.
-					jloSubobject.componentType().body().elements().forEach(m -> subobjectImplementation.body().add(m.clone(m)));
 
 					expandSubobjects(subobjectImplementation, jloSubobject.componentType());
 				} catch (LookupException e) {
@@ -244,6 +248,7 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 					javaType.addInheritanceRelation(relation);
 					addTypeParameters(relation, jloType);
 					javaType.setName(implementationName(javaType));
+					javaType.setMetadata(new GeneratedClassMarker(), IMPLEMENTATION_MARKER_NAME);
 					javaType.modifiers(java.SCOPE_MUTEX).forEach(Element::disconnect);
 				}
 			} catch (ModelException e) {
@@ -331,6 +336,26 @@ public class Java8ClassGenerator extends AbstractJava8Generator {
 		Block getterBody = new Block();
 		getter.setImplementation(new RegularImplementation(getterBody));
 		getterBody.addStatement(new ReturnStatement(new NameExpression(fieldName)));
+	}
+
+	protected void addOuterMethods(Document javaDocument) throws LookupException {
+		add(type -> {
+			Type outerType = type.lexical().nearestAncestor(Type.class);
+			BasicJavaTypeReference returnTypeReference = java(javaDocument).createTypeReference((Type)outerType.origin());
+			addTypeArguments(java(type), returnTypeReference, (Type)outerType.origin());
+			SimpleNameMethodHeader header = new SimpleNameMethodHeader("outer", returnTypeReference);
+			NormalMethod result = new NormalMethod(header);
+			result.addModifier(new Public());
+			Block block = new Block();
+			RegularImplementation implementation = new RegularImplementation(block);
+			result.setImplementation(implementation);
+			TypeReference thisLiteralTypeReference = java(javaDocument).createTypeReference(outerType);
+			block.addStatement(new ReturnStatement(new ThisLiteral(thisLiteralTypeReference)));
+			return result;
+		})
+				.to(Type.class)
+				.in(javaDocument)
+				.whenTranslated(type -> type.lexical().nearestAncestor(Type.class) != null);
 	}
 
 

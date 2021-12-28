@@ -117,6 +117,7 @@ import org.aikodi.jlo.input.JLoParser.SuperTypeConstraintContext;
 import org.aikodi.jlo.input.JLoParser.TrueLiteralContext;
 import org.aikodi.jlo.input.JLoParser.TypeContext;
 import org.aikodi.jlo.input.JLoParser.VarDeclarationContext;
+import org.aikodi.jlo.model.expression.OuterTarget;
 import org.aikodi.jlo.model.language.JLo;
 import org.aikodi.jlo.model.subobject.Subobject;
 import org.aikodi.jlo.model.type.TypeMemberDeclarator;
@@ -374,6 +375,11 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
   }
 
   @Override
+  public OuterTarget visitOuterExpression(JLoParser.OuterExpressionContext ctx) {
+    return new OuterTarget();
+  }
+
+  @Override
   public Object visitIntegerLiteral(IntegerLiteralContext ctx) {
     return (Expression)visit(ctx.integerNumberLiteral());
   }
@@ -465,9 +471,8 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public Expression visitQualifiedCallExpression(QualifiedCallExpressionContext ctx) {
-    Expression target = (Expression) visit(ctx.expression());
-    Expression result;
-    result = expressionFactory().createInvocation(ctx.name.getText(), target);
+    CrossReferenceTarget target = (CrossReferenceTarget) visit(ctx.expression());
+    Expression result = expressionFactory().createInvocation(ctx.name.getText(), target);
     if(ctx.args != null) {
       for(Expression argument: visitArguments(ctx.args)) {
         ((MethodInvocation)result).addArgument(argument);
@@ -481,7 +486,7 @@ public class JLoConvertor extends JLoBaseVisitor<Object> {
 
   @Override
   public Expression visitQualifiedNameExpression(JLoParser.QualifiedNameExpressionContext ctx) {
-    Expression target = (Expression) visit(ctx.expression());
+    CrossReferenceTarget target = (CrossReferenceTarget) visit(ctx.expression());
     Expression result = new NameExpression(ctx.name.getText(),target);
     return result;
   }
